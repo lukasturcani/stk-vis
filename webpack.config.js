@@ -11,7 +11,6 @@ module.exports = {
         filename: 'App.js',
     },
     plugins: [
-        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: 'stkVis',
             template: './src/template.html',

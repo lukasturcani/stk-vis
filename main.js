@@ -1,5 +1,12 @@
-// src/electron.js
+const { mainReloader, rendererReloader } = require(
+    'electron-hot-reload'
+);
 const { app, BrowserWindow } = require('electron');
+const path = require('path');
+
+mainReloader(path.join(app.getAppPath(), 'main.js'));
+rendererReloader(path.join(app.getAppPath(), 'dist', 'App.js'));
+
 
 function createWindow () {
   // Create the browser window.
