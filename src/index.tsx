@@ -21,6 +21,13 @@ const store = configureStore({
             'D',
             'E',
         ],
+        molecules: [
+            {},
+            {},
+            {},
+            {},
+            {},
+        ],
         numAtoms: {
             A: 1,
             B: 2,
