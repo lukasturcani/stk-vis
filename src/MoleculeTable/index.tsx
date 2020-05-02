@@ -1,43 +1,29 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import Row from './Row';
 
 
-function getRows(inchiKeys, numAtoms) {
-    let rows = []
-    for (let i = 0; i < inchiKeys.length; ++i) {
-        rows.push([
-            inchiKeys[i],
-            numAtoms[i],
-        ]);
-    }
-    return rows.map(([inchiKey, numAtoms]) => { return (
-        <tr>
-            <td>{inchiKey}</td>
-            <td>{numAtoms}</td>
-        </tr>
-    )});
-};
-
-
-const MoleculeTable = ({inchiKeys, numAtoms}) => (
+const MoleculeTable = ({columns, moleculeKeys}) => (
     <table>
         <thead>
-            <tr>
-                <th>InChIKey</th>
-                <th>numAtoms</th>
-            </tr>
+            <tr>{
+                columns.map(column => <th key={column}>{column}</th>)
+            }</tr>
         </thead>
-        <tbody>
-            {getRows(inchiKeys, numAtoms)}
-        </tbody>
+        <tbody>{
+            moleculeKeys.map(
+                moleculeKey =>
+                    <Row key={moleculeKey} moleculeKey={moleculeKey} />
+            )
+        }</tbody>
     </table>
 );
 
 
-const mapStateToProps = ({InChIKey, numAtoms}) => {
+const mapStateToProps = state => {
     return {
-        inchiKeys: InChIKey,
-        numAtoms,
+        columns: [state.moleculeKeyName, ...state.visibleColumns],
+        moleculeKeys: state[state.moleculeKeyName],
     };
 
 };
