@@ -1,9 +1,10 @@
 import * as React from 'react';
+import MoleculeTable from './MoleculeTable';
 
 let App = () => {
     return (
         <div>
-            <h1>Hello there.</h1>
+            <MoleculeTable />
         </div>
     );
 };
