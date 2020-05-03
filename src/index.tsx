@@ -13,14 +13,6 @@ function nextMolecules(state, action) {
 const store = configureStore({
     reducer: nextMolecules,
     preloadedState: {
-        moleculeKeyName: 'InChIKey',
-        InChIKey: [
-            'A',
-            'B',
-            'C',
-            'D',
-            'E',
-        ],
         molecules: [
             {},
             {},
@@ -28,14 +20,22 @@ const store = configureStore({
             {},
             {},
         ],
+        InChIKey: {
+            0: 'A',
+            1: 'B',
+            2: 'C',
+            3: 'D',
+            4: 'E',
+        },
         numAtoms: {
-            A: 1,
-            B: 2,
-            C: 4,
-            D: 40,
-            E: 21,
+            0: 1,
+            1: 2,
+            2: 4,
+            3: 40,
+            4: 21,
         },
         visibleColumns: [
+            'InChIKey',
             'numAtoms',
         ],
     },

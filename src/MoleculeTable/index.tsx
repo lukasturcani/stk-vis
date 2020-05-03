@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Row from './Row';
 
 
-const MoleculeTable = ({columns, moleculeKeys}) => (
+const MoleculeTable = ({columns, moleculeIds}) => (
     <table>
         <thead>
             <tr>{
@@ -11,9 +11,9 @@ const MoleculeTable = ({columns, moleculeKeys}) => (
             }</tr>
         </thead>
         <tbody>{
-            moleculeKeys.map(
-                moleculeKey =>
-                    <Row key={moleculeKey} moleculeKey={moleculeKey} />
+            moleculeIds.map(
+                moleculeId =>
+                    <Row key={moleculeId} moleculeId={moleculeId} />
             )
         }</tbody>
     </table>
@@ -22,8 +22,11 @@ const MoleculeTable = ({columns, moleculeKeys}) => (
 
 const mapStateToProps = state => {
     return {
-        columns: [state.moleculeKeyName, ...state.visibleColumns],
-        moleculeKeys: state[state.moleculeKeyName],
+        columns: state.visibleColumns,
+        moleculeIds: Array.from(
+            {length: state.molecules.length},
+            (_, i) => i,
+        ),
     };
 
 };
