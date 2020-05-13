@@ -14,7 +14,7 @@ const Row = ({columns}) => (
 const mapStateToProps = (state, {moleculeId}) => {
     let columns = {};
     for (let column of state.visibleColumns) {
-        columns[column] = state[column][moleculeId];
+        columns[column] = state.columnValues[column][moleculeId];
     }
     return {columns};
 };
