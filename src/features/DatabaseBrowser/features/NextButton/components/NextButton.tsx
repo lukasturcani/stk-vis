@@ -4,41 +4,20 @@ import { getNextMolecules } from '../actions';
 
 
 const _NextButton = ({moleculesRequestState, onClick}) => (
-    <button onClick={() => onClick(moleculesRequestState)} >
+    <button onClick={ onClick } >
         Next Molecules
     </button>
 );
 
 
-const mapStateToProps = { moleculesRequestState } => {
-    return { moleculesRequestState };
+const mapStateToProps = state => {
+    return {};
 };
 
-
-const enum MoleculeRequestState {
-    NoRequestSent,
-    RequestFailure,
-    RequestSuccess,
-    RequestActive,
-};
-
-function assertNever(arg: never): never { throw Error(); }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onClick: (requestState: MoleculeRequestState) => {
-            switch (requestState) {
-                case MoleculeRequestState.NoRequestSent:
-                case MoleculeRequestState.RequestFailure:
-                case MoleculeRequestState.RequestSuccess:
-                    dispatch(getNextMolecules());
-                    break;
-                case MoleculeRequestState.RequestActive:
-                    break;
-                default:
-                    assertNever(requestState);
-            }
-        },
+        onClick: () => dispatch(getNextMolecules()),
     };
 };
 
