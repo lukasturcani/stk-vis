@@ -2,6 +2,7 @@ import {
     DatabaseBrowser as DatabaseBrowserComponent,
 } from './components';
 import { MoleculeTable } from './features/MoleculeTable';
+import { MoleculeRequestState } from './features/MoleculeRequestState';
 
 
 export const DatabaseBrowser: IFeature = {
@@ -10,6 +11,7 @@ export const DatabaseBrowser: IFeature = {
     },
     reducers: {
         ...MoleculeTable.reducers,
+        ...MoleculeRequestState.reducers,
     },
     components: {
         DatabaseBrowser: DatabaseBrowserComponent,
