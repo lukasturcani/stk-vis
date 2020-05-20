@@ -1,20 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './App';
-import { Provider } from 'react-redux';
 import {
-    moleculesSlice,
-    visibleColumnsSlice,
-    columnValuesSlice,
-    updateTable,
-} from './logic';
+    reducers as DatabaseBrowserReducers
+} from './features/DatabaseBrowser';
+import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
 const store = configureStore({
     reducer: {
-        molecules: moleculesSlice.reducer,
-        visibleColumns: visibleColumnsSlice.reducer,
-        columnValues: columnValuesSlice.reducer,
+        ...DatabaseBrowserReducers,
     },
 });
 

@@ -14,8 +14,8 @@ export const actions = {
 };
 
 
-export const reducers = [
-    visibleColumns.reducer,
-    molecules.reducer,
-    columnValues.reducer,
-];
+export const reducers = {
+    visibleColumns: visibleColumns.reducer,
+    molecules: molecules.reducer,
+    columnValues: columnValues.reducer,
+};
