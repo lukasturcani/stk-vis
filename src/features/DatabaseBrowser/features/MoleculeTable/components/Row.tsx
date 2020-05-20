@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 
-const Row = ({columns}) => (
+const _Row = ({columns}) => (
     <tr>{
         Object.entries(columns).map(
             ([name, value]) => <td key={name}>{value}</td>
@@ -20,4 +20,4 @@ const mapStateToProps = (state, {moleculeId}) => {
 };
 
 
-export default connect(mapStateToProps)(Row);
+export const Row = connect(mapStateToProps)(_Row);

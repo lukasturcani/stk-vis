@@ -1,8 +1,6 @@
 import * as React from 'react';
-import {
-    components as DatabaseBrowserComponents
-} from './features/DatabaseBrowser';
+import { DatabaseBrowser } from './features/DatabaseBrowser';
 
-const App = () => <DatabaseBrowserComponents.DatabaseBrowser />;
+const App = () => <DatabaseBrowser.components.DatabaseBrowser />;
 
 export default App;

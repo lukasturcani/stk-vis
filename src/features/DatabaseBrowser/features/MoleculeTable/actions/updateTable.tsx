@@ -2,7 +2,7 @@ import { createAction } from '@reduxjs/toolkit'
 
 
 export const updateTable = createAction(
-    'moleculeViewer/updateTable',
+    'DatabaseBrowser/MoleculeTable/updateTable',
     (molecules, columnValues) => {
         return {
             payload: {

@@ -1,11 +1,8 @@
-import MoleculeTable from '../features/MoleculeTable';
-import NextButton from '../features/NextButton';
-import PreviousButton from '../features/PreviousButton';
+import * as React from 'react';
+import { MoleculeTable } from '../features/MoleculeTable';
 
 export const DatabaseBrowser = () => (
     <div>
-        <MoleculeTable />
-        <NextButton />
-        <PreviousButton />
+        <MoleculeTable.components.MoleculeTable />
     </div>
 );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import Row from './Row';
+import { Row } from './Row';
 
 
 const _MoleculeTable = ({columns, moleculeIds}) => (

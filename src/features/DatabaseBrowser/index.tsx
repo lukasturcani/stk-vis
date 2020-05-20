@@ -1,20 +1,17 @@
-import { DatabaseBrowser } from './components';
 import {
-    actions as MoleculeTableActions,
-    reducers as MoleculeTableReducers,
-} from './features/MoleculeTable';
-
-export const actions = {
-    ...MoleculeTableActions,
-
-};
+    DatabaseBrowser as DatabaseBrowserComponent,
+} from './components';
+import { MoleculeTable } from './features/MoleculeTable';
 
 
-export const reducers = {
-    ...MoleculeTableReducers,
-};
-
-
-export const components = {
-    DatabaseBrowser,
-};
+export const DatabaseBrowser: IFeature = {
+    actions: {
+        ...MoleculeTable.actions,
+    },
+    reducers: {
+        ...MoleculeTable.reducers,
+    },
+    components: {
+        DatabaseBrowser: DatabaseBrowserComponent,
+    },
+}
