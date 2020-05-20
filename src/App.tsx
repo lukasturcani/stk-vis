@@ -1,12 +1,6 @@
 import * as React from 'react';
-import MoleculeTable from './MoleculeTable';
+import DatabaseBrowser from './features/DatabaseBrowser';
 
-let App = () => {
-    return (
-        <div>
-            <MoleculeTable />
-        </div>
-    );
-};
+let App = () => <DatabaseBrowser />;
 
 export default App;
