@@ -5,6 +5,7 @@ import {
 import {
     MoleculeRequestState as mrs
 } from '../../MoleculeRequestState';
+import { MoleculeTable } from '../../MoleculeTable';
 import { MongoClient } from 'mongodb';
 
 
@@ -12,9 +13,18 @@ function assertNever(arg: never): never { throw Error(); }
 
 
 export const getNextMolecules = (dispatch, getState) => {
-    const { moleculeRequestState }
-        : { moleculeRequestState: MoleculeRequestState }
-        = getState();
+    const {
+        moleculeRequestState,
+        mongoDbUrl,
+        mongoDbDatabase,
+        mongoDbCollections,
+    } : {
+        moleculeRequestState: MoleculeRequestState,
+        mongoDbUrl: string,
+        mongoDbDatabase: string,
+        mongoDbCollections: { [propName:string]: string },
+    }
+    = getState();
 
     switch (moleculeRequestState) {
         case MoleculeRequestState.NoRequestSent:
@@ -22,14 +32,29 @@ export const getNextMolecules = (dispatch, getState) => {
         case MoleculeRequestState.RequestFailed:
             dispatch(mrs.actions.sendMoleculeRequest());
             // Actually get the next molecules here in an async way.
-            const url = 'mongodb://localhost:27017';
-            const dbName = 'stk'
-            MongoClient.connect(url, function(err, client) {
+            MongoClient.connect(mongoDbUrl, function(err, client) {
                 const collection = client
-                    .db(dbName)
-                    .collection('molecules');
+                    .db(mongoDbDatabase)
+                    .collection(mongoDbCollections.molecules);
                 collection.find({}).toArray(function(err, items) {
-                    console.log(items);
+                    const inchiKeys = {}
+                    for (let i = 0; i < items.length; ++i)
+                    {
+                        inchiKeys[i] = items[i]['InChIKey'];
+                    }
+                    const columnValues = {
+                        InChIKey: inchiKeys,
+                        numAtoms: {0: 0, 1: 1,},
+                    }
+                    dispatch(MoleculeTable.actions.updateTable(
+                        items.map( x => {} ),
+                        columnValues,
+                    ));
+                    dispatch(
+                        mrs.actions.setMoleculeRequestState(
+                            MoleculeRequestState.RequestSucceeded
+                        )
+                    );
                 });
                 client.close();
             });
