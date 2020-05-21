@@ -1,4 +1,4 @@
-declare enum MoleculeRequestStateKind {
+export const enum MoleculeRequestStateKind {
     NoRequestSent = "No Request Sent",
     RequestSucceeded = "Request Succeeded",
     RequestFailed = "Request Failed",
@@ -6,27 +6,27 @@ declare enum MoleculeRequestStateKind {
 }
 
 
-interface INoRequestSent {
+export interface INoRequestSent {
     kind: MoleculeRequestStateKind.NoRequestSent;
 }
 
 
-interface IRequestSucceeded {
+export interface IRequestSucceeded {
     kind: MoleculeRequestStateKind.RequestSucceeded;
 }
 
 
-interface IRequestFailed {
+export interface IRequestFailed {
     kind: MoleculeRequestStateKind.RequestFailed;
 }
 
 
-interface IRequestSent {
+export interface IRequestSent {
     kind: MoleculeRequestStateKind.RequestSent;
 }
 
 
-type IMoleculeRequestState =
+export type IMoleculeRequestState =
     | INoRequestSent
     | IRequestSucceeded
     | IRequestFailed
