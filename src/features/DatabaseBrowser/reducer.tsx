@@ -12,6 +12,6 @@ export const DatabaseBrowserReducer
     : (state: IDatabaseBrowser, action: any) => IDatabaseBrowser
 = combineReducers({
     moleculeTable: moleculeTableReducer,
-    moleculeRquestState: moleculeRequestStateReducer,
+    moleculeRequestState: moleculeRequestStateReducer,
     mongoDbState: mongoDbStateReducer,
 });
