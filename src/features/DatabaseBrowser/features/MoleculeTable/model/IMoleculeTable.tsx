@@ -2,12 +2,17 @@ export interface IMolecule {
 }
 
 
-export interface IColumn {
-    readonly [moleculeId: number]: string;
-}
+export type IColumn = {
+    readonly [moleculeId: number]: string
+};
+
+
+export type IVisibleColumns = {
+    readonly [columnName: string]: IColumn
+};
 
 
 export interface IMoleculeTable {
     readonly molecules: IMolecule[];
-    readonly visibleColumns: { readonly [name: string]: IColumn };
+    readonly visibleColumns: IVisibleColumns;
 }
