@@ -4,7 +4,7 @@ import { IMoleculeRequestState } from './IMoleculeRequestState';
 
 
 export interface IDatabaseBrowser {
-    getMoleculeTable(): IMoleculeTable;
-    getMoleculesRequestState(): IMoleculeRequestState;
-    getMongoDbState(): IMongoDbState;
+    readonly moleculeTable: IMoleculeTable;
+    readonly moleculesRequestState: IMoleculeRequestState;
+    readonly mongoDbState: IMongoDbState;
 }

@@ -1,5 +1,16 @@
+import { Maybe } from '../../utilities';
+
+
+export interface IMolecule {
+}
+
+
+export interface IColumn {
+    readonly [moleculeId: number]: string;
+}
+
+
 export interface IMoleculeTable {
-    getValue(column: string, moleculeId: number): IMaybe<string>;
-    getVisibleColumns(): string[];
-    getMoleculeIds(): number[];
+    readonly molecules: IMolecule[];
+    readonly visibleColumns: { readonly [name: string]: IColumn };
 }
