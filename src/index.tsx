@@ -3,12 +3,22 @@ import * as ReactDOM from 'react-dom';
 import App from './App';
 import { DatabaseBrowser } from './features/DatabaseBrowser';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import {
+    configureStore,
+    getDefaultMiddleware,
+} from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+
 
 const store = configureStore({
     reducer: {
         ...DatabaseBrowser.reducers,
     },
+    middleware: [
+        ...getDefaultMiddleware(),
+        logger,
+    ],
 });
 
 ReactDOM.render(

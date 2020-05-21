@@ -15,18 +15,6 @@ const mapStateToProps = ({ moleculeRequestState }) => {
 };
 
 
-const X = () => {
-        console.log('dispatched');
-        return (dispatch, getState) => {
-            console.log('dispatched2');
-            return {
-                payload: {
-                },
-            };
-        };
-    };
-
-
 const mapDispatchToProps = dispatch => {
     return {
         onClick: () => dispatch(getNextMolecules),

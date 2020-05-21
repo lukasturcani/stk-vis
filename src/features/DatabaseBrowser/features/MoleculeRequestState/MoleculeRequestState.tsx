@@ -1,6 +1,6 @@
 export const enum MoleculeRequestState {
-    NoRequestSent,
-    RequestSucceeded,
-    RequestFailed,
-    RequestSent,
+    NoRequestSent = 'No Request Sent',
+    RequestSucceeded = 'Request Succeeded',
+    RequestFailed = 'Request Failed',
+    RequestSent = 'Request Sent',
 };

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { MoleculeRequestState } from '../MoleculeRequestState';
+import { sendMoleculeRequest } from '../actions';
 
 
 export const moleculeRequestState = createSlice({
@@ -7,11 +8,9 @@ export const moleculeRequestState = createSlice({
     initialState: MoleculeRequestState.NoRequestSent,
     reducers: {
     },
-    /*
     extraReducers: builder => {
-        builder.addCase(updateTable, (state, action) => {
-            return action.payload.columnValues;
+        builder.addCase(sendMoleculeRequest, (state, action) => {
+            return MoleculeRequestState.RequestSent;
         });
     },
-     */
 });
