@@ -4,7 +4,7 @@ import {
 import { sendMoleculeRequest } from './actions';
 
 
-export const MoleculeRequestState: IFeature = {
+export const MoleculeRequestState = {
     actions: {
         sendMoleculeRequest,
         ...moleculeRequestStateSlice.actions,

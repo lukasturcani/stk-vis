@@ -4,7 +4,7 @@ import {
 import { actions as sharedActions } from './actions';
 
 
-export const NextButton: IFeature = {
+export const NextButton = {
     actions: {
         ...sharedActions,
     },

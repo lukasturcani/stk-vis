@@ -6,7 +6,7 @@ import { MoleculeRequestState } from './features/MoleculeRequestState';
 import { MongoDbState } from './features/MongoDbState';
 
 
-export const DatabaseBrowser: IFeature = {
+export const DatabaseBrowser = {
     actions: {
         ...MoleculeTable.actions,
         ...MongoDbState.actions,

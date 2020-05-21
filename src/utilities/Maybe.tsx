@@ -4,14 +4,15 @@ export const enum MaybeKind {
 }
 
 
-export interface Just<T> {
+export class Just<T> {
     kind: MaybeKind.Just;
-    readonly value: T;
+    constructor(readonly value: T) {};
 }
 
 
-export interface Nothing {
+export class Nothing {
     kind: MaybeKind.Nothing;
+    constructor() {};
 }
 
 

@@ -5,7 +5,7 @@ import {
 } from './slices';
 
 
-export const MongoDbState: IFeature = {
+export const MongoDbState = {
     actions: {
         ...mongoDbUrl.actions,
         ...mongoDbDatabase.actions,

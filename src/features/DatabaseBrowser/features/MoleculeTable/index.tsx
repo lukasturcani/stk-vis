@@ -5,7 +5,7 @@ import { visibleColumns, molecules, columnValues } from './slices';
 import { actions as sharedActions } from './actions';
 
 
-export const MoleculeTable: IFeature = {
+export const MoleculeTable = {
     actions: {
         ...visibleColumns.actions,
         ...molecules.actions,
