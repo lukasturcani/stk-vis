@@ -1,6 +1,8 @@
-import { IMoleculeTable } from './IMoleculeTable';
-import { IMongoDbState } from './IMongoDbState';
-import { IMoleculeRequestState } from './IMoleculeRequestState';
+import {
+    IMoleculeTable,
+    IMongoDbState,
+    IMoleculeRequestState,
+} from '../features';
 
 
 export interface IDatabaseBrowser {

@@ -1,6 +1,3 @@
-import { Maybe } from '../../utilities';
-
-
 export interface IMolecule {
 }
 
