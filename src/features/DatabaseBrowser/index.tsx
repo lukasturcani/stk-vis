@@ -3,15 +3,18 @@ import {
 } from './components';
 import { MoleculeTable } from './features/MoleculeTable';
 import { MoleculeRequestState } from './features/MoleculeRequestState';
+import { MongoDbState } from './features/MongoDbState';
 
 
 export const DatabaseBrowser: IFeature = {
     actions: {
         ...MoleculeTable.actions,
+        ...MongoDbState.actions,
     },
     reducers: {
         ...MoleculeTable.reducers,
         ...MoleculeRequestState.reducers,
+        ...MongoDbState.reducers,
     },
     components: {
         DatabaseBrowser: DatabaseBrowserComponent,
