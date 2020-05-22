@@ -1,10 +1,10 @@
 import { createAction } from '@reduxjs/toolkit'
 import {
-    sendMoleculeRequest,
     MoleculeRequestStateKind,
     IMoleculeRequestState,
-} from '../../MoleculeRequestState';
-import { updateTable } from '../../MoleculeTable';
+} from '../../models';
+import { updateTable } from './updateTable';
+import { sendMoleculeRequest } from './sendMoleculeRequest';
 import { MongoClient } from 'mongodb';
 
 

@@ -1,10 +1,9 @@
 import { Action } from '@reduxjs/toolkit';
-import { sendMoleculeRequest } from './actions';
-import {
-    IMoleculeRequestState,
+import { sendMoleculeRequest } from '../../actions';
+import { IMoleculeRequestState,
     MoleculeRequestStateKind,
-} from './model';
-import { updateTable } from '../MoleculeTable';
+} from '../../models';
+import { updateTable } from '../../actions';
 
 
 export function moleculeRequestStateReducer(

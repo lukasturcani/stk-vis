@@ -1,8 +1,7 @@
 import * as React from 'react';
-import {
-    MoleculeTableComponent ,
-    NextButtonComponent,
-} from '../features';
+import { MoleculeTableComponent } from './MoleculeTable';
+import { NextButtonComponent } from './NextButton';
+
 
 export const DatabaseBrowserComponent = () => (
     <div>

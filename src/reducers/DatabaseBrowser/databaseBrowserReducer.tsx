@@ -1,10 +1,10 @@
 import { combineReducers, Action } from '@reduxjs/toolkit';
-import { IDatabaseBrowser } from './model';
+import { IDatabaseBrowser } from '../../models';
+import { moleculeTableReducer } from './moleculeTableReducer';
 import {
-    moleculeTableReducer,
-    moleculeRequestStateReducer,
-    mongoDbStateReducer,
-} from './features';
+    moleculeRequestStateReducer
+} from './moleculeRequestStateReducer';
+import { mongoDbStateReducer } from './mongoDbStateReducer';
 
 
 export function databaseBrowserReducer(
@@ -24,6 +24,6 @@ export function databaseBrowserReducer(
         mongoDbState: mongoDbStateReducer(
             state.mongoDbState,
             action,
-        )
+        ),
     };
 }

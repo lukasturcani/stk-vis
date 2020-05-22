@@ -3,7 +3,7 @@ import {
     IMolecule,
     IVisibleColumns,
     IMoleculeTable,
-} from '../model';
+} from '../../models';
 
 
 function actionCreator({

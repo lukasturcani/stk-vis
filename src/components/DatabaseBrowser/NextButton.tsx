@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getNextMolecules } from '../actions';
+import { getNextMolecules } from '../../actions';
 
 
 const NextButton = ({onClick}) => (

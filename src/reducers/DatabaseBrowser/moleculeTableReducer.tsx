@@ -1,6 +1,6 @@
 import { combineReducers, Action } from '@reduxjs/toolkit';
-import { updateTable } from './actions';
-import { IMoleculeTable } from './model';
+import { updateTable } from '../../actions';
+import { IMoleculeTable } from '../../models';
 
 
 export function moleculeTableReducer(

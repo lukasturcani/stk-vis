@@ -1,5 +1,5 @@
 import { combineReducers, Action } from '@reduxjs/toolkit';
-import { IMongoDbState } from './model';
+import { IMongoDbState } from '../../models';
 
 
 export function mongoDbStateReducer(
