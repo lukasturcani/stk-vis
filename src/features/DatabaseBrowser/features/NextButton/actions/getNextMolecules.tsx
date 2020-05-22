@@ -1,11 +1,10 @@
 import { createAction } from '@reduxjs/toolkit'
 import {
-    MoleculeRequestState
-} from '../../MoleculeRequestState/MoleculeRequestState';
-import {
-    MoleculeRequestState as mrs
+    sendMoleculeRequest,
+    MoleculeRequestStateKind,
+    IMoleculeRequestState,
 } from '../../MoleculeRequestState';
-import { MoleculeTable } from '../../MoleculeTable';
+import { updateTable } from '../../MoleculeTable';
 import { MongoClient } from 'mongodb';
 
 
@@ -13,29 +12,24 @@ function assertNever(arg: never): never { throw Error(); }
 
 
 export const getNextMolecules = (dispatch, getState) => {
-    const {
-        moleculeRequestState,
-        mongoDbUrl,
-        mongoDbDatabase,
-        mongoDbCollections,
-    } : {
-        moleculeRequestState: MoleculeRequestState,
-        mongoDbUrl: string,
-        mongoDbDatabase: string,
-        mongoDbCollections: { [propName:string]: string },
-    }
-    = getState();
+    const state = getState();
+    const moleculeRequestState: IMoleculeRequestState
+        = getMoleculeRequestState(state);
+    const url: string = getMongoDbUrl(state);
+    const database: string = getMongoDbDatabase(state);
+    const moleculesCollection: string
+        = getMongoDbMoleculesCollection(state);
 
-    switch (moleculeRequestState) {
-        case MoleculeRequestState.NoRequestSent:
-        case MoleculeRequestState.RequestSucceeded:
-        case MoleculeRequestState.RequestFailed:
-            dispatch(mrs.actions.sendMoleculeRequest());
-            // Actually get the next molecules here in an async way.
-            MongoClient.connect(mongoDbUrl, function(err, client) {
+    switch (moleculeRequestState.kind) {
+        case MoleculeRequestStateKind.NoRequestSent:
+        case MoleculeRequestStateKind.RequestSucceeded:
+        case MoleculeRequestStateKind.RequestFailed:
+            dispatch(sendMoleculeRequest());
+
+            MongoClient.connect(url, function(err, client) {
                 const collection = client
-                    .db(mongoDbDatabase)
-                    .collection(mongoDbCollections.molecules);
+                    .db(database)
+                    .collection(moleculesCollection);
                 collection.find({}).toArray(function(err, items) {
                     const inchiKeys = {}
                     for (let i = 0; i < items.length; ++i)
@@ -46,20 +40,15 @@ export const getNextMolecules = (dispatch, getState) => {
                         InChIKey: inchiKeys,
                         numAtoms: {0: 0, 1: 1,},
                     }
-                    dispatch(MoleculeTable.actions.updateTable(
-                        items.map( x => {} ),
-                        columnValues,
-                    ));
-                    dispatch(
-                        mrs.actions.setMoleculeRequestState(
-                            MoleculeRequestState.RequestSucceeded
-                        )
-                    );
+                    dispatch(updateTable({
+                        molecules: items.map( x => {} ),
+                        visibleColumns: undefined,
+                    }));
                 });
                 client.close();
             });
             break;
-        case MoleculeRequestState.RequestSent:
+        case MoleculeRequestStateKind.RequestSent:
             break;
         default:
             assertNever(moleculeRequestState);
