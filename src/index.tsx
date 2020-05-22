@@ -1,18 +1,18 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './App';
-import { IDatabaseBrowser } from './models';
-import { databaseBrowserReducer } from './reducers';
 import { Provider } from 'react-redux';
+import { IStore } from './models';
+import { databaseBrowserReducer } from './reducers';
 import {
     configureStore,
     getDefaultMiddleware,
 } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
 
-const store = configureStore({
+
+const store: IStore = configureStore({
     reducer: {
         databaseBrowser: databaseBrowserReducer,
     },
@@ -21,7 +21,6 @@ const store = configureStore({
         logger,
     ],
 });
-
 
 ReactDOM.render(
     <Provider store={store}>
