@@ -3,7 +3,7 @@ import { updateTable } from './actions';
 import { IMoleculeTable } from './model';
 
 
-export const MoleculeTableReducer
+export const moleculeTableReducer
     : (state: IMoleculeTable, action: Action) => IMoleculeTable
 = (state: IMoleculeTable, action: Action): IMoleculeTable => {
     if (updateTable.match(action)) {

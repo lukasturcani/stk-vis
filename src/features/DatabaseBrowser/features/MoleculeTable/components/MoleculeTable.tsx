@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Row } from './Row';
 
 
-const _MoleculeTable = ({columns, moleculeIds}) => (
+const MoleculeTable = ({columns, moleculeIds}) => (
     <table>
         <thead>
             <tr>{
@@ -32,4 +32,5 @@ const mapStateToProps = state => {
 };
 
 
-export const MoleculeTable =  connect(mapStateToProps)(_MoleculeTable);
+export const MoleculeTableComponent
+    =  connect(mapStateToProps)(MoleculeTable);

@@ -1,5 +1,4 @@
-import { combineReducers } from '@reduxjs/toolkit';
-
+import { combineReducers, Action } from '@reduxjs/toolkit';
 import { IDatabaseBrowser } from './model';
 import {
     moleculeTableReducer,
@@ -8,10 +7,23 @@ import {
 } from './features';
 
 
-export const DatabaseBrowserReducer
-    : (state: IDatabaseBrowser, action: any) => IDatabaseBrowser
-= combineReducers({
-    moleculeTable: moleculeTableReducer,
-    moleculeRequestState: moleculeRequestStateReducer,
-    mongoDbState: mongoDbStateReducer,
-});
+export function databaseBrowserReducer(
+    state: IDatabaseBrowser,
+    action: Action,
+): IDatabaseBrowser
+{
+    return {
+        moleculeTable: moleculeTableReducer(
+            state.moleculeTable,
+            action,
+        ),
+        moleculeRequestState: moleculeRequestStateReducer(
+            state.moleculeRequestState,
+            action,
+        ),
+        mongoDbState: mongoDbStateReducer(
+            state.mongoDbState,
+            action,
+        )
+    };
+}

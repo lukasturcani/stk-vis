@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import App from './App';
 import {
     IDatabaseBrowser,
-    reducer,
+    databaseBrowserReducer,
 } from './features/DatabaseBrowser';
 import { Provider } from 'react-redux';
 import {
@@ -14,9 +14,9 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
 
-const store: IDatabaseBrowser = configureStore({
+const store = configureStore({
     reducer: {
-        DatabaseBrowser: reducer,
+        databaseBrowser: databaseBrowserReducer,
     },
     middleware: [
         ...getDefaultMiddleware(),

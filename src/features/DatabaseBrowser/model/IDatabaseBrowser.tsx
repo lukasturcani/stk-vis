@@ -7,6 +7,6 @@ import {
 
 export interface IDatabaseBrowser {
     readonly moleculeTable: IMoleculeTable;
-    readonly moleculesRequestState: IMoleculeRequestState;
+    readonly moleculeRequestState: IMoleculeRequestState;
     readonly mongoDbState: IMongoDbState;
 }

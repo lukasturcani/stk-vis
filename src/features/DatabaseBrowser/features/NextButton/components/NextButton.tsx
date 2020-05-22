@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getNextMolecules } from '../actions';
 
 
-const _NextButton = ({onClick}) => (
+const NextButton = ({onClick}) => (
     <button onClick={ onClick } >
         Next Molecules
     </button>
@@ -22,7 +22,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 
-export const NextButton =  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(_NextButton);
+export const NextButtonComponent
+    = connect(mapStateToProps, mapDispatchToProps)(NextButton);
