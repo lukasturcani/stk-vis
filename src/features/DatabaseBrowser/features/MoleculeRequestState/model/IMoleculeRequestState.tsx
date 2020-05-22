@@ -26,8 +26,8 @@ export interface IRequestSent {
 }
 
 
-export type IMoleculeRequestState =
-    | INoRequestSent
+export type IMoleculeRequestState
+    = INoRequestSent
     | IRequestSucceeded
     | IRequestFailed
     | IRequestSent

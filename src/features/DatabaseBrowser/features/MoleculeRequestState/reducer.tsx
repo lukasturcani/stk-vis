@@ -1,5 +1,10 @@
 import { Action } from '@reduxjs/toolkit';
-import { IMoleculeRequestState } from './model';
+import { sendMoleculeRequest } from './actions';
+import {
+    IMoleculeRequestState,
+    MoleculeRequestStateKind,
+} from './model';
+import { updateTable } from '../MoleculeTable';
 
 
 export function moleculeRequestStateReducer(
@@ -7,5 +12,15 @@ export function moleculeRequestStateReducer(
     action: Action,
 ): IMoleculeRequestState
 {
+    if (sendMoleculeRequest.match(action)) {
+        return {
+            kind: MoleculeRequestStateKind.RequestSent,
+        };
+    }
+    if (updateTable.match(action)) {
+        return {
+            kind: MoleculeRequestStateKind.RequestSucceeded,
+        };
+    }
     return state;
 }
