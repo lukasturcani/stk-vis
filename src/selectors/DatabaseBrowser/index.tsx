@@ -12,7 +12,6 @@ export function getMoleculeTableEntry({
     moleculeId: number,
 }): Maybe<string>
 {
-    const one: number = undefined;
     const visibleColumns: IVisibleColumns = getVisibleColumns(state);
     const entry: string | undefined
         = visibleColumns[columnName][moleculeId];
