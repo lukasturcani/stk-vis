@@ -1,6 +1,5 @@
 import { EnhancedStore } from '@reduxjs/toolkit';
-import { IDatabaseBrowser } from './DatabaseBrowser';
+import { IState } from './IState';
 
-export type IStore = EnhancedStore<{
-    databaseBrowser: IDatabaseBrowser,
-}>;
+
+export type IStore = EnhancedStore<IState>;

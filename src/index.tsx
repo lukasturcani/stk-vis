@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './App';
 import { Provider } from 'react-redux';
-import { IStore } from './models';
+import { IStore, IState } from './models';
 import { databaseBrowserReducer } from './reducers';
 import {
     configureStore,
@@ -21,6 +21,7 @@ const store: IStore = configureStore({
         logger,
     ],
 });
+
 
 ReactDOM.render(
     <Provider store={store}>
