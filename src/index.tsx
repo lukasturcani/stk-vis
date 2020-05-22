@@ -1,10 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './App';
-import {
-    IDatabaseBrowser,
-    databaseBrowserReducer,
-} from './features/DatabaseBrowser';
+import { IDatabaseBrowser } from './models';
+import { databaseBrowserReducer } from './reducers';
 import { Provider } from 'react-redux';
 import {
     configureStore,
