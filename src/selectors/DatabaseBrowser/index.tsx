@@ -1,5 +1,11 @@
 import { Maybe, Just, Nothing } from '../../utilities';
-import { IState } from '../../models';
+import {
+    IState,
+    IVisibleColumns,
+    IMolecule,
+    IColumn,
+} from '../../models';
+import * as fp from 'lodash/fp';
 
 
 export function getMoleculeTableEntry({
@@ -10,16 +16,26 @@ export function getMoleculeTableEntry({
     state: IState,
     columnName: string,
     moleculeId: number,
-}): Maybe<string>
+}
+): Maybe<string>
 {
     const visibleColumns: IVisibleColumns = getVisibleColumns(state);
     const entry: string | undefined
-        = visibleColumns[columnName][moleculeId];
+        = fp.get([columnName, moleculeId], visibleColumns);
 
     if (entry === undefined) {
-        // This shouldn't compile because its Just<undefined>.
-        return new Just(entry);
-    } else {
         return new Nothing();
+    } else {
+        return new Just(entry);
     }
+}
+
+
+export function getVisibleColumns(state: IState): IVisibleColumns {
+    return state.databaseBrowser.moleculeTable.visibleColumns;
+}
+
+
+export function getTableMolecules(state: IState): IMolecule[] {
+    return state.databaseBrowser.moleculeTable.molecules;
 }

@@ -1,35 +1,51 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Row } from './Row';
+import { IState, IVisibleColumns } from '../../../models';
+import {
+    getVisibleColumns,
+    getTableMolecules,
+} from '../../../selectors';
 
 
-const MoleculeTable = ({columns, moleculeIds}) => (
-    <table>
-        <thead>
-            <tr>{
-                columns.map(column => <th key={column}>{column}</th>)
-            }</tr>
-        </thead>
-        <tbody>{
-            moleculeIds.map(
-                moleculeId =>
-                    <Row key={moleculeId} moleculeId={moleculeId} />
-            )
-        }</tbody>
-    </table>
-);
+interface IMoleculeTableProps {
+    columns: IVisibleColumns,
+    moleculeIds: number[],
+}
 
 
-const mapStateToProps = state => {
+function MoleculeTable({columns, moleculeIds}: IMoleculeTableProps) {
+    return (
+        <table>
+            <thead>
+                <tr>{
+                    Object.getOwnPropertyNames(columns).map(
+                        column => <th key={column}>{column}</th>
+                    )
+                }</tr>
+            </thead>
+            <tbody>{
+                moleculeIds.map(
+                    moleculeId => <Row
+                        key={moleculeId}
+                        moleculeId={moleculeId}
+                    />
+                )
+            }</tbody>
+        </table>
+    )
+};
+
+
+function mapStateToProps(state: IState): IMoleculeTableProps {
     return {
-        columns: state.visibleColumns,
+        columns: getVisibleColumns(state),
         moleculeIds: Array.from(
-            {length: state.molecules.length},
+            {length: getTableMolecules(state).length},
             (_, i) => i,
         ),
     };
-
-};
+}
 
 
 export const MoleculeTableComponent
