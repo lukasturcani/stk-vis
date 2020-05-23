@@ -6,11 +6,20 @@ import { IMoleculeRequestState,
 import { updateTable } from '../../actions';
 
 
+const initialRequestState: IMoleculeRequestState = {
+    kind: MoleculeRequestStateKind.NoRequestSent,
+};
+
+
 export function moleculeRequestStateReducer(
     state: IMoleculeRequestState,
     action: Action,
 ): IMoleculeRequestState
 {
+    if (state === undefined) {
+        return initialRequestState;
+    }
+
     if (sendMoleculeRequest.match(action)) {
         return {
             kind: MoleculeRequestStateKind.RequestSent,

@@ -4,6 +4,7 @@ import {
     IVisibleColumns,
     IMolecule,
     IColumn,
+    IMoleculeRequestState,
 } from '../../models';
 import * as fp from 'lodash/fp';
 
@@ -38,4 +39,28 @@ export function getVisibleColumns(state: IState): IVisibleColumns {
 
 export function getTableMolecules(state: IState): IMolecule[] {
     return state.databaseBrowser.moleculeTable.molecules;
+}
+
+
+export function getMoleculeRequestState(
+    state: IState,
+)
+    : IMoleculeRequestState
+{
+    return state.databaseBrowser.moleculeRequestState;
+}
+
+
+export function getMongoDbUrl(state: IState): string {
+    return state.databaseBrowser.mongoDbState.url;
+}
+
+
+export function getMongoDbDatabase(state: IState): string {
+    return state.databaseBrowser.mongoDbState.database;
+}
+
+
+export function getMongoDbMoleculeCollection(state: IState): string {
+    return state.databaseBrowser.mongoDbState.moleculeCollection;
 }

@@ -3,19 +3,27 @@ import { connect } from 'react-redux';
 import { getNextMolecules } from '../../actions';
 
 
-const NextButton = ({onClick}) => (
-    <button onClick={ onClick } >
-        Next Molecules
-    </button>
-);
+function NextButton({
+    onClick,
+}: {
+    onClick: () => any,
+})
+{
+    return (
+        <button onClick={ onClick } >
+            Next Molecules
+        </button>
+    );
+};
 
 
-const mapStateToProps = ({ moleculeRequestState }) => {
+const mapStateToProps = () => {
     return {};
 };
 
 
-const mapDispatchToProps = dispatch => {
+function mapDispatchToProps(dispatch: (arg: any) => any)
+{
     return {
         onClick: () => dispatch(getNextMolecules),
     };
