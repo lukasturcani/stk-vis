@@ -1,6 +1,8 @@
 import { Maybe, Just, Nothing } from '../../utilities';
 import {
     IState,
+    ILoadedDatabaseBrowser,
+    IDatabaseBrowser,
     IVisibleColumns,
     IMolecule,
     IColumn,
@@ -14,7 +16,7 @@ export function getMoleculeTableEntry({
     columnName,
     moleculeId,
 }: {
-    state: IState,
+    state: ILoadedDatabaseBrowser,
     columnName: string,
     moleculeId: number,
 }
@@ -32,35 +34,47 @@ export function getMoleculeTableEntry({
 }
 
 
-export function getVisibleColumns(state: IState): IVisibleColumns {
-    return state.databaseBrowser.moleculeTable.visibleColumns;
+export function getVisibleColumns(
+    state: ILoadedDatabaseBrowser,
+)
+    : IVisibleColumns
+{
+    return state.visibleColumns;
 }
 
 
-export function getTableMolecules(state: IState): IMolecule[] {
-    return state.databaseBrowser.moleculeTable.molecules;
+export function getTableMolecules(
+    state: ILoadedDatabaseBrowser,
+)
+    : IMolecule[]
+{
+    return state.molecules;
 }
 
 
 export function getMoleculeRequestState(
-    state: IState,
+    state: ILoadedDatabaseBrowser,
 )
     : IMoleculeRequestState
 {
-    return state.databaseBrowser.moleculeRequestState;
+    return state.moleculeRequestState;
 }
 
 
-export function getMongoDbUrl(state: IState): string {
-    return state.databaseBrowser.mongoDbState.url;
+export function getMongoDbUrl(state: IDatabaseBrowser): string {
+    return state.url;
 }
 
 
-export function getMongoDbDatabase(state: IState): string {
-    return state.databaseBrowser.mongoDbState.database;
+export function getMongoDbDatabase(state: IDatabaseBrowser): string {
+    return state.database;
 }
 
 
-export function getMongoDbMoleculeCollection(state: IState): string {
-    return state.databaseBrowser.mongoDbState.moleculeCollection;
+export function getMongoDbMoleculeCollection(
+    state: IDatabaseBrowser
+)
+    : string
+{
+    return state.moleculeCollection;
 }

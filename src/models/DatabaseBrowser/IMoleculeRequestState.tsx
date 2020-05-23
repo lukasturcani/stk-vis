@@ -1,13 +1,7 @@
 export const enum MoleculeRequestStateKind {
-    NoRequestSent = "No Request Sent",
     RequestSucceeded = "Request Succeeded",
     RequestFailed = "Request Failed",
     RequestSent = "Request Sent",
-}
-
-
-export interface INoRequestSent {
-    kind: MoleculeRequestStateKind.NoRequestSent;
 }
 
 
@@ -26,8 +20,7 @@ export interface IRequestSent {
 }
 
 
-export type IMoleculeRequestState
-    = INoRequestSent
+export type IMoleculeRequestState =
     | IRequestSucceeded
     | IRequestFailed
     | IRequestSent
