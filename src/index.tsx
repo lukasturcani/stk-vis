@@ -12,9 +12,7 @@ import logger from 'redux-logger';
 
 
 const store: IStore = configureStore({
-    reducer: {
-        databaseBrowser: databaseBrowserReducer,
-    },
+    reducer: databaseBrowserReducer as any,
     middleware: [
         ...getDefaultMiddleware(),
         logger,

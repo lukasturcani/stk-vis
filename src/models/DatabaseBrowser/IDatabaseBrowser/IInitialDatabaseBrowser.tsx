@@ -1,5 +1,5 @@
 import { DatabaseBrowserKind } from './DatabaseBrowserKind';
-import { IInitialRequestState } from './IInitialRequestState';
+import { IInitialRequestState } from '../IInitialRequestState';
 
 
 export interface IInitialDatabaseBrowser {

@@ -2,10 +2,12 @@ import { Maybe, Just, Nothing } from '../../utilities';
 import {
     IState,
     ILoadedDatabaseBrowser,
+    IInitialDatabaseBrowser,
     IDatabaseBrowser,
     IVisibleColumns,
     IMolecule,
     IColumn,
+    IInitialRequestState,
     IMoleculeRequestState,
 } from '../../models';
 import * as fp from 'lodash/fp';
@@ -58,6 +60,15 @@ export function getMoleculeRequestState(
     : IMoleculeRequestState
 {
     return state.moleculeRequestState;
+}
+
+
+export function getInitialRequestState(
+    state: IInitialDatabaseBrowser,
+)
+    : IInitialRequestState
+{
+    return state.initialRequestState;
 }
 
 
