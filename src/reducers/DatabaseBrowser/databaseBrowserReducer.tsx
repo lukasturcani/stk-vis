@@ -12,13 +12,17 @@ function assertNever(arg: never): never { throw Error(); }
 
 
 export function databaseBrowserReducer(
-    state: IDatabaseBrowser,
+    state: IDatabaseBrowser | undefined,
     action: AnyAction,
 )
     : IDatabaseBrowser
 {
+    if (state === undefined)
+    {
+        return initialDatabaseBrowserReducer(state, action);
+    }
+
     switch (state.kind) {
-        case undefined:
         case DatabaseBrowserKind.Initial:
             return initialDatabaseBrowserReducer(state, action);
 
