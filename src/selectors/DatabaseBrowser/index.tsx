@@ -99,3 +99,12 @@ export function getMongoDbMoleculeCollection(
 {
     return state.moleculeCollection;
 }
+
+
+export function getMongoDbPositionMatrixCollection(
+    state: IDatabaseBrowser,
+)
+    : string
+{
+    return state.positionMatrixCollection;
+}
