@@ -72,7 +72,7 @@ export function getMongoDbDatabase(state: IDatabaseBrowser): string {
 
 
 export function getMongoDbMoleculeCollection(
-    state: IDatabaseBrowser
+    state: IDatabaseBrowser,
 )
     : string
 {

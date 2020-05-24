@@ -1,14 +1,32 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import { IDatabaseBrowser } from '../../models';
-import { moleculeTableReducer } from './moleculeTableReducer';
+import { AnyAction } from '@reduxjs/toolkit';
+import { IDatabaseBrowser, DatabaseBrowserKind } from '../../models';
 import {
-    moleculeRequestStateReducer
-} from './moleculeRequestStateReducer';
-import { mongoDbStateReducer } from './mongoDbStateReducer';
+    initialDatabaseBrowserReducer,
+} from './initialDatabaseBrowserReducer';
+import {
+    loadedDatabaseBrowserReducer,
+} from './loadedDatabaseBrowserReducer';
 
 
-export const databaseBrowserReducer = combineReducers({
-    moleculeTable: moleculeTableReducer,
-    moleculeRequestState: moleculeRequestStateReducer,
-    mongoDbState: mongoDbStateReducer,
-});
+function assertNever(arg: never): never { throw Error(); }
+
+
+export function databaseBrowserReducer(
+    state: IDatabaseBrowser,
+    action: AnyAction,
+)
+    : IDatabaseBrowser
+{
+    switch (state.kind) {
+        case undefined:
+        case DatabaseBrowserKind.Initial:
+            return initialDatabaseBrowserReducer(state, action);
+
+        case DatabaseBrowserKind.Loaded:
+            return loadedDatabaseBrowserReducer(state, action);
+
+        default:
+            assertNever(state);
+            break;
+    }
+}
