@@ -5,8 +5,8 @@ import random
 import rdkit.Chem.AllChem as rdkit
 
 
-def get_molecules(num_molecules):
-    generator = random.Random(5)
+def get_molecules(num_molecules, random_seed):
+    generator = random.Random(random_seed)
     for _ in range(num_molecules):
         atom_factory = vb.RandomAtomFactory(
             atoms=(
@@ -47,26 +47,51 @@ def with_hydrogens(molecule):
     return rdkit.AddHs(rdkit_molecule)
 
 
-def main():
-    client = pymongo.MongoClient()
-    database = 'stkVis'
+def add_entries(client, database, key_makers, random_seed):
     molecule_db = stk.MoleculeMongoDb(
         mongo_client=client,
         database=database,
         molecule_collection='molecules',
         position_matrix_collection='position_matrices',
+        jsonizer=stk.MoleculeJsonizer(
+            key_makers=key_makers,
+        ),
     )
     num_atoms_db = stk.ValueMongoDb(
         mongo_client=client,
         collection='numAtoms',
         database=database,
+        key_makers=key_makers,
     )
     add_value = True
-    for molecule in get_molecules(50):
+    for molecule in get_molecules(50, 5):
         molecule_db.put(molecule)
         if add_value:
             num_atoms_db.put(molecule, molecule.get_num_atoms())
         add_value ^= 1
+
+
+def main():
+    client = pymongo.MongoClient()
+    database = 'stkVis'
+    client.drop_database(database)
+
+    add_entries(
+        client=client,
+        database=database,
+        key_makers=(
+            stk.InchiKey(),
+        ),
+        random_seed=5,
+    )
+    add_entries(
+        client=client,
+        database=database,
+        key_makers=(
+            stk.Smiles(),
+        ),
+        random_seed=6,
+    )
 
 
 if __name__ == '__main__':
