@@ -5,7 +5,7 @@ import {
     getVisibleColumns,
 } from '../../../selectors';
 import {
-    IState,
+    ILoadedDatabaseBrowser,
 } from '../../../models';
 import {
     Maybe,
@@ -32,7 +32,7 @@ function _Row({ columns }: { columns: IColumnValues})
 
 
 function mapStateToProps(
-    state: IState,
+    state: ILoadedDatabaseBrowser,
     { moleculeId }: { moleculeId: number },
 )
     : { columns: IColumnValues }

@@ -9,8 +9,18 @@ import {
     IColumn,
     IInitialRequestState,
     IMoleculeRequestState,
+    DatabaseBrowserKind,
 } from '../../models';
 import * as fp from 'lodash/fp';
+
+
+export function getDatabaseBrowserKind(
+    state: IDatabaseBrowser,
+)
+    : DatabaseBrowserKind
+{
+    return state.kind;
+}
 
 
 export function getMoleculeTableEntry({

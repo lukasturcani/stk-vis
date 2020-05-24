@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Row } from './Row';
-import { IState, IVisibleColumns } from '../../../models';
+import {
+    ILoadedDatabaseBrowser,
+    IVisibleColumns
+} from '../../../models';
 import {
     getVisibleColumns,
     getTableMolecules,
@@ -37,7 +40,11 @@ function MoleculeTable({columns, moleculeIds}: IMoleculeTableProps) {
 };
 
 
-function mapStateToProps(state: IState): IMoleculeTableProps {
+function mapStateToProps(
+    state: ILoadedDatabaseBrowser,
+)
+    : IMoleculeTableProps
+{
     return {
         columns: getVisibleColumns(state),
         moleculeIds: Array.from(
