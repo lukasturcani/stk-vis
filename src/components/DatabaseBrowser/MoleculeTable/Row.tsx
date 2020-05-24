@@ -39,16 +39,13 @@ function mapStateToProps(
 {
     let columns: IColumnValues = {};
 
-    for (
-        let column
-        of Object.getOwnPropertyNames(getVisibleColumns(state))
-    ) {
+    for (let column of getVisibleColumns(state))
+    {
         const entry: Maybe<string> = getMoleculeTableEntry({
             state: state,
             columnName: column,
             moleculeId: moleculeId,
         });
-
         switch (entry.kind) {
 
             case MaybeKind.Just:

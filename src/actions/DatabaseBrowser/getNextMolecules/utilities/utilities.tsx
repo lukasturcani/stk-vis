@@ -144,7 +144,10 @@ export const getPropertyPromise: IgetPropertyPromise =
         const cursor: Cursor
             = collection.find(query);
 
-        return cursor.toArray();
+        return cursor.toArray().then(result => {
+            cursor.close();
+            return result;
+        });
     };
 
 
