@@ -3,6 +3,9 @@ import { loadedKindReducer } from './loadedKindReducer';
 import { moleculesReducer } from './moleculesReducer';
 import { visibleColumnsReducer } from './visibleColumnsReducer';
 import {
+    columnValuesReducer,
+} from './columnValuesReducer';
+import {
     moleculeRequestStateReducer,
 } from './moleculeRequestStateReducer';
 import {
@@ -10,6 +13,7 @@ import {
     databaseReducer,
     moleculeCollectionReducer,
     positionMatrixCollectionReducer,
+    propertyCollectionsReducer,
 } from '../mongoDbReducers';
 
 
@@ -19,7 +23,9 @@ export const loadedDatabaseBrowserReducer = combineReducers({
     database: databaseReducer,
     moleculeCollection: moleculeCollectionReducer,
     positionMatrixCollection: positionMatrixCollectionReducer,
+    propertyCollections: propertyCollectionsReducer,
     moleculeRequestState: moleculeRequestStateReducer,
     molecules: moleculesReducer,
     visibleColumns: visibleColumnsReducer,
+    columnValues: columnValuesReducer,
 });

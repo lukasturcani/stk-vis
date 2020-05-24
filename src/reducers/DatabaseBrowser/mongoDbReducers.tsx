@@ -39,3 +39,13 @@ export function positionMatrixCollectionReducer(
 {
     return state;
 }
+
+
+export function propertyCollectionsReducer(
+    state: string[] = ['numAtoms'],
+    action: AnyAction,
+)
+    : string[]
+{
+    return state;
+}

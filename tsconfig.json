@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
         "jsx": "react",
-        "strict": true
+        "strict": true,
+        "downlevelIteration": true
     },
     "include": [
         "src/*.tsx",

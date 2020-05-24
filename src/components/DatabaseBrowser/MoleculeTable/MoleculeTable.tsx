@@ -1,18 +1,21 @@
 import * as React from 'react';
+import * as _ from 'lodash';
 import { connect } from 'react-redux';
 import { Row } from './Row';
 import {
     ILoadedDatabaseBrowser,
-    IVisibleColumns
+    IColumnValues,
+    IColumn,
 } from '../../../models';
 import {
+    getColumnValues,
     getVisibleColumns,
     getTableMolecules,
 } from '../../../selectors';
 
 
 interface IMoleculeTableProps {
-    columns: IVisibleColumns,
+    columns: string[],
     moleculeIds: number[],
 }
 
@@ -22,7 +25,7 @@ function MoleculeTable({columns, moleculeIds}: IMoleculeTableProps) {
         <table>
             <thead>
                 <tr>{
-                    Object.getOwnPropertyNames(columns).map(
+                    columns.map(
                         column => <th key={column}>{column}</th>
                     )
                 }</tr>

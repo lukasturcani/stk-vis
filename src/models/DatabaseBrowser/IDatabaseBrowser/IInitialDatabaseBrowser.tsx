@@ -8,5 +8,6 @@ export interface IInitialDatabaseBrowser {
     readonly database: string;
     readonly moleculeCollection: string;
     readonly positionMatrixCollection: string;
+    readonly propertyCollections: string[];
     readonly initialRequestState: IInitialRequestState;
 }

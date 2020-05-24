@@ -13,7 +13,7 @@ import {
     getMongoDbDatabase,
     getMongoDbMoleculeCollection,
 } from '../../../selectors';
-import { IInchiKeyMap, assertNever } from './utilities';
+import { assertNever, sendMongoDbRequest } from './utilities';
 
 
 export function getNextMoleculesLoaded(
@@ -33,30 +33,7 @@ export function getNextMoleculesLoaded(
         case MoleculeRequestStateKind.RequestSucceeded:
         case MoleculeRequestStateKind.RequestFailed:
             dispatch(sendMoleculeRequest());
-
-            MongoClient.connect(url, function(err, client) {
-                const collection = client
-                    .db(database)
-                    .collection(moleculesCollection);
-
-                collection.find({}).toArray(function(err, items) {
-                    const inchiKeys: IInchiKeyMap = {}
-                    for (let i = 0; i < items.length; ++i)
-                    {
-                        inchiKeys[i] = items[i]['InChIKey'];
-                    }
-                    const columnValues = {
-                        InChIKey: inchiKeys,
-                        numAtoms: {0: 0, 1: 1,},
-                    }
-                    dispatch(updateTable({
-                        molecules: items.map( x => { return {}; } ),
-                        visibleColumns: {'InChIKey': inchiKeys},
-                    }));
-                });
-
-                client.close();
-            });
+            sendMongoDbRequest(state, dispatch);
             break;
 
         case MoleculeRequestStateKind.RequestSent:

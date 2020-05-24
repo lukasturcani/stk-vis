@@ -2,7 +2,7 @@ import { DatabaseBrowserKind } from './DatabaseBrowserKind';
 import { IMoleculeRequestState } from '../IMoleculeRequestState';
 import {
     IMolecule,
-    IVisibleColumns,
+    IColumnValues,
 } from '../IMoleculeTable';
 
 
@@ -12,7 +12,9 @@ export interface ILoadedDatabaseBrowser {
     readonly database: string;
     readonly moleculeCollection: string;
     readonly positionMatrixCollection: string;
+    readonly propertyCollections: string[];
     readonly moleculeRequestState: IMoleculeRequestState;
     readonly molecules: IMolecule[];
-    readonly visibleColumns: IVisibleColumns;
+    readonly visibleColumns: string[];
+    readonly columnValues: IColumnValues;
 }

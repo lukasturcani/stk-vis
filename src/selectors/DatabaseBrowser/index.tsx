@@ -4,7 +4,7 @@ import {
     ILoadedDatabaseBrowser,
     IInitialDatabaseBrowser,
     IDatabaseBrowser,
-    IVisibleColumns,
+    IColumnValues,
     IMolecule,
     IColumn,
     IInitialRequestState,
@@ -34,9 +34,9 @@ export function getMoleculeTableEntry({
 }
 ): Maybe<string>
 {
-    const visibleColumns: IVisibleColumns = getVisibleColumns(state);
+    const columnValues: IColumnValues = getColumnValues(state);
     const entry: string | undefined
-        = fp.get([columnName, moleculeId], visibleColumns);
+        = fp.get([columnName, moleculeId], columnValues);
 
     if (entry === undefined) {
         return new Nothing();
@@ -49,9 +49,18 @@ export function getMoleculeTableEntry({
 export function getVisibleColumns(
     state: ILoadedDatabaseBrowser,
 )
-    : IVisibleColumns
+    : string[]
 {
     return state.visibleColumns;
+}
+
+
+export function getColumnValues(
+    state: ILoadedDatabaseBrowser,
+)
+    : IColumnValues
+{
+    return state.columnValues;
 }
 
 
@@ -107,4 +116,13 @@ export function getMongoDbPositionMatrixCollection(
     : string
 {
     return state.positionMatrixCollection;
+}
+
+
+export function getMongoDbPropertyCollections(
+    state: IDatabaseBrowser,
+)
+    : string[]
+{
+    return state.propertyCollections;
 }

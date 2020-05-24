@@ -1,17 +1,12 @@
 import { AnyAction } from '@reduxjs/toolkit';
-import { IVisibleColumns } from '../../../models';
 import { updateTable } from '../../../actions';
 
 
 export function visibleColumnsReducer(
-    state: IVisibleColumns = {},
+    state: string[] = ['InChIKey', 'SMILES', 'numAtoms'],
     action: AnyAction,
 )
-    : IVisibleColumns
+    : string[]
 {
-    if (updateTable.match(action))
-    {
-        return action.payload.visibleColumns;
-    }
     return state;
 }

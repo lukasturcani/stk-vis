@@ -9,12 +9,14 @@ import {
     moleculeRequestStateReducer,
     moleculesReducer,
     visibleColumnsReducer,
+    columnValuesReducer,
 } from '../loadedDatabaseBrowserReducer';
 import {
     urlReducer,
     databaseReducer,
     moleculeCollectionReducer,
     positionMatrixCollectionReducer,
+    propertyCollectionsReducer,
 } from '../mongoDbReducers';
 import {
     IInitialDatabaseBrowser,
@@ -28,6 +30,7 @@ import {
     getMongoDbDatabase,
     getMongoDbMoleculeCollection,
     getMongoDbPositionMatrixCollection,
+    getMongoDbPropertyCollections,
 } from '../../../selectors';
 
 
@@ -57,6 +60,9 @@ export function initialDatabaseBrowserReducer(
 
             initialRequestState:
                 initialRequestStateReducer(undefined, action),
+
+            propertyCollections:
+                propertyCollectionsReducer(undefined, action),
         };
     }
 
@@ -85,6 +91,12 @@ export function initialDatabaseBrowserReducer(
                     action,
                 ),
 
+            propertyCollections:
+            propertyCollectionsReducer(
+                getMongoDbPropertyCollections(state),
+                action,
+            ),
+
             moleculeRequestState:
                 moleculeRequestStateReducer(undefined, action),
 
@@ -93,6 +105,9 @@ export function initialDatabaseBrowserReducer(
 
             visibleColumns:
                 visibleColumnsReducer(undefined, action),
+
+            columnValues:
+                columnValuesReducer(undefined, action),
         };
     }
     return state;

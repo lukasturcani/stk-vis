@@ -1,24 +1,24 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import {
     IMolecule,
-    IVisibleColumns,
-    IMoleculeTable,
+    IColumnValues,
+    ITableValues,
 } from '../../models';
 
 
 function actionCreator({
     molecules,
-    visibleColumns
+    columnValues
 }: {
     molecules: IMolecule[],
-    visibleColumns: IVisibleColumns,
+    columnValues: IColumnValues,
 }
-): { payload: IMoleculeTable }
+): { payload: ITableValues }
 {
     return {
         payload: {
             molecules,
-            visibleColumns,
+            columnValues,
         },
     };
 }
