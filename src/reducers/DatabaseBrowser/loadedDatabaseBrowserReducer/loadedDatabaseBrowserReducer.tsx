@@ -2,6 +2,8 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { loadedKindReducer } from './loadedKindReducer';
 import { moleculesReducer } from './moleculesReducer';
 import { visibleColumnsReducer } from './visibleColumnsReducer';
+import { pageIndexReducer } from './pageIndexReducer';
+import { entriesPerPageReducer } from './entriesPerPageReducer';
 import {
     columnValuesReducer,
 } from './columnValuesReducer';
@@ -28,4 +30,6 @@ export const loadedDatabaseBrowserReducer = combineReducers({
     molecules: moleculesReducer,
     visibleColumns: visibleColumnsReducer,
     columnValues: columnValuesReducer,
+    pageIndex: pageIndexReducer,
+    entriesPerPage: entriesPerPageReducer,
 });

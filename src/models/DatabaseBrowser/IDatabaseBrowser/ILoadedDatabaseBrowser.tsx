@@ -17,4 +17,6 @@ export interface ILoadedDatabaseBrowser {
     readonly molecules: IMolecule[];
     readonly visibleColumns: string[];
     readonly columnValues: IColumnValues;
+    readonly pageIndex: number;
+    readonly entriesPerPage: number;
 }

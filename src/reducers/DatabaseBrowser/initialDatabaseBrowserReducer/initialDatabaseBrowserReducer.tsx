@@ -10,6 +10,8 @@ import {
     moleculesReducer,
     visibleColumnsReducer,
     columnValuesReducer,
+    pageIndexReducer,
+    entriesPerPageReducer,
 } from '../loadedDatabaseBrowserReducer';
 import {
     urlReducer,
@@ -108,6 +110,13 @@ export function initialDatabaseBrowserReducer(
 
             columnValues:
                 columnValuesReducer(undefined, action),
+
+            pageIndex:
+                pageIndexReducer(undefined, action),
+
+            entriesPerPage:
+                entriesPerPageReducer(undefined, action),
+
         };
     }
     return state;
