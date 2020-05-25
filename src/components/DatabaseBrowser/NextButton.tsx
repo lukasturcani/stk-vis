@@ -81,7 +81,7 @@ function NextButton({
 })
 {
     let buttonLabel: string
-        = 'Next Molecules';
+        = 'Get Molecules';
 
     switch (pageKind.kind)
     {
@@ -92,6 +92,10 @@ function NextButton({
             if (pageKind.value === PageKind.Last)
             {
                 buttonLabel = 'Check For New Molecules';
+            }
+            else
+            {
+                buttonLabel = 'Next Molecules';
             }
             break;
 
