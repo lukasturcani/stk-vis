@@ -1,4 +1,5 @@
 import { AnyAction } from '@reduxjs/toolkit';
+import { updateTable } from '../../../actions';
 
 
 export function pageIndexReducer(
@@ -7,5 +8,9 @@ export function pageIndexReducer(
 )
     : number
 {
+    if (updateTable.match(action))
+    {
+        return action.payload.pageIndex;
+    }
     return state;
 }

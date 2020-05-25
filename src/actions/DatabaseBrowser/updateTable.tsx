@@ -8,10 +8,12 @@ import {
 
 function actionCreator({
     molecules,
-    columnValues
+    columnValues,
+    pageIndex,
 }: {
     molecules: IMolecule[],
     columnValues: IColumnValues,
+    pageIndex: number,
 }
 ): { payload: ITableValues }
 {
@@ -19,6 +21,7 @@ function actionCreator({
         payload: {
             molecules,
             columnValues,
+            pageIndex,
         },
     };
 }

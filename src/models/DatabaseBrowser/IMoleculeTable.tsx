@@ -18,6 +18,7 @@ export type IColumnValues = {
 export interface ITableValues {
     readonly molecules: IMolecule[];
     readonly columnValues: IColumnValues;
+    readonly pageIndex: number;
 }
 
 

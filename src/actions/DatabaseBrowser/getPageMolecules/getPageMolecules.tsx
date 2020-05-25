@@ -1,30 +1,40 @@
 import { AnyAction } from '@reduxjs/toolkit'
 import { IState, DatabaseBrowserKind } from '../../../models';
 import { getPageMoleculesInitial } from './getPageMoleculesInitial';
-import { getPageMoleculesLoaded} from './getPageMoleculesLoaded';
+import { getPageMoleculesLoaded } from './getPageMoleculesLoaded';
 import { assertNever } from './utilities';
 
 
-export function getPageMolecules(
-    dispatch: (arg: AnyAction) => void,
-    getState: () => IState,
-)
-    : void
+interface getPageMoleculesInterface
 {
+    (pageIndex: number):
+    (
+        dispatch: (arg: AnyAction) => void,
+        getState: () => IState,
+    ) => void
+}
 
-    const state: IState = getState();
-    switch (state.kind) {
 
-        case DatabaseBrowserKind.Initial:
-            getPageMoleculesInitial(dispatch, state);
-            break;
+export const getPageMolecules: getPageMoleculesInterface =
+    (pageIndex: number) =>
+    (
+        dispatch: (arg: AnyAction) => void,
+        getState: () => IState,
+    ) => {
 
-        case DatabaseBrowserKind.Loaded:
-            getPageMoleculesLoaded(dispatch, state);
-            break;
+        const state: IState = getState();
+        switch (state.kind) {
 
-        default:
-            assertNever(state);
-            break;
-    }
+            case DatabaseBrowserKind.Initial:
+                getPageMoleculesInitial(pageIndex, dispatch, state);
+                break;
+
+            case DatabaseBrowserKind.Loaded:
+                getPageMoleculesLoaded(pageIndex, dispatch, state);
+                break;
+
+            default:
+                assertNever(state);
+                break;
+        }
 }

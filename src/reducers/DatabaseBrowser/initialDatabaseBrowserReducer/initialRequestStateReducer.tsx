@@ -14,12 +14,14 @@ export function initialRequestStateReducer(
 )
     : IInitialRequestState
 {
-    if (sendMoleculeRequest.match(action)) {
+    if (sendMoleculeRequest.match(action))
+    {
         return {
             kind: InitialRequestStateKind.RequestSent,
         };
     }
-    if (updateTable.match(action)) {
+    if (updateTable.match(action))
+    {
         return {
             kind: InitialRequestStateKind.RequestSucceeded,
         };

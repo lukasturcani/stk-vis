@@ -34,6 +34,7 @@ import {
     getMongoDbPositionMatrixCollection,
     getMongoDbPropertyCollections,
     getNumEntriesPerPage,
+    getInitialRequestState,
 } from '../../../selectors';
 
 
@@ -126,5 +127,43 @@ export function initialDatabaseBrowserReducer(
 
         };
     }
-    return state;
+    return {
+        kind:
+            DatabaseBrowserKind.Initial,
+        url:
+            urlReducer(getMongoDbUrl(state), action),
+
+        database:
+            databaseReducer(getMongoDbDatabase(state), action),
+
+        moleculeCollection:
+            moleculeCollectionReducer(
+                getMongoDbMoleculeCollection(state),
+                action,
+            ),
+
+        positionMatrixCollection:
+            positionMatrixCollectionReducer(
+                getMongoDbPositionMatrixCollection(state),
+                action,
+            ),
+
+        initialRequestState:
+            initialRequestStateReducer(
+                getInitialRequestState(state),
+                action,
+            ),
+
+        propertyCollections:
+            propertyCollectionsReducer(
+                getMongoDbPropertyCollections(state),
+                action,
+            ),
+
+        numEntriesPerPage:
+            numEntriesPerPageReducer(
+                getNumEntriesPerPage(state),
+                action,
+            ),
+    };
 }

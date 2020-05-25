@@ -11,11 +11,18 @@ export const onConnection: onConnectionInterface =
     (options: onConnectionOptions) =>
     (err: MongoError, client: MongoClient) =>
 {
+
     const cursor: Cursor
         = client
         .db(options.database)
         .collection(options.moleculesCollection)
-        .find({});
+        .find({})
+        .skip(
+            options.pageIndex
+            *
+            options.numEntriesPerPage
+        )
+        .limit(options.numEntriesPerPage);
 
     cursor.toArray(processArray({ ...options, cursor, client }));
 

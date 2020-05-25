@@ -9,6 +9,8 @@ export interface onConnectionOptions
     moleculesCollection: string;
     propertyCollections: string[];
     dispatch: (action: AnyAction) => void;
+    numEntriesPerPage: number;
+    pageIndex: number;
 }
 
 

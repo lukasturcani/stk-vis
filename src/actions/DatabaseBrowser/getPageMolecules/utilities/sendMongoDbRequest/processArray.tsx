@@ -77,7 +77,8 @@ export const processArray: processArrayInterface =
 
         options.dispatch(updateTable({
             molecules: data.molecules,
-            columnValues: data.columnValues
+            columnValues: data.columnValues,
+            pageIndex: options.pageIndex,
         }));
         options.cursor.close();
         options.client.close();

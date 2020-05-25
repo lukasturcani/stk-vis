@@ -16,28 +16,9 @@ import { AnyAction } from '@reduxjs/toolkit'
 import { onConnection } from './onConnection';
 
 
-function assertNever(arg: never): never { throw Error(); }
-
-
-function getPageIndex_(
-    state: IInitialDatabaseBrowser | ILoadedDatabaseBrowser,
-)
-    : number
-{
-    switch(state.kind)
-    {
-        case DatabaseBrowserKind.Initial:
-            return 0;
-        case DatabaseBrowserKind.Loaded:
-            return getPageIndex(state);
-        default:
-            assertNever(state);
-    }
-}
-
-
 export function sendMongoDbRequest(
     state: IInitialDatabaseBrowser | ILoadedDatabaseBrowser,
+    pageIndex: number,
     dispatch: (arg: AnyAction) => void,
 )
     : void
@@ -54,10 +35,7 @@ export function sendMongoDbRequest(
     const propertyCollections: string[]
         = getMongoDbPropertyCollections(state);
 
-    const pageIndex: number
-        = getPageIndex_(state);
-
-    const entriesPerPage: number
+    const numEntriesPerPage: number
         = getNumEntriesPerPage(state);
 
     MongoClient.connect(url, onConnection({
@@ -65,5 +43,7 @@ export function sendMongoDbRequest(
         moleculesCollection,
         propertyCollections,
         dispatch,
+        numEntriesPerPage,
+        pageIndex,
     }));
 }
