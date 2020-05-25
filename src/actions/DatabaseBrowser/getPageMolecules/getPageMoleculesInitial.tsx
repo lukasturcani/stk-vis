@@ -15,7 +15,7 @@ import {
 import { assertNever, sendMongoDbRequest } from './utilities';
 
 
-export function getNextMoleculesInitial(
+export function getPageMoleculesInitial(
     dispatch: (arg: AnyAction) => void,
     state: IInitialDatabaseBrowser,
 )

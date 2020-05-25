@@ -1,3 +1,3 @@
-export * from './getNextMolecules';
+export * from './getPageMolecules';
 export * from './sendMoleculeRequest';
 export * from './updateTable';

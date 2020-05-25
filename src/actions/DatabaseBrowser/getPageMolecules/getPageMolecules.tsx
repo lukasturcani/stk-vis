@@ -1,11 +1,11 @@
 import { AnyAction } from '@reduxjs/toolkit'
 import { IState, DatabaseBrowserKind } from '../../../models';
-import { getNextMoleculesInitial } from './getNextMoleculesInitial';
-import { getNextMoleculesLoaded} from './getNextMoleculesLoaded';
+import { getPageMoleculesInitial } from './getPageMoleculesInitial';
+import { getPageMoleculesLoaded} from './getPageMoleculesLoaded';
 import { assertNever } from './utilities';
 
 
-export function getNextMolecules(
+export function getPageMolecules(
     dispatch: (arg: AnyAction) => void,
     getState: () => IState,
 )
@@ -16,11 +16,11 @@ export function getNextMolecules(
     switch (state.kind) {
 
         case DatabaseBrowserKind.Initial:
-            getNextMoleculesInitial(dispatch, state);
+            getPageMoleculesInitial(dispatch, state);
             break;
 
         case DatabaseBrowserKind.Loaded:
-            getNextMoleculesLoaded(dispatch, state);
+            getPageMoleculesLoaded(dispatch, state);
             break;
 
         default:

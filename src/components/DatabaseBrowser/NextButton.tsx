@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getNextMolecules } from '../../actions';
+import { getPageMolecules } from '../../actions';
 
 
 function NextButton({
@@ -25,7 +25,7 @@ const mapStateToProps = () => {
 function mapDispatchToProps(dispatch: (arg: any) => any)
 {
     return {
-        onClick: () => dispatch(getNextMolecules),
+        onClick: () => dispatch(getPageMolecules),
     };
 };
 

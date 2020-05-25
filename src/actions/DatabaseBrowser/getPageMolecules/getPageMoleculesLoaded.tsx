@@ -16,7 +16,7 @@ import {
 import { assertNever, sendMongoDbRequest } from './utilities';
 
 
-export function getNextMoleculesLoaded(
+export function getPageMoleculesLoaded(
     dispatch: (arg: AnyAction) => void,
     state: ILoadedDatabaseBrowser,
 )
