@@ -1,139 +1,26 @@
-import {
-    IInitialDatabaseBrowser,
-    IMolecule,
-    IColumnValues,
-    ILoadedDatabaseBrowser,
-} from '../../../../models';
+import { Maybe, Just, Nothing } from '../../../../utilities';
 import { MongoClient, Cursor } from 'mongodb';
+import { IMoleculeIds } from './IMoleculeIds';
+import { IPropertyQuery } from './getPropertyQuery';
+import { IDbEntry } from './IDbEntry';
 
 
 export function assertNever(arg: never): never { throw Error(); }
 
 
-interface IMoleculeKeyValues
+interface getPropertyPromiseSignature
 {
-    [moleculeKeyName: string]: string[]
-}
-
-
-function* _getMoleculeKeyNames(
-    notKeys: Set<string>,
-    molecule: IMolecule,
-)
-    : Generator<string>
-{
-    for (let keyName of Object.getOwnPropertyNames(molecule))
-    {
-        if (!notKeys.has(keyName))
-        {
-            yield keyName;
-        }
-    }
-}
-
-
-export function* getMoleculeKeyNames(
-    molecules: IMolecule[],
-)
-    : Generator<string>
-{
-    const moleculeKeyNames: Set<string>
-        = new Set();
-
-    const notKeys: Set<string>
-        = new Set(['atoms', 'bonds', '_id']);
-
-    for (let molecule of molecules)
-    {
-        for (
-            let moleculeKeyName
-            of _getMoleculeKeyNames(notKeys, molecule)
-        ) {
-            if (!moleculeKeyNames.has(moleculeKeyName))
-            {
-                moleculeKeyNames.add(moleculeKeyName);
-                yield moleculeKeyName;
-            }
-        }
-    }
-}
-
-
-export function* getMoleculeKeyValues(
-    keyName: string,
-    molecules: IMolecule[],
-)
-    : Generator<[number, string]>
-{
-    for (let i: number = 0; i < molecules.length; ++i)
-    {
-        if (molecules[i].hasOwnProperty(keyName))
-        {
-            yield [i, molecules[i][keyName]];
-        }
-    }
-}
-
-
-
-function getPropertySubquery(
-    keyName: string,
-    keyValues: string[],
-)
-    : any
-{
-    return {
-        [keyName]: {
-            '$in': keyValues,
-        }
-    };
-}
-
-
-export function getPropertyQuery(
-    molecules: IMolecule[],
-)
-    : any
-{
-    const moleculeKeyNames: string[]
-        = Array.from(getMoleculeKeyNames(molecules));
-
-    const moleculeKeyValues: IMoleculeKeyValues
-        = {}
-
-    for (let keyName of moleculeKeyNames)
-    {
-        moleculeKeyValues[keyName]
-            = Array.from(
-                getMoleculeKeyValues(keyName, molecules),
-                ([moleculeId, keyValue]) => keyValue,
-            );
-    }
-
-    return {
-        '$or': moleculeKeyNames.map(
-            keyName => getPropertySubquery(
-                keyName,
-                moleculeKeyValues[keyName],
-            )
-        ),
-    };
-}
-
-
-interface IgetPropertyPromise
-{
-    (client: any):
+    (client: MongoClient):
     (database: string) =>
-    (query: any) =>
+    (query: IPropertyQuery) =>
     (collectionName: string) =>
     Promise<any>
 }
 
-export const getPropertyPromise: IgetPropertyPromise =
-    (client: any) =>
+export const getPropertyPromise: getPropertyPromiseSignature =
+    (client: MongoClient) =>
     (database: string) =>
-    (query: any) =>
+    (query: IPropertyQuery) =>
     (collectionName: string) => {
 
         const collection
@@ -149,3 +36,25 @@ export const getPropertyPromise: IgetPropertyPromise =
             return result;
         });
     };
+
+
+
+
+export function getMoleculeId(
+    moleculeIds: IMoleculeIds,
+    result: IDbEntry,
+)
+    : Maybe<number>
+{
+    for (let [propName, propValue] of Object.entries(result))
+    {
+        if (
+            moleculeIds.hasOwnProperty(propName)
+            &&
+            moleculeIds[propName].hasOwnProperty(propValue)
+        ){
+            return new Just(moleculeIds[propName][propValue]);
+        }
+    }
+    return new Nothing()
+}
