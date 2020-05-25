@@ -1,8 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { getPageMolecules } from '../../actions';
-import { IDatabaseBrowser, DatabaseBrowserKind } from '../../models';
-import { getPageIndex } from '../../selectors';
+import {
+    IDatabaseBrowser,
+    DatabaseBrowserKind,
+    PageKind,
+} from '../../models';
+import { getPageIndex, getPageKind } from '../../selectors';
 import { Nothing, Just, Maybe, MaybeKind } from '../../utilities';
 
 
@@ -47,19 +51,59 @@ function getNextPageIndex(
 }
 
 
+function maybeGetPageKind(
+    state: IDatabaseBrowser,
+)
+    : Maybe<PageKind>
+{
+    switch(state.kind)
+    {
+        case DatabaseBrowserKind.Initial:
+            return new Nothing();
+
+        case DatabaseBrowserKind.Loaded:
+            return new Just(getPageKind(state));
+
+        default:
+            assertNever(state);
+    }
+}
+
+
 function NextButton({
     pageIndex,
     dispatchPageRequest,
+    pageKind,
 }: {
     pageIndex: Maybe<number>,
     dispatchPageRequest: (pageIndex: number) => () => void,
+    pageKind: Maybe<PageKind>,
 })
 {
+    let buttonLabel: string
+        = 'Next Molecules';
+
+    switch (pageKind.kind)
+    {
+        case MaybeKind.Nothing:
+            break;
+
+        case MaybeKind.Just:
+            if (pageKind.value === PageKind.Last)
+            {
+                buttonLabel = 'Check For New Molecules';
+            }
+            break;
+
+        default:
+            assertNever(pageKind);
+    }
+
     return (
         <button onClick={
                 dispatchPageRequest(getNextPageIndex(pageIndex))
         } >
-            Next Molecules
+            {buttonLabel}
         </button>
     );
 };
@@ -68,6 +112,7 @@ function NextButton({
 const mapStateToProps = (state: IDatabaseBrowser) => {
     return {
         pageIndex: maybeGetPageIndex(state),
+        pageKind: maybeGetPageKind(state),
     };
 };
 

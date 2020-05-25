@@ -10,6 +10,7 @@ import {
     IInitialRequestState,
     IMoleculeRequestState,
     DatabaseBrowserKind,
+    PageKind,
 } from '../../models';
 import * as fp from 'lodash/fp';
 
@@ -143,4 +144,13 @@ export function getNumEntriesPerPage(
     : number
 {
     return state.numEntriesPerPage;
+}
+
+
+export function getPageKind(
+    state: ILoadedDatabaseBrowser,
+)
+    : PageKind
+{
+    return state.pageKind;
 }
