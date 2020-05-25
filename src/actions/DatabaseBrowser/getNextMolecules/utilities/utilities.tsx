@@ -149,26 +149,3 @@ export const getPropertyPromise: IgetPropertyPromise =
             return result;
         });
     };
-
-
-export function getMolecule(dbEntry: any) : IMolecule
-{
-    const notKeyNames: Set<string>
-        = new Set(['a', 'b', '_id']);
-
-    const tmp: any
-        = {};
-
-    for (let propName of Object.getOwnPropertyNames(dbEntry))
-    {
-        if (!notKeyNames.has(propName))
-        {
-            tmp[propName] = dbEntry[propName];
-        }
-    }
-    return {
-        ...tmp,
-        atoms: dbEntry['a'],
-        bonds: dbEntry['b'],
-    };
-}
