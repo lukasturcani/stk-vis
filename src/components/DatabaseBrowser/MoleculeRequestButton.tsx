@@ -33,14 +33,19 @@ function maybeGetPageIndex(
 
 
 function getNextPageIndex(
-    pageIndex: Maybe<number>
+    pageIndex: Maybe<number>,
+    isForward: boolean,
 )
     : number
 {
     switch(pageIndex.kind)
     {
         case MaybeKind.Just:
-            return pageIndex.value+1;
+
+            const increment: number
+                = (isForward)? 1 : -1;
+
+            return pageIndex.value+increment;
 
         case MaybeKind.Nothing:
             return 0;
@@ -70,14 +75,16 @@ function maybeGetPageKind(
 }
 
 
-function NextButton({
+function MoleculeRequestButton({
     pageIndex,
     dispatchPageRequest,
     pageKind,
+    isForward,
 }: {
     pageIndex: Maybe<number>,
     dispatchPageRequest: (pageIndex: number) => () => void,
     pageKind: Maybe<PageKind>,
+    isForward: boolean,
 })
 {
     let buttonLabel: string
@@ -103,9 +110,16 @@ function NextButton({
             assertNever(pageKind);
     }
 
+    if (!isForward)
+    {
+        buttonLabel = 'Previous Molecules';
+    }
+
     return (
         <button onClick={
-                dispatchPageRequest(getNextPageIndex(pageIndex))
+                dispatchPageRequest(
+                    getNextPageIndex(pageIndex, isForward)
+                )
         } >
             { buttonLabel }
         </button>
@@ -131,5 +145,6 @@ function mapDispatchToProps(dispatch: (arg: any) => any)
 };
 
 
-export const NextButtonComponent
-    = connect(mapStateToProps, mapDispatchToProps)(NextButton);
+export const MoleculeRequestButtonComponent
+    = connect
+        (mapStateToProps, mapDispatchToProps)(MoleculeRequestButton);

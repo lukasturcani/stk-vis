@@ -1,14 +1,22 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { MoleculeTableComponent } from './MoleculeTable';
-import { NextButtonComponent } from './NextButton';
-import { IDatabaseBrowser, DatabaseBrowserKind } from '../../models';
+import {
+    MoleculeRequestButtonComponent
+} from './MoleculeRequestButton';
+import {
+    IDatabaseBrowser,
+    DatabaseBrowserKind,
+    IState,
+    PageKind,
+} from '../../models';
 import { getDatabaseBrowserKind } from '../../selectors';
 
 
 interface IDatabaseBrowserProps
 {
     kind: DatabaseBrowserKind;
+    pageKind?: PageKind;
 }
 
 
@@ -17,37 +25,52 @@ function assertNever(arg: never): never { throw Error(); }
 
 function InitialDatabaseBrowserComponent()
 {
-    return <div><NextButtonComponent /></div>;
-}
-
-
-function LoadedDatabaseBrowserComponent()
-{
     return (
         <div>
-            <MoleculeTableComponent />
-            <NextButtonComponent />
+            <MoleculeRequestButtonComponent isForward={ true } />
         </div>
     );
 }
 
 
-function DatabaseBrowser({
-    kind,
-}:{
-    kind: DatabaseBrowserKind;
+function LoadedDatabaseBrowserComponent({
+    firstPage ,
+}: {
+    firstPage: boolean,
 })
 {
-    switch (kind)
+    return (
+        <div>
+            <MoleculeTableComponent />
+            {
+                !firstPage
+                &&
+                <MoleculeRequestButtonComponent isForward={ false } />
+            }
+            <MoleculeRequestButtonComponent isForward={ true } />
+        </div>
+    );
+}
+
+
+function DatabaseBrowser(props: IDatabaseBrowserProps)
+{
+    switch (props.kind)
     {
         case DatabaseBrowserKind.Initial:
             return <InitialDatabaseBrowserComponent />;
 
         case DatabaseBrowserKind.Loaded:
-            return <LoadedDatabaseBrowserComponent />;
+            return <LoadedDatabaseBrowserComponent
+                firstPage={
+                    props.pageKind === PageKind.First
+                    ||
+                    props.pageKind === PageKind.Only
+                }
+            />;
 
         default:
-            assertNever(kind);
+            assertNever(props.kind);
     }
 }
 
@@ -57,7 +80,15 @@ function mapStateToProps(
 )
     : IDatabaseBrowserProps
 {
-    return { kind: getDatabaseBrowserKind(state) };
+    let props: IDatabaseBrowserProps
+        = {
+            kind: getDatabaseBrowserKind(state),
+        };
+    if ('pageKind' in state)
+    {
+        props['pageKind'] = state.pageKind;
+    }
+    return props;
 }
 
 

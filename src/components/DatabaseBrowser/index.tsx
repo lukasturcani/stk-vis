@@ -1,3 +1,3 @@
 export * from './DatabaseBrowser';
-export * from './NextButton';
+export * from './MoleculeRequestButton';
 export * from './MoleculeTable';
