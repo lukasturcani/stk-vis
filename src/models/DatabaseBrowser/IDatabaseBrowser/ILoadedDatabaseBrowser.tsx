@@ -6,6 +6,15 @@ import {
 } from '../IMoleculeTable';
 
 
+export const enum PageKind
+{
+    First = 'First',
+    Middle = 'Middle',
+    Last = ' Last',
+    Only = 'Only',
+}
+
+
 export interface ILoadedDatabaseBrowser {
     readonly kind: DatabaseBrowserKind.Loaded;
     readonly url: string;
@@ -19,4 +28,5 @@ export interface ILoadedDatabaseBrowser {
     readonly columnValues: IColumnValues;
     readonly pageIndex: number;
     readonly numEntriesPerPage: number;
+    readonly pageKind: PageKind;
 }

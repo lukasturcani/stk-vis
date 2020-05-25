@@ -3,6 +3,7 @@ import {
     IMolecule,
     IColumnValues,
     ITableValues,
+    PageKind,
 } from '../../models';
 
 
@@ -10,10 +11,12 @@ function actionCreator({
     molecules,
     columnValues,
     pageIndex,
+    pageKind,
 }: {
     molecules: IMolecule[],
     columnValues: IColumnValues,
     pageIndex: number,
+    pageKind: PageKind
 }
 ): { payload: ITableValues }
 {
@@ -22,6 +25,7 @@ function actionCreator({
             molecules,
             columnValues,
             pageIndex,
+            pageKind,
         },
     };
 }

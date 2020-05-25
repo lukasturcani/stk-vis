@@ -3,7 +3,11 @@ import {
     IMoleculeRequestState,
     MoleculeRequestStateKind,
 } from '../../../models';
-import { updateTable, sendMoleculeRequest } from '../../../actions';
+import {
+    updateTable,
+    sendMoleculeRequest,
+    setLastPage,
+} from '../../../actions';
 
 
 export function moleculeRequestStateReducer(
@@ -14,12 +18,17 @@ export function moleculeRequestStateReducer(
 )
     : IMoleculeRequestState
 {
-    if (sendMoleculeRequest.match(action)) {
+    if (sendMoleculeRequest.match(action))
+    {
         return {
             kind: MoleculeRequestStateKind.RequestSent,
         };
     }
-    if (updateTable.match(action)) {
+    if (
+        updateTable.match(action)
+        ||
+        setLastPage.match(action)
+    ) {
         return {
             kind: MoleculeRequestStateKind.RequestSucceeded,
         };

@@ -4,6 +4,7 @@ import { moleculesReducer } from './moleculesReducer';
 import { visibleColumnsReducer } from './visibleColumnsReducer';
 import { pageIndexReducer } from './pageIndexReducer';
 import { numEntriesPerPageReducer } from '../numEntriesPerPageReducer';
+import { pageKindReducer } from './pageKindReducer';
 import {
     columnValuesReducer,
 } from './columnValuesReducer';
@@ -32,4 +33,5 @@ export const loadedDatabaseBrowserReducer = combineReducers({
     columnValues: columnValuesReducer,
     pageIndex: pageIndexReducer,
     numEntriesPerPage: numEntriesPerPageReducer ,
+    pageKind: pageKindReducer,
 });

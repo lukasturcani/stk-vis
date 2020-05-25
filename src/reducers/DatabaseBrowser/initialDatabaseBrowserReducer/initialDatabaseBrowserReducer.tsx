@@ -11,6 +11,7 @@ import {
     visibleColumnsReducer,
     columnValuesReducer,
     pageIndexReducer,
+    pageKindReducer,
 } from '../loadedDatabaseBrowserReducer';
 import { numEntriesPerPageReducer } from '../numEntriesPerPageReducer';
 import {
@@ -124,6 +125,9 @@ export function initialDatabaseBrowserReducer(
 
             pageIndex:
                 pageIndexReducer(undefined, action),
+
+            pageKind:
+                pageKindReducer(undefined, action),
 
         };
     }

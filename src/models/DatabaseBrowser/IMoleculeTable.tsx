@@ -1,3 +1,5 @@
+import { PageKind } from './IDatabaseBrowser';
+
 export interface IMolecule {
     readonly atoms: any;
     readonly bonds: any;
@@ -19,6 +21,7 @@ export interface ITableValues {
     readonly molecules: IMolecule[];
     readonly columnValues: IColumnValues;
     readonly pageIndex: number;
+    readonly pageKind: PageKind;
 }
 
 

@@ -8,7 +8,8 @@ import {
     getMoleculeId
 } from '../utilities';
 import { Maybe, MaybeKind } from '../../../../../utilities';
-import { updateTable } from '../../../../../actions';
+import { updateTable, setLastPage } from '../../../../../actions';
+import { PageKind } from '../../../../../models';
 import {
     processArrayInterface,
     processArrayOptions,
@@ -20,6 +21,12 @@ export const processArray: processArrayInterface =
     (options: processArrayOptions) =>
     (err: MongoError, items: IDbEntry[]) =>
 {
+    if (items.length === 0)
+    {
+        options.dispatch(setLastPage());
+        return;
+    }
+
     const data: IDatabaseData
         = getDatabaseData(items);
 
@@ -31,6 +38,11 @@ export const processArray: processArrayInterface =
             getPropertyPromise(options.client)(options.database)(query)
         )
 
+    // Here instead of waiting for all the properties to finish,
+    // I should probably immediately extract data from each
+    // Promise as soon as its done, and then wait on all Promises
+    // returned by that. There is no reason to wait for all promises
+    // to finish, before extracting their data is started.
     Promise.all(propertyPromises).then(properties => {
 
         for (
@@ -75,10 +87,37 @@ export const processArray: processArrayInterface =
 
         }
 
+        const isFirstPage: boolean
+            = options.pageIndex === 0;
+
+        const isLastPage: boolean
+            = items.length < options.numEntriesPerPage;
+
+        let pageKind: PageKind
+            = PageKind.Last;
+
+        if (isFirstPage && isLastPage)
+        {
+            pageKind = PageKind.Only;
+        }
+        if (isFirstPage && !isLastPage)
+        {
+            pageKind = PageKind.First;
+        }
+        if (!isFirstPage && isLastPage)
+        {
+            pageKind = PageKind.Last;
+        }
+        if (!isFirstPage && !isLastPage)
+        {
+            pageKind = PageKind.Middle;
+        }
+
         options.dispatch(updateTable({
             molecules: data.molecules,
             columnValues: data.columnValues,
             pageIndex: options.pageIndex,
+            pageKind,
         }));
         options.cursor.close();
         options.client.close();
