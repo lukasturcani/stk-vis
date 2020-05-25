@@ -107,7 +107,7 @@ function NextButton({
         <button onClick={
                 dispatchPageRequest(getNextPageIndex(pageIndex))
         } >
-            {buttonLabel}
+            { buttonLabel }
         </button>
     );
 };
