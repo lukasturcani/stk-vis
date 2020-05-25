@@ -126,3 +126,21 @@ export function getMongoDbPropertyCollections(
 {
     return state.propertyCollections;
 }
+
+
+export function getPageIndex(
+    state: ILoadedDatabaseBrowser
+)
+    : number
+{
+    return state.pageIndex;
+}
+
+
+export function getNumEntriesPerPage(
+    state: IDatabaseBrowser
+)
+    : number
+{
+    return state.numEntriesPerPage;
+}

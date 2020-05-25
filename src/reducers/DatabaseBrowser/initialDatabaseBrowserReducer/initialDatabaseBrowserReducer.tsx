@@ -11,8 +11,8 @@ import {
     visibleColumnsReducer,
     columnValuesReducer,
     pageIndexReducer,
-    entriesPerPageReducer,
 } from '../loadedDatabaseBrowserReducer';
+import { numEntriesPerPageReducer } from '../numEntriesPerPageReducer';
 import {
     urlReducer,
     databaseReducer,
@@ -33,6 +33,7 @@ import {
     getMongoDbMoleculeCollection,
     getMongoDbPositionMatrixCollection,
     getMongoDbPropertyCollections,
+    getNumEntriesPerPage,
 } from '../../../selectors';
 
 
@@ -65,6 +66,9 @@ export function initialDatabaseBrowserReducer(
 
             propertyCollections:
                 propertyCollectionsReducer(undefined, action),
+
+            numEntriesPerPage:
+                numEntriesPerPageReducer(undefined, action),
         };
     }
 
@@ -99,6 +103,12 @@ export function initialDatabaseBrowserReducer(
                 action,
             ),
 
+            numEntriesPerPage:
+                numEntriesPerPageReducer(
+                    getNumEntriesPerPage(state),
+                    action,
+                ),
+
             moleculeRequestState:
                 moleculeRequestStateReducer(undefined, action),
 
@@ -113,9 +123,6 @@ export function initialDatabaseBrowserReducer(
 
             pageIndex:
                 pageIndexReducer(undefined, action),
-
-            entriesPerPage:
-                entriesPerPageReducer(undefined, action),
 
         };
     }

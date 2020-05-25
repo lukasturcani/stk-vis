@@ -18,5 +18,5 @@ export interface ILoadedDatabaseBrowser {
     readonly visibleColumns: string[];
     readonly columnValues: IColumnValues;
     readonly pageIndex: number;
-    readonly entriesPerPage: number;
+    readonly numEntriesPerPage: number;
 }

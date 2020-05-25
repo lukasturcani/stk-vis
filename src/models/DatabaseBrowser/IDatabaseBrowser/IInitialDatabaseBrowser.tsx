@@ -10,4 +10,5 @@ export interface IInitialDatabaseBrowser {
     readonly positionMatrixCollection: string;
     readonly propertyCollections: string[];
     readonly initialRequestState: IInitialRequestState;
+    readonly numEntriesPerPage: number;
 }

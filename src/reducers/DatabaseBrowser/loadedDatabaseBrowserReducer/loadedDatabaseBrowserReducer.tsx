@@ -3,7 +3,7 @@ import { loadedKindReducer } from './loadedKindReducer';
 import { moleculesReducer } from './moleculesReducer';
 import { visibleColumnsReducer } from './visibleColumnsReducer';
 import { pageIndexReducer } from './pageIndexReducer';
-import { entriesPerPageReducer } from './entriesPerPageReducer';
+import { numEntriesPerPageReducer } from '../numEntriesPerPageReducer';
 import {
     columnValuesReducer,
 } from './columnValuesReducer';
@@ -31,5 +31,5 @@ export const loadedDatabaseBrowserReducer = combineReducers({
     visibleColumns: visibleColumnsReducer,
     columnValues: columnValuesReducer,
     pageIndex: pageIndexReducer,
-    entriesPerPage: entriesPerPageReducer,
+    numEntriesPerPage: numEntriesPerPageReducer ,
 });
