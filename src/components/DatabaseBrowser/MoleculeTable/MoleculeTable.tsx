@@ -12,6 +12,15 @@ import {
     getVisibleColumns,
     getTableMolecules,
 } from '../../../selectors';
+import {
+    TableContainer,
+    Table,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell,
+    Paper,
+} from '@material-ui/core';
 
 
 interface IMoleculeTableProps {
@@ -22,23 +31,27 @@ interface IMoleculeTableProps {
 
 function MoleculeTable({columns, moleculeIds}: IMoleculeTableProps) {
     return (
-        <table>
-            <thead>
-                <tr>{
+
+        <TableContainer component={Paper}><Table>
+            <TableHead>
+                <TableRow>{
                     columns.map(
-                        column => <th key={column}>{column}</th>
+                        column =>
+                            <TableCell key={column}>
+                                {column}
+                            </TableCell>
                     )
-                }</tr>
-            </thead>
-            <tbody>{
+                }</TableRow>
+            </TableHead>
+            <TableBody>{
                 moleculeIds.map(
                     moleculeId => <Row
                         key={moleculeId}
                         moleculeId={moleculeId}
                     />
                 )
-            }</tbody>
-        </table>
+            }</TableBody>
+        </Table></TableContainer>
     )
 };
 

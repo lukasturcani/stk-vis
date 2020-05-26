@@ -11,6 +11,7 @@ import {
     Maybe,
     MaybeKind,
 } from '../../../utilities';
+import { TableRow, TableCell, Paper } from '@material-ui/core';
 
 
 function assertNever(arg: never): never { throw Error(); }
@@ -23,11 +24,11 @@ interface IColumnValues {
 
 function _Row({ columns }: { columns: IColumnValues})
 {
-    return (<tr>{
+    return (<TableRow>{
         Object.entries(columns).map(
-            ([name, value]) => <td key={name}>{value}</td>
+            ([name, value]) => <TableCell key={name}>{value}</TableCell>
         )
-    }</tr>);
+    }</TableRow>);
 }
 
 
