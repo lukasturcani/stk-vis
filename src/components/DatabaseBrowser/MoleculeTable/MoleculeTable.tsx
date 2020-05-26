@@ -13,6 +13,7 @@ import {
     getTableMolecules,
 } from '../../../selectors';
 import {
+    makeStyles,
     TableContainer,
     Table,
     TableHead,
@@ -29,29 +30,37 @@ interface IMoleculeTableProps {
 }
 
 
-function MoleculeTable({columns, moleculeIds}: IMoleculeTableProps) {
-    return (
+const useStyles = makeStyles({
+    table: {},
+});
 
-        <TableContainer component={Paper}><Table>
-            <TableHead>
-                <TableRow>{
-                    columns.map(
-                        column =>
-                            <TableCell key={column}>
-                                {column}
-                            </TableCell>
+
+function MoleculeTable({columns, moleculeIds}: IMoleculeTableProps) {
+    const classes = useStyles();
+
+    return (
+        <TableContainer className={classes.table} component={Paper}>
+            <Table>
+                <TableHead>
+                    <TableRow>{
+                        columns.map(
+                            column =>
+                                <TableCell key={column}>
+                                    {column}
+                                </TableCell>
+                        )
+                    }</TableRow>
+                </TableHead>
+                <TableBody>{
+                    moleculeIds.map(
+                        moleculeId => <Row
+                            key={moleculeId}
+                            moleculeId={moleculeId}
+                        />
                     )
-                }</TableRow>
-            </TableHead>
-            <TableBody>{
-                moleculeIds.map(
-                    moleculeId => <Row
-                        key={moleculeId}
-                        moleculeId={moleculeId}
-                    />
-                )
-            }</TableBody>
-        </Table></TableContainer>
+                }</TableBody>
+            </Table>
+        </TableContainer>
     )
 };
 
