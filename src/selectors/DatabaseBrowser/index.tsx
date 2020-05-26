@@ -15,6 +15,14 @@ import {
 import * as fp from 'lodash/fp';
 
 
+export function getDatabaseBrowser(
+    state: IState,
+)
+    : IDatabaseBrowser
+{
+    return state;
+}
+
 export function getDatabaseBrowserKind(
     state: IDatabaseBrowser,
 )

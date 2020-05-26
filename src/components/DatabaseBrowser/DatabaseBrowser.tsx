@@ -10,14 +10,29 @@ import {
     IState,
     PageKind,
 } from '../../models';
-import { getDatabaseBrowserKind } from '../../selectors';
+import {
+    getDatabaseBrowserKind,
+    getPageKind,
+    getDatabaseBrowser,
+} from '../../selectors';
 
 
-interface IDatabaseBrowserProps
+interface IInitialDatabaseBrowserProps
 {
-    kind: DatabaseBrowserKind;
-    pageKind?: PageKind;
+    kind: DatabaseBrowserKind.Initial;
 }
+
+
+interface ILoadedDatabaseBrowserProps
+{
+    kind: DatabaseBrowserKind.Loaded;
+    pageKind: PageKind;
+}
+
+
+type IDatabaseBrowserProps =
+    | IInitialDatabaseBrowserProps
+    | ILoadedDatabaseBrowserProps;
 
 
 function assertNever(arg: never): never { throw Error(); }
@@ -61,6 +76,7 @@ function DatabaseBrowser(props: IDatabaseBrowserProps)
             return <InitialDatabaseBrowserComponent />;
 
         case DatabaseBrowserKind.Loaded:
+
             return <LoadedDatabaseBrowserComponent
                 firstPage={
                     props.pageKind === PageKind.First
@@ -70,25 +86,35 @@ function DatabaseBrowser(props: IDatabaseBrowserProps)
             />;
 
         default:
-            assertNever(props.kind);
+            assertNever(props);
     }
 }
 
 
 function mapStateToProps(
-    state: IDatabaseBrowser,
+    state: IState,
 )
     : IDatabaseBrowserProps
 {
-    let props: IDatabaseBrowserProps
-        = {
-            kind: getDatabaseBrowserKind(state),
-        };
-    if ('pageKind' in state)
+    const browser: IDatabaseBrowser
+        = getDatabaseBrowser(state);
+
+    switch (browser.kind)
     {
-        props['pageKind'] = state.pageKind;
+        case DatabaseBrowserKind.Initial:
+            return {
+                kind: DatabaseBrowserKind.Initial,
+            };
+
+        case DatabaseBrowserKind.Loaded:
+            return {
+                kind: DatabaseBrowserKind.Loaded,
+                pageKind: getPageKind(browser),
+            };
+
+        default:
+            assertNever(browser);
     }
-    return props;
 }
 
 
