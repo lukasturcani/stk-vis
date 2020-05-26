@@ -119,4 +119,4 @@ function mapStateToProps(
 
 
 export const DatabaseBrowserComponent
-    = connect(mapStateToProps)(DatabaseBrowser);
+    = connect(mapStateToProps)(DatabaseBrowser as any);
