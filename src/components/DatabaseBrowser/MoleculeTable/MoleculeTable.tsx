@@ -32,6 +32,9 @@ interface IMoleculeTableProps {
 
 const useStyles = makeStyles({
     table: {},
+    tableHead: {
+        'font-weight': 'bold',
+    },
 });
 
 
@@ -45,7 +48,10 @@ function MoleculeTable({columns, moleculeIds}: IMoleculeTableProps) {
                     <TableRow>{
                         columns.map(
                             column =>
-                                <TableCell key={column}>
+                                <TableCell
+                                    className={classes.tableHead}
+                                    key={column}
+                                >
                                     {column}
                                 </TableCell>
                         )
