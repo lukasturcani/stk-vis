@@ -1,4 +1,10 @@
 import { AnyAction } from '@reduxjs/toolkit';
+import {
+    updateMongoDbUrl,
+    updateMongoDbDatabase,
+    updateMongoDbMoleculeCollection,
+    updateMongoDbPositionMatrixCollection,
+} from '../../actions';
 
 
 export function urlReducer(
@@ -7,6 +13,10 @@ export function urlReducer(
 )
     : string
 {
+    if (updateMongoDbUrl.match(action))
+    {
+        return action.payload;
+    }
     return state;
 }
 
@@ -17,6 +27,10 @@ export function databaseReducer(
 )
     : string
 {
+    if (updateMongoDbDatabase.match(action))
+    {
+        return action.payload;
+    }
     return state;
 }
 
@@ -27,6 +41,10 @@ export function moleculeCollectionReducer(
 )
     : string
 {
+    if (updateMongoDbMoleculeCollection.match(action))
+    {
+        return action.payload;
+    }
     return state;
 }
 
@@ -37,6 +55,10 @@ export function positionMatrixCollectionReducer(
 )
     : string
 {
+    if (updateMongoDbPositionMatrixCollection.match(action))
+    {
+        return action.payload;
+    }
     return state;
 }
 
