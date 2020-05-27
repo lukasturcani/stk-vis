@@ -11,6 +11,11 @@ export const theme = createMuiTheme({
         },
     },
     overrides: {
+        MuiPaper: {
+            root: {
+                margin: '10px',
+            },
+        },
         MuiButton: {
             root: {
                 margin: '10px',

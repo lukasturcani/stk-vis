@@ -15,6 +15,7 @@ import {
     updateMongoDbMoleculeCollection,
     updateMongoDbPositionMatrixCollection,
 } from '../../../actions';
+import Paper from '@material-ui/core/Paper';
 
 
 interface IEvent
@@ -42,7 +43,7 @@ interface IMongoDbFieldsProps
 function MongoDbFields(props: IMongoDbFieldsProps)
 {
     return (
-        <div>
+        <Paper>
             <TextField
                 id='mongo-url'
                 label='MongoDB URL'
@@ -74,7 +75,7 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                 }
             />
             <GetMoleculesButtonComponent />
-        </div>
+        </Paper>
     );
 }
 

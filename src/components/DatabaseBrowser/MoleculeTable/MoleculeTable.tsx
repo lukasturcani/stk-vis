@@ -29,7 +29,7 @@ interface IMoleculeTableProps {
 
 function MoleculeTable({columns, moleculeIds}: IMoleculeTableProps) {
     return (
-        <TableContainer component={Paper}><Table>
+        <Paper><TableContainer><Table>
             <TableHead>
                 <TableRow>{columns.map(
                     column => <TableCell key={column}>
@@ -43,7 +43,7 @@ function MoleculeTable({columns, moleculeIds}: IMoleculeTableProps) {
                     moleculeId={moleculeId}
                 />
             )}</TableBody>
-        </Table></TableContainer>
+        </Table></TableContainer></Paper>
     )
 };
 
