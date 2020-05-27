@@ -19,8 +19,8 @@ import { Box, Button } from '@material-ui/core';
 function MoleculeRequestButton(props: MoleculeRequestButtonProps)
 {
     return (
-        <Box mt={1}>
-        <Button color='primary' variant='contained' onClick={
+        <Box>
+        <Button onClick={
                 props.dispatchPageRequest(
                     getNextPageIndex(props.pageIndex, props.isForward)
                 )

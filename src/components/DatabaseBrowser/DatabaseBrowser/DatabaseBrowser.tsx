@@ -1,33 +1,27 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { MoleculeTableComponent } from './MoleculeTable';
-import {
-    MoleculeRequestButtonComponent
-} from './MoleculeRequestButton';
+import { MoleculeTableComponent } from '../MoleculeTable';
 import {
     IDatabaseBrowser,
     DatabaseBrowserKind,
     IState,
     PageKind,
-} from '../../models';
+} from '../../../models';
 import {
     getDatabaseBrowserKind,
     getPageKind,
     getDatabaseBrowser,
-} from '../../selectors';
-
-
-interface IInitialDatabaseBrowserProps
-{
-    kind: DatabaseBrowserKind.Initial;
-}
-
-
-interface ILoadedDatabaseBrowserProps
-{
-    kind: DatabaseBrowserKind.Loaded;
-    pageKind: PageKind;
-}
+} from '../../../selectors';
+import {
+    IInitialDatabaseBrowserProps,
+    InitialDatabaseBrowserComponent,
+} from './InitialDatabaseBrowser';
+import {
+    ILoadedDatabaseBrowserProps,
+    LoadedDatabaseBrowserComponent,
+} from './LoadedDatabaseBrowser';
+import { ThemeProvider } from '@material-ui/core';
+import { theme } from './theme';
 
 
 type IDatabaseBrowserProps =
@@ -36,36 +30,6 @@ type IDatabaseBrowserProps =
 
 
 function assertNever(arg: never): never { throw Error(); }
-
-
-function InitialDatabaseBrowserComponent()
-{
-    return (
-        <div>
-            <MoleculeRequestButtonComponent isForward={ true } />
-        </div>
-    );
-}
-
-
-function LoadedDatabaseBrowserComponent({
-    firstPage ,
-}: {
-    firstPage: boolean,
-})
-{
-    return (
-        <div>
-            <MoleculeTableComponent />
-            {
-                !firstPage
-                &&
-                <MoleculeRequestButtonComponent isForward={ false } />
-            }
-            <MoleculeRequestButtonComponent isForward={ true } />
-        </div>
-    );
-}
 
 
 function DatabaseBrowser(props: IDatabaseBrowserProps)
@@ -90,6 +54,15 @@ function DatabaseBrowser(props: IDatabaseBrowserProps)
     }
 }
 
+
+function ThemedDatabaseBrowser(props: IDatabaseBrowserProps)
+{
+    return (
+        <ThemeProvider theme={theme} >
+            { DatabaseBrowser(props) }
+        </ThemeProvider>
+    )
+}
 
 function mapStateToProps(
     state: IState,
@@ -119,4 +92,4 @@ function mapStateToProps(
 
 
 export const DatabaseBrowserComponent
-    = connect(mapStateToProps)(DatabaseBrowser as any);
+    = connect(mapStateToProps)(ThemedDatabaseBrowser as any);

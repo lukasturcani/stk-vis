@@ -13,14 +13,12 @@ import {
     getTableMolecules,
 } from '../../../selectors';
 import {
-    makeStyles,
     TableContainer,
     Table,
     TableHead,
     TableBody,
     TableRow,
     TableCell,
-    Paper,
 } from '@material-ui/core';
 
 
@@ -30,43 +28,23 @@ interface IMoleculeTableProps {
 }
 
 
-const useStyles = makeStyles({
-    table: {},
-    tableHead: {
-        'font-weight': 'bold',
-    },
-});
-
-
 function MoleculeTable({columns, moleculeIds}: IMoleculeTableProps) {
-    const classes = useStyles();
-
     return (
-        <TableContainer className={classes.table} component={Paper}>
-            <Table>
-                <TableHead>
-                    <TableRow>{
-                        columns.map(
-                            column =>
-                                <TableCell
-                                    className={classes.tableHead}
-                                    key={column}
-                                >
-                                    {column}
-                                </TableCell>
-                        )
-                    }</TableRow>
-                </TableHead>
-                <TableBody>{
-                    moleculeIds.map(
-                        moleculeId => <Row
-                            key={moleculeId}
-                            moleculeId={moleculeId}
-                        />
-                    )
-                }</TableBody>
-            </Table>
-        </TableContainer>
+        <TableContainer><Table>
+            <TableHead>
+                <TableRow>{columns.map(
+                    column => <TableCell key={column}>
+                        {column}
+                    </TableCell>
+                )}</TableRow>
+            </TableHead>
+            <TableBody>{moleculeIds.map(
+                moleculeId => <Row
+                    key={moleculeId}
+                    moleculeId={moleculeId}
+                />
+            )}</TableBody>
+        </Table></TableContainer>
     )
 };
 
