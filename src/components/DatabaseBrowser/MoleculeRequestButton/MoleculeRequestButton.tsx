@@ -20,7 +20,6 @@ import Button from '@material-ui/core/Button';
 function MoleculeRequestButton(props: MoleculeRequestButtonProps)
 {
     return (
-        <Box mt={1}>
         <Button onClick={
                 props.dispatchPageRequest(
                     getNextPageIndex(props.pageIndex, props.isForward)
@@ -28,7 +27,6 @@ function MoleculeRequestButton(props: MoleculeRequestButtonProps)
         } >
             { getButtonLabel(props) }
         </Button>
-        </Box>
     );
 };
 

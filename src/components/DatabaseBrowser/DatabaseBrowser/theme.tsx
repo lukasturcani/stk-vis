@@ -11,6 +11,16 @@ export const theme = createMuiTheme({
         },
     },
     overrides: {
+        MuiButton: {
+            root: {
+                margin: '10px',
+            },
+        },
+        MuiTextField: {
+            root: {
+                margin: '10px',
+            },
+        },
         MuiTableCell: {
             head: {
                 fontWeight: 'bold',
