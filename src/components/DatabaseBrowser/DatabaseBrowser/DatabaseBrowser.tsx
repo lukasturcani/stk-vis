@@ -13,20 +13,19 @@ import {
     getDatabaseBrowser,
 } from '../../../selectors';
 import {
-    IInitialDatabaseBrowserProps,
     InitialDatabaseBrowserComponent,
 } from './InitialDatabaseBrowser';
 import {
-    ILoadedDatabaseBrowserProps,
     LoadedDatabaseBrowserComponent,
 } from './LoadedDatabaseBrowser';
 import  { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from './theme';
 
 
-type IDatabaseBrowserProps =
-    | IInitialDatabaseBrowserProps
-    | ILoadedDatabaseBrowserProps;
+interface IDatabaseBrowserProps
+{
+    kind: DatabaseBrowserKind;
+}
 
 
 function assertNever(arg: never): never { throw Error(); }
@@ -40,17 +39,10 @@ function DatabaseBrowser(props: IDatabaseBrowserProps)
             return <InitialDatabaseBrowserComponent />;
 
         case DatabaseBrowserKind.Loaded:
-
-            return <LoadedDatabaseBrowserComponent
-                firstPage={
-                    props.pageKind === PageKind.First
-                    ||
-                    props.pageKind === PageKind.Only
-                }
-            />;
+            return <LoadedDatabaseBrowserComponent />;
 
         default:
-            assertNever(props);
+            assertNever(props.kind);
     }
 }
 
@@ -69,24 +61,8 @@ function mapStateToProps(
 )
     : IDatabaseBrowserProps
 {
-    const browser: IDatabaseBrowser
-        = getDatabaseBrowser(state);
-
-    switch (browser.kind)
-    {
-        case DatabaseBrowserKind.Initial:
-            return {
-                kind: DatabaseBrowserKind.Initial,
-            };
-
-        case DatabaseBrowserKind.Loaded:
-            return {
-                kind: DatabaseBrowserKind.Loaded,
-                pageKind: getPageKind(browser),
-            };
-
-        default:
-            assertNever(browser);
+    return {
+        kind: getDatabaseBrowserKind(state),
     }
 }
 
