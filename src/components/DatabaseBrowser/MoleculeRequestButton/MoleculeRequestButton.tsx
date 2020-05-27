@@ -13,13 +13,14 @@ import {
     getNextPageIndex,
 } from './utilities';
 import { getPageMolecules } from '../../../actions';
-import { Box, Button } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 
 
 function MoleculeRequestButton(props: MoleculeRequestButtonProps)
 {
     return (
-        <Box>
+        <Box mt={1}>
         <Button onClick={
                 props.dispatchPageRequest(
                     getNextPageIndex(props.pageIndex, props.isForward)

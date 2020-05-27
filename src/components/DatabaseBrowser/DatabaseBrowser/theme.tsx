@@ -1,9 +1,9 @@
-import { createMuiTheme } from '@material-ui/core';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import Paper from '@material-ui/core/Paper';
 
 
 
 export const theme = createMuiTheme({
-    spacing: 50,
     props: {
         MuiButton: {
             variant: 'contained',
