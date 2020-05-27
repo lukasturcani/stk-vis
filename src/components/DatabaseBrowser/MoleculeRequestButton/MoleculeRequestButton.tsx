@@ -13,7 +13,6 @@ import {
     getNextPageIndex,
 } from './utilities';
 import { getPageMolecules } from '../../../actions';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
 
