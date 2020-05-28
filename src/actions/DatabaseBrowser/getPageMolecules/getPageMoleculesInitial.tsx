@@ -17,6 +17,7 @@ import { assertNever, sendMongoDbRequest } from './utilities';
 
 export function getPageMoleculesInitial(
     pageIndex: number,
+    successSnackbar: (message: string) => void,
     dispatch: (arg: AnyAction) => void,
     state: IInitialDatabaseBrowser,
 )
@@ -30,7 +31,12 @@ export function getPageMoleculesInitial(
         case InitialRequestStateKind.RequestSucceeded:
         case InitialRequestStateKind.RequestFailed:
             dispatch(sendMoleculeRequest());
-            sendMongoDbRequest(state, pageIndex, dispatch);
+            sendMongoDbRequest(
+                state,
+                pageIndex,
+                successSnackbar,
+                dispatch,
+            );
             break;
 
         case InitialRequestStateKind.RequestSent:

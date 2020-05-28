@@ -6,6 +6,7 @@ import {
 import {
     updateTable,
     sendMoleculeRequest,
+    setMoleculeRequestState,
 } from '../../../actions';
 
 
@@ -27,6 +28,12 @@ export function moleculeRequestStateReducer(
     {
         return {
             kind: MoleculeRequestStateKind.RequestSucceeded,
+        };
+    }
+    if (setMoleculeRequestState.match(action))
+    {
+        return {
+            kind: action.payload,
         };
     }
     return state;

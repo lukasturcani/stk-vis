@@ -19,6 +19,7 @@ import { onConnection } from './onConnection';
 export function sendMongoDbRequest(
     state: IInitialDatabaseBrowser | ILoadedDatabaseBrowser,
     pageIndex: number,
+    successSnackbar: (message: string) => void,
     dispatch: (arg: AnyAction) => void,
 )
     : void
@@ -45,5 +46,6 @@ export function sendMongoDbRequest(
         dispatch,
         numEntriesPerPage,
         pageIndex,
+        successSnackbar,
     }));
 }

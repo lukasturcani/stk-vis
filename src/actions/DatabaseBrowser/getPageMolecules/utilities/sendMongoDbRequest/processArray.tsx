@@ -5,10 +5,16 @@ import { getPropertyQuery, IPropertyQuery } from '../getPropertyQuery';
 import {
     assertNever,
     getPropertyPromise,
-    getMoleculeId
+    getMoleculeId,
 } from '../utilities';
-import { updateTable } from '../../../../../actions';
-import { PageKind } from '../../../../../models';
+import {
+    updateTable,
+    setMoleculeRequestState,
+} from '../../../../../actions';
+import {
+    PageKind,
+    MoleculeRequestStateKind,
+} from '../../../../../models';
 import {
     processArrayInterface,
     processArrayOptions,
@@ -25,10 +31,14 @@ export const processArray: processArrayInterface =
     (options: processArrayOptions) =>
     (err: MongoError, items: IDbEntry[]) =>
 {
-    if (items === undefined || items.length === 0)
+    if (items.length === 0)
     {
-        // Dispatch an action saying successful request - but there
-        // really aren't any new molecules.
+        options.dispatch(
+            setMoleculeRequestState(
+                MoleculeRequestStateKind.RequestSucceeded
+            )
+        );
+        options.successSnackbar('There are no new molecules!');
         return;
     }
 

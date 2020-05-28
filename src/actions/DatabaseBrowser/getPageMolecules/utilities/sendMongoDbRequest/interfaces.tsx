@@ -11,6 +11,7 @@ export interface onConnectionOptions
     dispatch: (action: AnyAction) => void;
     numEntriesPerPage: number;
     pageIndex: number;
+    successSnackbar: (message: string) => void;
 }
 
 

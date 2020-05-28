@@ -38,7 +38,10 @@ function mapDispatchToProps(
 )
 {
     return {
-        getFirstPage: () => dispatch(getPageMolecules(0)),
+        getFirstPage:
+            () => dispatch(
+                getPageMolecules(0, () => {})
+            ),
     };
 }
 

@@ -13,7 +13,13 @@ export function assertNever(arg: never): never { throw Error(); }
 export interface MoleculeRequestButtonProps
 {
     pageIndex: Maybe<number>;
-    dispatchPageRequest: (pageIndex: number) => () => void;
+
+    dispatchPageRequest:
+        (
+            pageIndex: number,
+            successSnackbar:  (message: string) => void
+        ) => () => void;
+
     pageKind: Maybe<PageKind>;
     isForward: boolean;
 }

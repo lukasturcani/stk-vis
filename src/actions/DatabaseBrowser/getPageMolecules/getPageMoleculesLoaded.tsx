@@ -18,6 +18,7 @@ import { assertNever, sendMongoDbRequest } from './utilities';
 
 export function getPageMoleculesLoaded(
     pageIndex: number,
+    successSnackbar: (message: string) => void,
     dispatch: (arg: AnyAction) => void,
     state: ILoadedDatabaseBrowser,
 )
@@ -34,7 +35,12 @@ export function getPageMoleculesLoaded(
         case MoleculeRequestStateKind.RequestSucceeded:
         case MoleculeRequestStateKind.RequestFailed:
             dispatch(sendMoleculeRequest());
-            sendMongoDbRequest(state, pageIndex, dispatch);
+            sendMongoDbRequest(
+                state,
+                pageIndex,
+                successSnackbar,
+                dispatch,
+            );
             break;
 
         case MoleculeRequestStateKind.RequestSent:

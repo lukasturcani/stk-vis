@@ -7,7 +7,10 @@ import { assertNever } from './utilities';
 
 interface getPageMoleculesInterface
 {
-    (pageIndex: number):
+    (
+        pageIndex: number,
+        successSnackbar: (message: string) => void
+    ):
     (
         dispatch: (arg: AnyAction) => void,
         getState: () => IState,
@@ -16,7 +19,10 @@ interface getPageMoleculesInterface
 
 
 export const getPageMolecules: getPageMoleculesInterface =
-    (pageIndex: number) =>
+    (
+        pageIndex: number,
+        successSnackbar: (message: string) => void,
+    ) =>
     (
         dispatch: (arg: AnyAction) => void,
         getState: () => IState,
@@ -26,11 +32,21 @@ export const getPageMolecules: getPageMoleculesInterface =
         switch (state.kind) {
 
             case DatabaseBrowserKind.Initial:
-                getPageMoleculesInitial(pageIndex, dispatch, state);
+                getPageMoleculesInitial(
+                    pageIndex,
+                    successSnackbar,
+                    dispatch,
+                    state,
+                );
                 break;
 
             case DatabaseBrowserKind.Loaded:
-                getPageMoleculesLoaded(pageIndex, dispatch, state);
+                getPageMoleculesLoaded(
+                    pageIndex,
+                    successSnackbar,
+                    dispatch,
+                    state,
+                );
                 break;
 
             default:
