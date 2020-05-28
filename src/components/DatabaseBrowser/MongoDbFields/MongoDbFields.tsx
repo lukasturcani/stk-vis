@@ -16,6 +16,7 @@ import {
     updateMongoDbPositionMatrixCollection,
 } from '../../../actions';
 import Paper from '@material-ui/core/Paper';
+import Grid from  '@material-ui/core/Grid';
 
 
 interface IEvent
@@ -43,29 +44,35 @@ interface IMongoDbFieldsProps
 function MongoDbFields(props: IMongoDbFieldsProps)
 {
     return (
-        <Paper>
-            <TextField
+        <Paper><Grid container
+            alignItems={ 'center' }
+            alignContent={ 'center' }
+            justify={ 'center' }
+            spacing={ 3 }
+            style={ {height: '100%'} }
+        >
+            <Grid item><TextField
                 id='mongo-url'
                 label='MongoDB URL'
                 value={ props.url }
                 variant='outlined'
                 onChange={ props.dispatchUrlUpdate }
-            />
-            <TextField
+            /></Grid>
+            <Grid item><TextField
                 id='mongo-database'
                 label='Database Name'
                 value={ props.database }
                 variant='outlined'
                 onChange={ props.dispatchDatabaseUpdate }
-            />
-            <TextField
+            /></Grid>
+            <Grid item><TextField
                 id='mongo-molecule-collection'
                 label='Molecule Collection Name'
                 value={ props.moleculeCollection }
                 variant='outlined'
                 onChange={ props.dispatchMoleculeCollectionUpdate }
-            />
-            <TextField
+            /></Grid>
+            <Grid item><TextField
                 id='mongo-position-matrix-collection'
                 label='Position Matrix Collection Name'
                 value={ props.positionMatrixCollection }
@@ -73,9 +80,11 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                 onChange={
                     props.dispatchPositionMatrixCollectionUpdate
                 }
-            />
-            <GetMoleculesButtonComponent />
-        </Paper>
+            /></Grid>
+            <Grid item>
+                <GetMoleculesButtonComponent />
+            </Grid>
+        </Grid></Paper>
     );
 }
 

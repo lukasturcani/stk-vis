@@ -2,7 +2,7 @@ import { AnyAction } from '@reduxjs/toolkit';
 
 
 export function numEntriesPerPageReducer(
-    state: number = 80,
+    state: number = 34,
     action: AnyAction,
 )
     : number
