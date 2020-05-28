@@ -14,6 +14,8 @@ import {
     MoleculeRequestButtonComponent
 } from '../MoleculeRequestButton';
 import { MongoDbFieldsComponent } from '../MongoDbFields';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 
 
 interface ILoadedDatabaseBrowserProps
@@ -26,9 +28,10 @@ interface ILoadedDatabaseBrowserProps
 function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
 {
     return (
-        <div>
-            <MongoDbFieldsComponent />
-            <MoleculeTableComponent />
+        <Container><Grid container spacing={5}>
+            <Grid item xs={12}><MongoDbFieldsComponent /></Grid>
+            <Grid item xs={12}><MoleculeTableComponent /></Grid>
+            <Grid item xs={12}>
             {
                 !(
                     props.pageKind === PageKind.First
@@ -36,10 +39,13 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
                     props.pageKind === PageKind.Only
                 )
                 &&
-                <MoleculeRequestButtonComponent isForward={ false } />
+                <MoleculeRequestButtonComponent
+                    isForward={ false }
+                />
             }
             <MoleculeRequestButtonComponent isForward={ true } />
-        </div>
+            </Grid>
+        </Grid></Container>
     );
 }
 

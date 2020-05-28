@@ -11,6 +11,7 @@ import {
 } from '../MoleculeRequestButton';
 import TextField from '@material-ui/core/TextField';
 import { MongoDbFieldsComponent } from '../MongoDbFields';
+import Container from '@material-ui/core/Container';
 
 
 interface IInitialDatabaseBrowserProps
@@ -21,7 +22,7 @@ interface IInitialDatabaseBrowserProps
 
 function InitialDatabaseBrowser(props: IInitialDatabaseBrowserProps)
 {
-    return <MongoDbFieldsComponent />;
+    return <Container><MongoDbFieldsComponent /></Container>;
 }
 
 

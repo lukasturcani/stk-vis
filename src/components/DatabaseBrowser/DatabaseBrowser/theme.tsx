@@ -11,19 +11,22 @@ export const theme = createMuiTheme({
         },
     },
     overrides: {
+        MuiContainer: {
+            root: {
+                height: '99vh',
+                overflow: 'auto',
+            },
+        },
         MuiPaper: {
             root: {
-                margin: '10px',
             },
         },
         MuiButton: {
             root: {
-                margin: '10px',
             },
         },
         MuiTextField: {
             root: {
-                margin: '10px',
             },
         },
         MuiTableCell: {

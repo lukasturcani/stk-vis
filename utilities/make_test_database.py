@@ -64,7 +64,7 @@ def add_entries(client, database, key_makers, random_seed):
         key_makers=key_makers,
     )
     add_value = True
-    for molecule in get_molecules(50, 5):
+    for molecule in get_molecules(200, 5):
         molecule_db.put(molecule)
         if add_value:
             num_atoms_db.put(molecule, molecule.get_num_atoms())

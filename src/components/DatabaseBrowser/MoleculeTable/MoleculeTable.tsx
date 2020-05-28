@@ -19,6 +19,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 
 
 interface IMoleculeTableProps {
@@ -29,21 +31,21 @@ interface IMoleculeTableProps {
 
 function MoleculeTable({columns, moleculeIds}: IMoleculeTableProps) {
     return (
-        <Paper><TableContainer><Table>
-            <TableHead>
-                <TableRow>{columns.map(
-                    column => <TableCell key={column}>
-                        {column}
-                    </TableCell>
-                )}</TableRow>
-            </TableHead>
-            <TableBody>{moleculeIds.map(
-                moleculeId => <Row
-                    key={moleculeId}
-                    moleculeId={moleculeId}
-                />
-            )}</TableBody>
-        </Table></TableContainer></Paper>
+        <Box overflow='auto' height='75vh'><Paper><TableContainer><Table>
+                <TableHead>
+                    <TableRow>{columns.map(
+                        column => <TableCell key={column}>
+                            {column}
+                        </TableCell>
+                    )}</TableRow>
+                </TableHead>
+                <TableBody>{moleculeIds.map(
+                    moleculeId => <Row
+                        key={moleculeId}
+                        moleculeId={moleculeId}
+                    />
+                )}</TableBody>
+        </Table></TableContainer></Paper></Box>
     )
 };
 

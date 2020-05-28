@@ -20,6 +20,7 @@ import {
 } from './LoadedDatabaseBrowser';
 import  { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from './theme';
+import Container from '@material-ui/core/Container';
 
 
 interface IDatabaseBrowserProps
