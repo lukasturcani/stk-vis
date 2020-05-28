@@ -25,11 +25,14 @@ function Alert(props: AlertProps) {
 
 function MoleculeRequestButton(props: MoleculeRequestButtonProps)
 {
-    const success = { message: 'This should have a message.' };
     const [open, setOpen] = React.useState(false);
+
+    const [successMessage, setSuccessMessage]
+        = React.useState('Placerholder');
+
     const successSnackbar = (message: string) => {
         console.log(message);
-        success.message = message;
+        setSuccessMessage(message);
         setOpen(true);
     };
     const handleClose
@@ -57,10 +60,10 @@ function MoleculeRequestButton(props: MoleculeRequestButtonProps)
             </Button>
             <Snackbar
                 open={ open }
-                autoHideDuration={6000}
+                autoHideDuration={3000}
                 onClose={ handleClose }
             ><Alert severity='success' onClose={ handleClose }>
-                { success.message }
+                { successMessage }
             </Alert></Snackbar>
         </div>
     );
