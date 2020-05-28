@@ -53,7 +53,9 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
                 !(
                     props.pageKind === PageKind.First
                     ||
-                    props.pageKind === PageKind.Only
+                    props.pageKind === PageKind.OnlyComplete
+                    ||
+                    props.pageKind === PageKind.OnlyIncomplete
                 )
                 &&
                 <Grid item><MoleculeRequestButtonComponent

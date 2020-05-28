@@ -33,8 +33,15 @@ export function getButtonLabel(props: MoleculeRequestButtonProps)
             return 'Get Molecules';
 
         case MaybeKind.Just:
-            if (props.pageKind.value === PageKind.Last)
-            {
+            if (
+                props.pageKind.value === PageKind.LastIncomplete
+                ||
+                props.pageKind.value === PageKind.LastComplete
+                ||
+                props.pageKind.value === PageKind.OnlyIncomplete
+                ||
+                props.pageKind.value === PageKind.OnlyComplete
+            ) {
                 return 'Check For New Molecules';
             }
             else

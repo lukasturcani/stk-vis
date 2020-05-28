@@ -7,7 +7,7 @@ import {
 
 
 export function pageKindReducer(
-    state: PageKind = PageKind.Only,
+    state: PageKind = PageKind.OnlyIncomplete,
     action: AnyAction,
 )
     : PageKind
@@ -15,10 +15,6 @@ export function pageKindReducer(
     if (updateTable.match(action))
     {
         return action.payload.pageKind;
-    }
-    if (setLastPage.match(action))
-    {
-        return PageKind.Last;
     }
     return state;
 }

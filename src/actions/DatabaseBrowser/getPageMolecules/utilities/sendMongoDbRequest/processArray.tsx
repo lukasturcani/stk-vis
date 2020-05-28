@@ -27,7 +27,8 @@ export const processArray: processArrayInterface =
 {
     if (items === undefined || items.length === 0)
     {
-        options.dispatch(setLastPage());
+        // Dispatch an action saying successful request - but there
+        // really aren't any new molecules.
         return;
     }
 
@@ -38,22 +39,33 @@ export const processArray: processArrayInterface =
         // The requests number of items should be numEntriesPerPage+1.
         = items.length <= options.numEntriesPerPage;
 
-    let pageKind: PageKind
-        = PageKind.Last;
+    const isIncomplete: boolean
+        = items.length < options.numEntriesPerPage;
 
-    if (isFirstPage && isLastPage)
+    let pageKind: PageKind
+        = PageKind.First;
+
+    if (isFirstPage && isLastPage && isIncomplete)
     {
-        pageKind = PageKind.Only;
+        pageKind = PageKind.OnlyIncomplete;
     }
-    if (isFirstPage && !isLastPage)
+    else if (isFirstPage && isLastPage && !isIncomplete)
+    {
+        pageKind = PageKind.OnlyComplete;
+    }
+    else if (isFirstPage && !isLastPage)
     {
         pageKind = PageKind.First;
     }
-    if (!isFirstPage && isLastPage)
+    else if (!isFirstPage && isLastPage && isIncomplete)
     {
-        pageKind = PageKind.Last;
+        pageKind = PageKind.LastIncomplete;
     }
-    if (!isFirstPage && !isLastPage)
+    else if (!isFirstPage && isLastPage && !isIncomplete)
+    {
+        pageKind = PageKind.LastComplete;
+    }
+    else if (!isFirstPage && !isLastPage)
     {
         pageKind = PageKind.Middle;
     }
