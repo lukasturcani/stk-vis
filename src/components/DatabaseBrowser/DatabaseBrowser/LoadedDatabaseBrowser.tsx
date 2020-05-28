@@ -16,6 +16,7 @@ import {
 import { MongoDbFieldsComponent } from '../MongoDbFields';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 
 
 interface ILoadedDatabaseBrowserProps
@@ -28,10 +29,24 @@ interface ILoadedDatabaseBrowserProps
 function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
 {
     return (
-        <Container><Grid container spacing={5}>
-            <Grid item xs={12}><MongoDbFieldsComponent /></Grid>
-            <Grid item xs={12}><MoleculeTableComponent /></Grid>
-            <Grid item xs={12}>
+        <Container><Grid container
+            style={{height: '100%'}}
+            spacing={3}
+        >
+            <Grid item xs={12}
+                style={{height: '25%'}}
+            >
+                <MongoDbFieldsComponent />
+            </Grid>
+            <Grid
+                item xs={12}
+                style={ {height: '50%', overflow: 'auto'} }
+            >
+                <MoleculeTableComponent />
+            </Grid>
+            <Grid item xs={12}
+                style={{height: '25%'}}
+            >
             {
                 !(
                     props.pageKind === PageKind.First

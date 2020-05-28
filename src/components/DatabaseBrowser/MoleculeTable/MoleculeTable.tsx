@@ -31,21 +31,23 @@ interface IMoleculeTableProps {
 
 function MoleculeTable({columns, moleculeIds}: IMoleculeTableProps) {
     return (
-        <Box overflow='auto' height='75vh'><Paper><TableContainer><Table>
-                <TableHead>
-                    <TableRow>{columns.map(
-                        column => <TableCell key={column}>
-                            {column}
-                        </TableCell>
-                    )}</TableRow>
-                </TableHead>
-                <TableBody>{moleculeIds.map(
-                    moleculeId => <Row
-                        key={moleculeId}
-                        moleculeId={moleculeId}
-                    />
-                )}</TableBody>
-        </Table></TableContainer></Paper></Box>
+        <Paper
+            style={{height: '100%', overflow: 'auto'}}
+        ><TableContainer><Table>
+            <TableHead>
+                <TableRow>{columns.map(
+                    column => <TableCell key={column}>
+                        {column}
+                    </TableCell>
+                )}</TableRow>
+            </TableHead>
+            <TableBody>{moleculeIds.map(
+                moleculeId => <Row
+                    key={moleculeId}
+                    moleculeId={moleculeId}
+                />
+            )}</TableBody>
+        </Table></TableContainer></Paper>
     )
 };
 
