@@ -7,7 +7,7 @@ import {
     getPropertyPromise,
     getMoleculeId
 } from '../utilities';
-import { updateTable, setLastPage } from '../../../../../actions';
+import { updateTable } from '../../../../../actions';
 import { PageKind } from '../../../../../models';
 import {
     processArrayInterface,

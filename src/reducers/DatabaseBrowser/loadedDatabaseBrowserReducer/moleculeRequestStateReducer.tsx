@@ -6,7 +6,6 @@ import {
 import {
     updateTable,
     sendMoleculeRequest,
-    setLastPage,
 } from '../../../actions';
 
 
@@ -24,11 +23,8 @@ export function moleculeRequestStateReducer(
             kind: MoleculeRequestStateKind.RequestSent,
         };
     }
-    if (
-        updateTable.match(action)
-        ||
-        setLastPage.match(action)
-    ) {
+    if (updateTable.match(action))
+    {
         return {
             kind: MoleculeRequestStateKind.RequestSucceeded,
         };

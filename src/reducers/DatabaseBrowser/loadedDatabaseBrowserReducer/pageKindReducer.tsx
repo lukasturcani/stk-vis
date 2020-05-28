@@ -2,7 +2,6 @@ import { AnyAction } from '@reduxjs/toolkit';
 import { PageKind } from '../../../models';
 import {
     updateTable,
-    setLastPage,
 } from '../../../actions';
 
 
