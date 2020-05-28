@@ -70,6 +70,7 @@ export function maybeGetPageIndex(
 export function getNextPageIndex(
     pageIndex: Maybe<number>,
     isForward: boolean,
+    pageKind: Maybe<PageKind>,
 )
     : number
 {

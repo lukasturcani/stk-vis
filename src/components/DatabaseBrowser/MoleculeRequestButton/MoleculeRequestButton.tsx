@@ -21,7 +21,11 @@ function MoleculeRequestButton(props: MoleculeRequestButtonProps)
     return (
         <Button onClick={
                 props.dispatchPageRequest(
-                    getNextPageIndex(props.pageIndex, props.isForward)
+                    getNextPageIndex(
+                        props.pageIndex,
+                        props.isForward,
+                        props.pageKind,
+                    )
                 )
         } >
             { getButtonLabel(props) }

@@ -22,7 +22,10 @@ export const onConnection: onConnectionInterface =
             *
             options.numEntriesPerPage
         )
-        .limit(options.numEntriesPerPage);
+        // Add +1 to check if there is another entry on the next page,
+        // which is used to determine if the current page is the last
+        // page.
+        .limit(options.numEntriesPerPage+1);
 
     cursor.toArray(processArray({ ...options, cursor, client }));
 
