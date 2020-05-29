@@ -21,6 +21,7 @@ import {
 import  { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from './theme';
 import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 interface IDatabaseBrowserProps
@@ -52,6 +53,7 @@ function ThemedDatabaseBrowser(props: IDatabaseBrowserProps)
 {
     return (
         <ThemeProvider theme={theme} >
+            <CssBaseline />
             { DatabaseBrowser(props) }
         </ThemeProvider>
     )

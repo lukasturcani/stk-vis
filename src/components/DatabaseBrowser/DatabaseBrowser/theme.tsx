@@ -4,6 +4,9 @@ import Paper from '@material-ui/core/Paper';
 
 
 export const theme = createMuiTheme({
+    palette: {
+        type: 'dark',
+    },
     props: {
         MuiButton: {
             variant: 'contained',
