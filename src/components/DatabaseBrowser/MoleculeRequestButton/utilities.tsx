@@ -10,17 +10,21 @@ import {
 export function assertNever(arg: never): never { throw Error(); }
 
 
+interface IPageData
+{
+    pageIndex: number;
+    pageKind: PageKind;
+}
+
+
 export interface MoleculeRequestButtonProps
 {
-    pageIndex: Maybe<number>;
-
+    pageData: Maybe<IPageData>;
     dispatchPageRequest:
         (
             pageIndex: number,
             successSnackbar:  (message: string) => void
         ) => () => void;
-
-    pageKind: Maybe<PageKind>;
     isForward: boolean;
 }
 
@@ -33,20 +37,23 @@ export function getButtonLabel(props: MoleculeRequestButtonProps)
         return 'Previous Molecules';
     }
 
-    switch (props.pageKind.kind)
+    const pageData: Maybe<IPageData>
+        = props.pageData;
+
+    switch (pageData.kind)
     {
         case MaybeKind.Nothing:
             return 'Get Molecules';
 
         case MaybeKind.Just:
             if (
-                props.pageKind.value === PageKind.LastIncomplete
+                pageData.value.pageKind === PageKind.LastIncomplete
                 ||
-                props.pageKind.value === PageKind.LastComplete
+                pageData.value.pageKind === PageKind.LastComplete
                 ||
-                props.pageKind.value === PageKind.OnlyIncomplete
+                pageData.value.pageKind === PageKind.OnlyIncomplete
                 ||
-                props.pageKind.value === PageKind.OnlyComplete
+                pageData.value.pageKind === PageKind.OnlyComplete
             ) {
                 return 'Check For New Molecules';
             }
@@ -56,59 +63,39 @@ export function getButtonLabel(props: MoleculeRequestButtonProps)
             }
 
         default:
-            assertNever(props.pageKind);
-    }
-}
-
-
-export function maybeGetPageIndex(
-    state: IDatabaseBrowser,
-)
-    : Maybe<number>
-{
-    switch(state.kind)
-    {
-        case DatabaseBrowserKind.Initial:
-            return new Nothing();
-
-        case DatabaseBrowserKind.Loaded:
-            return new Just(getPageIndex(state));
-
-        default:
-            assertNever(state);
+            assertNever(pageData);
     }
 }
 
 
 export function getNextPageIndex(
-    pageIndex: Maybe<number>,
+    pageData: Maybe<IPageData>,
     isForward: boolean,
-    pageKind: Maybe<PageKind>,
 )
     : number
 {
-    switch(pageIndex.kind)
+    switch(pageData.kind)
     {
         case MaybeKind.Just:
 
             const increment: number
                 = (isForward)? 1 : -1;
 
-            return pageIndex.value+increment;
+            return pageData.value.pageIndex+increment;
 
         case MaybeKind.Nothing:
             return 0;
 
         default:
-            assertNever(pageIndex);
+            assertNever(pageData);
     }
 }
 
 
-export function maybeGetPageKind(
+export function maybeGetPageData(
     state: IDatabaseBrowser,
 )
-    : Maybe<PageKind>
+    : Maybe<IPageData>
 {
     switch(state.kind)
     {
@@ -116,7 +103,10 @@ export function maybeGetPageKind(
             return new Nothing();
 
         case DatabaseBrowserKind.Loaded:
-            return new Just(getPageKind(state));
+            return new Just({
+                pageIndex: getPageIndex(state),
+                pageKind: getPageKind(state),
+            });
 
         default:
             assertNever(state);

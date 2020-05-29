@@ -7,8 +7,7 @@ import {
 } from '../../../models';
 import {
     MoleculeRequestButtonProps,
-    maybeGetPageIndex,
-    maybeGetPageKind,
+    maybeGetPageData,
     getButtonLabel,
     getNextPageIndex,
 } from './utilities';
@@ -49,9 +48,8 @@ function MoleculeRequestButton(props: MoleculeRequestButtonProps)
             <Button onClick={
                     props.dispatchPageRequest(
                         getNextPageIndex(
-                            props.pageIndex,
+                            props.pageData,
                             props.isForward,
-                            props.pageKind,
                         ),
                         successSnackbar,
                     )
@@ -72,8 +70,7 @@ function MoleculeRequestButton(props: MoleculeRequestButtonProps)
 
 const mapStateToProps = (state: IDatabaseBrowser) => {
     return {
-        pageIndex: maybeGetPageIndex(state),
-        pageKind: maybeGetPageKind(state),
+        pageData: maybeGetPageData(state),
     };
 };
 
