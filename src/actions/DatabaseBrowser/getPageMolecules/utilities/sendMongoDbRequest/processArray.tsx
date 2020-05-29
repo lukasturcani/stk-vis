@@ -13,6 +13,7 @@ import {
 } from '../../../../../actions';
 import {
     MaybeKind,
+    Maybe,
 } from '../../../../../utilities';
 import {
     PageKind,
@@ -34,6 +35,17 @@ export const processArray: processArrayInterface =
     (options: processArrayOptions) =>
     (err: MongoError, items: IDbEntry[]) =>
 {
+    if (err !== null)
+    {
+        options.dispatch(
+            setMoleculeRequestState(
+                MoleculeRequestStateKind.RequestFailed
+            )
+        );
+        options.errorSnackbar('Could not find entries in database.');
+        return;
+    }
+
     if (items.length === 0)
     {
         options.dispatch(
@@ -41,7 +53,7 @@ export const processArray: processArrayInterface =
                 MoleculeRequestStateKind.RequestSucceeded
             )
         );
-        options.successSnackbar('There are no new molecules!');
+        options.successSnackbar('Did not find any molecules!');
         return;
     }
 
@@ -89,14 +101,13 @@ export const processArray: processArrayInterface =
     const query: IPropertyQuery
         = getPropertyQuery(data);
 
-    const propertyPromises: Promise<IPropertyResults>[]
+    const propertyPromises: Promise<Maybe<IPropertyResults>>[]
         = options.propertyCollections.map(
-            getPropertyPromise
-            (options.client)(options.database)(query)
+            getPropertyPromise({...options, query})
         ).map(promise => promise.then(extractPropertyData(data)));
 
     Promise.all(propertyPromises).then(
-        (properties: IPropertyResults[]) =>
+        (properties: Maybe<IPropertyResults>[]) =>
         {
             options.dispatch(updateTable({
                 molecules: data.molecules,

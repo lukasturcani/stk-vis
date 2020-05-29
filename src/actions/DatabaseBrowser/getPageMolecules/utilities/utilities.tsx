@@ -4,11 +4,18 @@ import {
     Nothing,
     MaybeKind,
 } from '../../../../utilities';
-import { MongoClient, Cursor } from 'mongodb';
+import { MongoError, MongoClient, Cursor } from 'mongodb';
 import { IMoleculeIds } from './IMoleculeIds';
 import { IPropertyQuery } from './getPropertyQuery';
 import { IDbEntry } from './IDbEntry';
 import { IDatabaseData } from './getDatabaseData';
+import { AnyAction } from '@reduxjs/toolkit';
+import {
+    setMoleculeRequestState,
+} from '../../../../actions';
+import {
+    MoleculeRequestStateKind,
+} from '../../../../models';
 
 
 export function assertNever(arg: never): never { throw Error(); }
@@ -21,41 +28,44 @@ export interface IPropertyResults
 }
 
 
-interface getPropertyPromiseSignature
+interface getPropertyPromiseOptions
 {
-    (client: MongoClient):
-    (database: string) =>
-    (query: IPropertyQuery) =>
-    (collectionName: string) =>
-    Promise<IPropertyResults>
+    client: MongoClient;
+    database: string;
+    query: IPropertyQuery;
+    dispatch: (action: AnyAction) => void;
+    errorSnackbar: (message: string) => void;
 }
 
 
-export const getPropertyPromise: getPropertyPromiseSignature =
-    (client: MongoClient) =>
-    (database: string) =>
-    (query: IPropertyQuery) =>
-    (collectionName: string) => {
-
+export function getPropertyPromise(
+    options: getPropertyPromiseOptions,
+)
+    : (collectionName: string) => Promise<Maybe<IPropertyResults>>
+{
+    return (collectionName: string) => {
         const collection
-            = client
-            .db(database)
+            = options.client
+            .db(options.database)
             .collection(collectionName);
 
         const cursor: Cursor
-            = collection.find(query);
+            = collection.find(options.query);
 
-        return cursor.toArray().then(
-            (result: IDbEntry[]) =>
-            {
-                cursor.close();
-                return {
-                    collectionName: collectionName,
-                    propertyValues: result,
-                };
-            }
-        );
+        return cursor.toArray()
+            .then(
+                (result: IDbEntry[]) =>
+                {
+                    cursor.close();
+                    return new Just({
+                        collectionName: collectionName,
+                        propertyValues: result,
+                    });
+                }
+            )
+            .catch(handleFailedPropertyRequest(options))
     };
+}
 
 
 
@@ -80,46 +90,81 @@ export function getMoleculeId(
 }
 
 
-interface extractPropertyDataSignature
+
+export function extractPropertyData(
+    data: IDatabaseData,
+)
+    : (r: Maybe<IPropertyResults>) => Maybe<IPropertyResults>
 {
-    (data: IDatabaseData):
-    (propertyResults: IPropertyResults) =>
-    IPropertyResults
-}
-
-
-export const extractPropertyData: extractPropertyDataSignature =
-    (data: IDatabaseData) =>
-    (propertyResults: IPropertyResults) =>
-{
-    data.columnValues[propertyResults.collectionName] = {};
-
-    for (let value of propertyResults.propertyValues)
-    {
-        const moleculeId: Maybe<number>
-            = getMoleculeId(data.moleculeIds, value);
-
-        switch(moleculeId.kind)
+    return (propertyResults: Maybe<IPropertyResults>) => {
+        switch (propertyResults.kind)
         {
-            case MaybeKind.Just:
-                data.columnValues
-                [propertyResults.collectionName]
-                [moleculeId.value]
-                    = value['v'];
+            case MaybeKind.Nothing:
                 break;
 
-            case MaybeKind.Nothing:
+            case MaybeKind.Just:
+                data.columnValues[propertyResults.value.collectionName]
+                    = {};
 
-                throw Error(
-                    'No molecule id was found. This ' +
-                    'should never happen.'
-                );
+                for (let value of propertyResults.value.propertyValues)
+                {
+                    const moleculeId: Maybe<number>
+                        = getMoleculeId(data.moleculeIds, value);
+
+                    switch(moleculeId.kind)
+                    {
+                        case MaybeKind.Just:
+                            data.columnValues
+                            [propertyResults.value.collectionName]
+                            [moleculeId.value]
+                                = value['v'];
+                            break;
+
+                        case MaybeKind.Nothing:
+
+                            throw Error(
+                                'No molecule id was found. This ' +
+                                'should never happen.'
+                            );
+                            break;
+
+                        default:
+                            assertNever(moleculeId);
+
+                    }
+                }
+
                 break;
 
             default:
-                assertNever(moleculeId);
+                assertNever(propertyResults)
+                break;
 
         }
-    }
-    return propertyResults;
-};
+        return propertyResults;
+    };
+}
+
+
+
+interface handleFailedPropertyRequestOptions
+{
+    dispatch: (action: AnyAction) => void;
+    errorSnackbar: (message: string) => void;
+}
+
+export function handleFailedPropertyRequest(
+    options: handleFailedPropertyRequestOptions,
+)
+    : (err: MongoError) => Nothing
+{
+    return (err: MongoError) =>{
+        options.dispatch(
+            setMoleculeRequestState(
+                MoleculeRequestStateKind.RequestFailed
+            )
+        );
+        options.errorSnackbar('Could not find collection.');
+        return new Nothing();
+    };
+}

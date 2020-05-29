@@ -27,7 +27,7 @@ export const onConnection: onConnectionInterface =
                 MoleculeRequestStateKind.RequestFailed
             )
         );
-        options.errorSnackbar('Could not connect to the database.')
+        options.errorSnackbar('Could not connect to the database.');
         return;
     }
     const cursor: Cursor
