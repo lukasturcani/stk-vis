@@ -43,7 +43,7 @@ function mapDispatchToProps(
                 getPageMolecules({
                     pageIndex: 0,
                     successSnackbar: (message: string) => {},
-                    failureSnackbar: (message: string) => {},
+                    errorSnackbar: (message: string) => {},
                 })
             ),
     };

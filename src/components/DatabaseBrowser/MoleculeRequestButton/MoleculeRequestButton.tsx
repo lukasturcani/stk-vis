@@ -27,22 +27,39 @@ function Alert(props: AlertProps) {
 
 function MoleculeRequestButton(props: MoleculeRequestButtonProps)
 {
-    const [open, setOpen] = React.useState(false);
+    const [successOpen, successSetOpen] = React.useState(false);
 
-    const [successMessage, setSuccessMessage]
+    const [successMessage, successSetMessage]
         = React.useState('Placerholder');
 
     const successSnackbar = (message: string) => {
-        setSuccessMessage(message);
-        setOpen(true);
+        successSetMessage(message);
+        successSetOpen(true);
     };
-    const handleClose
+    const successHandleClose
         = (event?: React.SyntheticEvent, reason?: string) => {
             if (reason === 'clickaway') {
                 return;
             }
 
-            setOpen(false);
+            successSetOpen(false);
+        };
+    const [errorOpen, errorSetOpen] = React.useState(false);
+
+    const [errorMessage, errorSetMessage]
+        = React.useState('Placerholder');
+
+    const errorSnackbar = (message: string) => {
+        errorSetMessage(message);
+        errorSetOpen(true);
+    };
+    const errorHandleClose
+        = (event?: React.SyntheticEvent, reason?: string) => {
+            if (reason === 'clickaway') {
+                return;
+            }
+
+            errorSetOpen(false);
         };
 
     return (
@@ -54,18 +71,32 @@ function MoleculeRequestButton(props: MoleculeRequestButtonProps)
                             props.isForward,
                         ),
                         successSnackbar,
-                        failureSnackbar: (a: string) => {},
+                        errorSnackbar,
                     })
             } >
                 { getButtonLabel(props) }
             </Button>
             <Snackbar
-                open={ open }
-                autoHideDuration={3000}
-                onClose={ handleClose }
-            ><Alert severity='success' onClose={ handleClose }>
-                { successMessage }
-            </Alert></Snackbar>
+                open={ successOpen }
+                autoHideDuration={6000}
+                onClose={ successHandleClose }
+            >
+                <Alert
+                    severity='success'
+                    onClose={ successHandleClose }
+                >
+                    { successMessage }
+                </Alert>
+            </Snackbar>
+            <Snackbar
+                open={ errorOpen }
+                autoHideDuration={6000}
+                onClose={ errorHandleClose }
+            >
+                <Alert severity='error' onClose={ errorHandleClose }>
+                    { errorMessage }
+                </Alert>
+            </Snackbar>
         </div>
     );
 };

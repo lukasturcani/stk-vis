@@ -23,6 +23,7 @@ export interface onConnectionOptions
     pageIndex: number;
     currentPageData: Maybe<IPageData>;
     successSnackbar: (message: string) => void;
+    errorSnackbar: (message: string) => void;
 }
 
 

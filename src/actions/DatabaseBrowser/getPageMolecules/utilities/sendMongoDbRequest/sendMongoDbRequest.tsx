@@ -28,7 +28,7 @@ interface sendMongoDbRequestOptions
     state: IInitialDatabaseBrowser | ILoadedDatabaseBrowser;
     pageIndex: number;
     successSnackbar: (message: string) => void;
-    failureSnackbar: (message: string) => void;
+    errorSnackbar: (message: string) => void;
     dispatch: (arg: AnyAction) => void;
 }
 
