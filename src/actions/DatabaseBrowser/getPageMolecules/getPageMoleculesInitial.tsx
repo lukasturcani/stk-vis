@@ -15,28 +15,30 @@ import {
 import { assertNever, sendMongoDbRequest } from './utilities';
 
 
+interface getPageMoleculesInitialOptions
+{
+    pageIndex: number;
+    successSnackbar: (message: string) => void;
+    failureSnackbar: (message: string) => void;
+    dispatch: (arg: AnyAction) => void;
+    state: IInitialDatabaseBrowser;
+}
+
+
 export function getPageMoleculesInitial(
-    pageIndex: number,
-    successSnackbar: (message: string) => void,
-    dispatch: (arg: AnyAction) => void,
-    state: IInitialDatabaseBrowser,
+    options: getPageMoleculesInitialOptions,
 )
     : void
 {
     const initialRequestState: IInitialRequestState
-        = getInitialRequestState(state);
+        = getInitialRequestState(options.state);
 
     switch (initialRequestState.kind) {
         case InitialRequestStateKind.NoRequestSent:
         case InitialRequestStateKind.RequestSucceeded:
         case InitialRequestStateKind.RequestFailed:
-            dispatch(sendMoleculeRequest());
-            sendMongoDbRequest(
-                state,
-                pageIndex,
-                successSnackbar,
-                dispatch,
-            );
+            options.dispatch(sendMoleculeRequest());
+            sendMongoDbRequest(options);
             break;
 
         case InitialRequestStateKind.RequestSent:

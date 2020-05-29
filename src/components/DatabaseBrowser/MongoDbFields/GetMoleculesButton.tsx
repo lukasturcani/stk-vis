@@ -40,7 +40,11 @@ function mapDispatchToProps(
     return {
         getFirstPage:
             () => dispatch(
-                getPageMolecules(0, () => {})
+                getPageMolecules({
+                    pageIndex: 0,
+                    successSnackbar: (message: string) => {},
+                    failureSnackbar: (message: string) => {},
+                })
             ),
     };
 }

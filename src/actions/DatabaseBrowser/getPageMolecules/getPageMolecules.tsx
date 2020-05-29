@@ -5,12 +5,17 @@ import { getPageMoleculesLoaded } from './getPageMoleculesLoaded';
 import { assertNever } from './utilities';
 
 
+export interface getPageMoleculesOptions
+{
+    pageIndex: number;
+    successSnackbar: (message: string) => void;
+    failureSnackbar: (message: string) => void;
+}
+
+
 interface getPageMoleculesInterface
 {
-    (
-        pageIndex: number,
-        successSnackbar: (message: string) => void
-    ):
+    (options: getPageMoleculesOptions):
     (
         dispatch: (arg: AnyAction) => void,
         getState: () => IState,
@@ -19,10 +24,7 @@ interface getPageMoleculesInterface
 
 
 export const getPageMolecules: getPageMoleculesInterface =
-    (
-        pageIndex: number,
-        successSnackbar: (message: string) => void,
-    ) =>
+    (options: getPageMoleculesOptions) =>
     (
         dispatch: (arg: AnyAction) => void,
         getState: () => IState,
@@ -32,21 +34,19 @@ export const getPageMolecules: getPageMoleculesInterface =
         switch (state.kind) {
 
             case DatabaseBrowserKind.Initial:
-                getPageMoleculesInitial(
-                    pageIndex,
-                    successSnackbar,
+                getPageMoleculesInitial({
+                    ...options,
                     dispatch,
                     state,
-                );
+                });
                 break;
 
             case DatabaseBrowserKind.Loaded:
-                getPageMoleculesLoaded(
-                    pageIndex,
-                    successSnackbar,
+                getPageMoleculesLoaded({
+                    ...options,
                     dispatch,
                     state,
-                );
+                });
                 break;
 
             default:

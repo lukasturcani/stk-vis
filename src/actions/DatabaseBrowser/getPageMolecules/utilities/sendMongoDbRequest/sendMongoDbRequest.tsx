@@ -22,41 +22,46 @@ import {
 } from '../../../../../utilities';
 import { IPageData } from './interfaces';
 
+
+interface sendMongoDbRequestOptions
+{
+    state: IInitialDatabaseBrowser | ILoadedDatabaseBrowser;
+    pageIndex: number;
+    successSnackbar: (message: string) => void;
+    failureSnackbar: (message: string) => void;
+    dispatch: (arg: AnyAction) => void;
+}
+
 export function sendMongoDbRequest(
-    state: IInitialDatabaseBrowser | ILoadedDatabaseBrowser,
-    pageIndex: number,
-    successSnackbar: (message: string) => void,
-    dispatch: (arg: AnyAction) => void,
+    options: sendMongoDbRequestOptions,
 )
     : void
 {
     const url: string
-        = getMongoDbUrl(state);
+        = getMongoDbUrl(options.state);
 
     const database: string
-        = getMongoDbDatabase(state);
+        = getMongoDbDatabase(options.state);
 
     const moleculesCollection: string
-        = getMongoDbMoleculeCollection(state);
+        = getMongoDbMoleculeCollection(options.state);
 
     const propertyCollections: string[]
-        = getMongoDbPropertyCollections(state);
+        = getMongoDbPropertyCollections(options.state);
 
     const numEntriesPerPage: number
-        = getNumEntriesPerPage(state);
+        = getNumEntriesPerPage(options.state);
 
     const currentPageData: Maybe<IPageData>
-        = maybeGetPageData(state);
+        = maybeGetPageData(options.state);
 
     MongoClient.connect(url, onConnection({
         database,
         moleculesCollection,
         propertyCollections,
-        dispatch,
         numEntriesPerPage,
-        pageIndex,
         currentPageData,
-        successSnackbar,
+        ...options
     }));
 }
 

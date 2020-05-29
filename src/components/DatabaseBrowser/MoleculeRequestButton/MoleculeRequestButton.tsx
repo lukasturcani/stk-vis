@@ -11,7 +11,10 @@ import {
     getButtonLabel,
     getNextPageIndex,
 } from './utilities';
-import { getPageMolecules } from '../../../actions';
+import {
+    getPageMolecules,
+    getPageMoleculesOptions,
+} from '../../../actions';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
@@ -45,13 +48,14 @@ function MoleculeRequestButton(props: MoleculeRequestButtonProps)
     return (
         <div>
             <Button onClick={
-                    props.dispatchPageRequest(
-                        getNextPageIndex(
+                    props.dispatchPageRequest({
+                        pageIndex: getNextPageIndex(
                             props.pageData,
                             props.isForward,
                         ),
                         successSnackbar,
-                    )
+                        failureSnackbar: (a: string) => {},
+                    })
             } >
                 { getButtonLabel(props) }
             </Button>
@@ -78,11 +82,8 @@ function mapDispatchToProps(dispatch: (arg: any) => any)
 {
     return {
         dispatchPageRequest:
-            (
-                pageIndex: number,
-                successSnackbar: (message: string) => void,
-            ) => () =>
-                dispatch(getPageMolecules(pageIndex, successSnackbar)),
+            (options: getPageMoleculesOptions) => () =>
+                dispatch(getPageMolecules(options)),
     };
 };
 

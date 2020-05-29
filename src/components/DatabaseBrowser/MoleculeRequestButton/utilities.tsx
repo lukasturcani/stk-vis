@@ -5,6 +5,7 @@ import {
     DatabaseBrowserKind,
     PageKind,
 } from '../../../models';
+import { getPageMoleculesOptions } from '../../../actions';
 
 
 export function assertNever(arg: never): never { throw Error(); }
@@ -21,10 +22,7 @@ export interface MoleculeRequestButtonProps
 {
     pageData: Maybe<IPageData>;
     dispatchPageRequest:
-        (
-            pageIndex: number,
-            successSnackbar:  (message: string) => void
-        ) => () => void;
+        (options: getPageMoleculesOptions) => () => void;
     isForward: boolean;
 }
 

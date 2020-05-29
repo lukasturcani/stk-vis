@@ -13,27 +13,29 @@ import {
 import { assertNever, sendMongoDbRequest } from './utilities';
 
 
+interface getPageMoleculesLoadedOptions
+{
+    pageIndex: number;
+    successSnackbar: (message: string) => void;
+    failureSnackbar: (message: string) => void;
+    dispatch: (arg: AnyAction) => void;
+    state: ILoadedDatabaseBrowser;
+}
+
+
 export function getPageMoleculesLoaded(
-    pageIndex: number,
-    successSnackbar: (message: string) => void,
-    dispatch: (arg: AnyAction) => void,
-    state: ILoadedDatabaseBrowser,
+    options: getPageMoleculesLoadedOptions,
 )
     : void
 {
     const moleculeRequestState: IMoleculeRequestState
-        = getMoleculeRequestState(state);
+        = getMoleculeRequestState(options.state);
 
     switch (moleculeRequestState.kind) {
         case MoleculeRequestStateKind.RequestSucceeded:
         case MoleculeRequestStateKind.RequestFailed:
-            dispatch(sendMoleculeRequest());
-            sendMongoDbRequest(
-                state,
-                pageIndex,
-                successSnackbar,
-                dispatch,
-            );
+            options.dispatch(sendMoleculeRequest());
+            sendMongoDbRequest(options);
             break;
 
         case MoleculeRequestStateKind.RequestSent:
