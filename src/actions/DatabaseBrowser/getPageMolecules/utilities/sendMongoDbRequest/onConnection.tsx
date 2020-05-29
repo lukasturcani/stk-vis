@@ -5,6 +5,14 @@ import {
     onConnectionInterface,
     onConnectionOptions,
 } from './interfaces';
+import {
+    MoleculeRequestStateKind,
+} from '../../../../../models';
+
+
+import {
+    setMoleculeRequestState,
+} from '../../../../../actions';
 
 
 export const onConnection: onConnectionInterface =
@@ -12,6 +20,15 @@ export const onConnection: onConnectionInterface =
     (err: MongoError, client: MongoClient) =>
 {
 
+    if ( err !== null)
+    {
+        options.dispatch(
+            setMoleculeRequestState(
+                MoleculeRequestStateKind.RequestFailed
+            )
+        );
+        return;
+    }
     const cursor: Cursor
         = client
         .db(options.database)
