@@ -15,6 +15,7 @@ function Alert(props: AlertProps) {
 
 interface getFirstPageOptions
 {
+    successSnackbar: (message: string) => void;
     errorSnackbar: (message: string) => void;
 }
 
@@ -29,6 +30,23 @@ function GetMoleculesButton(
     props: IGetMoleculesButtonProps,
 )
 {
+    const [successOpen, successSetOpen] = React.useState(false);
+
+    const [successMessage, successSetMessage]
+        = React.useState('Placerholder');
+
+    const successSnackbar = (message: string) => {
+        successSetMessage(message);
+        successSetOpen(true);
+    };
+    const successHandleClose
+        = (event?: React.SyntheticEvent, reason?: string) => {
+            if (reason === 'clickaway') {
+                return;
+            }
+
+            successSetOpen(false);
+        };
     const [errorOpen, errorSetOpen] = React.useState(false);
 
     const [errorMessage, errorSetMessage]
@@ -50,11 +68,26 @@ function GetMoleculesButton(
         <div>
             <Button
                 onClick={
-                    props.getFirstPage({errorSnackbar})
+                    props.getFirstPage({
+                        successSnackbar,
+                        errorSnackbar,
+                    })
                 }
             >
                 Get Molecules
             </Button>
+            <Snackbar
+                open={ successOpen }
+                autoHideDuration={6000}
+                onClose={ successHandleClose }
+            >
+                <Alert
+                    severity='success'
+                    onClose={ successHandleClose }
+                >
+                    { successMessage }
+                </Alert>
+            </Snackbar>
             <Snackbar
                 open={ errorOpen }
                 autoHideDuration={6000}

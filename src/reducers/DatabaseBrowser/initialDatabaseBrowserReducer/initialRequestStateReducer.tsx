@@ -39,6 +39,16 @@ export function initialRequestStateReducer(
                 kind: InitialRequestStateKind.RequestFailed,
             };
         }
+        if (
+            action.payload
+            ===
+            MoleculeRequestStateKind.RequestSucceeded
+        )
+        {
+            return {
+                kind: InitialRequestStateKind.RequestSucceeded,
+            };
+        }
     }
     return state;
 }
