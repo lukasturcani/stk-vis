@@ -17,7 +17,7 @@ export const theme = createMuiTheme({
         MuiContainer: {
             root: {
                 height: '99vh',
-                overflow: 'auto',
+                paddingTop: '30px',
             },
         },
         MuiPaper: {
