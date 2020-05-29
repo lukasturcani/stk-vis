@@ -2,8 +2,13 @@ import { AnyAction } from '@reduxjs/toolkit';
 import {
     IInitialRequestState,
     InitialRequestStateKind,
+    MoleculeRequestStateKind,
 } from '../../../models';
-import { updateTable, sendMoleculeRequest } from '../../../actions';
+import {
+    updateTable,
+    sendMoleculeRequest,
+    setMoleculeRequestState,
+} from '../../../actions';
 
 
 export function initialRequestStateReducer(
@@ -25,6 +30,15 @@ export function initialRequestStateReducer(
         return {
             kind: InitialRequestStateKind.RequestSucceeded,
         };
+    }
+    if (setMoleculeRequestState.match(action))
+    {
+        if (action.payload === MoleculeRequestStateKind.RequestFailed)
+        {
+            return {
+                kind: InitialRequestStateKind.RequestFailed,
+            };
+        }
     }
     return state;
 }

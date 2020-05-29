@@ -4,11 +4,24 @@ import { IState } from '../../../models';
 import { AnyAction } from '@reduxjs/toolkit';
 import Button from '@material-ui/core/Button';
 import { getPageMolecules } from '../../../actions';
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+
+
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+
+interface getFirstPageOptions
+{
+    errorSnackbar: (message: string) => void;
+}
 
 
 interface IGetMoleculesButtonProps
 {
-    getFirstPage: () => void;
+    getFirstPage: (options: getFirstPageOptions) => () => void;
 }
 
 
@@ -16,10 +29,42 @@ function GetMoleculesButton(
     props: IGetMoleculesButtonProps,
 )
 {
+    const [errorOpen, errorSetOpen] = React.useState(false);
+
+    const [errorMessage, errorSetMessage]
+        = React.useState('Placerholder');
+
+    const errorSnackbar = (message: string) => {
+        errorSetMessage(message);
+        errorSetOpen(true);
+    };
+    const errorHandleClose
+        = (event?: React.SyntheticEvent, reason?: string) => {
+            if (reason === 'clickaway') {
+                return;
+            }
+
+            errorSetOpen(false);
+        };
     return (
-        <Button onClick={ props.getFirstPage } >
-            Get Molecules
-        </Button>
+        <div>
+            <Button
+                onClick={
+                    props.getFirstPage({errorSnackbar})
+                }
+            >
+                Get Molecules
+            </Button>
+            <Snackbar
+                open={ errorOpen }
+                autoHideDuration={6000}
+                onClose={ errorHandleClose }
+            >
+                <Alert severity='error' onClose={ errorHandleClose }>
+                    { errorMessage }
+                </Alert>
+            </Snackbar>
+        </div>
     );
 }
 
@@ -39,11 +84,11 @@ function mapDispatchToProps(
 {
     return {
         getFirstPage:
-            () => dispatch(
+            (options: getFirstPageOptions) => () => dispatch(
                 getPageMolecules({
                     pageIndex: 0,
                     successSnackbar: (message: string) => {},
-                    errorSnackbar: (message: string) => {},
+                    ...options,
                 })
             ),
     };
