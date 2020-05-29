@@ -9,9 +9,6 @@ import { sendMoleculeRequest } from '../sendMoleculeRequest';
 import { MongoClient } from 'mongodb';
 import {
     getMoleculeRequestState,
-    getMongoDbUrl,
-    getMongoDbDatabase,
-    getMongoDbMoleculeCollection,
 } from '../../../selectors';
 import { assertNever, sendMongoDbRequest } from './utilities';
 
@@ -26,10 +23,6 @@ export function getPageMoleculesLoaded(
 {
     const moleculeRequestState: IMoleculeRequestState
         = getMoleculeRequestState(state);
-    const url: string = getMongoDbUrl(state);
-    const database: string = getMongoDbDatabase(state);
-    const moleculesCollection: string
-        = getMongoDbMoleculeCollection(state);
 
     switch (moleculeRequestState.kind) {
         case MoleculeRequestStateKind.RequestSucceeded:

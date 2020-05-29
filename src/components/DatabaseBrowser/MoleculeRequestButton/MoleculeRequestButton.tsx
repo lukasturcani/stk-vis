@@ -30,7 +30,6 @@ function MoleculeRequestButton(props: MoleculeRequestButtonProps)
         = React.useState('Placerholder');
 
     const successSnackbar = (message: string) => {
-        console.log(message);
         setSuccessMessage(message);
         setOpen(true);
     };

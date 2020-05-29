@@ -1,6 +1,16 @@
 import { AnyAction } from '@reduxjs/toolkit'
 import { MongoClient, Cursor, MongoError } from 'mongodb';
 import { IDbEntry } from '../IDbEntry';
+import {
+    Maybe
+} from '../../../../../utilities';
+
+
+export interface IPageData
+{
+    numMolecules: number;
+    pageIndex: number;
+}
 
 
 export interface onConnectionOptions
@@ -11,6 +21,7 @@ export interface onConnectionOptions
     dispatch: (action: AnyAction) => void;
     numEntriesPerPage: number;
     pageIndex: number;
+    currentPageData: Maybe<IPageData>;
     successSnackbar: (message: string) => void;
 }
 

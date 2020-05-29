@@ -5,6 +5,7 @@ import {
     getMongoDbPropertyCollections,
     getPageIndex,
     getNumEntriesPerPage,
+    getTableMolecules,
 } from '../../../../../selectors';
 import {
     IInitialDatabaseBrowser,
@@ -14,7 +15,12 @@ import {
 import { MongoClient } from 'mongodb';
 import { AnyAction } from '@reduxjs/toolkit'
 import { onConnection } from './onConnection';
-
+import {
+    Maybe,
+    Nothing,
+    Just,
+} from '../../../../../utilities';
+import { IPageData } from './interfaces';
 
 export function sendMongoDbRequest(
     state: IInitialDatabaseBrowser | ILoadedDatabaseBrowser,
@@ -39,6 +45,9 @@ export function sendMongoDbRequest(
     const numEntriesPerPage: number
         = getNumEntriesPerPage(state);
 
+    const currentPageData: Maybe<IPageData>
+        = maybeGetPageData(state);
+
     MongoClient.connect(url, onConnection({
         database,
         moleculesCollection,
@@ -46,6 +55,33 @@ export function sendMongoDbRequest(
         dispatch,
         numEntriesPerPage,
         pageIndex,
+        currentPageData,
         successSnackbar,
     }));
 }
+
+
+
+function maybeGetPageData(
+    state: IInitialDatabaseBrowser | ILoadedDatabaseBrowser,
+)
+    : Maybe<IPageData>
+{
+    switch(state.kind)
+    {
+        case DatabaseBrowserKind.Initial:
+            return new Nothing();
+
+        case DatabaseBrowserKind.Loaded:
+            return new Just({
+                pageIndex: getPageIndex(state),
+                numMolecules: getTableMolecules(state).length,
+            });
+
+        default:
+            assertNever(state);
+    }
+}
+
+
+function assertNever(arg: never): never { throw Error(); }

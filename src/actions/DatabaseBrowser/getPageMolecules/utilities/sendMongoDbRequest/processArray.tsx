@@ -12,6 +12,9 @@ import {
     setMoleculeRequestState,
 } from '../../../../../actions';
 import {
+    MaybeKind,
+} from '../../../../../utilities';
+import {
     PageKind,
     MoleculeRequestStateKind,
 } from '../../../../../models';
@@ -103,6 +106,39 @@ export const processArray: processArrayInterface =
             }));
             options.cursor.close();
             options.client.close();
+
+            switch (options.currentPageData.kind)
+            {
+                case MaybeKind.Nothing:
+                    break;
+
+                case MaybeKind.Just:
+                    const noNewMolecules: boolean
+                        = (
+                            data.molecules.length
+                            <=
+                            options.currentPageData.value.numMolecules
+                        );
+
+                    const isSamePage: boolean
+                        = (
+                            options.pageIndex
+                            ===
+                            options.currentPageData.value.pageIndex
+                        );
+
+                    if (isSamePage && noNewMolecules)
+                    {
+                        options.successSnackbar(
+                            'There are no new molecules!'
+                        );
+                    }
+                    break;
+
+                default:
+                    assertNever(options.currentPageData);
+
+            }
         }
     );
 }
