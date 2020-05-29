@@ -1,35 +1,56 @@
-import { IDbEntry } from '../IDbEntry';
-import { MongoError } from 'mongodb';
-import { getDatabaseData, IDatabaseData } from '../getDatabaseData';
-import { getPropertyQuery, IPropertyQuery } from '../getPropertyQuery';
-import {
-    assertNever,
-    getPropertyPromise,
-    getMoleculeId,
-} from '../utilities';
+import { AnyAction } from '@reduxjs/toolkit';
+import { MongoError, MongoClient, Cursor } from 'mongodb';
 import {
     updateTable,
     setMoleculeRequestState,
-} from '../../../../../actions';
+} from '../../../../../../../../../actions';
 import {
     MaybeKind,
     Maybe,
-} from '../../../../../utilities';
+} from '../../../../../../../../../utilities';
 import {
     PageKind,
     MoleculeRequestStateKind,
-} from '../../../../../models';
+} from '../../../../../../../../../models';
+import { IPageData } from '../../../IPageData';
 import {
-    processArrayInterface,
-    processArrayOptions,
-} from './interfaces';
-import {
+    getPageKind,
+    IDbEntry,
+    getDatabaseData,
+    IDatabaseData,
+    getPropertyQuery,
+    IPropertyQuery,
     extractPropertyData,
+    getPropertyPromise,
     IPropertyResults,
-} from '../utilities';
+} from './utilities';
 
 
 
+interface processArrayOptions
+{
+    database: string;
+    moleculesCollection: string;
+    propertyCollections: string[];
+    dispatch: (action: AnyAction) => void;
+    numEntriesPerPage: number;
+    pageIndex: number;
+    currentPageData: Maybe<IPageData>;
+    successSnackbar: (message: string) => void;
+    errorSnackbar: (message: string) => void;
+    client: MongoClient;
+    cursor: Cursor;
+}
+
+
+function assertNever(arg: never): never { throw Error(); }
+
+
+interface processArrayInterface
+{
+    (options: processArrayOptions):
+    (err: MongoError, item: IDbEntry[]) => void
+}
 
 export const processArray: processArrayInterface =
     (options: processArrayOptions) =>
@@ -57,43 +78,12 @@ export const processArray: processArrayInterface =
         return;
     }
 
-    const isFirstPage: boolean
-        = options.pageIndex === 0;
-
-    const isLastPage: boolean
-        // The requests number of items should be numEntriesPerPage+1.
-        = items.length <= options.numEntriesPerPage;
-
-    const isIncomplete: boolean
-        = items.length < options.numEntriesPerPage;
-
-    let pageKind: PageKind
-        = PageKind.First;
-
-    if (isFirstPage && isLastPage && isIncomplete)
-    {
-        pageKind = PageKind.OnlyIncomplete;
-    }
-    else if (isFirstPage && isLastPage && !isIncomplete)
-    {
-        pageKind = PageKind.OnlyComplete;
-    }
-    else if (isFirstPage && !isLastPage)
-    {
-        pageKind = PageKind.First;
-    }
-    else if (!isFirstPage && isLastPage && isIncomplete)
-    {
-        pageKind = PageKind.LastIncomplete;
-    }
-    else if (!isFirstPage && isLastPage && !isIncomplete)
-    {
-        pageKind = PageKind.LastComplete;
-    }
-    else if (!isFirstPage && !isLastPage)
-    {
-        pageKind = PageKind.Middle;
-    }
+    const pageKind: PageKind
+        = getPageKind({
+            numItems: items.length,
+            pageIndex: options.pageIndex,
+            numEntriesPerPage: options.numEntriesPerPage,
+        });
 
     const data: IDatabaseData
         = getDatabaseData(items.slice(0, options.numEntriesPerPage));
