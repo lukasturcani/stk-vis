@@ -78,6 +78,23 @@ export function getNextPageIndex(
     {
         case MaybeKind.Just:
 
+            if (
+                isForward
+                &&
+                pageData.value.pageKind === PageKind.OnlyIncomplete
+            )
+            {
+                return pageData.value.pageIndex;
+            }
+            if (
+                isForward
+                &&
+                pageData.value.pageKind === PageKind.LastIncomplete
+            )
+            {
+                return pageData.value.pageIndex;
+            }
+
             const increment: number
                 = (isForward)? 1 : -1;
 
