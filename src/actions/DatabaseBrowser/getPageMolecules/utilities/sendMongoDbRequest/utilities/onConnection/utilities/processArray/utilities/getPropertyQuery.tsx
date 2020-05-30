@@ -1,4 +1,4 @@
-import { IDatabaseData } from './IDatabaeData';
+import { IDatabaseData } from './IDatabaseData';
 import { IPropertySubquery, IPropertyQuery } from './IPropertyQuery';
 
 
