@@ -1,4 +1,5 @@
 import { AnyAction } from '@reduxjs/toolkit';
+import { updateTable } from '../../../actions';
 
 
 export function visibleColumnsReducer(
@@ -7,5 +8,9 @@ export function visibleColumnsReducer(
 )
     : string[]
 {
+    if (updateTable.match(action))
+    {
+        return Object.keys(action.payload.columnValues);
+    }
     return state;
 }

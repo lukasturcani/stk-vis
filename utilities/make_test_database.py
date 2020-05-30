@@ -63,9 +63,16 @@ def add_entries(client, database, key_makers, random_seed):
         database=database,
         key_makers=key_makers,
     )
+    num_bonds_db = stk.ValueMongoDb(
+        mongo_client=client,
+        collection='numBonds',
+        database=database,
+        key_makers=key_makers,
+    )
     add_value = True
     for molecule in get_molecules(200, 5):
         molecule_db.put(molecule)
+        num_bonds_db.put(molecule, molecule.get_num_bonds())
         if add_value:
             num_atoms_db.put(molecule, molecule.get_num_atoms())
         add_value ^= 1
