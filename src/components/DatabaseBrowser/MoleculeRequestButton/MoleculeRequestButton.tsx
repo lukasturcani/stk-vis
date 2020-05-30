@@ -23,42 +23,24 @@ function Alert(props: AlertProps) {
 }
 
 
+interface ISnackbar
+{
+    open: any;
+    setOpen: any;
+    message: any;
+    setMessage: any;
+    handleClose: any;
+    activate: (message: string) => void;
+}
+
+
 function MoleculeRequestButton(props: MoleculeRequestButtonProps)
 {
-    const [successOpen, successSetOpen] = React.useState(false);
+    const successSnackbar: ISnackbar
+        = createSnackbar();
 
-    const [successMessage, successSetMessage]
-        = React.useState('Placerholder');
-
-    const successSnackbar = (message: string) => {
-        successSetMessage(message);
-        successSetOpen(true);
-    };
-    const successHandleClose
-        = (event?: React.SyntheticEvent, reason?: string) => {
-            if (reason === 'clickaway') {
-                return;
-            }
-
-            successSetOpen(false);
-        };
-    const [errorOpen, errorSetOpen] = React.useState(false);
-
-    const [errorMessage, errorSetMessage]
-        = React.useState('Placerholder');
-
-    const errorSnackbar = (message: string) => {
-        errorSetMessage(message);
-        errorSetOpen(true);
-    };
-    const errorHandleClose
-        = (event?: React.SyntheticEvent, reason?: string) => {
-            if (reason === 'clickaway') {
-                return;
-            }
-
-            errorSetOpen(false);
-        };
+    const errorSnackbar: ISnackbar
+        = createSnackbar();
 
     return (
         <div>
@@ -68,35 +50,71 @@ function MoleculeRequestButton(props: MoleculeRequestButtonProps)
                             props.pageData,
                             props.isForward,
                         ),
-                        successSnackbar,
-                        errorSnackbar,
+                        successSnackbar: successSnackbar.activate,
+                        errorSnackbar: errorSnackbar.activate,
                     })
             } >
                 { getButtonLabel(props) }
             </Button>
             <Snackbar
-                open={ successOpen }
-                autoHideDuration={6000}
-                onClose={ successHandleClose }
+                open={ successSnackbar.open }
+                autoHideDuration={ 6000 }
+                onClose={ successSnackbar.handleClose }
             >
                 <Alert
-                    severity='success'
-                    onClose={ successHandleClose }
+                    severity={ 'success' }
+                    onClose={ successSnackbar.handleClose }
                 >
-                    { successMessage }
+                    { successSnackbar.message }
                 </Alert>
+
             </Snackbar>
             <Snackbar
-                open={ errorOpen }
-                autoHideDuration={6000}
-                onClose={ errorHandleClose }
+                open={ errorSnackbar.open }
+                autoHideDuration={ 6000 }
+                onClose={ errorSnackbar.handleClose }
             >
-                <Alert severity='error' onClose={ errorHandleClose }>
-                    { errorMessage }
+                <Alert
+                    severity={ 'error' }
+                    onClose={ errorSnackbar.handleClose }
+                >
+                    { errorSnackbar.message }
                 </Alert>
+
             </Snackbar>
         </div>
     );
+}
+
+
+function createSnackbar()
+    : ISnackbar
+{
+    const [open, setOpen] = React.useState(false);
+
+    const [message, setMessage]
+        = React.useState('Placeholder');
+
+    const activate = (message: string) => {
+        setMessage(message);
+        setOpen(true);
+    };
+    const handleClose
+        = (event?: React.SyntheticEvent, reason?: string) => {
+            if (reason === 'clickaway') {
+                return;
+            }
+
+            setOpen(false);
+        };
+    return {
+        open,
+        setOpen,
+        message,
+        setMessage,
+        handleClose,
+        activate,
+    };
 }
 
 
