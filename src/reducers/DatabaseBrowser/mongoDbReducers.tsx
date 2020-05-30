@@ -4,6 +4,7 @@ import {
     updateMongoDbDatabase,
     updateMongoDbMoleculeCollection,
     updateMongoDbPositionMatrixCollection,
+    updateMongoDbFields,
 } from '../../actions';
 
 
@@ -16,6 +17,10 @@ export function urlReducer(
     if (updateMongoDbUrl.match(action))
     {
         return action.payload;
+    }
+    if (updateMongoDbFields.match(action))
+    {
+        return action.payload.url;
     }
     return state;
 }
@@ -31,6 +36,10 @@ export function databaseReducer(
     {
         return action.payload;
     }
+    if (updateMongoDbFields.match(action))
+    {
+        return action.payload.database;
+    }
     return state;
 }
 
@@ -45,6 +54,10 @@ export function moleculeCollectionReducer(
     {
         return action.payload;
     }
+    if (updateMongoDbFields.match(action))
+    {
+        return action.payload.moleculeCollection;
+    }
     return state;
 }
 
@@ -58,6 +71,10 @@ export function positionMatrixCollectionReducer(
     if (updateMongoDbPositionMatrixCollection.match(action))
     {
         return action.payload;
+    }
+    if (updateMongoDbFields.match(action))
+    {
+        return action.payload.positionMatrixCollection;
     }
     return state;
 }

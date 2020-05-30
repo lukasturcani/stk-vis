@@ -5,6 +5,10 @@ import Button from '@material-ui/core/Button';
 import { getPageMolecules } from '../../../actions';
 import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import {
+    updateMongoDbFields,
+    IMongoDbFields,
+} from '../../../actions';
 
 
 function Alert(props: AlertProps) {
@@ -21,7 +25,12 @@ interface getFirstPageOptions
 
 interface IGetMoleculesButtonProps
 {
+    url: string;
+    database: string;
+    moleculeCollection: string;
+    positionMatrixCollection: string;
     getFirstPage: (options: getFirstPageOptions) => () => void;
+    dispatchUpdateMongoDbFields: (fields: IMongoDbFields) => void;
 }
 
 
@@ -39,10 +48,26 @@ function GetMoleculesButton(
         <div>
             <Button
                 onClick={
-                    props.getFirstPage({
-                        successSnackbar: successSnackbar.activate,
-                        errorSnackbar: errorSnackbar.activate,
-                    })
+                    () => {
+                        props.dispatchUpdateMongoDbFields({
+                            url:
+                                props.url,
+
+                            database:
+                                props.database,
+
+                            moleculeCollection:
+                                props.moleculeCollection,
+
+                            positionMatrixCollection:
+                                props.positionMatrixCollection,
+                        });
+                        props.getFirstPage({
+                            successSnackbar: successSnackbar.activate,
+                            errorSnackbar: errorSnackbar.activate,
+                        })();
+
+                    }
                 }
             >
                 Get Molecules
@@ -139,6 +164,11 @@ function mapDispatchToProps(
                     successSnackbar: (message: string) => {},
                     ...options,
                 })
+            ),
+
+        dispatchUpdateMongoDbFields:
+            (fields: IMongoDbFields) => dispatch(
+                updateMongoDbFields(fields)
             ),
     };
 }

@@ -9,40 +9,33 @@ import {
 } from '../../../selectors';
 import { IState } from '../../../models';
 import { GetMoleculesButtonComponent } from './GetMoleculesButton';
-import {
-    updateMongoDbUrl,
-    updateMongoDbDatabase,
-    updateMongoDbMoleculeCollection,
-    updateMongoDbPositionMatrixCollection,
-} from '../../../actions';
 import Paper from '@material-ui/core/Paper';
 import Grid from  '@material-ui/core/Grid';
-
-
-interface IEvent
-{
-    target: {value: string},
-}
 
 
 interface IMongoDbFieldsProps
 {
     url: string;
-    dispatchUrlUpdate: (e: IEvent) => void;
-
     database: string;
-    dispatchDatabaseUpdate: (e: IEvent) => void;
-
     moleculeCollection: string;
-    dispatchMoleculeCollectionUpdate: (e: IEvent) => void;
-
     positionMatrixCollection: string;
-    dispatchPositionMatrixCollectionUpdate: (e: IEvent) => void;
 }
 
 
 function MongoDbFields(props: IMongoDbFieldsProps)
 {
+    const [url, setUrl]
+        = React.useState(props.url);
+
+    const [database, setDatabase]
+        = React.useState(props.database);
+
+    const [moleculeCollection, setMoleculeCollection]
+        = React.useState(props.moleculeCollection);
+
+    const [positionMatrixCollection, setPositionMatrixCollection]
+        = React.useState(props.positionMatrixCollection);
+
     return (
         <Paper><Grid container
             alignItems={ 'center' }
@@ -54,35 +47,46 @@ function MongoDbFields(props: IMongoDbFieldsProps)
             <Grid item><TextField
                 id='mongo-url'
                 label='MongoDB URL'
-                value={ props.url }
+                defaultValue={ props.url }
                 variant='outlined'
-                onChange={ props.dispatchUrlUpdate }
+                onChange={ (e) => { setUrl(e.target.value)  } }
             /></Grid>
             <Grid item><TextField
                 id='mongo-database'
                 label='Database Name'
-                value={ props.database }
+                defaultValue={ props.database }
                 variant='outlined'
-                onChange={ props.dispatchDatabaseUpdate }
+                onChange={ (e) => { setDatabase(e.target.value) } }
             /></Grid>
             <Grid item><TextField
                 id='mongo-molecule-collection'
                 label='Molecule Collection Name'
-                value={ props.moleculeCollection }
+                defaultValue={ props.moleculeCollection }
                 variant='outlined'
-                onChange={ props.dispatchMoleculeCollectionUpdate }
+                onChange={
+                    (e) => { setMoleculeCollection(e.target.value) }
+                }
             /></Grid>
             <Grid item><TextField
                 id='mongo-position-matrix-collection'
                 label='Position Matrix Collection Name'
-                value={ props.positionMatrixCollection }
+                defaultValue={ props.positionMatrixCollection }
                 variant='outlined'
                 onChange={
-                    props.dispatchPositionMatrixCollectionUpdate
+                    (e) => {
+                        setPositionMatrixCollection(e.target.value)
+                    }
                 }
             /></Grid>
             <Grid item>
-                <GetMoleculesButtonComponent />
+                <GetMoleculesButtonComponent
+                    url={ url }
+                    database={ database }
+                    moleculeCollection={ moleculeCollection }
+                    positionMatrixCollection={
+                        positionMatrixCollection
+                    }
+                />
             </Grid>
         </Grid></Paper>
     );
@@ -109,35 +113,6 @@ function mapStateToProps(
 }
 
 
-function mapDispatchToProps(
-    dispatch: (action: any) => void
-)
-{
-    return {
-        dispatchUrlUpdate:
-            (e: IEvent) => dispatch(
-                updateMongoDbUrl(e.target.value)
-            ),
-
-        dispatchDatabaseUpdate:
-            (e: IEvent) => dispatch(
-                updateMongoDbDatabase(e.target.value)
-            ),
-
-        dispatchMoleculeCollectionUpdate:
-            (e: IEvent) => dispatch(
-                updateMongoDbMoleculeCollection(e.target.value)
-            ),
-
-        dispatchPositionMatrixCollectionUpdate:
-            (e: IEvent) => dispatch(
-                updateMongoDbPositionMatrixCollection(e.target.value)
-            ),
-    };
-}
-
-
-
 
 export const MongoDbFieldsComponent
-    = connect(mapStateToProps, mapDispatchToProps)(MongoDbFields);
+    = connect(mapStateToProps)(MongoDbFields);
