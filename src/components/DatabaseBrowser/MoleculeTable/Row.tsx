@@ -38,9 +38,9 @@ function mapStateToProps(
 )
     : { columns: IColumnValues }
 {
-    let columns: IColumnValues = {};
+    const columns: IColumnValues = {};
 
-    for (let column of getVisibleColumns(state))
+    for (const column of getVisibleColumns(state))
     {
         const entry: Maybe<string> = getMoleculeTableEntry({
             state: state,

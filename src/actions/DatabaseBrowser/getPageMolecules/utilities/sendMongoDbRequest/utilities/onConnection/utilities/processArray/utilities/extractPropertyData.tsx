@@ -15,7 +15,11 @@ export function extractPropertyData(
 )
     : (r: Maybe<IPropertyResults>) => Maybe<IPropertyResults>
 {
-    return (propertyResults: Maybe<IPropertyResults>) => {
+    return (
+        propertyResults: Maybe<IPropertyResults>,
+    )
+        : Maybe<IPropertyResults> =>
+    {
         switch (propertyResults.kind)
         {
             case MaybeKind.Nothing:
@@ -25,18 +29,20 @@ export function extractPropertyData(
                 data.columnValues[propertyResults.value.collectionName]
                     = {};
 
-                for (let value of propertyResults.value.propertyValues)
-                {
+                for (
+                    const value of propertyResults.value.propertyValues
+                ) {
                     const moleculeId: Maybe<number>
                         = getMoleculeId(data.moleculeIds, value);
 
                     switch(moleculeId.kind)
                     {
                         case MaybeKind.Just:
-                            data.columnValues
-                            [propertyResults.value.collectionName]
-                            [moleculeId.value]
-                                = value['v'];
+                        data.columnValues[
+                            propertyResults.value.collectionName
+                        ][
+                            moleculeId.value
+                        ] = value['v'];
                             break;
 
                         case MaybeKind.Nothing:

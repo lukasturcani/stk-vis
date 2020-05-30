@@ -1,8 +1,5 @@
 import { AnyAction } from '@reduxjs/toolkit';
 import {
-    databaseBrowserKindReducer
-} from '../databaseBrowserKindReducer';
-import {
     initialRequestStateReducer,
 } from './initialRequestStateReducer';
 import {
@@ -28,7 +25,6 @@ import {
 } from '../../../models';
 import { updateTable } from '../../../actions';
 import {
-    getDatabaseBrowserKind,
     getMongoDbUrl,
     getMongoDbDatabase,
     getMongoDbMoleculeCollection,

@@ -31,7 +31,11 @@ export function getPropertyPromise(
 )
     : (collectionName: string) => Promise<Maybe<IPropertyResults>>
 {
-    return (collectionName: string) => {
+    return (
+        collectionName: string,
+    )
+    : Promise<Maybe<IPropertyResults>> =>
+    {
         const collection
             = options.client
             .db(options.database)
@@ -67,7 +71,7 @@ export function handleFailedPropertyRequest(
 )
     : (err: MongoError) => Nothing
 {
-    return (err: MongoError) =>{
+    return (err: MongoError): Nothing =>{
         options.dispatch(
             setMoleculeRequestState(
                 MoleculeRequestStateKind.RequestFailed

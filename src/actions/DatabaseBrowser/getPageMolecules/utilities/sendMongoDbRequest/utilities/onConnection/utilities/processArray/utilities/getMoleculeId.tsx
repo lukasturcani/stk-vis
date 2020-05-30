@@ -13,12 +13,15 @@ export function getMoleculeId(
 )
     : Maybe<number>
 {
-    for (let [propName, propValue] of Object.entries(result))
+    for (const [propName, propValue] of Object.entries(result))
     {
         if (
-            moleculeIds.hasOwnProperty(propName)
+            Object.prototype.hasOwnProperty.call(moleculeIds, propName)
             &&
-            moleculeIds[propName].hasOwnProperty(propValue)
+            Object.prototype.hasOwnProperty.call(
+                moleculeIds[propName],
+                propValue,
+            )
         ){
             return new Just(moleculeIds[propName][propValue]);
         }

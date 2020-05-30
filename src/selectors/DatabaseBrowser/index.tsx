@@ -6,7 +6,6 @@ import {
     IDatabaseBrowser,
     IColumnValues,
     IMolecule,
-    IColumn,
     IInitialRequestState,
     IMoleculeRequestState,
     DatabaseBrowserKind,

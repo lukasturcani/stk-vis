@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IState } from '../../../models';
-import { AnyAction } from '@reduxjs/toolkit';
 import Button from '@material-ui/core/Button';
 import { getPageMolecules } from '../../../actions';
 import Snackbar from '@material-ui/core/Snackbar'

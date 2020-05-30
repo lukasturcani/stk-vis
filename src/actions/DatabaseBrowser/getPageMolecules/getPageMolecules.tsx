@@ -26,7 +26,8 @@ export function getPageMolecules(
     return (
         dispatch: (arg: AnyAction) => void,
         getState: () => IState,
-    ) => {
+    ): void =>
+    {
         const state: IState = getState();
 
         if (!isRequestSent(state))

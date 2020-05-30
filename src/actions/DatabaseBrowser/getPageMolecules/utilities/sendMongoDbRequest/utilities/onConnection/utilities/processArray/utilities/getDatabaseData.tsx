@@ -7,7 +7,7 @@ export function getDatabaseData(
 )
     : IDatabaseData
 {
-    let data: IDatabaseData
+    const data: IDatabaseData
         = {
             columnValues: {},
             moleculeIds: {},
@@ -42,7 +42,7 @@ function addMoleculeData(
     const molecule: any
         = {};
 
-    for (let [propName, propValue] of Object.entries(dbEntry))
+    for (const [propName, propValue] of Object.entries(dbEntry))
     {
         if (notKeyNames.has(propName))
         {
@@ -50,7 +50,7 @@ function addMoleculeData(
             {
                 continue;
             }
-            let newPropName: string
+            const newPropName: string
                 = propNameMap[propName];
             molecule[newPropName] = dbEntry[propName];
         }

@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import {
-    IDatabaseBrowser,
     DatabaseBrowserKind,
     IInitialDatabaseBrowser,
-    PageKind,
 } from '../../../models';
 import {
     MoleculeRequestButtonComponent
 } from '../MoleculeRequestButton';
-import TextField from '@material-ui/core/TextField';
 import { MongoDbFieldsComponent } from '../MongoDbFields';
 import Container from '@material-ui/core/Container';
 

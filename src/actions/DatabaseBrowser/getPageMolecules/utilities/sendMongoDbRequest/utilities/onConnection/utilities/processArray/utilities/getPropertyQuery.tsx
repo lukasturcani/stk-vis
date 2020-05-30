@@ -7,9 +7,9 @@ export function getPropertyQuery(data: IDatabaseData): IPropertyQuery
     const subqueries: IPropertySubquery[]
         = [];
 
-    for (let moleculeKeyName of data.moleculeKeyNames)
+    for (const moleculeKeyName of data.moleculeKeyNames)
     {
-        let subquery: IPropertySubquery
+        const subquery: IPropertySubquery
             = {
                 [moleculeKeyName]: {
                     '$in': Object.values(

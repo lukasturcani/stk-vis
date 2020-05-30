@@ -2,8 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import {
     IDatabaseBrowser,
-    DatabaseBrowserKind,
-    PageKind,
 } from '../../../models';
 import {
     MoleculeRequestButtonProps,
@@ -99,7 +97,7 @@ function MoleculeRequestButton(props: MoleculeRequestButtonProps)
             </Snackbar>
         </div>
     );
-};
+}
 
 
 const mapStateToProps = (state: IDatabaseBrowser) => {
@@ -116,7 +114,7 @@ function mapDispatchToProps(dispatch: (arg: any) => any)
             (options: getPageMoleculesOptions) => () =>
                 dispatch(getPageMolecules(options)),
     };
-};
+}
 
 
 export const MoleculeRequestButtonComponent

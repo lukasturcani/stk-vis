@@ -1,5 +1,4 @@
 import { AnyAction } from '@reduxjs/toolkit';
-import { updateTable } from '../../../actions';
 
 
 export function visibleColumnsReducer(

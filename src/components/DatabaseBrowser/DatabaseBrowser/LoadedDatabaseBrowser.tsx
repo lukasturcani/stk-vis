@@ -5,7 +5,6 @@ import {
 } from '../../../selectors';
 import { MoleculeTableComponent } from '../MoleculeTable';
 import {
-    IDatabaseBrowser,
     DatabaseBrowserKind,
     ILoadedDatabaseBrowser,
     PageKind,

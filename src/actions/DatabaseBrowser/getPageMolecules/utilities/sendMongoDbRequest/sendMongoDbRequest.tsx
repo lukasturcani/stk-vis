@@ -3,14 +3,11 @@ import {
     getMongoDbDatabase,
     getMongoDbMoleculeCollection,
     getMongoDbPropertyCollections,
-    getPageIndex,
     getNumEntriesPerPage,
-    getTableMolecules,
 } from '../../../../../selectors';
 import {
     IInitialDatabaseBrowser,
     ILoadedDatabaseBrowser,
-    DatabaseBrowserKind,
 } from '../../../../../models';
 import { MongoClient } from 'mongodb';
 import { AnyAction } from '@reduxjs/toolkit'
@@ -21,8 +18,6 @@ import {
 } from './utilities';
 import {
     Maybe,
-    Nothing,
-    Just,
 } from '../../../../../utilities';
 
 

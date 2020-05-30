@@ -1,14 +1,10 @@
 import * as React from 'react';
-import * as _ from 'lodash';
 import { connect } from 'react-redux';
 import { Row } from './Row';
 import {
     ILoadedDatabaseBrowser,
-    IColumnValues,
-    IColumn,
 } from '../../../models';
 import {
-    getColumnValues,
     getVisibleColumns,
     getTableMolecules,
 } from '../../../selectors';
@@ -47,7 +43,7 @@ function MoleculeTable({columns, moleculeIds}: IMoleculeTableProps) {
             )}</TableBody>
         </Table></TableContainer></Paper>
     )
-};
+}
 
 
 function mapStateToProps(

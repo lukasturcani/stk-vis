@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './App';
 import { Provider } from 'react-redux';
-import { IStore, IState } from './models';
+import { IStore } from './models';
 import { databaseBrowserReducer } from './reducers';
 import {
     configureStore,
