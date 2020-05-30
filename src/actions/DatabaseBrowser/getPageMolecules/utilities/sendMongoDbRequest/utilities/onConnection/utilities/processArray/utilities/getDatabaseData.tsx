@@ -1,22 +1,25 @@
-import {
-    IMolecule,
-    IColumnValues,
-} from '../../../../models';
-import { IMoleculeIds } from './IMoleculeIds';
 import { IDbEntry } from './IDbEntry';
+import { IDatabaseData } from './IDatabaseData';
 
 
-type Mutable<T> = {
-    [K in keyof T]: Mutable<T[K]>;
-}
-
-
-export interface IDatabaseData
+export function getDatabaseData(
+    items: IDbEntry[],
+)
+    : IDatabaseData
 {
-    columnValues: Mutable<IColumnValues>;
-    moleculeIds: IMoleculeIds;
-    moleculeKeyNames: Set<string>;
-    molecules: IMolecule[];
+    let data: IDatabaseData
+        = {
+            columnValues: {},
+            moleculeIds: {},
+            moleculeKeyNames: new Set(),
+            molecules: [],
+        };
+
+    for (let moleculeId = 0; moleculeId < items.length; ++moleculeId)
+    {
+        addMoleculeData(data, moleculeId, items[moleculeId]);
+    }
+    return data;
 }
 
 
@@ -67,27 +70,4 @@ function addMoleculeData(
         }
     }
     data.molecules.push(molecule);
-}
-
-
-
-
-export function getDatabaseData(
-    items: IDbEntry[],
-)
-    : IDatabaseData
-{
-    let data: IDatabaseData
-        = {
-            columnValues: {},
-            moleculeIds: {},
-            moleculeKeyNames: new Set(),
-            molecules: [],
-        };
-
-    for (let moleculeId = 0; moleculeId < items.length; ++moleculeId)
-    {
-        addMoleculeData(data, moleculeId, items[moleculeId]);
-    }
-    return data;
 }

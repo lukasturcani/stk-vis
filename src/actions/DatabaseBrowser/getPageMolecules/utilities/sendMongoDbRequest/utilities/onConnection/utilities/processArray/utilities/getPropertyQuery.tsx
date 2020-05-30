@@ -1,17 +1,5 @@
-import { IDatabaseData } from './getDatabaseData';
-
-
-export interface IPropertySubquery
-{
-    [keyName: string]: { '$in': string[] }
-}
-
-
-export interface IPropertyQuery
-{
-    '$or': IPropertySubquery[];
-}
-
+import { IDatabaseData } from './IDatabaeData';
+import { IPropertySubquery, IPropertyQuery } from './IPropertyQuery';
 
 
 export function getPropertyQuery(data: IDatabaseData): IPropertyQuery
