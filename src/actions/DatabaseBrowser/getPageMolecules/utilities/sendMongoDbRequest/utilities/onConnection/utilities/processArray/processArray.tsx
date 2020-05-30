@@ -128,7 +128,14 @@ export const processArray: processArrayInterface =
                             options.currentPageData.value.pageIndex
                         );
 
-                    if (isSamePage && noNewMolecules)
+                    const isIncomplete: boolean
+                        = (
+                            pageKind === PageKind.OnlyIncomplete
+                            ||
+                            pageKind === PageKind.LastIncomplete
+                        );
+
+                    if (isSamePage && noNewMolecules && isIncomplete)
                     {
                         options.successSnackbar(
                             'There are no new molecules!'
