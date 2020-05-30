@@ -2,7 +2,7 @@ import {
     getMongoDbUrl,
     getMongoDbDatabase,
     getMongoDbMoleculeCollection,
-    getMongoDbPropertyCollections,
+    getMongoDbPositionMatrixCollection,
     getNumEntriesPerPage,
 } from '../../../../../selectors';
 import {
@@ -44,8 +44,8 @@ export function sendMongoDbRequest(
     const moleculesCollection: string
         = getMongoDbMoleculeCollection(options.state);
 
-    const propertyCollections: string[]
-        = getMongoDbPropertyCollections(options.state);
+    const positionMatrixCollection: string
+        = getMongoDbPositionMatrixCollection(options.state);
 
     const numEntriesPerPage: number
         = getNumEntriesPerPage(options.state);
@@ -56,7 +56,7 @@ export function sendMongoDbRequest(
     MongoClient.connect(url, onConnection({
         database,
         moleculesCollection,
-        propertyCollections,
+        positionMatrixCollection,
         numEntriesPerPage,
         currentPageData,
         ...options

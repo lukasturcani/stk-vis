@@ -1,4 +1,10 @@
-import { MongoClient, Cursor, MongoError } from 'mongodb';
+import {
+    MongoClient,
+    Cursor,
+    MongoError,
+    Db,
+    CommandCursor,
+} from 'mongodb';
 import { AnyAction } from '@reduxjs/toolkit'
 import { processArray } from './utilities';
 import {
@@ -17,7 +23,7 @@ interface onConnectionOptions
 {
     database: string;
     moleculesCollection: string;
-    propertyCollections: string[];
+    positionMatrixCollection: string;
     dispatch: (action: AnyAction) => void;
     numEntriesPerPage: number;
     pageIndex: number;
@@ -26,6 +32,12 @@ interface onConnectionOptions
     errorSnackbar: (message: string) => void;
 }
 
+
+
+interface ICollectionData
+{
+    name: string;
+}
 
 
 export function onConnection(
@@ -46,21 +58,69 @@ export function onConnection(
             );
             return;
         }
-        const cursor: Cursor
+        const db: Db
             = client
             .db(options.database)
-            .collection(options.moleculesCollection)
-            .find({})
-            .skip(
-                options.pageIndex
-                *
-                options.numEntriesPerPage
-            )
-            // Add +1 to check if there is another entry on the next
-            // page, which is used to determine if the current page is
-            // the last page.
-            .limit(options.numEntriesPerPage+1);
 
-        cursor.toArray(processArray({ ...options, cursor, client }));
+        const reservedNames: Set<string>
+            = new Set([
+                options.moleculesCollection,
+                options.positionMatrixCollection,
+            ]);
+
+
+        const collectionsCursor: CommandCursor
+            = db.listCollections(
+                undefined,
+                { nameOnly: true },
+            )
+
+        collectionsCursor.toArray()
+            .then((collections: ICollectionData[]) => {
+
+            const propertyCollections: string[]
+                = collections.filter(
+                (collectionData: ICollectionData) => {
+                    return !reservedNames.has(collectionData.name);
+                }
+                ).map(
+                    (collectionData: ICollectionData) => {
+                        return collectionData.name;
+                    }
+                );
+            collectionsCursor.close()
+
+            const cursor: Cursor
+                = db
+                .collection(options.moleculesCollection)
+                .find({})
+                .skip(
+                    options.pageIndex
+                    *
+                    options.numEntriesPerPage
+                )
+                // Add +1 to check if there is another entry on the
+                // next page, which is used to determine if the current
+                // page is the last page.
+                .limit(options.numEntriesPerPage+1);
+
+            cursor.toArray(
+                processArray({
+                    ...options,
+                    cursor,
+                    client,
+                    propertyCollections,
+                })
+            );
+        }).catch(() => {
+            options.dispatch(
+                setMoleculeRequestState(
+                    MoleculeRequestStateKind.RequestFailed
+                )
+            );
+            options.errorSnackbar(
+                'Could not connect to the database.'
+            );
+        });
     };
 }
