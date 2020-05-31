@@ -12,6 +12,16 @@ export const theme = createMuiTheme({
         },
     },
     overrides: {
+        MuiLink: {
+            root: {
+                display: 'flex',
+            },
+        },
+        MuiTypography: {
+            root: {
+                display: 'flex',
+            },
+        },
         MuiContainer: {
             root: {
                 height: '99vh',
