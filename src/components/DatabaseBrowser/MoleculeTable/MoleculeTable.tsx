@@ -1,49 +1,87 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Row } from './Row';
 import {
     ILoadedDatabaseBrowser,
+    IColumnValues,
 } from '../../../models';
 import {
     getVisibleColumns,
     getTableMolecules,
+    getColumnValues,
 } from '../../../selectors';
-import TableContainer from '@material-ui/core/TableContainer';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
+import MaterialTable from 'material-table';
+import * as fp from 'lodash/fp';
 
 
 interface IMoleculeTableProps {
-    columns: string[],
-    moleculeIds: number[],
+    columns: string[];
+    moleculeIds: number[];
+    columnValues: IColumnValues;
 }
 
 
-function MoleculeTable({columns, moleculeIds}: IMoleculeTableProps) {
+function MoleculeTable(
+    {columns, moleculeIds, columnValues}: IMoleculeTableProps
+) {
     return (
         <Paper
             style={{height: '100%', overflow: 'auto'}}
-        ><TableContainer><Table>
-            <TableHead>
-                <TableRow>{columns.map(
-                    column => <TableCell key={column}>
-                        {column}
-                    </TableCell>
-                )}</TableRow>
-            </TableHead>
-            <TableBody>{moleculeIds.map(
-                moleculeId => <Row
-                    key={moleculeId}
-                    moleculeId={moleculeId}
-                />
-            )}</TableBody>
-        </Table></TableContainer></Paper>
-    )
+        ><MaterialTable
+            options={{
+                toolbar: false,
+                search: false,
+                paging: false,
+                sorting: false,
+            }}
+            columns={
+                columns.map(
+                    (name: string) => ({ title: name, field: name })
+                )
+            }
+            data={
+                moleculeIds.map(
+                    (moleculeId: number) => (
+                        getRowValues(
+                            columnValues,
+                            columns,
+                            moleculeId,
+                        )
+                    )
+                )
+            }
+        />
+        </Paper>
+    );
 }
+
+
+
+function getRowValues(
+    columnValues: IColumnValues,
+    columns: string[],
+    moleculeId: number,
+)
+    : { [columnName: string]: string }
+{
+
+    const rowValues: { [columnName: string]: string }
+        = {};
+
+    for (const column of columns)
+    {
+        const entry: string | undefined
+            = fp.get([column, moleculeId], columnValues);
+
+        if (entry !== undefined)
+        {
+            rowValues[column] = entry;
+        }
+    }
+    return rowValues;
+}
+
+
 
 
 function mapStateToProps(
@@ -57,6 +95,7 @@ function mapStateToProps(
             {length: getTableMolecules(state).length},
             (_, i) => i,
         ),
+        columnValues: getColumnValues(state),
     };
 }
 
