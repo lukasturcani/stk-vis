@@ -18,7 +18,6 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import Settings from '@material-ui/icons/Settings';
 import TableChart from '@material-ui/icons/TableChart';
@@ -43,8 +42,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     icon: {
       marginRight: theme.spacing(0.5),
-      width: 20,
-      height: 20,
+      width: 30,
+      height: 30,
     },
   }),
 );
@@ -63,13 +62,13 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
             <Grid item xs={ 12 }>
                 <Breadcrumbs
                     separator={
-                        <NavigateNextIcon className={ 'mine' } />
+                        <NavigateNextIcon className={ classes.icon } />
                     }
                 >
                     <Link
                         color='inherit'
                         component='button'
-                        variant='body2'
+                        variant='h5'
                         onClick={
                             props.dispatchSetInitialBrowserState
                         }
@@ -77,10 +76,14 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
                         <Settings className={ classes.icon } />
                         MongoDB
                     </Link>
-                    <Typography color='inherit' variant='body2'>
+                    <Link
+                        color='inherit'
+                        component='button'
+                        variant='h5'
+                    >
                         <TableChart className={ classes.icon } />
                         Results
-                    </Typography>
+                    </Link>
                 </Breadcrumbs>
             </Grid>
             <Grid

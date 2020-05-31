@@ -38,7 +38,7 @@ export const theme = createMuiTheme({
         },
         MuiTextField: {
             root: {
-                marginTop: '10px',
+                marginTop: '20px',
             },
         },
         MuiTableCell: {

@@ -10,7 +10,7 @@ import {
 import { MongoDbFieldsComponent } from '../MongoDbFields';
 import Container from '@material-ui/core/Container';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 import Settings from '@material-ui/icons/Settings';
 import Grid from '@material-ui/core/Grid';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
@@ -20,6 +20,7 @@ import {
     Theme,
 } from '@material-ui/core/styles';
 import { theme } from './theme';
+import Paper from '@material-ui/core/Paper';
 
 
 interface IInitialDatabaseBrowserProps
@@ -32,8 +33,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     icon: {
       marginRight: theme.spacing(0.5),
-      width: 20,
-      height: 20,
+      width: 30,
+      height: 30,
     },
   }),
 );
@@ -50,17 +51,21 @@ function InitialDatabaseBrowser(props: IInitialDatabaseBrowserProps)
             <Grid item xs={ 12 }>
                 <Breadcrumbs
                     separator={
-                        <NavigateNextIcon className={ 'mine' } />
+                        <NavigateNextIcon className={ classes.icon } />
                     }
                 >
-                    <Typography color='inherit' variant='body2'>
+                    <Link
+                        color='inherit'
+                        component='button'
+                        variant='h5'
+                    >
                         <Settings className={ classes.icon } />
                         MongoDB
-                    </Typography>
+                    </Link>
                 </Breadcrumbs>
             </Grid>
             <Grid item xs={ 12 }>
-                <MongoDbFieldsComponent />
+                <Paper><MongoDbFieldsComponent /></Paper>
             </Grid>
         </Grid>
         </Container>

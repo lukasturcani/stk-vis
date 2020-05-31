@@ -9,7 +9,6 @@ import {
 } from '../../../selectors';
 import { IState } from '../../../models';
 import { GetMoleculesButtonComponent } from './GetMoleculesButton';
-import Paper from '@material-ui/core/Paper';
 import Grid from  '@material-ui/core/Grid';
 
 
@@ -37,47 +36,56 @@ function MongoDbFields(props: IMongoDbFieldsProps)
         = React.useState(props.positionMatrixCollection);
 
     return (
-        <Paper><Grid container
+        <Grid container
             alignItems={ 'center' }
             alignContent={ 'center' }
             justify={ 'center' }
             spacing={ 3 }
             style={ {height: '100%'} }
+            direction='column'
         >
-            <Grid item><TextField
-                id='mongo-url'
-                label='MongoDB URL'
-                defaultValue={ props.url }
-                variant='outlined'
-                onChange={ (e) => { setUrl(e.target.value)  } }
-            /></Grid>
-            <Grid item><TextField
-                id='mongo-database'
-                label='Database Name'
-                defaultValue={ props.database }
-                variant='outlined'
-                onChange={ (e) => { setDatabase(e.target.value) } }
-            /></Grid>
-            <Grid item><TextField
-                id='mongo-molecule-collection'
-                label='Molecule Collection Name'
-                defaultValue={ props.moleculeCollection }
-                variant='outlined'
-                onChange={
-                    (e) => { setMoleculeCollection(e.target.value) }
-                }
-            /></Grid>
-            <Grid item><TextField
-                id='mongo-position-matrix-collection'
-                label='Position Matrix Collection Name'
-                defaultValue={ props.positionMatrixCollection }
-                variant='outlined'
-                onChange={
-                    (e) => {
-                        setPositionMatrixCollection(e.target.value)
+            <Grid container
+                alignItems={ 'center' }
+                alignContent={ 'center' }
+                justify={ 'center' }
+                spacing={ 3 }
+                style={ {height: '100%'} }
+            >
+                <Grid item><TextField
+                    id='mongo-url'
+                    label='MongoDB URL'
+                    defaultValue={ props.url }
+                    variant='outlined'
+                    onChange={ (e) => { setUrl(e.target.value)  } }
+                /></Grid>
+                <Grid item><TextField
+                    id='mongo-database'
+                    label='Database Name'
+                    defaultValue={ props.database }
+                    variant='outlined'
+                    onChange={ (e) => { setDatabase(e.target.value) } }
+                /></Grid>
+                <Grid item><TextField
+                    id='mongo-molecule-collection'
+                    label='Molecule Collection Name'
+                    defaultValue={ props.moleculeCollection }
+                    variant='outlined'
+                    onChange={
+                        (e) => { setMoleculeCollection(e.target.value) }
                     }
-                }
-            /></Grid>
+                /></Grid>
+                <Grid item><TextField
+                    id='mongo-position-matrix-collection'
+                    label='Position Matrix Collection Name'
+                    defaultValue={ props.positionMatrixCollection }
+                    variant='outlined'
+                    onChange={
+                        (e) => {
+                            setPositionMatrixCollection(e.target.value)
+                        }
+                    }
+                /></Grid>
+            </Grid>
             <Grid item>
                 <GetMoleculesButtonComponent
                     url={ url }
@@ -88,7 +96,7 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                     }
                 />
             </Grid>
-        </Grid></Paper>
+        </Grid>
     );
 }
 
