@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { AnyAction } from '@reduxjs/toolkit';
 import {
     getPageKind,
 } from '../../../selectors';
@@ -9,6 +10,7 @@ import {
     ILoadedDatabaseBrowser,
     PageKind,
 } from '../../../models';
+import { setInitialBrowserState } from '../../../actions';
 import {
     MoleculeRequestButtonComponent
 } from '../MoleculeRequestButton';
@@ -33,6 +35,7 @@ interface ILoadedDatabaseBrowserProps
 {
     kind: DatabaseBrowserKind.Loaded;
     pageKind: PageKind;
+    dispatchSetInitialBrowserState: () => void;
 }
 
 
@@ -63,11 +66,18 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
                         <NavigateNextIcon className={ 'mine' } />
                     }
                 >
-                    <Link color='inherit' href='/mongo-db' >
+                    <Link
+                        color='inherit'
+                        component='button'
+                        variant='body2'
+                        onClick={
+                            props.dispatchSetInitialBrowserState
+                        }
+                    >
                         <Settings className={ classes.icon } />
                         MongoDB
                     </Link>
-                    <Typography color='inherit'>
+                    <Typography color='inherit' variant='body2'>
                         <TableChart className={ classes.icon } />
                         Results
                     </Typography>
@@ -110,7 +120,7 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
 function mapStateToProps(
     state: ILoadedDatabaseBrowser
 )
-    : ILoadedDatabaseBrowserProps
+    : { kind: DatabaseBrowserKind.Loaded, pageKind: PageKind }
 {
     return {
         kind:
@@ -123,5 +133,18 @@ function mapStateToProps(
 }
 
 
+function mapDispatchToProps(
+    dispatch: (action: AnyAction) => void,
+)
+{
+    return {
+        dispatchSetInitialBrowserState: (): void => {
+            dispatch(setInitialBrowserState());
+        },
+    };
+}
+
+
 export const LoadedDatabaseBrowserComponent
-    = connect(mapStateToProps)(LoadedDatabaseBrowser)
+    = connect
+        (mapStateToProps, mapDispatchToProps)(LoadedDatabaseBrowser)

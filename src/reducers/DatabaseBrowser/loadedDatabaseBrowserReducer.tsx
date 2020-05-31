@@ -1,4 +1,4 @@
-import { combineReducers } from '@reduxjs/toolkit';
+import { AnyAction, combineReducers } from '@reduxjs/toolkit';
 import { loadedKindReducer } from './loadedKindReducer';
 import { moleculesReducer } from './moleculesReducer';
 import { visibleColumnsReducer } from './visibleColumnsReducer';
@@ -18,9 +18,14 @@ import {
     positionMatrixCollectionReducer,
     propertyCollectionsReducer,
 } from '../mongoDbReducers';
+import {
+    IDatabaseBrowser,
+    ILoadedDatabaseBrowser,
+} from '../../../models';
+import { setInitialBrowserState } from '../../../actions';
 
 
-export const loadedDatabaseBrowserReducer = combineReducers({
+const _loadedDatabaseBrowserReducer = combineReducers({
     kind: loadedKindReducer,
     url: urlReducer,
     database: databaseReducer,
@@ -35,3 +40,17 @@ export const loadedDatabaseBrowserReducer = combineReducers({
     numEntriesPerPage: numEntriesPerPageReducer ,
     pageKind: pageKindReducer,
 });
+
+
+export function loadedDatabaseBrowserReducer(
+    state: ILoadedDatabaseBrowser,
+    action: AnyAction,
+)
+    : IDatabaseBrowser
+{
+    if (setInitialBrowserState.match(action))
+    {
+        1;
+    }
+    return _loadedDatabaseBrowserReducer(state, action);
+}
