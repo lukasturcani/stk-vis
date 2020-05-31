@@ -9,6 +9,7 @@ import {
     updateMongoDbFields,
     IMongoDbFields,
 } from '../../../actions';
+import SearchIcon from '@material-ui/icons/Search';
 
 
 function Alert(props: AlertProps) {
@@ -70,7 +71,7 @@ function GetMoleculesButton(
                     }
                 }
             >
-                Get Molecules
+                <SearchIcon />
             </Button>
             <Snackbar
                 open={ successSnackbar.open }

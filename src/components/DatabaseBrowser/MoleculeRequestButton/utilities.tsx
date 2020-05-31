@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { getPageIndex, getPageKind } from '../../../selectors';
 import { Nothing, Just, Maybe, MaybeKind } from '../../../utilities';
 import {
@@ -6,6 +7,10 @@ import {
     PageKind,
 } from '../../../models';
 import { getPageMoleculesOptions } from '../../../actions';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import SearchIcon from '@material-ui/icons/Search';
 
 
 export function assertNever(arg: never): never { throw Error(); }
@@ -28,11 +33,10 @@ export interface MoleculeRequestButtonProps
 
 
 export function getButtonLabel(props: MoleculeRequestButtonProps)
-    : string
 {
     if (!props.isForward)
     {
-        return 'Previous Molecules';
+        return <NavigateBeforeIcon />;
     }
 
     const pageData: Maybe<IPageData>
@@ -41,7 +45,7 @@ export function getButtonLabel(props: MoleculeRequestButtonProps)
     switch (pageData.kind)
     {
         case MaybeKind.Nothing:
-            return 'Get Molecules';
+            return <SearchIcon />;
 
         case MaybeKind.Just:
             if (
@@ -53,11 +57,11 @@ export function getButtonLabel(props: MoleculeRequestButtonProps)
                 ||
                 pageData.value.pageKind === PageKind.OnlyComplete
             ) {
-                return 'Check For New Molecules';
+                return <RefreshIcon />;
             }
             else
             {
-                return 'Next Molecules';
+                return <NavigateNextIcon />;
             }
 
         default:
