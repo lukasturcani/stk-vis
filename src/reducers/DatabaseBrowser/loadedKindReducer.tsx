@@ -1,5 +1,5 @@
 import { AnyAction } from '@reduxjs/toolkit';
-import { DatabaseBrowserKind } from '../../../models';
+import { DatabaseBrowserKind } from '../../models';
 
 
 export function loadedKindReducer(

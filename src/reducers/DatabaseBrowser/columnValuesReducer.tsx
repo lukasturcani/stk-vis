@@ -1,6 +1,6 @@
 import { AnyAction } from '@reduxjs/toolkit';
-import { IColumnValues } from '../../../models';
-import { updateTable } from '../../../actions';
+import { IColumnValues } from '../../models';
+import { updateTable } from '../../actions';
 
 
 export function columnValuesReducer(

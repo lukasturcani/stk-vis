@@ -1,5 +1,5 @@
 import { AnyAction } from '@reduxjs/toolkit';
-import { updateTable } from '../../../actions';
+import { updateTable } from '../../actions';
 
 
 export function pageIndexReducer(

@@ -3,7 +3,7 @@ import { loadedKindReducer } from './loadedKindReducer';
 import { moleculesReducer } from './moleculesReducer';
 import { visibleColumnsReducer } from './visibleColumnsReducer';
 import { pageIndexReducer } from './pageIndexReducer';
-import { numEntriesPerPageReducer } from '../numEntriesPerPageReducer';
+import { numEntriesPerPageReducer } from './numEntriesPerPageReducer';
 import { pageKindReducer } from './pageKindReducer';
 import {
     columnValuesReducer,
@@ -17,12 +17,23 @@ import {
     moleculeCollectionReducer,
     positionMatrixCollectionReducer,
     propertyCollectionsReducer,
-} from '../mongoDbReducers';
+} from './mongoDbReducers';
 import {
     IDatabaseBrowser,
+    InitialRequestStateKind,
     ILoadedDatabaseBrowser,
-} from '../../../models';
-import { setInitialBrowserState } from '../../../actions';
+} from '../../models';
+import { setInitialBrowserState } from '../../actions';
+import { initialKindReducer } from './initialKindReducer';
+import {
+    getMongoDbUrl,
+    getMongoDbDatabase,
+    getMongoDbMoleculeCollection,
+    getMongoDbPositionMatrixCollection,
+    getMongoDbPropertyCollections,
+    getNumEntriesPerPage,
+    getDatabaseBrowserKind,
+} from '../../selectors';
 
 
 const _loadedDatabaseBrowserReducer = combineReducers({
@@ -50,7 +61,49 @@ export function loadedDatabaseBrowserReducer(
 {
     if (setInitialBrowserState.match(action))
     {
-        1;
+        return {
+            kind:
+                initialKindReducer(
+                    getDatabaseBrowserKind(state),
+                    action,
+                ),
+
+            url:
+                urlReducer(getMongoDbUrl(state), action),
+
+            database:
+                databaseReducer(getMongoDbDatabase(state), action),
+
+            moleculeCollection:
+                moleculeCollectionReducer(
+                    getMongoDbMoleculeCollection(state),
+                    action,
+                ),
+
+            positionMatrixCollection:
+                positionMatrixCollectionReducer(
+                    getMongoDbPositionMatrixCollection(state),
+                    action,
+                ),
+
+            initialRequestState:
+                {
+                    kind: InitialRequestStateKind.NoRequestSent,
+                },
+
+            propertyCollections:
+                propertyCollectionsReducer(
+                    getMongoDbPropertyCollections(state),
+                    action,
+                ),
+
+            numEntriesPerPage:
+                numEntriesPerPageReducer(
+                    getNumEntriesPerPage(state),
+                    action,
+                ),
+
+        };
     }
     return _loadedDatabaseBrowserReducer(state, action);
 }

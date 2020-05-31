@@ -1,8 +1,8 @@
 import { AnyAction } from '@reduxjs/toolkit';
-import { PageKind } from '../../../models';
+import { PageKind } from '../../models';
 import {
     updateTable,
-} from '../../../actions';
+} from '../../actions';
 
 
 export function pageKindReducer(

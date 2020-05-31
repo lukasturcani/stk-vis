@@ -3,27 +3,27 @@ import {
     initialRequestStateReducer,
 } from './initialRequestStateReducer';
 import {
-    moleculeRequestStateReducer,
-    moleculesReducer,
-    visibleColumnsReducer,
-    columnValuesReducer,
-    pageIndexReducer,
-    pageKindReducer,
-} from '../loadedDatabaseBrowserReducer';
-import { numEntriesPerPageReducer } from '../numEntriesPerPageReducer';
+    moleculeRequestStateReducer
+} from './moleculeRequestStateReducer';
+import { moleculesReducer } from './moleculesReducer';
+import { visibleColumnsReducer } from './visibleColumnsReducer';
+import { columnValuesReducer } from './columnValuesReducer';
+import { pageIndexReducer } from './pageIndexReducer';
+import { pageKindReducer } from './pageKindReducer';
+import { numEntriesPerPageReducer } from './numEntriesPerPageReducer';
 import {
     urlReducer,
     databaseReducer,
     moleculeCollectionReducer,
     positionMatrixCollectionReducer,
     propertyCollectionsReducer,
-} from '../mongoDbReducers';
+} from './mongoDbReducers';
 import {
     IInitialDatabaseBrowser,
     ILoadedDatabaseBrowser,
     DatabaseBrowserKind,
-} from '../../../models';
-import { updateTable } from '../../../actions';
+} from '../../models';
+import { updateTable } from '../../actions';
 import {
     getMongoDbUrl,
     getMongoDbDatabase,
@@ -32,7 +32,7 @@ import {
     getMongoDbPropertyCollections,
     getNumEntriesPerPage,
     getInitialRequestState,
-} from '../../../selectors';
+} from '../../selectors';
 
 
 export function initialDatabaseBrowserReducer(
