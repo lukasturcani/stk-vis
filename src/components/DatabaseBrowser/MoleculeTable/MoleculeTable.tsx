@@ -12,6 +12,7 @@ import {
 import Paper from '@material-ui/core/Paper';
 import MaterialTable from 'material-table';
 import * as fp from 'lodash/fp';
+import Sort from '@material-ui/icons/Sort';
 
 
 interface IMoleculeTableProps {
@@ -29,10 +30,11 @@ function MoleculeTable(
             style={{height: '100%', overflow: 'auto'}}
         ><MaterialTable
             options={{
-                toolbar: false,
+                toolbar: true,
                 search: false,
                 paging: false,
                 sorting: false,
+                showTitle: false,
             }}
             columns={
                 columns.map(
@@ -50,6 +52,17 @@ function MoleculeTable(
                     )
                 )
             }
+            actions={[
+                {
+                    icon: Sort,
+                    tooltip: 'Sort',
+                    isFreeAction: true,
+                    iconProps: {
+                        fontSize: 'large',
+                    },
+                    onClick: (event) => alert('You want to sort'),
+                },
+            ]}
         />
         </Paper>
     );
