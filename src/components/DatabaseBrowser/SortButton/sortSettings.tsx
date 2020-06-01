@@ -93,6 +93,9 @@ function SortSettings(
                                 value={ collection }
                                 onChange={ collectionChange }
                             >
+                                <MenuItem value='' key='None'>
+                                    <em>None</em>
+                                </MenuItem>
                                 {
                                     props.columnNames. map(
                                         (name: string) => (
