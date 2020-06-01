@@ -7,6 +7,7 @@ export interface IMongoDbFields
     database: string;
     moleculeCollection: string;
     positionMatrixCollection: string;
+    numEntriesPerPage: number;
 }
 
 

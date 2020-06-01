@@ -6,6 +6,7 @@ import {
     getMongoDbDatabase,
     getMongoDbMoleculeCollection,
     getMongoDbPositionMatrixCollection,
+    getNumEntriesPerPage,
 } from '../../../selectors';
 import { IState } from '../../../models';
 import { GetMoleculesButtonComponent } from './GetMoleculesButton';
@@ -18,6 +19,7 @@ interface IMongoDbFieldsProps
     database: string;
     moleculeCollection: string;
     positionMatrixCollection: string;
+    numEntriesPerPage: number;
 }
 
 
@@ -35,6 +37,9 @@ function MongoDbFields(props: IMongoDbFieldsProps)
     const [positionMatrixCollection, setPositionMatrixCollection]
         = React.useState(props.positionMatrixCollection);
 
+    const [numEntriesPerPage, setNumEntriesPerPage]
+        = React.useState(props.numEntriesPerPage);
+
     return (
         <Grid container
             alignItems={ 'center' }
@@ -48,7 +53,7 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                 alignItems={ 'center' }
                 alignContent={ 'center' }
                 justify={ 'center' }
-                spacing={ 3 }
+                spacing={ 4 }
                 style={ {height: '100%'} }
             >
                 <Grid item><TextField
@@ -71,7 +76,9 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                     defaultValue={ props.moleculeCollection }
                     variant='outlined'
                     onChange={
-                        (e) => { setMoleculeCollection(e.target.value) }
+                        (e) => {
+                            setMoleculeCollection(e.target.value)
+                        }
                     }
                 /></Grid>
                 <Grid item><TextField
@@ -85,6 +92,19 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                         }
                     }
                 /></Grid>
+                <Grid item><TextField
+                    id='num-entries-per-age'
+                    label='Entries Per Page'
+                    defaultValue={ props.numEntriesPerPage }
+                    variant='outlined'
+                    onChange={
+                        (e) => {
+                            setNumEntriesPerPage(
+                                parseInt(e.target.value)
+                            )
+                        }
+                    }
+                /></Grid>
             </Grid>
             <Grid item>
                 <GetMoleculesButtonComponent
@@ -94,6 +114,7 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                     positionMatrixCollection={
                         positionMatrixCollection
                     }
+                    numEntriesPerPage={ numEntriesPerPage }
                 />
             </Grid>
         </Grid>
@@ -117,6 +138,9 @@ function mapStateToProps(
 
         positionMatrixCollection:
             getMongoDbPositionMatrixCollection(state),
+
+        numEntriesPerPage:
+            getNumEntriesPerPage(state),
     }
 }
 

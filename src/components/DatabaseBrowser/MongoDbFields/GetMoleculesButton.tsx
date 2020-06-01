@@ -32,6 +32,7 @@ interface IGetMoleculesButtonProps
     positionMatrixCollection: string;
     getFirstPage: (options: getFirstPageOptions) => () => void;
     dispatchUpdateMongoDbFields: (fields: IMongoDbFields) => void;
+    numEntriesPerPage: number;
 }
 
 
@@ -62,6 +63,9 @@ function GetMoleculesButton(
 
                             positionMatrixCollection:
                                 props.positionMatrixCollection,
+
+                            numEntriesPerPage:
+                                props.numEntriesPerPage,
                         });
                         props.getFirstPage({
                             successSnackbar: successSnackbar.activate,

@@ -1,4 +1,5 @@
 import { AnyAction } from '@reduxjs/toolkit';
+import { updateMongoDbFields } from '../../actions';
 
 
 export function numEntriesPerPageReducer(
@@ -7,5 +8,9 @@ export function numEntriesPerPageReducer(
 )
     : number
 {
+    if (updateMongoDbFields.match(action))
+    {
+        return action.payload.numEntriesPerPage;
+    }
     return state;
 }
