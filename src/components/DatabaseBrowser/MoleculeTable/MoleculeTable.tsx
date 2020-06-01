@@ -9,6 +9,11 @@ import {
     getTableMolecules,
     getColumnValues,
 } from '../../../selectors';
+import {
+    getSortSettings,
+    SortSettingsComponent,
+    SortSettings,
+} from './sortSettings';
 import Paper from '@material-ui/core/Paper';
 import MaterialTable from 'material-table';
 import * as fp from 'lodash/fp';
@@ -25,10 +30,14 @@ interface IMoleculeTableProps {
 function MoleculeTable(
     {columns, moleculeIds, columnValues}: IMoleculeTableProps
 ) {
+
+    const sortSettings: SortSettings
+        = getSortSettings();
+
     return (
-        <Paper
+        <div>
+        <MaterialTable
             style={{height: '100%', overflow: 'auto'}}
-        ><MaterialTable
             options={{
                 toolbar: true,
                 search: false,
@@ -60,11 +69,17 @@ function MoleculeTable(
                     iconProps: {
                         fontSize: 'large',
                     },
-                    onClick: (event) => alert('You want to sort'),
+                    onClick: (event) => {
+                        sortSettings.setOpen(true);
+                    },
                 },
             ]}
         />
-        </Paper>
+        <SortSettingsComponent
+            open={ sortSettings.open }
+            onClose={ () => { sortSettings.setOpen(false); } }
+        />
+        </div>
     );
 }
 
