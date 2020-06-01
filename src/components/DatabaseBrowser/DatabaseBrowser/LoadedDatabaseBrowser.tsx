@@ -27,6 +27,7 @@ import {
     Theme,
 } from '@material-ui/core/styles';
 import { theme } from './theme';
+import { SortButtonComponent } from '../SortButton';
 
 
 
@@ -86,9 +87,12 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
                     </Link>
                 </Breadcrumbs>
             </Grid>
+            <Grid item xs={12}>
+                <SortButtonComponent />
+            </Grid>
             <Grid
                 item xs={12}
-                style={ {height: '95%', overflow: 'auto'} }
+                style={ { height: '90%' } }
             >
                 <MoleculeTableComponent />
             </Grid>
