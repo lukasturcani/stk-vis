@@ -12,11 +12,13 @@ function actionCreator({
     columnValues,
     pageIndex,
     pageKind,
+    propertyCollections,
 }: {
     molecules: IMolecule[],
     columnValues: IColumnValues,
     pageIndex: number,
-    pageKind: PageKind
+    pageKind: PageKind,
+    propertyCollections: string[],
 }
 ): { payload: ITableValues }
 {
@@ -26,6 +28,7 @@ function actionCreator({
             columnValues,
             pageIndex,
             pageKind,
+            propertyCollections,
         },
     };
 }

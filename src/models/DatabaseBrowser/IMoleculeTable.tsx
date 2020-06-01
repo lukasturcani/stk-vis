@@ -22,6 +22,7 @@ export interface ITableValues {
     readonly columnValues: IColumnValues;
     readonly pageIndex: number;
     readonly pageKind: PageKind;
+    readonly propertyCollections: string[];
 }
 
 

@@ -5,6 +5,7 @@ import {
     updateMongoDbMoleculeCollection,
     updateMongoDbPositionMatrixCollection,
     updateMongoDbFields,
+    updateTable,
 } from '../../actions';
 
 
@@ -86,5 +87,9 @@ export function propertyCollectionsReducer(
 )
     : string[]
 {
+    if (updateTable.match(action))
+    {
+        return action.payload.propertyCollections;
+    }
     return state;
 }

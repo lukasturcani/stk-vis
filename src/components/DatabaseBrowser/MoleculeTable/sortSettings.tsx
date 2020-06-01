@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { AnyAction } from '@reduxjs/toolkit';
 import Dialog from '@material-ui/core/Dialog';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -11,6 +13,12 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import DoneIcon from '@material-ui/icons/Done';
+import {
+    ILoadedDatabaseBrowser,
+} from '../../../models';
+import {
+    getMongoDbPropertyCollections,
+} from '../../../selectors';
 
 
 
@@ -42,14 +50,15 @@ interface SortSettingsProps
 }
 
 
-export function SortSettingsComponent(
+function SortSettings(
     props: SortSettingsProps
 )
 {
     const [radioValue, setRadioValue] = React.useState('Ascending');
-    const radioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRadioValue((event.target as HTMLInputElement).value);
-    };
+    const radioChange
+        = (event: React.ChangeEvent<HTMLInputElement>) => {
+            setRadioValue((event.target as HTMLInputElement).value);
+        };
 
     const [collection, setCollection] = React.useState('numAtoms');
     const collectionChange = (e: any) => {
@@ -84,12 +93,18 @@ export function SortSettingsComponent(
                                 value={ collection }
                                 onChange={ collectionChange }
                             >
-                                <MenuItem value='numAtoms'>
-                                    numAtoms
-                                </MenuItem>
-                                <MenuItem value='numBonds'>
-                                    numBonds
-                                </MenuItem>
+                                {
+                                    props.columnNames. map(
+                                        (name: string) => (
+                                            <MenuItem
+                                                value={ name }
+                                                key={ name }
+                                            >
+                                                { name }
+                                            </MenuItem>
+                                        )
+                                    )
+                                }
                             </Select>
                         </FormControl>
                     </Grid>
@@ -120,3 +135,23 @@ export function SortSettingsComponent(
         </Dialog>
     );
 }
+
+
+
+function mapStateToProps(state: ILoadedDatabaseBrowser)
+{
+    return {
+        columnNames: getMongoDbPropertyCollections(state),
+    };
+}
+
+
+function mapDispatchToProps(dispatch: (action: AnyAction) => void)
+{
+    return {
+    };
+}
+
+
+export const SortSettingsComponent
+    = connect(mapStateToProps, mapDispatchToProps)(SortSettings);

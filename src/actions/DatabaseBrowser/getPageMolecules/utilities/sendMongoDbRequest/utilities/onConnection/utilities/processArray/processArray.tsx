@@ -104,6 +104,7 @@ export const processArray: processArrayInterface =
                 columnValues: data.columnValues,
                 pageIndex: options.pageIndex,
                 pageKind,
+                propertyCollections: options.propertyCollections,
             }));
             options.cursor.close();
             options.client.close();
