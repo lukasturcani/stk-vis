@@ -60,7 +60,7 @@ function SortSettings(
             setRadioValue((event.target as HTMLInputElement).value);
         };
 
-    const [collection, setCollection] = React.useState('numAtoms');
+    const [collection, setCollection] = React.useState('None');
     const collectionChange = (e: any) => {
         setCollection(e.target.value);
     };
@@ -93,7 +93,7 @@ function SortSettings(
                                 value={ collection }
                                 onChange={ collectionChange }
                             >
-                                <MenuItem value='' key='None'>
+                                <MenuItem value='None' key='None'>
                                     <em>None</em>
                                 </MenuItem>
                                 {
