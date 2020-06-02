@@ -10,6 +10,8 @@ import {
     IMoleculeRequestState,
     DatabaseBrowserKind,
     PageKind,
+    ISortedLoadedDatabaseBrowser,
+    SortedType,
 } from '../../models';
 import * as fp from 'lodash/fp';
 
@@ -169,4 +171,22 @@ export function getSelectedMolecule(
     : number
 {
     return state.selectedMolecule;
+}
+
+
+export function getSortedCollection(
+    state: ISortedLoadedDatabaseBrowser,
+)
+    : string
+{
+    return state.sortedCollection;
+}
+
+
+export function getSortedType(
+    state: ISortedLoadedDatabaseBrowser,
+)
+    : SortedType
+{
+    return state.sortedType;
 }

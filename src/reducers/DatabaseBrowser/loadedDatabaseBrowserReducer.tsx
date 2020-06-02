@@ -1,17 +1,5 @@
-import { AnyAction, combineReducers } from '@reduxjs/toolkit';
-import { loadedKindReducer } from './loadedKindReducer';
-import { moleculesReducer } from './moleculesReducer';
-import { visibleColumnsReducer } from './visibleColumnsReducer';
-import { pageIndexReducer } from './pageIndexReducer';
+import { AnyAction } from '@reduxjs/toolkit';
 import { numEntriesPerPageReducer } from './numEntriesPerPageReducer';
-import { pageKindReducer } from './pageKindReducer';
-import {
-    columnValuesReducer,
-} from './columnValuesReducer';
-import {
-    moleculeRequestStateReducer,
-} from './moleculeRequestStateReducer';
-import { selectedMoleculeReducer } from './selectedMoleculeReducer';
 import {
     urlReducer,
     databaseReducer,
@@ -23,6 +11,7 @@ import {
     IDatabaseBrowser,
     InitialRequestStateKind,
     ILoadedDatabaseBrowser,
+    SortedKind,
 } from '../../models';
 import { setInitialBrowserState } from '../../actions';
 import { initialKindReducer } from './initialKindReducer';
@@ -35,24 +24,14 @@ import {
     getNumEntriesPerPage,
     getDatabaseBrowserKind,
 } from '../../selectors';
+import {
+    unsortedDatabaseBrowserReducer,
+} from './unsortedDatabaseBrowserReducer';
+import {
+    sortedDatabaseBrowserReducer,
+} from './sortedDatabaseBrowserReducer';
 
 
-const _loadedDatabaseBrowserReducer = combineReducers({
-    kind: loadedKindReducer,
-    url: urlReducer,
-    database: databaseReducer,
-    moleculeCollection: moleculeCollectionReducer,
-    positionMatrixCollection: positionMatrixCollectionReducer,
-    propertyCollections: propertyCollectionsReducer,
-    moleculeRequestState: moleculeRequestStateReducer,
-    molecules: moleculesReducer,
-    visibleColumns: visibleColumnsReducer,
-    columnValues: columnValuesReducer,
-    pageIndex: pageIndexReducer,
-    numEntriesPerPage: numEntriesPerPageReducer,
-    pageKind: pageKindReducer,
-    selectedMolecule: selectedMoleculeReducer,
-});
 
 
 export function loadedDatabaseBrowserReducer(
@@ -107,5 +86,18 @@ export function loadedDatabaseBrowserReducer(
 
         };
     }
-    return _loadedDatabaseBrowserReducer(state, action);
+    switch( state.sortedKind)
+    {
+        case SortedKind.Unsorted:
+            return unsortedDatabaseBrowserReducer(state, action);
+
+        case SortedKind.Sorted:
+            return sortedDatabaseBrowserReducer(state, action);
+
+        default:
+            assertNever(state);
+    }
 }
+
+
+function assertNever(arg: never): never { throw Error(); }

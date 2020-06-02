@@ -23,6 +23,7 @@ import {
     IInitialDatabaseBrowser,
     ILoadedDatabaseBrowser,
     DatabaseBrowserKind,
+    SortedKind,
 } from '../../models';
 import { updateTable } from '../../actions';
 import {
@@ -128,6 +129,9 @@ export function initialDatabaseBrowserReducer(
 
             selectedMolecule:
                 selectedMoleculeReducer(undefined, action),
+
+            sortedKind:
+                SortedKind.Unsorted,
 
         };
     }
