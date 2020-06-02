@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import DoneIcon from '@material-ui/icons/Done';
 import Button from '@material-ui/core/Button';
 import {
-    SortedType,
+    SortType,
     SortSettingsKind,
 } from '../../../models';
 import {
@@ -30,9 +30,9 @@ interface SubmitSortButtonProps
 {
     setOpen: (open: boolean) => void;
     dispatchSetSortSettings:
-        (sortedCollection: string, sortedType: SortedType) => void;
+        (sortedCollection: string, sortType: SortType) => void;
     sortedCollection: string;
-    sortedType: SortedType;
+    sortType: SortType;
     getFirstPage: (options: getFirstPageOptions) => () => void;
 }
 
@@ -41,9 +41,9 @@ interface SubmitSortOptions
 {
     setOpen: (open: boolean) => void;
     dispatchSetSortSettings:
-        (sortedCollection: string, sortedType: SortedType) => void;
+        (sortedCollection: string, sortType: SortType) => void;
     sortedCollection: string;
-    sortedType: SortedType;
+    sortType: SortType;
     getFirstPage: (options: getFirstPageOptions) => () => void;
     getFirstPageOptions: getFirstPageOptions;
 }
@@ -57,7 +57,7 @@ function submitSort(
         options.setOpen(false);
         options.dispatchSetSortSettings(
             options.sortedCollection,
-            options.sortedType,
+            options.sortType,
         );
         options.getFirstPage(options.getFirstPageOptions)();
     };
@@ -81,7 +81,7 @@ function SubmitSortButton(
                     submitSort({
                         setOpen: props.setOpen,
                         sortedCollection: props.sortedCollection,
-                        sortedType: props.sortedType,
+                        sortType: props.sortType,
                         dispatchSetSortSettings:
                             props.dispatchSetSortSettings,
                         getFirstPage: props.getFirstPage,
@@ -171,7 +171,7 @@ function mapDispatchToProps(
 {
     return {
         dispatchSetSortSettings:
-            (sortedCollection: string, sortedType: SortedType) => {
+            (sortedCollection: string, sortType: SortType) => {
                 if ( sortedCollection === '')
                 {
                     dispatch(setSortSettings({
@@ -183,7 +183,7 @@ function mapDispatchToProps(
                     dispatch(setSortSettings({
                         kind: SortSettingsKind.Sorted,
                         collection: sortedCollection,
-                        sortedType,
+                        sortType,
                     }))
                 }
             },

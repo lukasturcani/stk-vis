@@ -11,8 +11,8 @@ import {
     DatabaseBrowserKind,
     PageKind,
     ISortedLoadedDatabaseBrowser,
-    SortedType,
-    SortedKind,
+    SortType,
+    SortKind,
 } from '../../models';
 import * as fp from 'lodash/fp';
 
@@ -184,19 +184,19 @@ export function getSortedCollection(
 }
 
 
-export function getSortedType(
+export function getSortType(
     state: ISortedLoadedDatabaseBrowser,
 )
-    : SortedType
+    : SortType
 {
-    return state.sortedType;
+    return state.sortType;
 }
 
 
-export function getSortedKind(
+export function getSortKind(
     state: ISortedLoadedDatabaseBrowser,
 )
-    : SortedKind
+    : SortKind
 {
-    return state.sortedKind;
+    return state.sortKind;
 }

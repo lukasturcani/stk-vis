@@ -5,15 +5,15 @@ import {
     getMongoDbPositionMatrixCollection,
     getNumEntriesPerPage,
     getDatabaseBrowserKind,
-    getSortedKind,
-    getSortedType,
+    getSortKind,
+    getSortType,
     getSortedCollection,
 } from '../../../../../selectors';
 import {
     IInitialDatabaseBrowser,
     ILoadedDatabaseBrowser,
     DatabaseBrowserKind,
-    SortedKind,
+    SortKind,
 } from '../../../../../models';
 import { MongoClient } from 'mongodb';
 import { AnyAction } from '@reduxjs/toolkit'
@@ -73,9 +73,9 @@ export function sendMongoDbRequest(
             }));
 
         case DatabaseBrowserKind.Loaded:
-            switch (options.state.sortedKind)
+            switch (options.state.sortKind)
             {
-                case SortedKind.Unsorted:
+                case SortKind.Unsorted:
                     return MongoClient.connect(
                         url,
                         onConnectionUnsorted({
@@ -88,7 +88,7 @@ export function sendMongoDbRequest(
                         }),
                     );
 
-                case SortedKind.Sorted:
+                case SortKind.Sorted:
                     return MongoClient.connect(
                         url,
                         onConnectionSorted({
@@ -97,7 +97,7 @@ export function sendMongoDbRequest(
                             positionMatrixCollection,
                             numEntriesPerPage,
                             currentPageData,
-                            sortedType: getSortedType(options.state),
+                            sortType: getSortType(options.state),
 
                             sortedCollection:
                                 getSortedCollection(options.state),

@@ -11,7 +11,7 @@ import {
     IDatabaseBrowser,
     InitialRequestStateKind,
     ILoadedDatabaseBrowser,
-    SortedKind,
+    SortKind,
 } from '../../models';
 import { setInitialBrowserState } from '../../actions';
 import { initialKindReducer } from './initialKindReducer';
@@ -86,12 +86,12 @@ export function loadedDatabaseBrowserReducer(
 
         };
     }
-    switch( state.sortedKind)
+    switch( state.sortKind)
     {
-        case SortedKind.Unsorted:
+        case SortKind.Unsorted:
             return unsortedDatabaseBrowserReducer(state, action);
 
-        case SortedKind.Sorted:
+        case SortKind.Sorted:
             return sortedDatabaseBrowserReducer(state, action);
 
         default:

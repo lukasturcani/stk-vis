@@ -17,7 +17,7 @@ export const enum PageKind
 }
 
 
-export const enum SortedKind
+export const enum SortKind
 {
     Sorted = 'Sorted',
     Unsorted = 'Unsorted',
@@ -26,7 +26,7 @@ export const enum SortedKind
 
 export interface ILoadedDatabaseBrowserBase {
     readonly kind: DatabaseBrowserKind.Loaded;
-    readonly sortedKind: SortedKind;
+    readonly sortKind: SortKind;
     readonly url: string;
     readonly database: string;
     readonly moleculeCollection: string;

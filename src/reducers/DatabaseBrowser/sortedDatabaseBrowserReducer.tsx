@@ -3,7 +3,7 @@ import {
     IDatabaseBrowser,
     ISortedLoadedDatabaseBrowser,
     DatabaseBrowserKind,
-    SortedKind,
+    SortKind,
     SortSettingsKind,
 } from '../../models';
 import {
@@ -44,8 +44,8 @@ import {
     sortedCollectionReducer
 } from './sortedCollectionReducer';
 import {
-    sortedTypeReducer
-} from './sortedTypeReducer';
+    sortTypeReducer
+} from './sortTypeReducer';
 import {
     getMongoDbUrl,
     getMongoDbDatabase,
@@ -61,7 +61,7 @@ import {
     getPageKind,
     getSelectedMolecule,
     getSortedCollection,
-    getSortedType,
+    getSortType,
 } from '../../selectors';
 
 
@@ -146,8 +146,8 @@ export function sortedDatabaseBrowserReducer(
                             action,
                         ),
 
-                    sortedKind:
-                        SortedKind.Unsorted,
+                    sortKind:
+                        SortKind.Unsorted,
                 };
 
             case SortSettingsKind.Sorted:
@@ -226,17 +226,17 @@ export function sortedDatabaseBrowserReducer(
                 action,
             ),
 
-        sortedKind:
-            SortedKind.Sorted,
+        sortKind:
+            SortKind.Sorted,
 
         sortedCollection:
             sortedCollectionReducer(
                 getSortedCollection(state),
                 action,
             ),
-        sortedType:
-            sortedTypeReducer(
-                getSortedType(state),
+        sortType:
+            sortTypeReducer(
+                getSortType(state),
                 action,
             ),
     };

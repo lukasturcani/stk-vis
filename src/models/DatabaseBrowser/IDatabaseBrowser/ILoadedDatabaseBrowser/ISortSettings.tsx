@@ -1,4 +1,4 @@
-import { SortedType } from './ISortedLoadedDatabaseBrowser';
+import { SortType } from './ISortedLoadedDatabaseBrowser';
 
 
 export const enum SortSettingsKind
@@ -17,7 +17,7 @@ export interface SortCollectionSettings
 {
     kind: SortSettingsKind.Sorted;
     collection: string;
-    sortedType: SortedType;
+    sortType: SortType;
 }
 
 

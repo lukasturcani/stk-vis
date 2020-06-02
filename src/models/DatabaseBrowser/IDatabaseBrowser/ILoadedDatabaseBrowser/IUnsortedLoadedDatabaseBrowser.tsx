@@ -1,6 +1,6 @@
 import {
     ILoadedDatabaseBrowserBase,
-    SortedKind,
+    SortKind,
 } from './ILoadedDatabaseBrowserBase';
 
 
@@ -8,5 +8,5 @@ import {
 export interface IUnsortedLoadedDatabaseBrowser
     extends ILoadedDatabaseBrowserBase
 {
-    sortedKind: SortedKind.Unsorted;
+    sortKind: SortKind.Unsorted;
 }

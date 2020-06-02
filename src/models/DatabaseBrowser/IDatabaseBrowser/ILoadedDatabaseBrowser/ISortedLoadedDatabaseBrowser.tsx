@@ -1,10 +1,10 @@
 import {
     ILoadedDatabaseBrowserBase,
-    SortedKind,
+    SortKind,
 } from './ILoadedDatabaseBrowserBase';
 
 
-export const enum SortedType
+export const enum SortType
 {
     Ascending = 'Ascending',
     Descending = 'Descending',
@@ -14,7 +14,7 @@ export const enum SortedType
 export interface ISortedLoadedDatabaseBrowser
     extends ILoadedDatabaseBrowserBase
 {
-    sortedKind: SortedKind.Sorted;
+    sortKind: SortKind.Sorted;
     sortedCollection: string;
-    sortedType: SortedType;
+    sortType: SortType;
 }

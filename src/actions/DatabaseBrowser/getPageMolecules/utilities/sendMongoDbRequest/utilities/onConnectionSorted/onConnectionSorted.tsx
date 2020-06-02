@@ -2,7 +2,7 @@ import {
     Maybe,
 } from '../../../../../../../utilities';
 import {
-    SortedType,
+    SortType,
 } from '../../../../../../../models';
 import { AnyAction } from '@reduxjs/toolkit'
 import { IPageData } from '../IPageData';
@@ -29,7 +29,7 @@ interface onConnectionSortedOptions
     numEntriesPerPage: number;
     pageIndex: number;
     sortedCollection: string;
-    sortedType: SortedType;
+    sortType: SortType;
     currentPageData: Maybe<IPageData>;
     successSnackbar: (message: string) => void;
     errorSnackbar: (message: string) => void;

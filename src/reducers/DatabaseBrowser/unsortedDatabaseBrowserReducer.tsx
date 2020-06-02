@@ -3,7 +3,7 @@ import {
     IDatabaseBrowser,
     IUnsortedLoadedDatabaseBrowser,
     DatabaseBrowserKind,
-    SortedKind,
+    SortKind,
     SortSettingsKind,
 } from '../../models';
 import {
@@ -38,8 +38,8 @@ import {
     sortedCollectionReducer
 } from './sortedCollectionReducer';
 import {
-    sortedTypeReducer
-} from './sortedTypeReducer';
+    sortTypeReducer
+} from './sortTypeReducer';
 import {
     selectedMoleculeReducer
 } from './selectedMoleculeReducer';
@@ -147,16 +147,16 @@ export function unsortedDatabaseBrowserReducer(
                             action,
                         ),
 
-                    sortedKind:
-                        SortedKind.Sorted,
+                    sortKind:
+                        SortKind.Sorted,
 
                     sortedCollection:
                         sortedCollectionReducer(
                             undefined,
                             action,
                         ),
-                    sortedType:
-                        sortedTypeReducer(
+                    sortType:
+                        sortTypeReducer(
                             undefined,
                             action,
                         ),
@@ -235,8 +235,8 @@ export function unsortedDatabaseBrowserReducer(
                 action,
             ),
 
-        sortedKind:
-            SortedKind.Unsorted,
+        sortKind:
+            SortKind.Unsorted,
 
     };
 }
