@@ -40,7 +40,7 @@ interface ICollectionData
 }
 
 
-export function onConnection(
+export function onConnectionUnsorted(
     options: onConnectionOptions,
 )
     : (err: MongoError, client: MongoClient) => void

@@ -4,15 +4,20 @@ import {
     getMongoDbMoleculeCollection,
     getMongoDbPositionMatrixCollection,
     getNumEntriesPerPage,
+    getDatabaseBrowserKind,
+    getSortedKind,
 } from '../../../../../selectors';
 import {
     IInitialDatabaseBrowser,
     ILoadedDatabaseBrowser,
+    DatabaseBrowserKind,
+    SortedKind,
 } from '../../../../../models';
 import { MongoClient } from 'mongodb';
 import { AnyAction } from '@reduxjs/toolkit'
 import {
-    onConnection,
+    onConnectionUnsorted,
+    onConnectionSorted,
     maybeGetPageData,
     IPageData,
 } from './utilities';
@@ -53,12 +58,44 @@ export function sendMongoDbRequest(
     const currentPageData: Maybe<IPageData>
         = maybeGetPageData(options.state);
 
-    MongoClient.connect(url, onConnection({
-        database,
-        moleculesCollection,
-        positionMatrixCollection,
-        numEntriesPerPage,
-        currentPageData,
-        ...options
-    }));
+    switch (options.state.kind)
+    {
+        case DatabaseBrowserKind.Initial:
+            return MongoClient.connect(url, onConnectionUnsorted({
+                database,
+                moleculesCollection,
+                positionMatrixCollection,
+                numEntriesPerPage,
+                currentPageData,
+                ...options
+            }));
+
+        case DatabaseBrowserKind.Loaded:
+            switch (options.state.sortedKind)
+            {
+                case SortedKind.Unsorted:
+                    return MongoClient.connect(
+                        url,
+                        onConnectionUnsorted({
+                            database,
+                            moleculesCollection,
+                            positionMatrixCollection,
+                            numEntriesPerPage,
+                            currentPageData,
+                            ...options
+                        })
+                    );
+
+                case SortedKind.Sorted:
+                    return;
+
+                default:
+                    assertNever(options.state);
+            }
+
+    }
 }
+
+
+
+function assertNever(arg: never): never { throw Error(); }
