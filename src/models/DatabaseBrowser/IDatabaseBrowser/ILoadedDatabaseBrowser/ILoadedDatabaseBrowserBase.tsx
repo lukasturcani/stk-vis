@@ -1,9 +1,9 @@
-import { DatabaseBrowserKind } from './DatabaseBrowserKind';
-import { IMoleculeRequestState } from '../IMoleculeRequestState';
+import { DatabaseBrowserKind } from '../DatabaseBrowserKind';
+import { IMoleculeRequestState } from '../../IMoleculeRequestState';
 import {
     IMolecule,
     IColumnValues,
-} from '../IMoleculeTable';
+} from '../../IMoleculeTable';
 
 
 export const enum PageKind
@@ -17,8 +17,16 @@ export const enum PageKind
 }
 
 
-export interface ILoadedDatabaseBrowser {
+export const enum SortedKind
+{
+    Sorted = 'Sorted',
+    Unsorted = 'Unsorted',
+}
+
+
+export interface ILoadedDatabaseBrowserBase {
     readonly kind: DatabaseBrowserKind.Loaded;
+    readonly sortedKind: SortedKind;
     readonly url: string;
     readonly database: string;
     readonly moleculeCollection: string;
