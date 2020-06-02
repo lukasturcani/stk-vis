@@ -11,6 +11,7 @@ import { columnValuesReducer } from './columnValuesReducer';
 import { pageIndexReducer } from './pageIndexReducer';
 import { pageKindReducer } from './pageKindReducer';
 import { numEntriesPerPageReducer } from './numEntriesPerPageReducer';
+import { selectedMoleculeReducer } from './selectedMoleculeReducer';
 import {
     urlReducer,
     databaseReducer,
@@ -124,6 +125,9 @@ export function initialDatabaseBrowserReducer(
 
             pageKind:
                 pageKindReducer(undefined, action),
+
+            selectedMolecule:
+                selectedMoleculeReducer(undefined, action),
 
         };
     }

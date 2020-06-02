@@ -31,4 +31,5 @@ export interface ILoadedDatabaseBrowser {
     readonly pageIndex: number;
     readonly numEntriesPerPage: number;
     readonly pageKind: PageKind;
+    readonly selectedMolecule: number;
 }

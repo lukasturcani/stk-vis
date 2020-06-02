@@ -11,6 +11,7 @@ import {
 import {
     moleculeRequestStateReducer,
 } from './moleculeRequestStateReducer';
+import { selectedMoleculeReducer } from './selectedMoleculeReducer';
 import {
     urlReducer,
     databaseReducer,
@@ -48,8 +49,9 @@ const _loadedDatabaseBrowserReducer = combineReducers({
     visibleColumns: visibleColumnsReducer,
     columnValues: columnValuesReducer,
     pageIndex: pageIndexReducer,
-    numEntriesPerPage: numEntriesPerPageReducer ,
+    numEntriesPerPage: numEntriesPerPageReducer,
     pageKind: pageKindReducer,
+    selectedMolecule: selectedMoleculeReducer,
 });
 
 

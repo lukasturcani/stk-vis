@@ -161,3 +161,12 @@ export function getPageKind(
 {
     return state.pageKind;
 }
+
+
+export function getSelectedMolecule(
+    state: ILoadedDatabaseBrowser,
+)
+    : number
+{
+    return state.selectedMolecule;
+}
