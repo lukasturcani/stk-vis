@@ -83,11 +83,21 @@ export function sendMongoDbRequest(
                             numEntriesPerPage,
                             currentPageData,
                             ...options
-                        })
+                        }),
                     );
 
                 case SortedKind.Sorted:
-                    return;
+                    return MongoClient.connect(
+                        url,
+                        onConnectionSorted({
+                            database,
+                            moleculesCollection,
+                            positionMatrixCollection,
+                            numEntriesPerPage,
+                            currentPageData,
+                            ...options
+                        }),
+                    );
 
                 default:
                     assertNever(options.state);

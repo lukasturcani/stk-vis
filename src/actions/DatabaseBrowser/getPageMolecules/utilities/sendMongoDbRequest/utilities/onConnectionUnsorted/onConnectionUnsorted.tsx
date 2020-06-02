@@ -19,7 +19,7 @@ import {
 } from '../../../../../../../utilities';
 
 
-interface onConnectionOptions
+interface onConnectionUnsortedOptions
 {
     database: string;
     moleculesCollection: string;
@@ -41,7 +41,7 @@ interface ICollectionData
 
 
 export function onConnectionUnsorted(
-    options: onConnectionOptions,
+    options: onConnectionUnsortedOptions,
 )
     : (err: MongoError, client: MongoClient) => void
 {
