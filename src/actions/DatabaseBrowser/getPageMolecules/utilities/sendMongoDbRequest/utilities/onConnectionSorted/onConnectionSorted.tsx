@@ -9,7 +9,14 @@ import { IPageData } from '../IPageData';
 import {
     MongoClient,
     MongoError,
+    Db,
 } from 'mongodb';
+import {
+    setMoleculeRequestState,
+} from '../../../../../../../actions';
+import {
+    MoleculeRequestStateKind,
+} from '../../../../../../../models';
 
 
 
@@ -36,6 +43,22 @@ export function onConnectionSorted(
     : (err: MongoError, client: MongoClient) => void
 {
     return (err: MongoError, client: MongoClient): void => {
-        return;
+        if ( err !== null)
+        {
+            options.dispatch(
+                setMoleculeRequestState(
+                    MoleculeRequestStateKind.RequestFailed
+                )
+            );
+            options.errorSnackbar(
+                'Could not connect to the database.'
+            );
+            return;
+        }
+
+        const db: Db
+            = client
+            .db(options.database)
+
     };
 }

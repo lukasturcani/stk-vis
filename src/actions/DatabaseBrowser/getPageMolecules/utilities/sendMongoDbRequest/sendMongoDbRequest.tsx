@@ -6,6 +6,8 @@ import {
     getNumEntriesPerPage,
     getDatabaseBrowserKind,
     getSortedKind,
+    getSortedType,
+    getSortedCollection,
 } from '../../../../../selectors';
 import {
     IInitialDatabaseBrowser,
@@ -67,7 +69,7 @@ export function sendMongoDbRequest(
                 positionMatrixCollection,
                 numEntriesPerPage,
                 currentPageData,
-                ...options
+                ...options,
             }));
 
         case DatabaseBrowserKind.Loaded:
@@ -82,7 +84,7 @@ export function sendMongoDbRequest(
                             positionMatrixCollection,
                             numEntriesPerPage,
                             currentPageData,
-                            ...options
+                            ...options,
                         }),
                     );
 
@@ -95,7 +97,12 @@ export function sendMongoDbRequest(
                             positionMatrixCollection,
                             numEntriesPerPage,
                             currentPageData,
-                            ...options
+                            sortedType: getSortedType(options.state),
+
+                            sortedCollection:
+                                getSortedCollection(options.state),
+
+                            ...options,
                         }),
                     );
 
