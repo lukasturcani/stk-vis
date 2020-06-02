@@ -1,5 +1,6 @@
 import { AnyAction } from '@reduxjs/toolkit';
-import { SortedKind } from '../../models';
+import { SortedKind, SortSettingsKind } from '../../models';
+import { setSortSettings } from '../../actions';
 
 
 export function sortedKindReducer(
@@ -8,5 +9,23 @@ export function sortedKindReducer(
 )
     : SortedKind
 {
+    if (setSortSettings.match(action))
+    {
+        switch (action.payload.kind)
+        {
+            case SortSettingsKind.Unsorted:
+                return SortedKind.Unsorted;
+
+            case SortSettingsKind.Sorted:
+                return SortedKind.Sorted;
+
+            default:
+                assertNever(action.payload);
+        }
+    }
     return state;
 }
+
+
+
+function assertNever(arg: never): never { throw Error(); }
