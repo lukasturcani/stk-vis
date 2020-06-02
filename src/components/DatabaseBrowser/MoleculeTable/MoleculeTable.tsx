@@ -45,7 +45,7 @@ function MoleculeTable(
                 rowStyle: rowData => {
                     return {backgroundColor: (
                         props.selectedMolecule === rowData.tableData.id
-                    )? '#616161' : '"#fafafa"'
+                    )? '#616161' : '#424242'
                 }},
             }}
             columns={
