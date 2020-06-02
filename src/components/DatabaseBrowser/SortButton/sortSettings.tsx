@@ -11,14 +11,15 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import DoneIcon from '@material-ui/icons/Done';
 import {
     ILoadedDatabaseBrowser,
 } from '../../../models';
 import {
     getMongoDbPropertyCollections,
 } from '../../../selectors';
+import {
+    SubmitSortButtonComponent
+} from './SubmitSortButtonComponent';
 
 
 
@@ -47,6 +48,7 @@ interface SortSettingsProps
     open: boolean;
     onClose: () => void;
     columnNames: string[];
+    setOpen: (open: boolean) => void;
 }
 
 
@@ -131,9 +133,9 @@ function SortSettings(
                     </Grid>
                 </Grid>
                 <Grid item>
-                    <Button>
-                        <DoneIcon />
-                    </Button>
+                    <SubmitSortButtonComponent
+                        setOpen={ props.setOpen }
+                    />
                 </Grid>
             </Grid></Paper>
         </Dialog>

@@ -24,6 +24,7 @@ export function SortButtonComponent()
             <SortSettingsComponent
                 open={ sortSettings.open }
                 onClose={ () => { sortSettings.setOpen(false); } }
+                setOpen={ sortSettings.setOpen }
             />
         </div>
         );
