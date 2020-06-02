@@ -13,6 +13,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import {
     ILoadedDatabaseBrowser,
+    SortedType,
 } from '../../../models';
 import {
     getMongoDbPropertyCollections,
@@ -135,6 +136,12 @@ function SortSettings(
                 <Grid item>
                     <SubmitSortButtonComponent
                         setOpen={ props.setOpen }
+                        sortedCollection={ collection }
+                        sortedType={
+                            (radioValue === 'Ascending')?
+                                SortedType.Ascending
+                                : SortedType.Descending
+                        }
                     />
                 </Grid>
             </Grid></Paper>
