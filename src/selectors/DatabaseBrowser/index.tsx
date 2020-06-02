@@ -12,6 +12,7 @@ import {
     PageKind,
     ISortedLoadedDatabaseBrowser,
     SortedType,
+    SortedKind,
 } from '../../models';
 import * as fp from 'lodash/fp';
 
@@ -189,4 +190,13 @@ export function getSortedType(
     : SortedType
 {
     return state.sortedType;
+}
+
+
+export function getSortedKind(
+    state: ISortedLoadedDatabaseBrowser,
+)
+    : SortedKind
+{
+    return state.sortedKind;
 }
