@@ -22,12 +22,6 @@ export const theme = createMuiTheme({
                 display: 'flex',
             },
         },
-        MuiContainer: {
-            root: {
-                height: '99vh',
-                paddingTop: '30px',
-            },
-        },
         MuiPaper: {
             root: {
             },

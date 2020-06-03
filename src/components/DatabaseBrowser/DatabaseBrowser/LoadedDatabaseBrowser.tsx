@@ -14,7 +14,6 @@ import { setInitialBrowserState } from '../../../actions';
 import {
     MoleculeRequestButtonComponent
 } from '../MoleculeRequestButton';
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
@@ -56,15 +55,17 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
 {
     const classes = useStyles(theme);
     return (
-        <Container
-            maxWidth='xl'
-            disableGutters={ true }
+        <Grid container
             style={ {
-                minWidth: '90vw',
+                height: '100vh',
+                width: '100vw',
+                margin: 0,
+                padding: 10,
             } }
-        ><Grid container
-            style={{height: '100%'}}
             spacing={3}
+            alignItems='center'
+            justify='center'
+            direction='row'
         >
             <Grid item xs={ 12 }>
                 <Breadcrumbs
@@ -98,7 +99,7 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
             </Grid>
             <Grid
                 item xs={12}
-                style={ { height: '90%' } }
+                style={ { height: '83%' } }
             >
                 <MoleculeTableComponent />
             </Grid>
@@ -125,7 +126,7 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
                 <MoleculeRequestButtonComponent isForward={ true } />
             </Grid>
             </Grid></Grid>
-        </Grid></Container>
+        </Grid>
     );
 }
 
