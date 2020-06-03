@@ -9,7 +9,9 @@ import { IPageData } from '../IPageData';
 import {
     MongoClient,
     MongoError,
+    Cursor,
     Db,
+    CommandCursor,
 } from 'mongodb';
 import {
     setMoleculeRequestState,
@@ -17,6 +19,7 @@ import {
 import {
     MoleculeRequestStateKind,
 } from '../../../../../../../models';
+import { processArray } from './utilities';
 
 
 
@@ -33,6 +36,12 @@ interface onConnectionSortedOptions
     currentPageData: Maybe<IPageData>;
     successSnackbar: (message: string) => void;
     errorSnackbar: (message: string) => void;
+}
+
+
+interface ICollectionData
+{
+    name: string;
 }
 
 
@@ -55,10 +64,74 @@ export function onConnectionSorted(
             );
             return;
         }
-
         const db: Db
             = client
             .db(options.database)
 
+        const reservedNames: Set<string>
+            = new Set([
+                options.moleculesCollection,
+                options.positionMatrixCollection,
+                options.sortedCollection,
+            ]);
+
+
+        const collectionsCursor: CommandCursor
+            = db.listCollections(
+                undefined,
+                { nameOnly: true },
+            )
+
+        collectionsCursor.toArray()
+            .then((collections: ICollectionData[]) => {
+
+            const propertyCollections: string[]
+                = collections.filter(
+                (collectionData: ICollectionData) => {
+                    return !reservedNames.has(collectionData.name);
+                }
+                ).map(
+                    (collectionData: ICollectionData) => {
+                        return collectionData.name;
+                    }
+                );
+            collectionsCursor.close()
+
+            const cursor: Cursor
+                = db
+                .collection(options.sortedCollection)
+                .find({})
+                .sort(
+                    'v',
+                    (options.sortType === SortType.Ascending)? 1 : -1,
+                )
+                .skip(
+                    options.pageIndex
+                    *
+                    options.numEntriesPerPage
+                )
+                // Add +1 to check if there is another entry on the
+                // next page, which is used to determine if the current
+                // page is the last page.
+                .limit(options.numEntriesPerPage+1);
+
+            cursor.toArray(
+                processArray({
+                    ...options,
+                    cursor,
+                    client,
+                    propertyCollections,
+                })
+            );
+        }).catch(() => {
+            options.dispatch(
+                setMoleculeRequestState(
+                    MoleculeRequestStateKind.RequestFailed
+                )
+            );
+            options.errorSnackbar(
+                'Could not connect to the database.'
+            );
+        });
     };
 }

@@ -4,8 +4,6 @@ import {
     getMongoDbMoleculeCollection,
     getMongoDbPositionMatrixCollection,
     getNumEntriesPerPage,
-    getDatabaseBrowserKind,
-    getSortKind,
     getSortType,
     getSortedCollection,
 } from '../../../../../selectors';
