@@ -18,6 +18,7 @@ import Grid from '@material-ui/core/Grid';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import Paper from '@material-ui/core/Paper';
 import Settings from '@material-ui/icons/Settings';
 import TableChart from '@material-ui/icons/TableChart';
 import {
@@ -27,6 +28,7 @@ import {
 } from '@material-ui/core/styles';
 import { theme } from './theme';
 import { SortButtonComponent } from '../SortButton';
+import { ThreeDViewerComponent } from '../ThreeDViewer';
 
 
 
@@ -98,10 +100,15 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
                 <SortButtonComponent />
             </Grid>
             <Grid
-                item xs={12}
+                item xs={6}
                 style={ { height: '83%' } }
             >
                 <MoleculeTableComponent />
+            </Grid>
+            <Grid item xs={6}>
+                <Paper>
+                    <ThreeDViewerComponent />
+                </Paper>
             </Grid>
             <Grid item
                 xs={12}
