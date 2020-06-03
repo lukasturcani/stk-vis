@@ -23,6 +23,7 @@ import {
     extractPropertyData,
     getPropertyPromise,
     IPropertyResults,
+    addPositionMatrices,
 } from './utilities';
 
 
@@ -31,6 +32,7 @@ interface processArrayOptions
 {
     database: string;
     moleculeCollection: string;
+    positionMatrixCollection: string;
     propertyCollections: string[];
     dispatch: (action: AnyAction) => void;
     numEntriesPerPage: number;
@@ -96,9 +98,19 @@ export const processArray: processArrayInterface =
             getPropertyPromise({...options, query})
         ).map(promise => promise.then(extractPropertyData(data)));
 
-    Promise.all(propertyPromises).then(
+    const positionMatricesPromise: Promise<Maybe<IPropertyResults>>
+        = getPropertyPromise
+            ({...options, query})(options.positionMatrixCollection)
+
+    Promise.all([
+            positionMatricesPromise,
+        ...propertyPromises,
+    ]).then(
         (properties: Maybe<IPropertyResults>[]) =>
         {
+
+            addPositionMatrices(data, properties[0]);
+
             options.dispatch(updateTable({
                 molecules: data.molecules,
                 columnValues: data.columnValues,

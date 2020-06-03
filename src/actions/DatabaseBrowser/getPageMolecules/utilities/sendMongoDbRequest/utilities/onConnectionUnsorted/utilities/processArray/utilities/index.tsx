@@ -9,3 +9,4 @@ export * from './IDbEntry';
 export * from './IMoleculeIds';
 export * from './IPropertyQuery';
 export * from './IPropertyResults';
+export * from './addPositionMatrices';
