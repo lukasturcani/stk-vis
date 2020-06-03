@@ -26,7 +26,7 @@ import { processArray } from './utilities';
 interface onConnectionSortedOptions
 {
     database: string;
-    moleculesCollection: string;
+    moleculeCollection: string;
     positionMatrixCollection: string;
     dispatch: (action: AnyAction) => void;
     numEntriesPerPage: number;
@@ -70,7 +70,7 @@ export function onConnectionSorted(
 
         const reservedNames: Set<string>
             = new Set([
-                options.moleculesCollection,
+                options.moleculeCollection,
                 options.positionMatrixCollection,
                 options.sortedCollection,
             ]);

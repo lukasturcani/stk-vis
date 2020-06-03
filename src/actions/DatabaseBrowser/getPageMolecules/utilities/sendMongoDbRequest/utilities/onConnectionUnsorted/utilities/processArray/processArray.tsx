@@ -30,7 +30,7 @@ import {
 interface processArrayOptions
 {
     database: string;
-    moleculesCollection: string;
+    moleculeCollection: string;
     propertyCollections: string[];
     dispatch: (action: AnyAction) => void;
     numEntriesPerPage: number;

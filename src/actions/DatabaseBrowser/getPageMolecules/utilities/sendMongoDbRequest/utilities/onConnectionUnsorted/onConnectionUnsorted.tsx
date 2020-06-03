@@ -22,7 +22,7 @@ import {
 interface onConnectionUnsortedOptions
 {
     database: string;
-    moleculesCollection: string;
+    moleculeCollection: string;
     positionMatrixCollection: string;
     dispatch: (action: AnyAction) => void;
     numEntriesPerPage: number;
@@ -64,7 +64,7 @@ export function onConnectionUnsorted(
 
         const reservedNames: Set<string>
             = new Set([
-                options.moleculesCollection,
+                options.moleculeCollection,
                 options.positionMatrixCollection,
             ]);
 
@@ -92,7 +92,7 @@ export function onConnectionUnsorted(
 
             const cursor: Cursor
                 = db
-                .collection(options.moleculesCollection)
+                .collection(options.moleculeCollection)
                 .find({})
                 .skip(
                     options.pageIndex

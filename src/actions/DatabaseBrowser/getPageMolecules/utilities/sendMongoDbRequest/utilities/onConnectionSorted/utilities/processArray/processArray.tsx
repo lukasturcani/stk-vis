@@ -23,6 +23,7 @@ import {
     extractPropertyData,
     getPropertyPromise,
     IPropertyResults,
+    extractMoleculeData,
 } from './utilities';
 
 
@@ -30,7 +31,7 @@ import {
 interface processArrayOptions
 {
     database: string;
-    moleculesCollection: string;
+    moleculeCollection: string;
     propertyCollections: string[];
     dispatch: (action: AnyAction) => void;
     numEntriesPerPage: number;
@@ -100,7 +101,12 @@ export const processArray: processArrayInterface =
             getPropertyPromise({...options, query})
         ).map(promise => promise.then(extractPropertyData(data)));
 
-    Promise.all(propertyPromises).then(
+    const moleculesPromise: Promise<Maybe<IPropertyResults>>
+        = getPropertyPromise
+            ({... options, query})(options.moleculeCollection)
+        .then(extractMoleculeData(data));
+
+    Promise.all([moleculesPromise, ...propertyPromises]).then(
         (properties: Maybe<IPropertyResults>[]) =>
         {
             options.dispatch(updateTable({

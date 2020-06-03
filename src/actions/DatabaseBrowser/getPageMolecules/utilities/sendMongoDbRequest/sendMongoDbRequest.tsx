@@ -46,7 +46,7 @@ export function sendMongoDbRequest(
     const database: string
         = getMongoDbDatabase(options.state);
 
-    const moleculesCollection: string
+    const moleculeCollection: string
         = getMongoDbMoleculeCollection(options.state);
 
     const positionMatrixCollection: string
@@ -63,7 +63,7 @@ export function sendMongoDbRequest(
         case DatabaseBrowserKind.Initial:
             return MongoClient.connect(url, onConnectionUnsorted({
                 database,
-                moleculesCollection,
+                moleculeCollection,
                 positionMatrixCollection,
                 numEntriesPerPage,
                 currentPageData,
@@ -78,7 +78,7 @@ export function sendMongoDbRequest(
                         url,
                         onConnectionUnsorted({
                             database,
-                            moleculesCollection,
+                            moleculeCollection,
                             positionMatrixCollection,
                             numEntriesPerPage,
                             currentPageData,
@@ -91,7 +91,7 @@ export function sendMongoDbRequest(
                         url,
                         onConnectionSorted({
                             database,
-                            moleculesCollection,
+                            moleculeCollection,
                             positionMatrixCollection,
                             numEntriesPerPage,
                             currentPageData,

@@ -16,7 +16,6 @@ export function getDatabaseData(
             molecules: [],
         };
 
-    console.log(data);
     for (let moleculeId = 0; moleculeId < items.length; ++moleculeId)
     {
         addMoleculeData(
