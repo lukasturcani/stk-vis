@@ -10,3 +10,4 @@ export * from './IMoleculeIds';
 export * from './IPropertyQuery';
 export * from './IPropertyResults';
 export * from './extractMoleculeData';
+export * from './addPositionMatrices';
