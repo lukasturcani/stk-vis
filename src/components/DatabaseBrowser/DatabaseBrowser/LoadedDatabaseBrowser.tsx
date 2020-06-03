@@ -56,7 +56,13 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
 {
     const classes = useStyles(theme);
     return (
-        <Container><Grid container
+        <Container
+            maxWidth='xl'
+            disableGutters={ true }
+            style={ {
+                minWidth: '90vw',
+            } }
+        ><Grid container
             style={{height: '100%'}}
             spacing={3}
         >
