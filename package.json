@@ -14,6 +14,7 @@
     "@types/lodash": "^4.14.152",
     "lodash": "^4.17.15",
     "material-table": "^1.59.0",
+    "mol-draw": "^1.0.6",
     "mongodb": "^3.5.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

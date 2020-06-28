@@ -59,8 +59,8 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
     return (
         <Grid container
             style={ {
-                height: '100vh',
-                width: '100vw',
+                height: '98vh',
+                width: '98vw',
                 margin: 0,
                 padding: 10,
             } }
@@ -105,10 +105,11 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
             >
                 <MoleculeTableComponent />
             </Grid>
-            <Grid item xs={6}>
-                <Paper>
+            <Grid
+                item xs={6}
+                style={ { height: '100%'  } }
+            >
                     <ThreeDViewerComponent />
-                </Paper>
             </Grid>
             <Grid item
                 xs={12}
