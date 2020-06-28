@@ -107,9 +107,14 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
             </Grid>
             <Grid
                 item xs={6}
-                style={ { height: '100%'  } }
+                style={ { height: '83%'  } }
             >
+                <Paper style={{
+                    height: '100%',
+                    overflow: 'auto',
+                }}>
                     <ThreeDViewerComponent />
+                </Paper>
             </Grid>
             <Grid item
                 xs={12}
