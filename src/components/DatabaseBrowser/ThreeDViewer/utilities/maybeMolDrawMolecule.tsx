@@ -54,8 +54,8 @@ export function maybeMolDrawMolecule(
     console.log(molecule.bonds);
     const bonds = molecule.bonds.map(
         ([atom1Id, atom2Id, order]: IBond) => {
-            return md.bond(atom1Id)(atom2Id)(order);
+            return md.bond(order)(atom1Id)(atom2Id);
     });
 
-    return new Just(md.maybeMolecule(atoms)([]));
+    return new Just(md.maybeMolecule(atoms)(bonds));
 }

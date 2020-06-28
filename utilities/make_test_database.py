@@ -10,9 +10,9 @@ def get_molecules(num_molecules, random_seed):
     for _ in range(num_molecules):
         atom_factory = vb.RandomAtomFactory(
             atoms=(
-                vb.Atom(6, 0, 4),
-                vb.Atom(6, 0, 3),
-                vb.Atom(7, 0, 3),
+                vb.Atom(6, 0, 2),
+                vb.Atom(6, 0, 2),
+                vb.Atom(7, 0, 2),
                 vb.Atom(8, 0, 2),
             ),
             num_atoms=generator.randint(7, 16),
@@ -24,7 +24,7 @@ def get_molecules(num_molecules, random_seed):
         )
         bonds = bond_factory.get_bonds(atoms)
         molecule = with_hydrogens(vb.Molecule(atoms, bonds))
-        rdkit.Compute2DCoords(molecule)
+        rdkit.EmbedMolecule(molecule, rdkit.ETKDGv2())
         rdkit.Kekulize(molecule)
         yield stk.BuildingBlock.init_from_rdkit_mol(molecule)
 
