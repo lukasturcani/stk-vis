@@ -4,7 +4,7 @@ import {
     MaybeKind,
 } from '../../../../../../../../../../utilities';
 import { IPropertyResults } from './IPropertyResults';
-import { getMoleculeId } from './getMoleculeId';
+import { getMoleculeIds } from './getMoleculeId';
 
 
 export function addPositionMatrices(
@@ -24,15 +24,18 @@ export function addPositionMatrices(
                 const value of positionMatrices.value.propertyValues
             ) {
 
-                const moleculeId: Maybe<number>
-                    = getMoleculeId(data, value);
+                const moleculeIds: Maybe<number[]>
+                    = getMoleculeIds(data, value);
 
-                switch(moleculeId.kind)
+                switch(moleculeIds.kind)
                 {
                     case MaybeKind.Just:
-                        data.molecules[moleculeId.value] = {
-                            positionMatrix: value['m'],
-                            ...data.molecules[moleculeId.value],
+                        for (const moleculeId of moleculeIds.value)
+                        {
+                            data.molecules[moleculeId] = {
+                                positionMatrix: value['m'],
+                                ...data.molecules[moleculeId],
+                            }
                         }
                         break;
 
@@ -45,7 +48,7 @@ export function addPositionMatrices(
                         break;
 
                     default:
-                        assertNever(moleculeId);
+                        assertNever(moleculeIds);
 
                 }
             }

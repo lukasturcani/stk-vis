@@ -1,6 +1,6 @@
 interface IMoleculeIdValues
 {
-    [moleculeKeyValue: string]: number
+    [moleculeKeyValue: string]: number[]
 }
 
 

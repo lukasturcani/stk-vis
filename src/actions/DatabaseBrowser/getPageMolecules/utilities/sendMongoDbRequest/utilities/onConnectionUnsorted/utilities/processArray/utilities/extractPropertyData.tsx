@@ -4,7 +4,7 @@ import {
 } from '../../../../../../../../../../utilities';
 import { IDatabaseData } from './IDatabaseData';
 import { IPropertyResults } from './IPropertyResults';
-import { getMoleculeId } from './getMoleculeId';
+import { getMoleculeIds } from './getMoleculeId';
 
 
 function assertNever(arg: never): never { throw Error(); }
@@ -32,17 +32,18 @@ export function extractPropertyData(
                 for (
                     const value of propertyResults.value.propertyValues
                 ) {
-                    const moleculeId: Maybe<number>
-                        = getMoleculeId(data, value);
+                    const moleculeIds: Maybe<number[]>
+                        = getMoleculeIds(data, value);
 
-                    switch(moleculeId.kind)
+                    switch(moleculeIds.kind)
                     {
                         case MaybeKind.Just:
-                        data.columnValues[
-                            propertyResults.value.collectionName
-                        ][
-                            moleculeId.value
-                        ] = value['v'];
+                            for (const moleculeId of moleculeIds.value)
+                            {
+                                data.columnValues[
+                                    propertyResults.value.collectionName
+                                ][moleculeId] = value['v'];
+                            }
                             break;
 
                         case MaybeKind.Nothing:
@@ -54,7 +55,7 @@ export function extractPropertyData(
                             break;
 
                         default:
-                            assertNever(moleculeId);
+                            assertNever(moleculeIds);
 
                     }
                 }

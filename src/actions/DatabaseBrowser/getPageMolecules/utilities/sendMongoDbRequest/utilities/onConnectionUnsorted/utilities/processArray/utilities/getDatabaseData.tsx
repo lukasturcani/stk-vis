@@ -52,7 +52,7 @@ function addMoleculeData(
             }
             const newPropName: string
                 = propNameMap[propName];
-            molecule[newPropName] = dbEntry[propName];
+            molecule[newPropName] = propValue;
         }
         else
         {
@@ -61,12 +61,22 @@ function addMoleculeData(
                 data.columnValues[propName] = {};
                 data.moleculeIds[propName] = {};
             }
-            molecule[propName] = dbEntry[propName];
+            if (
+                data.moleculeIds[propName][propValue as string]
+                ===
+                undefined
+            )
+            {
+                data.moleculeIds[propName][propValue as string] = [];
+            }
+
+            molecule[propName] = propValue;
             data.moleculeKeyNames.add(propName);
             data.columnValues[propName as string][moleculeId]
                 = propValue as string;
-            data.moleculeIds[propName][propValue as string]
-                = moleculeId;
+            data.moleculeIds[propName][propValue as string].push(
+                moleculeId
+            );
         }
     }
     data.molecules.push(molecule);
