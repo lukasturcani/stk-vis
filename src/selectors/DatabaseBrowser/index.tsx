@@ -166,6 +166,14 @@ export function getPageKind(
 }
 
 
+export function getMolecules(
+    state: ILoadedDatabaseBrowser,
+)
+    : IMolecule[]
+{
+    return state.molecules
+}
+
 export function getSelectedMolecule(
     state: ILoadedDatabaseBrowser,
 )
