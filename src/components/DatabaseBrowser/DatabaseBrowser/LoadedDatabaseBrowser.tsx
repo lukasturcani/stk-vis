@@ -132,7 +132,7 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
                     <Paper style={{
                         height: '100%',
                         width: '100%',
-                        overflow: 'auto',
+                        overflow: 'hidden',
                     }}>
                         <TwoDViewerComponent />
                     </Paper>

@@ -78,7 +78,7 @@ function TwoDViewer(props: IThreeDViewerProps)
         <canvas
             id={ 'TwoDViewer' }
             style={{
-                height: '99%',
+                height: '100%',
                 width: '100%',
             }}
             // Use the selected molecule as the div content, so that
