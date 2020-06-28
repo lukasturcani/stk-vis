@@ -51,7 +51,6 @@ export function maybeMolDrawMolecule(
     }
 
     type IBond = [number, number, number];
-    console.log(molecule.bonds);
     const bonds = molecule.bonds.map(
         ([atom1Id, atom2Id, order]: IBond) => {
             return md.bond(order)(atom1Id)(atom2Id);

@@ -23,7 +23,8 @@ function assertNever(arg: never): never { throw Error(); }
 
 interface IThreeDViewerProps
 {
-    maybeMolecule: Maybe<any>
+    maybeMolecule: Maybe<any>;
+    selectedMolecule: number;
 }
 
 
@@ -37,9 +38,14 @@ function ThreeDViewer(props: IThreeDViewerProps)
             const geometryData
                 = md.fromRight()(props.maybeMolecule.value);
             React.useEffect(() => {
+                const viewer = document.getElementById('ThreeDViewer');
+                // Remove the content of the rendering container. It's
+                // only there to force the rendering of a new molecule.
+                (viewer as any).innerHTML = '';
+
                 md.drawMol({
                 })({
-                    containerId: 'ThreeDViewer'
+                    containerId: 'ThreeDViewer',
                 })(geometryData);
             });
             break;
@@ -47,13 +53,18 @@ function ThreeDViewer(props: IThreeDViewerProps)
             assertNever(props.maybeMolecule);
     }
 
-    return (<div id='ThreeDViewer'
+    return (<div
+        id={ 'ThreeDViewer' }
         style={{
             height: '100%',
             width: '100%',
             backgroundColor: 'red',
         }}
-    ></div>);
+    // Use the selected molecule as the div content, so that the div
+    // is forced to re-render when the selected molecule changes.
+    // If this is not the case, the rendered molecule does not change,
+    // even when a new molecule is selected.
+    >{ props.selectedMolecule }</div>);
 }
 
 
@@ -66,6 +77,7 @@ function mapStateToProps(state: ILoadedDatabaseBrowser)
         maybeMolecule: maybeMolDrawMolecule(
             getMolecules(state)[selectedMolecule],
         ),
+        selectedMolecule: selectedMolecule,
     }
 }
 
