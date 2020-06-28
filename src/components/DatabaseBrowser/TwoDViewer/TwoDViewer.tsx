@@ -6,15 +6,16 @@ import {
     ILoadedDatabaseBrowser,
 } from '../../../models';
 import {
-    getColumnValues,
     getMolecules,
     getSelectedMolecule,
 } from '../../../selectors';
 import {
     Maybe,
     MaybeKind,
-    Just,
 } from '../../../utilities';
+import {
+    getSmiles,
+} from './utilities';
 
 
 function assertNever(arg: never): never { throw Error(); }
@@ -99,7 +100,7 @@ function mapStateToProps(state: ILoadedDatabaseBrowser)
         = getSelectedMolecule(state);
 
     return {
-        smiles: new Just('C1CCCC1CCCCCCCCCCCCCCCCc'),
+        smiles: getSmiles(getMolecules(state)[selectedMolecule]),
         selectedMolecule: selectedMolecule,
     }
 }

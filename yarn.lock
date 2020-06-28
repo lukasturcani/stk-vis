@@ -3329,6 +3329,11 @@ jss@10.1.1, jss@^10.0.3:
     is-in-browser "^1.1.3"
     tiny-warning "^1.0.2"
 
+kekule@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/kekule/-/kekule-0.9.3.tgz#1ba0046d1d4cdaa38e263d6ef6f05766857d43b9"
+  integrity sha512-M1qhsvYArx1NcpZ0nRG4BBdsrUK7gsV9lJJFPDjXywkcWwL0YW0QiAdrV8CZ16UmDu/T5nuUdhKUldlGAMHweg==
+
 keyv@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/keyv/-/keyv-3.1.0.tgz#ecc228486f69991e49e9476485a5be1e8fc5c4d9"

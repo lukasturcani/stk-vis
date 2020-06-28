@@ -6,7 +6,6 @@ import {
     ILoadedDatabaseBrowser,
 } from '../../../models';
 import {
-    getColumnValues,
     getMolecules,
     getSelectedMolecule,
 } from '../../../selectors';
