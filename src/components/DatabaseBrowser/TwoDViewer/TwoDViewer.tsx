@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as md from 'mol-draw';
+import * as smilesDrawer from 'smiles-drawer';
 import { useTheme } from '@material-ui/core/styles';
 import {
     ILoadedDatabaseBrowser,
@@ -13,10 +13,8 @@ import {
 import {
     Maybe,
     MaybeKind,
+    Just,
 } from '../../../utilities';
-import {
-    maybeMolDrawMolecule,
-} from '../ThreeDViewer/utilities';
 
 
 function assertNever(arg: never): never { throw Error(); }
@@ -24,14 +22,20 @@ function assertNever(arg: never): never { throw Error(); }
 
 interface IThreeDViewerProps
 {
-    maybeMolecule: Maybe<any>;
+    smiles: Maybe<string>;
     selectedMolecule: number;
 }
 
+console.log(smilesDrawer);
+
+const drawer: any
+    = new smilesDrawer.Drawer({
+        bondThickness: 2,
+    });
 
 function TwoDViewer(props: IThreeDViewerProps)
 {
-    switch (props.maybeMolecule.kind)
+    switch (props.smiles.kind)
     {
         case MaybeKind.Nothing:
             break;
@@ -39,37 +43,58 @@ function TwoDViewer(props: IThreeDViewerProps)
         case MaybeKind.Just:
             const theme = useTheme();
 
-            const geometryData
-                = md.fromRight()(props.maybeMolecule.value);
+            const smiles: string = props.smiles.value;
+
             React.useEffect(() => {
                 const viewer = document.getElementById('TwoDViewer');
                 // Remove the content of the rendering container. It's
                 // only there to force the rendering of a new molecule.
                 (viewer as any).innerHTML = '';
 
-                md.drawMol({
-                })({
-                    backgroundColor: theme.palette.background.paper,
-                    containerId: 'TwoDViewer',
-                })(geometryData);
+                smilesDrawer.parse(
+                    smiles,
+                    (tree: any) => {
+                        drawer.draw(
+                            tree,
+                            'TwoDViewer',
+                            'dark',
+                            false,
+                        );
+                    },
+                    (err: any) => {
+                        console.log(err);
+                    },
+                );
+
             });
             break;
 
         default:
-            assertNever(props.maybeMolecule);
+            assertNever(props.smiles);
     }
 
-    return (<div
-        id={ 'TwoDViewer' }
-        style={{
-            height: '100%',
-            width: '100%',
-        }}
-    // Use the selected molecule as the div content, so that the div
-    // is forced to re-render when the selected molecule changes.
-    // If this is not the case, the rendered molecule does not change,
-    // even when a new molecule is selected.
-    >{ props.selectedMolecule }</div>);
+    return (
+        <div
+            style={{
+                margin: 'auto',
+                height: '500px',
+                width: '500px',
+            }}
+        ><canvas
+            id={ 'TwoDViewer' }
+            style={{
+                height: '500px',
+                width: '500px',
+            }}
+            // Use the selected molecule as the div content, so that
+            // the div is forced to re-render when the selected
+            // molecule changes. If this is not the case, the rendered
+            // molecule does not change, even when a new molecule is
+            // selected.
+        >
+            { props.selectedMolecule }
+        </canvas></div>
+    );
 }
 
 
@@ -79,9 +104,7 @@ function mapStateToProps(state: ILoadedDatabaseBrowser)
         = getSelectedMolecule(state);
 
     return {
-        maybeMolecule: maybeMolDrawMolecule(
-            getMolecules(state)[selectedMolecule],
-        ),
+        smiles: new Just('C1CCCC1CCCCCCCCCCCCCCCCc'),
         selectedMolecule: selectedMolecule,
     }
 }
