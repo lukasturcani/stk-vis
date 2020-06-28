@@ -3,7 +3,6 @@ import {
     Just,
     Nothing,
 } from '../../../../../../../../../../utilities';
-import { IMoleculeIds } from './IMoleculeIds';
 import { IDbEntry } from './IDbEntry';
 import { IDatabaseData } from './IDatabaseData';
 

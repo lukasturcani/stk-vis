@@ -33,7 +33,7 @@ export function extractPropertyData(
                     const value of propertyResults.value.propertyValues
                 ) {
                     const moleculeId: Maybe<number>
-                        = getMoleculeId(data.moleculeIds, value);
+                        = getMoleculeId(data, value);
 
                     switch(moleculeId.kind)
                     {
