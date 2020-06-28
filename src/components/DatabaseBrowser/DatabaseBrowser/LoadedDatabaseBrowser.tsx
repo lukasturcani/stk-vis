@@ -15,6 +15,7 @@ import {
     MoleculeRequestButtonComponent
 } from '../MoleculeRequestButton';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
@@ -105,17 +106,52 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
             >
                 <MoleculeTableComponent />
             </Grid>
-            <Grid
-                item xs={6}
-                style={ { height: '83%'  } }
-            >
-                <Paper style={{
+            <Grid item
+                xs={6}
+                style={ { height: '83%' } }
+            ><Grid container
+                style={ {
                     height: '100%',
-                    overflow: 'auto',
-                }}>
-                    <ThreeDViewerComponent />
-                </Paper>
-            </Grid>
+                    width: '100%',
+                } }
+                alignItems='center'
+                justify='center'
+                direction='row'
+            >
+                <Box
+                    paddingBottom={1.5}
+                    style={ {
+                        height: '50%',
+                        width: '100%',
+                    } }
+                ><Grid
+                    item xs={12}
+                    style={ { height: '100%'  } }
+                >
+                    <Paper style={{
+                        height: '100%',
+                        overflow: 'auto',
+                    }}>
+                    </Paper>
+                </Grid></Box>
+                <Box
+                    paddingTop={1.5}
+                    style={ {
+                        height: '50%',
+                        width: '100%',
+                    } }
+                ><Grid
+                    item xs={12}
+                    style={ { height: '100%'  } }
+                >
+                    <Paper style={{
+                        height: '100%',
+                        overflow: 'auto',
+                    }}>
+                        <ThreeDViewerComponent />
+                    </Paper>
+                </Grid></Box>
+            </Grid></Grid>
             <Grid item
                 xs={12}
             ><Grid container
