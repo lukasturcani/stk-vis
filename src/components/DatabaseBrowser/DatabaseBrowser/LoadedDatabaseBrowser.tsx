@@ -30,6 +30,7 @@ import {
 import { theme } from './theme';
 import { SortButtonComponent } from '../SortButton';
 import { ThreeDViewerComponent } from '../ThreeDViewer';
+import { TwoDViewerComponent } from '../TwoDViewer';
 
 
 
@@ -132,6 +133,7 @@ function LoadedDatabaseBrowser(props: ILoadedDatabaseBrowserProps)
                         height: '100%',
                         overflow: 'auto',
                     }}>
+                        <TwoDViewerComponent />
                     </Paper>
                 </Grid></Box>
                 <Box
