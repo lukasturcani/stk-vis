@@ -26,12 +26,6 @@ interface IThreeDViewerProps
     selectedMolecule: number;
 }
 
-console.log(smilesDrawer);
-
-const drawer: any
-    = new smilesDrawer.Drawer({
-        bondThickness: 2,
-    });
 
 function TwoDViewer(props: IThreeDViewerProps)
 {
@@ -50,6 +44,13 @@ function TwoDViewer(props: IThreeDViewerProps)
                 // Remove the content of the rendering container. It's
                 // only there to force the rendering of a new molecule.
                 (viewer as any).innerHTML = '';
+
+                const drawer: any
+                    = new smilesDrawer.Drawer({
+                        bondThickness: 2,
+                        width: (viewer as HTMLElement).clientWidth,
+                        height: (viewer as HTMLElement).clientHeight,
+                    });
 
                 smilesDrawer.parse(
                     smiles,
@@ -74,17 +75,11 @@ function TwoDViewer(props: IThreeDViewerProps)
     }
 
     return (
-        <div
-            style={{
-                margin: 'auto',
-                height: '500px',
-                width: '500px',
-            }}
-        ><canvas
+        <canvas
             id={ 'TwoDViewer' }
             style={{
-                height: '500px',
-                width: '500px',
+                height: '99%',
+                width: '100%',
             }}
             // Use the selected molecule as the div content, so that
             // the div is forced to re-render when the selected
@@ -93,7 +88,7 @@ function TwoDViewer(props: IThreeDViewerProps)
             // selected.
         >
             { props.selectedMolecule }
-        </canvas></div>
+        </canvas>
     );
 }
 
