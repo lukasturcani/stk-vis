@@ -24,24 +24,26 @@ export function extractMoleculeData(
     )
         : Maybe<IPropertyResults> =>
     {
-        data.molecules = [];
-
         switch (propertyResults.kind)
         {
             case MaybeKind.Nothing:
+                data.molecules = [];
                 break;
 
             case MaybeKind.Just:
-                for (
-                    const value of propertyResults.value.propertyValues
-                ) {
+                const values = propertyResults.value.propertyValues;
+                data.molecules = Array(values.length).fill(undefined);
+
+                for (const value of values)
+                {
                     const moleculeId: Maybe<number>
                         = getMoleculeId(data, value);
 
                     switch(moleculeId.kind)
                     {
                         case MaybeKind.Just:
-                            data.molecules.push(toMolecule(value));
+                            data.molecules[moleculeId.value]
+                                = toMolecule(value);
                             break;
 
                         case MaybeKind.Nothing:
