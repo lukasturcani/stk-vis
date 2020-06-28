@@ -5,25 +5,31 @@ import {
 } from '../../../../../../../../../../utilities';
 import { IMoleculeIds } from './IMoleculeIds';
 import { IDbEntry } from './IDbEntry';
+import { IDatabaseData } from './IDatabaseData';
 
 
 export function getMoleculeId(
-    moleculeIds: IMoleculeIds,
+    data: IDatabaseData,
     result: IDbEntry,
 )
     : Maybe<number>
 {
-    for (const [propName, propValue] of Object.entries(result))
+    const moleculeIds = data.moleculeIds;
+    const keyNames: string[] = Object.keys(result).filter(
+        propName => data.moleculeKeyNames.has(propName)
+    );
+    for (const keyName of keyNames)
     {
+        const keyValue: string = result[keyName];
         if (
-            Object.prototype.hasOwnProperty.call(moleculeIds, propName)
+            Object.prototype.hasOwnProperty.call(moleculeIds, keyName)
             &&
             Object.prototype.hasOwnProperty.call(
-                moleculeIds[propName],
-                propValue,
+                moleculeIds[keyName],
+                keyValue,
             )
         ){
-            return new Just(moleculeIds[propName][propValue]);
+            return new Just(moleculeIds[keyName][keyValue]);
         }
     }
     return new Nothing()

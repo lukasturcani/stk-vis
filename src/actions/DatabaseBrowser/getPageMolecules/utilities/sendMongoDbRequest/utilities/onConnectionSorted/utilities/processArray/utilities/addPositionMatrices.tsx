@@ -25,7 +25,7 @@ export function addPositionMatrices(
             ) {
 
                 const moleculeId: Maybe<number>
-                    = getMoleculeId(data.moleculeIds, value);
+                    = getMoleculeId(data, value);
 
                 switch(moleculeId.kind)
                 {
