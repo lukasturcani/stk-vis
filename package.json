@@ -18,7 +18,8 @@
     "mongodb": "^3.5.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-redux": "^7.2.0"
+    "react-redux": "^7.2.0",
+    "smiles-drawer": "^1.2.0"
   },
   "devDependencies": {
     "@types/mongodb": "^3.5.18",

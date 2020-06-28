@@ -4978,6 +4978,11 @@ slice-ansi@^2.1.0:
     astral-regex "^1.0.0"
     is-fullwidth-code-point "^2.0.0"
 
+smiles-drawer@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/smiles-drawer/-/smiles-drawer-1.2.0.tgz#bfbc448db584e924bf37f8b599cd065f9c32c1a4"
+  integrity sha512-JjLsr3Z2WKeYEpZBdVTe32We4CrUCFejAVmvxSrKPVh7j++mY8BxOQnAI6cCsPA7cUNR/OK7q2k3S60TMdP3BA==
+
 snapdragon-node@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
