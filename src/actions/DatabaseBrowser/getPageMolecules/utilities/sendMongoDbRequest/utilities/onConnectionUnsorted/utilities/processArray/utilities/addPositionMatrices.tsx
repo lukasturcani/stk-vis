@@ -4,7 +4,7 @@ import {
     MaybeKind,
 } from '../../../../../../../../../../utilities';
 import { IPropertyResults } from './IPropertyResults';
-import { getMoleculeIds } from './getMoleculeId';
+import { getMoleculeIds } from './getMoleculeIds';
 
 
 export function addPositionMatrices(

@@ -4,7 +4,7 @@ import {
 } from '../../../../../../../../../../utilities';
 import { IDatabaseData } from './IDatabaseData';
 import { IPropertyResults } from './IPropertyResults';
-import { getMoleculeIds } from './getMoleculeId';
+import { getMoleculeIds } from './getMoleculeIds';
 
 
 function assertNever(arg: never): never { throw Error(); }

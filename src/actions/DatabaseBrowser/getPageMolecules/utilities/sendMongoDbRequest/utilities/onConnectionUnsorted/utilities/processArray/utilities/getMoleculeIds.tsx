@@ -7,11 +7,11 @@ import { IDbEntry } from './IDbEntry';
 import { IDatabaseData } from './IDatabaseData';
 
 
-export function getMoleculeId(
+export function getMoleculeIds(
     data: IDatabaseData,
     result: IDbEntry,
 )
-    : Maybe<number>
+    : Maybe<number[]>
 {
     const moleculeIds = data.moleculeIds;
     const keyNames: string[] = Object.keys(result).filter(

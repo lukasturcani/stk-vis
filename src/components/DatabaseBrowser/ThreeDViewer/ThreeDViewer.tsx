@@ -64,7 +64,6 @@ function ThreeDViewer(props: IThreeDViewerProps)
         style={{
             height: '100%',
             width: '100%',
-            backgroundColor: 'red',
         }}
     // Use the selected molecule as the div content, so that the div
     // is forced to re-render when the selected molecule changes.

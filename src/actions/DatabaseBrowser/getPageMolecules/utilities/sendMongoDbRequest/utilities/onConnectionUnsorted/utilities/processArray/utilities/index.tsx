@@ -1,6 +1,6 @@
 export * from './extractPropertyData';
 export * from './getDatabaseData';
-export * from './getMoleculeId';
+export * from './getMoleculeIds';
 export * from './getPageKind';
 export * from './getPropertyPromise';
 export * from './getPropertyQuery';

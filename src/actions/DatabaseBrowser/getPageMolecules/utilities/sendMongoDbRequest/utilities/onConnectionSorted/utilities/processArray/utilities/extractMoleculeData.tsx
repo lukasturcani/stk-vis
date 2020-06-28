@@ -7,7 +7,7 @@ import {
 } from '../../../../../../../../../../models';
 import { IDatabaseData } from './IDatabaseData';
 import { IPropertyResults } from './IPropertyResults';
-import { getMoleculeId } from './getMoleculeId';
+import { getMoleculeIds } from './getMoleculeIds';
 import { IDbEntry } from './IDbEntry';
 
 
@@ -36,14 +36,17 @@ export function extractMoleculeData(
 
                 for (const value of values)
                 {
-                    const moleculeId: Maybe<number>
-                        = getMoleculeId(data, value);
+                    const moleculeIds: Maybe<number[]>
+                        = getMoleculeIds(data, value);
 
-                    switch(moleculeId.kind)
+                    switch(moleculeIds.kind)
                     {
                         case MaybeKind.Just:
-                            data.molecules[moleculeId.value]
-                                = toMolecule(value);
+                            for (const moleculeId of moleculeIds.value)
+                            {
+                                data.molecules[moleculeId]
+                                    = toMolecule(value);
+                            }
                             break;
 
                         case MaybeKind.Nothing:
@@ -55,7 +58,7 @@ export function extractMoleculeData(
                             break;
 
                         default:
-                            assertNever(moleculeId);
+                            assertNever(moleculeIds);
 
                     }
                 }
