@@ -22,8 +22,6 @@ export function maybeMolDrawMolecule(
 )
     : Maybe<any>
 {
-
-
     const atoms = [];
     for (let index: number = 0; index < molecule.atoms.length; ++index)
     {

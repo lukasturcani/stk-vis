@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as md from 'mol-draw';
+import { useTheme } from '@material-ui/core/styles';
 import {
     ILoadedDatabaseBrowser,
 } from '../../../models';
@@ -34,7 +35,10 @@ function ThreeDViewer(props: IThreeDViewerProps)
     {
         case MaybeKind.Nothing:
             break;
+
         case MaybeKind.Just:
+            const theme = useTheme();
+
             const geometryData
                 = md.fromRight()(props.maybeMolecule.value);
             React.useEffect(() => {
@@ -45,10 +49,12 @@ function ThreeDViewer(props: IThreeDViewerProps)
 
                 md.drawMol({
                 })({
+                    backgroundColor: theme.palette.background.paper,
                     containerId: 'ThreeDViewer',
                 })(geometryData);
             });
             break;
+
         default:
             assertNever(props.maybeMolecule);
     }
