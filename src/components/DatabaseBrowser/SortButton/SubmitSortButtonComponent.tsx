@@ -192,7 +192,6 @@ function mapDispatchToProps(
             (options: getFirstPageOptions) => () => dispatch(
                 getPageMolecules({
                     pageIndex: 0,
-                    successSnackbar: (message: string) => { return; },
                     ...options,
                 })
             ),

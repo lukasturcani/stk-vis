@@ -28,6 +28,8 @@ interface IThreeDViewerProps
 }
 
 
+
+
 function ThreeDViewer(props: IThreeDViewerProps)
 {
     switch (props.maybeMolecule.kind)
@@ -46,11 +48,18 @@ function ThreeDViewer(props: IThreeDViewerProps)
                 // only there to force the rendering of a new molecule.
                 (viewer as any).innerHTML = '';
 
-                md.drawMol({
-                })({
-                    backgroundColor: theme.palette.background.paper,
-                    containerId: 'ThreeDViewer',
-                })(geometryData);
+                const scene
+                    = md.scene({
+                        containerId: 'ThreeDViewer',
+
+                        backgroundColor:
+                            theme.palette.background.paper,
+                    });
+
+                const meshes
+                    = md.meshes({})(geometryData);
+
+                md.drawMol(scene(meshes));
             });
             break;
 
