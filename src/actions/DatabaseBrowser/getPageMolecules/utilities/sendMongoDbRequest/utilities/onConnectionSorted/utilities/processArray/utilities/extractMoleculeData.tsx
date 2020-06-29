@@ -62,6 +62,9 @@ export function extractMoleculeData(
 
                     }
                 }
+                data.molecules = data.molecules.filter(
+                    molecule => molecule !== undefined
+                );
 
                 break;
 
