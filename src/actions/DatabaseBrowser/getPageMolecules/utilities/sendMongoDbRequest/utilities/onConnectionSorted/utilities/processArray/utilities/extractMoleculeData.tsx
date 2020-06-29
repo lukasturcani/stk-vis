@@ -62,6 +62,8 @@ export function extractMoleculeData(
 
                     }
                 }
+                // If there are duplicate molecules, the array
+                // will have been over-allocated.
                 data.molecules = data.molecules.filter(
                     molecule => molecule !== undefined
                 );
