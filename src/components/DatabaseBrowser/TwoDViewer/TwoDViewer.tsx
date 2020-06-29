@@ -51,6 +51,11 @@ function TwoDViewer(props: IThreeDViewerProps)
                         bondThickness: 2,
                         width: (viewer as HTMLElement).clientWidth,
                         height: (viewer as HTMLElement).clientHeight,
+                        themes: {
+                            dark: {
+                                C: '#909090',
+                            },
+                        },
                     });
 
                 smilesDrawer.parse(
