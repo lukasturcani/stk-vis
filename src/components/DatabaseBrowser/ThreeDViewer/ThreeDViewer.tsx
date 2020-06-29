@@ -27,7 +27,12 @@ interface IThreeDViewerProps
     selectedMolecule: number;
 }
 
-
+// The scene getter will get constructed after the DOM is rendered.
+// However a global variable is kept, because only a single scene
+// getter should ever get created. This is because a given scene getter
+// always returns the same scene, and only one scene should ever get
+// made by stkVis.
+let getScene: any = undefined;
 
 
 function ThreeDViewer(props: IThreeDViewerProps)
@@ -48,18 +53,28 @@ function ThreeDViewer(props: IThreeDViewerProps)
                 // only there to force the rendering of a new molecule.
                 (viewer as any).innerHTML = '';
 
-                const scene
-                    = md.scene({
+
+                if (getScene === undefined)
+                {
+                    getScene = md.scene({
                         containerId: 'ThreeDViewer',
 
                         backgroundColor:
                             theme.palette.background.paper,
                     });
+                }
 
                 const meshes
                     = md.meshes({})(geometryData);
 
-                md.drawMol(scene(meshes));
+                const scene = getScene(meshes);
+                // The container of the Scene may change across
+                // React renders, make sure that it is always updated.
+                scene.userData.container = viewer;
+                (viewer as any).appendChild(
+                    scene.userData.renderer.domElement
+                );
+                md.drawMol(scene);
             });
             break;
 
