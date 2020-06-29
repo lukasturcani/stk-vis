@@ -15,6 +15,7 @@ import {
 } from '../../../utilities';
 import {
     getSmiles,
+    elementColors,
 } from './utilities';
 
 
@@ -52,9 +53,7 @@ function TwoDViewer(props: IThreeDViewerProps)
                         width: (viewer as HTMLElement).clientWidth,
                         height: (viewer as HTMLElement).clientHeight,
                         themes: {
-                            dark: {
-                                C: '#909090',
-                            },
+                            dark: elementColors,
                         },
                     });
 
