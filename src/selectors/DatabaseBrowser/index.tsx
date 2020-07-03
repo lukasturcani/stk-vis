@@ -13,6 +13,7 @@ import {
     ISortedLoadedDatabaseBrowser,
     SortType,
     SortKind,
+    IMoleculeSelectionType,
 } from '../../models';
 import * as fp from 'lodash/fp';
 
@@ -172,6 +173,15 @@ export function getNumEntriesPerPage(
     : number
 {
     return state.numEntriesPerPage;
+}
+
+
+export function getMoleculeSelectionType(
+    state: IDatabaseBrowser
+)
+    : IMoleculeSelectionType
+{
+    return state.moleculeSelectionType;
 }
 
 

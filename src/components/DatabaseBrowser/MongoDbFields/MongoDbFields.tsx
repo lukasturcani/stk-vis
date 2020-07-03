@@ -204,6 +204,10 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                     moleculeTypeSelectionError={
                         moleculeTypeSelectionError
                     }
+                    selectBuildingBlocks={ selectBuildingBlocks }
+                    selectConstructedMolecules={
+                        selectConstructedMolecules
+                    }
                 />
             </Grid>
         </Grid>

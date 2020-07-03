@@ -1,4 +1,7 @@
 import { createAction } from '@reduxjs/toolkit'
+import {
+    IMoleculeSelectionType,
+} from '../../../models';
 
 
 export interface IMongoDbFields
@@ -10,6 +13,7 @@ export interface IMongoDbFields
     constructedMoleculeCollection: string;
     buildingBlockPositionMatrixCollection: string;
     numEntriesPerPage: number;
+    moleculeSelectionType: IMoleculeSelectionType;
 }
 
 

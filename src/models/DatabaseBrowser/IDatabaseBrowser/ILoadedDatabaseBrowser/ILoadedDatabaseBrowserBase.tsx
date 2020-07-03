@@ -1,5 +1,6 @@
 import { DatabaseBrowserKind } from '../DatabaseBrowserKind';
 import { IMoleculeRequestState } from '../../IMoleculeRequestState';
+import { IMoleculeSelectionType } from '../../IMoleculeSelectionType';
 import {
     IMolecule,
     IColumnValues,
@@ -42,4 +43,5 @@ export interface ILoadedDatabaseBrowserBase {
     readonly numEntriesPerPage: number;
     readonly pageKind: PageKind;
     readonly selectedMolecule: number;
+    readonly moleculeSelectionType: IMoleculeSelectionType;
 }

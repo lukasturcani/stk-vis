@@ -8,6 +8,7 @@ import {
     constructedMoleculeCollectionReducer,
     buildingBlockPositionMatrixCollectionReducer,
     propertyCollectionsReducer,
+    moleculeSelectionTypeReducer,
 } from './mongoDbReducers';
 import {
     IDatabaseBrowser,
@@ -27,6 +28,7 @@ import {
     getMongoDbPropertyCollections,
     getNumEntriesPerPage,
     getDatabaseBrowserKind,
+    getMoleculeSelectionType,
 } from '../../selectors';
 import {
     unsortedDatabaseBrowserReducer,
@@ -99,6 +101,12 @@ export function loadedDatabaseBrowserReducer(
             numEntriesPerPage:
                 numEntriesPerPageReducer(
                     getNumEntriesPerPage(state),
+                    action,
+                ),
+
+            moleculeSelectionType:
+                moleculeSelectionTypeReducer(
+                    getMoleculeSelectionType(state),
                     action,
                 ),
 

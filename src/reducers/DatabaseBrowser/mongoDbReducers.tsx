@@ -7,6 +7,10 @@ import {
     updateMongoDbFields,
     updateTable,
 } from '../../actions';
+import {
+    IMoleculeSelectionType,
+    MoleculeSelectionTypeKind,
+} from '../../models';
 
 
 export function urlReducer(
@@ -118,6 +122,22 @@ export function propertyCollectionsReducer(
     if (updateTable.match(action))
     {
         return action.payload.propertyCollections;
+    }
+    return state;
+}
+
+
+export function moleculeSelectionTypeReducer(
+    state: IMoleculeSelectionType = {
+        kind: MoleculeSelectionTypeKind.Both,
+    },
+    action: AnyAction,
+)
+    : IMoleculeSelectionType
+{
+    if (updateMongoDbFields.match(action))
+    {
+        return action.payload.moleculeSelectionType;
     }
     return state;
 }

@@ -14,6 +14,7 @@ import {
     constructedMoleculeCollectionReducer,
     buildingBlockPositionMatrixCollectionReducer,
     propertyCollectionsReducer,
+    moleculeSelectionTypeReducer,
 } from './mongoDbReducers';
 import {
     moleculeRequestStateReducer,
@@ -62,6 +63,7 @@ import {
     getNumEntriesPerPage,
     getPageKind,
     getSelectedMolecule,
+    getMoleculeSelectionType,
 } from '../../selectors';
 import {
     setSortSettings
@@ -151,6 +153,11 @@ export function unsortedDatabaseBrowserReducer(
                     numEntriesPerPage:
                         numEntriesPerPageReducer(
                             getNumEntriesPerPage(state),
+                            action,
+                        ),
+                    moleculeSelectionType:
+                        moleculeSelectionTypeReducer(
+                            getMoleculeSelectionType(state),
                             action,
                         ),
                     pageKind:
@@ -249,6 +256,11 @@ export function unsortedDatabaseBrowserReducer(
         numEntriesPerPage:
             numEntriesPerPageReducer(
                 getNumEntriesPerPage(state),
+                action,
+            ),
+        moleculeSelectionType:
+            moleculeSelectionTypeReducer(
+                getMoleculeSelectionType(state),
                 action,
             ),
         pageKind:

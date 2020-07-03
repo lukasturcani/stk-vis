@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { IState } from '../../../models';
+import {
+    IState,
+    IMoleculeSelectionType,
+    MoleculeSelectionTypeKind,
+
+} from '../../../models';
 import Button from '@material-ui/core/Button';
 import { getPageMolecules } from '../../../actions';
 import Snackbar from '@material-ui/core/Snackbar'
@@ -36,6 +41,8 @@ interface IGetMoleculesButtonProps
     dispatchUpdateMongoDbFields: (fields: IMongoDbFields) => void;
     numEntriesPerPage: number;
     moleculeTypeSelectionError: boolean;
+    selectBuildingBlocks: boolean;
+    selectConstructedMolecules: boolean;
 }
 
 
@@ -77,12 +84,17 @@ function GetMoleculesButton(
 
                             numEntriesPerPage:
                                 props.numEntriesPerPage,
+
+                            moleculeSelectionType:
+                                getMoleculeSelectionType(
+                                    props.selectBuildingBlocks,
+                                    props.selectConstructedMolecules,
+                                ),
                         });
                         props.getFirstPage({
                             successSnackbar: successSnackbar.activate,
                             errorSnackbar: errorSnackbar.activate,
                         })();
-
                     }
                 }
             >
@@ -114,6 +126,46 @@ function GetMoleculesButton(
             </Snackbar>
         </div>
     );
+}
+
+
+function getMoleculeSelectionType(
+    selectBuildingBlocks: boolean,
+    selectConstructedMolecules: boolean,
+)
+    : IMoleculeSelectionType
+{
+    if (selectBuildingBlocks && selectConstructedMolecules)
+    {
+        return {
+            kind: MoleculeSelectionTypeKind.Both,
+        };
+    }
+    else if (selectBuildingBlocks)
+    {
+        return {
+            kind: MoleculeSelectionTypeKind.BuildingBlocks,
+        };
+    }
+    else if (selectConstructedMolecules)
+    {
+        return {
+            kind: MoleculeSelectionTypeKind.ConstructedMolecules,
+        };
+    }
+    else
+    {
+        console.log(
+            'User unchecked both building block and constructed '
+            + 'molecule selection, yet somehow the GetMoleculesButton '
+            + 'was pressed. This should basically never happen... '
+            + 'Behaving as though both selections were checked.'
+        );
+        return {
+            kind: MoleculeSelectionTypeKind.Both,
+        };
+    }
+
 }
 
 
