@@ -33,6 +33,7 @@ interface IGetMoleculesButtonProps
     getFirstPage: (options: getFirstPageOptions) => () => void;
     dispatchUpdateMongoDbFields: (fields: IMongoDbFields) => void;
     numEntriesPerPage: number;
+    moleculeTypeSelectionError: boolean;
 }
 
 
@@ -49,6 +50,7 @@ function GetMoleculesButton(
     return (
         <div>
             <Button
+                disabled={ props.moleculeTypeSelectionError }
                 onClick={
                     () => {
                         props.dispatchUpdateMongoDbFields({

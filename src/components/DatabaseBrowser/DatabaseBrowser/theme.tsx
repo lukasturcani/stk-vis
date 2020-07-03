@@ -40,5 +40,10 @@ export const theme = createMuiTheme({
                 fontWeight: 'bold',
             },
         },
+        MuiFormControl: {
+            root: {
+                marginTop: '20px',
+            },
+        },
     },
 });

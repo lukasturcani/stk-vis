@@ -11,6 +11,9 @@ import {
 import { IState } from '../../../models';
 import { GetMoleculesButtonComponent } from './GetMoleculesButton';
 import Grid from  '@material-ui/core/Grid';
+import {
+    MoleculeTypeSelectorComponent
+} from './MoleculeTypeSelection';
 
 
 interface IMongoDbFieldsProps
@@ -40,6 +43,17 @@ function MongoDbFields(props: IMongoDbFieldsProps)
     const [numEntriesPerPage, setNumEntriesPerPage]
         = React.useState(props.numEntriesPerPage);
 
+    const [moleculeTypeSelectionError, setMoleculeTypeSelectionError]
+        = React.useState(false);
+
+    // The initial state should probably be read from props.
+    const [selectBuildingBlocks, setSelectBuildingBlocks]
+        = React.useState(true);
+
+    // The initial state should probably be read from props.
+    const [selectConstructedMolecules, setSelectConstructedMolecules]
+        = React.useState(true);
+
     return (
         <Grid container
             alignItems={ 'center' }
@@ -56,6 +70,20 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                 spacing={ 4 }
                 style={ {height: '100%'} }
             >
+                <Grid item
+                >
+                    <MoleculeTypeSelectorComponent
+                        setError= { setMoleculeTypeSelectionError }
+                        buildingBlocks={ selectBuildingBlocks }
+                        setBuildingBlocks={ setSelectBuildingBlocks }
+                        constructedMolecules={
+                            selectConstructedMolecules
+                        }
+                        setConstructedMolecules={
+                            setSelectConstructedMolecules
+                        }
+                    />
+                </Grid>
                 <Grid item><TextField
                     id='mongo-url'
                     label='MongoDB URL'
@@ -115,6 +143,9 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                         positionMatrixCollection
                     }
                     numEntriesPerPage={ numEntriesPerPage }
+                    moleculeTypeSelectionError={
+                        moleculeTypeSelectionError
+                    }
                 />
             </Grid>
         </Grid>
