@@ -29,7 +29,9 @@ interface IGetMoleculesButtonProps
     url: string;
     database: string;
     moleculeCollection: string;
+    constructedMoleculeCollection: string;
     positionMatrixCollection: string;
+    buildingBlockPositionMatrixCollection: string;
     getFirstPage: (options: getFirstPageOptions) => () => void;
     dispatchUpdateMongoDbFields: (fields: IMongoDbFields) => void;
     numEntriesPerPage: number;

@@ -21,7 +21,9 @@ interface IMongoDbFieldsProps
     url: string;
     database: string;
     moleculeCollection: string;
+    constructedMoleculeCollection: string;
     positionMatrixCollection: string;
+    buildingBlockPositionMatrixCollection: string;
     numEntriesPerPage: number;
 }
 
@@ -37,8 +39,20 @@ function MongoDbFields(props: IMongoDbFieldsProps)
     const [moleculeCollection, setMoleculeCollection]
         = React.useState(props.moleculeCollection);
 
+    const [
+        constructedMoleculeCollection,
+        setConstructedMoleculeCollection,
+    ]
+        = React.useState(props.constructedMoleculeCollection);
+
     const [positionMatrixCollection, setPositionMatrixCollection]
         = React.useState(props.positionMatrixCollection);
+
+    const [
+        buildingBlockPositionMatrixCollection,
+        setBuildingBlockPositionMatrixCollection,
+    ]
+        = React.useState(props.buildingBlockPositionMatrixCollection);
 
     const [numEntriesPerPage, setNumEntriesPerPage]
         = React.useState(props.numEntriesPerPage);
@@ -110,6 +124,21 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                     }
                 /></Grid>
                 <Grid item><TextField
+                    id='mongo-constructed-molecule-collection'
+                    label='Constructed Molecule Collection Name'
+                    defaultValue={
+                        props.constructedMoleculeCollection
+                    }
+                    variant='outlined'
+                    onChange={
+                        (e) => {
+                            setConstructedMoleculeCollection(
+                                e.target.value
+                            )
+                        }
+                    }
+                /></Grid>
+                <Grid item><TextField
                     id='mongo-position-matrix-collection'
                     label='Position Matrix Collection Name'
                     defaultValue={ props.positionMatrixCollection }
@@ -120,6 +149,27 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                         }
                     }
                 /></Grid>
+                { selectConstructedMolecules && <Grid item><TextField
+                    id={
+                        'mongo-building-block-'
+                        +'position-matrix-collection'
+                    }
+                    label={
+                        'Building Block '
+                        +'Position Matrix Collection Name'
+                    }
+                    defaultValue={
+                        props.buildingBlockPositionMatrixCollection
+                    }
+                    variant='outlined'
+                    onChange={
+                        (e) => {
+                            setBuildingBlockPositionMatrixCollection(
+                                e.target.value
+                            )
+                        }
+                    }
+                /></Grid> }
                 <Grid item><TextField
                     id='num-entries-per-age'
                     label='Entries Per Page'
@@ -139,8 +189,14 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                     url={ url }
                     database={ database }
                     moleculeCollection={ moleculeCollection }
+                    constructedMoleculeCollection={
+                        constructedMoleculeCollection
+                    }
                     positionMatrixCollection={
                         positionMatrixCollection
+                    }
+                    buildingBlockPositionMatrixCollection={
+                        buildingBlockPositionMatrixCollection
                     }
                     numEntriesPerPage={ numEntriesPerPage }
                     moleculeTypeSelectionError={
