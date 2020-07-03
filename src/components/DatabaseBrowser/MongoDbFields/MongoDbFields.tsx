@@ -9,8 +9,13 @@ import {
     getMongoDbPositionMatrixCollection,
     getMongoDbBuildingBlockPositionMatrixCollection,
     getNumEntriesPerPage,
+    getMoleculeSelectionType,
 } from '../../../selectors';
-import { IState } from '../../../models';
+import {
+    IState,
+    IMoleculeSelectionType,
+    MoleculeSelectionTypeKind,
+} from '../../../models';
 import { GetMoleculesButtonComponent } from './GetMoleculesButton';
 import Grid from  '@material-ui/core/Grid';
 import {
@@ -27,6 +32,8 @@ interface IMongoDbFieldsProps
     positionMatrixCollection: string;
     buildingBlockPositionMatrixCollection: string;
     numEntriesPerPage: number;
+    selectBuildingBlocks: boolean;
+    selectConstructedMolecules: boolean;
 }
 
 
@@ -62,13 +69,11 @@ function MongoDbFields(props: IMongoDbFieldsProps)
     const [moleculeTypeSelectionError, setMoleculeTypeSelectionError]
         = React.useState(false);
 
-    // The initial state should probably be read from props.
     const [selectBuildingBlocks, setSelectBuildingBlocks]
-        = React.useState(true);
+        = React.useState(props.selectBuildingBlocks);
 
-    // The initial state should probably be read from props.
     const [selectConstructedMolecules, setSelectConstructedMolecules]
-        = React.useState(true);
+        = React.useState(props.selectConstructedMolecules);
 
     return (
         <Grid container
@@ -219,6 +224,9 @@ function mapStateToProps(
     state: IState,
 )
 {
+    const selectionType: IMoleculeSelectionType
+        = getMoleculeSelectionType(state);
+
     return {
         url:
             getMongoDbUrl(state),
@@ -240,6 +248,26 @@ function mapStateToProps(
 
         numEntriesPerPage:
             getNumEntriesPerPage(state),
+
+        selectBuildingBlocks: (
+            (selectionType.kind === MoleculeSelectionTypeKind.Both)
+            ||
+            (
+                selectionType.kind
+                ===
+                MoleculeSelectionTypeKind.BuildingBlocks
+            )
+        ),
+        selectConstructedMolecules: (
+            (selectionType.kind === MoleculeSelectionTypeKind.Both)
+            ||
+            (
+                selectionType.kind
+                ===
+                MoleculeSelectionTypeKind.ConstructedMolecules
+            )
+        ),
+
     }
 }
 

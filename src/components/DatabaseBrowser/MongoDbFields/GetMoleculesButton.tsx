@@ -158,11 +158,10 @@ function getMoleculeSelectionType(
         console.log(
             'User unchecked both building block and constructed '
             + 'molecule selection, yet somehow the GetMoleculesButton '
-            + 'was pressed. This should basically never happen... '
-            + 'Behaving as though both selections were checked.'
+            + 'was pressed. This should basically never happen...'
         );
         return {
-            kind: MoleculeSelectionTypeKind.Both,
+            kind: MoleculeSelectionTypeKind.None,
         };
     }
 
