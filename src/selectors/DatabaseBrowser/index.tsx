@@ -121,12 +121,30 @@ export function getMongoDbMoleculeCollection(
 }
 
 
+export function getMongoDbConstructedMoleculeCollection(
+    state: IDatabaseBrowser,
+)
+    : string
+{
+    return state.constructedMoleculeCollection;
+}
+
+
 export function getMongoDbPositionMatrixCollection(
     state: IDatabaseBrowser,
 )
     : string
 {
     return state.positionMatrixCollection;
+}
+
+
+export function getMongoDbBuildingBlockPositionMatrixCollection(
+    state: IDatabaseBrowser,
+)
+    : string
+{
+    return state.buildingBlockPositionMatrixCollection;
 }
 
 

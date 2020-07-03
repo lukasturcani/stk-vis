@@ -5,6 +5,8 @@ import {
     databaseReducer,
     moleculeCollectionReducer,
     positionMatrixCollectionReducer,
+    constructedMoleculeCollectionReducer,
+    buildingBlockPositionMatrixCollectionReducer,
     propertyCollectionsReducer,
 } from './mongoDbReducers';
 import {
@@ -20,6 +22,8 @@ import {
     getMongoDbDatabase,
     getMongoDbMoleculeCollection,
     getMongoDbPositionMatrixCollection,
+    getMongoDbConstructedMoleculeCollection,
+    getMongoDbBuildingBlockPositionMatrixCollection,
     getMongoDbPropertyCollections,
     getNumEntriesPerPage,
     getDatabaseBrowserKind,
@@ -61,9 +65,23 @@ export function loadedDatabaseBrowserReducer(
                     action,
                 ),
 
+            constructedMoleculeCollection:
+                constructedMoleculeCollectionReducer(
+                    getMongoDbConstructedMoleculeCollection(state),
+                    action,
+                ),
+
             positionMatrixCollection:
                 positionMatrixCollectionReducer(
                     getMongoDbPositionMatrixCollection(state),
+                    action,
+                ),
+
+            buildingBlockPositionMatrixCollection:
+                buildingBlockPositionMatrixCollectionReducer(
+                    getMongoDbBuildingBlockPositionMatrixCollection(
+                        state,
+                    ),
                     action,
                 ),
 

@@ -65,8 +65,15 @@ function GetMoleculesButton(
                             moleculeCollection:
                                 props.moleculeCollection,
 
+                            constructedMoleculeCollection:
+                                props.constructedMoleculeCollection,
+
                             positionMatrixCollection:
                                 props.positionMatrixCollection,
+
+                            buildingBlockPositionMatrixCollection:
+                                props
+                                .buildingBlockPositionMatrixCollection,
 
                             numEntriesPerPage:
                                 props.numEntriesPerPage,

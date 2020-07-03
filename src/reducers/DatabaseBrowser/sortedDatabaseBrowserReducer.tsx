@@ -14,6 +14,8 @@ import {
     databaseReducer,
     moleculeCollectionReducer,
     positionMatrixCollectionReducer,
+    constructedMoleculeCollectionReducer,
+    buildingBlockPositionMatrixCollectionReducer,
     propertyCollectionsReducer,
 } from './mongoDbReducers';
 import {
@@ -52,6 +54,9 @@ import {
     getMongoDbPropertyCollections,
     getMongoDbPositionMatrixCollection,
     getMongoDbMoleculeCollection,
+    getMongoDbBuildingBlockPositionMatrixCollection
+    as BBPosMatCollection,
+    getMongoDbConstructedMoleculeCollection,
     getMoleculeRequestState,
     getTableMolecules,
     getVisibleColumns,
@@ -98,6 +103,18 @@ export function sortedDatabaseBrowserReducer(
                     positionMatrixCollection:
                         positionMatrixCollectionReducer(
                             getMongoDbPositionMatrixCollection(state),
+                            action,
+                        ),
+                    constructedMoleculeCollection:
+                        constructedMoleculeCollectionReducer(
+                            getMongoDbConstructedMoleculeCollection(
+                                state,
+                            ),
+                            action,
+                        ),
+                    buildingBlockPositionMatrixCollection:
+                        buildingBlockPositionMatrixCollectionReducer(
+                            BBPosMatCollection(state),
                             action,
                         ),
                     propertyCollections:
@@ -178,6 +195,16 @@ export function sortedDatabaseBrowserReducer(
         positionMatrixCollection:
             positionMatrixCollectionReducer(
                 getMongoDbPositionMatrixCollection(state),
+                action,
+            ),
+        constructedMoleculeCollection:
+            constructedMoleculeCollectionReducer(
+                getMongoDbConstructedMoleculeCollection(state),
+                action,
+            ),
+        buildingBlockPositionMatrixCollection:
+            buildingBlockPositionMatrixCollectionReducer(
+                BBPosMatCollection(state),
                 action,
             ),
         propertyCollections:

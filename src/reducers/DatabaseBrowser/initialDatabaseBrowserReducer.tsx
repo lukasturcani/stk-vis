@@ -16,7 +16,9 @@ import {
     urlReducer,
     databaseReducer,
     moleculeCollectionReducer,
+    constructedMoleculeCollectionReducer,
     positionMatrixCollectionReducer,
+    buildingBlockPositionMatrixCollectionReducer,
     propertyCollectionsReducer,
 } from './mongoDbReducers';
 import {
@@ -30,7 +32,9 @@ import {
     getMongoDbUrl,
     getMongoDbDatabase,
     getMongoDbMoleculeCollection,
+    getMongoDbConstructedMoleculeCollection,
     getMongoDbPositionMatrixCollection,
+    getMongoDbBuildingBlockPositionMatrixCollection,
     getMongoDbPropertyCollections,
     getNumEntriesPerPage,
     getInitialRequestState,
@@ -58,8 +62,20 @@ export function initialDatabaseBrowserReducer(
             moleculeCollection:
                 moleculeCollectionReducer(undefined, action),
 
+            constructedMoleculeCollection:
+                constructedMoleculeCollectionReducer(
+                    undefined,
+                    action
+                ),
+
             positionMatrixCollection:
                 positionMatrixCollectionReducer(undefined, action),
+
+            buildingBlockPositionMatrixCollection:
+                buildingBlockPositionMatrixCollectionReducer(
+                    undefined,
+                    action,
+                ),
 
             initialRequestState:
                 initialRequestStateReducer(undefined, action),
@@ -91,9 +107,23 @@ export function initialDatabaseBrowserReducer(
                     action,
                 ),
 
+            constructedMoleculeCollection:
+                constructedMoleculeCollectionReducer(
+                    getMongoDbConstructedMoleculeCollection(state),
+                    action
+                ),
+
             positionMatrixCollection:
                 positionMatrixCollectionReducer(
                     getMongoDbPositionMatrixCollection(state),
+                    action,
+                ),
+
+            buildingBlockPositionMatrixCollection:
+                buildingBlockPositionMatrixCollectionReducer(
+                    getMongoDbBuildingBlockPositionMatrixCollection(
+                        state,
+                    ),
                     action,
                 ),
 
@@ -150,9 +180,21 @@ export function initialDatabaseBrowserReducer(
                 action,
             ),
 
+        constructedMoleculeCollection:
+            constructedMoleculeCollectionReducer(
+                getMongoDbConstructedMoleculeCollection(state),
+                action
+            ),
+
         positionMatrixCollection:
             positionMatrixCollectionReducer(
                 getMongoDbPositionMatrixCollection(state),
+                action,
+            ),
+
+        buildingBlockPositionMatrixCollection:
+            buildingBlockPositionMatrixCollectionReducer(
+                getMongoDbBuildingBlockPositionMatrixCollection(state),
                 action,
             ),
 

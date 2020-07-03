@@ -63,6 +63,20 @@ export function moleculeCollectionReducer(
 }
 
 
+export function constructedMoleculeCollectionReducer(
+    state: string = 'constructed_molecules',
+    action: AnyAction,
+)
+    : string
+{
+    if (updateMongoDbFields.match(action))
+    {
+        return action.payload.constructedMoleculeCollection;
+    }
+    return state;
+}
+
+
 export function positionMatrixCollectionReducer(
     state: string = 'position_matrices',
     action: AnyAction,
@@ -76,6 +90,20 @@ export function positionMatrixCollectionReducer(
     if (updateMongoDbFields.match(action))
     {
         return action.payload.positionMatrixCollection;
+    }
+    return state;
+}
+
+
+export function buildingBlockPositionMatrixCollectionReducer(
+    state: string = 'building_block_position_matrices',
+    action: AnyAction,
+)
+    : string
+{
+    if (updateMongoDbFields.match(action))
+    {
+        return action.payload.buildingBlockPositionMatrixCollection;
     }
     return state;
 }

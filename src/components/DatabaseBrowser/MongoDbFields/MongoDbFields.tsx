@@ -5,7 +5,9 @@ import {
     getMongoDbUrl,
     getMongoDbDatabase,
     getMongoDbMoleculeCollection,
+    getMongoDbConstructedMoleculeCollection,
     getMongoDbPositionMatrixCollection,
+    getMongoDbBuildingBlockPositionMatrixCollection,
     getNumEntriesPerPage,
 } from '../../../selectors';
 import { IState } from '../../../models';
@@ -223,8 +225,14 @@ function mapStateToProps(
         moleculeCollection:
             getMongoDbMoleculeCollection(state),
 
+        constructedMoleculeCollection:
+            getMongoDbConstructedMoleculeCollection(state),
+
         positionMatrixCollection:
             getMongoDbPositionMatrixCollection(state),
+
+        buildingBlockPositionMatrixCollection:
+            getMongoDbBuildingBlockPositionMatrixCollection(state),
 
         numEntriesPerPage:
             getNumEntriesPerPage(state),
