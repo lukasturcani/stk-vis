@@ -82,7 +82,6 @@ def add_mixed_entries(
     client,
     database,
     key_makers,
-    random_seed,
 ):
     constructed_molecule_db = stk.ConstructedMoleculeMongoDb(
         mongo_client=client,
@@ -199,11 +198,10 @@ def main():
     client.drop_database(database2)
     add_mixed_entries(
         client=client,
-        database=database,
+        database=database2,
         key_makers=(
             stk.InchiKey(),
         ),
-        random_seed=6,
     )
 
 
