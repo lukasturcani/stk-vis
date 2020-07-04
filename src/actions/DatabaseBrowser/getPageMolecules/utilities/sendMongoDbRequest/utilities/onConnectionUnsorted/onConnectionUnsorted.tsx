@@ -6,9 +6,14 @@ import {
     CommandCursor,
 } from 'mongodb';
 import { AnyAction } from '@reduxjs/toolkit'
-import { processArray } from './utilities';
+import {
+    processArray,
+    getReservedNames,
+    getMoleculeTypeFilter,
+} from './utilities';
 import {
     MoleculeRequestStateKind,
+    MoleculeSelectionTypeKind,
 } from '../../../../../../../models';
 import {
     setMoleculeRequestState,
@@ -19,11 +24,13 @@ import {
 } from '../../../../../../../utilities';
 
 
-interface onConnectionUnsortedOptions
+interface OptionsBase
 {
+    kind: MoleculeSelectionTypeKind;
     database: string;
     moleculeCollection: string;
     positionMatrixCollection: string;
+    constructedMoleculeCollection: string;
     dispatch: (action: AnyAction) => void;
     numEntriesPerPage: number;
     pageIndex: number;
@@ -31,6 +38,28 @@ interface onConnectionUnsortedOptions
     successSnackbar: (message: string) => void;
     errorSnackbar: (message: string) => void;
 }
+
+
+interface SelectBoth extends OptionsBase
+{
+    kind: MoleculeSelectionTypeKind.Both;
+    buildingBlockPositionMatrixCollection: string;
+}
+
+
+interface SelectOne extends OptionsBase
+{
+    kind:
+        MoleculeSelectionTypeKind.BuildingBlocks
+        |
+        MoleculeSelectionTypeKind.ConstructedMolecules;
+}
+
+
+
+type Options =
+    | SelectBoth
+    | SelectOne
 
 
 
@@ -41,7 +70,7 @@ interface ICollectionData
 
 
 export function onConnectionUnsorted(
-    options: onConnectionUnsortedOptions,
+    options: Options,
 )
     : (err: MongoError, client: MongoClient) => void
 {
@@ -63,11 +92,7 @@ export function onConnectionUnsorted(
             .db(options.database)
 
         const reservedNames: Set<string>
-            = new Set([
-                options.moleculeCollection,
-                options.positionMatrixCollection,
-            ]);
-
+            = getReservedNames(options);
 
         const collectionsCursor: CommandCursor
             = db.listCollections(
@@ -93,7 +118,7 @@ export function onConnectionUnsorted(
             const cursor: Cursor
                 = db
                 .collection(options.moleculeCollection)
-                .find({})
+                .find(getMoleculeTypeFilter(options.kind))
                 .skip(
                     options.pageIndex
                     *
