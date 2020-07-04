@@ -59,7 +59,7 @@ function MongoDbFields(props: IMongoDbFieldsProps)
 
     const [
         buildingBlockPositionMatrixCollection,
-        setBuildingBlockPositionMatrixCollection,
+        setBBPositionMatrixCollection,
     ]
         = React.useState(props.buildingBlockPositionMatrixCollection);
 
@@ -156,27 +156,33 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                         }
                     }
                 /></Grid>
-                { selectConstructedMolecules && <Grid item><TextField
-                    id={
-                        'mongo-building-block-'
-                        +'position-matrix-collection'
-                    }
-                    label={
-                        'Building Block '
-                        +'Position Matrix Collection Name'
-                    }
-                    defaultValue={
-                        props.buildingBlockPositionMatrixCollection
-                    }
-                    variant='outlined'
-                    onChange={
-                        (e) => {
-                            setBuildingBlockPositionMatrixCollection(
-                                e.target.value
-                            )
+                {
+                    selectBuildingBlocks
+                    &&
+                    selectConstructedMolecules
+                    &&
+                    <Grid item><TextField
+                        id={
+                            'mongo-building-block-'
+                            +'position-matrix-collection'
                         }
-                    }
-                /></Grid> }
+                        label={
+                            'Building Block '
+                            +'Position Matrix Collection Name'
+                        }
+                        defaultValue={
+                            props.buildingBlockPositionMatrixCollection
+                        }
+                        variant='outlined'
+                        onChange={
+                            (e) => {
+                                setBBPositionMatrixCollection(
+                                    e.target.value
+                                )
+                            }
+                        }
+                    /></Grid>
+                }
                 <Grid item><TextField
                     id='num-entries-per-age'
                     label='Entries Per Page'
