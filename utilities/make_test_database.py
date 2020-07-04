@@ -78,6 +78,101 @@ def add_entries(client, database, key_makers, random_seed):
         add_value ^= 1
 
 
+def add_mixed_entries(
+    client,
+    database,
+    key_makers,
+    random_seed,
+):
+    constructed_molecule_db = stk.ConstructedMoleculeMongoDb(
+        mongo_client=client,
+        database=database,
+        molecule_collection='molecules',
+        position_matrix_collection='position_matrices',
+        jsonizer=stk.ConstructedMoleculeJsonizer(
+            key_makers=key_makers,
+        ),
+    )
+    num_atoms_db = stk.ValueMongoDb(
+        mongo_client=client,
+        collection='numAtoms',
+        database=database,
+        key_makers=key_makers,
+    )
+    num_bonds_db = stk.ValueMongoDb(
+        mongo_client=client,
+        collection='numBonds',
+        database=database,
+        key_makers=key_makers,
+    )
+
+    cage = stk.ConstructedMolecule(
+        topology_graph=stk.cage.TwentyPlusThirty(
+            building_blocks=(
+                stk.BuildingBlock(
+                    smiles='BrC1C(Br)CCCC1',
+                    functional_groups=[stk.BromoFactory()],
+                ),
+                stk.BuildingBlock(
+                    smiles='Brc1cc(Br)cc(Br)c1',
+                    functional_groups=[stk.BromoFactory()],
+                ),
+            ),
+        ),
+    )
+    constructed_molecule_db.put(cage)
+    num_atoms_db.put(cage, cage.get_num_atoms())
+
+    macrocycle = stk.ConstructedMolecule(
+        topology_graph=stk.macrocycle.Macrocycle(
+            building_blocks=(
+                stk.BuildingBlock(
+                    smiles='BrCCBr',
+                    functional_groups=[stk.BromoFactory()],
+                ),
+                stk.BuildingBlock(
+                    smiles='BrNNBr',
+                    functional_groups=[stk.BromoFactory()],
+                ),
+                stk.BuildingBlock(
+                    smiles='BrOOBr',
+                    functional_groups=[stk.BromoFactory()],
+                ),
+            ),
+            repeating_unit='ABC',
+            num_repeating_units=2,
+        ),
+    )
+    polymer = stk.ConstructedMolecule(
+        topology_graph=stk.polymer.Linear(
+            building_blocks=(
+                stk.BuildingBlock(
+                    smiles='BrCCBr',
+                    functional_groups=[stk.BromoFactory()],
+                ),
+                stk.BuildingBlock(
+                    smiles='BrNNBr',
+                    functional_groups=[stk.BromoFactory()],
+                ),
+            ),
+            repeating_unit='AB',
+            num_repeating_units=4,
+        ),
+    )
+    rotaxane = stk.ConstructedMolecule(
+        topology_graph=stk.rotaxane.NRotaxane(
+            axle=stk.BuildingBlock.init_from_molecule(polymer),
+            cycles=(
+                stk.BuildingBlock.init_from_molecule(macrocycle),
+            ),
+            repeating_unit='A',
+            num_repeating_units=1,
+        ),
+    )
+    constructed_molecule_db.put(rotaxane)
+    num_bonds_db.put(rotaxane, rotaxane.get_num_bonds())
+
+
 def main():
     client = pymongo.MongoClient()
     database = 'stkVis'
@@ -96,6 +191,17 @@ def main():
         database=database,
         key_makers=(
             stk.Smiles(),
+        ),
+        random_seed=6,
+    )
+
+    database2 = 'stkVis2'
+    client.drop_database(database2)
+    add_mixed_entries(
+        client=client,
+        database=database,
+        key_makers=(
+            stk.InchiKey(),
         ),
         random_seed=6,
     )
