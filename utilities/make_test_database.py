@@ -106,7 +106,7 @@ def add_mixed_entries(
     )
 
     cage = stk.ConstructedMolecule(
-        topology_graph=stk.cage.TwentyPlusThirty(
+        topology_graph=stk.cage.FourPlusSix(
             building_blocks=(
                 stk.BuildingBlock(
                     smiles='BrC1C(Br)CCCC1',
