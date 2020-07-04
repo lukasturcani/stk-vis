@@ -11,13 +11,20 @@ export function getMoleculeTypeFilter(
     switch (selectionType)
     {
         case MoleculeSelectionTypeKind.BuildingBlocks:
-            break;
+            return {
+            };
+
         case MoleculeSelectionTypeKind.ConstructedMolecules:
-            break;
+            return {
+            };
+
         case MoleculeSelectionTypeKind.Both:
-            break;
+            return {};
+
         case MoleculeSelectionTypeKind.None:
-            break;
+            return {
+            };
+
         default:
             assertNever(selectionType);
     }
