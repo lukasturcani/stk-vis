@@ -16,14 +16,21 @@ export function getMoleculeTypeFilter(
 
         case MoleculeSelectionTypeKind.ConstructedMolecules:
             return {
+                '$lookup': {
+                    'from': constructedMoleculeCollection,
+                    localField: '',
+                    foreignField: '',
+                    'as': '',
+                },
             };
 
         case MoleculeSelectionTypeKind.Both:
             return {};
 
         case MoleculeSelectionTypeKind.None:
-            return {
-            };
+            // This should probably be changed so that it doesn't match
+            // anything.
+            return {};
 
         default:
             assertNever(selectionType);
