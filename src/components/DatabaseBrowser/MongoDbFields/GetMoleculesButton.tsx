@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import {
     IState,
     IMoleculeSelectionType,
-    MoleculeSelectionTypeKind,
-
 } from '../../../models';
 import Button from '@material-ui/core/Button';
 import { getPageMolecules } from '../../../actions';
@@ -14,7 +12,14 @@ import {
     updateMongoDbFields,
     IMongoDbFields,
 } from '../../../actions';
+import {
+    Maybe,
+    MaybeKind,
+} from '../../../utilities';
 import SearchIcon from '@material-ui/icons/Search';
+import {
+    getMoleculeSelectionType
+} from './utilities';
 
 
 function Alert(props: AlertProps) {
@@ -40,14 +45,29 @@ interface IGetMoleculesButtonProps
     getFirstPage: (options: getFirstPageOptions) => () => void;
     dispatchUpdateMongoDbFields: (fields: IMongoDbFields) => void;
     numEntriesPerPage: number;
-    moleculeTypeSelectionError: boolean;
     selectBuildingBlocks: boolean;
     selectConstructedMolecules: boolean;
 }
 
 
-function GetMoleculesButton(
-    props: IGetMoleculesButtonProps,
+interface ButtonImplProps extends IGetMoleculesButtonProps
+{
+    moleculeSelectionType: IMoleculeSelectionType;
+}
+
+
+function DisabledButton()
+{
+    return (
+        <Button disabled={ true }>
+            <SearchIcon />
+        </Button>
+    );
+}
+
+
+function ButtonImpl(
+    props: ButtonImplProps,
 )
 {
     const successSnackbar: ISnackbar
@@ -59,7 +79,6 @@ function GetMoleculesButton(
     return (
         <div>
             <Button
-                disabled={ props.moleculeTypeSelectionError }
                 onClick={
                     () => {
                         props.dispatchUpdateMongoDbFields({
@@ -86,10 +105,7 @@ function GetMoleculesButton(
                                 props.numEntriesPerPage,
 
                             moleculeSelectionType:
-                                getMoleculeSelectionType(
-                                    props.selectBuildingBlocks,
-                                    props.selectConstructedMolecules,
-                                ),
+                                props.moleculeSelectionType,
                         });
                         props.getFirstPage({
                             successSnackbar: successSnackbar.activate,
@@ -129,40 +145,33 @@ function GetMoleculesButton(
 }
 
 
-function getMoleculeSelectionType(
-    selectBuildingBlocks: boolean,
-    selectConstructedMolecules: boolean,
+function GetMoleculesButton(
+    props: IGetMoleculesButtonProps,
 )
-    : IMoleculeSelectionType
 {
-    if (selectBuildingBlocks && selectConstructedMolecules)
-    {
-        return {
-            kind: MoleculeSelectionTypeKind.Both,
-        };
-    }
-    else if (selectBuildingBlocks)
-    {
-        return {
-            kind: MoleculeSelectionTypeKind.BuildingBlocks,
-        };
-    }
-    else if (selectConstructedMolecules)
-    {
-        return {
-            kind: MoleculeSelectionTypeKind.ConstructedMolecules,
-        };
-    }
-    else
-    {
-        console.log(
-            'User unchecked both building block and constructed '
-            + 'molecule selection, yet somehow the GetMoleculesButton '
-            + 'was pressed. This should basically never happen...'
+
+    const moleculeSelectionType: Maybe<IMoleculeSelectionType>
+        = getMoleculeSelectionType(
+            props.selectBuildingBlocks,
+            props.selectConstructedMolecules,
         );
-        return {
-            kind: MoleculeSelectionTypeKind.None,
-        };
+
+    switch (moleculeSelectionType.kind)
+    {
+        case MaybeKind.Nothing:
+            return <DisabledButton />;
+
+        case MaybeKind.Just:
+            return <ButtonImpl
+                {...props}
+                moleculeSelectionType={
+                    moleculeSelectionType.value
+                }
+            />;
+
+        default:
+            assertNever(moleculeSelectionType);
+
     }
 
 }
@@ -243,3 +252,6 @@ function mapDispatchToProps(
 
 export const GetMoleculesButtonComponent
     = connect(mapStateToProps, mapDispatchToProps)(GetMoleculesButton);
+
+
+function assertNever(arg: never): never { throw Error(); }

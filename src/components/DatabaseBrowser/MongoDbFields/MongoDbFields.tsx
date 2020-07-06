@@ -66,9 +66,6 @@ function MongoDbFields(props: IMongoDbFieldsProps)
     const [numEntriesPerPage, setNumEntriesPerPage]
         = React.useState(props.numEntriesPerPage);
 
-    const [moleculeTypeSelectionError, setMoleculeTypeSelectionError]
-        = React.useState(false);
-
     const [selectBuildingBlocks, setSelectBuildingBlocks]
         = React.useState(props.selectBuildingBlocks);
 
@@ -94,7 +91,6 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                 <Grid item
                 >
                     <MoleculeTypeSelectorComponent
-                        setError= { setMoleculeTypeSelectionError }
                         buildingBlocks={ selectBuildingBlocks }
                         setBuildingBlocks={ setSelectBuildingBlocks }
                         constructedMolecules={
@@ -212,9 +208,6 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                         buildingBlockPositionMatrixCollection
                     }
                     numEntriesPerPage={ numEntriesPerPage }
-                    moleculeTypeSelectionError={
-                        moleculeTypeSelectionError
-                    }
                     selectBuildingBlocks={ selectBuildingBlocks }
                     selectConstructedMolecules={
                         selectConstructedMolecules

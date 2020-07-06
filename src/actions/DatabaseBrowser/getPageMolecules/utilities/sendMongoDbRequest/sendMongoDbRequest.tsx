@@ -3,14 +3,18 @@ import {
     getMongoDbDatabase,
     getMongoDbMoleculeCollection,
     getMongoDbPositionMatrixCollection,
+    getMongoDbConstructedMoleculeCollection,
+    getMongoDbBuildingBlockPositionMatrixCollection,
     getNumEntriesPerPage,
     getSortType,
     getSortedCollection,
+    getMoleculeSelectionType,
 } from '../../../../../selectors';
 import {
     IInitialDatabaseBrowser,
     ILoadedDatabaseBrowser,
     DatabaseBrowserKind,
+    MoleculeSelectionTypeKind,
     SortKind,
 } from '../../../../../models';
 import { MongoClient } from 'mongodb';
@@ -52,8 +56,19 @@ export function sendMongoDbRequest(
     const positionMatrixCollection: string
         = getMongoDbPositionMatrixCollection(options.state);
 
+    const constructedMoleculeCollection: string
+        = getMongoDbConstructedMoleculeCollection(options.state);
+
+    const buildingBlockPositionMatrixCollection: string
+        = getMongoDbBuildingBlockPositionMatrixCollection(
+            options.state,
+        );
+
     const numEntriesPerPage: number
         = getNumEntriesPerPage(options.state);
+
+    const kind: MoleculeSelectionTypeKind
+        = getMoleculeSelectionType(options.state).kind;
 
     const currentPageData: Maybe<IPageData>
         = maybeGetPageData(options.state);
@@ -62,9 +77,12 @@ export function sendMongoDbRequest(
     {
         case DatabaseBrowserKind.Initial:
             return MongoClient.connect(url, onConnectionUnsorted({
+                kind,
                 database,
                 moleculeCollection,
                 positionMatrixCollection,
+                constructedMoleculeCollection,
+                buildingBlockPositionMatrixCollection,
                 numEntriesPerPage,
                 currentPageData,
                 ...options,
@@ -77,9 +95,12 @@ export function sendMongoDbRequest(
                     return MongoClient.connect(
                         url,
                         onConnectionUnsorted({
+                            kind,
                             database,
                             moleculeCollection,
                             positionMatrixCollection,
+                            constructedMoleculeCollection,
+                            buildingBlockPositionMatrixCollection,
                             numEntriesPerPage,
                             currentPageData,
                             ...options,

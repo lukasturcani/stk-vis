@@ -3,7 +3,6 @@ export const enum MoleculeSelectionTypeKind
     Both = "Both",
     BuildingBlocks = "Building Blocks",
     ConstructedMolecules = "Constructed Molecules",
-    None = "None",
 }
 
 
@@ -11,12 +10,6 @@ export const enum MoleculeSelectionTypeKind
 export interface ISelectBoth
 {
     kind: MoleculeSelectionTypeKind.Both;
-}
-
-
-export interface ISelectNone
-{
-    kind: MoleculeSelectionTypeKind.None;
 }
 
 
@@ -36,4 +29,3 @@ export type IMoleculeSelectionType =
     | ISelectBoth
     | ISelectBuildingBlocks
     | ISelectConstructedMolecules
-    | ISelectNone
