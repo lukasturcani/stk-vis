@@ -3869,9 +3869,9 @@ mkdirp@^0.5.1, mkdirp@^0.5.3, mkdirp@^0.5.4:
     minimist "^1.2.5"
 
 mol-draw@^1.0.6:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/mol-draw/-/mol-draw-1.0.9.tgz#3d1152c2872aad303d1507a417a5032d406212f9"
-  integrity sha512-q6IiEJkV7frabetSK1jQiS2v97kZSrKQMHuDnIe0NFgIVSSZ5KDneV4o2Og/T/e2nSRuUKjnJLKUvIrNwYfw9g==
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/mol-draw/-/mol-draw-1.0.10.tgz#bcf7029faadc319890c89293d680ffa0fd523dfb"
+  integrity sha512-9ZWk5DUmFHaFjqyaR73J6I4/Z9Ax2fqDCdJpnViKvS5XN7DSHpeBDaEs1QiOnHoP6VPDqs0mDl4OlxCe733uEA==
   dependencies:
     three "^0.117.1"
     three-trackballcontrols "^0.0.8"
