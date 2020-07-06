@@ -2374,7 +2374,7 @@ file-loader@^6.0.0:
     loader-utils "^2.0.0"
     schema-utils "^2.6.5"
 
-"file-saver@github:eligrey/FileSaver.js#1.3.8":
+file-saver@eligrey/FileSaver.js#1.3.8:
   version "1.3.8"
   resolved "https://codeload.github.com/eligrey/FileSaver.js/tar.gz/e865e37af9f9947ddcced76b549e27dc45c1cb2e"
 
@@ -3685,10 +3685,10 @@ matcher@^3.0.0:
   dependencies:
     escape-string-regexp "^4.0.0"
 
-material-table@^1.59.0:
-  version "1.64.0"
-  resolved "https://registry.yarnpkg.com/material-table/-/material-table-1.64.0.tgz#c0d0a2a2b3657cbe729b25abf194c549015fa411"
-  integrity sha512-jvjr/USecR8BbEuWF2+8iScrjnoyOXsP/ghFOacNdgxZAZbmpJrhtHZtvu957QmRRYJSORAAW6JMskLEra9Sig==
+material-table@1.63.1:
+  version "1.63.1"
+  resolved "https://registry.yarnpkg.com/material-table/-/material-table-1.63.1.tgz#ae3742216b2ba288362801bf5611fcf86f9ade3f"
+  integrity sha512-bSBf0CMTpbc0cFF2JT+xTILtWyBaOxEOm04ZXio3Eo1w4hYSCexfndChU2MXFKtRVUZ+k2wI/JXAlGNNFCXuZw==
   dependencies:
     "@date-io/date-fns" "^1.1.0"
     "@material-ui/pickers" "^3.2.2"
