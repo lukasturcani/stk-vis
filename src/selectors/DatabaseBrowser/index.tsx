@@ -14,7 +14,6 @@ import {
     ISortedBoth,
     IUnsortedBoth,
     SortType,
-    SortKind,
 } from '../../models';
 import * as fp from 'lodash/fp';
 
@@ -226,13 +225,4 @@ export function getSortType(
     : SortType
 {
     return state.sortType;
-}
-
-
-export function getSortKind(
-    state: ILoadedDatabaseBrowser,
-)
-    : SortKind
-{
-    return state.sortKind;
 }
