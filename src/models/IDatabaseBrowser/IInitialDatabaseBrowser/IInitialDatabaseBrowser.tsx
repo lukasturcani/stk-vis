@@ -1,6 +1,6 @@
-import { DatabaseBrowserKind } from './DatabaseBrowserKind';
-import { IInitialRequestState } from '../IInitialRequestState';
-import { MoleculeSelectionKind } from '../MoleculeSelectionKind';
+import { DatabaseBrowserKind } from '../DatabaseBrowserKind';
+import { IInitialRequestState } from '../../IInitialRequestState';
+import { MoleculeKind } from './MoleculeKind';
 
 
 export interface IInitialDatabaseBrowser {
@@ -15,5 +15,5 @@ export interface IInitialDatabaseBrowser {
     readonly propertyCollections: string[];
     readonly initialRequestState: IInitialRequestState;
     readonly numEntriesPerPage: number;
-    readonly moleculeSelectionKind: MoleculeSelectionKind;
+    readonly moleculeKind: MoleculeKind;
 }
