@@ -1,6 +1,6 @@
 import {
     MongoClient,
-    Cursor,
+    AggregationCursor,
     MongoError,
     Db,
     CommandCursor,
@@ -28,6 +28,7 @@ interface OptionsBase
 {
     kind: MoleculeSelectionTypeKind;
     database: string;
+    moleculeKey: string;
     moleculeCollection: string;
     positionMatrixCollection: string;
     constructedMoleculeCollection: string;
@@ -115,10 +116,14 @@ export function onConnectionUnsorted(
                 );
             collectionsCursor.close()
 
-            const cursor: Cursor
+            const cursor: AggregationCursor
                 = db
                 .collection(options.moleculeCollection)
-                .find(getMoleculeTypeFilter(options.kind))
+                .aggregate(getMoleculeTypeFilter(
+                    options.kind,
+                    options.moleculeKey,
+                    options.constructedMoleculeCollection,
+                ))
                 .skip(
                     options.pageIndex
                     *

@@ -1,5 +1,6 @@
 import {
     getMongoDbUrl,
+    getMongoDbMoleculeKey,
     getMongoDbDatabase,
     getMongoDbMoleculeCollection,
     getMongoDbPositionMatrixCollection,
@@ -47,6 +48,9 @@ export function sendMongoDbRequest(
     const url: string
         = getMongoDbUrl(options.state);
 
+    const moleculeKey: string
+        = getMongoDbMoleculeKey(options.state);
+
     const database: string
         = getMongoDbDatabase(options.state);
 
@@ -79,6 +83,7 @@ export function sendMongoDbRequest(
             return MongoClient.connect(url, onConnectionUnsorted({
                 kind,
                 database,
+                moleculeKey,
                 moleculeCollection,
                 positionMatrixCollection,
                 constructedMoleculeCollection,
@@ -97,6 +102,7 @@ export function sendMongoDbRequest(
                         onConnectionUnsorted({
                             kind,
                             database,
+                            moleculeKey,
                             moleculeCollection,
                             positionMatrixCollection,
                             constructedMoleculeCollection,

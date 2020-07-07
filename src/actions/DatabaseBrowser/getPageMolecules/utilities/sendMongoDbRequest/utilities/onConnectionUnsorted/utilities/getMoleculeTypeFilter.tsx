@@ -5,23 +5,73 @@ import {
 
 export function getMoleculeTypeFilter(
     selectionType: MoleculeSelectionTypeKind,
+    moleculeKey: string,
+    constructedMoleculeCollection: string,
 )
     : any
 {
     switch (selectionType)
     {
         case MoleculeSelectionTypeKind.BuildingBlocks:
-            return {
-                c: null,
-            };
+            return [
+                {
+                    '$match': {
+                        [moleculeKey]: {
+                            '$exists': true,
+                        },
+                    },
+                },
+                {
+                    '$lookup': {
+                        'from': constructedMoleculeCollection,
+                        'localField': moleculeKey,
+                        'foreignField': moleculeKey,
+                        'as': 'constructedMolecule',
+                    },
+                },
+                {
+                    '$match': {
+                        '$expr': {
+                            '$eq': [
+                                {'$size': '$constructedMolecule'},
+                                0,
+                            ],
+                        },
+                    },
+                },
+            ];
 
         case MoleculeSelectionTypeKind.ConstructedMolecules:
-            return {
-                c: true,
-            };
+            return [
+                {
+                    '$match': {
+                        [moleculeKey]: {
+                            '$exists': true,
+                        },
+                    },
+                },
+                {
+                    '$lookup': {
+                        'from': constructedMoleculeCollection,
+                        'localField': moleculeKey,
+                        'foreignField': moleculeKey,
+                        'as': 'constructedMolecule',
+                    },
+                },
+                {
+                    '$match': {
+                        '$expr': {
+                            '$gt': [
+                                {'$size': '$constructedMolecule'},
+                                0,
+                            ],
+                        },
+                    },
+                },
+            ];
 
         case MoleculeSelectionTypeKind.Both:
-            return {};
+            return []
 
         default:
             assertNever(selectionType);

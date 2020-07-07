@@ -1,5 +1,5 @@
 import { AnyAction } from '@reduxjs/toolkit';
-import { MongoError, MongoClient, Cursor } from 'mongodb';
+import { MongoError, MongoClient, AggregationCursor } from 'mongodb';
 import {
     updateTable,
     setMoleculeRequestState,
@@ -43,7 +43,7 @@ interface OptionsBase
     successSnackbar: (message: string) => void;
     errorSnackbar: (message: string) => void;
     client: MongoClient;
-    cursor: Cursor;
+    cursor: AggregationCursor;
 }
 
 
