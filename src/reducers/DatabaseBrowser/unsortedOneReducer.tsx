@@ -3,7 +3,7 @@ import {
     IDatabaseBrowser,
     IUnsortedOne,
     DatabaseBrowserKind,
-    SortKind,
+    SearchKind,
     SortSettingsKind,
 } from '../../models';
 import {
@@ -61,7 +61,6 @@ import {
     getNumEntriesPerPage,
     getPageKind,
     getSelectedMolecule,
-    getMoleculeSelectionType,
 } from '../../selectors';
 import {
     setSortSettings
@@ -80,6 +79,7 @@ export function unsortedDatabaseBrowserReducer(
         switch(action.payload.kind)
         {
             case SortSettingsKind.Unsorted:
+                // Use default case.
                 break;
 
             case SortSettingsKind.Sorted:
@@ -154,9 +154,6 @@ export function unsortedDatabaseBrowserReducer(
                             action,
                         ),
 
-                    moleculeSelectionType:
-                        getMoleculeSelectionType(state),
-
                     pageKind:
                         pageKindReducer(
                             getPageKind(state),
@@ -168,8 +165,8 @@ export function unsortedDatabaseBrowserReducer(
                             action,
                         ),
 
-                    sortKind:
-                        SortKind.Sorted,
+                    searchKind:
+                        toSorted(state.searchKind),
 
                     sortedCollection:
                         sortedCollectionReducer(
@@ -255,8 +252,6 @@ export function unsortedDatabaseBrowserReducer(
                 getNumEntriesPerPage(state),
                 action,
             ),
-        moleculeSelectionType:
-                getMoleculeSelectionType(state),
         pageKind:
             pageKindReducer(
                 getPageKind(state),
@@ -268,10 +263,26 @@ export function unsortedDatabaseBrowserReducer(
                 action,
             ),
 
-        sortKind:
-            SortKind.Unsorted,
+        searchKind:
+            state.searchKind,
 
     };
+}
+
+
+function toSorted(
+    searchKind:
+        SearchKind.UnsortedBuildingBlocks
+        | SearchKind.UnsortedConstructedMolecules,
+)
+    : SearchKind.SortedBuildingBlocks
+    | SearchKind.SortedConstructedMolecules
+{
+    return (
+        searchKind === SearchKind.UnsortedBuildingBlocks
+    )
+        ? SearchKind.SortedBuildingBlocks
+        : SearchKind.SortedConstructedMolecules;
 }
 
 

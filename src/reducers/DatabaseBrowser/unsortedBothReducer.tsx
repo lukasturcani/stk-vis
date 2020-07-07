@@ -3,7 +3,7 @@ import {
     IDatabaseBrowser,
     IUnsortedBoth,
     DatabaseBrowserKind,
-    SortKind,
+    SearchKind,
     SortSettingsKind,
 } from '../../models';
 import {
@@ -64,7 +64,6 @@ import {
     getNumEntriesPerPage,
     getPageKind,
     getSelectedMolecule,
-    getMoleculeSelectionType,
 } from '../../selectors';
 import {
     setSortSettings
@@ -83,6 +82,7 @@ export function unsortedDatabaseBrowserReducer(
         switch(action.payload.kind)
         {
             case SortSettingsKind.Unsorted:
+                // Use default case.
                 break;
 
             case SortSettingsKind.Sorted:
@@ -162,8 +162,8 @@ export function unsortedDatabaseBrowserReducer(
                             action,
                         ),
 
-                    moleculeSelectionType:
-                        getMoleculeSelectionType(state),
+                    searchKind:
+                        SearchKind.SortedBoth,
 
                     pageKind:
                         pageKindReducer(
@@ -175,9 +175,6 @@ export function unsortedDatabaseBrowserReducer(
                             getSelectedMolecule(state),
                             action,
                         ),
-
-                    sortKind:
-                        SortKind.Sorted,
 
                     sortedCollection:
                         sortedCollectionReducer(
@@ -268,8 +265,9 @@ export function unsortedDatabaseBrowserReducer(
                 getNumEntriesPerPage(state),
                 action,
             ),
-        moleculeSelectionType:
-            getMoleculeSelectionType(state),
+
+        searchKind:
+            state.searchKind,
 
         pageKind:
             pageKindReducer(
@@ -281,9 +279,6 @@ export function unsortedDatabaseBrowserReducer(
                 getSelectedMolecule(state),
                 action,
             ),
-
-        sortKind:
-            SortKind.Unsorted,
 
     };
 }
