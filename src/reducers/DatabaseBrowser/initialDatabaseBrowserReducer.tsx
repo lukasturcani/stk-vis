@@ -26,8 +26,7 @@ import {
     IInitialDatabaseBrowser,
     ILoadedDatabaseBrowser,
     DatabaseBrowserKind,
-    SortKind,
-    MoleculeSelectionKind,
+    MoleculeKind,
 } from '../../models';
 import { updateTable } from '../../actions';
 import {
@@ -93,8 +92,6 @@ export function initialDatabaseBrowserReducer(
             numEntriesPerPage:
                 numEntriesPerPageReducer(undefined, action),
 
-            moleculeSelectionKind:
-                MoleculeSelectionKind.Both,
         };
     }
 

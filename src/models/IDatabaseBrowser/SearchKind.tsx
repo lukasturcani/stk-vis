@@ -1,4 +1,4 @@
-export const enum MoleculeKind
+export const enum SearchKind
 {
     SortedBoth = "Sorted Both",
     SortedBuildingBlocks = "Sorted Building Blocks",
