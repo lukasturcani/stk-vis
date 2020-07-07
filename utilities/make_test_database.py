@@ -15,6 +15,9 @@ def get_molecules(num_molecules, random_seed):
                 vb.Atom(7, 0, 2),
                 vb.Atom(8, 0, 2),
             ),
+            required_atoms=(
+                vb.Atom(35, 0, 1),
+            ),
             num_atoms=generator.randint(7, 16),
             random_seed=generator.randint(0, 1000),
         )
@@ -26,7 +29,10 @@ def get_molecules(num_molecules, random_seed):
         molecule = with_hydrogens(vb.Molecule(atoms, bonds))
         rdkit.EmbedMolecule(molecule, rdkit.ETKDGv2())
         rdkit.Kekulize(molecule)
-        yield stk.BuildingBlock.init_from_rdkit_mol(molecule)
+        yield stk.BuildingBlock.init_from_rdkit_mol(
+            molecule,
+            functional_groups=[stk.BromoFactory()],
+        )
 
 
 def with_hydrogens(molecule):
@@ -174,6 +180,42 @@ def add_mixed_entries(
     num_bonds_db.put(rotaxane, rotaxane.get_num_bonds())
 
 
+def add_constructed_molecules(
+    client,
+    database,
+    key_makers,
+):
+    constructed_molecule_db = stk.ConstructedMoleculeMongoDb(
+        mongo_client=client,
+        database=database,
+        molecule_collection='molecules',
+        position_matrix_collection='position_matrices',
+        jsonizer=stk.ConstructedMoleculeJsonizer(
+            key_makers=key_makers,
+        ),
+    )
+    num_atoms_db = stk.ValueMongoDb(
+        mongo_client=client,
+        collection='numAtoms',
+        database=database,
+        key_makers=key_makers,
+    )
+    for bb1, bb2 in zip(
+        get_molecules(200, 5),
+        get_molecules(200, 5),
+    ):
+        molecule = stk.ConstructedMolecule(
+            topology_graph=stk.polymer.Linear(
+                building_blocks=(bb1, bb2),
+                repeating_unit='AB',
+                num_repeating_units=1,
+            ),
+        )
+        constructed_molecule_db.put(molecule)
+        num_atoms_db.put(molecule, molecule.get_num_atoms())
+        num_atoms_db.put(bb1, bb1.get_num_atoms())
+
+
 def main():
     client = pymongo.MongoClient()
     database = 'stkVis'
@@ -199,6 +241,13 @@ def main():
     database2 = 'stkVis2'
     client.drop_database(database2)
     add_mixed_entries(
+        client=client,
+        database=database2,
+        key_makers=(
+            stk.InchiKey(),
+        ),
+    )
+    add_constructed_molecules(
         client=client,
         database=database2,
         key_makers=(
