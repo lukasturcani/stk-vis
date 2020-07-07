@@ -38,7 +38,7 @@ function addMoleculeData(
     : void
 {
     const notKeyNames: Set<string>
-        = new Set(['v', '_id']);
+        = new Set(['v', '_id', 'constructedMolecule']);
 
     const molecule: any
         = {};
@@ -47,8 +47,11 @@ function addMoleculeData(
     {
         if (notKeyNames.has(propName))
         {
-            if (propName === '_id')
-            {
+            if (
+                propName === '_id'
+                ||
+                propName === 'constructedMolecule'
+            ) {
                 continue;
             }
 

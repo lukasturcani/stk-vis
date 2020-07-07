@@ -117,9 +117,13 @@ export function sendMongoDbRequest(
                     return MongoClient.connect(
                         url,
                         onConnectionSorted({
+                            kind,
                             database,
+                            moleculeKey,
                             moleculeCollection,
+                            constructedMoleculeCollection,
                             positionMatrixCollection,
+                            buildingBlockPositionMatrixCollection,
                             numEntriesPerPage,
                             currentPageData,
                             sortType: getSortType(options.state),

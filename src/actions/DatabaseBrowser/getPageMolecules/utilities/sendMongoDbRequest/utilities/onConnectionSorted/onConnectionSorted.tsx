@@ -1,15 +1,12 @@
 import {
     Maybe,
 } from '../../../../../../../utilities';
-import {
-    SortType,
-} from '../../../../../../../models';
 import { AnyAction } from '@reduxjs/toolkit'
 import { IPageData } from '../IPageData';
 import {
     MongoClient,
     MongoError,
-    Cursor,
+    AggregationCursor,
     Db,
     CommandCursor,
 } from 'mongodb';
@@ -18,15 +15,20 @@ import {
 } from '../../../../../../../actions';
 import {
     MoleculeRequestStateKind,
+    MoleculeSelectionTypeKind,
+    SortType,
 } from '../../../../../../../models';
-import { processArray } from './utilities';
+import { processArray, getAggregationPipeline } from './utilities';
 
 
 
-interface onConnectionSortedOptions
+interface OptionsBase
 {
+    kind: MoleculeSelectionTypeKind;
     database: string;
+    moleculeKey: string;
     moleculeCollection: string;
+    constructedMoleculeCollection: string;
     positionMatrixCollection: string;
     dispatch: (action: AnyAction) => void;
     numEntriesPerPage: number;
@@ -39,6 +41,27 @@ interface onConnectionSortedOptions
 }
 
 
+interface SelectBoth extends OptionsBase
+{
+    kind: MoleculeSelectionTypeKind.Both;
+    buildingBlockPositionMatrixCollection: string;
+}
+
+
+interface SelectOne extends OptionsBase
+{
+    kind:
+        MoleculeSelectionTypeKind.BuildingBlocks
+        |
+        MoleculeSelectionTypeKind.ConstructedMolecules;
+}
+
+
+
+type Options =
+    | SelectBoth
+    | SelectOne
+
 interface ICollectionData
 {
     name: string;
@@ -47,7 +70,7 @@ interface ICollectionData
 
 
 export function onConnectionSorted(
-    options: onConnectionSortedOptions,
+    options: Options,
 )
     : (err: MongoError, client: MongoClient) => void
 {
@@ -97,14 +120,15 @@ export function onConnectionSorted(
                 );
             collectionsCursor.close()
 
-            const cursor: Cursor
+            const cursor: AggregationCursor
                 = db
                 .collection(options.sortedCollection)
-                .find({})
-                .sort(
-                    'v',
-                    (options.sortType === SortType.Ascending)? 1 : -1,
-                )
+                .aggregate(getAggregationPipeline(
+                    options.kind,
+                    options.sortType,
+                    options.moleculeKey,
+                    options.constructedMoleculeCollection,
+                ))
                 .skip(
                     options.pageIndex
                     *
