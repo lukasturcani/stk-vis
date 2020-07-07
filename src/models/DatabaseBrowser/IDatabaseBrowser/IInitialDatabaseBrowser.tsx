@@ -6,6 +6,7 @@ import { IMoleculeSelectionType } from '../IMoleculeSelectionType';
 export interface IInitialDatabaseBrowser {
     readonly kind: DatabaseBrowserKind.Initial;
     readonly url: string;
+    readonly moleculeKey: string;
     readonly database: string;
     readonly moleculeCollection: string;
     readonly constructedMoleculeCollection: string;

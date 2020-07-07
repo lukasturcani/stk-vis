@@ -37,6 +37,7 @@ interface getFirstPageOptions
 interface IGetMoleculesButtonProps
 {
     url: string;
+    moleculeKey: string;
     database: string;
     moleculeCollection: string;
     constructedMoleculeCollection: string;
@@ -84,6 +85,9 @@ function ButtonImpl(
                         props.dispatchUpdateMongoDbFields({
                             url:
                                 props.url,
+
+                            moleculeKey:
+                                props.moleculeKey,
 
                             database:
                                 props.database,

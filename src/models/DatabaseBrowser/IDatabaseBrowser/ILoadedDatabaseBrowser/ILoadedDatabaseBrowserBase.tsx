@@ -29,6 +29,7 @@ export interface ILoadedDatabaseBrowserBase {
     readonly kind: DatabaseBrowserKind.Loaded;
     readonly sortKind: SortKind;
     readonly url: string;
+    readonly moleculeKey: string;
     readonly database: string;
     readonly moleculeCollection: string;
     readonly constructedMoleculeCollection: string;

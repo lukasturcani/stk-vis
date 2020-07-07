@@ -31,6 +31,19 @@ export function urlReducer(
 }
 
 
+export function moleculeKeyReducer(
+    state: string = 'InChIKey',
+    action: AnyAction,
+)
+{
+    if (updateMongoDbFields.match(action))
+    {
+        return action.payload.moleculeKey;
+    }
+    return state;
+}
+
+
 export function databaseReducer(
     state: string = 'stkVis',
     action: AnyAction,

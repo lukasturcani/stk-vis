@@ -11,6 +11,7 @@ import {
 } from '../../actions';
 import {
     urlReducer,
+    moleculeKeyReducer,
     databaseReducer,
     moleculeCollectionReducer,
     positionMatrixCollectionReducer,
@@ -51,6 +52,7 @@ import {
 } from './sortTypeReducer';
 import {
     getMongoDbUrl,
+    getMongoDbMoleculeKey,
     getMongoDbDatabase,
     getMongoDbPropertyCollections,
     getMongoDbPositionMatrixCollection,
@@ -90,6 +92,11 @@ export function sortedDatabaseBrowserReducer(
                     url:
                         urlReducer(
                             getMongoDbUrl(state),
+                            action,
+                        ),
+                    moleculeKey:
+                        moleculeKeyReducer(
+                            getMongoDbMoleculeKey(state),
                             action,
                         ),
                     database:
@@ -187,6 +194,11 @@ export function sortedDatabaseBrowserReducer(
         url:
             urlReducer(
                 getMongoDbUrl(state),
+                action,
+            ),
+        moleculeKey:
+            moleculeKeyReducer(
+                getMongoDbMoleculeKey(state),
                 action,
             ),
         database:

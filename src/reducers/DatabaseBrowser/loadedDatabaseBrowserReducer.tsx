@@ -9,6 +9,7 @@ import {
     buildingBlockPositionMatrixCollectionReducer,
     propertyCollectionsReducer,
     moleculeSelectionTypeReducer,
+    moleculeKeyReducer,
 } from './mongoDbReducers';
 import {
     IDatabaseBrowser,
@@ -20,6 +21,7 @@ import { setInitialBrowserState } from '../../actions';
 import { initialKindReducer } from './initialKindReducer';
 import {
     getMongoDbUrl,
+    getMongoDbMoleculeKey,
     getMongoDbDatabase,
     getMongoDbMoleculeCollection,
     getMongoDbPositionMatrixCollection,
@@ -57,6 +59,12 @@ export function loadedDatabaseBrowserReducer(
 
             url:
                 urlReducer(getMongoDbUrl(state), action),
+
+            moleculeKey:
+                moleculeKeyReducer(
+                    getMongoDbMoleculeKey(state),
+                    action,
+                ),
 
             database:
                 databaseReducer(getMongoDbDatabase(state), action),

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as React from 'react';
 import {
     getMongoDbUrl,
+    getMongoDbMoleculeKey,
     getMongoDbDatabase,
     getMongoDbMoleculeCollection,
     getMongoDbConstructedMoleculeCollection,
@@ -26,6 +27,7 @@ import {
 interface IMongoDbFieldsProps
 {
     url: string;
+    moleculeKey: string;
     database: string;
     moleculeCollection: string;
     constructedMoleculeCollection: string;
@@ -41,6 +43,9 @@ function MongoDbFields(props: IMongoDbFieldsProps)
 {
     const [url, setUrl]
         = React.useState(props.url);
+
+    const [moleculeKey, setMoleculeKey]
+        = React.useState(props.moleculeKey);
 
     const [database, setDatabase]
         = React.useState(props.database);
@@ -107,6 +112,15 @@ function MongoDbFields(props: IMongoDbFieldsProps)
                     defaultValue={ props.url }
                     variant='outlined'
                     onChange={ (e) => { setUrl(e.target.value)  } }
+                /></Grid>
+                <Grid item><TextField
+                    id='mongo-molecule-key'
+                    label='Molecule Key Name'
+                    defaultValue={ props.moleculeKey }
+                    variant='outlined'
+                    onChange={
+                        (e) => { setMoleculeKey(e.target.value)  }
+                    }
                 /></Grid>
                 <Grid item><TextField
                     id='mongo-database'
@@ -196,6 +210,7 @@ function MongoDbFields(props: IMongoDbFieldsProps)
             <Grid item>
                 <GetMoleculesButtonComponent
                     url={ url }
+                    moleculeKey={ moleculeKey }
                     database={ database }
                     moleculeCollection={ moleculeCollection }
                     constructedMoleculeCollection={
@@ -229,6 +244,9 @@ function mapStateToProps(
     return {
         url:
             getMongoDbUrl(state),
+
+        moleculeKey:
+            getMongoDbMoleculeKey(state),
 
         database:
             getMongoDbDatabase(state),

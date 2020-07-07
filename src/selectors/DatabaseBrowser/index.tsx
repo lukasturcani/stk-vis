@@ -108,6 +108,14 @@ export function getMongoDbUrl(state: IDatabaseBrowser): string {
 }
 
 
+export function getMongoDbMoleculeKey(
+    state: IDatabaseBrowser,
+): string
+{
+    return state.moleculeKey;
+}
+
+
 export function getMongoDbDatabase(state: IDatabaseBrowser): string {
     return state.database;
 }

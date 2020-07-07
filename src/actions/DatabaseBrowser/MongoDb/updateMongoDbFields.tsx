@@ -7,6 +7,7 @@ import {
 export interface IMongoDbFields
 {
     url: string;
+    moleculeKey: string;
     database: string;
     moleculeCollection: string;
     positionMatrixCollection: string;
