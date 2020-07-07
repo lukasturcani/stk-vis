@@ -142,6 +142,8 @@ def add_mixed_entries(
             num_repeating_units=2,
         ),
     )
+    num_atoms_db.put(macrocycle, macrocycle.get_num_atoms())
+
     polymer = stk.ConstructedMolecule(
         topology_graph=stk.polymer.Linear(
             building_blocks=(
