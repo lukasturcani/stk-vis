@@ -1,41 +1,21 @@
 import { AnyAction } from '@reduxjs/toolkit';
-import { numEntriesPerPageReducer } from './numEntriesPerPageReducer';
-import {
-    urlReducer,
-    databaseReducer,
-    moleculeCollectionReducer,
-    positionMatrixCollectionReducer,
-    constructedMoleculeCollectionReducer,
-    buildingBlockPositionMatrixCollectionReducer,
-    propertyCollectionsReducer,
-    moleculeKeyReducer,
-} from './mongoDbReducers';
 import {
     IDatabaseBrowser,
-    InitialRequestStateKind,
     ILoadedDatabaseBrowser,
-    SortKind,
+    SearchKind,
 } from '../../models';
-import { setInitialBrowserState } from '../../actions';
-import { initialKindReducer } from './initialKindReducer';
 import {
-    getMongoDbUrl,
-    getMongoDbMoleculeKey,
-    getMongoDbDatabase,
-    getMongoDbMoleculeCollection,
-    getMongoDbPositionMatrixCollection,
-    getMongoDbConstructedMoleculeCollection,
-    getMongoDbBuildingBlockPositionMatrixCollection,
-    getMongoDbPropertyCollections,
-    getNumEntriesPerPage,
-    getDatabaseBrowserKind,
-} from '../../selectors';
+    unsortedOneReducer,
+} from './unsortedOneReducer';
 import {
-    unsortedDatabaseBrowserReducer,
-} from './unsortedDatabaseBrowserReducer';
+    unsortedBothReducer,
+} from './unsortedBothReducer';
 import {
-    sortedDatabaseBrowserReducer,
-} from './sortedDatabaseBrowserReducer';
+    sortedOneReducer,
+} from './sortedOneReducer';
+import {
+    sortedBothReducer,
+} from './sortedBothReducer';
 
 
 
@@ -46,84 +26,34 @@ export function loadedDatabaseBrowserReducer(
 )
     : IDatabaseBrowser
 {
-    if (setInitialBrowserState.match(action))
+    switch( state.searchKind)
     {
-        return {
-            kind:
-                initialKindReducer(
-                    getDatabaseBrowserKind(state),
-                    action,
-                ),
+        case SearchKind.UnsortedBoth:
+        {
+            return unsortedBothReducer(state, action);
+        }
 
-            url:
-                urlReducer(getMongoDbUrl(state), action),
+        case SearchKind.UnsortedBuildingBlocks:
+        case SearchKind.UnsortedConstructedMolecules:
+        {
+            return unsortedOneReducer(state, action);
+        }
 
-            moleculeKey:
-                moleculeKeyReducer(
-                    getMongoDbMoleculeKey(state),
-                    action,
-                ),
+        case SearchKind.SortedBoth:
+        {
+            return sortedBothReducer(state, action);
+        }
 
-            database:
-                databaseReducer(getMongoDbDatabase(state), action),
-
-            moleculeCollection:
-                moleculeCollectionReducer(
-                    getMongoDbMoleculeCollection(state),
-                    action,
-                ),
-
-            constructedMoleculeCollection:
-                constructedMoleculeCollectionReducer(
-                    getMongoDbConstructedMoleculeCollection(state),
-                    action,
-                ),
-
-            positionMatrixCollection:
-                positionMatrixCollectionReducer(
-                    getMongoDbPositionMatrixCollection(state),
-                    action,
-                ),
-
-            buildingBlockPositionMatrixCollection:
-                buildingBlockPositionMatrixCollectionReducer(
-                    getMongoDbBuildingBlockPositionMatrixCollection(
-                        state.buildingBlock,
-                    ),
-                    action,
-                ),
-
-            initialRequestState:
-                {
-                    kind: InitialRequestStateKind.NoRequestSent,
-                },
-
-            propertyCollections:
-                propertyCollectionsReducer(
-                    getMongoDbPropertyCollections(state),
-                    action,
-                ),
-
-            numEntriesPerPage:
-                numEntriesPerPageReducer(
-                    getNumEntriesPerPage(state),
-                    action,
-                ),
-
-            moleculeSelectionKind:
-                state.moleculeSelectionKind,
-        };
-    }
-    switch( state.sortKind)
-    {
-        case SortKind.Unsorted:
-            return unsortedDatabaseBrowserReducer(state, action);
-
-        case SortKind.Sorted:
-            return sortedDatabaseBrowserReducer(state, action);
+        case SearchKind.SortedBuildingBlocks:
+        case SearchKind.SortedConstructedMolecules:
+        {
+            return sortedOneReducer(state, action);
+        }
 
         default:
+        {
             assertNever(state);
+        }
     }
 }
 

@@ -68,7 +68,7 @@ import {
 
 
 
-export function unsortedDatabaseBrowserReducer(
+export function unsortedOneReducer(
     state: IUnsortedOne,
     action: AnyAction,
 )

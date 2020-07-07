@@ -71,12 +71,81 @@ import {
 
 
 
-export function unsortedDatabaseBrowserReducer(
+export function unsortedBothReducer(
     state: IUnsortedBoth,
     action: AnyAction,
 )
     : IDatabaseBrowser
 {
+    if (setInitialBrowserState.match(action))
+    {
+        return {
+            kind:
+                initialKindReducer(
+                    getDatabaseBrowserKind(state),
+                    action,
+                ),
+
+            url:
+                urlReducer(getMongoDbUrl(state), action),
+
+            moleculeKey:
+                moleculeKeyReducer(
+                    getMongoDbMoleculeKey(state),
+                    action,
+                ),
+
+            database:
+                databaseReducer(getMongoDbDatabase(state), action),
+
+            moleculeCollection:
+                moleculeCollectionReducer(
+                    getMongoDbMoleculeCollection(state),
+                    action,
+                ),
+
+            constructedMoleculeCollection:
+                constructedMoleculeCollectionReducer(
+                    getMongoDbConstructedMoleculeCollection(state),
+                    action,
+                ),
+
+            positionMatrixCollection:
+                positionMatrixCollectionReducer(
+                    getMongoDbPositionMatrixCollection(state),
+                    action,
+                ),
+
+            buildingBlockPositionMatrixCollection:
+                buildingBlockPositionMatrixCollectionReducer(
+                    getMongoDbBuildingBlockPositionMatrixCollection(
+                        state.buildingBlock,
+                    ),
+                    action,
+                ),
+
+            initialRequestState:
+                {
+                    kind: InitialRequestStateKind.NoRequestSent,
+                },
+
+            propertyCollections:
+                propertyCollectionsReducer(
+                    getMongoDbPropertyCollections(state),
+                    action,
+                ),
+
+            numEntriesPerPage:
+                numEntriesPerPageReducer(
+                    getNumEntriesPerPage(state),
+                    action,
+                ),
+
+            moleculeSelectionKind:
+                state.moleculeSelectionKind,
+        };
+    }
+
     if (setSortSettings.match(action))
     {
         switch(action.payload.kind)
