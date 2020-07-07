@@ -1,5 +1,5 @@
 export * from './ILoadedDatabaseBrowser';
 export * from './ILoadedDatabaseBrowserBase';
-export * from './ISortedLoadedDatabaseBrowser';
-export * from './IUnsortedLoadedDatabaseBrowser';
+export * from './ISorted';
+export * from './IUnsorted';
 export * from './ISortSettings';
