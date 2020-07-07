@@ -1,6 +1,6 @@
 import { DatabaseBrowserKind } from '../DatabaseBrowserKind';
 import { IMoleculeRequestState } from '../../IMoleculeRequestState';
-import { MoleculeSelectionKind } from '../../MoleculeSelectionKind';
+import { MoleculeKind } from '../../MoleculeKind';
 import {
     IMolecule,
     IColumnValues,
@@ -15,13 +15,6 @@ export const enum PageKind
     LastIncomplete = 'Last Incomplete',
     OnlyComplete = 'Only Complete',
     OnlyIncomplete = 'Only Incomplete',
-}
-
-
-export const enum SortKind
-{
-    Sorted = 'Sorted',
-    Unsorted = 'Unsorted',
 }
 
 

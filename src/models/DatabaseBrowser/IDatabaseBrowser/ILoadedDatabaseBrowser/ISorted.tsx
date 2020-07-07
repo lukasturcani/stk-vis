@@ -1,10 +1,9 @@
 import {
     ILoadedDatabaseBrowserBase,
-    SortKind,
 } from './ILoadedDatabaseBrowserBase';
 import {
-    MoleculeSelectionKind
-} from '../../MoleculeSelectionKind';
+    MoleculeKind
+} from '../../MoleculeKind';
 
 
 export const enum SortType
@@ -17,8 +16,7 @@ export const enum SortType
 export interface ISortedBoth
     extends ILoadedDatabaseBrowserBase
 {
-    sortKind: SortKind.Sorted;
-    moleculeSelectionKind: MoleculeSelectionKind.Both;
+    moleculeKind: MoleculeKind.SortedBoth;
     sortedCollection: string;
     sortType: SortType;
     buildingBlockPositionMatrixCollection: string;
@@ -28,11 +26,10 @@ export interface ISortedBoth
 export interface ISortedOne
     extends ILoadedDatabaseBrowserBase
 {
-    sortKind: SortKind.Sorted;
-    moleculeSelectionKind:
-        MoleculeSelectionKind.BuildingBlocks
+    moleculeKind:
+        MoleculeKind.SortedBuildingBlocks
         |
-        MoleculeSelectionKind.ConstructedMolecules;
+        MoleculeKind.SortedConstructedMolecules;
     sortedCollection: string;
     sortType: SortType;
 }

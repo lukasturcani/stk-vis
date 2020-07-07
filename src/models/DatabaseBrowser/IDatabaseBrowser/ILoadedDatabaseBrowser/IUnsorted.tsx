@@ -1,18 +1,16 @@
 import {
     ILoadedDatabaseBrowserBase,
-    SortKind,
 } from './ILoadedDatabaseBrowserBase';
 import {
-    MoleculeSelectionKind
-} from '../../MoleculeSelectionKind';
+    MoleculeKind,
+} from '../../MoleculeKind';
 
 
 
 export interface IUnsortedBoth
 extends ILoadedDatabaseBrowserBase
 {
-    sortKind: SortKind.Unsorted;
-    moleculeSelectionKind: MoleculeSelectionKind.Both;
+    moleculeKind: MoleculeKind.UnsortedBoth;
     buildingBlockPositionMatrixCollection: string;
 }
 
@@ -20,9 +18,8 @@ extends ILoadedDatabaseBrowserBase
 export interface IUnsortedOne
 extends ILoadedDatabaseBrowserBase
 {
-    sortKind: SortKind.Unsorted;
     moleculeSelectionKind:
-        MoleculeSelectionKind.BuildingBlocks
+        MoleculeKind.UnsortedBuildingBlocks
         |
-        MoleculeSelectionKind.ConstructedMolecules;
+        MoleculeKind.UnsortedConstructedMolecules;
 }
