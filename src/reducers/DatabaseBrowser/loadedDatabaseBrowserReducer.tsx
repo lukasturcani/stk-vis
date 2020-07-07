@@ -8,7 +8,6 @@ import {
     constructedMoleculeCollectionReducer,
     buildingBlockPositionMatrixCollectionReducer,
     propertyCollectionsReducer,
-    moleculeSelectionTypeReducer,
     moleculeKeyReducer,
 } from './mongoDbReducers';
 import {
@@ -30,7 +29,6 @@ import {
     getMongoDbPropertyCollections,
     getNumEntriesPerPage,
     getDatabaseBrowserKind,
-    getMoleculeSelectionType,
 } from '../../selectors';
 import {
     unsortedDatabaseBrowserReducer,
@@ -90,7 +88,7 @@ export function loadedDatabaseBrowserReducer(
             buildingBlockPositionMatrixCollection:
                 buildingBlockPositionMatrixCollectionReducer(
                     getMongoDbBuildingBlockPositionMatrixCollection(
-                        state,
+                        state.buildingBlock,
                     ),
                     action,
                 ),
@@ -112,12 +110,8 @@ export function loadedDatabaseBrowserReducer(
                     action,
                 ),
 
-            moleculeSelectionType:
-                moleculeSelectionTypeReducer(
-                    getMoleculeSelectionType(state),
-                    action,
-                ),
-
+            moleculeSelectionKind:
+                state.moleculeSelectionKind,
         };
     }
     switch( state.sortKind)

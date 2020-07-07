@@ -20,7 +20,6 @@ import {
     positionMatrixCollectionReducer,
     buildingBlockPositionMatrixCollectionReducer,
     propertyCollectionsReducer,
-    moleculeSelectionTypeReducer,
     moleculeKeyReducer,
 } from './mongoDbReducers';
 import {
@@ -28,8 +27,7 @@ import {
     ILoadedDatabaseBrowser,
     DatabaseBrowserKind,
     SortKind,
-    MoleculeSelectionTypeKind,
-    IMoleculeSelectionType,
+    MoleculeSelectionKind,
 } from '../../models';
 import { updateTable } from '../../actions';
 import {
@@ -44,7 +42,6 @@ import {
     getMongoDbPropertyCollections,
     getNumEntriesPerPage,
     getInitialRequestState,
-    getMoleculeSelectionType,
 } from '../../selectors';
 
 
@@ -96,17 +93,14 @@ export function initialDatabaseBrowserReducer(
             numEntriesPerPage:
                 numEntriesPerPageReducer(undefined, action),
 
-            moleculeSelectionType:
-                moleculeSelectionTypeReducer(undefined, action),
+            moleculeSelectionKind:
+                MoleculeSelectionKind.Both,
         };
     }
 
-    const selectionType: IMoleculeSelectionType
-        = getMoleculeSelectionType(state);
-
-    switch (selectionType.kind)
+    switch (state.moleculeSelectionKind)
     {
-        case MoleculeSelectionTypeKind.Both:
+        case MoleculeSelectionKind.Both:
             if (updateTable.match(action))
             {
                 return {
@@ -167,7 +161,8 @@ export function initialDatabaseBrowserReducer(
                             action,
                         ),
 
-                    moleculeSelectionType: selectionType,
+                    moleculeSelectionKind:
+                        state.moleculeSelectionKind,
 
                     moleculeRequestState:
                         moleculeRequestStateReducer(undefined, action),
@@ -197,8 +192,8 @@ export function initialDatabaseBrowserReducer(
             }
             break;
 
-        case MoleculeSelectionTypeKind.BuildingBlocks:
-        case MoleculeSelectionTypeKind.ConstructedMolecules:
+        case MoleculeSelectionKind.BuildingBlocks:
+        case MoleculeSelectionKind.ConstructedMolecules:
             if (updateTable.match(action))
             {
                 return {
@@ -253,7 +248,8 @@ export function initialDatabaseBrowserReducer(
                             action,
                         ),
 
-                    moleculeSelectionType: selectionType,
+                    moleculeSelectionKind:
+                        state.moleculeSelectionKind,
 
                     moleculeRequestState:
                         moleculeRequestStateReducer(undefined, action),
@@ -338,11 +334,8 @@ export function initialDatabaseBrowserReducer(
                 action,
             ),
 
-        moleculeSelectionType:
-            moleculeSelectionTypeReducer(
-                getMoleculeSelectionType(state),
-                action,
-            ),
+        moleculeSelectionKind:
+            state.moleculeSelectionKind,
 
     };
 }

@@ -12,14 +12,9 @@ import {
     PageKind,
     ISortedOne,
     ISortedBoth,
-    ISelectBoth,
-    ISelectBuildingBlocks,
-    ISelectConstructedMolecules,
     IUnsortedBoth,
-    IUnsortedOne,
     SortType,
     SortKind,
-    IMoleculeSelectionType,
 } from '../../models';
 import * as fp from 'lodash/fp';
 
@@ -187,32 +182,6 @@ export function getNumEntriesPerPage(
     : number
 {
     return state.numEntriesPerPage;
-}
-
-
-export function getMoleculeSelectionType(
-    state: ISortedBoth,
-): ISelectBoth;
-export function getMoleculeSelectionType(
-    state: ISortedOne,
-): ISelectBuildingBlocks | ISelectConstructedMolecules;
-export function getMoleculeSelectionType(
-    state: IUnsortedBoth,
-): ISelectBoth;
-export function getMoleculeSelectionType(
-    state: IUnsortedOne,
-): ISelectBuildingBlocks | ISelectConstructedMolecules;
-export function getMoleculeSelectionType(
-    state: IInitialDatabaseBrowser,
-): IMoleculeSelectionType;
-
-
-export function getMoleculeSelectionType(
-    state: IDatabaseBrowser
-)
-    : IMoleculeSelectionType
-{
-    return state.moleculeSelectionType;
 }
 
 

@@ -1,6 +1,6 @@
 import { DatabaseBrowserKind } from './DatabaseBrowserKind';
 import { IInitialRequestState } from '../IInitialRequestState';
-import { IMoleculeSelectionType } from '../IMoleculeSelectionType';
+import { MoleculeSelectionKind } from '../MoleculeSelectionKind';
 
 
 export interface IInitialDatabaseBrowser {
@@ -15,5 +15,5 @@ export interface IInitialDatabaseBrowser {
     readonly propertyCollections: string[];
     readonly initialRequestState: IInitialRequestState;
     readonly numEntriesPerPage: number;
-    readonly moleculeSelectionType: IMoleculeSelectionType;
+    readonly moleculeSelectionKind: MoleculeSelectionKind;
 }

@@ -3,26 +3,26 @@ import {
     SortKind,
 } from './ILoadedDatabaseBrowserBase';
 import {
-    ISelectBoth,
-    ISelectBuildingBlocks,
-    ISelectConstructedMolecules,
-} from '../../IMoleculeSelectionType';
+    MoleculeSelectionKind
+} from '../../MoleculeSelectionKind';
 
 
 
 export interface IUnsortedBoth
-    extends ILoadedDatabaseBrowserBase
+extends ILoadedDatabaseBrowserBase
 {
     sortKind: SortKind.Unsorted;
-    moleculeSelectionType: ISelectBoth;
+    moleculeSelectionKind: MoleculeSelectionKind.Both;
     buildingBlockPositionMatrixCollection: string;
 }
 
 
 export interface IUnsortedOne
-    extends ILoadedDatabaseBrowserBase
+extends ILoadedDatabaseBrowserBase
 {
     sortKind: SortKind.Unsorted;
-    moleculeSelectionType:
-        ISelectBuildingBlocks | ISelectConstructedMolecules;
+    moleculeSelectionKind:
+        MoleculeSelectionKind.BuildingBlocks
+        |
+        MoleculeSelectionKind.ConstructedMolecules;
 }

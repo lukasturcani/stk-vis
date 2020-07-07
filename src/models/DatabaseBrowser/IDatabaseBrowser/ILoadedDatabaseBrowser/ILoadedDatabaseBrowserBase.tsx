@@ -1,6 +1,6 @@
 import { DatabaseBrowserKind } from '../DatabaseBrowserKind';
 import { IMoleculeRequestState } from '../../IMoleculeRequestState';
-import { IMoleculeSelectionType } from '../../IMoleculeSelectionType';
+import { MoleculeSelectionKind } from '../../MoleculeSelectionKind';
 import {
     IMolecule,
     IColumnValues,
@@ -27,7 +27,7 @@ export const enum SortKind
 
 export interface ILoadedDatabaseBrowserBase {
     readonly kind: DatabaseBrowserKind.Loaded;
-    readonly sortKind: SortKind;
+    readonly moleculeKind: MoleculeKind;
     readonly url: string;
     readonly moleculeKey: string;
     readonly database: string;
@@ -43,5 +43,4 @@ export interface ILoadedDatabaseBrowserBase {
     readonly numEntriesPerPage: number;
     readonly pageKind: PageKind;
     readonly selectedMolecule: number;
-    readonly moleculeSelectionType: IMoleculeSelectionType;
 }
