@@ -22,7 +22,7 @@ export interface ISortedBoth
 export interface ISortedOne
     extends ILoadedDatabaseBrowserBase
 {
-    moleculeKind:
+    searchKind:
         SearchKind.SortedBuildingBlocks
         |
         SearchKind.SortedConstructedMolecules;

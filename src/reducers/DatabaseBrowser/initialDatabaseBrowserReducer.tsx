@@ -26,7 +26,7 @@ import {
     IInitialDatabaseBrowser,
     ILoadedDatabaseBrowser,
     DatabaseBrowserKind,
-    MoleculeKind,
+    SearchKind,
 } from '../../models';
 import { updateTable } from '../../actions';
 import {
@@ -56,6 +56,10 @@ export function initialDatabaseBrowserReducer(
 
             kind:
                 DatabaseBrowserKind.Initial,
+
+            searchKind:
+                SearchKind.UnsortedBoth,
+
             url:
                 urlReducer(undefined, action),
 
@@ -95,15 +99,18 @@ export function initialDatabaseBrowserReducer(
         };
     }
 
-    switch (state.moleculeSelectionKind)
+    switch (state.searchKind)
     {
-        case MoleculeSelectionKind.Both:
+        case SearchKind.UnsortedBoth:
             if (updateTable.match(action))
             {
                 return {
 
                     kind:
                         DatabaseBrowserKind.Loaded,
+
+                    searchKind:
+                        state.searchKind,
 
                     url:
                         urlReducer(getMongoDbUrl(state), action),
@@ -158,8 +165,6 @@ export function initialDatabaseBrowserReducer(
                             action,
                         ),
 
-                    moleculeSelectionKind:
-                        state.moleculeSelectionKind,
 
                     moleculeRequestState:
                         moleculeRequestStateReducer(undefined, action),
@@ -181,22 +186,21 @@ export function initialDatabaseBrowserReducer(
 
                     selectedMolecule:
                         selectedMoleculeReducer(undefined, action),
-
-                    sortKind:
-                        SortKind.Unsorted,
-
                 };
             }
             break;
 
-        case MoleculeSelectionKind.BuildingBlocks:
-        case MoleculeSelectionKind.ConstructedMolecules:
+        case SearchKind.UnsortedBuildingBlocks:
+        case SearchKind.UnsortedConstructedMolecules:
             if (updateTable.match(action))
             {
                 return {
 
                     kind:
                         DatabaseBrowserKind.Loaded,
+
+                    searchKind:
+                        state.searchKind,
 
                     url:
                         urlReducer(getMongoDbUrl(state), action),
@@ -234,10 +238,10 @@ export function initialDatabaseBrowserReducer(
                         ),
 
                     propertyCollections:
-                    propertyCollectionsReducer(
-                        getMongoDbPropertyCollections(state),
-                        action,
-                    ),
+                        propertyCollectionsReducer(
+                            getMongoDbPropertyCollections(state),
+                            action,
+                        ),
 
                     numEntriesPerPage:
                         numEntriesPerPageReducer(
@@ -245,8 +249,6 @@ export function initialDatabaseBrowserReducer(
                             action,
                         ),
 
-                    moleculeSelectionKind:
-                        state.moleculeSelectionKind,
 
                     moleculeRequestState:
                         moleculeRequestStateReducer(undefined, action),
@@ -268,18 +270,21 @@ export function initialDatabaseBrowserReducer(
 
                     selectedMolecule:
                         selectedMoleculeReducer(undefined, action),
-
-                    sortKind:
-                        SortKind.Unsorted,
-
                 };
             }
             break;
+
+        default:
+            assertNever(state.searchKind);
     }
 
     return {
         kind:
             DatabaseBrowserKind.Initial,
+
+        searchKind:
+            state.searchKind,
+
         url:
             urlReducer(getMongoDbUrl(state), action),
 
@@ -330,9 +335,8 @@ export function initialDatabaseBrowserReducer(
                 getNumEntriesPerPage(state),
                 action,
             ),
-
-        moleculeSelectionKind:
-            state.moleculeSelectionKind,
-
     };
 }
+
+
+function assertNever(arg: never): never { throw Error(); }

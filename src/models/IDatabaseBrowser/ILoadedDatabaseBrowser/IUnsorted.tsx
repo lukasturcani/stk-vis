@@ -18,7 +18,7 @@ extends ILoadedDatabaseBrowserBase
 export interface IUnsortedOne
 extends ILoadedDatabaseBrowserBase
 {
-    moleculeSelectionKind:
+    searchKind:
         SearchKind.UnsortedBuildingBlocks
         |
         SearchKind.UnsortedConstructedMolecules;
