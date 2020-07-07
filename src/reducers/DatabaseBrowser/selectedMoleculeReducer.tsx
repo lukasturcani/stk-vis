@@ -1,5 +1,9 @@
 import { AnyAction } from '@reduxjs/toolkit';
-import { selectMolecule, setSortSettings } from '../../actions';
+import {
+    selectMolecule,
+    setSortSettings,
+    updateTable,
+} from '../../actions';
 
 
 export function selectedMoleculeReducer(
@@ -13,6 +17,10 @@ export function selectedMoleculeReducer(
         return action.payload;
     }
     if (setSortSettings.match(action))
+    {
+        return 0;
+    }
+    if (updateTable.match(action))
     {
         return 0;
     }
