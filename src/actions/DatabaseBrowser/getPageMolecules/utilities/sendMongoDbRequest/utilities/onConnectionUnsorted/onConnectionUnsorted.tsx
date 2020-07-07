@@ -13,7 +13,7 @@ import {
 } from './utilities';
 import {
     MoleculeRequestStateKind,
-    MoleculeSelectionTypeKind,
+    SearchKind,
 } from '../../../../../../../models';
 import {
     setMoleculeRequestState,
@@ -26,7 +26,7 @@ import {
 
 interface OptionsBase
 {
-    kind: MoleculeSelectionTypeKind;
+    kind: SearchKind;
     database: string;
     moleculeKey: string;
     moleculeCollection: string;
@@ -43,7 +43,7 @@ interface OptionsBase
 
 interface SelectBoth extends OptionsBase
 {
-    kind: MoleculeSelectionTypeKind.Both;
+    kind: SearchKind.UnsortedBoth;
     buildingBlockPositionMatrixCollection: string;
 }
 
@@ -51,9 +51,9 @@ interface SelectBoth extends OptionsBase
 interface SelectOne extends OptionsBase
 {
     kind:
-        MoleculeSelectionTypeKind.BuildingBlocks
+        SearchKind.UnsortedBuildingBlocks
         |
-        MoleculeSelectionTypeKind.ConstructedMolecules;
+        SearchKind.UnsortedConstructedMolecules;
 }
 
 

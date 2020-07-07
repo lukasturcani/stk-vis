@@ -15,7 +15,7 @@ import {
 } from '../../../../../../../actions';
 import {
     MoleculeRequestStateKind,
-    MoleculeSelectionTypeKind,
+    SearchKind,
     SortType,
 } from '../../../../../../../models';
 import {
@@ -28,7 +28,7 @@ import {
 
 interface OptionsBase
 {
-    kind: MoleculeSelectionTypeKind;
+    kind: SearchKind;
     database: string;
     moleculeKey: string;
     moleculeCollection: string;
@@ -47,7 +47,7 @@ interface OptionsBase
 
 interface SelectBoth extends OptionsBase
 {
-    kind: MoleculeSelectionTypeKind.Both;
+    kind: SearchKind.SortedBoth;
     buildingBlockPositionMatrixCollection: string;
 }
 
@@ -55,9 +55,9 @@ interface SelectBoth extends OptionsBase
 interface SelectOne extends OptionsBase
 {
     kind:
-        MoleculeSelectionTypeKind.BuildingBlocks
+        SearchKind.SortedBuildingBlocks
         |
-        MoleculeSelectionTypeKind.ConstructedMolecules;
+        SearchKind.SortedConstructedMolecules;
 }
 
 

@@ -10,19 +10,12 @@ import {
     getNumEntriesPerPage,
     getSortType,
     getSortedCollection,
-    getMoleculeSelectionType,
 } from '../../../../../selectors';
 import {
     IInitialDatabaseBrowser,
     ILoadedDatabaseBrowser,
     DatabaseBrowserKind,
-    MoleculeSelectionTypeKind,
-    SortKind,
-    IUnsortedBoth,
-    IUnsortedOne,
-    ISortedBoth,
-    ISortedOne,
-    IMoleculeSelectionType,
+    SearchKind,
 } from '../../../../../models';
 import { MongoClient } from 'mongodb';
 import { AnyAction } from '@reduxjs/toolkit'
@@ -46,7 +39,7 @@ interface onConnectionOptions
     positionMatrixCollection: string;
     constructedMoleculeCollection: string;
     numEntriesPerPage: number;
-    kind: MoleculeSelectionTypeKind;
+    kind: SearchKind;
     currentPageData: Maybe<IPageData>;
 }
 
@@ -78,7 +71,7 @@ function getOnConnectionOptions(
             getNumEntriesPerPage(state),
 
         kind:
-            getMoleculeSelectionType(state).kind,
+            state.searchKind,
 
         currentPageData:
             maybeGetPageData(state),
@@ -117,6 +110,7 @@ export function sendMongoDbRequest(
                     buildingBlockPositionMatrixCollection,
                     ...options,
                     ...onConnectionOptions,
+                    kind: options.state.searchKind,
                 })
             );
 
@@ -149,47 +143,13 @@ function sendRequestLoaded(
 )
     : void
 {
-    switch (options.state.sortKind)
-    {
-        case SortKind.Unsorted:
-            return sendRequestLoadedUnsorted({
-                ...options,
-                state: options.state,
-            });
-
-        case SortKind.Sorted:
-            return sendRequestLoadedSorted({
-                ...options,
-                state: options.state,
-            });
-
-        default:
-            assertNever(options.state);
-    }
-}
-
-
-interface LoadedUnsortedOptions
-extends sendRequestLoadedOptions
-{
-    state: IUnsortedBoth | IUnsortedOne
-}
-
-
-function sendRequestLoadedUnsorted(
-    options: LoadedUnsortedOptions,
-)
-    : void
-{
-    const selectionType: IMoleculeSelectionType
-        = getMoleculeSelectionType(options.state);
-
     const onConnectionOptions: onConnectionOptions
         = getOnConnectionOptions(options.state);
 
-    switch (state)
+    switch (options.state.searchKind)
     {
-        case MoleculeSelectionTypeKind.Both:
+        case SearchKind.UnsortedBoth:
+        {
             const buildingBlockPositionMatrixCollection: string
                 = getBBPosMatCol(options.state);
 
@@ -199,73 +159,72 @@ function sendRequestLoadedUnsorted(
                     ...onConnectionOptions,
                     ...options,
                     buildingBlockPositionMatrixCollection,
-
+                    kind: options.state.searchKind,
                 }),
             );
+        }
 
-        case MoleculeSelectionTypeKind.BuildingBlocks:
-        case MoleculeSelectionTypeKind.ConstructedMolecules:
+        case SearchKind.UnsortedBuildingBlocks:
+        case SearchKind.UnsortedConstructedMolecules:
+        {
             return MongoClient.connect(
                 onConnectionOptions.url,
-                onConnectionUnsorted(options),
+                onConnectionUnsorted({
+                    ...onConnectionOptions,
+                    ...options,
+                    kind: options.state.searchKind,
+                }),
             );
+        }
 
-        default:
-            assertNever(selectionType);
-    }
-}
-
-
-interface LoadedSortedOptions
-extends sendRequestLoadedOptions
-{
-    state: ISortedBoth | ISortedOne
-}
-
-
-function sendRequestLoadedSorted(
-    options: LoadedSortedOptions,
-)
-    : void
-{
-
-    switch (options.kind)
-    {
-        case MoleculeSelectionTypeKind.Both:
+        case SearchKind.SortedBoth:
+        {
             const buildingBlockPositionMatrixCollection: string
                 = getBBPosMatCol(options.state);
 
             return MongoClient.connect(
-                options.url,
+                onConnectionOptions.url,
                 onConnectionSorted({
-                    sortType: getSortType(options.state),
 
                     sortedCollection:
                         getSortedCollection(options.state),
 
+                    sortType:
+                        getSortType(options.state),
+
                     ...options,
+                    ...onConnectionOptions,
+                    buildingBlockPositionMatrixCollection,
+                    kind: options.state.searchKind,
                 }),
             );
+        }
 
-        case MoleculeSelectionTypeKind.BuildingBlock:
-        case MoleculeSelectionTypeKind.ConstructedMolecules:
+        case SearchKind.SortedBuildingBlocks:
+        case SearchKind.SortedConstructedMolecules:
+        {
             return MongoClient.connect(
-                options.url,
+                onConnectionOptions.url,
                 onConnectionSorted({
-                    sortType: getSortType(options.state),
 
                     sortedCollection:
                         getSortedCollection(options.state),
 
+                    sortType:
+                        getSortType(options.state),
+
                     ...options,
+                    ...onConnectionOptions,
+                    kind: options.state.searchKind,
                 }),
             );
+        }
 
         default:
-            assertNever(options.kind);
-
+        {
+            assertNever(options.state);
+        }
     }
-
 }
 
 
