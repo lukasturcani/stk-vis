@@ -1,1 +1,1 @@
-export * from './getMoleculeSelectionType';
+export * from './getSearchKind';

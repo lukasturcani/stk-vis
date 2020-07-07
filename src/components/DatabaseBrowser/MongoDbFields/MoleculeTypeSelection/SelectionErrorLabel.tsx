@@ -5,10 +5,10 @@ import {
     MaybeKind,
 } from '../../../../utilities';
 import {
-    IMoleculeSelectionType
+    SearchKind
 } from '../../../../models';
 import {
-    getMoleculeSelectionType
+    getSearchKind,
 } from '../utilities';
 
 
@@ -24,8 +24,8 @@ export function SelectionErrorLabel(props: Props)
     const label: string
         = '* Pick at least one.';
 
-    const moleculeSelectionType: Maybe<IMoleculeSelectionType>
-        = getMoleculeSelectionType(
+    const moleculeSelectionType: Maybe<SearchKind>
+        = getSearchKind(
             props.buildingBlocks,
             props.constructedMolecules,
         );

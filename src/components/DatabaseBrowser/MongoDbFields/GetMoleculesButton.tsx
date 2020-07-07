@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import {
     IState,
-    IMoleculeSelectionType,
+    SearchKind,
 } from '../../../models';
 import Button from '@material-ui/core/Button';
 import { getPageMolecules } from '../../../actions';
@@ -18,7 +18,7 @@ import {
 } from '../../../utilities';
 import SearchIcon from '@material-ui/icons/Search';
 import {
-    getMoleculeSelectionType
+    getSearchKind
 } from './utilities';
 
 
@@ -53,7 +53,7 @@ interface IGetMoleculesButtonProps
 
 interface ButtonImplProps extends IGetMoleculesButtonProps
 {
-    moleculeSelectionType: IMoleculeSelectionType;
+    searchKind: SearchKind;
 }
 
 
@@ -108,8 +108,8 @@ function ButtonImpl(
                             numEntriesPerPage:
                                 props.numEntriesPerPage,
 
-                            moleculeSelectionType:
-                                props.moleculeSelectionType,
+                            searchKind:
+                                props.searchKind,
                         });
                         props.getFirstPage({
                             successSnackbar: successSnackbar.activate,
@@ -154,13 +154,13 @@ function GetMoleculesButton(
 )
 {
 
-    const moleculeSelectionType: Maybe<IMoleculeSelectionType>
-        = getMoleculeSelectionType(
+    const searchKind: Maybe<SearchKind>
+        = getSearchKind(
             props.selectBuildingBlocks,
             props.selectConstructedMolecules,
         );
 
-    switch (moleculeSelectionType.kind)
+    switch (searchKind.kind)
     {
         case MaybeKind.Nothing:
             return <DisabledButton />;
@@ -168,13 +168,13 @@ function GetMoleculesButton(
         case MaybeKind.Just:
             return <ButtonImpl
                 {...props}
-                moleculeSelectionType={
-                    moleculeSelectionType.value
+                searchKind={
+                    searchKind.value
                 }
             />;
 
         default:
-            assertNever(moleculeSelectionType);
+            assertNever(searchKind);
 
     }
 
