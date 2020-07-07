@@ -176,6 +176,7 @@ export function sortedBothReducer(
                 };
 
             case SortSettingsKind.Sorted:
+                // Use the default case.
                 break;
 
             default:
