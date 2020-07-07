@@ -1,4 +1,4 @@
-import { PageKind } from './IDatabaseBrowser';
+import { PageKind } from './PageKind';
 
 export interface IMolecule {
     readonly atoms: any;

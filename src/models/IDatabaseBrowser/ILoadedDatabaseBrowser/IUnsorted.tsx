@@ -2,15 +2,15 @@ import {
     ILoadedDatabaseBrowserBase,
 } from './ILoadedDatabaseBrowserBase';
 import {
-    MoleculeKind,
-} from '../../MoleculeKind';
+    SearchKind,
+} from '../SearchKind';
 
 
 
 export interface IUnsortedBoth
 extends ILoadedDatabaseBrowserBase
 {
-    moleculeKind: MoleculeKind.UnsortedBoth;
+    searchKind: SearchKind.UnsortedBoth;
     buildingBlockPositionMatrixCollection: string;
 }
 
@@ -19,7 +19,7 @@ export interface IUnsortedOne
 extends ILoadedDatabaseBrowserBase
 {
     moleculeSelectionKind:
-        MoleculeKind.UnsortedBuildingBlocks
+        SearchKind.UnsortedBuildingBlocks
         |
-        MoleculeKind.UnsortedConstructedMolecules;
+        SearchKind.UnsortedConstructedMolecules;
 }

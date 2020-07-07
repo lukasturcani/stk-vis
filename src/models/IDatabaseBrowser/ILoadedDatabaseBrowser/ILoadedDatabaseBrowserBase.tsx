@@ -1,26 +1,16 @@
 import { DatabaseBrowserKind } from '../DatabaseBrowserKind';
-import { IMoleculeRequestState } from '../../IMoleculeRequestState';
-import { MoleculeKind } from '../../MoleculeKind';
+import { IMoleculeRequestState } from './IMoleculeRequestState';
+import { SearchKind } from '../SearchKind';
 import {
     IMolecule,
     IColumnValues,
-} from '../../IMoleculeTable';
-
-
-export const enum PageKind
-{
-    First = 'First',
-    Middle = 'Middle',
-    LastComplete = 'Last Complete',
-    LastIncomplete = 'Last Incomplete',
-    OnlyComplete = 'Only Complete',
-    OnlyIncomplete = 'Only Incomplete',
-}
+} from './IMoleculeTable';
+import { PageKind } from './PageKind';
 
 
 export interface ILoadedDatabaseBrowserBase {
     readonly kind: DatabaseBrowserKind.Loaded;
-    readonly moleculeKind: MoleculeKind;
+    readonly searchKind: SearchKind;
     readonly url: string;
     readonly moleculeKey: string;
     readonly database: string;
