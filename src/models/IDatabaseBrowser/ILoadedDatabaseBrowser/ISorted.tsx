@@ -4,13 +4,9 @@ import {
 import {
     SearchKind
 } from '../SearchKind';
+import { SortType } from './SortType';
 
 
-export const enum SortType
-{
-    Ascending = 'Ascending',
-    Descending = 'Descending',
-}
 
 
 export interface ISortedBoth
