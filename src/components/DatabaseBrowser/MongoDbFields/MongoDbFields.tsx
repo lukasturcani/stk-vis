@@ -10,12 +10,10 @@ import {
     getMongoDbPositionMatrixCollection,
     getMongoDbBuildingBlockPositionMatrixCollection,
     getNumEntriesPerPage,
-    getMoleculeSelectionType,
 } from '../../../selectors';
 import {
     IState,
-    IMoleculeSelectionType,
-    MoleculeSelectionTypeKind,
+    SearchKind,
 } from '../../../models';
 import { GetMoleculesButtonComponent } from './GetMoleculesButton';
 import Grid from  '@material-ui/core/Grid';
@@ -238,8 +236,11 @@ function mapStateToProps(
     state: IState,
 )
 {
-    const selectionType: IMoleculeSelectionType
-        = getMoleculeSelectionType(state);
+    const searchKind: SearchKind
+        = state.searchKind
+
+    const bBPosMatCol: string
+        = getBuildingBlockPositionMatrixCollection(state);
 
     return {
         url:
@@ -261,30 +262,53 @@ function mapStateToProps(
             getMongoDbPositionMatrixCollection(state),
 
         buildingBlockPositionMatrixCollection:
-            getMongoDbBuildingBlockPositionMatrixCollection(state),
+            bBPosMatCol,
 
         numEntriesPerPage:
             getNumEntriesPerPage(state),
 
         selectBuildingBlocks: (
-            (selectionType.kind === MoleculeSelectionTypeKind.Both)
+            (searchKind === SearchKind.UnsortedBoth)
             ||
-            (
-                selectionType.kind
-                ===
-                MoleculeSelectionTypeKind.BuildingBlocks
-            )
+            (searchKind === SearchKind.SortedBoth)
+            ||
+            (searchKind === SearchKind.SortedBuildingBlocks)
+            ||
+            (searchKind === SearchKind.UnsortedBuildingBlocks)
         ),
         selectConstructedMolecules: (
-            (selectionType.kind === MoleculeSelectionTypeKind.Both)
+            (searchKind === SearchKind.UnsortedBoth)
             ||
-            (
-                selectionType.kind
-                ===
-                MoleculeSelectionTypeKind.ConstructedMolecules
-            )
+            (searchKind === SearchKind.SortedBoth)
+            ||
+            (searchKind === SearchKind.SortedConstructedMolecules)
+            ||
+            (searchKind === SearchKind.UnsortedConstructedMolecules)
         ),
 
+    }
+}
+
+
+function getBuildingBlockPositionMatrixCollection(
+    state: IState,
+)
+    : string
+{
+    switch (state.searchKind)
+    {
+        case SearchKind.SortedBoth:
+        case SearchKind.UnsortedBoth:
+        {
+            return getMongoDbBuildingBlockPositionMatrixCollection(
+                state,
+            );
+        }
+
+        default:
+        {
+            return 'building_block_position_matrices';
+        }
     }
 }
 

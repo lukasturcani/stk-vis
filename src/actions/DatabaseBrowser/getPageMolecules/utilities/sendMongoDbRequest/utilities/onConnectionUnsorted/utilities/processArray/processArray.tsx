@@ -11,7 +11,7 @@ import {
 import {
     PageKind,
     MoleculeRequestStateKind,
-    MoleculeSelectionTypeKind,
+    SearchKind,
 } from '../../../../../../../../../models';
 import { IPageData } from '../../../IPageData';
 import {
@@ -31,7 +31,7 @@ import {
 
 interface OptionsBase
 {
-    kind: MoleculeSelectionTypeKind;
+    kind: SearchKind;
     database: string;
     moleculeCollection: string;
     positionMatrixCollection: string;
@@ -49,7 +49,7 @@ interface OptionsBase
 
 interface SelectBoth extends OptionsBase
 {
-    kind: MoleculeSelectionTypeKind.Both;
+    kind: SearchKind.UnsortedBoth;
     buildingBlockPositionMatrixCollection: string;
 }
 
@@ -57,9 +57,9 @@ interface SelectBoth extends OptionsBase
 interface SelectOne extends OptionsBase
 {
     kind:
-        MoleculeSelectionTypeKind.BuildingBlocks
+        SearchKind.UnsortedBuildingBlocks
         |
-        MoleculeSelectionTypeKind.ConstructedMolecules;
+        SearchKind.UnsortedConstructedMolecules;
 }
 
 type processArrayOptions =
@@ -129,7 +129,7 @@ export const processArray: processArrayInterface =
 
     switch (options.kind)
     {
-        case MoleculeSelectionTypeKind.Both:
+        case SearchKind.UnsortedBoth:
 
             const bBPromise: Promise<Maybe<IPropertyResults>>
                 = getPropertyPromise
@@ -143,8 +143,8 @@ export const processArray: processArrayInterface =
             );
             break;
 
-        case MoleculeSelectionTypeKind.BuildingBlocks:
-        case MoleculeSelectionTypeKind.ConstructedMolecules:
+        case SearchKind.UnsortedBuildingBlocks:
+        case SearchKind.UnsortedConstructedMolecules:
             promises.push(
                 positionMatricesPromise,
                 ...propertyPromises,
@@ -161,12 +161,12 @@ export const processArray: processArrayInterface =
 
             switch (options.kind)
             {
-                case MoleculeSelectionTypeKind.Both:
+                case SearchKind.UnsortedBoth:
                     addPositionMatrices(data, properties[1]);
                     break;
 
-                case MoleculeSelectionTypeKind.BuildingBlocks:
-                case MoleculeSelectionTypeKind.ConstructedMolecules:
+                case SearchKind.UnsortedBuildingBlocks:
+                case SearchKind.UnsortedConstructedMolecules:
                     break;
 
                 default:
