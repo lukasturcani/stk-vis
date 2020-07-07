@@ -10,7 +10,9 @@ import {
     IMoleculeRequestState,
     DatabaseBrowserKind,
     PageKind,
-    ISortedLoadedDatabaseBrowser,
+    ISortedOne,
+    ISortedBoth,
+    IUnsortedBoth,
     SortType,
     SortKind,
     IMoleculeSelectionType,
@@ -149,7 +151,7 @@ export function getMongoDbPositionMatrixCollection(
 
 
 export function getMongoDbBuildingBlockPositionMatrixCollection(
-    state: IDatabaseBrowser,
+    state: ISortedBoth | IUnsortedBoth,
 )
     : string
 {
@@ -220,7 +222,7 @@ export function getSelectedMolecule(
 
 
 export function getSortedCollection(
-    state: ISortedLoadedDatabaseBrowser,
+    state: ISortedOne | ISortedBoth,
 )
     : string
 {
@@ -229,7 +231,7 @@ export function getSortedCollection(
 
 
 export function getSortType(
-    state: ISortedLoadedDatabaseBrowser,
+    state: ISortedOne | ISortedBoth,
 )
     : SortType
 {
@@ -238,7 +240,7 @@ export function getSortType(
 
 
 export function getSortKind(
-    state: ISortedLoadedDatabaseBrowser,
+    state: ILoadedDatabaseBrowser,
 )
     : SortKind
 {
