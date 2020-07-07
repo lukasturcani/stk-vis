@@ -1,11 +1,14 @@
 import { AnyAction } from '@reduxjs/toolkit';
 import {
     IDatabaseBrowser,
-    IUnsortedLoadedDatabaseBrowser,
+    ISortedBoth,
     DatabaseBrowserKind,
     SortKind,
     SortSettingsKind,
 } from '../../models';
+import {
+    setSortSettings
+} from '../../actions';
 import {
     urlReducer,
     moleculeKeyReducer,
@@ -15,7 +18,6 @@ import {
     constructedMoleculeCollectionReducer,
     buildingBlockPositionMatrixCollectionReducer,
     propertyCollectionsReducer,
-    moleculeSelectionTypeReducer,
 } from './mongoDbReducers';
 import {
     moleculeRequestStateReducer,
@@ -39,14 +41,14 @@ import {
     pageKindReducer
 } from './pageKindReducer';
 import {
+    selectedMoleculeReducer
+} from './selectedMoleculeReducer';
+import {
     sortedCollectionReducer
 } from './sortedCollectionReducer';
 import {
     sortTypeReducer
 } from './sortTypeReducer';
-import {
-    selectedMoleculeReducer
-} from './selectedMoleculeReducer';
 import {
     getMongoDbUrl,
     getMongoDbMoleculeKey,
@@ -65,29 +67,25 @@ import {
     getNumEntriesPerPage,
     getPageKind,
     getSelectedMolecule,
+    getSortedCollection,
+    getSortType,
     getMoleculeSelectionType,
 } from '../../selectors';
-import {
-    setSortSettings
-} from '../../actions';
 
 
 
-export function unsortedDatabaseBrowserReducer(
-    state: IUnsortedLoadedDatabaseBrowser,
+export function sortedBothReducer(
+    state: ISortedBoth,
     action: AnyAction,
 )
     : IDatabaseBrowser
 {
     if (setSortSettings.match(action))
     {
-        switch(action.payload.kind)
+        switch (action.payload.kind)
         {
             case SortSettingsKind.Unsorted:
-                break;
-
-            case SortSettingsKind.Sorted:
-                return {
+                return  {
                     kind:
                         DatabaseBrowserKind.Loaded,
                     url:
@@ -118,7 +116,7 @@ export function unsortedDatabaseBrowserReducer(
                     constructedMoleculeCollection:
                         constructedMoleculeCollectionReducer(
                             getMongoDbConstructedMoleculeCollection(
-                                state
+                                state,
                             ),
                             action,
                         ),
@@ -162,11 +160,10 @@ export function unsortedDatabaseBrowserReducer(
                             getNumEntriesPerPage(state),
                             action,
                         ),
+
                     moleculeSelectionType:
-                        moleculeSelectionTypeReducer(
-                            getMoleculeSelectionType(state),
-                            action,
-                        ),
+                        getMoleculeSelectionType(state),
+
                     pageKind:
                         pageKindReducer(
                             getPageKind(state),
@@ -179,19 +176,11 @@ export function unsortedDatabaseBrowserReducer(
                         ),
 
                     sortKind:
-                        SortKind.Sorted,
-
-                    sortedCollection:
-                        sortedCollectionReducer(
-                            undefined,
-                            action,
-                        ),
-                    sortType:
-                        sortTypeReducer(
-                            undefined,
-                            action,
-                        ),
+                        SortKind.Unsorted,
                 };
+
+            case SortSettingsKind.Sorted:
+                break;
 
             default:
                 assertNever(action.payload);
@@ -270,11 +259,10 @@ export function unsortedDatabaseBrowserReducer(
                 getNumEntriesPerPage(state),
                 action,
             ),
+
         moleculeSelectionType:
-            moleculeSelectionTypeReducer(
-                getMoleculeSelectionType(state),
-                action,
-            ),
+            getMoleculeSelectionType(state),
+
         pageKind:
             pageKindReducer(
                 getPageKind(state),
@@ -287,11 +275,20 @@ export function unsortedDatabaseBrowserReducer(
             ),
 
         sortKind:
-            SortKind.Unsorted,
+            SortKind.Sorted,
 
+        sortedCollection:
+            sortedCollectionReducer(
+                getSortedCollection(state),
+                action,
+            ),
+        sortType:
+            sortTypeReducer(
+                getSortType(state),
+                action,
+            ),
     };
 }
-
 
 
 function assertNever(arg: never): never { throw Error(); }

@@ -1,11 +1,15 @@
 import {
-    ISortedLoadedDatabaseBrowser,
-} from './ISortedLoadedDatabaseBrowser';
+    ISortedOne,
+    ISortedBoth
+} from './ISorted';
 import {
-    IUnsortedLoadedDatabaseBrowser,
-} from './IUnsortedLoadedDatabaseBrowser';
+    IUnsortedOne,
+    IUnsortedBoth,
+} from './IUnsorted';
 
 
 export type ILoadedDatabaseBrowser =
-    | ISortedLoadedDatabaseBrowser
-    | IUnsortedLoadedDatabaseBrowser
+    | ISortedBoth
+    | ISortedOne
+    | IUnsortedBoth
+    | IUnsortedOne

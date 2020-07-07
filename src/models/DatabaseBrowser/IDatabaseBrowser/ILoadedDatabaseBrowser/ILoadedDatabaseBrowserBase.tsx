@@ -34,7 +34,6 @@ export interface ILoadedDatabaseBrowserBase {
     readonly moleculeCollection: string;
     readonly constructedMoleculeCollection: string;
     readonly positionMatrixCollection: string;
-    readonly buildingBlockPositionMatrixCollection: string;
     readonly propertyCollections: string[];
     readonly moleculeRequestState: IMoleculeRequestState;
     readonly molecules: IMolecule[];

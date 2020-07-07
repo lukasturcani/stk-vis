@@ -28,6 +28,8 @@ import {
     ILoadedDatabaseBrowser,
     DatabaseBrowserKind,
     SortKind,
+    MoleculeSelectionTypeKind,
+    IMoleculeSelectionType,
 } from '../../models';
 import { updateTable } from '../../actions';
 import {
@@ -37,7 +39,8 @@ import {
     getMongoDbMoleculeCollection,
     getMongoDbConstructedMoleculeCollection,
     getMongoDbPositionMatrixCollection,
-    getMongoDbBuildingBlockPositionMatrixCollection,
+    getMongoDbBuildingBlockPositionMatrixCollection
+    as getBBPosMatCol,
     getMongoDbPropertyCollections,
     getNumEntriesPerPage,
     getInitialRequestState,
@@ -98,95 +101,189 @@ export function initialDatabaseBrowserReducer(
         };
     }
 
-    if (updateTable.match(action))
+    const selectionType: IMoleculeSelectionType
+        = getMoleculeSelectionType(state);
+
+    switch (selectionType.kind)
     {
-        return {
+        case MoleculeSelectionTypeKind.Both:
+            if (updateTable.match(action))
+            {
+                return {
 
-            kind:
-                DatabaseBrowserKind.Loaded,
+                    kind:
+                        DatabaseBrowserKind.Loaded,
 
-            url:
-                urlReducer(getMongoDbUrl(state), action),
+                    url:
+                        urlReducer(getMongoDbUrl(state), action),
 
-            moleculeKey:
-                moleculeKeyReducer(
-                    getMongoDbMoleculeKey(state),
-                    action,
-                ),
+                    moleculeKey:
+                        moleculeKeyReducer(
+                            getMongoDbMoleculeKey(state),
+                            action,
+                        ),
 
-            database:
-                databaseReducer(getMongoDbDatabase(state), action),
+                    database:
+                        databaseReducer(
+                            getMongoDbDatabase(state),
+                            action,
+                        ),
 
-            moleculeCollection:
-                moleculeCollectionReducer(
-                    getMongoDbMoleculeCollection(state),
-                    action,
-                ),
+                    moleculeCollection:
+                        moleculeCollectionReducer(
+                            getMongoDbMoleculeCollection(state),
+                            action,
+                        ),
 
-            constructedMoleculeCollection:
-                constructedMoleculeCollectionReducer(
-                    getMongoDbConstructedMoleculeCollection(state),
-                    action
-                ),
+                    constructedMoleculeCollection:
+                        constructedMoleculeCollectionReducer(
+                            getMongoDbConstructedMoleculeCollection(
+                                state,
+                            ),
+                            action
+                        ),
 
-            positionMatrixCollection:
-                positionMatrixCollectionReducer(
-                    getMongoDbPositionMatrixCollection(state),
-                    action,
-                ),
+                    positionMatrixCollection:
+                        positionMatrixCollectionReducer(
+                            getMongoDbPositionMatrixCollection(state),
+                            action,
+                        ),
 
-            buildingBlockPositionMatrixCollection:
-                buildingBlockPositionMatrixCollectionReducer(
-                    getMongoDbBuildingBlockPositionMatrixCollection(
-                        state,
+                    buildingBlockPositionMatrixCollection:
+                        buildingBlockPositionMatrixCollectionReducer(
+                            getBBPosMatCol(state),
+                            action,
+                        ),
+
+                    propertyCollections:
+                        propertyCollectionsReducer(
+                            getMongoDbPropertyCollections(state),
+                            action,
+                        ),
+
+                    numEntriesPerPage:
+                        numEntriesPerPageReducer(
+                            getNumEntriesPerPage(state),
+                            action,
+                        ),
+
+                    moleculeSelectionType: selectionType,
+
+                    moleculeRequestState:
+                        moleculeRequestStateReducer(undefined, action),
+
+                    molecules:
+                        moleculesReducer(undefined, action),
+
+                    visibleColumns:
+                        visibleColumnsReducer(undefined, action),
+
+                    columnValues:
+                        columnValuesReducer(undefined, action),
+
+                    pageIndex:
+                        pageIndexReducer(undefined, action),
+
+                    pageKind:
+                        pageKindReducer(undefined, action),
+
+                    selectedMolecule:
+                        selectedMoleculeReducer(undefined, action),
+
+                    sortKind:
+                        SortKind.Unsorted,
+
+                };
+            }
+            break;
+
+        case MoleculeSelectionTypeKind.BuildingBlocks:
+        case MoleculeSelectionTypeKind.ConstructedMolecules:
+            if (updateTable.match(action))
+            {
+                return {
+
+                    kind:
+                        DatabaseBrowserKind.Loaded,
+
+                    url:
+                        urlReducer(getMongoDbUrl(state), action),
+
+                    moleculeKey:
+                        moleculeKeyReducer(
+                            getMongoDbMoleculeKey(state),
+                            action,
+                        ),
+
+                    database:
+                        databaseReducer(
+                            getMongoDbDatabase(state),
+                            action,
+                        ),
+
+                    moleculeCollection:
+                        moleculeCollectionReducer(
+                            getMongoDbMoleculeCollection(state),
+                            action,
+                        ),
+
+                    constructedMoleculeCollection:
+                        constructedMoleculeCollectionReducer(
+                            getMongoDbConstructedMoleculeCollection(
+                                state,
+                            ),
+                            action
+                        ),
+
+                    positionMatrixCollection:
+                        positionMatrixCollectionReducer(
+                            getMongoDbPositionMatrixCollection(state),
+                            action,
+                        ),
+
+                    propertyCollections:
+                    propertyCollectionsReducer(
+                        getMongoDbPropertyCollections(state),
+                        action,
                     ),
-                    action,
-                ),
 
-            propertyCollections:
-            propertyCollectionsReducer(
-                getMongoDbPropertyCollections(state),
-                action,
-            ),
+                    numEntriesPerPage:
+                        numEntriesPerPageReducer(
+                            getNumEntriesPerPage(state),
+                            action,
+                        ),
 
-            numEntriesPerPage:
-                numEntriesPerPageReducer(
-                    getNumEntriesPerPage(state),
-                    action,
-                ),
+                    moleculeSelectionType: selectionType,
 
-            moleculeSelectionType:
-                moleculeSelectionTypeReducer(
-                    getMoleculeSelectionType(state),
-                    action,
-                ),
+                    moleculeRequestState:
+                        moleculeRequestStateReducer(undefined, action),
 
-            moleculeRequestState:
-                moleculeRequestStateReducer(undefined, action),
+                    molecules:
+                        moleculesReducer(undefined, action),
 
-            molecules:
-                moleculesReducer(undefined, action),
+                    visibleColumns:
+                        visibleColumnsReducer(undefined, action),
 
-            visibleColumns:
-                visibleColumnsReducer(undefined, action),
+                    columnValues:
+                        columnValuesReducer(undefined, action),
 
-            columnValues:
-                columnValuesReducer(undefined, action),
+                    pageIndex:
+                        pageIndexReducer(undefined, action),
 
-            pageIndex:
-                pageIndexReducer(undefined, action),
+                    pageKind:
+                        pageKindReducer(undefined, action),
 
-            pageKind:
-                pageKindReducer(undefined, action),
+                    selectedMolecule:
+                        selectedMoleculeReducer(undefined, action),
 
-            selectedMolecule:
-                selectedMoleculeReducer(undefined, action),
+                    sortKind:
+                        SortKind.Unsorted,
 
-            sortKind:
-                SortKind.Unsorted,
-
-        };
+                };
+            }
+            break;
     }
+
     return {
         kind:
             DatabaseBrowserKind.Initial,
@@ -219,7 +316,7 @@ export function initialDatabaseBrowserReducer(
 
         buildingBlockPositionMatrixCollection:
             buildingBlockPositionMatrixCollectionReducer(
-                getMongoDbBuildingBlockPositionMatrixCollection(state),
+                getBBPosMatCol(state),
                 action,
             ),
 

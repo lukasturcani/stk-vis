@@ -1,7 +1,7 @@
 import { AnyAction } from '@reduxjs/toolkit';
 import {
     IDatabaseBrowser,
-    ISortedLoadedDatabaseBrowser,
+    ISortedOne,
     DatabaseBrowserKind,
     SortKind,
     SortSettingsKind,
@@ -16,9 +16,7 @@ import {
     moleculeCollectionReducer,
     positionMatrixCollectionReducer,
     constructedMoleculeCollectionReducer,
-    buildingBlockPositionMatrixCollectionReducer,
     propertyCollectionsReducer,
-    moleculeSelectionTypeReducer,
 } from './mongoDbReducers';
 import {
     moleculeRequestStateReducer,
@@ -57,8 +55,6 @@ import {
     getMongoDbPropertyCollections,
     getMongoDbPositionMatrixCollection,
     getMongoDbMoleculeCollection,
-    getMongoDbBuildingBlockPositionMatrixCollection
-    as BBPosMatCollection,
     getMongoDbConstructedMoleculeCollection,
     getMoleculeRequestState,
     getTableMolecules,
@@ -75,8 +71,8 @@ import {
 
 
 
-export function sortedDatabaseBrowserReducer(
-    state: ISortedLoadedDatabaseBrowser,
+export function sortedOneReducer(
+    state: ISortedOne,
     action: AnyAction,
 )
     : IDatabaseBrowser
@@ -121,11 +117,6 @@ export function sortedDatabaseBrowserReducer(
                             ),
                             action,
                         ),
-                    buildingBlockPositionMatrixCollection:
-                        buildingBlockPositionMatrixCollectionReducer(
-                            BBPosMatCollection(state),
-                            action,
-                        ),
                     propertyCollections:
                         propertyCollectionsReducer(
                             getMongoDbPropertyCollections(state),
@@ -161,11 +152,10 @@ export function sortedDatabaseBrowserReducer(
                             getNumEntriesPerPage(state),
                             action,
                         ),
+
                     moleculeSelectionType:
-                        moleculeSelectionTypeReducer(
-                            getMoleculeSelectionType(state),
-                            action,
-                        ),
+                        getMoleculeSelectionType(state),
+
                     pageKind:
                         pageKindReducer(
                             getPageKind(state),
@@ -221,11 +211,6 @@ export function sortedDatabaseBrowserReducer(
                 getMongoDbConstructedMoleculeCollection(state),
                 action,
             ),
-        buildingBlockPositionMatrixCollection:
-            buildingBlockPositionMatrixCollectionReducer(
-                BBPosMatCollection(state),
-                action,
-            ),
         propertyCollections:
             propertyCollectionsReducer(
                 getMongoDbPropertyCollections(state),
@@ -261,11 +246,10 @@ export function sortedDatabaseBrowserReducer(
                 getNumEntriesPerPage(state),
                 action,
             ),
+
         moleculeSelectionType:
-            moleculeSelectionTypeReducer(
-                getMoleculeSelectionType(state),
-                action,
-            ),
+            getMoleculeSelectionType(state),
+
         pageKind:
             pageKindReducer(
                 getPageKind(state),
