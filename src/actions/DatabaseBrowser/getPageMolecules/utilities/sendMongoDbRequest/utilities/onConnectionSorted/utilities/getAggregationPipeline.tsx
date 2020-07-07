@@ -84,6 +84,11 @@ export function getAggregationPipeline(
 
         case MoleculeSelectionTypeKind.Both:
             return [
+                {
+                    '$sort': {
+                        'v': (sortType === SortType.Ascending)? 1 : -1,
+                    }
+                },
             ];
 
         default:
