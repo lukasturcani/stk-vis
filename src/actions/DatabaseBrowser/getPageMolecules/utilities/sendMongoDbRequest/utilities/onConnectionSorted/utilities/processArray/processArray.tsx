@@ -11,6 +11,7 @@ import {
 import {
     PageKind,
     MoleculeRequestStateKind,
+    MoleculeSelectionTypeKind,
 } from '../../../../../../../../../models';
 import { IPageData } from '../../../IPageData';
 import {
@@ -29,8 +30,9 @@ import {
 
 
 
-interface processArrayOptions
+interface OptionsBase
 {
+    kind: MoleculeSelectionTypeKind;
     database: string;
     moleculeCollection: string;
     positionMatrixCollection: string;
@@ -46,6 +48,26 @@ interface processArrayOptions
     cursor: AggregationCursor;
 }
 
+
+interface SelectBoth extends OptionsBase
+{
+    kind: MoleculeSelectionTypeKind.Both;
+    buildingBlockPositionMatrixCollection: string;
+}
+
+
+interface SelectOne extends OptionsBase
+{
+    kind:
+        MoleculeSelectionTypeKind.BuildingBlocks
+        |
+        MoleculeSelectionTypeKind.ConstructedMolecules;
+}
+
+
+type processArrayOptions =
+    | SelectBoth
+    | SelectOne
 
 function assertNever(arg: never): never { throw Error(); }
 
@@ -112,13 +134,56 @@ export const processArray: processArrayInterface =
         = getPropertyPromise
             ({...options, query})(options.positionMatrixCollection)
 
-    Promise.all([
-        moleculesPromise,
-        positionMatricesPromise,
-        ...propertyPromises
-    ]).then(
+    const promises: Promise<any>[]
+        = [];
+
+
+    switch (options.kind)
+    {
+        case MoleculeSelectionTypeKind.Both:
+
+            const bBPromise: Promise<Maybe<IPropertyResults>>
+                = getPropertyPromise
+                ({...options, query})
+                (options.buildingBlockPositionMatrixCollection)
+
+            promises.push(
+                moleculesPromise,
+                positionMatricesPromise,
+                bBPromise,
+                ...propertyPromises,
+            );
+            break;
+
+        case MoleculeSelectionTypeKind.BuildingBlocks:
+        case MoleculeSelectionTypeKind.ConstructedMolecules:
+            promises.push(
+                moleculesPromise,
+                positionMatricesPromise,
+                ...propertyPromises,
+            );
+            break;
+
+        default:
+            assertNever(options);
+    }
+
+    Promise.all(promises).then(
         (properties: Maybe<IPropertyResults>[]) =>
         {
+            switch (options.kind)
+            {
+                case MoleculeSelectionTypeKind.Both:
+                    addPositionMatrices(data, properties[2]);
+                    break;
+
+                case MoleculeSelectionTypeKind.BuildingBlocks:
+                case MoleculeSelectionTypeKind.ConstructedMolecules:
+                    break;
+
+                default:
+                    assertNever(options);
+            }
 
             addPositionMatrices(data, properties[1]);
 

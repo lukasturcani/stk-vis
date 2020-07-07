@@ -18,7 +18,11 @@ import {
     MoleculeSelectionTypeKind,
     SortType,
 } from '../../../../../../../models';
-import { processArray, getAggregationPipeline } from './utilities';
+import {
+    processArray,
+    getAggregationPipeline,
+    getReservedNames,
+} from './utilities';
 
 
 
@@ -92,11 +96,7 @@ export function onConnectionSorted(
             .db(options.database)
 
         const reservedNames: Set<string>
-            = new Set([
-                options.moleculeCollection,
-                options.positionMatrixCollection,
-                options.sortedCollection,
-            ]);
+            = getReservedNames(options);
 
 
         const collectionsCursor: CommandCursor
