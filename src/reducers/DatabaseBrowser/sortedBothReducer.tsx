@@ -3,7 +3,7 @@ import {
     IDatabaseBrowser,
     ISortedBoth,
     DatabaseBrowserKind,
-    SortKind,
+    SearchKind,
     SortSettingsKind,
 } from '../../models';
 import {
@@ -69,7 +69,6 @@ import {
     getSelectedMolecule,
     getSortedCollection,
     getSortType,
-    getMoleculeSelectionType,
 } from '../../selectors';
 
 
@@ -161,8 +160,8 @@ export function sortedBothReducer(
                             action,
                         ),
 
-                    moleculeSelectionType:
-                        getMoleculeSelectionType(state),
+                    searchKind:
+                        SearchKind.UnsortedBoth,
 
                     pageKind:
                         pageKindReducer(
@@ -174,9 +173,6 @@ export function sortedBothReducer(
                             getSelectedMolecule(state),
                             action,
                         ),
-
-                    sortKind:
-                        SortKind.Unsorted,
                 };
 
             case SortSettingsKind.Sorted:
@@ -260,8 +256,8 @@ export function sortedBothReducer(
                 action,
             ),
 
-        moleculeSelectionType:
-            getMoleculeSelectionType(state),
+        searchKind:
+            state.searchKind,
 
         pageKind:
             pageKindReducer(
@@ -273,9 +269,6 @@ export function sortedBothReducer(
                 getSelectedMolecule(state),
                 action,
             ),
-
-        sortKind:
-            SortKind.Sorted,
 
         sortedCollection:
             sortedCollectionReducer(

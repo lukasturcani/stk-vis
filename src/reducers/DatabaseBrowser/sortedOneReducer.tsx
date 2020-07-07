@@ -3,7 +3,7 @@ import {
     IDatabaseBrowser,
     ISortedOne,
     DatabaseBrowserKind,
-    SortKind,
+    SearchKind,
     SortSettingsKind,
 } from '../../models';
 import {
@@ -66,7 +66,6 @@ import {
     getSelectedMolecule,
     getSortedCollection,
     getSortType,
-    getMoleculeSelectionType,
 } from '../../selectors';
 
 
@@ -153,9 +152,6 @@ export function sortedOneReducer(
                             action,
                         ),
 
-                    moleculeSelectionType:
-                        getMoleculeSelectionType(state),
-
                     pageKind:
                         pageKindReducer(
                             getPageKind(state),
@@ -167,8 +163,8 @@ export function sortedOneReducer(
                             action,
                         ),
 
-                    sortKind:
-                        SortKind.Unsorted,
+                    searchKind:
+                        toUnsorted(state.searchKind),
                 };
 
             case SortSettingsKind.Sorted:
@@ -247,9 +243,6 @@ export function sortedOneReducer(
                 action,
             ),
 
-        moleculeSelectionType:
-            getMoleculeSelectionType(state),
-
         pageKind:
             pageKindReducer(
                 getPageKind(state),
@@ -261,8 +254,8 @@ export function sortedOneReducer(
                 action,
             ),
 
-        sortKind:
-            SortKind.Sorted,
+        searchKind:
+            state.searchKind,
 
         sortedCollection:
             sortedCollectionReducer(
@@ -275,6 +268,22 @@ export function sortedOneReducer(
                 action,
             ),
     };
+}
+
+
+function toUnsorted(
+    searchKind:
+        SearchKind.SortedBuildingBlocks
+        | SearchKind.SortedConstructedMolecules,
+)
+    : SearchKind.UnsortedBuildingBlocks
+    | SearchKind.UnsortedConstructedMolecules
+{
+    return (
+        searchKind === SearchKind.SortedBuildingBlocks
+    )
+        ? SearchKind.UnsortedBuildingBlocks
+        : SearchKind.UnsortedConstructedMolecules;
 }
 
 
