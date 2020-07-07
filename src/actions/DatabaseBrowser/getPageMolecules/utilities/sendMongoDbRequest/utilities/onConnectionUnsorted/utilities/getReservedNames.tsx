@@ -1,11 +1,14 @@
 import {
-    MoleculeSelectionTypeKind,
+    SearchKind,
 } from '../../../../../../../../models';
 
 
 interface OptionsBase
 {
-    kind: MoleculeSelectionTypeKind;
+    kind:
+        SearchKind.UnsortedBuildingBlocks
+        | SearchKind.UnsortedConstructedMolecules
+        | SearchKind.UnsortedBoth;
     database: string;
     moleculeCollection: string;
     positionMatrixCollection: string;
@@ -15,7 +18,7 @@ interface OptionsBase
 
 interface SelectBoth extends OptionsBase
 {
-    kind: MoleculeSelectionTypeKind.Both;
+    kind: SearchKind.UnsortedBoth;
     buildingBlockPositionMatrixCollection: string;
 }
 
@@ -23,9 +26,9 @@ interface SelectBoth extends OptionsBase
 interface SelectOne extends OptionsBase
 {
     kind:
-        MoleculeSelectionTypeKind.BuildingBlocks
+        SearchKind.UnsortedBuildingBlocks
         |
-        MoleculeSelectionTypeKind.ConstructedMolecules;
+        SearchKind.UnsortedConstructedMolecules;
 }
 
 type Options =
@@ -47,11 +50,11 @@ export function getReservedNames(
 
     switch (options.kind)
     {
-        case MoleculeSelectionTypeKind.BuildingBlocks:
-        case MoleculeSelectionTypeKind.ConstructedMolecules:
+        case SearchKind.UnsortedBuildingBlocks:
+        case SearchKind.UnsortedConstructedMolecules:
             break;
 
-        case MoleculeSelectionTypeKind.Both:
+        case SearchKind.UnsortedBoth:
             reservedNames.add(
                 options.buildingBlockPositionMatrixCollection
             );

@@ -1,10 +1,13 @@
 import {
-    MoleculeSelectionTypeKind,
+    SearchKind,
 } from '../../../../../../../../models';
 
 
 export function getMoleculeTypeFilter(
-    selectionType: MoleculeSelectionTypeKind,
+    selectionType:
+        SearchKind.UnsortedBuildingBlocks
+        | SearchKind.UnsortedConstructedMolecules
+        | SearchKind.UnsortedBoth,
     moleculeKey: string,
     constructedMoleculeCollection: string,
 )
@@ -12,7 +15,7 @@ export function getMoleculeTypeFilter(
 {
     switch (selectionType)
     {
-        case MoleculeSelectionTypeKind.BuildingBlocks:
+        case SearchKind.UnsortedBuildingBlocks:
             return [
                 {
                     '$match': {
@@ -41,7 +44,7 @@ export function getMoleculeTypeFilter(
                 },
             ];
 
-        case MoleculeSelectionTypeKind.ConstructedMolecules:
+        case SearchKind.UnsortedConstructedMolecules:
             return [
                 {
                     '$match': {
@@ -70,7 +73,7 @@ export function getMoleculeTypeFilter(
                 },
             ];
 
-        case MoleculeSelectionTypeKind.Both:
+        case SearchKind.UnsortedBoth:
             return []
 
         default:

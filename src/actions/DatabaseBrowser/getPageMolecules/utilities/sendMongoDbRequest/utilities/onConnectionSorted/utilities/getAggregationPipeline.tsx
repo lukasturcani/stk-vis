@@ -1,11 +1,14 @@
 import {
-    MoleculeSelectionTypeKind,
+    SearchKind,
     SortType,
 } from '../../../../../../../../models';
 
 
 export function getAggregationPipeline(
-    selectionType: MoleculeSelectionTypeKind,
+    selectionType:
+        SearchKind.SortedBuildingBlocks
+        | SearchKind.SortedConstructedMolecules
+        | SearchKind.SortedBoth,
     sortType: SortType,
     moleculeKey: string,
     constructedMoleculeCollection: string,
@@ -14,7 +17,7 @@ export function getAggregationPipeline(
 {
     switch (selectionType)
     {
-        case MoleculeSelectionTypeKind.BuildingBlocks:
+        case SearchKind.SortedBuildingBlocks:
             return [
                 {
                     '$match': {
@@ -48,7 +51,7 @@ export function getAggregationPipeline(
                 },
             ];
 
-        case MoleculeSelectionTypeKind.ConstructedMolecules:
+        case SearchKind.SortedConstructedMolecules:
             return [
                 {
                     '$match': {
@@ -82,7 +85,7 @@ export function getAggregationPipeline(
                 },
             ];
 
-        case MoleculeSelectionTypeKind.Both:
+        case SearchKind.SortedBoth:
             return [
                 {
                     '$sort': {
