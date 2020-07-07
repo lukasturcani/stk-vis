@@ -5,6 +5,7 @@ import {
     DatabaseBrowserKind,
     SearchKind,
     SortSettingsKind,
+    InitialRequestStateKind,
 } from '../../models';
 import {
     urlReducer,
@@ -47,6 +48,9 @@ import {
     selectedMoleculeReducer
 } from './selectedMoleculeReducer';
 import {
+    initialKindReducer,
+} from './initialKindReducer';
+import {
     getMongoDbUrl,
     getMongoDbMoleculeKey,
     getMongoDbDatabase,
@@ -64,9 +68,11 @@ import {
     getNumEntriesPerPage,
     getPageKind,
     getSelectedMolecule,
+    getDatabaseBrowserKind,
 } from '../../selectors';
 import {
-    setSortSettings
+    setSortSettings,
+    setInitialBrowserState,
 } from '../../actions';
 
 
@@ -118,9 +124,7 @@ export function unsortedBothReducer(
 
             buildingBlockPositionMatrixCollection:
                 buildingBlockPositionMatrixCollectionReducer(
-                    getMongoDbBuildingBlockPositionMatrixCollection(
-                        state.buildingBlock,
-                    ),
+                    BBPosMatCollection(state),
                     action,
                 ),
 
@@ -141,8 +145,8 @@ export function unsortedBothReducer(
                     action,
                 ),
 
-            moleculeSelectionKind:
-                state.moleculeSelectionKind,
+            searchKind:
+                state.searchKind,
         };
     }
 
