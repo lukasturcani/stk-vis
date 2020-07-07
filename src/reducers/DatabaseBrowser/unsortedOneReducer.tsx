@@ -5,6 +5,7 @@ import {
     DatabaseBrowserKind,
     SearchKind,
     SortSettingsKind,
+    InitialRequestStateKind,
 } from '../../models';
 import {
     urlReducer,
@@ -14,6 +15,7 @@ import {
     positionMatrixCollectionReducer,
     constructedMoleculeCollectionReducer,
     propertyCollectionsReducer,
+    buildingBlockPositionMatrixCollectionReducer,
 } from './mongoDbReducers';
 import {
     moleculeRequestStateReducer,
@@ -46,6 +48,9 @@ import {
     selectedMoleculeReducer
 } from './selectedMoleculeReducer';
 import {
+    initialKindReducer,
+} from './initialKindReducer';
+import {
     getMongoDbUrl,
     getMongoDbMoleculeKey,
     getMongoDbDatabase,
@@ -61,9 +66,11 @@ import {
     getNumEntriesPerPage,
     getPageKind,
     getSelectedMolecule,
+    getDatabaseBrowserKind,
 } from '../../selectors';
 import {
-    setSortSettings
+    setSortSettings,
+    setInitialBrowserState,
 } from '../../actions';
 
 
@@ -74,6 +81,73 @@ export function unsortedOneReducer(
 )
     : IDatabaseBrowser
 {
+    if (setInitialBrowserState.match(action))
+    {
+        return {
+            kind:
+                initialKindReducer(
+                    getDatabaseBrowserKind(state),
+                    action,
+                ),
+
+            url:
+                urlReducer(getMongoDbUrl(state), action),
+
+            moleculeKey:
+                moleculeKeyReducer(
+                    getMongoDbMoleculeKey(state),
+                    action,
+                ),
+
+            database:
+                databaseReducer(getMongoDbDatabase(state), action),
+
+            moleculeCollection:
+                moleculeCollectionReducer(
+                    getMongoDbMoleculeCollection(state),
+                    action,
+                ),
+
+            constructedMoleculeCollection:
+                constructedMoleculeCollectionReducer(
+                    getMongoDbConstructedMoleculeCollection(state),
+                    action,
+                ),
+
+            positionMatrixCollection:
+                positionMatrixCollectionReducer(
+                    getMongoDbPositionMatrixCollection(state),
+                    action,
+                ),
+
+            buildingBlockPositionMatrixCollection:
+                buildingBlockPositionMatrixCollectionReducer(
+                    undefined,
+                    action,
+                ),
+
+            initialRequestState:
+                {
+                    kind: InitialRequestStateKind.NoRequestSent,
+                },
+
+            propertyCollections:
+                propertyCollectionsReducer(
+                    getMongoDbPropertyCollections(state),
+                    action,
+                ),
+
+            numEntriesPerPage:
+                numEntriesPerPageReducer(
+                    getNumEntriesPerPage(state),
+                    action,
+                ),
+
+            searchKind:
+                state.searchKind,
+        };
+    }
+
     if (setSortSettings.match(action))
     {
         switch(action.payload.kind)
