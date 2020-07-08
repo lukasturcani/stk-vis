@@ -3,32 +3,32 @@ import {
     Just,
     Nothing,
 } from '../../../../../../../../../../utilities';
-import { IDbEntry } from './IDbEntry';
+import { IValueEntry, IPositionMatrixEntry } from './IDbEntries';
 import { IDatabaseData } from './IDatabaseData';
 
 
 export function getMoleculeIds(
     data: IDatabaseData,
-    result: IDbEntry,
+    result: IValueEntry | IPositionMatrixEntry,
 )
     : Maybe<number[]>
 {
     const moleculeIds = data.moleculeIds;
-    const keyNames: string[] = Object.keys(result).filter(
-        propName => data.moleculeKeyNames.has(propName)
-    );
-    for (const keyName of keyNames)
+    for (const [key, value] of Object.entries(result))
     {
-        const keyValue: string = result[keyName];
+        if (!data.moleculeKeyNames.has(key))
+        {
+            continue;
+        }
         if (
-            Object.prototype.hasOwnProperty.call(moleculeIds, keyName)
+            Object.prototype.hasOwnProperty.call(moleculeIds, key)
             &&
             Object.prototype.hasOwnProperty.call(
-                moleculeIds[keyName],
-                keyValue,
+                moleculeIds[key],
+                value,
             )
         ){
-            return new Just(moleculeIds[keyName][keyValue]);
+            return new Just(moleculeIds[key][value]);
         }
     }
     return new Nothing()

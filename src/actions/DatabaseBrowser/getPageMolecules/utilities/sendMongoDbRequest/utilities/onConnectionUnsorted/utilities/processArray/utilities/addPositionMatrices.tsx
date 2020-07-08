@@ -3,13 +3,13 @@ import {
     Maybe,
     MaybeKind,
 } from '../../../../../../../../../../utilities';
-import { IPropertyResults } from './IPropertyResults';
+import { IPositionMatrixResults } from './IPositionMatrixResults';
 import { getMoleculeIds } from './getMoleculeIds';
 
 
 export function addPositionMatrices(
     data: IDatabaseData,
-    positionMatrices: Maybe<IPropertyResults>,
+    positionMatrices: Maybe<IPositionMatrixResults>,
 )
     : void
 {
@@ -21,7 +21,7 @@ export function addPositionMatrices(
 
         case MaybeKind.Just:
             for (
-                const value of positionMatrices.value.propertyValues
+                const value of positionMatrices.value.matrixValues
             ) {
 
                 const moleculeIds: Maybe<number[]>

@@ -12,11 +12,11 @@ import {
 import {
     setMoleculeRequestState,
 } from '../../../../../../../../../../actions';
-import { IPropertyResults } from './IPropertyResults';
-import { IValueEntry } from './IDbEntries';
+import { IPositionMatrixResults } from './IPositionMatrixResults';
+import { IPositionMatrixEntry } from './IDbEntries';
 
 
-interface getPropertyPromiseOptions
+interface getPositionMatrixPromiseOptions
 {
     client: MongoClient;
     database: string;
@@ -26,15 +26,15 @@ interface getPropertyPromiseOptions
 }
 
 
-export function getPropertyPromise(
-    options: getPropertyPromiseOptions,
+export function getPositionMatrixPromise(
+    options: getPositionMatrixPromiseOptions,
 )
-    : (collectionName: string) => Promise<Maybe<IPropertyResults>>
+    : (collectionName: string) => Promise<Maybe<IPositionMatrixResults>>
 {
     return (
         collectionName: string,
     )
-    : Promise<Maybe<IPropertyResults>> =>
+    : Promise<Maybe<IPositionMatrixResults>> =>
     {
         const collection
             = options.client
@@ -46,12 +46,12 @@ export function getPropertyPromise(
 
         return cursor.toArray()
             .then(
-                (result: IValueEntry[]) =>
+                (result: IPositionMatrixEntry[]) =>
                 {
                     cursor.close();
                     return new Just({
                         collectionName: collectionName,
-                        propertyValues: result,
+                        matrixValues: result,
                     });
                 }
             )

@@ -23,7 +23,9 @@ import {
     IPropertyQuery,
     extractPropertyData,
     getPropertyPromise,
+    getPositionMatrixPromise,
     IPropertyResults,
+    IPositionMatrixResults,
     addPositionMatrices,
     validateData,
     IValidatedDatabaseData,
@@ -122,19 +124,19 @@ export const processArray: processArrayInterface =
             getPropertyPromise({...options, query})
         ).map(promise => promise.then(extractPropertyData(data)));
 
-    const positionMatricesPromise: Promise<Maybe<IPropertyResults>>
-        = getPropertyPromise
+    const positionMatricesPromise: Promise<Maybe<IPositionMatrixResults>>
+        = getPositionMatrixPromise
             ({...options, query})(options.positionMatrixCollection)
 
-    const promises: Promise<Maybe<IPropertyResults>>[]
+    const promises: Promise<unknown>[]
         = [];
 
     switch (options.kind)
     {
         case SearchKind.UnsortedBoth:
 
-            const bBPromise: Promise<Maybe<IPropertyResults>>
-                = getPropertyPromise
+            const bBPromise: Promise<Maybe<IPositionMatrixResults>>
+                = getPositionMatrixPromise
                 ({...options, query})
                 (options.buildingBlockPositionMatrixCollection)
 
@@ -158,7 +160,7 @@ export const processArray: processArrayInterface =
     }
 
     Promise.all(promises).then(
-        (properties: Maybe<IPropertyResults>[]) =>
+        (properties: Promise<unknown>[]) =>
         {
 
             switch (options.kind)
