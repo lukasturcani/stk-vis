@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import {
     IState,
-    SearchKind,
+    UnsortedSearchKind,
 } from '../../../models';
 import Button from '@material-ui/core/Button';
 import { getPageMolecules } from '../../../actions';
@@ -53,7 +53,7 @@ interface IGetMoleculesButtonProps
 
 interface ButtonImplProps extends IGetMoleculesButtonProps
 {
-    searchKind: SearchKind;
+    searchKind: UnsortedSearchKind;
 }
 
 
@@ -154,7 +154,7 @@ function GetMoleculesButton(
 )
 {
 
-    const searchKind: Maybe<SearchKind>
+    const searchKind: Maybe<UnsortedSearchKind>
         = getSearchKind(
             props.selectBuildingBlocks,
             props.selectConstructedMolecules,

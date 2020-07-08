@@ -5,6 +5,7 @@ import {
 } from '../../../../utilities';
 import {
     SearchKind,
+    UnsortedSearchKind,
 } from '../../../../models';
 
 
@@ -12,7 +13,7 @@ export function getSearchKind(
     selectBuildingBlocks: boolean,
     selectConstructedMolecules: boolean,
 )
-    : Maybe<SearchKind>
+    : Maybe<UnsortedSearchKind>
 {
     if (selectBuildingBlocks && selectConstructedMolecules)
     {
