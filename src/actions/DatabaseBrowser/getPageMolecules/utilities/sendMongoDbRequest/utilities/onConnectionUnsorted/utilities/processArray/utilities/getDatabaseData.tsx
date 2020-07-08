@@ -1,5 +1,17 @@
 import { IDbEntry } from './IDbEntry';
-import { IDatabaseData } from './IDatabaseData';
+import {
+    IDatabaseMolecule,
+    IDatabaseData,
+} from './IDatabaseData';
+import {
+    Maybe,
+    MaybeKind,
+    Just,
+    Nothing,
+} from '../../../../../../../../../../utilities';
+import {
+    IMoleculeKeys
+} from '../../../../../../../../../../models';
 
 
 export function getDatabaseData(
@@ -30,57 +42,101 @@ function addMoleculeData(
 )
     : void
 {
+    const molecule: Maybe<IDatabaseMolecule>
+        = toIDatabaseMolecule(dbEntry);
+
+    switch (molecule.kind)
+    {
+        case MaybeKind.Nothing:
+        {
+            // Send a snackbar warning / error here.
+            break;
+        }
+
+        case MaybeKind.Just:
+        {
+            addKeys(data, moleculeId, molecule.value.keys);
+            data.molecules.push(molecule.value);
+            break;
+        }
+
+        default:
+        {
+            assertNever(molecule);
+        }
+    }
+
+}
+
+
+
+function toIDatabaseMolecule(
+    dbEntry: IDbEntry,
+)
+    : Maybe<IDatabaseMolecule>
+{
     const notKeyNames: Set<string>
         = new Set(['a', 'b', '_id', 'constructedMolecule']);
 
-    const propNameMap: any
-        = {
-            a: 'atoms',
-            b: 'bonds',
-        };
+    if (dbEntry.a === undefined)
+    {
+        return new Nothing();
+    }
+    if (dbEntry.b === undefined)
+    {
+        return new Nothing();
+    }
 
-    const molecule: any
+    const keys: IMoleculeKeys
         = {};
 
     for (const [propName, propValue] of Object.entries(dbEntry))
     {
-        if (notKeyNames.has(propName))
+        if (!notKeyNames.has(propName))
         {
-            if (
-                propName === '_id'
-                ||
-                propName === 'constructedMolecule'
-            ) {
-                continue;
-            }
-            const newPropName: string
-                = propNameMap[propName];
-            molecule[newPropName] = propValue;
-        }
-        else
-        {
-            if (data.columnValues[propName] === undefined)
-            {
-                data.columnValues[propName] = {};
-                data.moleculeIds[propName] = {};
-            }
-            if (
-                data.moleculeIds[propName][propValue as string]
-                ===
-                undefined
-            )
-            {
-                data.moleculeIds[propName][propValue as string] = [];
-            }
-
-            molecule[propName] = propValue;
-            data.moleculeKeyNames.add(propName);
-            data.columnValues[propName as string][moleculeId]
-                = propValue as string;
-            data.moleculeIds[propName][propValue as string].push(
-                moleculeId
-            );
+            keys[propName] = propValue;
         }
     }
-    data.molecules.push(molecule);
+
+    return new Just({
+        atoms: dbEntry.a,
+        bonds: dbEntry.b,
+        keys,
+    });
+
+
 }
+
+
+function addKeys(
+    data: IDatabaseData,
+    moleculeId: number,
+    keys: IMoleculeKeys,
+)
+    : void
+{
+    for (const [key, value] of Object.entries(keys))
+    {
+        if (data.columnValues[key] === undefined)
+        {
+            data.columnValues[key] = {};
+            data.moleculeIds[key] = {};
+        }
+        if (
+            data.moleculeIds[key][value]
+            ===
+            undefined
+        )
+        {
+            data.moleculeIds[key][value] = [];
+        }
+
+        data.moleculeKeyNames.add(key);
+        data.columnValues[key][moleculeId]
+            = value
+        data.moleculeIds[key][value].push(moleculeId);
+    }
+}
+
+
+function assertNever(arg: never): never { throw Error(); }
