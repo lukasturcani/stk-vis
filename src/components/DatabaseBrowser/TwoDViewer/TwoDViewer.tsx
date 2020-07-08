@@ -103,7 +103,10 @@ function ErrorViewer()
                 direction='row'
             >
                 <Grid item>
-                    There are too many heavy atoms for a 2D projection.
+                    <h2>
+                        There are too many heavy atoms for a 2D
+                        projection.
+                    </h2>
                 </Grid>
             </Grid>
         </Grid>
