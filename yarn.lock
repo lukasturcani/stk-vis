@@ -4155,6 +4155,11 @@ once@^1.3.0, once@^1.3.1, once@^1.4.0:
   dependencies:
     wrappy "1"
 
+openchemlib@^7.2.3:
+  version "7.2.3"
+  resolved "https://registry.yarnpkg.com/openchemlib/-/openchemlib-7.2.3.tgz#0d95201a60c0e974a87f10da1755d94e6064ed8f"
+  integrity sha512-9DAj7zGdrWM4swsqHgqEq7dODdqEnW3JJOyBraHDy9hBRUitZpG2t8errxyFgyKPnehpmvDAlodCOsFi76ek3A==
+
 opn@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/opn/-/opn-5.5.0.tgz#fc7164fab56d235904c51c3b27da6758ca3b9bfc"

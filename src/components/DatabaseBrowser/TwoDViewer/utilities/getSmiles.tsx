@@ -7,28 +7,32 @@ import {
 import {
     IMolecule,
 } from '../../../../models';
-import * as Kekule from 'kekule';
+import  * as chemlib from 'openchemlib/minimal';
 
 
 export function getSmiles(molecule: IMolecule): Maybe<string>
 {
-    const kekuleMolecule: any
-        = new Kekule.Molecule();
+    const chemlibMolecule
+        = new chemlib.Molecule(
+            molecule.atoms.length,
+            molecule.bonds.length,
+        );
 
     const atoms: any[]
         = [];
 
     for (const [atomicNumber] of molecule.atoms)
     {
-        atoms.push(kekuleMolecule.appendAtom(atomicNumber));
+        atoms.push(chemlibMolecule.addAtom(atomicNumber));
     }
     for (const [atom1Id, atom2Id, order] of molecule.bonds)
     {
-        kekuleMolecule.appendBond(
-            [atoms[atom1Id], atoms[atom2Id]],
-            order
+        chemlibMolecule.addOrChangeBond(
+            atom1Id,
+            atom2Id,
+            order,
         );
     }
 
-    return new Just(Kekule.IO.saveFormatData(kekuleMolecule, 'smi'));
+    return new Just(chemlibMolecule.toSmiles());
 }

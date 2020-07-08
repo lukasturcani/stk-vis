@@ -17,6 +17,7 @@
     "material-table": "1.63.1",
     "mol-draw": "^1.0.6",
     "mongodb": "^3.5.7",
+    "openchemlib": "^7.2.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",

@@ -205,6 +205,7 @@ function tooManyHeavyAtoms(
 )
     : boolean
 {
+    return false;
     if (molecule.atoms.length < maxHeavy)
     {
         return false;
