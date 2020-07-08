@@ -117,7 +117,7 @@ function mapStateToProps(state: ILoadedDatabaseBrowser)
     const molecule: IMolecule
         = getMolecules(state)[selectedMolecule];
 
-    if (getNumHeavyAtoms(molecule) > 150)
+    if (tooManyHeavyAtoms(molecule, 150))
     {
         return {
             smiles: new Nothing(),
@@ -132,11 +132,17 @@ function mapStateToProps(state: ILoadedDatabaseBrowser)
 }
 
 
-function getNumHeavyAtoms(
+function tooManyHeavyAtoms(
     molecule: IMolecule,
+    maxHeavy: number,
 )
-    : number
+    : boolean
 {
+    if (molecule.atoms.length < maxHeavy)
+    {
+        return false;
+    }
+
     let numHeavyAtoms: number = 0;
 
     for (let index: number = 0; index < molecule.atoms.length; ++index)
@@ -144,10 +150,14 @@ function getNumHeavyAtoms(
         if (molecule.atoms[index][0] > 1)
         {
             numHeavyAtoms += 1;
+            if (numHeavyAtoms > maxHeavy)
+            {
+                return true;
+            }
         }
     }
 
-    return numHeavyAtoms;
+    return false;
 }
 
 
