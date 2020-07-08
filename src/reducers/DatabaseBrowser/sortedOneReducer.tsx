@@ -4,10 +4,12 @@ import {
     ISortedOne,
     DatabaseBrowserKind,
     SearchKind,
+    InitialRequestStateKind,
     SortSettingsKind,
 } from '../../models';
 import {
-    setSortSettings
+    setSortSettings,
+    setInitialBrowserState,
 } from '../../actions';
 import {
     urlReducer,
@@ -17,6 +19,7 @@ import {
     positionMatrixCollectionReducer,
     constructedMoleculeCollectionReducer,
     propertyCollectionsReducer,
+    buildingBlockPositionMatrixCollectionReducer,
 } from './mongoDbReducers';
 import {
     moleculeRequestStateReducer,
@@ -49,6 +52,9 @@ import {
     sortTypeReducer
 } from './sortTypeReducer';
 import {
+    initialKindReducer,
+} from './initialKindReducer';
+import {
     getMongoDbUrl,
     getMongoDbMoleculeKey,
     getMongoDbDatabase,
@@ -66,6 +72,7 @@ import {
     getSelectedMolecule,
     getSortedCollection,
     getSortType,
+    getDatabaseBrowserKind,
 } from '../../selectors';
 
 
@@ -76,6 +83,72 @@ export function sortedOneReducer(
 )
     : IDatabaseBrowser
 {
+    if (setInitialBrowserState.match(action))
+    {
+        return {
+            kind:
+                initialKindReducer(
+                    getDatabaseBrowserKind(state),
+                    action,
+                ),
+
+            url:
+                urlReducer(getMongoDbUrl(state), action),
+
+            moleculeKey:
+                moleculeKeyReducer(
+                    getMongoDbMoleculeKey(state),
+                    action,
+                ),
+
+            database:
+                databaseReducer(getMongoDbDatabase(state), action),
+
+            moleculeCollection:
+                moleculeCollectionReducer(
+                    getMongoDbMoleculeCollection(state),
+                    action,
+                ),
+
+            constructedMoleculeCollection:
+                constructedMoleculeCollectionReducer(
+                    getMongoDbConstructedMoleculeCollection(state),
+                    action,
+                ),
+
+            positionMatrixCollection:
+                positionMatrixCollectionReducer(
+                    getMongoDbPositionMatrixCollection(state),
+                    action,
+                ),
+
+            buildingBlockPositionMatrixCollection:
+                buildingBlockPositionMatrixCollectionReducer(
+                    undefined,
+                    action,
+                ),
+
+            initialRequestState:
+                {
+                    kind: InitialRequestStateKind.NoRequestSent,
+                },
+
+            propertyCollections:
+                propertyCollectionsReducer(
+                    getMongoDbPropertyCollections(state),
+                    action,
+                ),
+
+            numEntriesPerPage:
+                numEntriesPerPageReducer(
+                    getNumEntriesPerPage(state),
+                    action,
+                ),
+
+            searchKind:
+                toUnsorted(state.searchKind),
+        };
+    }
     if (setSortSettings.match(action))
     {
         switch (action.payload.kind)
@@ -275,16 +348,22 @@ export function sortedOneReducer(
 function toUnsorted(
     searchKind:
         SearchKind.SortedBuildingBlocks
-        | SearchKind.SortedConstructedMolecules,
+        | SearchKind.SortedConstructedMolecules
 )
     : SearchKind.UnsortedBuildingBlocks
     | SearchKind.UnsortedConstructedMolecules
 {
-    return (
-        searchKind === SearchKind.SortedBuildingBlocks
-    )
-        ? SearchKind.UnsortedBuildingBlocks
-        : SearchKind.UnsortedConstructedMolecules;
+    switch (searchKind)
+    {
+        case SearchKind.SortedBuildingBlocks:
+            return SearchKind.UnsortedBuildingBlocks;
+
+        case SearchKind.SortedConstructedMolecules:
+            return SearchKind.UnsortedConstructedMolecules;
+
+        default:
+            assertNever(searchKind);
+    }
 }
 
 
