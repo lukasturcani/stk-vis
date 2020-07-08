@@ -12,6 +12,7 @@ import { pageIndexReducer } from './pageIndexReducer';
 import { pageKindReducer } from './pageKindReducer';
 import { numEntriesPerPageReducer } from './numEntriesPerPageReducer';
 import { selectedMoleculeReducer } from './selectedMoleculeReducer';
+import { initialSearchKindReducer } from './searchKindReducer';
 import {
     urlReducer,
     databaseReducer,
@@ -283,7 +284,7 @@ export function initialDatabaseBrowserReducer(
             DatabaseBrowserKind.Initial,
 
         searchKind:
-            state.searchKind,
+            initialSearchKindReducer(state.searchKind, action),
 
         url:
             urlReducer(getMongoDbUrl(state), action),

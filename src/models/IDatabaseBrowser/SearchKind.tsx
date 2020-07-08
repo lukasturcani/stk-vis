@@ -7,3 +7,14 @@ export const enum SearchKind
     UnsortedBuildingBlocks = "Unsorted Building Blocks",
     UnsortedConstructedMolecules = "Unsorted Constructed Molecules",
 }
+
+export type UnsortedSearchKind =
+    | SearchKind.UnsortedBoth
+    | SearchKind.UnsortedBuildingBlocks
+    | SearchKind.UnsortedConstructedMolecules
+
+
+export type SortedSearchKind =
+    | SearchKind.SortedBoth
+    | SearchKind.SortedBuildingBlocks
+    | SearchKind.SortedConstructedMolecules

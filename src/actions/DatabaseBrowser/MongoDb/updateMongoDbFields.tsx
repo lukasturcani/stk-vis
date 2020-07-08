@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit'
 import {
-    SearchKind,
+    UnsortedSearchKind
 } from '../../../models';
 
 
@@ -14,7 +14,7 @@ export interface IMongoDbFields
     constructedMoleculeCollection: string;
     buildingBlockPositionMatrixCollection: string;
     numEntriesPerPage: number;
-    searchKind: SearchKind;
+    searchKind: UnsortedSearchKind;
 }
 
 
