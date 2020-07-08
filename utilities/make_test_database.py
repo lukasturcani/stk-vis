@@ -111,7 +111,7 @@ def add_mixed_entries(
         key_makers=key_makers,
     )
 
-    cage = stk.ConstructedMolecule(
+    cage1 = stk.ConstructedMolecule(
         topology_graph=stk.cage.FourPlusSix(
             building_blocks=(
                 stk.BuildingBlock(
@@ -125,8 +125,25 @@ def add_mixed_entries(
             ),
         ),
     )
-    constructed_molecule_db.put(cage)
-    num_atoms_db.put(cage, cage.get_num_atoms())
+    constructed_molecule_db.put(cage1)
+    num_atoms_db.put(cage1, cage1.get_num_atoms())
+
+    cage2 = stk.ConstructedMolecule(
+        topology_graph=stk.cage.TwentyPlusThirty(
+            building_blocks=(
+                stk.BuildingBlock(
+                    smiles='BrC1C(Br)CCCC1',
+                    functional_groups=[stk.BromoFactory()],
+                ),
+                stk.BuildingBlock(
+                    smiles='Brc1cc(Br)cc(Br)c1',
+                    functional_groups=[stk.BromoFactory()],
+                ),
+            ),
+        ),
+    )
+    constructed_molecule_db.put(cage2)
+    num_atoms_db.put(cage2, cage2.get_num_atoms())
 
     macrocycle = stk.ConstructedMolecule(
         topology_graph=stk.macrocycle.Macrocycle(
