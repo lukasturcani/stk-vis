@@ -1,9 +1,32 @@
 import { PageKind } from './PageKind';
 
+
+export type number3 = [number, number, number];
+
+
+export interface IBond
+{
+    atom1Id: number;
+    atom2Id: number;
+}
+
+
+export interface IAtom
+{
+    atomicNumber: number;
+}
+
+
+export interface IMoleculeKeys
+{
+    [keyName: string]: string;
+}
+
 export interface IMolecule {
-    readonly atoms: any;
-    readonly bonds: any;
-    readonly [keyName: string]: string;
+    atoms: IAtom[];
+    bonds: IBond[];
+    keys: IMoleculeKeys;
+    positionMatrix: number3[]
 }
 
 
