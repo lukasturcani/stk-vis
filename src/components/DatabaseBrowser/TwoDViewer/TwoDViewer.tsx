@@ -2,6 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import * as smilesDrawer from 'smiles-drawer';
 import { useTheme } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import ErrorIcon from '@material-ui/icons/Error';
 import {
     ILoadedDatabaseBrowser,
     IMolecule,
@@ -19,76 +21,137 @@ import {
     getSmiles,
     elementColors,
 } from './utilities';
+import {
+    createStyles,
+    makeStyles,
+    Theme,
+} from '@material-ui/core/styles';
 
 
 function assertNever(arg: never): never { throw Error(); }
 
 
-interface IThreeDViewerProps
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    icon: {
+        margin: 'auto',
+        width: 200,
+        height: 200,
+    },
+  }),
+);
+
+
+interface ITwoDViewerProps
 {
     smiles: Maybe<string>;
     selectedMolecule: number;
 }
 
 
-function TwoDViewer(props: IThreeDViewerProps)
+function TwoDViewer(props: ITwoDViewerProps)
 {
+
     switch (props.smiles.kind)
     {
         case MaybeKind.Nothing:
-            return (
-                <div
-                    id={ 'TwoDViewer' }
-                    style={{
-                        height: '100%',
-                        width: '100%',
-                    }}
-                >
-                </div>
-            )
+            return <ErrorViewer />;
 
         case MaybeKind.Just:
-            const theme = useTheme();
+            return <TwoDViewerImpl
+                smiles={ props.smiles.value }
+                selectedMolecule={ props.selectedMolecule }
+            />;
 
-            const smiles: string = props.smiles.value;
-
-            React.useEffect(() => {
-                const viewer = document.getElementById('TwoDViewer');
-                // Remove the content of the rendering container. It's
-                // only there to force the rendering of a new molecule.
-                (viewer as any).innerHTML = '';
-
-                const drawer: any
-                    = new smilesDrawer.Drawer({
-                        bondThickness: 2,
-                        width: (viewer as HTMLElement).clientWidth,
-                        height: (viewer as HTMLElement).clientHeight,
-                        themes: {
-                            dark: elementColors,
-                        },
-                    });
-
-                smilesDrawer.parse(
-                    smiles,
-                    (tree: any) => {
-                        drawer.draw(
-                            tree,
-                            'TwoDViewer',
-                            'dark',
-                            false,
-                        );
-                    },
-                    (err: any) => {
-                        console.log(err);
-                    },
-                );
-
-            });
-            break;
 
         default:
             assertNever(props.smiles);
     }
+
+}
+
+
+
+function ErrorViewer()
+{
+    const theme = useTheme();
+    const classes = useStyles(theme);
+
+    return (
+        <Grid container
+            style={{
+                height: '100%',
+                width: '100%',
+            }}
+            alignItems='center'
+            justify='center'
+            direction='row'
+        >
+            <Grid container
+                alignItems='center'
+                justify='center'
+                direction='row'
+            >
+                <Grid item >
+                    <ErrorIcon className={ classes.icon } />
+                </Grid>
+            </Grid>
+
+            <Grid container
+                alignItems='center'
+                justify='center'
+                direction='row'
+            >
+                <Grid item>
+                    There are too many heavy atoms for a 2D projection.
+                </Grid>
+            </Grid>
+        </Grid>
+    );
+}
+
+interface ITwoDViewerImplProps
+{
+    smiles: string;
+    selectedMolecule: number;
+}
+
+
+function TwoDViewerImpl(props: ITwoDViewerImplProps)
+{
+
+    React.useEffect(() => {
+        const viewer = document.getElementById('TwoDViewer');
+        // Remove the content of the rendering container. It's
+        // only there to force the rendering of a new molecule.
+        (viewer as any).innerHTML = '';
+
+        const drawer: any
+            = new smilesDrawer.Drawer({
+                bondThickness: 2,
+                width: (viewer as HTMLElement).clientWidth,
+                height: (viewer as HTMLElement).clientHeight,
+                themes: {
+                    dark: elementColors,
+                },
+            });
+
+        smilesDrawer.parse(
+            props.smiles,
+            (tree: any) => {
+                drawer.draw(
+                    tree,
+                    'TwoDViewer',
+                    'dark',
+                    false,
+                );
+            },
+            (err: any) => {
+                console.log(err);
+            },
+        );
+
+    });
 
     return (
         <canvas
@@ -107,6 +170,7 @@ function TwoDViewer(props: IThreeDViewerProps)
         </canvas>
     );
 }
+
 
 
 function mapStateToProps(state: ILoadedDatabaseBrowser)
