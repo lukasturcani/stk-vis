@@ -25,6 +25,8 @@ import {
     getPropertyPromise,
     IPropertyResults,
     addPositionMatrices,
+    validateData,
+    IValidatedDatabaseData,
 } from './utilities';
 
 
@@ -124,7 +126,7 @@ export const processArray: processArrayInterface =
         = getPropertyPromise
             ({...options, query})(options.positionMatrixCollection)
 
-    const promises: Promise<any>[]
+    const promises: Promise<Maybe<IPropertyResults>>[]
         = [];
 
     switch (options.kind)
@@ -175,9 +177,12 @@ export const processArray: processArrayInterface =
 
             addPositionMatrices(data, properties[0]);
 
+            const validatedData: IValidatedDatabaseData
+                = validateData(data);
+
             options.dispatch(updateTable({
-                molecules: data.molecules,
-                columnValues: data.columnValues,
+                molecules: validatedData.molecules,
+                columnValues: validatedData.columnValues,
                 pageIndex: options.pageIndex,
                 pageKind,
                 propertyCollections: options.propertyCollections,

@@ -35,7 +35,5 @@ export interface IDatabaseData
 export interface IValidatedDatabaseData
 {
     columnValues: Mutable<IColumnValues>;
-    moleculeIds: IMoleculeIds;
-    moleculeKeyNames: Set<string>;
     molecules: IMolecule[];
 }
