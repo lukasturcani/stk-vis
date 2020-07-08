@@ -64,20 +64,17 @@ function ThreeDViewer(props: IThreeDViewerProps)
                     });
                 }
 
-                setTimeout(() => {
-                    const meshes
-                        = md.meshes({})(geometryData);
+                const meshes
+                    = md.meshes({})(geometryData);
 
-                    const scene = getScene(meshes);
-                    // The container of the Scene may change across
-                    // React renders, make sure that it is always updated.
-                    scene.userData.container = viewer;
-                    (viewer as any).appendChild(
-                        scene.userData.renderer.domElement
-                    );
-                    md.drawMol(scene);
-                });
-
+                const scene = getScene(meshes);
+                // The container of the Scene may change across
+                // React renders, make sure that it is always updated.
+                scene.userData.container = viewer;
+                (viewer as any).appendChild(
+                    scene.userData.renderer.domElement
+                );
+                md.drawMol(scene);
             });
             break;
 
