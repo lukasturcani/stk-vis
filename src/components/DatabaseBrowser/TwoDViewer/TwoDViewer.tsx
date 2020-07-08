@@ -4,6 +4,7 @@ import * as smilesDrawer from 'smiles-drawer';
 import { useTheme } from '@material-ui/core/styles';
 import {
     ILoadedDatabaseBrowser,
+    IMolecule,
 } from '../../../models';
 import {
     getMolecules,
@@ -12,6 +13,7 @@ import {
 import {
     Maybe,
     MaybeKind,
+    Nothing,
 } from '../../../utilities';
 import {
     getSmiles,
@@ -34,7 +36,16 @@ function TwoDViewer(props: IThreeDViewerProps)
     switch (props.smiles.kind)
     {
         case MaybeKind.Nothing:
-            break;
+            return (
+                <div
+                    id={ 'TwoDViewer' }
+                    style={{
+                        height: '100%',
+                        width: '100%',
+                    }}
+                >
+                </div>
+            )
 
         case MaybeKind.Just:
             const theme = useTheme();
@@ -103,10 +114,40 @@ function mapStateToProps(state: ILoadedDatabaseBrowser)
     const selectedMolecule: number
         = getSelectedMolecule(state);
 
+    const molecule: IMolecule
+        = getMolecules(state)[selectedMolecule];
+
+    if (getNumHeavyAtoms(molecule) > 150)
+    {
+        return {
+            smiles: new Nothing(),
+            selectedMolecule: selectedMolecule,
+        };
+    }
+
     return {
-        smiles: getSmiles(getMolecules(state)[selectedMolecule]),
+        smiles: getSmiles(molecule),
         selectedMolecule: selectedMolecule,
     }
+}
+
+
+function getNumHeavyAtoms(
+    molecule: IMolecule,
+)
+    : number
+{
+    let numHeavyAtoms: number = 0;
+
+    for (let index: number = 0; index < molecule.atoms.length; ++index)
+    {
+        if (molecule.atoms[index][0] > 1)
+        {
+            numHeavyAtoms += 1;
+        }
+    }
+
+    return numHeavyAtoms;
 }
 
 
