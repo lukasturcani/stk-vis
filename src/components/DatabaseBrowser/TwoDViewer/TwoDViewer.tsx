@@ -57,20 +57,25 @@ function TwoDViewer(props: IThreeDViewerProps)
                         },
                     });
 
-                smilesDrawer.parse(
-                    smiles,
-                    (tree: any) => {
-                        drawer.draw(
-                            tree,
-                            'TwoDViewer',
-                            'dark',
-                            false,
+                setTimeout(
+                    () => {
+                        smilesDrawer.parse(
+                            smiles,
+                            (tree: any) => {
+                                drawer.draw(
+                                    tree,
+                                    'TwoDViewer',
+                                    'dark',
+                                    false,
+                                );
+                            },
+                            (err: any) => {
+                                console.log(err);
+                            },
                         );
                     },
-                    (err: any) => {
-                        console.log(err);
-                    },
                 );
+
 
             });
             break;
