@@ -26,18 +26,6 @@ module.exports = {
                 exclude: /node_modules/,
                 use: ['ts-loader'],
             },
-            {
-                test: /\.css$/,
-                use: ['css-loader'],
-            },
-            {
-                test: /\.cur$/,
-                use: ['file-loader'],
-            },
-            {
-                test: /\.png$/,
-                use: ['file-loader'],
-            },
         ],
     },
 }
