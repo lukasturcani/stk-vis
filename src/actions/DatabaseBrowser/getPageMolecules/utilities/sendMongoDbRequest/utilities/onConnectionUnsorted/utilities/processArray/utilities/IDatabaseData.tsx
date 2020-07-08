@@ -4,6 +4,7 @@ import {
     IBond,
     IMoleculeKeys,
     number3,
+    IMolecule,
 } from '../../../../../../../../../../models';
 import { IMoleculeIds } from './IMoleculeIds';
 
@@ -28,4 +29,13 @@ export interface IDatabaseData
     moleculeIds: IMoleculeIds;
     moleculeKeyNames: Set<string>;
     molecules: IDatabaseMolecule[];
+}
+
+
+export interface IValidatedDatabaseData
+{
+    columnValues: Mutable<IColumnValues>;
+    moleculeIds: IMoleculeIds;
+    moleculeKeyNames: Set<string>;
+    molecules: IMolecule[];
 }

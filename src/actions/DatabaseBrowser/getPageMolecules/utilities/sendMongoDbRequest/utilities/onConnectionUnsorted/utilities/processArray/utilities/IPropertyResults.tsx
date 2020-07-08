@@ -1,8 +1,8 @@
-import { IDbEntry } from './IDbEntry';
+import { IValueEntry } from './IDbEntries';
 
 
 export interface IPropertyResults
 {
     collectionName: string;
-    propertyValues: IDbEntry[];
+    propertyValues: IValueEntry[];
 }

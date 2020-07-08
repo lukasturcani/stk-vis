@@ -26,12 +26,16 @@ export function extractPropertyData(
                 break;
 
             case MaybeKind.Just:
-                data.columnValues[propertyResults.value.collectionName]
-                    = {};
+            {
+                const results = propertyResults.value;
 
-                for (
-                    const value of propertyResults.value.propertyValues
-                ) {
+                data.columnValues[results.collectionName] = {};
+
+                const collection
+                    = data.columnValues[results.collectionName];
+
+                for (const value of results.propertyValues)
+                {
                     const moleculeIds: Maybe<number[]>
                         = getMoleculeIds(data, value);
 
@@ -40,9 +44,15 @@ export function extractPropertyData(
                         case MaybeKind.Just:
                             for (const moleculeId of moleculeIds.value)
                             {
-                                data.columnValues[
-                                    propertyResults.value.collectionName
-                                ][moleculeId] = value['v'];
+                                if (value.v === undefined)
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    collection[moleculeId]
+                                        = value['v'].toString();
+                                }
                             }
                             break;
 
@@ -61,6 +71,7 @@ export function extractPropertyData(
                 }
 
                 break;
+            }
 
             default:
                 assertNever(propertyResults)

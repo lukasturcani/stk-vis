@@ -16,9 +16,9 @@ import {
 import { IPageData } from '../../../IPageData';
 import {
     getPageKind,
-    IDbEntry,
     getDatabaseData,
     IDatabaseData,
+    IMoleculeEntry,
     getPropertyQuery,
     IPropertyQuery,
     extractPropertyData,
@@ -73,12 +73,12 @@ function assertNever(arg: never): never { throw Error(); }
 interface processArrayInterface
 {
     (options: processArrayOptions):
-    (err: MongoError, item: IDbEntry[]) => void
+    (err: MongoError, item: IMoleculeEntry[]) => void
 }
 
 export const processArray: processArrayInterface =
     (options: processArrayOptions) =>
-    (err: MongoError, items: IDbEntry[]) =>
+    (err: MongoError, items: IMoleculeEntry[]) =>
 {
     if (err !== null)
     {

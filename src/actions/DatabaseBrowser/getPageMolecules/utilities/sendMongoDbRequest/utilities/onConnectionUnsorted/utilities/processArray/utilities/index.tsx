@@ -5,7 +5,7 @@ export * from './getPageKind';
 export * from './getPropertyPromise';
 export * from './getPropertyQuery';
 export * from './IDatabaseData';
-export * from './IDbEntry';
+export * from './IDbEntries';
 export * from './IMoleculeIds';
 export * from './IPropertyQuery';
 export * from './IPropertyResults';

@@ -13,7 +13,7 @@ import {
     setMoleculeRequestState,
 } from '../../../../../../../../../../actions';
 import { IPropertyResults } from './IPropertyResults';
-import { IDbEntry } from './IDbEntry';
+import { IValueEntry } from './IDbEntries';
 
 
 interface getPropertyPromiseOptions
@@ -46,7 +46,7 @@ export function getPropertyPromise(
 
         return cursor.toArray()
             .then(
-                (result: IDbEntry[]) =>
+                (result: IValueEntry[]) =>
                 {
                     cursor.close();
                     return new Just({

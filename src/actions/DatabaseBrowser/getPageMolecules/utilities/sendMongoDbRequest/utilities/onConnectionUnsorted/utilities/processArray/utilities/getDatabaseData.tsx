@@ -1,4 +1,4 @@
-import { IDbEntry } from './IDbEntry';
+import { IMoleculeEntry, IAtomEntry, IBondEntry } from './IDbEntries';
 import {
     IDatabaseMolecule,
     IDatabaseData,
@@ -10,12 +10,14 @@ import {
     Nothing,
 } from '../../../../../../../../../../utilities';
 import {
-    IMoleculeKeys
+    IMoleculeKeys,
+    IAtom,
+    IBond,
 } from '../../../../../../../../../../models';
 
 
 export function getDatabaseData(
-    items: IDbEntry[],
+    items: IMoleculeEntry[],
 )
     : IDatabaseData
 {
@@ -38,7 +40,7 @@ export function getDatabaseData(
 function addMoleculeData(
     data: IDatabaseData,
     moleculeId: number,
-    dbEntry: IDbEntry,
+    dbEntry: IMoleculeEntry,
 )
     : void
 {
@@ -71,7 +73,7 @@ function addMoleculeData(
 
 
 function toIDatabaseMolecule(
-    dbEntry: IDbEntry,
+    dbEntry: IMoleculeEntry,
 )
     : Maybe<IDatabaseMolecule>
 {
@@ -99,12 +101,10 @@ function toIDatabaseMolecule(
     }
 
     return new Just({
-        atoms: dbEntry.a,
-        bonds: dbEntry.b,
+        atoms: dbEntry.a.map(toIAtom),
+        bonds: dbEntry.b.map(toIBond),
         keys,
     });
-
-
 }
 
 
@@ -136,6 +136,30 @@ function addKeys(
             = value
         data.moleculeIds[key][value].push(moleculeId);
     }
+}
+
+
+function toIAtom(
+    entry: IAtomEntry,
+)
+    : IAtom
+{
+    return {
+        atomicNumber: entry[0],
+    };
+}
+
+
+function toIBond(
+    entry: IBondEntry,
+)
+    : IBond
+{
+    return {
+        atom1Id: entry[0],
+        atom2Id: entry[1],
+        order: entry[2],
+    };
 }
 
 
