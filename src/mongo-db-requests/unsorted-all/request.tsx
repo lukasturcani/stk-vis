@@ -65,7 +65,12 @@ export function request(
                     kind: ResultKind.CollectionConnectionError,
                 }
             }
-            throw err;
+            else
+            {
+                return {
+                    kind: ResultKind.UncategorizedError,
+                };
+            }
         }
     );
 }

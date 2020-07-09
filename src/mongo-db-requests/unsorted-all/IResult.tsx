@@ -6,7 +6,7 @@ export const enum ResultKind
     Success = 'Success',
     DatabaseConnectionError = 'Database Connection Error',
     CollectionConnectionError = 'Collection Connection Error',
-
+    UncategorizedError = 'Uncategorized Error',
 
 }
 
@@ -31,8 +31,15 @@ export interface ICollectionConnectionError
 }
 
 
+export interface IUncategorizedError
+{
+    kind: ResultKind.UncategorizedError;
+}
+
+
 
 export type IResult =
     | ISuccess
     | IDatabaseConnectionError
     | ICollectionConnectionError
+    | IUncategorizedError
