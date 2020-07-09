@@ -47,7 +47,7 @@ export function request(
     return MongoClient
     .connect(options.url)
     .catch(err => { throw new DatabaseConnectionError() })
-    .then(stageOne({...options, nonValueCollections}))
+    .then(stageOne({ ...options, nonValueCollections }))
     .then(stageTwo(options))
     .then(getSuccessResult)
     .catch(
