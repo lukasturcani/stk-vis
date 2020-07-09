@@ -2,9 +2,9 @@ import {
     MongoClient,
 } from 'mongodb';
 import {
-    IMolecule,
+    IPartialMolecule,
 } from '../../types';
 
 
 export type IStageOneResult
-    = [MongoClient, string[], IMolecule[]];
+    = [MongoClient, string[], IPartialMolecule[]];

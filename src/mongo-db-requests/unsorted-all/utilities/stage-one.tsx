@@ -5,11 +5,18 @@ import {
 import {
     ICollectionData,
     IMoleculeEntry,
-    IMolecule,
+    IPartialMolecule,
 } from '../../types';
+import {
+    getPartialMolecule,
+} from '../../utilities';
 import {
     IStageOneResult,
 } from './IStageOneResult';
+import {
+    isJust,
+    getValue,
+} from '../../../utilities';
 
 
 interface Options
@@ -37,7 +44,7 @@ export function stageOne(
         const valueCollections: Promise<string[]>
             = getValueCollections(options, database);
 
-        const molecules: Promise<IMolecule[]>
+        const molecules: Promise<IPartialMolecule[]>
             = getMolecules(options, database)
             .then(validateMolecules(options.numEntriesPerPage))
 
@@ -95,12 +102,14 @@ function getMolecules
 function validateMolecules(
     numEntriesPerPage: number,
 )
-    : (molecules: IMoleculeEntry[]) => IMolecule[]
+    : (molecules: IMoleculeEntry[]) => IPartialMolecule[]
 {
     return (molecules: IMoleculeEntry[]) =>
-    {
-        molecules = molecules.slice(0, numEntriesPerPage);
-        return [];
-        console.log(molecules);
-    };
+    (
+        molecules
+        .slice(0, numEntriesPerPage)
+        .map(getPartialMolecule)
+        .filter(isJust)
+        .map(getValue)
+    );
 }

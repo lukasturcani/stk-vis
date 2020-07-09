@@ -16,4 +16,22 @@ export class Nothing {
 }
 
 
-export type Maybe<T> = Nothing | Just<T>
+export type Maybe<T> = Nothing | Just<T>;
+
+
+export function isJust<T>(
+    value: Maybe<T>,
+)
+    : value is Just<T>
+{
+    return value.kind === MaybeKind.Just;
+}
+
+
+export function getValue<T>(
+    value: Just<T>,
+)
+    : T
+{
+    return value.value;
+}
