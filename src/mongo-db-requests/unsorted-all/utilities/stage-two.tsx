@@ -10,7 +10,6 @@ import {
     addPositionMatrices,
     getMoleculeDataQuery,
     IMoleculeDataQuery,
-    getValuePromise,
 } from '../../utilities';
 
 
