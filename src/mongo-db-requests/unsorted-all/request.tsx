@@ -18,6 +18,7 @@ import {
 import {
     stageOne,
     stageTwo,
+    stageThree,
 } from './utilities';
 
 
@@ -53,15 +54,7 @@ export function request(
     .connect(options.url)
     .then(stageOne({...options, nonValueCollections}))
     .then(stageTwo(options))
-    .then(stageThree(options))
-    .then(
-        () => {
-            return {
-                kind: ResultKind.Success,
-                molecules: [],
-            };
-        }
-    )
+    .then(getResult)
     .catch(
         (err: IResult) =>
         {

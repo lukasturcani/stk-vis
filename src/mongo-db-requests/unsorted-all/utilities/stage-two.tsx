@@ -24,7 +24,7 @@ interface Options
 }
 
 
-type IStageTwoResult = [PageKind, string[], IMolecule[]];
+export type IStageTwoResult = [PageKind, string[], IMolecule[]];
 
 
 export function stageTwo(
