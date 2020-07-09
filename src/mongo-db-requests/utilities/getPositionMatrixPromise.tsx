@@ -1,6 +1,9 @@
 import { Db } from 'mongodb';
 import { IMoleculeDataQuery } from './getMoleculeDataQuery';
 import { IPositionMatrixEntry } from '../types';
+import {
+    CollectionConnectionError,
+} '../errors';
 
 
 export function getPositionMatrixPromise(
@@ -13,5 +16,6 @@ export function getPositionMatrixPromise(
     return database
     .collection(collection)
     .find(query)
-    .toArray();
+    .toArray()
+    .catch(err => { throw new CollectionConnectionError(); });
 }

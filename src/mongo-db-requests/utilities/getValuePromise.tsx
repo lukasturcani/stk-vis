@@ -1,6 +1,7 @@
 import { Db } from 'mongodb';
 import { IMoleculeDataQuery } from './getMoleculeDataQuery';
 import { IValueEntry, IValueEntries } from '../types';
+import { CollectionConnectionError } from '../errors';
 
 
 export function getValuePromise(
@@ -14,6 +15,7 @@ export function getValuePromise(
         .collection(collection)
         .find(query)
         .toArray()
+        .catch(err => { throw new CollectionConnectionError(); })
         .then(
             (entries: IValueEntry[]) => ({
                 collection,

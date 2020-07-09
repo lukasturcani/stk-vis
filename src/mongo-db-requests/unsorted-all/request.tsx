@@ -1,24 +1,16 @@
 import {
     MongoClient,
-    Db,
 } from 'mongodb';
 import {
     IResult,
-    IDatabaseConnectionError,
-    ResultKind,
 } from './IResult';
 import {
-    ICollectionData,
-    IMoleculeEntry,
-    PageKind,
-} from '../types';
-import {
-    getPageKind
-} from '../utilities';
+    DatabaseConnectionError,
+} from '../errors';
 import {
     stageOne,
     stageTwo,
-    stageThree,
+    getSuccessResult,
 } from './utilities';
 
 
@@ -52,9 +44,10 @@ export function request(
 
     return MongoClient
     .connect(options.url)
+    .catch(err => { throw new DatabaseConnectionError() })
     .then(stageOne({...options, nonValueCollections}))
     .then(stageTwo(options))
-    .then(getResult)
+    .then(getSuccessResult)
     .catch(
         (err: IResult) =>
         {

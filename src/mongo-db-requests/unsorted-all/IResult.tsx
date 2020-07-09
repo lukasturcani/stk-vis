@@ -5,7 +5,8 @@ export const enum ResultKind
 {
     Success = 'Success',
     DatabaseConnectionError = 'Database Connection Error',
-    CollectionRequestError = 'CollectionRequestError',
+    CollectionConnectionError = 'Collection Connection Error',
+
 
 }
 
@@ -24,15 +25,14 @@ export interface IDatabaseConnectionError
 }
 
 
-export interface ICollectionRequestError
+export interface ICollectionConnectionError
 {
-    kind: ResultKind.CollectionRequestError;
+    kind: ResultKind.CollectionConnectionError;
 }
-
 
 
 
 export type IResult =
     | ISuccess
     | IDatabaseConnectionError
-    | ICollectionRequestError
+    | ICollectionConnectionError
