@@ -35,7 +35,7 @@ interface Options
 export function stageOne(
     options: Options,
 )
-    : (client: MongoClient) => Promise<IStageOneResult>
+    : (database: MongoClient) => Promise<IStageOneResult>
 {
     return (client: MongoClient) : Promise<IStageOneResult> =>
     {
@@ -50,7 +50,7 @@ export function stageOne(
             .then(validateMolecules(options.numEntriesPerPage))
 
         return Promise.all([
-            Promise.resolve(client),
+            Promise.resolve(database),
             valueCollections,
             molecules,
         ]);

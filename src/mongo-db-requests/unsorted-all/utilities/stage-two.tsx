@@ -1,7 +1,17 @@
 import { IStageOneResult } from './IStageOneResult';
-import { PageKind, ValueEntry } from '../../types';
-import { getPageKind } from '../../utilities';
-import { getValuePromises } from './utilities';
+import {
+    PageKind,
+} from '../../types';
+import {
+    getPageKind,
+    addValues,
+    getValuePromise,
+    getPositionMatrixPromise,
+    addPositionMatrices,
+    getMoleculeDataQuery,
+    IMoleculeDataQuery,
+    getValuePromise,
+} from '../../utilities';
 
 
 interface Options
@@ -14,7 +24,7 @@ interface Options
 }
 
 
-type IStageTwoResult = any;
+type IStageTwoResult = [PageKind, string[]];
 
 
 export function stageTwo(
@@ -23,7 +33,7 @@ export function stageTwo(
     : (result: IStageOneResult) => Promise<IStageTwoResult>
 {
     return ([
-        client,
+        database,
         valueCollections,
         molecules,
     ]: IStageOneResult)
@@ -39,27 +49,25 @@ export function stageTwo(
         const query: IMoleculeDataQuery
             = getMoleculeDataQuery(options.moleculeKey, molecules);
 
-        const values: Promise<IValueEntries>[]
-            = valueCollections.map(getValuePromise(client, query))
+        const values: Promise<unknown>[]
+            = valueCollections.map(getValuePromise(database, query))
             .map(addValues(molecules));
 
-        const matrices: Promise<IPositionMatrixEntries>
+        const matrices: Promise<unknown>
             = getPositionMatrixPromise(
-                client,
+                database,
                 query,
                 options.positionMatrixCollection,
             )
             .then(addPositionMatrices(molecules));
 
-        const buildingBlockMatrices: Promise<IPositionMatrixEntries>
+        const buildingBlockMatrices: Promise<unknown>
             = getPositionMatrixPromise(
-                client,
+                database,
                 query,
                 options.buildingBlockPositionMatrixCollection,
             )
             .then(addPositionMatrices(molecules));
-
-
 
         return Promise.all([
             Promise.resolve(pageKind),
