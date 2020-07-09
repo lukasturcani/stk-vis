@@ -1,14 +1,12 @@
 import { IMoleculeKeys } from './IMoleculeKeys';
-import { IPositionMatrix } from './IPositionMatrix';
 import { IPropertyValues } from './IPropertyValues';
 import { IAtom } from './IAtom';
 import { IBond } from './IBond';
 
 
-export interface IMolecule
+export interface IPartialMolecule
 {
     keys: IMoleculeKeys;
-    positionMatrix: IPositionMatrix;
     propertyValues: IPropertyValues;
     atoms: IAtom[];
     bonds: IBond[];
