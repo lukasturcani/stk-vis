@@ -3,16 +3,20 @@ const path = require('path');
 
 
 module.exports = {
-    entry: './src/index.tsx',
+    entry: {
+        App: './src/index.tsx',
+        maybe: './src/maybe/index.tsx',
+        'mongo-db-requests': './src/mongo-db-requests/index.tsx',
+    },
     target: 'electron-renderer',
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'App.js',
+        filename: '[name].js',
     },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'stkVis',
-            template: './src/template.html',
+            template: './src/stkVis/template.html',
         }),
     ],
     mode: 'development',
