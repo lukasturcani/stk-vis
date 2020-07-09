@@ -1,6 +1,7 @@
 import { IStageOneResult } from './IStageOneResult';
 import {
     PageKind,
+    IMolecule,
 } from '../../types';
 import {
     getPageKind,
@@ -23,7 +24,7 @@ interface Options
 }
 
 
-type IStageTwoResult = [PageKind, string[]];
+type IStageTwoResult = [PageKind, string[], IMolecule[]];
 
 
 export function stageTwo(
@@ -40,7 +41,7 @@ export function stageTwo(
     {
         const pageKind: PageKind
             = getPageKind({
-                numItems: molecules.length,
+                numItems: molecules.size,
                 pageIndex: options.pageIndex,
                 numEntriesPerPage: options.numEntriesPerPage
             });
@@ -48,32 +49,41 @@ export function stageTwo(
         const query: IMoleculeDataQuery
             = getMoleculeDataQuery(options.moleculeKey, molecules);
 
-        const values: Promise<unknown>[]
+        const values: Promise<void>[]
             = valueCollections.map(getValuePromise(database, query))
-            .map(addValues(molecules));
+            .map(addValues(options.moleculeKey, molecules));
 
-        const matrices: Promise<unknown>
+        const constructedMolecules: Promise<IMolecule[]>
             = getPositionMatrixPromise(
                 database,
                 query,
                 options.positionMatrixCollection,
             )
-            .then(addPositionMatrices(molecules));
+            .then(addPositionMatrices(options.moleculeKey, molecules));
 
-        const buildingBlockMatrices: Promise<unknown>
+        const buildingBlocks: Promise<IMolecule[]>
             = getPositionMatrixPromise(
                 database,
                 query,
                 options.buildingBlockPositionMatrixCollection,
             )
-            .then(addPositionMatrices(molecules));
+            .then(addPositionMatrices(options.moleculeKey, molecules));
 
         return Promise.all([
             Promise.resolve(pageKind),
             Promise.resolve(valueCollections),
-            matrices,
-            buildingBlockMatrices,
-            ...values,
-        ]);
+            constructedMolecules,
+            buildingBlocks,
+            Promise.all(values),
+        ])
+        .then(([
+            pageKind,
+            valueCollections,
+            molecules,
+            buildingBlocks,
+        ]) => {
+            molecules.push(...buildingBlocks);
+            return [pageKind, valueCollections, molecules];
+        });
     };
 }

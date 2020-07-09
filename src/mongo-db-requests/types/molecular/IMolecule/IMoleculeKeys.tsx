@@ -1,4 +1,1 @@
-export interface IMoleculeKeys
-{
-    [keyName: string]: string;
-}
+export type IMoleculeKeys = Map<string, string>;

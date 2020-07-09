@@ -1,4 +1,4 @@
-import { IPartialMolecule } from '../types';
+import { IPartialMolecules } from '../types';
 
 
 export type IMoleculeDataQuery = Record<any, unknown>;
@@ -6,24 +6,13 @@ export type IMoleculeDataQuery = Record<any, unknown>;
 
 export function getMoleculeDataQuery(
     moleculeKey: string,
-    molecules: IPartialMolecule[],
+    molecules: IPartialMolecules,
 )
     : IMoleculeDataQuery
 {
-    const query: IMoleculeDataQuery
-        = {
-            [moleculeKey]: {
-                $in: [],
-            },
-        };
-
-    for (const molecule of molecules)
-    {
-        if (molecule.keys[moleculeKey] !== undefined)
-        {
-            query[moleculeKey]['$in'].push(molecule.keys[moleculeKey]);
-        }
-    }
-
-    return query;
+    return {
+        [moleculeKey]: {
+            $in: Array.from(molecules.keys()),
+        },
+    };
 }

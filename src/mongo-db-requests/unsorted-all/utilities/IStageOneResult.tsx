@@ -1,8 +1,8 @@
 import { Db } from 'mongodb';
 import {
-    IPartialMolecule,
+    IPartialMolecules,
 } from '../../types';
 
 
 export type IStageOneResult
-    = [Db, string[], IPartialMolecule[]];
+    = [Db, string[], IPartialMolecules];

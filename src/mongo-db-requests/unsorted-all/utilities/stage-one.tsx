@@ -6,6 +6,7 @@ import {
     ICollectionData,
     IMoleculeEntry,
     IPartialMolecule,
+    IPartialMolecules,
 } from '../../types';
 import {
     getPartialMolecule,
@@ -45,9 +46,12 @@ export function stageOne(
         const valueCollections: Promise<string[]>
             = getValueCollections(options, database);
 
-        const molecules: Promise<IPartialMolecule[]>
+        const molecules: Promise<IPartialMolecules>
             = getMolecules(options, database)
-            .then(validateMolecules(options.numEntriesPerPage))
+            .then(validateMolecules(
+                options.moleculeKey,
+                options.numEntriesPerPage,
+            ))
 
         return Promise.all([
             Promise.resolve(database),
@@ -103,16 +107,27 @@ function getMolecules
 
 
 function validateMolecules(
+    moleculeKey: string,
     numEntriesPerPage: number,
 )
-    : (molecules: IMoleculeEntry[]) => IPartialMolecule[]
+    : (molecules: IMoleculeEntry[]) => IPartialMolecules
 {
     return (molecules: IMoleculeEntry[]) =>
-    (
-        molecules
-        .slice(0, numEntriesPerPage)
-        .map(getPartialMolecule)
-        .filter(isJust)
-        .map(getValue)
-    );
+    {
+        const validated: IPartialMolecule[]
+            = molecules
+            .slice(0, numEntriesPerPage)
+            .map(getPartialMolecule)
+            .filter(isJust)
+            .map(getValue);
+
+        const result: IPartialMolecules
+            = new Map();
+
+        for (const molecule of validated)
+        {
+            result.set(molecule.keys.get(moleculeKey), molecule);
+        }
+        return result;
+    };
 }

@@ -1,4 +1,1 @@
-export interface IPropertyValues
-{
-    [propertyName: string]: string;
-}
+export type IPropertyValues = Map<string, string>;
