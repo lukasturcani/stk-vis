@@ -26,6 +26,7 @@ interface Options
     nonValueCollections: Set<string>;
     pageIndex: number;
     numEntriesPerPage: number;
+    moleculeKey: string;
 }
 
 
@@ -89,7 +90,9 @@ function getMolecules
 {
     return database
     .collection(options.moleculeCollection)
-    .find({})
+    .find({
+        [options.moleculeKey]: { $exists: true },
+    })
     .skip(options.pageIndex * options.numEntriesPerPage)
     // Add +1 to check if there is another entry on the
     // next page, which is used to determine if the current

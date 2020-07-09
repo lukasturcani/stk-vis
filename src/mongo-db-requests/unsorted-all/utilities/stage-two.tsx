@@ -1,12 +1,16 @@
 import { IStageOneResult } from './IStageOneResult';
-import { PageKind } from '../../types';
+import { PageKind, ValueEntry } from '../../types';
 import { getPageKind } from '../../utilities';
+import { getValuePromises } from './utilities';
 
 
 interface Options
 {
     pageIndex: number;
     numEntriesPerPage: number;
+    positionMatrixCollection: string;
+    buildingBlockPositionMatrixCollection: string;
+    moleculeKey: string;
 }
 
 
@@ -32,12 +36,37 @@ export function stageTwo(
                 numEntriesPerPage: options.numEntriesPerPage
             });
 
-        const data: IDatabaseData
-            =
+        const query: IMoleculeDataQuery
+            = getMoleculeDataQuery(options.moleculeKey, molecules);
 
-        return client;
-        return valueCollections;
-        return pageKind;
-        return result;
+        const values: Promise<IValueEntries>[]
+            = valueCollections.map(getValuePromise(client, query))
+            .map(addValues(molecules));
+
+        const matrices: Promise<IPositionMatrixEntries>
+            = getPositionMatrixPromise(
+                client,
+                query,
+                options.positionMatrixCollection,
+            )
+            .then(addPositionMatrices(molecules));
+
+        const buildingBlockMatrices: Promise<IPositionMatrixEntries>
+            = getPositionMatrixPromise(
+                client,
+                query,
+                options.buildingBlockPositionMatrixCollection,
+            )
+            .then(addPositionMatrices(molecules));
+
+
+
+        return Promise.all([
+            Promise.resolve(pageKind),
+            Promise.resolve(valueCollections),
+            matrices,
+            buildingBlockMatrices,
+            ...values,
+        ]);
     };
 }

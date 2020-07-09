@@ -26,6 +26,7 @@ interface Options
 {
     url: string;
     database: string;
+    moleculeKey: string;
     moleculeCollection: string;
     positionMatrixCollection: string;
     buildingBlockPositionMatrixCollection: string;
@@ -52,6 +53,7 @@ export function request(
     .connect(options.url)
     .then(stageOne({...options, nonValueCollections}))
     .then(stageTwo(options))
+    .then(stageThree(options))
     .then(
         () => {
             return {
