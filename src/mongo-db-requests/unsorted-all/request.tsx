@@ -3,9 +3,11 @@ import {
 } from 'mongodb';
 import {
     IResult,
+    ResultKind,
 } from './IResult';
 import {
     DatabaseConnectionError,
+    CollectionConnectionError,
 } from '../errors';
 import {
     stageOne,
@@ -49,9 +51,21 @@ export function request(
     .then(stageTwo(options))
     .then(getSuccessResult)
     .catch(
-        (err: IResult) =>
+        (err: Error) =>
         {
-            return err;
+            if (err instanceof DatabaseConnectionError)
+            {
+                return {
+                    kind: ResultKind.DatabaseConnectionError,
+                };
+            }
+            if (err instanceof CollectionConnectionError)
+            {
+                return {
+                    kind: ResultKind.CollectionConnectionError,
+                }
+            }
+            throw err;
         }
     );
 }
