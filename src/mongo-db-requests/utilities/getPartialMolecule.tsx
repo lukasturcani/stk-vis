@@ -3,10 +3,7 @@ import {
     IPartialMolecule,
     IMoleculeKeys,
 } from '../types';
-import {
-    Maybe,
-    Just,
-} from '../../utilities';
+import { Maybe, Just } from 'maybe';
 
 
 export function getPartialMolecule(

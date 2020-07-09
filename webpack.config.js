@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        App: './src/index.tsx',
+        App: './src/stkVis/index.tsx',
         maybe: './src/maybe/index.tsx',
         'mongo-db-requests': './src/mongo-db-requests/index.tsx',
     },
