@@ -15,7 +15,7 @@ export function getValues(
         .collection(collection)
         .find(query)
         .toArray()
-        .catch(err => { throw new CollectionConnectionError(); })
+        .catch( ()  => { throw new CollectionConnectionError(); } )
         .then(
             (entries: IValueEntry[]) => ({
                 collection,

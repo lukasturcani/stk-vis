@@ -69,7 +69,7 @@ export function request(
 
     return MongoClient
     .connect(options.url)
-    .catch(err => { throw new DatabaseConnectionError() })
+    .catch( () => { throw new DatabaseConnectionError() } )
 
     .then(
         (client: MongoClient) => client.db(options.database)
