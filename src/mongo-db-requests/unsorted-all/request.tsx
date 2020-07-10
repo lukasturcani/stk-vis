@@ -5,6 +5,7 @@ import {
 import {
     IResult,
     ResultKind,
+    ISuccess,
 } from './IResult';
 import {
     DatabaseConnectionError,
@@ -12,12 +13,7 @@ import {
 } from '../errors';
 import {
     getMoleculeEntries,
-    stageTwo,
-    getSuccessResult,
 } from './utilities';
-import {
-    IPartialMolecules,
-} from '../types';
 import {
     getValueCollections,
     getPartialMolecules,
@@ -27,6 +23,10 @@ import {
     getPositionMatrixPromise,
     addPositionMatrices,
 } from '../utilities';
+import {
+    IMolecule,
+    PageKind,
+} from '../types';
 
 
 
@@ -109,13 +109,27 @@ export function request(
         ]);
     })
 
-    .then(([pageKind, valueCollections, molecules, buildingBlocks]) =>
+    .then((
+        [pageKind, valueCollections, molecules, buildingBlocks]
+    )
+        : [PageKind, string[], IMolecule[]] =>
     {
         molecules.push(...buildingBlocks);
         return [pageKind, valueCollections, molecules];
     })
 
-    .then(getSuccessResult)
+    .then((
+        [pageKind, valueCollections, molecules]
+    )
+        : ISuccess =>
+    {
+        return {
+            kind: ResultKind.Success,
+            pageKind,
+            valueCollections,
+            molecules,
+        };
+    })
 
     .catch(
         (err: Error) =>

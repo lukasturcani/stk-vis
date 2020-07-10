@@ -1,19 +1,28 @@
 import {
     MongoClient,
+    Db,
 } from 'mongodb';
 import {
     IResult,
     ResultKind,
+    ISuccess,
 } from './IResult';
 import {
     DatabaseConnectionError,
     CollectionConnectionError,
 } from '../errors';
 import {
-    stageOne,
-    stageTwo,
-    getSuccessResult,
+    getMoleculeEntries,
 } from './utilities';
+import {
+    getValueCollections,
+    getPartialMolecules,
+    getPageKind,
+    getMoleculeDataQuery,
+    IMoleculeDataQuery,
+    getPositionMatrixPromise,
+    addPositionMatrices,
+} from '../utilities';
 
 
 
@@ -23,8 +32,8 @@ interface Options
     database: string;
     moleculeKey: string;
     moleculeCollection: string;
+    constructedMoleculeCollection: string;
     positionMatrixCollection: string;
-    buildingBlockPositionMatrixCollection: string;
     pageIndex: number;
     numEntriesPerPage: number;
     ignoredCollections: string[];
@@ -41,15 +50,64 @@ export function request(
             ...options.ignoredCollections,
             options.moleculeCollection,
             options.positionMatrixCollection,
-            options.buildingBlockPositionMatrixCollection,
         ]);
 
     return MongoClient
     .connect(options.url)
     .catch(err => { throw new DatabaseConnectionError() })
-    .then(stageOne({ ...options, nonValueCollections }))
-    .then(stageTwo(options))
-    .then(getSuccessResult)
+
+    .then(
+        (client: MongoClient) => client.db(options.database)
+    )
+
+    .then( (database: Db) => Promise.all([
+        Promise.resolve(database),
+        getValueCollections(nonValueCollections, database),
+        getMoleculeEntries(options, database)
+        .then(getPartialMolecules(options)),
+    ]) )
+
+    .then( ([database, valueCollections, molecules]) =>
+    {
+
+        const query: IMoleculeDataQuery
+            = getMoleculeDataQuery(options.moleculeKey, molecules);
+
+        return Promise.all([
+
+            Promise.resolve(getPageKind({
+                numItems: molecules.size,
+                pageIndex: options.pageIndex,
+                numEntriesPerPage: options.numEntriesPerPage,
+            })),
+
+            Promise.resolve(valueCollections),
+
+            getPositionMatrixPromise(
+                database,
+                query,
+                options.positionMatrixCollection,
+            )
+            .then(
+                addPositionMatrices(options.moleculeKey, molecules)
+            ),
+
+        ]);
+    })
+
+    .then((
+        [pageKind, valueCollections, molecules]
+    )
+        : ISuccess =>
+    {
+        return {
+            kind: ResultKind.Success,
+            pageKind,
+            valueCollections,
+            molecules,
+        };
+    })
+
     .catch(
         (err: Error) =>
         {
