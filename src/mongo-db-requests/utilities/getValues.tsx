@@ -4,7 +4,7 @@ import { IValueEntry, IValueEntries } from '../types';
 import { CollectionConnectionError } from '../errors';
 
 
-export function getValuePromise(
+export function getValues(
     database: Db,
     query: IMoleculeDataQuery,
 )

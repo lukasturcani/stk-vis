@@ -20,10 +20,10 @@ import {
     getPageKind,
     getMoleculeDataQuery,
     IMoleculeDataQuery,
-    getPositionMatrixPromise,
+    getPositionMatrices,
     addPositionMatrices,
     addValues,
-    getValuePromise,
+    getValues,
     getSortedValues,
     getValueEntries,
 } from '../utilities';
@@ -108,13 +108,13 @@ export function request(
             getMoleculeEntries(options, database, query)
             .then(getPartialMolecules(options)),
 
-            getPositionMatrixPromise(
+            getPositionMatrices(
                 database,
                 query,
                 options.positionMatrixCollection,
             ),
 
-            getPositionMatrixPromise(
+            getPositionMatrices(
                 database,
                 query,
                 options.buildingBlockPositionMatrixCollection,
@@ -122,7 +122,7 @@ export function request(
 
             Promise.all(
                 valueCollections
-                .map(getValuePromise(database, query)),
+                .map(getValues(database, query)),
             ),
 
         ]);

@@ -20,9 +20,9 @@ import {
     getPageKind,
     getMoleculeDataQuery,
     IMoleculeDataQuery,
-    getPositionMatrixPromise,
+    getPositionMatrices,
     addPositionMatrices,
-    getValuePromise,
+    getValues,
     addValues,
 } from '../utilities';
 import {
@@ -93,7 +93,7 @@ export function request(
 
             Promise.resolve(valueCollections),
 
-            getPositionMatrixPromise(
+            getPositionMatrices(
                 database,
                 query,
                 options.positionMatrixCollection,
@@ -102,7 +102,7 @@ export function request(
                 addPositionMatrices(options.moleculeKey, molecules)
             ),
 
-            getPositionMatrixPromise(
+            getPositionMatrices(
                 database,
                 query,
                 options.buildingBlockPositionMatrixCollection,
@@ -113,7 +113,7 @@ export function request(
 
             Promise.all(
                 valueCollections
-                .map(getValuePromise(database, query))
+                .map(getValues(database, query))
                 .map(promise => promise.then(
                     addValues(options.moleculeKey, molecules)
                 ))

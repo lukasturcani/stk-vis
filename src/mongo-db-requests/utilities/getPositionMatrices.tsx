@@ -6,7 +6,7 @@ import {
 } from '../errors';
 
 
-export function getPositionMatrixPromise(
+export function getPositionMatrices(
     database: Db,
     query: IMoleculeDataQuery,
     collection: string,
