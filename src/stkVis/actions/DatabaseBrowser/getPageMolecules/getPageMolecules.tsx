@@ -3,7 +3,6 @@ import { IState } from '../../../models';
 import { sendMoleculeRequest } from '../../../actions';
 import {
     isRequestSent,
-    sendMongoDbRequest,
 } from './utilities';
 
 
@@ -33,11 +32,6 @@ export function getPageMolecules(
         if (!isRequestSent(state))
         {
             dispatch(sendMoleculeRequest());
-            sendMongoDbRequest({
-                ...options,
-                dispatch,
-                state,
-            });
         }
     };
 }
