@@ -1,9 +1,7 @@
 import {
     Maybe,
     Just,
-    Nothing,
-    MaybeKind,
-} from '../../../../utilities';
+} from 'maybe';
 import {
     IMolecule,
 } from '../../../../models';
@@ -21,11 +19,11 @@ export function getSmiles(molecule: IMolecule): Maybe<string>
     const atoms: any[]
         = [];
 
-    for (const [atomicNumber] of molecule.atoms)
+    for (const {atomicNumber} of molecule.atoms)
     {
         atoms.push(chemlibMolecule.addAtom(atomicNumber));
     }
-    for (const [atom1Id, atom2Id, order] of molecule.bonds)
+    for (const {atom1Id, atom2Id, order} of molecule.bonds)
     {
         chemlibMolecule.addOrChangeBond(
             atom1Id,

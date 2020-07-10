@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { getPageIndex, getPageKind } from '../../../selectors';
-import { Nothing, Just, Maybe, MaybeKind } from '../../../utilities';
+import { Nothing, Just, Maybe, MaybeKind } from 'maybe';
 import {
     IDatabaseBrowser,
     DatabaseBrowserKind,

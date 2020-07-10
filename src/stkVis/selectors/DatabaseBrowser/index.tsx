@@ -1,4 +1,4 @@
-import { Maybe, Just, Nothing } from '../../utilities';
+import { Maybe, Just, Nothing } from 'maybe';
 import {
     IState,
     ILoadedDatabaseBrowser,

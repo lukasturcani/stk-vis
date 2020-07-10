@@ -12,7 +12,7 @@ import {
 import {
     Maybe,
     MaybeKind,
-} from '../../../utilities';
+} from 'maybe';
 import {
     maybeMolDrawMolecule,
 } from './utilities';

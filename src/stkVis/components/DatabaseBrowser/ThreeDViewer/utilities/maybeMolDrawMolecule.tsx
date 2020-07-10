@@ -1,6 +1,7 @@
 import * as md from 'mol-draw';
 import {
     IMolecule,
+    IBond,
 } from '../../../../models';
 import { getChemicalSymbol } from './getChemicalSymbol';
 import {
@@ -8,8 +9,7 @@ import {
     Just,
     Nothing,
     MaybeKind,
-} from '../../../../utilities';
-
+} from 'maybe';
 
 type number3 = [number, number, number];
 
@@ -25,7 +25,7 @@ export function maybeMolDrawMolecule(
     const atoms = [];
     for (let index: number = 0; index < molecule.atoms.length; ++index)
     {
-        const atomicNumber = molecule.atoms[index][0];
+        const atomicNumber = molecule.atoms[index].atomicNumber;
         const [x,y,z] = molecule.positionMatrix[index];
         const chemicalSymbol: Maybe<any>
             = getChemicalSymbol(atomicNumber);
@@ -48,9 +48,8 @@ export function maybeMolDrawMolecule(
         }
     }
 
-    type IBond = [number, number, number];
     const bonds = molecule.bonds.map(
-        ([atom1Id, atom2Id, order]: IBond) => {
+        ({atom1Id, atom2Id, order}: IBond) => {
             return md.bond(order)(atom1Id)(atom2Id);
     });
 

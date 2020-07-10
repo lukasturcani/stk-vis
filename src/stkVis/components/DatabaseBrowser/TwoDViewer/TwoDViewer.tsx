@@ -16,7 +16,7 @@ import {
     Maybe,
     MaybeKind,
     Nothing,
-} from '../../../utilities';
+} from 'maybe';
 import {
     getSmiles,
     elementColors,
@@ -215,7 +215,7 @@ function tooManyHeavyAtoms(
 
     for (let index: number = 0; index < molecule.atoms.length; ++index)
     {
-        if (molecule.atoms[index][0] > 1)
+        if (molecule.atoms[index].atomicNumber > 1)
         {
             numHeavyAtoms += 1;
             if (numHeavyAtoms > maxHeavy)

@@ -15,7 +15,7 @@ import {
 import {
     Maybe,
     MaybeKind,
-} from '../../../utilities';
+} from 'maybe';
 import SearchIcon from '@material-ui/icons/Search';
 import {
     getSearchKind

@@ -2,7 +2,7 @@ import {
     Maybe,
     Just,
     Nothing,
-} from '../../../../utilities';
+} from 'maybe';
 import * as md from 'mol-draw';
 
 

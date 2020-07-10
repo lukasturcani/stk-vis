@@ -3,7 +3,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import {
     Maybe,
     MaybeKind,
-} from '../../../../utilities';
+} from 'maybe';
 import {
     SearchKind
 } from '../../../../models';
