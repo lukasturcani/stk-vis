@@ -1,1 +1,1 @@
-export * from './getMoleculeEntries';
+export * from './getSortedValues';

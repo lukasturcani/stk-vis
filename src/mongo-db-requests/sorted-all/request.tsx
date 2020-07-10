@@ -12,7 +12,7 @@ import {
     CollectionConnectionError,
 } from '../errors';
 import {
-    getMoleculeEntries,
+    getSortedValues,
 } from './utilities';
 import {
     getValueCollections,
@@ -20,12 +20,12 @@ import {
     getPageKind,
     getMoleculeDataQuery,
     IMoleculeDataQuery,
-    getPositionMatrices,
+    getPositionMatrixEntries,
     addPositionMatrices,
     addValues,
-    getValues,
-    getSortedValues,
     getValueEntries,
+    getMoleculeEntries,
+    toValueEntries,
 } from '../utilities';
 import {
     IMolecule,
@@ -78,7 +78,7 @@ export function request(
     .then( (database: Db) => Promise.all([
         Promise.resolve(database),
         getValueCollections(nonValueCollections, database),
-        getSortedValues(database, options.sortedCollection)
+        getSortedValues(options, database)
     ]) )
 
     .then(([
@@ -108,13 +108,13 @@ export function request(
             getMoleculeEntries(options, database, query)
             .then(getPartialMolecules(options)),
 
-            getPositionMatrices(
+            getPositionMatrixEntries(
                 database,
                 query,
                 options.positionMatrixCollection,
             ),
 
-            getPositionMatrices(
+            getPositionMatrixEntries(
                 database,
                 query,
                 options.buildingBlockPositionMatrixCollection,
@@ -122,7 +122,7 @@ export function request(
 
             Promise.all(
                 valueCollections
-                .map(getValues(database, query)),
+                .map(getValueEntries(database, query)),
             ),
 
         ]);
@@ -161,7 +161,7 @@ export function request(
         molecules1.push(...molecules2);
 
         addValues(options.moleculeKey, molecules)(
-            getValueEntries(sortedValues)
+            toValueEntries(sortedValues)
         );
         values.map(addValues(options.moleculeKey, molecules));
 

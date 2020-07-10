@@ -1,14 +1,26 @@
-import { ISortedEntries, IValueEntries } from '../types';
-
+import { Db } from 'mongodb';
+import { IMoleculeDataQuery } from './getMoleculeDataQuery';
+import { IValueEntry, IValueEntries } from '../types';
+import { CollectionConnectionError } from '../errors';
 
 
 export function getValueEntries(
-    sortedEntries: ISortedEntries,
+    database: Db,
+    query: IMoleculeDataQuery,
 )
-    : IValueEntries
+    : (collection: string) => Promise<IValueEntries>
 {
-    return {
-        collection: sortedEntries.collection,
-        entries: sortedEntries.items.map(item => item.value)
-    }
+    return (collection: string) => (
+        database
+        .collection(collection)
+        .find(query)
+        .toArray()
+        .catch( ()  => { throw new CollectionConnectionError(); } )
+        .then(
+            (entries: IValueEntry[]) => ({
+                collection,
+                entries,
+            })
+        )
+    );
 }
