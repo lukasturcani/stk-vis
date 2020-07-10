@@ -114,7 +114,9 @@ export function request(
             Promise.all(
                 valueCollections
                 .map(getValuePromise(database, query))
-                .map(addValues(options.moleculeKey, molecules))
+                .map(promise => promise.then(
+                    addValues(options.moleculeKey, molecules)
+                ))
             ),
 
         ]);

@@ -7,3 +7,5 @@ export * from './addValues';
 export * from './addPositionMatrices';
 export * from './getValueCollections';
 export * from './get-partial-molecules';
+export * from './getSortedValues';
+export * from './getValueEntries';

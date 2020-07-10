@@ -5,18 +5,17 @@ export function addValues(
     moleculeKey: string,
     molecules: IPartialMolecules,
 )
-    : (promise: Promise<IValueEntries>) => Promise<void>
+    : (entries: IValueEntries) => void
 {
-    return (promise: Promise<IValueEntries>) => promise.then(
-        (entries: IValueEntries) => {
-            for (const entry of entries.entries)
-            {
-                molecules
-                .get(entry[moleculeKey])
-                .propertyValues
-                .set(entries.collection, entry.v.toString());
-            }
+    return (entries: IValueEntries) =>
+    {
+        for (const entry of entries.entries)
+        {
+            molecules
+            .get(entry[moleculeKey])
+            .propertyValues
+            .set(entries.collection, entry.v.toString());
         }
-    );
+    };
 }
 

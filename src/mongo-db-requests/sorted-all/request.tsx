@@ -24,10 +24,16 @@ import {
     addPositionMatrices,
     addValues,
     getValuePromise,
+    getSortedValues,
+    getValueEntries,
 } from '../utilities';
 import {
     IMolecule,
     PageKind,
+    IValueEntries,
+    IPositionMatrixEntry,
+    IPartialMolecules,
+    ISortedEntries,
 } from '../types';
 
 
@@ -75,19 +81,22 @@ export function request(
         getSortedValues(options, database)
     ]) )
 
-    .then( ([database, valueCollections, sortedValues]) =>
+    .then(([
+        database,
+        valueCollections,
+        sortedValues,
+    ]: [Db, string[], ISortedEntries]) =>
     {
 
         const query: IMoleculeDataQuery
             = getMoleculeDataQuery(
                 options.moleculeKey,
-                sortedValues.keys(),
+                sortedValues.items.map(item => item.key),
             );
 
         return Promise.all([
-
             Promise.resolve(getPageKind({
-                numItems: sortedValues.size,
+                numItems: sortedValues.items.length,
                 pageIndex: options.pageIndex,
                 numEntriesPerPage: options.numEntriesPerPage,
             })),
@@ -125,8 +134,17 @@ export function request(
         valueCollections,
         molecules,
         matrices1,
-        matrices2
+        matrices2,
         values,
+    ]:
+    [
+        PageKind,
+        ISortedEntries,
+        string[],
+        IPartialMolecules,
+        IPositionMatrixEntry[],
+        IPositionMatrixEntry[],
+        IValueEntries[],
     ])
         : ISuccess =>
     {
@@ -142,8 +160,10 @@ export function request(
 
         molecules1.push(...molecules2);
 
-        addValues(options.moleculeKey, molecules)(sortedValues.values());
-        addValues(options.moleculeKey, molecules)(values)
+        addValues(options.moleculeKey, molecules)(
+            getValueEntries(sortedValues)
+        );
+        values.map(addValues(options.moleculeKey, molecules));
 
         valueCollections.push(options.sortedCollection);
 
