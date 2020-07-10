@@ -34,6 +34,7 @@ import {
     IPositionMatrixEntry,
     IPartialMolecules,
     ISortedEntries,
+    SortType,
 } from '../types';
 
 
@@ -50,6 +51,7 @@ interface Options
     numEntriesPerPage: number;
     ignoredCollections: string[];
     sortedCollection: string;
+    sortType: SortType;
 }
 
 
