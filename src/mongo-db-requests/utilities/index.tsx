@@ -9,3 +9,4 @@ export * from './getValueCollections';
 export * from './get-partial-molecules';
 export * from './getValueEntries';
 export * from './getMoleculeEntries';
+export * from './getSortedEntry';

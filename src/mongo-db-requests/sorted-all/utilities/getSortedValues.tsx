@@ -1,9 +1,11 @@
 import { Db } from 'mongodb';
 import {
-    IValueEntry,
-    ISortedEntry,
     ISortedEntries,
+    SortType,
 } from '../../types';
+import {
+    getSortedEntry,
+} from '../../utilities';
 
 
 interface Options
@@ -11,6 +13,8 @@ interface Options
     sortedCollection: string;
     pageIndex: number;
     numEntriesPerPage: number;
+    sortType: SortType;
+    moleculeKey: string;
 }
 
 
@@ -24,7 +28,11 @@ export function getSortedValues(
     return database
     .collection(options.sortedCollection)
     .aggregate([
-
+        {
+            '$sort': {
+                'v': (options.sortType === SortType.Ascending)? 1 : -1,
+            }
+        },
     ])
     .skip(options.pageIndex * options.numEntriesPerPage)
     // Add +1 to check if there is another entry on the
@@ -34,19 +42,9 @@ export function getSortedValues(
     .toArray().then(
         (entries) => ({
             collection: options.sortedCollection,
-            items: entries.map(getSortedEntry),
+            items: entries.map(getSortedEntry(options.moleculeKey)),
         })
     )
 }
 
 
-function getSortedEntry(
-    entry: IValueEntry,
-)
-    : ISortedEntry
-{
-    return {
-        key: 'one',
-        value: entry,
-    };
-}
