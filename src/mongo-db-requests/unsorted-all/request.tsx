@@ -1,5 +1,6 @@
 import {
     MongoClient,
+    Db,
 } from 'mongodb';
 import {
     IResult,
@@ -10,10 +11,22 @@ import {
     CollectionConnectionError,
 } from '../errors';
 import {
-    stageOne,
+    getMoleculeEntries,
     stageTwo,
     getSuccessResult,
 } from './utilities';
+import {
+    IPartialMolecules,
+} from '../types';
+import {
+    getValueCollections,
+    getPartialMolecules,
+    getPageKind,
+    getMoleculeDataQuery,
+    IMoleculeDataQuery,
+    getPositionMatrixPromise,
+    addPositionMatrices,
+} from '../utilities';
 
 
 
@@ -47,9 +60,63 @@ export function request(
     return MongoClient
     .connect(options.url)
     .catch(err => { throw new DatabaseConnectionError() })
-    .then(stageOne({ ...options, nonValueCollections }))
-    .then(stageTwo(options))
+
+    .then(
+        (client: MongoClient) => client.db(options.database)
+    )
+
+    .then( (database: Db) => Promise.all([
+        Promise.resolve(database),
+        getValueCollections(nonValueCollections, database),
+        getMoleculeEntries(options, database)
+        .then(getPartialMolecules(options)),
+    ]) )
+
+    .then( ([database, valueCollections, molecules]) =>
+    {
+
+        const query: IMoleculeDataQuery
+            = getMoleculeDataQuery(options.moleculeKey, molecules);
+
+        return Promise.all([
+
+            Promise.resolve(getPageKind({
+                numItems: molecules.size,
+                pageIndex: options.pageIndex,
+                numEntriesPerPage: options.numEntriesPerPage,
+            })),
+
+            Promise.resolve(valueCollections),
+
+            getPositionMatrixPromise(
+                database,
+                query,
+                options.positionMatrixCollection,
+            )
+            .then(
+                addPositionMatrices(options.moleculeKey, molecules)
+            ),
+
+            getPositionMatrixPromise(
+                database,
+                query,
+                options.buildingBlockPositionMatrixCollection,
+            )
+            .then(
+                addPositionMatrices(options.moleculeKey, molecules)
+            ),
+
+        ]);
+    })
+
+    .then(([pageKind, valueCollections, molecules, buildingBlocks]) =>
+    {
+        molecules.push(...buildingBlocks);
+        return [pageKind, valueCollections, molecules];
+    })
+
     .then(getSuccessResult)
+
     .catch(
         (err: Error) =>
         {

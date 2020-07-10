@@ -5,3 +5,5 @@ export * from './getMoleculeDataQuery';
 export * from './getPositionMatrixPromise';
 export * from './addValues';
 export * from './addPositionMatrices';
+export * from './getValueCollections';
+export * from './get-partial-molecules';
