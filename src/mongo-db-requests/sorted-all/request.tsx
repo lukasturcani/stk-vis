@@ -22,6 +22,8 @@ import {
     IMoleculeDataQuery,
     getPositionMatrixPromise,
     addPositionMatrices,
+    addValues,
+    getValuePromise,
 } from '../utilities';
 import {
     IMolecule,
@@ -56,6 +58,7 @@ export function request(
             options.moleculeCollection,
             options.positionMatrixCollection,
             options.buildingBlockPositionMatrixCollection,
+            options.sortedCollection,
         ]);
 
     return MongoClient
@@ -68,29 +71,30 @@ export function request(
 
     .then( (database: Db) => Promise.all([
         Promise.resolve(database),
+        getValueCollections(nonValueCollections, database),
         getSortedValues(options, database)
     ]) )
 
-    .then( ([database, valueEntries]) =>
+    .then( ([database, valueCollections, sortedValues]) =>
     {
 
         const query: IMoleculeDataQuery
             = getMoleculeDataQuery(
                 options.moleculeKey,
-                Array.from(valueEntries.keys()),
+                sortedValues.keys(),
             );
 
         return Promise.all([
 
             Promise.resolve(getPageKind({
-                numItems: valueEntries.size,
+                numItems: sortedValues.size,
                 pageIndex: options.pageIndex,
                 numEntriesPerPage: options.numEntriesPerPage,
             })),
 
-            Promise.resolve(valueEntries),
+            Promise.resolve(sortedValues),
 
-            getValueCollections(nonValueCollections, database),
+            Promise.resolve(valueCollections),
 
             getMoleculeEntries(options, database, query)
             .then(getPartialMolecules(options)),
@@ -105,19 +109,26 @@ export function request(
                 database,
                 query,
                 options.buildingBlockPositionMatrixCollection,
-            )
+            ),
+
+            Promise.all(
+                valueCollections
+                .map(getValuePromise(database, query)),
+            ),
 
         ]);
     })
 
     .then(([
         pageKind,
-        valueEntries,
+        sortedValues,
         valueCollections,
         molecules,
         matrices1,
         matrices2
-    ]) =>
+        values,
+    ])
+        : ISuccess =>
     {
         const molecules1: IMolecule[]
             = addPositionMatrices
@@ -131,25 +142,16 @@ export function request(
 
         molecules1.push(...molecules2);
 
-        addValues(options.moleculeKey, molecules)(valueEntries);
+        addValues(options.moleculeKey, molecules)(sortedValues.values());
+        addValues(options.moleculeKey, molecules)(values)
 
-        return Promise.all([
-            Promise.resolve(pageKind),
-            Promise.resolve(valueCollections),
-            Promise.resolve(molecules1),
-        ]);
-    })
+        valueCollections.push(options.sortedCollection);
 
-    .then((
-        [pageKind, valueCollections, molecules]
-    )
-        : ISuccess =>
-    {
         return {
             kind: ResultKind.Success,
             pageKind,
             valueCollections,
-            molecules,
+            molecules: molecules1,
         };
     })
 
