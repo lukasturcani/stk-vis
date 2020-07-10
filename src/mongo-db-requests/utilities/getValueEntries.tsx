@@ -1,7 +1,7 @@
 import { Db } from 'mongodb';
 import { IMoleculeDataQuery } from './getMoleculeDataQuery';
 import { IValueEntry, IValueEntries } from '../types';
-import { CollectionConnectionError } from '../errors';
+import { RequestError, CollectionConnectionError } from '../errors';
 
 
 export function getValueEntries(
@@ -15,7 +15,17 @@ export function getValueEntries(
         .collection(collection)
         .find(query)
         .toArray()
-        .catch( ()  => { throw new CollectionConnectionError(); } )
+        .catch(err  =>
+        {
+            if ( err instanceof RequestError)
+            {
+                throw err;
+            }
+            throw new CollectionConnectionError(
+                'Could not connect to the '
+                + collection + ' collection.'
+            );
+        })
         .then(
             (entries: IValueEntry[]) => ({
                 collection,

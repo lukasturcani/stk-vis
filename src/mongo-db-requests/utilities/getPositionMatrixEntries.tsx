@@ -2,6 +2,7 @@ import { Db } from 'mongodb';
 import { IMoleculeDataQuery } from './getMoleculeDataQuery';
 import { IPositionMatrixEntry } from '../types';
 import {
+    RequestError,
     CollectionConnectionError,
 } from '../errors';
 
@@ -17,5 +18,14 @@ export function getPositionMatrixEntries(
     .collection(collection)
     .find(query)
     .toArray()
-    .catch(err => { throw new CollectionConnectionError(); });
+    .catch(err =>
+    {
+        if (err instanceof RequestError)
+        {
+            throw err;
+        }
+        throw new CollectionConnectionError(
+            'Could not connect to the ' + collection + ' collection.'
+        );
+    });
 }

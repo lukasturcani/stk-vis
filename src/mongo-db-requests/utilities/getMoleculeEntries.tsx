@@ -1,7 +1,7 @@
 import { Db } from 'mongodb';
-import { IMoleculeEntry } from '../../types';
-import { IMoleculeDataQuery } from '../../utilities';
-import { CollectionConnectionError } from '../../errors';
+import { IMoleculeEntry } from '../types';
+import { IMoleculeDataQuery } from './getMoleculeDataQuery';
+import { RequestError, CollectionConnectionError } from '../errors';
 
 
 export interface Options
@@ -21,5 +21,15 @@ export function getMoleculeEntries(
     .collection(options.moleculeCollection)
     .find(query)
     .toArray()
-    .catch( () => { throw new CollectionConnectionError(); } );
+    .catch((err) =>
+    {
+        if (err instanceof RequestError)
+        {
+            throw err;
+        }
+        throw new CollectionConnectionError(
+            'Could not connect to the '
+            + options.moleculeCollection + ' collection.'
+        );
+    });
 }
