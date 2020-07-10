@@ -88,6 +88,8 @@ export function request(
                 numEntriesPerPage: options.numEntriesPerPage,
             })),
 
+            Promise.resolve(valueEntries),
+
             getValueCollections(nonValueCollections, database),
 
             getMoleculeEntries(options, database, query)
@@ -108,23 +110,34 @@ export function request(
         ]);
     })
 
-    .then((
-        [pageKind, valueCollections, molecules, matrices1, matrices2]
-    ) =>
+    .then(([
+        pageKind,
+        valueEntries,
+        valueCollections,
+        molecules,
+        matrices1,
+        matrices2
+    ]) =>
     {
+        const molecules1: IMolecule[]
+            = addPositionMatrices
+                (options.moleculeKey, molecules)
+                (matrices1);
+
+        const molecules2: IMolecule[]
+            = addPositionMatrices
+                (options.moleculeKey, molecules)
+                (matrices2)
+
+        molecules1.push(...molecules2);
+
+        addValues(options.moleculeKey, molecules)(valueEntries);
+
         return Promise.all([
             Promise.resolve(pageKind),
             Promise.resolve(valueCollections),
+            Promise.resolve(molecules1),
         ]);
-    })
-
-    .then((
-        [pageKind, valueCollections, molecules, buildingBlocks]
-    )
-        : [PageKind, string[], IMolecule[]] =>
-    {
-        molecules.push(...buildingBlocks);
-        return [pageKind, valueCollections, molecules];
     })
 
     .then((

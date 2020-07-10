@@ -22,6 +22,8 @@ import {
     IMoleculeDataQuery,
     getPositionMatrixPromise,
     addPositionMatrices,
+    getValuePromise,
+    addValues,
 } from '../utilities';
 import {
     IMolecule,
@@ -107,6 +109,12 @@ export function request(
             )
             .then(
                 addPositionMatrices(options.moleculeKey, molecules)
+            ),
+
+            Promise.all(
+                valueCollections
+                .map(getValuePromise(database, query))
+                .map(addValues(options.moleculeKey, molecules))
             ),
 
         ]);
