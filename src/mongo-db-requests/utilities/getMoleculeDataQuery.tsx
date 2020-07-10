@@ -1,18 +1,15 @@
-import { IPartialMolecules } from '../types';
-
-
 export type IMoleculeDataQuery = Record<any, unknown>;
 
 
 export function getMoleculeDataQuery(
-    moleculeKey: string,
-    molecules: IPartialMolecules,
+    keyName: string,
+    keys: string[],
 )
     : IMoleculeDataQuery
 {
     return {
-        [moleculeKey]: {
-            $in: Array.from(molecules.keys()),
+        [keyName]: {
+            $in:  keys,
         },
     };
 }

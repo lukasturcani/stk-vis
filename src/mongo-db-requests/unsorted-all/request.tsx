@@ -76,7 +76,10 @@ export function request(
     {
 
         const query: IMoleculeDataQuery
-            = getMoleculeDataQuery(options.moleculeKey, molecules);
+            = getMoleculeDataQuery(
+                options.moleculeKey,
+                Array.from(molecules.keys()),
+            );
 
         return Promise.all([
 
