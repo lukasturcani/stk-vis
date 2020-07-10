@@ -78,7 +78,7 @@ export function request(
     .then( (database: Db) => Promise.all([
         Promise.resolve(database),
         getValueCollections(nonValueCollections, database),
-        getSortedValues(options, database)
+        getSortedValues(database, options.sortedCollection)
     ]) )
 
     .then(([

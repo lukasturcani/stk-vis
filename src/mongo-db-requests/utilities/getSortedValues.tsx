@@ -1,21 +1,15 @@
 import { Db } from 'mongodb';
-mport { ISortedValues } from '../types';
-
-
-export interface Options
-{
-    moleculeKey: string;
-}
+import { ISortedEntries } from '../types';
 
 
 export function getSortedValues(
-    options: Options,
     database: Db,
+    collection: string,
 )
-    : Promise<ISortedValues>
+    : Promise<ISortedEntries>
 {
     return Promise.resolve({
-        keys: [],
-        values: [],
+        collection,
+        items: []
     });
 }
