@@ -4,6 +4,10 @@ import {
 import {
     IMoleculeEntry
 } from '../../types';
+import {
+    RequestError,
+    CollectionConnectionError,
+} from '../../errors';
 
 
 interface Options
@@ -57,5 +61,16 @@ export function getMoleculeEntries
     // next page, which is used to determine if the current
     // page is the last page.
     .limit(options.numEntriesPerPage+1)
-    .toArray();
+    .toArray()
+    .catch((err) =>
+    {
+        if (err instanceof RequestError)
+        {
+            throw err;
+        }
+        throw new CollectionConnectionError(
+            'Could not connect to the '
+            + options.moleculeCollection + ' collection.'
+        );
+    });
 }
