@@ -74,29 +74,29 @@ export function request(
     .then( ([database, valueEntries]) =>
     {
 
-        const moleculeQuery: IMoleculeEntryQuery
-            = getMoleculeEntryQuery(options, valueEntries);
-
         const query: IMoleculeDataQuery
-            = getMoleculeDataQuery(options.moleculeKey, molecules);
+            = getMoleculeDataQuery(
+                options.moleculeKey,
+                Array.from(valueEntries.keys()),
+            );
 
         return Promise.all([
 
             Promise.resolve(getPageKind({
-                numItems: molecules.size,
+                numItems: valueEntries.size,
                 pageIndex: options.pageIndex,
                 numEntriesPerPage: options.numEntriesPerPage,
             })),
 
-            Promise.resolve(valueCollections),
+            getValueCollections(nonValueCollections, database),
+
+            getMoleculeEntries(options, database, query)
+            .then(getPartialMolecules(options)),
 
             getPositionMatrixPromise(
                 database,
                 query,
                 options.positionMatrixCollection,
-            )
-            .then(
-                addPositionMatrices(options.moleculeKey, molecules)
             ),
 
             getPositionMatrixPromise(
@@ -104,10 +104,17 @@ export function request(
                 query,
                 options.buildingBlockPositionMatrixCollection,
             )
-            .then(
-                addPositionMatrices(options.moleculeKey, molecules)
-            ),
 
+        ]);
+    })
+
+    .then((
+        [pageKind, valueCollections, molecules, matrices1, matrices2]
+    ) =>
+    {
+        return Promise.all([
+            Promise.resolve(pageKind),
+            Promise.resolve(valueCollections),
         ]);
     })
 

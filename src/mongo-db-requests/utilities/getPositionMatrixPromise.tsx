@@ -3,7 +3,7 @@ import { IMoleculeDataQuery } from './getMoleculeDataQuery';
 import { IPositionMatrixEntry } from '../types';
 import {
     CollectionConnectionError,
-} '../errors';
+} from '../errors';
 
 
 export function getPositionMatrixPromise(
