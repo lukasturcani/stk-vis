@@ -23,6 +23,7 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.json'],
         alias: {
+            'actions': path.join(__dirname, './src/stkVis/actions'),
             'maybe': path.join(__dirname, './src/maybe'),
             'mongo-db-requests':
                 path.join(__dirname, './src/mongo-db-requests'),
