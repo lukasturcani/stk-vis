@@ -1,3 +1,6 @@
-export class DatabaseConnectionError extends Error
+import { RequestError } from './RequestError';
+
+
+export class DatabaseConnectionError extends RequestError
 {
 }

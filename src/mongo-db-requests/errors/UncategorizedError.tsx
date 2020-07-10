@@ -1,3 +1,6 @@
-export class UncategorizedError extends Error
+import { RequestError } from './RequestError';
+
+
+export class UncategorizedError extends RequestError
 {
 }
