@@ -11,4 +11,22 @@ import MongoConfigurator.Data
     )
 
 updateFields :: MongoConfigurator -> Action -> MongoConfigurator
-updateFields one two = one
+updateFields
+    (MongoConfigurator
+        { _url
+        , _database
+        , _moleculeKey
+        , _moleculeCollection
+        , _constructedMoleculeCollection
+        , _positionMatrixCollection
+        , _buildingBlockPositionMatrixCollection
+        , _valueCollections
+        , _numEntriesPerPage
+        , _searchKind
+        , _requestState
+        }
+    )
+    action
+    = MongoConfigurator
+        {
+        }

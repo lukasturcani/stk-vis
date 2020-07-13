@@ -1,7 +1,6 @@
 module MongoConfigurator.MongoData
     ( MongoData (..)
     , SearchKind (..)
-    , RequestState (..)
     ) where
 
 data MongoData = MongoData
@@ -12,19 +11,11 @@ data MongoData = MongoData
     , constructedMoleculeCollection         :: String
     , positionMatrixCollection              :: String
     , buildingBlockPositionMatrixCollection :: String
-    , valueCollections                      :: String
     , numEntriesPerPage                     :: Number
     , searchKind                            :: SearchKind
-    , requestState                          :: RequestState
     }
 
 data SearchKind
     = UnsortedAll
     | UnsortedBuildingBlocks
     | UnsortedConstructedMolecules
-
-data RequestState
-    = Unsent
-    | Sent
-    | Success
-    | Failure
