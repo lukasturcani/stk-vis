@@ -11,5 +11,20 @@ import MongoConfigurator.Data
     )
 
 reducer :: MongoConfigurator -> Payload -> MongoConfigurator
-reducer state _ = state
+reducer
+    MongoConfigurator
+        { _url                                   :: String
+        , _database                              :: String
+        , _moleculeKey                           :: String
+        , _moleculeCollection                    :: String
+        , _constructedMoleculeCollection         :: String
+        , _positionMatrixCollection              :: String
+        , _buildingBlockPositionMatrixCollection :: String
+        , _valueCollections                      :: String
+        , _numEntriesPerPage                     :: Number
+        , _searchKind                            :: SearchKind
+        , _requestState                          :: RequestState
+        }
 
+
+reducer state _ = state
