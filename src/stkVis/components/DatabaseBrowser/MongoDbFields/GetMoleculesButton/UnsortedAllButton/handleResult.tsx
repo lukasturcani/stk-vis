@@ -33,16 +33,19 @@ export function handleResult(
 
             case ResultKind.DatabaseConnectionError:
             {
+                console.log('database connection error');
                 break;
             }
 
             case ResultKind.CollectionConnectionError:
             {
+                console.log('collection connection error');
                 break;
             }
 
             case ResultKind.UncategorizedError:
             {
+                console.log('uncategorized error');
                 break;
             }
 

@@ -45,7 +45,7 @@ import {
 } from '../../selectors';
 
 
-export function initialDatabaseBrowserReducer(
+export function reducer(
     state: IInitialDatabaseBrowser | undefined,
     action: AnyAction,
 )

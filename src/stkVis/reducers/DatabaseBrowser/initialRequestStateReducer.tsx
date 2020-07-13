@@ -5,10 +5,10 @@ import {
     MoleculeRequestStateKind,
 } from '../../models';
 import {
-    updateTable,
     sendMoleculeRequest,
     setMoleculeRequestState,
 } from '../../actions';
+import { updateTable } from 'actions/updateTable';
 
 
 export function initialRequestStateReducer(
