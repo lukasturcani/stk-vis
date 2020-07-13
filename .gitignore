@@ -1,2 +1,5 @@
 dist
 node_modules
+output
+.spago
+.purs-repl
