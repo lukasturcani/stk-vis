@@ -1,8 +1,7 @@
 module MongoConfigurator.Internal.Data
     ( MongoConfigurator (..)
-    , SearchKind
     , RequestState (..)
-    , SearchKind,
+    , SearchKind
     , searchKind
     ) where
 
