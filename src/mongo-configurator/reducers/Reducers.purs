@@ -2,5 +2,5 @@ module MongoConfigurator.Reducers
     ( module Exports
     ) where
 
-import MongoConfigurator.Reducers.UpdateFields
+import MongoConfigurator.Reducers.Internal.UpdateFields
     (updateFields) as Exports

@@ -3,9 +3,9 @@ module MongoConfigurator
     ) where
 
 
-import MongoConfigurator.Data (MongoConfigurator) as Exports
+import MongoConfigurator.Internal.Data (MongoConfigurator) as Exports
 
-import MongoConfigurator.MongoData
+import MongoConfigurator.Internal.MongoData
     ( MongoData (..)
     , SearchKind (..)
     ) as Exports

@@ -2,7 +2,7 @@ module MongoConfigurator.UpdateFields
     ( module Exports
     ) where
 
-import MongoConfigurator.UpdateFields.Action
+import MongoConfigurator.UpdateFields.Internal.Action
     ( Action
     , url
     , database
@@ -15,6 +15,6 @@ import MongoConfigurator.UpdateFields.Action
     , searchKind
     ) as Exports
 
-import MongoConfigurator.UpdateFields.CreateAction
+import MongoConfigurator.UpdateFields.Internal.CreateAction
     ( createAction
     ) as Exports

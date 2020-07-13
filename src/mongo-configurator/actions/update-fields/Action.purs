@@ -1,4 +1,4 @@
-module MongoConfigurator.UpdateFields.Action
+module MongoConfigurator.UpdateFields.Internal.Action
     ( Action (..)
     , url
     , database
@@ -11,7 +11,7 @@ module MongoConfigurator.UpdateFields.Action
     , searchKind
     ) where
 
-import MongoConfigurator.MongoData
+import MongoConfigurator.Internal.MongoData
     ( MongoData (MongoData)
     , SearchKind
     )

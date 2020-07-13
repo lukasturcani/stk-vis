@@ -1,4 +1,4 @@
-module MongoConfigurator.MongoData
+module MongoConfigurator.Internal.MongoData
     ( MongoData (..)
     , SearchKind (..)
     ) where

@@ -1,11 +1,11 @@
-module MongoConfigurator.Data
+module MongoConfigurator.Internal.Data
     ( MongoConfigurator (..)
     , SearchKind
     , RequestState (..)
     , searchKind
     ) where
 
-import MongoConfigurator.MongoData as MongoData
+import MongoConfigurator.Internal.MongoData as MongoData
 
 data MongoConfigurator = MongoConfigurator
     { _url                                   :: String
