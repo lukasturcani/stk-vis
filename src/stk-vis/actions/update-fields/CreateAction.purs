@@ -2,8 +2,8 @@ module StkVis.UpdateFields.Internal.CreateAction
     ( createAction
     ) where
 
-import StkVis.UpdateFields.Internal.MongoData (MongoData)
+import MongoConfigurator.UpdateFields as UpdateFields
 import StkVis.UpdateFields.Internal.Action (Action (Action))
 
-createAction :: MongoData -> Action
-createAction data' = Action data'
+createAction :: UpdateFields.Action -> Action
+createAction action = Action action

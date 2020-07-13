@@ -18,8 +18,3 @@ import StkVis.UpdateFields.Internal.Action
 import StkVis.UpdateFields.Internal.CreateAction
     ( createAction
     ) as Exports
-
-import StkVis.UpdateFields.Internal.MongoData
-    ( MongoData (..)
-    , SearchKind (..)
-    ) as Exports

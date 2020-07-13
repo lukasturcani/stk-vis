@@ -1,5 +1,6 @@
 module StkVis.UpdateFields.Internal.Action
     ( Action (..)
+    , SearchKind
     , url
     , database
     , moleculeKey
@@ -11,57 +12,55 @@ module StkVis.UpdateFields.Internal.Action
     , searchKind
     ) where
 
-import StkVis.UpdateFields.Internal.MongoData
-    ( MongoData (MongoData)
-    , SearchKind
-    )
+import Prelude
+import MongoConfigurator.UpdateFields as UpdateFields
 
-data Action = Action MongoData
+newtype Action = Action UpdateFields.Action
+
+newtype SearchKind = SearchKind UpdateFields.SearchKind
+
 
 url :: Action -> String
 url
-    (Action (MongoData { url: url' }))
-    = url'
+    (Action action)
+    = UpdateFields.url action
 
 database :: Action -> String
 database
-    (Action (MongoData { database: database' }))
-    = database'
+    (Action action)
+    = UpdateFields.database action
 
 moleculeKey :: Action -> String
 moleculeKey
-    (Action (MongoData { moleculeKey: moleculeKey' }))
-    = moleculeKey'
+    (Action action)
+    = UpdateFields.moleculeKey action
 
 moleculeCollection :: Action -> String
 moleculeCollection
-    (Action (MongoData { moleculeCollection: collection }))
-    = collection
+    (Action action)
+    = UpdateFields.moleculeCollection action
 
 constructedMoleculeCollection :: Action -> String
 constructedMoleculeCollection
-    (Action (MongoData { constructedMoleculeCollection: collection }))
-    = collection
+    (Action action)
+    = UpdateFields.constructedMoleculeCollection action
 
 positionMatrixCollection :: Action -> String
 positionMatrixCollection
-    (Action (MongoData { positionMatrixCollection: collection }))
-    = collection
+    (Action action)
+    = UpdateFields.positionMatrixCollection action
 
 buildingBlockPositionMatrixCollection :: Action -> String
 buildingBlockPositionMatrixCollection
-    (Action
-        (MongoData { buildingBlockPositionMatrixCollection: collection }
-        )
-    )
-    = collection
+    (Action action)
+    = UpdateFields.buildingBlockPositionMatrixCollection action
 
 numEntriesPerPage :: Action -> Number
 numEntriesPerPage
-    (Action (MongoData { numEntriesPerPage: numEntries }))
-    = numEntries
+    (Action action)
+    = UpdateFields.numEntriesPerPage action
 
 searchKind :: Action -> SearchKind
 searchKind
-    (Action (MongoData { searchKind: searchKind' }))
-    = searchKind'
+    (Action action)
+    = SearchKind $ UpdateFields.searchKind action
