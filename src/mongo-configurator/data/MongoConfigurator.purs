@@ -1,8 +1,10 @@
 module MongoConfigurator.Data
-( MongoConfigurator (..)
-, searchKind
-, requestState
-) where
+    ( MongoConfigurator (..)
+    , SearchKind
+    , RequestState
+    , searchKind
+    , requestState
+    ) where
 
 import MongoConfigurator.MongoData as MongoData
 

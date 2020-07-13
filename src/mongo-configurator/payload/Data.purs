@@ -1,8 +1,8 @@
 module MongoConfigurator.Payload.Data
-( Payload (..)
-) where
+    ( Payload (..)
+    ) where
 
-import MongoData (MongoData)
+import MongoConfigurator.MongoData (MongoData)
 
 data Payload
     = UpdateFields MongoData

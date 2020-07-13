@@ -1,9 +1,9 @@
 module MongoConfigurator.Payload.UpdateFields
-(
-) where
+    ( updateFields
+    ) where
 
 import MongoConfigurator.MongoData (MongoData)
 import MongoConfigurator.Payload.Data (Payload (UpdateFields))
 
 updateFields :: MongoData -> Payload
-updateFields data = UpdateFields data
+updateFields data' = UpdateFields data'

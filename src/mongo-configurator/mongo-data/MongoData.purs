@@ -1,8 +1,8 @@
 module MongoConfigurator.MongoData
-( MongoData (..)
-, SearchKind (..)
-, RequestState (..)
-) where
+    ( MongoData (..)
+    , SearchKind (..)
+    , RequestState (..)
+    ) where
 
 data MongoData = MongoData
     { url                                   :: String

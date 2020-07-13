@@ -1,9 +1,9 @@
 module MongoConfigurator.Action
-( Action
-, action
-, name
-, payload
-) where
+    ( Action
+    , action
+    , name
+    , payload
+    ) where
 
 import MongoConfigurator.Payload (Payload)
 
