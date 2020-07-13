@@ -2,15 +2,17 @@ module MongoConfigurator.Reducers.UpdateFields
     ( updateFields
     ) where
 
-import MongoConfigurator.UpdateFields (Action)
+import Prelude
+import MongoConfigurator.UpdateFields as UpdateFields
 
 import MongoConfigurator.Data
     ( MongoConfigurator (..)
     , searchKind
-    , requestState
     )
 
-updateFields :: MongoConfigurator -> Action -> MongoConfigurator
+updateFields
+    :: MongoConfigurator -> UpdateFields.Action -> MongoConfigurator
+
 updateFields
     (MongoConfigurator
         { _url
@@ -20,7 +22,6 @@ updateFields
         , _constructedMoleculeCollection
         , _positionMatrixCollection
         , _buildingBlockPositionMatrixCollection
-        , _valueCollections
         , _numEntriesPerPage
         , _searchKind
         , _requestState
@@ -28,5 +29,17 @@ updateFields
     )
     action
     = MongoConfigurator
-        {
+        { _url: UpdateFields.url action
+        , _database: UpdateFields.database action
+        , _moleculeKey: UpdateFields.moleculeKey action
+        , _moleculeCollection: UpdateFields.moleculeCollection action
+        , _constructedMoleculeCollection:
+            UpdateFields.constructedMoleculeCollection action
+        , _positionMatrixCollection:
+            UpdateFields.positionMatrixCollection action
+        , _buildingBlockPositionMatrixCollection:
+            UpdateFields.buildingBlockPositionMatrixCollection action
+        , _numEntriesPerPage: UpdateFields.numEntriesPerPage action
+        , _searchKind: searchKind $ UpdateFields.searchKind action
+        , _requestState
         }

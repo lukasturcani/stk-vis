@@ -1,8 +1,20 @@
 module MongoConfigurator.UpdateFields.Action
     ( Action (..)
+    , url
+    , database
+    , moleculeKey
+    , moleculeCollection
+    , constructedMoleculeCollection
+    , positionMatrixCollection
+    , buildingBlockPositionMatrixCollection
+    , numEntriesPerPage
+    , searchKind
     ) where
 
-import MongoConfigurator.MongoData (MongoData, SearchKind)
+import MongoConfigurator.MongoData
+    ( MongoData (MongoData)
+    , SearchKind
+    )
 
 data Action = Action MongoData
 
@@ -50,7 +62,7 @@ numEntriesPerPage
     (Action (MongoData { numEntriesPerPage: numEntries }))
     = numEntries
 
-
 searchKind :: Action -> SearchKind
+searchKind
     (Action (MongoData { searchKind: searchKind' }))
     = searchKind'
