@@ -4,6 +4,8 @@ module MongoConfigurator
 
 
 import MongoConfigurator.Data (MongoConfigurator) as Exports
+import MongoConfigurator.Payload (Payload, updateFields) as Exports
+import MongoCOnfigurator.Reducer (reducer)
 
 import MongoConfigurator.Action
     ( Action
@@ -12,7 +14,6 @@ import MongoConfigurator.Action
     , payload
     ) as Exports
 
-import MongoConfigurator.Payload (Payload, updateFields) as Exports
 import MongoConfigurator.MongoData
     ( MongoData (..)
     , SearchKind (..)
