@@ -3,4 +3,7 @@ module MongoConfigurator
 ) where
 
 
-import MongoConfigurator.State ( MongoConfigurator ) as Exports
+import MongoConfigurator.Data (MongoConfigurator) as Exports
+import MongoConfigurator.Action as Exports
+import MongoConfigurator.Payload (Payload, updateFields) as Exports
+import MongoConfigurator.MongoData (..) as Exports

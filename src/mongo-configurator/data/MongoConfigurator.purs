@@ -1,9 +1,10 @@
-module MongoConfigurator.State
+module MongoConfigurator.Data
 ( MongoConfigurator (..)
-, SearchKind (..)
-, RequestState (..)
+, searchKind
+, requestState
 ) where
 
+import MongoConfigurator.MongoData as MongoData
 
 data MongoConfigurator = MongoConfigurator
     { _url                                   :: String
@@ -19,11 +20,21 @@ data MongoConfigurator = MongoConfigurator
     , _requestState                          :: RequestState
     }
 
-
 data SearchKind
     = UnsortedAll
     | UnsortedBuildingBlocks
     | UnsortedConstructedMolecules
+
+searchKind :: MongoData.SearchKind -> SearchKind
+
+searchKind MongoData.UnsortedAll
+    = UnsortedAll
+
+searchKind MongoData.UnsortedBuildingBlocks
+    = UnsortedBuildingBlocks
+
+searchKind MongoData.UnsortedConstructedMolecules
+    = UnsortedConstructedMolecules
 
 
 data RequestState
@@ -31,3 +42,9 @@ data RequestState
     | Sent
     | Success
     | Failure
+
+requestState :: MongoData.RequestState -> RequestState
+requestState MongoData.Unsent  = Unsent
+requestState MongoData.Sent    = Sent
+requestState MongoData.Success = Success
+requestState MongoData.Failure = Failure
