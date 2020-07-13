@@ -3,7 +3,7 @@ module MongoConfigurator.UpdateFields.Internal.CreateAction
     ) where
 
 import MongoConfigurator.UpdateFields.Internal.MongoData (MongoData)
-import MongoConfigurator.UpdateFields.Internal.Action (Action (Action))
+import MongoConfigurator.UpdateFields.Internal.Action (Action)
 
 createAction :: MongoData -> Action
-createAction data' = Action data'
+createAction data' = { type: "UPDATE_FIELDS",  payload: data' }

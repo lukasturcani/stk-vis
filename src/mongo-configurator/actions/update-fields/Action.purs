@@ -16,53 +16,61 @@ import MongoConfigurator.UpdateFields.Internal.MongoData
     , SearchKind
     )
 
-data Action = Action MongoData
+type Action =
+    { type    :: String
+    , payload :: MongoData
+    }
 
 url :: Action -> String
 url
-    (Action (MongoData { url: url' }))
+    { payload: (MongoData { url: url' }) }
     = url'
 
 database :: Action -> String
 database
-    (Action (MongoData { database: database' }))
+    { payload: (MongoData { database: database' }) }
     = database'
 
 moleculeKey :: Action -> String
 moleculeKey
-    (Action (MongoData { moleculeKey: moleculeKey' }))
+    { payload: (MongoData { moleculeKey: moleculeKey' }) }
     = moleculeKey'
 
 moleculeCollection :: Action -> String
 moleculeCollection
-    (Action (MongoData { moleculeCollection: collection }))
+    { payload: (MongoData { moleculeCollection: collection }) }
     = collection
 
 constructedMoleculeCollection :: Action -> String
 constructedMoleculeCollection
-    (Action (MongoData { constructedMoleculeCollection: collection }))
+    { payload:
+        (MongoData
+            { constructedMoleculeCollection: collection
+            }
+        )
+    }
     = collection
 
 positionMatrixCollection :: Action -> String
 positionMatrixCollection
-    (Action (MongoData { positionMatrixCollection: collection }))
+    { payload: (MongoData { positionMatrixCollection: collection }) }
     = collection
 
 buildingBlockPositionMatrixCollection :: Action -> String
 buildingBlockPositionMatrixCollection
-    (Action
+    { payload:
         (MongoData
             { buildingBlockPositionMatrixCollection: collection }
         )
-    )
+    }
     = collection
 
 numEntriesPerPage :: Action -> Number
 numEntriesPerPage
-    (Action (MongoData { numEntriesPerPage: numEntries }))
+    { payload: (MongoData { numEntriesPerPage: numEntries }) }
     = numEntries
 
 searchKind :: Action -> SearchKind
 searchKind
-    (Action (MongoData { searchKind: searchKind' }))
+    { payload: (MongoData { searchKind: searchKind' }) }
     = searchKind'
