@@ -18,3 +18,8 @@ import MongoConfigurator.UpdateFields.Internal.Action
 import MongoConfigurator.UpdateFields.Internal.CreateAction
     ( createAction
     ) as Exports
+
+import MongoConfigurator.UpdateFields.Internal.MongoData
+    ( MongoData (..)
+    , SearchKind (..)
+    ) as Exports

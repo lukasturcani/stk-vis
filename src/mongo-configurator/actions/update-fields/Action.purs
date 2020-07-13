@@ -11,7 +11,7 @@ module MongoConfigurator.UpdateFields.Internal.Action
     , searchKind
     ) where
 
-import MongoConfigurator.Internal.MongoData
+import MongoConfigurator.UpdateFields.Internal.MongoData
     ( MongoData (MongoData)
     , SearchKind
     )

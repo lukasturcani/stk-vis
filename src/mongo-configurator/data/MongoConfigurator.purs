@@ -2,10 +2,11 @@ module MongoConfigurator.Internal.Data
     ( MongoConfigurator (..)
     , SearchKind
     , RequestState (..)
+    , SearchKind,
     , searchKind
     ) where
 
-import MongoConfigurator.Internal.MongoData as MongoData
+import MongoConfigurator.UpdateFields as UpdateFields
 
 data MongoConfigurator = MongoConfigurator
     { _url                                   :: String
@@ -25,15 +26,15 @@ data SearchKind
     | UnsortedBuildingBlocks
     | UnsortedConstructedMolecules
 
-searchKind :: MongoData.SearchKind -> SearchKind
+searchKind :: UpdateFields.SearchKind -> SearchKind
 
-searchKind MongoData.UnsortedAll
+searchKind UpdateFields.UnsortedAll
     = UnsortedAll
 
-searchKind MongoData.UnsortedBuildingBlocks
+searchKind UpdateFields.UnsortedBuildingBlocks
     = UnsortedBuildingBlocks
 
-searchKind MongoData.UnsortedConstructedMolecules
+searchKind UpdateFields.UnsortedConstructedMolecules
     = UnsortedConstructedMolecules
 
 
