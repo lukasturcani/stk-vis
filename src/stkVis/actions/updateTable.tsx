@@ -18,7 +18,7 @@ interface IBond
 type number3 = [number, number, number];
 
 
-interface IMolecule
+export interface IMolecule
 {
     columnValues: Map<string, string>;
     atoms: IAtom[];
@@ -27,7 +27,7 @@ interface IMolecule
 }
 
 
-const enum PageKind
+export const enum PageKind
 {
     First = 'First',
     Middle = 'Middle',

@@ -31,9 +31,7 @@ function GetMoleculesButton(
 {
     if (props.selectBuildingBlocks && props.selectConstructedMolecules)
     {
-        return <UnsortedAllButton
-            { ...props }
-        />;
+        return <UnsortedAllButton { ...props } />;
     }
 
     return (

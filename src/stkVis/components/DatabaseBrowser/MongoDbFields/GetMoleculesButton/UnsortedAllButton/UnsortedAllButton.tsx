@@ -37,7 +37,9 @@ export function UnsortedAllButton(
                         ignoredCollections: [],
                         pageIndex: 0,
                     })
-                    .then(handleResult(props))
+                    .then(handleResult({
+                        updateTable: props.updateTable,
+                    }))
                 }
             }
         >

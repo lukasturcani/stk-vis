@@ -41,6 +41,11 @@ export function handleResult(
                 break;
             }
 
+            case ResultKind.UncategorizedError:
+            {
+                break;
+            }
+
             default:
             {
                 assertNever(result);

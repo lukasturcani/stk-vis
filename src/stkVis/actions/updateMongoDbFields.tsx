@@ -1,10 +1,15 @@
 import { createAction } from '@reduxjs/toolkit'
-import {
-    UnsortedSearchKind
-} from '../../../models';
 
 
-export interface IMongoDbFields
+export const enum SearchKind
+{
+    UnsortedBoth = "Unsorted Both",
+    UnsortedBuildingBlocks = "Unsorted Building Blocks",
+    UnsortedConstructedMolecules = "Unsorted Constructed Molecules",
+}
+
+
+export interface Payload
 {
     url: string;
     moleculeKey: string;
@@ -14,15 +19,11 @@ export interface IMongoDbFields
     constructedMoleculeCollection: string;
     buildingBlockPositionMatrixCollection: string;
     numEntriesPerPage: number;
-    searchKind: UnsortedSearchKind;
+    searchKind: SearchKind;
 }
 
 
 export const updateMongoDbFields = createAction(
     'DatabaseBrowser/updateMongoDbFields',
-    (fields: IMongoDbFields) => {
-        return {
-            payload: fields,
-        };
-    },
+    (payload: Payload) => ({ payload }),
 );
