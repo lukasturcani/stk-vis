@@ -12,3 +12,4 @@ import MongoConfigurator.Data
 
 reducer :: MongoConfigurator -> Payload -> MongoConfigurator
 reducer state _ = state
+

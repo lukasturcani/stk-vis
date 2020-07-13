@@ -5,7 +5,7 @@ module MongoConfigurator
 
 import MongoConfigurator.Data (MongoConfigurator) as Exports
 import MongoConfigurator.Payload (Payload, updateFields) as Exports
-import MongoCOnfigurator.Reducer (reducer)
+import MongoConfigurator.Reducer (reducer) as Exports
 
 import MongoConfigurator.Action
     ( Action
