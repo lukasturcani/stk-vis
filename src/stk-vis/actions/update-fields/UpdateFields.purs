@@ -4,6 +4,7 @@ module StkVis.UpdateFields
 
 import StkVis.UpdateFields.Internal.Action
     ( Action
+    , toConfigurator
     , url
     , database
     , moleculeKey

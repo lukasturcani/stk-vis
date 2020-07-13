@@ -1,6 +1,7 @@
 module StkVis.UpdateFields.Internal.Action
     ( Action (..)
     , SearchKind
+    , toConfigurator
     , url
     , database
     , moleculeKey
@@ -19,6 +20,8 @@ newtype Action = Action UpdateFields.Action
 
 newtype SearchKind = SearchKind UpdateFields.SearchKind
 
+toConfigurator :: Action -> UpdateFields.Action
+toConfigurator (Action action) = action
 
 url :: Action -> String
 url
