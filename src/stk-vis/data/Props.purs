@@ -23,7 +23,7 @@ type Props
 
 props :: StkVis -> Props
 props (MongoConfigurator configurator) =
-    { kind: "Molecule Configurator"
+    { kind: "Mongo Configurator"
     , url: MongoConfigurator.url configurator
     , moleculeKey: MongoConfigurator.moleculeKey configurator
     , database: MongoConfigurator.database configurator

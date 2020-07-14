@@ -10,9 +10,9 @@ function Component(
     props: any,
 )
 {
-    switch (props.constructor.name)
+    switch (props.kind)
     {
-        case 'MongoConfigurator':
+        case 'Mongo Configurator':
         {
             return <MongoConfigurator {...props } />;
         }
