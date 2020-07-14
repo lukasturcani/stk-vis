@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
     MongoConfigurator,
 } from 'mongo-configurator/components/mongo-configurator';
-import { props } from 'StkVis';
+import { props } from 'StkVis.StkVis.Props';
 
 
 function Component(

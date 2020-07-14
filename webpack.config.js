@@ -21,18 +21,40 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.json'],
         alias: {
-            'stk-vis':
-                path.join(__dirname, './src/stk-vis'),
-            'mongo-configurator':
-                path.join(__dirname, './src/mongo-configurator'),
-            'StkVis.UpdateFields':
-                path.join(__dirname, './output/StkVis.UpdateFields'),
-            'StkVis.Reducers':
-                path.join(__dirname, './output/StkVis.Reducers'),
-            'StkVis':
-                path.join(__dirname, './output/StkVis'),
-            'MongoConfigurator':
-                path.join(__dirname, './output/MongoConfigurator'),
+            'stk-vis': path.join(
+                __dirname,
+                './src/stk-vis',
+            ),
+
+            'mongo-configurator': path.join(
+                __dirname,
+                './src/mongo-configurator',
+            ),
+
+            'StkVis.UpdateFields': path.join(
+                __dirname,
+                './output/StkVis.UpdateFields',
+            ),
+
+            'StkVis.StkVis.Reducers': path.join(
+                __dirname,
+                './output/StkVis.StkVis.Reducers',
+            ),
+
+            'StkVis.StkVis': path.join(
+                __dirname,
+                './output/StkVis.StkVis',
+            ),
+
+            'StkVis.StkVis.Props': path.join(
+                __dirname,
+                './output/StkVis.StkVis.Props',
+            ),
+
+            'MongoConfigurator.MongoConfigurator': path.join(
+                __dirname,
+                './output/MongoConfigurator.MongoConfigurator',
+            ),
         },
     },
     module: {
