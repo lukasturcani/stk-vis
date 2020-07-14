@@ -1,4 +1,4 @@
-module MongoConfigurator.Internal.Data.InitialState
+module MongoConfigurator.Internal.InitialState
     ( initialState
     ) where
 
