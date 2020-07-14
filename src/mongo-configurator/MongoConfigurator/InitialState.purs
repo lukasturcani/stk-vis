@@ -1,8 +1,8 @@
-module MongoConfigurator.Internal.InitialState
+module MongoConfigurator.MongoConfigurator.Internal.InitialState
     ( initialState
     ) where
 
-import MongoConfigurator.Internal.Data
+import MongoConfigurator.MongoConfigurator.Internal
     ( MongoConfigurator (MongoConfigurator)
     , RequestState (Unsent)
     , SearchKind (UnsortedAll)

@@ -1,11 +1,11 @@
-module MongoConfigurator.Reducers.Internal.UpdateFields
+module MongoConfigurator.MongoConfigurator.Reducers.Internal.UpdateFields
     ( updateFields
     ) where
 
 import Prelude
 import MongoConfigurator.UpdateFields as UpdateFields
 
-import MongoConfigurator.Internal.Data
+import MongoConfigurator.MongoConfigurator.Internal
     ( MongoConfigurator (..)
     , SearchKind (..)
     )

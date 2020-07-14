@@ -1,4 +1,4 @@
-module MongoConfigurator.Internal.Data
+module MongoConfigurator.MongoConfigurator.Internal
     ( MongoConfigurator (..)
     , RequestState (..)
     , SearchKind (..)

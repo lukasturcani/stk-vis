@@ -1,4 +1,4 @@
-module MongoConfigurator
+module MongoConfigurator.MongoConfigurator
     ( module Exports
     , initialState
     , url
@@ -14,13 +14,13 @@ module MongoConfigurator
     ) where
 
 
-import MongoConfigurator.Internal.Data
+import MongoConfigurator.MongoConfigurator.Internal
     ( MongoConfigurator
     , SearchKind (..)
     , RequestState (..)
     ) as Exports
 
-import MongoConfigurator.Internal.Data
+import MongoConfigurator.MongoConfigurator.Internal
     ( url
     , moleculeKey
     , database
@@ -31,41 +31,43 @@ import MongoConfigurator.Internal.Data
     , numEntriesPerPage
     , searchKind
     , requestState
-    ) as Data
+    ) as Internal
 
-import MongoConfigurator.Internal.InitialState as InitialState
+import MongoConfigurator.MongoConfigurator.Internal.InitialState
+    ( initialState
+    ) as InitialState
 
 initialState :: Exports.MongoConfigurator
 initialState = InitialState.initialState
 
 url :: Exports.MongoConfigurator -> String
-url = Data.url
+url = Internal.url
 
 moleculeKey :: Exports.MongoConfigurator -> String
-moleculeKey = Data.moleculeKey
+moleculeKey = Internal.moleculeKey
 
 database :: Exports.MongoConfigurator -> String
-database = Data.database
+database = Internal.database
 
 moleculeCollection :: Exports.MongoConfigurator -> String
-moleculeCollection = Data.moleculeCollection
+moleculeCollection = Internal.moleculeCollection
 
 constructedMoleculeCollection :: Exports.MongoConfigurator -> String
-constructedMoleculeCollection = Data.constructedMoleculeCollection
+constructedMoleculeCollection = Internal.constructedMoleculeCollection
 
 positionMatrixCollection :: Exports.MongoConfigurator -> String
-positionMatrixCollection = Data.positionMatrixCollection
+positionMatrixCollection = Internal.positionMatrixCollection
 
 buildingBlockPositionMatrixCollection
     :: Exports.MongoConfigurator -> String
 buildingBlockPositionMatrixCollection
-    = Data.buildingBlockPositionMatrixCollection
+    = Internal.buildingBlockPositionMatrixCollection
 
 numEntriesPerPage :: Exports.MongoConfigurator -> Int
-numEntriesPerPage = Data.numEntriesPerPage
+numEntriesPerPage = Internal.numEntriesPerPage
 
 searchKind :: Exports.MongoConfigurator -> Exports.SearchKind
-searchKind = Data.searchKind
+searchKind = Internal.searchKind
 
 requestState :: Exports.MongoConfigurator -> Exports.RequestState
-requestState = Data.requestState
+requestState = Internal.requestState
