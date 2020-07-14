@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import { InputFields } from './input-fields';
+import { GetMoleculesButton } from './get-molecules-button';
 
 
 interface Props
@@ -106,6 +107,30 @@ function MongoConfigurator(
                     setSelectConstructedMolecules
                 }
             />
+            <Grid item>
+                <GetMoleculesButton
+                    url={ props.url }
+                    moleculeKey={ props.moleculeKey }
+                    database={ props.database }
+                    moleculeCollection={ props.moleculeCollection }
+                    constructedMoleculeCollection={
+                        props.constructedMoleculeCollection
+                    }
+                    positionMatrixCollection={
+                        props.positionMatrixCollection
+                    }
+                    buildingBlockPositionMatrixCollection={
+                        props.buildingBlockPositionMatrixCollection
+                    }
+                    numEntriesPerPage={
+                        props.numEntriesPerPage
+                    }
+                    selectBuildingBlocks={ props.selectBuildingBlocks }
+                    selectConstructedMolecules={
+                        props.selectConstructedMolecules
+                    }
+                />
+            </Grid>
         </Grid>
     );
 }

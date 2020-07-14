@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { SearchKindSelector } from './SearchKindSelector';
+import { SearchKindSelector } from './search-kind-selector';
 
 
 interface Props
@@ -50,7 +50,17 @@ export function InputFields(
     return (
         <Grid container>
             <Grid item>
-                <SearchKindSelector />
+                <SearchKindSelector
+                    buildingBlocks={ props.selectBuildingBlocks }
+                    setBuildingBlocks={ props.setSelectBuildingBlocks }
+
+                    constructedMolecules={
+                        props.selectConstructedMolecules
+                    }
+                    setConstructedMolecules={
+                        props.setSelectConstructedMolecules
+                    }
+                />
             </Grid>
             <Grid item>
                 <TextField
