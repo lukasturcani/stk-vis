@@ -4,9 +4,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        App: './src/stkVis/index.tsx',
-        maybe: './src/maybe/index.tsx',
-        'mongo-db-requests': './src/mongo-db-requests/index.tsx',
+        App: './src/stk-vis/index.tsx',
     },
     target: 'electron-renderer',
     output: {
@@ -16,17 +14,15 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'stkVis',
-            template: './src/stkVis/template.html',
+            template: './src/stk-vis/template.html',
         }),
     ],
     mode: 'development',
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.json'],
         alias: {
-            'actions': path.join(__dirname, './src/stkVis/actions'),
-            'maybe': path.join(__dirname, './src/maybe'),
-            'mongo-db-requests':
-                path.join(__dirname, './src/mongo-db-requests'),
+            'mongo-configurator':
+                path.join(__dirname, './src/mongo-configurator'),
         },
     },
     module: {

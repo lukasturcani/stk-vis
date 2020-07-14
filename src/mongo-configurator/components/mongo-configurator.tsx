@@ -20,7 +20,7 @@ interface Props
 }
 
 
-function MongoConfigurator(
+export function MongoConfigurator(
     props: Props,
 )
 {

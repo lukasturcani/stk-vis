@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
     MongoConfigurator,
 } from 'mongo-configurator/components/mongo-configurator';
@@ -5,5 +6,16 @@ import {
 
 export function StkVis()
 {
-    return <MongoConfigurator />;
+    return <MongoConfigurator
+        url={ '' }
+        moleculeKey={ '' }
+        database={ '' }
+        moleculeCollection={ '' }
+        constructedMoleculeCollection={ '' }
+        positionMatrixCollection={ '' }
+        buildingBlockPositionMatrixCollection={ '' }
+        numEntriesPerPage={ 34 }
+        selectBuildingBlocks={ true }
+        selectConstructedMolecules={ true }
+    />;
 }
