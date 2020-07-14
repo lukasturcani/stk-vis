@@ -1,10 +1,10 @@
-module StkVis.Internal.Data.Internal.Props
+module StkVis.StkVis.Props
     ( Props
     , props
     ) where
 
-import StkVis.Internal.Data.Internal.StkVis (StkVis (..))
-import MongoConfigurator as MongoConfigurator
+import StkVis.StkVis.Internal (StkVis (..))
+import MongoConfigurator.MongoConfigurator as MongoConfigurator
 
 type Props
     =

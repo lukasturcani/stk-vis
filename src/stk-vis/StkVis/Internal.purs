@@ -1,8 +1,8 @@
-module StkVis.Internal.Data.Internal.StkVis
+module StkVis.StkVis.Internal
     ( StkVis (..)
     ) where
 
-import MongoConfigurator (MongoConfigurator)
+import MongoConfigurator.MongoConfigurator (MongoConfigurator)
 
 data StkVis
     = MongoConfigurator MongoConfigurator

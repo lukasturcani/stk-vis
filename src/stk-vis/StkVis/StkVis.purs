@@ -1,15 +1,11 @@
-module StkVis
-    ( module Exports
+module StkVis.StkVis
+    ( StkVis.StkVis
     , initialState
-    , props
     ) where
 
-import StkVis.Internal.Data (StkVis) as Exports
-import StkVis.Internal.Data (Props, props) as Data
-import StkVis.Internal.InitialState (initialState) as InitialState
+import StkVis.StkVis.Internal (StkVis) as StkVis
+import StkVis.StkVis.Internal.InitialState
+    (initialState) as InitialState
 
-initialState :: Exports.StkVis
+initialState :: StkVis.StkVis
 initialState = InitialState.initialState
-
-props :: Exports.StkVis -> Data.Props
-props = Data.props
