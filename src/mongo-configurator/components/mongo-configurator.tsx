@@ -109,25 +109,23 @@ export function MongoConfigurator(
             />
             <Grid item>
                 <GetMoleculesButton
-                    url={ props.url }
-                    moleculeKey={ props.moleculeKey }
-                    database={ props.database }
-                    moleculeCollection={ props.moleculeCollection }
+                    url={ url }
+                    moleculeKey={ moleculeKey }
+                    database={ database }
+                    moleculeCollection={ moleculeCollection }
                     constructedMoleculeCollection={
-                        props.constructedMoleculeCollection
+                        constructedMoleculeCollection
                     }
                     positionMatrixCollection={
-                        props.positionMatrixCollection
+                        positionMatrixCollection
                     }
                     buildingBlockPositionMatrixCollection={
-                        props.buildingBlockPositionMatrixCollection
+                        buildingBlockPositionMatrixCollection
                     }
-                    numEntriesPerPage={
-                        props.numEntriesPerPage
-                    }
-                    selectBuildingBlocks={ props.selectBuildingBlocks }
+                    numEntriesPerPage={ numEntriesPerPage }
+                    selectBuildingBlocks={ selectBuildingBlocks }
                     selectConstructedMolecules={
-                        props.selectConstructedMolecules
+                        selectConstructedMolecules
                     }
                 />
             </Grid>

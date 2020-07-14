@@ -20,9 +20,7 @@ function handleChange(
 )
     : (e: any) => void
 {
-    return (e: any) => {
-        setState(e.target.checked);
-    };
+    return (e: any) => setState(e.target.checked);
 }
 
 

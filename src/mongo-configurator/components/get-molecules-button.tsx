@@ -24,6 +24,15 @@ export function GetMoleculesButton(
     props: Props,
 )
 {
+    if (
+        props.selectBuildingBlocks || props.selectConstructedMolecules
+    ) {
+        return (
+            <Button>
+                <SearchIcon />
+            </Button>
+        );
+    }
     return (
         <Button disabled={ true }>
             <SearchIcon />
