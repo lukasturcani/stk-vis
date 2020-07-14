@@ -1,10 +1,30 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import {
     MongoConfigurator,
-} from 'stk-vis/components/mongo-configurator';
+} from 'mongo-configurator/components/mongo-configurator';
+import { props } from 'StkVis';
 
 
-export function StkVis()
+function Component(
+    props: any,
+)
 {
-    return <MongoConfigurator />;
+    switch (props.constructor.name)
+    {
+        case 'MongoConfigurator':
+        {
+            return <MongoConfigurator {...props } />;
+        }
+    }
 }
+
+
+function mapStateToProps(state)
+{
+    return props(state);
+}
+
+
+export const StkVis
+    = connect(mapStateToProps)(Component);
