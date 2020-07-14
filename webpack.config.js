@@ -27,6 +27,8 @@ module.exports = {
                 path.join(__dirname, './output/StkVis.UpdateFields'),
             'StkVis.Reducers':
                 path.join(__dirname, './output/StkVis.Reducers'),
+            'StkVis':
+                path.join(__dirname, './output/StkVis'),
         },
     },
     module: {
