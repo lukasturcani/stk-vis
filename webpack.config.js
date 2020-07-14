@@ -23,6 +23,8 @@ module.exports = {
         alias: {
             'mongo-configurator':
                 path.join(__dirname, './src/mongo-configurator'),
+            'StkVis.UpdateFields':
+                path.join(__dirname, './output/StkVis.UpdateFields'),
         },
     },
     module: {
