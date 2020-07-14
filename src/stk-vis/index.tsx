@@ -11,8 +11,6 @@ import {
 import logger from 'redux-logger';
 
 
-console.log(initialState);
-
 const store = configureStore({
     reducer: (state, action) => {
         if (state === undefined)
