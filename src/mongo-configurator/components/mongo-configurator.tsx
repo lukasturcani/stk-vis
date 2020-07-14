@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import { InputFields } from './input-fields';
 import { GetMoleculesButton } from './get-molecules-button';
-import * as MongoConfigurator from 'MongoConfigurator';
 
 
 interface Props
@@ -21,7 +20,7 @@ interface Props
 }
 
 
-function Component(
+export function MongoConfigurator(
     props: Props,
 )
 {
@@ -133,70 +132,3 @@ function Component(
         </Grid>
     );
 }
-
-
-function mapStateToProps(state)
-{
-    state = state.value0;
-    let selectBuildingBlocks: boolean
-        = false;
-
-    let selectConstructedMolecules: boolean
-        = false;
-
-    const searchKind = MongoConfigurator.searchKind(state);
-    if (searchKind.constructor.name === 'UnsortedAll')
-    {
-        selectBuildingBlocks = true;
-        selectConstructedMolecules = true;
-    }
-    if (searchKind.constructor.name === 'UnsortedBuildingBlocks')
-    {
-        selectBuildingBlocks = true;
-    }
-    if (searchKind.constructor.name === 'UnsortedConstructedMolecules')
-    {
-        selectConstructedMolecules = true;
-    }
-
-    return {
-        url:
-            MongoConfigurator.url(state),
-
-        moleculeKey:
-            MongoConfigurator.moleculeKey(state),
-
-        database:
-            MongoConfigurator.database(state),
-
-        moleculeCollection:
-            MongoConfigurator.moleculeCollection(state),
-
-        constructedMoleculeCollection:
-            MongoConfigurator.constructedMoleculeCollection(state),
-
-        positionMatrixCollection:
-            MongoConfigurator.positionMatrixCollection(state),
-
-        buildingBlockPositionMatrixCollection:
-            MongoConfigurator.buildingBlockPositionMatrixCollection(
-                state,
-            ),
-
-        numEntriesPerPage:
-            MongoConfigurator.numEntriesPerPage(state),
-
-        selectBuildingBlocks:
-            selectBuildingBlocks,
-
-        selectConstructedMolecules:
-            selectConstructedMolecules,
-    };
-}
-
-
-const ConnectedComponent
-    = connect(mapStateToProps)(Component);
-
-
-export { ConnectedComponent as MongoConfigurator };

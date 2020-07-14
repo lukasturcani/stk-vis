@@ -21,6 +21,8 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.json'],
         alias: {
+            'stk-vis':
+                path.join(__dirname, './src/stk-vis'),
             'mongo-configurator':
                 path.join(__dirname, './src/mongo-configurator'),
             'StkVis.UpdateFields':
