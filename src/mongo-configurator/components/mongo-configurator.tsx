@@ -137,6 +137,28 @@ function Component(
 
 function mapStateToProps(state)
 {
+    state = state.value0;
+    let selectBuildingBlocks: boolean
+        = false;
+
+    let selectConstructedMolecules: boolean
+        = false;
+
+    const searchKind = MongoConfigurator.searchKind(state);
+    if (searchKind.constructor.name === 'UnsortedAll')
+    {
+        selectBuildingBlocks = true;
+        selectConstructedMolecules = true;
+    }
+    if (searchKind.constructor.name === 'UnsortedBuildingBlocks')
+    {
+        selectBuildingBlocks = true;
+    }
+    if (searchKind.constructor.name === 'UnsortedConstructedMolecules')
+    {
+        selectConstructedMolecules = true;
+    }
+
     return {
         url:
             MongoConfigurator.url(state),
@@ -165,10 +187,10 @@ function mapStateToProps(state)
             MongoConfigurator.numEntriesPerPage(state),
 
         selectBuildingBlocks:
-            MongoConfigurator.selectBuildingBlocks(state),
+            selectBuildingBlocks,
 
         selectConstructedMolecules:
-            MongoConfigurator.selectConstructedMolecules(state),
+            selectConstructedMolecules,
     };
 }
 

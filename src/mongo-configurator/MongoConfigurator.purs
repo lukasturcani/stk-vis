@@ -32,6 +32,7 @@ import MongoConfigurator.Internal.Data
     , searchKind
     , requestState
     ) as Data
+
 import MongoConfigurator.Internal.InitialState as InitialState
 
 initialState :: Exports.MongoConfigurator
