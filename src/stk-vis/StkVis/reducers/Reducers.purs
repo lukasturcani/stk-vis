@@ -1,10 +1,10 @@
-module StkVis.Reducers
+module StkVis.StkVis.Reducers
     ( updateFields
     ) where
 
-import StkVis.Internal.Data (StkVis)
+import StkVis.StkVis.Internal (StkVis)
 import StkVis.UpdateFields (Action) as UpdateFields
-import StkVis.Reducers.Internal.UpdateFields
+import StkVis.StkVis.Reducers.Internal.UpdateFields
     (updateFields) as UpdateFields
 
 updateFields :: StkVis -> UpdateFields.Action -> StkVis

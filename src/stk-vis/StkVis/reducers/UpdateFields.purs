@@ -1,10 +1,11 @@
-module StkVis.Reducers.Internal.UpdateFields
+module StkVis.StkVis.Reducers.Internal.UpdateFields
     ( updateFields
     ) where
 
-import MongoConfigurator.Reducers (updateFields) as MongoConfigurator
+import StkVis.StkVis.Internal (StkVis (..))
 import StkVis.UpdateFields as UpdateFields
-import StkVis.Internal.Data (StkVis (..))
+import MongoConfigurator.MongoConfigurator.Reducers
+    (updateFields) as MongoConfigurator
 
 updateFields :: StkVis -> UpdateFields.Action -> StkVis
 updateFields
