@@ -25,6 +25,8 @@ module.exports = {
                 path.join(__dirname, './src/mongo-configurator'),
             'StkVis.UpdateFields':
                 path.join(__dirname, './output/StkVis.UpdateFields'),
+            'StkVis.Reducers':
+                path.join(__dirname, './output/StkVis.Reducers'),
         },
     },
     module: {

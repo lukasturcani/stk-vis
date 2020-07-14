@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { StkVis } from './components/stk-vis';
-import { updateFields } from 'StkVis.UpdateFields';
+import { updateFields } from 'StkVis.Reducers';
 import { Provider } from 'react-redux';
 import {
     configureStore,
