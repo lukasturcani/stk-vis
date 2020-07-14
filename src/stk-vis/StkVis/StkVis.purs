@@ -1,11 +1,11 @@
 module StkVis.StkVis
-    ( StkVis.StkVis
+    ( module Exports
     , initialState
     ) where
 
-import StkVis.StkVis.Internal (StkVis) as StkVis
+import StkVis.StkVis.Internal (StkVis) as Exports
 import StkVis.StkVis.Internal.InitialState
     (initialState) as InitialState
 
-initialState :: StkVis.StkVis
+initialState :: Exports.StkVis
 initialState = InitialState.initialState
