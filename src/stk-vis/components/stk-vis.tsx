@@ -6,16 +6,5 @@ import {
 
 export function StkVis()
 {
-    return <MongoConfigurator
-        url={ '' }
-        moleculeKey={ '' }
-        database={ '' }
-        moleculeCollection={ '' }
-        constructedMoleculeCollection={ '' }
-        positionMatrixCollection={ '' }
-        buildingBlockPositionMatrixCollection={ '' }
-        numEntriesPerPage={ 34 }
-        selectBuildingBlocks={ true }
-        selectConstructedMolecules={ true }
-    />;
+    return <MongoConfigurator />;
 }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import { InputFields } from './input-fields';
 import { GetMoleculesButton } from './get-molecules-button';
+import * as MongoConfigurator from 'MongoConfigurator';
 
 
 interface Props
@@ -20,7 +21,7 @@ interface Props
 }
 
 
-export function MongoConfigurator(
+function Component(
     props: Props,
 )
 {
@@ -132,3 +133,48 @@ export function MongoConfigurator(
         </Grid>
     );
 }
+
+
+function mapStateToProps(state)
+{
+    return {
+        url:
+            MongoConfigurator.url(state),
+
+        moleculeKey:
+            MongoConfigurator.moleculeKey(state),
+
+        database:
+            MongoConfigurator.database(state),
+
+        moleculeCollection:
+            MongoConfigurator.moleculeCollection(state),
+
+        constructedMoleculeCollection:
+            MongoConfigurator.constructedMoleculeCollection(state),
+
+        positionMatrixCollection:
+            MongoConfigurator.positionMatrixCollection(state),
+
+        buildingBlockPositionMatrixCollection:
+            MongoConfigurator.buildingBlockPositionMatrixCollection(
+                state,
+            ),
+
+        numEntriesPerPage:
+            MongoConfigurator.numEntriesPerPage(state),
+
+        selectBuildingBlocks:
+            MongoConfigurator.selectBuildingBlocks(state),
+
+        selectConstructedMolecules:
+            MongoConfigurator.selectConstructedMolecules(state),
+    };
+}
+
+
+const ConnectedComponent
+    = connect(mapStateToProps)(Component);
+
+
+export { ConnectedComponent as MongoConfigurator };

@@ -2,11 +2,10 @@ module MongoConfigurator.Internal.InitialState
     ( initialState
     ) where
 
-import MongoConfigurator.UpdateFields (SearchKind (UnsortedAll))
 import MongoConfigurator.Internal.Data
-    ( MongoConfigurator (..)
-    , RequestState (..)
-    , searchKind
+    ( MongoConfigurator (MongoConfigurator)
+    , RequestState (Unsent)
+    , SearchKind (UnsortedAll)
     )
 
 initialState :: MongoConfigurator
@@ -20,6 +19,6 @@ initialState = MongoConfigurator
     , _buildingBlockPositionMatrixCollection:
         "building_block_position_matrix_collection"
     , _numEntriesPerPage: 34
-    , _searchKind: searchKind UnsortedAll
+    , _searchKind: UnsortedAll
     , _requestState: Unsent
     }

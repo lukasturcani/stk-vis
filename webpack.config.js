@@ -29,6 +29,8 @@ module.exports = {
                 path.join(__dirname, './output/StkVis.Reducers'),
             'StkVis':
                 path.join(__dirname, './output/StkVis'),
+            'MongoConfigurator':
+                path.join(__dirname, './output/MongoConfigurator'),
         },
     },
     module: {

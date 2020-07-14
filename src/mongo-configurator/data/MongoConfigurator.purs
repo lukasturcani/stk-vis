@@ -1,11 +1,18 @@
 module MongoConfigurator.Internal.Data
     ( MongoConfigurator (..)
     , RequestState (..)
-    , SearchKind
+    , SearchKind (..)
     , searchKind
+    , url
+    , moleculeKey
+    , database
+    , moleculeCollection
+    , constructedMoleculeCollection
+    , positionMatrixCollection
+    , buildingBlockPositionMatrixCollection
+    , numEntriesPerPage
+    , requestState
     ) where
-
-import MongoConfigurator.UpdateFields as UpdateFields
 
 data MongoConfigurator = MongoConfigurator
     { _url                                   :: String
@@ -20,22 +27,50 @@ data MongoConfigurator = MongoConfigurator
     , _requestState                          :: RequestState
     }
 
+url :: MongoConfigurator -> String
+url (MongoConfigurator { _url }) = _url
+
+database :: MongoConfigurator -> String
+database (MongoConfigurator { _database }) = _database
+
+moleculeKey :: MongoConfigurator -> String
+moleculeKey (MongoConfigurator { _moleculeKey }) = _moleculeKey
+
+moleculeCollection :: MongoConfigurator -> String
+moleculeCollection
+    (MongoConfigurator { _moleculeCollection })
+    = _moleculeCollection
+
+constructedMoleculeCollection :: MongoConfigurator -> String
+constructedMoleculeCollection
+    (MongoConfigurator { _constructedMoleculeCollection })
+    = _constructedMoleculeCollection
+
+positionMatrixCollection :: MongoConfigurator -> String
+positionMatrixCollection
+    (MongoConfigurator { _positionMatrixCollection })
+    = _positionMatrixCollection
+
+buildingBlockPositionMatrixCollection :: MongoConfigurator -> String
+buildingBlockPositionMatrixCollection
+    (MongoConfigurator { _buildingBlockPositionMatrixCollection })
+    = _buildingBlockPositionMatrixCollection
+
+numEntriesPerPage :: MongoConfigurator -> Int
+numEntriesPerPage
+    (MongoConfigurator { _numEntriesPerPage })
+    = _numEntriesPerPage
+
+searchKind :: MongoConfigurator -> SearchKind
+searchKind (MongoConfigurator { _searchKind }) = _searchKind
+
+requestState :: MongoConfigurator -> RequestState
+requestState (MongoConfigurator { _requestState }) = _requestState
+
 data SearchKind
     = UnsortedAll
     | UnsortedBuildingBlocks
     | UnsortedConstructedMolecules
-
-searchKind :: UpdateFields.SearchKind -> SearchKind
-
-searchKind UpdateFields.UnsortedAll
-    = UnsortedAll
-
-searchKind UpdateFields.UnsortedBuildingBlocks
-    = UnsortedBuildingBlocks
-
-searchKind UpdateFields.UnsortedConstructedMolecules
-    = UnsortedConstructedMolecules
-
 
 data RequestState
     = Unsent

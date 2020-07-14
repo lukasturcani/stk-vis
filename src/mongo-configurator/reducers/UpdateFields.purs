@@ -7,7 +7,7 @@ import MongoConfigurator.UpdateFields as UpdateFields
 
 import MongoConfigurator.Internal.Data
     ( MongoConfigurator (..)
-    , searchKind
+    , SearchKind (..)
     )
 
 updateFields
@@ -43,3 +43,15 @@ updateFields
         , _searchKind: searchKind $ UpdateFields.searchKind action
         , _requestState
         }
+
+
+searchKind :: UpdateFields.SearchKind -> SearchKind
+
+searchKind UpdateFields.UnsortedAll
+    = UnsortedAll
+
+searchKind UpdateFields.UnsortedBuildingBlocks
+    = UnsortedBuildingBlocks
+
+searchKind UpdateFields.UnsortedConstructedMolecules
+    = UnsortedConstructedMolecules
