@@ -67,7 +67,6 @@ export function InputFields(
                     id='mongo-url'
                     label='MongoDB URL'
                     defaultValue={ props.url }
-                    variant='outlined'
                     onChange={ (e) => props.setUrl(e.target.value) }
                 />
             </Grid>
@@ -76,7 +75,6 @@ export function InputFields(
                     id='mongo-molecule-key'
                     label='Molecule Key Name'
                     defaultValue={ props.moleculeKey }
-                    variant='outlined'
                     onChange={
                         (e) => props.setMoleculeKey(e.target.value)
                     }
@@ -87,7 +85,6 @@ export function InputFields(
                     id='mongo-database'
                     label='Database Name'
                     defaultValue={ props.database }
-                    variant='outlined'
                     onChange={
                         (e) => props.setDatabase(e.target.value)
                     }
@@ -98,7 +95,6 @@ export function InputFields(
                     id='mongo-molecule-collection'
                     label='Molecule Collection Name'
                     defaultValue={ props.moleculeCollection }
-                    variant='outlined'
                     onChange={
                         (e) => props.setMoleculeCollection(
                             e.target.value
@@ -113,7 +109,6 @@ export function InputFields(
                     defaultValue={
                         props.constructedMoleculeCollection
                     }
-                    variant='outlined'
                     onChange={
                         (e) => props.setConstructedMoleculeCollection(
                             e.target.value
@@ -126,7 +121,6 @@ export function InputFields(
                     id='mongo-position-matrix-collection'
                     label='Position Matrix Collection Name'
                     defaultValue={ props.positionMatrixCollection }
-                    variant='outlined'
                     onChange={
                         (e) => props.setPositionMatrixCollection(
                             e.target.value
@@ -152,7 +146,6 @@ export function InputFields(
                         defaultValue={
                             props.buildingBlockPositionMatrixCollection
                         }
-                        variant='outlined'
                         onChange={
                             (e) => setBBPosMatCollection(
                                 e.target.value
@@ -166,7 +159,6 @@ export function InputFields(
                     id='num-entries-per-age'
                     label='Entries Per Page'
                     defaultValue={ props.numEntriesPerPage }
-                    variant='outlined'
                     onChange={
                         (e) => props.setNumEntriesPerPage(
                             parseInt(e.target.value)
