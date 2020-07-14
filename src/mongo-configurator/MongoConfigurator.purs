@@ -1,5 +1,6 @@
 module MongoConfigurator
     ( module Exports
+    , initialState
     ) where
 
 
