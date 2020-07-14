@@ -4,3 +4,5 @@ module MongoConfigurator
 
 
 import MongoConfigurator.Internal.Data (MongoConfigurator) as Exports
+import MongoConfigurator.Internal.InitialState
+    (initialState) as Exports
