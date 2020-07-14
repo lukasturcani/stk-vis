@@ -20,7 +20,7 @@ function Component(
 }
 
 
-function mapStateToProps(state)
+function mapStateToProps(state: any)
 {
     return props(state);
 }

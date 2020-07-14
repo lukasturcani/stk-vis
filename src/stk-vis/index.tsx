@@ -17,7 +17,7 @@ const store = configureStore({
         {
             return initialState;
         }
-        updateFields(state)(action)
+        return updateFields(state)(action);
     },
     middleware: [
         ...getDefaultMiddleware(),
