@@ -65,7 +65,7 @@ buildingBlockPositionMatrixCollection
     }
     = collection
 
-numEntriesPerPage :: Action -> Number
+numEntriesPerPage :: Action -> Int
 numEntriesPerPage
     { payload: (MongoData { numEntriesPerPage: numEntries }) }
     = numEntries

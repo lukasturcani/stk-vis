@@ -58,7 +58,7 @@ buildingBlockPositionMatrixCollection
     (Action action)
     = UpdateFields.buildingBlockPositionMatrixCollection action
 
-numEntriesPerPage :: Action -> Number
+numEntriesPerPage :: Action -> Int
 numEntriesPerPage
     (Action action)
     = UpdateFields.numEntriesPerPage action

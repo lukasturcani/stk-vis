@@ -15,7 +15,7 @@ data MongoConfigurator = MongoConfigurator
     , _constructedMoleculeCollection         :: String
     , _positionMatrixCollection              :: String
     , _buildingBlockPositionMatrixCollection :: String
-    , _numEntriesPerPage                     :: Number
+    , _numEntriesPerPage                     :: Int
     , _searchKind                            :: SearchKind
     , _requestState                          :: RequestState
     }

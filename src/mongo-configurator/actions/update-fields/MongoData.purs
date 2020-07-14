@@ -11,7 +11,7 @@ data MongoData = MongoData
     , constructedMoleculeCollection         :: String
     , positionMatrixCollection              :: String
     , buildingBlockPositionMatrixCollection :: String
-    , numEntriesPerPage                     :: Number
+    , numEntriesPerPage                     :: Int
     , searchKind                            :: SearchKind
     }
 
