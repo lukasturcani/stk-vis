@@ -1,4 +1,4 @@
-module StkVis.Internal.Data
+module StkVis.Internal.Data.Internal.StkVis
     ( StkVis (..)
     ) where
 

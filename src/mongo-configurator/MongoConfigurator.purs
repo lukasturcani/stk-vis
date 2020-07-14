@@ -16,8 +16,8 @@ module MongoConfigurator
 
 import MongoConfigurator.Internal.Data
     ( MongoConfigurator
-    , SearchKind
-    , RequestState
+    , SearchKind (..)
+    , RequestState (..)
     ) as Exports
 
 import MongoConfigurator.Internal.Data
