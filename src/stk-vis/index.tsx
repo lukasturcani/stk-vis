@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { StkVis } from './components/stk-vis';
 import { updateFields } from 'StkVis.Reducers';
+import { initialState } from 'StkVis.InitialState';
 import { Provider } from 'react-redux';
 import {
     configureStore,
@@ -11,6 +12,7 @@ import logger from 'redux-logger';
 
 const store = configureStore({
     reducer: (state, action) => updateFields(state)(action),
+    preloadedState: initialState,
     middleware: [
         ...getDefaultMiddleware(),
         logger,
