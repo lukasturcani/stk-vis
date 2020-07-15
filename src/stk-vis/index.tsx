@@ -3,26 +3,21 @@ import * as ReactDOM from 'react-dom';
 import { StkVis } from './components/stk-vis';
 import { reducer, initialState } from 'StkVis.StkVis';
 import { Provider } from 'react-redux';
-import {
-    configureStore,
-    getDefaultMiddleware,
-} from '@reduxjs/toolkit';
+import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 
 
-const store = configureStore({
-    reducer: (state, action) => {
+const store = createStore(
+    (state, action) => {
         if (state === undefined)
         {
             return initialState;
         }
         return reducer(state)(action);
     },
-    middleware: [
-        ...getDefaultMiddleware(),
-        logger,
-    ],
-});
+    undefined,
+    applyMiddleware(logger),
+);
 
 
 ReactDOM.render(
