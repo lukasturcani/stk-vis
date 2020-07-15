@@ -1,9 +1,9 @@
-module MongoConfigurator.Payload
+module StkVis.Payload
     ( Payload (..)
     , updateFields
     ) where
 
-import MongoConfigurator.UpdateFields.UpdateFields
+import StkVis.UpdateFields.UpdateFields
     ( UpdateFields
     , updateFields
     ) as UpdateFields

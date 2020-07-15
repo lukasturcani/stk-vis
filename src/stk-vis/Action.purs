@@ -1,9 +1,9 @@
-module MongoConfigurator.Action
+module StkVis.Action
     ( Action
     , updateFields
     ) where
 
-import MongoConfigurator.Payload (Payload) as Payload
+import StkVis.Payload (Payload) as Payload
 
 type Action =
     { type    :: String
