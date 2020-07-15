@@ -14,7 +14,7 @@ function Component(
     {
         case 'Mongo Configurator':
         {
-            return <MongoConfigurator {...props } />;
+            return <MongoConfigurator { ...props } />;
         }
     }
 }
