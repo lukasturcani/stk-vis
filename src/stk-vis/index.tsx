@@ -5,6 +5,7 @@ import { reducer, initialState } from 'StkVis.StkVis';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
 
 const store = createStore(
@@ -16,7 +17,7 @@ const store = createStore(
         return reducer(state)(action);
     },
     undefined,
-    applyMiddleware(logger),
+    applyMiddleware(logger, thunk),
 );
 
 
