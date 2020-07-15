@@ -2,7 +2,7 @@ module StkVis.StkVis.Internal.InitialState
     ( initialState
     ) where
 
-import StkVis.StkVis.Internal (StkVis (MongoConfigurator))
+import StkVis.StkVis.Internal.StkVis (StkVis (MongoConfigurator))
 import MongoConfigurator.MongoConfigurator
     (initialState) as MongoConfigurator
 
