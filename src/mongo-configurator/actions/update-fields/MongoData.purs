@@ -1,9 +1,9 @@
 module MongoConfigurator.UpdateFields.Internal.MongoData
-    ( MongoData (..)
+    ( MongoData
     , SearchKind (..)
     ) where
 
-data MongoData = MongoData
+type MongoData =
     { url                                   :: String
     , database                              :: String
     , moleculeKey                           :: String

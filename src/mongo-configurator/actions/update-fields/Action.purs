@@ -12,7 +12,7 @@ module MongoConfigurator.UpdateFields.Internal.Action
     ) where
 
 import MongoConfigurator.UpdateFields.Internal.MongoData
-    ( MongoData (MongoData)
+    ( MongoData
     , SearchKind
     )
 
@@ -23,28 +23,28 @@ type Action =
 
 url :: Action -> String
 url
-    { payload: (MongoData { url: url' }) }
+    { payload: ({ url: url' }) }
     = url'
 
 database :: Action -> String
 database
-    { payload: (MongoData { database: database' }) }
+    { payload: ({ database: database' }) }
     = database'
 
 moleculeKey :: Action -> String
 moleculeKey
-    { payload: (MongoData { moleculeKey: moleculeKey' }) }
+    { payload: ({ moleculeKey: moleculeKey' }) }
     = moleculeKey'
 
 moleculeCollection :: Action -> String
 moleculeCollection
-    { payload: (MongoData { moleculeCollection: collection }) }
+    { payload: ({ moleculeCollection: collection }) }
     = collection
 
 constructedMoleculeCollection :: Action -> String
 constructedMoleculeCollection
     { payload:
-        (MongoData
+        (
             { constructedMoleculeCollection: collection
             }
         )
@@ -53,13 +53,13 @@ constructedMoleculeCollection
 
 positionMatrixCollection :: Action -> String
 positionMatrixCollection
-    { payload: (MongoData { positionMatrixCollection: collection }) }
+    { payload: ({ positionMatrixCollection: collection }) }
     = collection
 
 buildingBlockPositionMatrixCollection :: Action -> String
 buildingBlockPositionMatrixCollection
     { payload:
-        (MongoData
+        (
             { buildingBlockPositionMatrixCollection: collection }
         )
     }
@@ -67,10 +67,10 @@ buildingBlockPositionMatrixCollection
 
 numEntriesPerPage :: Action -> Int
 numEntriesPerPage
-    { payload: (MongoData { numEntriesPerPage: numEntries }) }
+    { payload: ({ numEntriesPerPage: numEntries }) }
     = numEntries
 
 searchKind :: Action -> SearchKind
 searchKind
-    { payload: (MongoData { searchKind: searchKind' }) }
+    { payload: ({ searchKind: searchKind' }) }
     = searchKind'

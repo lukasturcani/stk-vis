@@ -55,6 +55,11 @@ module.exports = {
                 __dirname,
                 './output/MongoConfigurator.MongoConfigurator',
             ),
+
+            'MongoConfigurator.UpdateFields': path.join(
+                __dirname,
+                './output/MongoConfigurator.UpdateFields',
+            ),
         },
     },
     module: {
