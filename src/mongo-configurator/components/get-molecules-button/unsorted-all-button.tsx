@@ -30,7 +30,6 @@ export function UnsortedAllButton(
         <Button
             onClick={
                 () => {
-                    console.log(unsortedAll);
                     const action = updateFields({
                         url: props.url,
                         moleculeKey: props.moleculeKey,
@@ -45,7 +44,6 @@ export function UnsortedAllButton(
                         numEntriesPerPage: props.numEntriesPerPage,
                         searchKind: unsortedAll,
                     });
-                    console.log(action);
                 }
             }
         >
