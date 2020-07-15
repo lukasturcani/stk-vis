@@ -42,7 +42,6 @@ export function UnsortedAllButton(
                         numEntriesPerPage: props.numEntriesPerPage,
                         searchKind: unsortedAll,
                     });
-                    console.log(action);
                 }
             }
         >
