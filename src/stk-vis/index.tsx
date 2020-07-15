@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { StkVis } from './components/stk-vis';
-import { updateFields } from 'StkVis.StkVis.Reducers';
-import { initialState } from 'StkVis.StkVis';
+import { reducer, initialState } from 'StkVis.StkVis';
 import { Provider } from 'react-redux';
 import {
     configureStore,
@@ -17,7 +16,7 @@ const store = configureStore({
         {
             return initialState;
         }
-        return updateFields(state)(action);
+        return reducer(state)(action);
     },
     middleware: [
         ...getDefaultMiddleware(),

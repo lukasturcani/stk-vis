@@ -2,9 +2,11 @@ import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import {
-    createAction,
+    updateFields
+} from 'StkVis.Action';
+import {
     unsortedAll,
-} from 'MongoConfigurator.UpdateFields';
+} from 'MongoConfigurator.SearchKind';
 
 
 interface Props
@@ -28,7 +30,8 @@ export function UnsortedAllButton(
         <Button
             onClick={
                 () => {
-                    const action = createAction({
+                    console.log(unsortedAll);
+                    const action = updateFields({
                         url: props.url,
                         moleculeKey: props.moleculeKey,
                         database: props.database,
@@ -42,6 +45,7 @@ export function UnsortedAllButton(
                         numEntriesPerPage: props.numEntriesPerPage,
                         searchKind: unsortedAll,
                     });
+                    console.log(action);
                 }
             }
         >

@@ -31,14 +31,9 @@ module.exports = {
                 './src/mongo-configurator',
             ),
 
-            'StkVis.UpdateFields': path.join(
+            'StkVis.UpdateFields.UpdateFields': path.join(
                 __dirname,
-                './output/StkVis.UpdateFields',
-            ),
-
-            'StkVis.StkVis.Reducers': path.join(
-                __dirname,
-                './output/StkVis.StkVis.Reducers',
+                './output/StkVis.UpdateFields.UpdateFields',
             ),
 
             'StkVis.StkVis': path.join(
@@ -46,9 +41,9 @@ module.exports = {
                 './output/StkVis.StkVis',
             ),
 
-            'StkVis.StkVis.Props': path.join(
+            'StkVis.Action': path.join(
                 __dirname,
-                './output/StkVis.StkVis.Props',
+                './output/StkVis.Action',
             ),
 
             'MongoConfigurator.MongoConfigurator': path.join(
@@ -56,9 +51,14 @@ module.exports = {
                 './output/MongoConfigurator.MongoConfigurator',
             ),
 
-            'MongoConfigurator.UpdateFields': path.join(
+            'MongoConfigurator.SearchKind': path.join(
                 __dirname,
-                './output/MongoConfigurator.UpdateFields',
+                './output/MongoConfigurator.SearchKind',
+            ),
+
+            'MongoConfigurator.UpdateFields.UpdateFields': path.join(
+                __dirname,
+                './output/MongoConfigurator.UpdateFields.UpdateFields',
             ),
         },
     },
