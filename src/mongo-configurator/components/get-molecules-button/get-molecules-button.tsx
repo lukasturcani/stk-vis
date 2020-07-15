@@ -3,6 +3,13 @@ import { connect } from 'react-redux';
 import { AnyAction } from '@reduxjs/toolkit';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
+import { UnsortedAllButton } from './unsorted-all-button';
+import {
+    UnsortedBuildingBlocksButton,
+} from './unsorted-building-blocks-button';
+import {
+    UnsortedConstructedMoleculesButton,
+} from './unsorted-constructed-molecules-button';
 
 
 interface Props
@@ -27,11 +34,15 @@ export function GetMoleculesButton(
     if (
         props.selectBuildingBlocks || props.selectConstructedMolecules
     ) {
-        return (
-            <Button>
-                <SearchIcon />
-            </Button>
-        );
+        return <UnsortedAllButton { ...props } />;
+    }
+    if (props.selectBuildingBlocks)
+    {
+        return <UnsortedBuildingBlocksButton { ...props } />;
+    }
+    if (props.selectConstructedMolecules)
+    {
+        return <UnsortedConstructedMoleculesButton { ...props } />;
     }
     return (
         <Button disabled={ true }>
