@@ -24,6 +24,7 @@ interface Props
     numEntriesPerPage: number;
     selectBuildingBlocks: boolean;
     selectConstructedMolecules: boolean;
+    dispatch: (action: any) => void;
 }
 
 

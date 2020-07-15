@@ -19,6 +19,7 @@ interface Props
     positionMatrixCollection: string;
     buildingBlockPositionMatrixCollection: string;
     numEntriesPerPage: number;
+    dispatch: (action: any) => void;
 }
 
 
@@ -30,7 +31,7 @@ export function UnsortedAllButton(
         <Button
             onClick={
                 () => {
-                    const action = updateFields({
+                    props.dispatch(updateFields({
                         url: props.url,
                         moleculeKey: props.moleculeKey,
                         database: props.database,
@@ -43,7 +44,7 @@ export function UnsortedAllButton(
                             props.buildingBlockPositionMatrixCollection,
                         numEntriesPerPage: props.numEntriesPerPage,
                         searchKind: unsortedAll,
-                    });
+                    }));
                 }
             }
         >

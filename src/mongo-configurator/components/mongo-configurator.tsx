@@ -16,6 +16,7 @@ interface Props
     numEntriesPerPage: number;
     selectBuildingBlocks: boolean;
     selectConstructedMolecules: boolean;
+    dispatch: (action: any) => void;
 }
 
 
@@ -126,6 +127,7 @@ export function MongoConfigurator(
                     selectConstructedMolecules={
                         selectConstructedMolecules
                     }
+                    dispatch= { props.dispatch }
                 />
             </Grid>
         </Grid>

@@ -25,6 +25,11 @@ function mapStateToProps(state: any)
     return props(state);
 }
 
+function mapDispatchToProps(dispatch: (action: any) => void)
+{
+    return { dispatch };
+}
+
 
 export const StkVis
-    = connect(mapStateToProps)(Component);
+    = connect(mapStateToProps, mapDispatchToProps)(Component);
