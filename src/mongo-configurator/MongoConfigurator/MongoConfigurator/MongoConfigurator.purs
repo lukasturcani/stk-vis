@@ -14,13 +14,13 @@ module MongoConfigurator.MongoConfigurator
     ) where
 
 
-import MongoConfigurator.MongoConfigurator.Internal
+import MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
     ( MongoConfigurator
     , SearchKind (..)
     , RequestState (..)
     ) as Exports
 
-import MongoConfigurator.MongoConfigurator.Internal
+import MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
     ( url
     , moleculeKey
     , database
@@ -36,6 +36,10 @@ import MongoConfigurator.MongoConfigurator.Internal
 import MongoConfigurator.MongoConfigurator.Internal.InitialState
     ( initialState
     ) as InitialState
+
+import MongoConfigurator.MongoConfigurator.Internal.Reducer
+    ( reducer
+    ) as Exports
 
 initialState :: Exports.MongoConfigurator
 initialState = InitialState.initialState

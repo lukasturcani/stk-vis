@@ -2,7 +2,7 @@ module MongoConfigurator.MongoConfigurator.Internal.InitialState
     ( initialState
     ) where
 
-import MongoConfigurator.MongoConfigurator.Internal
+import MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
     ( MongoConfigurator (MongoConfigurator)
     , RequestState (Unsent)
     , SearchKind (UnsortedAll)
