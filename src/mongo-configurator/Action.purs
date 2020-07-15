@@ -3,15 +3,16 @@ module MongoConfigurator.Action
     , updateFields
     ) where
 
-import MongoConfigurator.Payload (Payload) as Payload
+import MongoConfigurator.UpdateFields.UpdateFields (UpdateFields)
+import MongoConfigurator.Payload (Payload, updateFields) as Payload
 
 type Action =
     { type    :: String
     , payload :: Payload.Payload
     }
 
-updateFields :: UpdateFields.MongoData -> Action
-updateFields data =
+updateFields :: UpdateFields -> Action
+updateFields data' =
     { type: "UPDATE_FIELDS"
-    , payload: Payload.updateFields data
+    , payload: Payload.updateFields data'
     }

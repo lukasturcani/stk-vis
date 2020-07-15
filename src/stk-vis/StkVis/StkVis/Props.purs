@@ -5,6 +5,7 @@ module StkVis.StkVis.Internal.Props
 
 import StkVis.StkVis.Internal.StkVis (StkVis (..))
 import MongoConfigurator.MongoConfigurator as MongoConfigurator
+import MongoConfigurator.SearchKind as SearchKind
 
 type Props
     =
@@ -40,12 +41,12 @@ props (MongoConfigurator configurator) =
         MongoConfigurator.numEntriesPerPage configurator
     , selectBuildingBlocks:
         case MongoConfigurator.searchKind configurator of
-            MongoConfigurator.UnsortedAll -> true
-            MongoConfigurator.UnsortedBuildingBlocks -> true
-            MongoConfigurator.UnsortedConstructedMolecules -> false
+            SearchKind.UnsortedAll                  -> true
+            SearchKind.UnsortedBuildingBlocks       -> true
+            SearchKind.UnsortedConstructedMolecules -> false
     , selectConstructedMolecules:
         case MongoConfigurator.searchKind configurator of
-            MongoConfigurator.UnsortedAll -> true
-            MongoConfigurator.UnsortedBuildingBlocks -> false
-            MongoConfigurator.UnsortedConstructedMolecules -> true
+            SearchKind.UnsortedAll                  -> true
+            SearchKind.UnsortedBuildingBlocks       -> false
+            SearchKind.UnsortedConstructedMolecules -> true
     }

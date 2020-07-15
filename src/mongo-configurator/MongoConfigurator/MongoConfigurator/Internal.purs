@@ -1,7 +1,6 @@
 module MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
     ( MongoConfigurator (..)
     , RequestState (..)
-    , SearchKind (..)
     , searchKind
     , url
     , moleculeKey
@@ -13,6 +12,8 @@ module MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
     , numEntriesPerPage
     , requestState
     ) where
+
+import MongoConfigurator.SearchKind (SearchKind)
 
 data MongoConfigurator = MongoConfigurator
     { _url                                   :: String
@@ -66,11 +67,6 @@ searchKind (MongoConfigurator { _searchKind }) = _searchKind
 
 requestState :: MongoConfigurator -> RequestState
 requestState (MongoConfigurator { _requestState }) = _requestState
-
-data SearchKind
-    = UnsortedAll
-    | UnsortedBuildingBlocks
-    | UnsortedConstructedMolecules
 
 data RequestState
     = Unsent

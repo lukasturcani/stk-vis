@@ -2,12 +2,10 @@ module MongoConfigurator.MongoConfigurator.Internal.Reducer.Internal.UpdateField
     ( updateFields
     ) where
 
-import Prelude
-import MongoConfigurator.UpdateFields as UpdateFields
+import MongoConfigurator.UpdateFields.UpdateFields as UpdateFields
 
 import MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
     ( MongoConfigurator (..)
-    , SearchKind (..)
     )
 
 updateFields
@@ -42,18 +40,6 @@ updateFields
         , _buildingBlockPositionMatrixCollection:
             UpdateFields.buildingBlockPositionMatrixCollection action
         , _numEntriesPerPage: UpdateFields.numEntriesPerPage action
-        , _searchKind: searchKind $ UpdateFields.searchKind action
+        , _searchKind: UpdateFields.searchKind action
         , _requestState
         }
-
-
-searchKind :: UpdateFields.SearchKind -> SearchKind
-
-searchKind UpdateFields.UnsortedAll
-    = UnsortedAll
-
-searchKind UpdateFields.UnsortedBuildingBlocks
-    = UnsortedBuildingBlocks
-
-searchKind UpdateFields.UnsortedConstructedMolecules
-    = UnsortedConstructedMolecules

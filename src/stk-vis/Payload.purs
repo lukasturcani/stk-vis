@@ -3,7 +3,9 @@ module StkVis.Payload
     , updateFields
     ) where
 
-import StkVis.UpdateFields.UpdateFields
+import Prelude
+import MongoConfigurator.UpdateFields.MongoData (MongoData)
+import StkVis.UpdateFields
     ( UpdateFields
     , updateFields
     ) as UpdateFields

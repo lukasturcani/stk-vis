@@ -3,13 +3,10 @@ module MongoConfigurator.Payload
     , updateFields
     ) where
 
-import MongoConfigurator.UpdateFields.UpdateFields
-    ( UpdateFields
-    , updateFields
-    ) as UpdateFields
+import MongoConfigurator.UpdateFields.UpdateFields (UpdateFields)
 
 data Payload
-    = UpdateFields UpdateFields.UpdateFields
+    = UpdateFields UpdateFields
 
-updateFields :: MongoData -> Payload
-updateFields = UpdateFields <<< UpdateFields.updateFields
+updateFields :: UpdateFields -> Payload
+updateFields = UpdateFields

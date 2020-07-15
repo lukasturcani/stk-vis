@@ -13,10 +13,10 @@ module MongoConfigurator.MongoConfigurator
     , requestState
     ) where
 
+import MongoConfigurator.SearchKind (SearchKind)
 
 import MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
     ( MongoConfigurator
-    , SearchKind (..)
     , RequestState (..)
     ) as Exports
 
@@ -70,7 +70,7 @@ buildingBlockPositionMatrixCollection
 numEntriesPerPage :: Exports.MongoConfigurator -> Int
 numEntriesPerPage = Internal.numEntriesPerPage
 
-searchKind :: Exports.MongoConfigurator -> Exports.SearchKind
+searchKind :: Exports.MongoConfigurator -> SearchKind
 searchKind = Internal.searchKind
 
 requestState :: Exports.MongoConfigurator -> Exports.RequestState

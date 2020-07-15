@@ -1,7 +1,8 @@
 module MongoConfigurator.UpdateFields.MongoData
     ( MongoData
-    , SearchKind (..)
     ) where
+
+import MongoConfigurator.SearchKind (SearchKind)
 
 type MongoData =
     { url                                   :: String
@@ -14,8 +15,3 @@ type MongoData =
     , numEntriesPerPage                     :: Int
     , searchKind                            :: SearchKind
     }
-
-data SearchKind
-    = UnsortedAll
-    | UnsortedBuildingBlocks
-    | UnsortedConstructedMolecules

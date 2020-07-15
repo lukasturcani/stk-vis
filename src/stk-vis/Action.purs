@@ -3,15 +3,16 @@ module StkVis.Action
     , updateFields
     ) where
 
-import StkVis.Payload (Payload) as Payload
+import MongoConfigurator.UpdateFields.MongoData (MongoData)
+import StkVis.Payload (Payload, updateFields) as Payload
 
 type Action =
     { type    :: String
     , payload :: Payload.Payload
     }
 
-updateFields :: UpdateFields.MongoData -> Action
-updateFields data =
+updateFields :: MongoData -> Action
+updateFields data' =
     { type: "UPDATE_FIELDS"
-    , payload: Payload.updateFields data
+    , payload: Payload.updateFields data'
     }

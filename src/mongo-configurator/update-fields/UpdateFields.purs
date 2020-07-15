@@ -12,14 +12,16 @@ module MongoConfigurator.UpdateFields.UpdateFields
     , searchKind
     ) where
 
-import MongoConfigurator.Action.UpdateFields.Internal.MongoData
+import MongoConfigurator.SearchKind (SearchKind)
+
+import MongoConfigurator.UpdateFields.MongoData
     ( MongoData
-    , SearchKind
-    )
+    ) as MongoData
 
-data UpdateFields = UpdateFields MongoData
 
-updateFields :: MongoData -> UpdateFields
+data UpdateFields = UpdateFields MongoData.MongoData
+
+updateFields :: MongoData.MongoData -> UpdateFields
 updateFields = UpdateFields
 
 url :: UpdateFields -> String

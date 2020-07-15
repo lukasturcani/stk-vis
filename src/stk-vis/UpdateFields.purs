@@ -1,6 +1,5 @@
 module StkVis.UpdateFields
     ( UpdateFields
-    , SearchKind
     , toConfigurator
     , updateFields
     , url
@@ -17,15 +16,14 @@ module StkVis.UpdateFields
 import Prelude
 import MongoConfigurator.UpdateFields.MongoData as MongoData
 import MongoConfigurator.UpdateFields.UpdateFields as UpdateFields
+import StkVis.SearchKind (SearchKind, fromConfigurator)
 
 newtype UpdateFields = UpdateFields UpdateFields.UpdateFields
-
-newtype SearchKind = SearchKind MongoData.SearchKind
 
 toConfigurator :: UpdateFields -> UpdateFields.UpdateFields
 toConfigurator (UpdateFields update) = update
 
-updateFields :: MongoData -> UpdateFields
+updateFields :: MongoData.MongoData -> UpdateFields
 updateFields = UpdateFields <<< UpdateFields.updateFields
 
 url :: UpdateFields -> String
@@ -71,4 +69,4 @@ numEntriesPerPage
 searchKind :: UpdateFields -> SearchKind
 searchKind
     (UpdateFields update)
-    = SearchKind $ UpdateFields.searchKind update
+    = fromConfigurator $ UpdateFields.searchKind update

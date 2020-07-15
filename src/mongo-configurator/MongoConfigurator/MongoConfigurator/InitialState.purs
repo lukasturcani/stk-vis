@@ -2,11 +2,13 @@ module MongoConfigurator.MongoConfigurator.Internal.InitialState
     ( initialState
     ) where
 
+import MongoConfigurator.SearchKind (SearchKind (UnsortedAll))
+
 import MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
     ( MongoConfigurator (MongoConfigurator)
     , RequestState (Unsent)
-    , SearchKind (UnsortedAll)
     )
+
 
 initialState :: MongoConfigurator
 initialState = MongoConfigurator
