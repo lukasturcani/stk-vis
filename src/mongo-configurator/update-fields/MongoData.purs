@@ -1,4 +1,4 @@
-module MongoConfigurator.UpdateFields.Internal.MongoData
+module MongoConfigurator.UpdateFields.MongoData
     ( MongoData
     , SearchKind (..)
     ) where
