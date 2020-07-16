@@ -96,6 +96,7 @@ export function request(
             Promise.resolve(valueCollections),
 
             getPositionMatrixEntries(
+                options.moleculeKey,
                 database,
                 query,
                 options.positionMatrixCollection,
@@ -105,6 +106,7 @@ export function request(
             ),
 
             getPositionMatrixEntries(
+                options.moleculeKey,
                 database,
                 query,
                 options.buildingBlockPositionMatrixCollection,

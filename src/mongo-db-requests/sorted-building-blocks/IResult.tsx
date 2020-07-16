@@ -1,4 +1,5 @@
-import { IMolecule, PageKind } from '../types';
+import { IMolecule } from '../types/IMolecule';
+import { PageKind } from '../types/PageKind';
 
 
 export const enum ResultKind

@@ -16,15 +16,18 @@ import {
 } from './utilities';
 import {
     getValueCollections,
-    getPartialMolecules,
-    getPageKind,
-    getMoleculeDataQuery,
-    IMoleculeDataQuery,
     getPositionMatrixEntries,
     addPositionMatrices,
     addValues,
     getValueEntries,
 } from '../utilities';
+import {
+    IMoleculeDataQuery,
+    getMoleculeDataQuery,
+} from '../types/IMoleculeDataQuery';
+import {
+    getPageKind,
+} from '../types/PageKind';
 
 
 
@@ -56,7 +59,7 @@ export function request(
 
     return MongoClient
     .connect(options.url)
-    .catch(err => { throw new DatabaseConnectionError() })
+    .catch(() => { throw new DatabaseConnectionError() })
 
     .then(
         (client: MongoClient) => client.db(options.database)
@@ -65,8 +68,7 @@ export function request(
     .then( (database: Db) => Promise.all([
         Promise.resolve(database),
         getValueCollections(nonValueCollections, database),
-        getMoleculeEntries(options, database)
-        .then(getPartialMolecules(options)),
+        getMoleculeEntries(options, database),
     ]) )
 
     .then( ([database, valueCollections, molecules]) =>
@@ -89,6 +91,7 @@ export function request(
             Promise.resolve(valueCollections),
 
             getPositionMatrixEntries(
+                options.moleculeKey,
                 database,
                 query,
                 options.positionMatrixCollection,

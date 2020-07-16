@@ -56,7 +56,7 @@ export function getMoleculeEntries
             .slice(0, options.numEntriesPerPage)
             .map(fromUnknown(options.moleculeKey))
             .filter(isJust)
-            .map(getValue)
+            .map(getValue);
 
         const result: Map<string, IPartialMolecule>
             = new Map();
