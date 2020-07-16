@@ -4,12 +4,12 @@ import { IAtom } from './IAtom';
 import { IBond } from './IBond';
 
 
-export function fromUnknown(
+export function fromAny(
     moleculeKey: string
 )
-    : (arg: unknown) => Maybe<IPartialMolecule>
+    : (arg: any) => Maybe<IPartialMolecule>
 {
-    return (arg: unknown) => {
+    return (arg: any) => {
 
         const key: string | undefined
             = arg[moleculeKey];
@@ -50,7 +50,7 @@ export function fromUnknown(
 
 
 function getMoleculeKeys(
-    entry: unknown,
+    entry: any,
 )
     : Map<string, string>
 {
@@ -59,9 +59,10 @@ function getMoleculeKeys(
 
     for (const [key, value] of Object.entries(entry))
     {
-        if (key !== 'a' && key !== 'b')
-        {
-            keys.set(key, value.toString());
+        if (
+            key !== 'a' && key !== 'b'
+        ){
+            keys.set(key, (value as any).toString());
         }
     }
 
@@ -70,11 +71,11 @@ function getMoleculeKeys(
 
 
 function getAtoms(
-    entry: unknown,
+    entry: any,
 )
     : IAtom[] | undefined
 {
-    const atomEntries: unknown
+    const atomEntries: any
         = entry['a'];
 
     if (!Array.isArray(atomEntries))
@@ -100,11 +101,11 @@ function getAtoms(
 
 function getBonds(
     atoms: IAtom[],
-    entry: unknown,
+    entry: any,
 )
     : IBond[] | undefined
 {
-    const bondEntries: unknown
+    const bondEntries: any
         = entry['b'];
 
     if (!Array.isArray(bondEntries))

@@ -29,7 +29,7 @@ export function getPositionMatrixEntries(
             'Could not connect to the ' + collection + ' collection.'
         );
     })
-    .then( (items: unknown[]) => {
+    .then( (items: any[]) => {
         const validated: IPositionMatrixEntry[]
             = [];
 

@@ -1,13 +1,14 @@
 import {
     IPartialMolecule,
-    IPartialMolecules,
+} from '../types/IPartialMolecule';
+import {
     IValueEntries,
-} from '../types';
+} from '../types/IValueEntries';
 
 
 export function addValues(
     moleculeKey: string,
-    molecules: IPartialMolecules,
+    molecules: Map<string, IPartialMolecule>,
 )
     : (entries: IValueEntries) => void
 {

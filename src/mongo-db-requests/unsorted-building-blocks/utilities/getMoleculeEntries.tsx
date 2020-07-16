@@ -3,7 +3,7 @@ import {
 } from 'mongodb';
 import {
     IPartialMolecule,
-    fromUnknown,
+    fromAny,
 } from '../../types/IPartialMolecule';
 import {
     RequestError,
@@ -75,11 +75,11 @@ export function getMoleculeEntries
             + options.moleculeCollection + ' collection.'
         );
     })
-    .then( (items: unknown[]) => {
+    .then( (items: any[]) => {
         const validated: IPartialMolecule[]
             = items
             .slice(0, options.numEntriesPerPage)
-            .map(fromUnknown(options.moleculeKey))
+            .map(fromAny(options.moleculeKey))
             .filter(isJust)
             .map(getValue);
 

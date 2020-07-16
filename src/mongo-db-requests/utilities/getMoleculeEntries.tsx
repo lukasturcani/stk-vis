@@ -1,7 +1,7 @@
 import { Db } from 'mongodb';
 import {
     IPartialMolecule,
-    fromUnknown,
+    fromAny,
 } from '../types/IPartialMolecule';
 import { IMoleculeDataQuery } from '../types/IMoleculeDataQuery';
 import { RequestError, CollectionConnectionError } from '../errors';
@@ -11,6 +11,7 @@ import { isJust, getValue } from 'maybe';
 export interface Options
 {
     moleculeCollection: string;
+    moleculeKey: string;
 }
 
 
@@ -36,9 +37,9 @@ export function getMoleculeEntries(
             + options.moleculeCollection + ' collection.'
         );
     })
-    .then( (items: unknown[]) =>
+    .then( (items: any[]) =>
         items
-        .map(fromUnknown)
+        .map(fromAny(options.moleculeKey))
         .filter(isJust)
         .map(getValue)
     );
