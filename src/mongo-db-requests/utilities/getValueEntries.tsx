@@ -1,6 +1,7 @@
 import { Db } from 'mongodb';
-import { IMoleculeDataQuery } from './getMoleculeDataQuery';
-import { IValueEntry, IValueEntries } from '../types';
+import { IMoleculeDataQuery } from '../types/IMoleculeDataQuery';
+import { IValueEntry } from '../types/IValueEntry';
+import { IValueEntries } from '../types/IValueEntries';
 import { RequestError, CollectionConnectionError } from '../errors';
 
 

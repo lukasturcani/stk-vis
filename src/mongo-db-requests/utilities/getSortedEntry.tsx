@@ -1,7 +1,9 @@
 import {
     IValueEntry,
+} from '../types/IValueEntry';
+import {
     ISortedEntry,
-} from '../types';
+} from '../types/ISortedEntries';
 
 
 export function getSortedEntry(

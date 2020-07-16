@@ -3,7 +3,7 @@ import {
 } from 'mongodb';
 import {
     ICollectionData,
-} from '../types';
+} from '../types/ICollectionData';
 import {
     RequestError,
     DatabaseConnectionError,

@@ -1,4 +1,5 @@
-import { ISortedEntries, IValueEntries } from '../types';
+import { IValueEntries } from '../types/IValueEntries';
+import { ISortedEntries } from '../types/ISortedEntries';
 
 
 
