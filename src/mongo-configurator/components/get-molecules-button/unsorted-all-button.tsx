@@ -8,6 +8,9 @@ import {
 import {
     unsortedAll,
 } from 'MongoConfigurator.SearchKind';
+import {
+    request,
+} from 'mongo-db-requests/unsorted-all';
 
 
 interface Props
@@ -32,6 +35,9 @@ export function UnsortedAllButton(
         <Button
             onClick={
                 () => {
+                    const bbPosMatCol
+                        = props.buildingBlockPositionMatrixCollection;
+
                     props.dispatch(updateFields({
                         url: props.url,
                         moleculeKey: props.moleculeKey,
@@ -42,10 +48,33 @@ export function UnsortedAllButton(
                         positionMatrixCollection:
                             props.positionMatrixCollection,
                         buildingBlockPositionMatrixCollection:
-                            props.buildingBlockPositionMatrixCollection,
+                            bbPosMatCol,
                         numEntriesPerPage: props.numEntriesPerPage,
                         searchKind: unsortedAll,
                     }));
+                    request({
+                        url: props.url,
+
+                        database: props.database,
+
+                        moleculeKey: props.moleculeKey,
+
+                        moleculeCollection: props.moleculeCollection,
+
+                        positionMatrixCollection:
+                            props.positionMatrixCollection,
+
+                        buildingBlockPositionMatrixCollection:
+                            bbPosMatCol,
+
+                        numEntriesPerPage:
+                            props.numEntriesPerPage,
+
+                        ignoredCollections: [],
+
+                        pageIndex: 0,
+
+                    });
                 }
             }
         >
