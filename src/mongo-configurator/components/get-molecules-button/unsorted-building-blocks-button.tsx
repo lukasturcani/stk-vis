@@ -1,6 +1,13 @@
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
+import {
+    updateFields,
+    IAction,
+} from 'StkVis.Action';
+import {
+    unsortedBuildingBlocks,
+} from 'MongoConfigurator.SearchKind';
 
 
 interface Props
@@ -13,6 +20,7 @@ interface Props
     positionMatrixCollection: string;
     buildingBlockPositionMatrixCollection: string;
     numEntriesPerPage: number;
+    dispatch: (action: IAction) => void;
 }
 
 
@@ -21,7 +29,26 @@ export function UnsortedBuildingBlocksButton(
 )
 {
     return (
-        <Button>
+        <Button
+            onClick={
+                () => {
+                    props.dispatch(updateFields({
+                        url: props.url,
+                        moleculeKey: props.moleculeKey,
+                        database: props.database,
+                        moleculeCollection: props.moleculeCollection,
+                        constructedMoleculeCollection:
+                            props.constructedMoleculeCollection,
+                        positionMatrixCollection:
+                            props.positionMatrixCollection,
+                        buildingBlockPositionMatrixCollection:
+                            props.buildingBlockPositionMatrixCollection,
+                        numEntriesPerPage: props.numEntriesPerPage,
+                        searchKind: unsortedBuildingBlocks,
+                    }));
+                }
+            }
+        >
             <SearchIcon />
         </Button>
     );
