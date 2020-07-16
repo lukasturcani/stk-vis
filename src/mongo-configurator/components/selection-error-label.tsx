@@ -9,7 +9,9 @@ interface Props
 }
 
 
-export function SelectionErrorLabel(props: Props)
+export function SelectionErrorLabel(
+    props: Props,
+)
 {
     const label: string
         = '* Pick at least one.';

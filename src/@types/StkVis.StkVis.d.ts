@@ -6,7 +6,7 @@ declare module 'StkVis.StkVis'
 
     export interface IProps
     {
-        kind: string;
+        kind: 'Mongo Configurator';
         url: string;
         moleculeKey: string;
         database: string;
