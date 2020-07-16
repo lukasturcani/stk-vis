@@ -2,7 +2,8 @@ import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import {
-    updateFields
+    updateFields,
+    IAction,
 } from 'StkVis.Action';
 import {
     unsortedAll,
@@ -19,7 +20,7 @@ interface Props
     positionMatrixCollection: string;
     buildingBlockPositionMatrixCollection: string;
     numEntriesPerPage: number;
-    dispatch: (action: any) => void;
+    dispatch: (action: IAction) => void;
 }
 
 

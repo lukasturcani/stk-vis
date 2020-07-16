@@ -9,6 +9,7 @@ import {
 import {
     UnsortedConstructedMoleculesButton,
 } from './unsorted-constructed-molecules-button';
+import { IAction } from 'StkVis.Action';
 
 
 interface Props
@@ -23,7 +24,7 @@ interface Props
     numEntriesPerPage: number;
     selectBuildingBlocks: boolean;
     selectConstructedMolecules: boolean;
-    dispatch: (action: any) => void;
+    dispatch: (action: IAction) => void;
 }
 
 

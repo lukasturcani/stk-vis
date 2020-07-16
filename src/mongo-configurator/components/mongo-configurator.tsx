@@ -2,6 +2,7 @@ import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { InputFields } from './input-fields';
 import { GetMoleculesButton } from './get-molecules-button';
+import { IAction } from 'StkVis.Action';
 
 
 interface Props
@@ -16,7 +17,7 @@ interface Props
     numEntriesPerPage: number;
     selectBuildingBlocks: boolean;
     selectConstructedMolecules: boolean;
-    dispatch: (action: any) => void;
+    dispatch: (action: IAction) => void;
 }
 
 

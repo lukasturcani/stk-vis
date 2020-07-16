@@ -18,9 +18,10 @@ interface Props
 function handleChange(
     setState: (newState: boolean) => void,
 )
-    : (e: any) => void
+    : (e: { target: { checked: boolean } }) => void
 {
-    return (e: any) => setState(e.target.checked);
+    return (e: { target: { checked: boolean } }) =>
+        setState(e.target.checked);
 }
 
 

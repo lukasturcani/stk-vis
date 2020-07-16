@@ -3,11 +3,16 @@ import { connect } from 'react-redux';
 import {
     MongoConfigurator,
 } from 'mongo-configurator/components/mongo-configurator';
-import { props } from 'StkVis.StkVis';
+import { props, IProps, IStkVis } from 'StkVis.StkVis';
+import { IAction } from 'StkVis.Action';
 
+interface PropsWithDispatch extends IProps
+{
+    dispatch: (action: IAction) => void;
+}
 
 function Component(
-    props: any,
+    props: PropsWithDispatch,
 )
 {
     switch (props.kind)
@@ -20,12 +25,19 @@ function Component(
 }
 
 
-function mapStateToProps(state: any)
+function mapStateToProps(
+    state: IStkVis,
+)
+    : IProps
 {
     return props(state);
 }
 
-function mapDispatchToProps(dispatch: (action: any) => void)
+
+function mapDispatchToProps(
+    dispatch: (action: IAction) => void,
+)
+    : { dispatch: (action: IAction) => void }
 {
     return { dispatch };
 }
