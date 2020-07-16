@@ -65,6 +65,12 @@ module.exports = {
                 __dirname,
                 './src/mongo-db-requests',
             ),
+
+            'maybe': path.join(
+                __dirname,
+                './src/maybe',
+            ),
+
         },
     },
     module: {
