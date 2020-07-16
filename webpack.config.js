@@ -60,6 +60,11 @@ module.exports = {
                 __dirname,
                 './output/MongoConfigurator.UpdateFields.UpdateFields',
             ),
+
+            'mongo-db-requests': path.join(
+                __dirname,
+                './src/mongo-db-requests',
+            ),
         },
     },
     module: {
