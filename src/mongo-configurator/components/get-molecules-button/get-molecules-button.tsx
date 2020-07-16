@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { AnyAction } from '@reduxjs/toolkit';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import { UnsortedAllButton } from './unsorted-all-button';
