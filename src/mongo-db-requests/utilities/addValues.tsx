@@ -1,4 +1,8 @@
-import { IPartialMolecules, IValueEntries } from '../types';
+import {
+    IPartialMolecule,
+    IPartialMolecules,
+    IValueEntries,
+} from '../types';
 
 
 export function addValues(
@@ -11,8 +15,7 @@ export function addValues(
     {
         for (const entry of entries.entries)
         {
-            molecules
-            .get(entry[moleculeKey])
+            (molecules.get(entry[moleculeKey]) as IPartialMolecule)
             .propertyValues
             .set(entries.collection, entry.v.toString());
         }

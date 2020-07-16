@@ -1,4 +1,5 @@
 export interface IValueEntry
 {
-    v: string | number;
+    v: string;
+    [moleculeKey: string]: string;
 }
