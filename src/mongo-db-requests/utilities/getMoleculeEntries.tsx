@@ -1,7 +1,11 @@
 import { Db } from 'mongodb';
-import { IMoleculeEntry } from '../types';
-import { IMoleculeDataQuery } from './getMoleculeDataQuery';
+import {
+    IPartialMolecule,
+    fromUnknown,
+} from '../types/IPartialMolecule';
+import { IMoleculeDataQuery } from '../types/IMoleculeDataQuery';
 import { RequestError, CollectionConnectionError } from '../errors';
+import { isJust, getValue } from 'maybe';
 
 
 export interface Options
@@ -15,7 +19,7 @@ export function getMoleculeEntries(
     database: Db,
     query: IMoleculeDataQuery,
 )
-    : Promise<IMoleculeEntry[]>
+    : Promise<IPartialMolecule[]>
 {
     return database
     .collection(options.moleculeCollection)
@@ -31,5 +35,11 @@ export function getMoleculeEntries(
             'Could not connect to the '
             + options.moleculeCollection + ' collection.'
         );
-    });
+    })
+    .then( (items: unknown[]) =>
+        items
+        .map(fromUnknown)
+        .filter(isJust)
+        .map(getValue)
+    );
 }

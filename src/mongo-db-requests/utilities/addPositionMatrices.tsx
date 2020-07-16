@@ -1,11 +1,15 @@
 import {
     IMolecule,
+} from '../types/IMolecule';
+import {
     IPartialMolecule,
+} from '../types/IPartialMolecule';
+import {
     IPositionMatrix,
+} from '../types/IPositionMatrix';
+import {
     IPositionMatrixEntry,
-    IPartialMolecules,
-} from '../types';
-
+} from '../types/IPositionMatrixEntry';
 
 interface IModifiedMolecule
 extends IPartialMolecule
@@ -17,7 +21,7 @@ extends IPartialMolecule
 
 export function addPositionMatrices(
     moleculeKey: string,
-    molecules: IPartialMolecules,
+    molecules: Map<string, IPartialMolecule>,
 )
     : (entries: IPositionMatrixEntry[]) =>  IMolecule[]
 {
@@ -29,10 +33,7 @@ export function addPositionMatrices(
         for (const entry of entries)
         {
             const molecule: IModifiedMolecule
-                = (
-                    molecules.get((entry[moleculeKey] as string)) as
-                    IModifiedMolecule
-                );
+                = molecules.get(entry.key) as IModifiedMolecule;
 
             molecule.positionMatrix = entry.m;
             modified.push(molecule as IMolecule);

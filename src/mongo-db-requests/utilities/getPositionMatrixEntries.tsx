@@ -1,6 +1,6 @@
 import { Db } from 'mongodb';
-import { IMoleculeDataQuery } from './getMoleculeDataQuery';
-import { IPositionMatrixEntry } from '../types';
+import { IMoleculeDataQuery } from '../types/IMoleculeDataQuery';
+import { IPositionMatrixEntry } from '../types/IPositionMatrixEntry';
 import {
     RequestError,
     CollectionConnectionError,
@@ -8,6 +8,7 @@ import {
 
 
 export function getPositionMatrixEntries(
+    moleculeKey: string,
     database: Db,
     query: IMoleculeDataQuery,
     collection: string,
@@ -27,5 +28,24 @@ export function getPositionMatrixEntries(
         throw new CollectionConnectionError(
             'Could not connect to the ' + collection + ' collection.'
         );
+    })
+    .then( (items: unknown[]) => {
+        const validated: IPositionMatrixEntry[]
+            = [];
+
+        for (const item of items)
+        {
+            if (
+                item['m'] !== undefined
+                &&
+                item[moleculeKey] !== undefined
+            ) {
+                validated.push({
+                    m: item['m'],
+                    key: item[moleculeKey],
+                });
+            }
+        }
+        return validated;
     });
 }

@@ -16,9 +16,6 @@ import {
 } from './utilities';
 import {
     getValueCollections,
-    getPageKind,
-    getMoleculeDataQuery,
-    IMoleculeDataQuery,
     getPositionMatrixEntries,
     addPositionMatrices,
     getValueEntries,
@@ -29,7 +26,13 @@ import {
 } from '../types/IMolecule';
 import {
     PageKind,
+    getPageKind,
 } from '../types/PageKind';
+import {
+    IMoleculeDataQuery,
+    getMoleculeDataQuery,
+} from '../types/IMoleculeDataQuery';
+
 
 
 interface Options

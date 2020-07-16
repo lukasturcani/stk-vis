@@ -1,8 +1,8 @@
-import { IPositionMatrix } from './molecular';
+import { IPositionMatrix } from '../IPositionMatrix';
 
 
 export interface IPositionMatrixEntry
 {
     m: IPositionMatrix;
-    [prop: string]: string | IPositionMatrix;
+    key: string;
 }
