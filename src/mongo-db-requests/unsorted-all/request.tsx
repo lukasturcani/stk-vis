@@ -16,7 +16,6 @@ import {
 } from './utilities';
 import {
     getValueCollections,
-    getPartialMolecules,
     getPageKind,
     getMoleculeDataQuery,
     IMoleculeDataQuery,
@@ -27,9 +26,10 @@ import {
 } from '../utilities';
 import {
     IMolecule,
+} from '../types/IMolecule';
+import {
     PageKind,
-} from '../types';
-
+} from '../types/PageKind';
 
 
 interface Options
@@ -61,7 +61,7 @@ export function request(
 
     return MongoClient
     .connect(options.url)
-    .catch(err => { throw new DatabaseConnectionError() })
+    .catch(() => { throw new DatabaseConnectionError() })
 
     .then(
         (client: MongoClient) => client.db(options.database)
@@ -70,8 +70,7 @@ export function request(
     .then( (database: Db) => Promise.all([
         Promise.resolve(database),
         getValueCollections(nonValueCollections, database),
-        getMoleculeEntries(options, database)
-        .then(getPartialMolecules(options)),
+        getMoleculeEntries(options, database),
     ]) )
 
     .then( ([database, valueCollections, molecules]) =>

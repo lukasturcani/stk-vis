@@ -2,12 +2,14 @@ import {
     Db,
 } from 'mongodb';
 import {
-    IMoleculeEntry
-} from '../../types';
+    IPartialMolecule,
+    fromUnknown,
+} from 'mongo-db-requests/types/IPartialMolecule';
 import {
     RequestError,
     CollectionConnectionError,
 } from '../../errors';
+import { isJust, getValue } from 'maybe';
 
 
 interface Options
@@ -24,7 +26,7 @@ export function getMoleculeEntries
     options: Options,
     database: Db,
 )
-    : Promise<IMoleculeEntry[]>
+    : Promise<Map<string, IPartialMolecule>>
 {
     return database
     .collection(options.moleculeCollection)
@@ -48,4 +50,22 @@ export function getMoleculeEntries
             + options.moleculeCollection + ' collection.'
         );
     })
+    .then((items: unknown[]) => {
+        const validated: IPartialMolecule[]
+            = items
+            .slice(0, options.numEntriesPerPage)
+            .map(fromUnknown(options.moleculeKey))
+            .filter(isJust)
+            .map(getValue)
+
+        const result: Map<string, IPartialMolecule>
+            = new Map();
+
+        for (const molecule of validated)
+        {
+            result.set(molecule.key, molecule);
+        }
+
+        return result;
+    });
 }
