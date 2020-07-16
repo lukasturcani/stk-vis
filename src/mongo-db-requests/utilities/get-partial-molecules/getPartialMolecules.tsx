@@ -39,7 +39,7 @@ export function getPartialMolecules(
         for (const molecule of validated)
         {
             result.set(
-                molecule.keys.get(options.moleculeKey),
+                (molecule.keys.get(options.moleculeKey) as string),
                 molecule,
             );
         }
