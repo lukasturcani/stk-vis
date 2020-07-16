@@ -40,7 +40,7 @@ export function UnsortedAllButton(
                             props.constructedMoleculeCollection,
                         positionMatrixCollection:
                             props.positionMatrixCollection,
-                        buildingBlocksPositionMatrixCollection:
+                        buildingBlockPositionMatrixCollection:
                             props.buildingBlockPositionMatrixCollection,
                         numEntriesPerPage: props.numEntriesPerPage,
                         searchKind: unsortedAll,
