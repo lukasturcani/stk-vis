@@ -33,7 +33,7 @@ export function GetMoleculesButton(
 )
 {
     if (
-        props.selectBuildingBlocks || props.selectConstructedMolecules
+        props.selectBuildingBlocks && props.selectConstructedMolecules
     ) {
         return <UnsortedAllButton { ...props } />;
     }
