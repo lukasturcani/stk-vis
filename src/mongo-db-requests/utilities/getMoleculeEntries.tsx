@@ -6,6 +6,7 @@ import {
 import { IMoleculeDataQuery } from '../types/IMoleculeDataQuery';
 import { RequestError, CollectionConnectionError } from '../errors';
 import { isJust, getValue } from 'maybe';
+import { IJson } from '../types/IJson';
 
 
 export interface Options
@@ -37,7 +38,7 @@ export function getMoleculeEntries(
             + options.moleculeCollection + ' collection.'
         );
     })
-    .then( (items: any[]) =>
+    .then( (items: IJson[]) =>
         items
         .map(fromAny(options.moleculeKey))
         .filter(isJust)

@@ -10,6 +10,7 @@ import {
     CollectionConnectionError,
 } from '../../errors';
 import { isJust, getValue } from 'maybe';
+import { IJson } from 'mongo-db-requests/types/IJson';
 
 
 interface Options
@@ -50,7 +51,7 @@ export function getMoleculeEntries
             + options.moleculeCollection + ' collection.'
         );
     })
-    .then((items: any[]) => {
+    .then((items: IJson[]) => {
         const validated: IPartialMolecule[]
             = items
             .slice(0, options.numEntriesPerPage)

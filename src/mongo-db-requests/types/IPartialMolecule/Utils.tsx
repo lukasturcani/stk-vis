@@ -2,35 +2,18 @@ import { Maybe, Just, Nothing } from 'maybe';
 import { IPartialMolecule } from './IPartialMolecule';
 import { IAtom } from './IAtom';
 import { IBond } from './IBond';
+import { IJson, IJsonValue } from '../IJson';
 
-type IDbEntryPrimitive =
-    | undefined
-    | string
-    | number
-    | boolean;
-
-
-interface IDbEntry
-{
-    [prop: string]:
-        IDbEntryPrimitive
-        | IDbEntryPrimitive[]
-        | IDbEntry
-        | IDbEntry[];
-}
-
-type IDbEntryValue =
-    | IDbEntryPrimitive | IDbEntryPrimitive[] | IDbEntry | IDbEntry[];
 
 
 export function fromAny(
     moleculeKey: string
 )
-    : (arg: IDbEntry) => Maybe<IPartialMolecule>
+    : (arg: IJson) => Maybe<IPartialMolecule>
 {
-    return (arg: IDbEntry) => {
+    return (arg: IJson) => {
 
-        const key: IDbEntryValue
+        const key: IJsonValue
             = arg[moleculeKey];
 
         if (typeof key !== 'string')
@@ -69,7 +52,7 @@ export function fromAny(
 
 
 function getMoleculeKeys(
-    entry: IDbEntry,
+    entry: IJson,
 )
     : Map<string, string>
 {
@@ -96,11 +79,11 @@ function getMoleculeKeys(
 
 
 function getAtoms(
-    entry: IDbEntry,
+    entry: IJson,
 )
     : IAtom[] | undefined
 {
-    const atomEntries: IDbEntryValue
+    const atomEntries: IJsonValue
         = entry['a'];
 
     if (!Array.isArray(atomEntries))
@@ -130,11 +113,11 @@ function getAtoms(
 
 function getBonds(
     atoms: IAtom[],
-    entry: any,
+    entry: IJson,
 )
     : IBond[] | undefined
 {
-    const bondEntries: IDbEntryValue
+    const bondEntries: IJsonValue
         = entry['b'];
 
     if (!Array.isArray(bondEntries))
