@@ -81,7 +81,8 @@ export function UnsortedAllButton(
 
                         pageIndex: 0,
 
-                    });
+                    })
+                    .then(result => props.updateMoleculePage(result));
                 }
             }
         >

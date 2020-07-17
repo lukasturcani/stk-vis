@@ -81,7 +81,8 @@ export function UnsortedBuildingBlocksButton(
 
                         pageIndex: 0,
 
-                    });
+                    })
+                    .then(result => props.updateMoleculePage(result));
                 }
             }
         >
