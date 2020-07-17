@@ -3,6 +3,9 @@ import Grid from '@material-ui/core/Grid';
 import { InputFields } from './input-fields';
 import { GetMoleculesButton } from './get-molecules-button';
 import { IAction } from 'StkVis.Action';
+import {
+    IMongoData
+} from 'MongoConfigurator.UpdateFields.MongoData';
 
 
 interface Props
@@ -17,7 +20,7 @@ interface Props
     numEntriesPerPage: number;
     selectBuildingBlocks: boolean;
     selectConstructedMolecules: boolean;
-    dispatch: (action: IAction) => void;
+    updateFields: (mongoData: IMongoData) => void;
 }
 
 
@@ -128,7 +131,7 @@ export function MongoConfigurator(
                     selectConstructedMolecules={
                         selectConstructedMolecules
                     }
-                    dispatch= { props.dispatch }
+                    updateFields={ props.updateFields }
                 />
             </Grid>
         </Grid>

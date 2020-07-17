@@ -8,6 +8,9 @@ import {
 import {
     unsortedBuildingBlocks,
 } from 'MongoConfigurator.SearchKind';
+import {
+    IMongoData
+} from 'MongoConfigurator.UpdateFields.MongoData';
 
 
 interface Props
@@ -20,7 +23,7 @@ interface Props
     positionMatrixCollection: string;
     buildingBlockPositionMatrixCollection: string;
     numEntriesPerPage: number;
-    dispatch: (action: IAction) => void;
+    updateFields: (mongoData: IMongoData) => void;
 }
 
 
@@ -32,7 +35,7 @@ export function UnsortedBuildingBlocksButton(
         <Button
             onClick={
                 () => {
-                    props.dispatch(updateFields({
+                    props.updateFields({
                         url: props.url,
                         moleculeKey: props.moleculeKey,
                         database: props.database,
@@ -45,7 +48,7 @@ export function UnsortedBuildingBlocksButton(
                             props.buildingBlockPositionMatrixCollection,
                         numEntriesPerPage: props.numEntriesPerPage,
                         searchKind: unsortedBuildingBlocks,
-                    }));
+                    });
                 }
             }
         >

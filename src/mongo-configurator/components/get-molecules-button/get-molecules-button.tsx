@@ -10,6 +10,9 @@ import {
     UnsortedConstructedMoleculesButton,
 } from './unsorted-constructed-molecules-button';
 import { IAction } from 'StkVis.Action';
+import {
+    IMongoData
+} from 'MongoConfigurator.UpdateFields.MongoData';
 
 
 interface Props
@@ -24,7 +27,7 @@ interface Props
     numEntriesPerPage: number;
     selectBuildingBlocks: boolean;
     selectConstructedMolecules: boolean;
-    dispatch: (action: IAction) => void;
+    updateFields: (mongoData: IMongoData) => void;
 }
 
 

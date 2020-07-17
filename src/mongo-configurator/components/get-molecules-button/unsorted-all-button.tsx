@@ -11,6 +11,9 @@ import {
 import {
     request,
 } from 'mongo-db-requests/unsorted-all';
+import {
+    IMongoData
+} from 'MongoConfigurator.UpdateFields.MongoData';
 
 
 interface Props
@@ -23,7 +26,7 @@ interface Props
     positionMatrixCollection: string;
     buildingBlockPositionMatrixCollection: string;
     numEntriesPerPage: number;
-    dispatch: (action: IAction) => void;
+    updateFields: (mongoData: IMongoData) => void;
 }
 
 
@@ -38,7 +41,7 @@ export function UnsortedAllButton(
                     const bbPosMatCol
                         = props.buildingBlockPositionMatrixCollection;
 
-                    props.dispatch(updateFields({
+                    props.updateFields({
                         url: props.url,
                         moleculeKey: props.moleculeKey,
                         database: props.database,
@@ -51,7 +54,7 @@ export function UnsortedAllButton(
                             bbPosMatCol,
                         numEntriesPerPage: props.numEntriesPerPage,
                         searchKind: unsortedAll,
-                    }));
+                    });
                     request({
                         url: props.url,
 

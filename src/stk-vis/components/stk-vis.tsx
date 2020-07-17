@@ -4,11 +4,14 @@ import {
     MongoConfigurator,
 } from 'mongo-configurator/components/mongo-configurator';
 import { props, IProps, IStkVis } from 'StkVis.StkVis';
-import { IAction } from 'StkVis.Action';
+import { IAction, updateFields } from 'StkVis.Action';
+import {
+    IMongoData
+} from 'MongoConfigurator.UpdateFields.MongoData';
 
 interface PropsWithDispatch extends IProps
 {
-    dispatch: (action: IAction) => void;
+    updateFields: (mongoData: IMongoData) => void;
 }
 
 function Component(
@@ -37,9 +40,12 @@ function mapStateToProps(
 function mapDispatchToProps(
     dispatch: (action: IAction) => void,
 )
-    : { dispatch: (action: IAction) => void }
+    : { updateFields: (mongoData: IMongoData) => void }
 {
-    return { dispatch };
+    return {
+        updateFields: (mongoData: IMongoData) =>
+            dispatch(updateFields(mongoData))
+    };
 }
 
 
