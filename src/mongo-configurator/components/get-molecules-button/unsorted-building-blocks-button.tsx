@@ -11,6 +11,9 @@ import {
 import {
     IMongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
+import {
+    request,
+} from 'mongo-db-requests/unsorted-building-blocks';
 
 
 interface Props
@@ -35,6 +38,9 @@ export function UnsortedBuildingBlocksButton(
         <Button
             onClick={
                 () => {
+                    const bbPosMatCol
+                        = props.buildingBlockPositionMatrixCollection;
+
                     props.updateFields({
                         url: props.url,
                         moleculeKey: props.moleculeKey,
@@ -48,6 +54,29 @@ export function UnsortedBuildingBlocksButton(
                             props.buildingBlockPositionMatrixCollection,
                         numEntriesPerPage: props.numEntriesPerPage,
                         searchKind: unsortedBuildingBlocks,
+                    });
+                    request({
+                        url: props.url,
+
+                        database: props.database,
+
+                        moleculeKey: props.moleculeKey,
+
+                        moleculeCollection: props.moleculeCollection,
+
+                        constructedMoleculeCollection:
+                            props.constructedMoleculeCollection,
+
+                        positionMatrixCollection:
+                            props.positionMatrixCollection,
+
+                        numEntriesPerPage:
+                            props.numEntriesPerPage,
+
+                        ignoredCollections: [],
+
+                        pageIndex: 0,
+
                     });
                 }
             }
