@@ -11,6 +11,9 @@ import {
 import {
     IMongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
+import {
+    request,
+} from 'mongo-db-requests/unsorted-constructed-molecules';
 
 
 interface Props
@@ -48,6 +51,29 @@ export function UnsortedConstructedMoleculesButton(
                             props.buildingBlockPositionMatrixCollection,
                         numEntriesPerPage: props.numEntriesPerPage,
                         searchKind: unsortedConstructedMolecules,
+                    });
+                    request({
+                        url: props.url,
+
+                        database: props.database,
+
+                        moleculeKey: props.moleculeKey,
+
+                        moleculeCollection: props.moleculeCollection,
+
+                        constructedMoleculeCollection:
+                            props.constructedMoleculeCollection,
+
+                        positionMatrixCollection:
+                            props.positionMatrixCollection,
+
+                        numEntriesPerPage:
+                            props.numEntriesPerPage,
+
+                        ignoredCollections: [],
+
+                        pageIndex: 0,
+
                     });
                 }
             }

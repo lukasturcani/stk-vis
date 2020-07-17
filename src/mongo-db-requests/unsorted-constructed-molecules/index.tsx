@@ -1,2 +1,2 @@
-export * from './reqest';
-export * from '/.IResult';
+export * from './request';
+export * from './IResult';
