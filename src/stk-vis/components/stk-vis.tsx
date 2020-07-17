@@ -8,10 +8,19 @@ import { IAction, updateFields } from 'StkVis.Action';
 import {
     IMongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
+import {
+    IPageData,
+} from 'MoleculeBrowser.UpdateMoleculePage';
 
-interface PropsWithDispatch extends IProps
+
+interface DispatchProps
 {
     updateFields: (mongoData: IMongoData) => void;
+    updateMoleculePage: (pageData: IPageData) => void;
+}
+
+interface PropsWithDispatch extends IProps, DispatchProps
+{
 }
 
 function Component(
@@ -40,11 +49,15 @@ function mapStateToProps(
 function mapDispatchToProps(
     dispatch: (action: IAction) => void,
 )
-    : { updateFields: (mongoData: IMongoData) => void }
+    : DispatchProps
 {
     return {
         updateFields: (mongoData: IMongoData) =>
-            dispatch(updateFields(mongoData))
+            dispatch(updateFields(mongoData)),
+
+        updateMoleculePage: (pageData: IPageData) =>
+            console.log(pageData),
+
     };
 }
 

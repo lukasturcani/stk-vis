@@ -6,6 +6,9 @@ import { IAction } from 'StkVis.Action';
 import {
     IMongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
+import {
+    IPageData,
+} from 'MoleculeBrowser.UpdateMoleculePage';
 
 
 interface Props
@@ -21,6 +24,7 @@ interface Props
     selectBuildingBlocks: boolean;
     selectConstructedMolecules: boolean;
     updateFields: (mongoData: IMongoData) => void;
+    updateMoleculePage: (pageData: IPageData) => void;
 }
 
 
@@ -132,6 +136,7 @@ export function MongoConfigurator(
                         selectConstructedMolecules
                     }
                     updateFields={ props.updateFields }
+                    updateMoleculePage={ props.updateMoleculePage }
                 />
             </Grid>
         </Grid>

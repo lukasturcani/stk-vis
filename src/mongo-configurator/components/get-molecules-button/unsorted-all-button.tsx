@@ -14,6 +14,9 @@ import {
 import {
     IMongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
+import {
+    IPageData,
+} from 'MoleculeBrowser.UpdateMoleculePage';
 
 
 interface Props
@@ -27,6 +30,7 @@ interface Props
     buildingBlockPositionMatrixCollection: string;
     numEntriesPerPage: number;
     updateFields: (mongoData: IMongoData) => void;
+    updateMoleculePage: (pageData: IPageData) => void;
 }
 
 
