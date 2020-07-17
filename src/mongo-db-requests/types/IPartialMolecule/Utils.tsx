@@ -3,18 +3,37 @@ import { IPartialMolecule } from './IPartialMolecule';
 import { IAtom } from './IAtom';
 import { IBond } from './IBond';
 
+type IDbEntryPrimitive =
+    | undefined
+    | string
+    | number
+    | boolean;
+
+
+interface IDbEntry
+{
+    [prop: string]:
+        IDbEntryPrimitive
+        | IDbEntryPrimitive[]
+        | IDbEntry
+        | IDbEntry[];
+}
+
+type IDbEntryValue =
+    | IDbEntryPrimitive | IDbEntryPrimitive[] | IDbEntry | IDbEntry[];
+
 
 export function fromAny(
     moleculeKey: string
 )
-    : (arg: any) => Maybe<IPartialMolecule>
+    : (arg: IDbEntry) => Maybe<IPartialMolecule>
 {
-    return (arg: any) => {
+    return (arg: IDbEntry) => {
 
-        const key: string | undefined
+        const key: IDbEntryValue
             = arg[moleculeKey];
 
-        if (key === undefined)
+        if (typeof key !== 'string')
         {
             return new Nothing();
         }
@@ -50,7 +69,7 @@ export function fromAny(
 
 
 function getMoleculeKeys(
-    entry: any,
+    entry: IDbEntry,
 )
     : Map<string, string>
 {
@@ -60,9 +79,15 @@ function getMoleculeKeys(
     for (const [key, value] of Object.entries(entry))
     {
         if (
-            key !== 'a' && key !== 'b'
+            key !== 'a'
+            &&
+            key !== 'b'
+            &&
+            key !== '_id'
+            &&
+            typeof value === 'string'
         ){
-            keys.set(key, (value as any).toString());
+            keys.set(key, value);
         }
     }
 
@@ -71,17 +96,20 @@ function getMoleculeKeys(
 
 
 function getAtoms(
-    entry: any,
+    entry: IDbEntry,
 )
     : IAtom[] | undefined
 {
-    const atomEntries: any
+    const atomEntries: IDbEntryValue
         = entry['a'];
 
     if (!Array.isArray(atomEntries))
     {
         return;
     }
+
+    const atoms: IAtom[]
+        = [];
 
     for (const atomEntry of atomEntries)
     {
@@ -93,9 +121,10 @@ function getAtoms(
         {
             return;
         }
+        atoms.push({ atomicNumber: atomEntry[0] });
     }
 
-    return atomEntries;
+    return atoms;
 }
 
 
@@ -105,13 +134,16 @@ function getBonds(
 )
     : IBond[] | undefined
 {
-    const bondEntries: any
+    const bondEntries: IDbEntryValue
         = entry['b'];
 
     if (!Array.isArray(bondEntries))
     {
         return;
     }
+
+    const bonds: IBond[]
+        = [];
 
     for (const bondEntry of bondEntries)
     {
@@ -138,7 +170,13 @@ function getBonds(
         {
             return;
         }
+
+        bonds.push({
+            atom1Id: bondEntry[0],
+            atom2Id: bondEntry[1],
+            order: bondEntry[2],
+        });
     }
 
-    return bondEntries;
+    return bonds;
 }
