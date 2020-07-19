@@ -78,7 +78,6 @@ export function getMoleculeEntries
     })
     .then( (items: IJson[]) =>
             items
-            .slice(0, options.numEntriesPerPage)
             .map(fromAny(options.moleculeKey))
             .filter(isJust)
             .map(getValue)

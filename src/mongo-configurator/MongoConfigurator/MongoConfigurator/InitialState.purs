@@ -19,7 +19,7 @@ initialState = MongoConfigurator
     , _constructedMoleculeCollection: "constructed_molecules"
     , _positionMatrixCollection: "position_matrices"
     , _buildingBlockPositionMatrixCollection:
-        "building_block_position_matrix_collection"
+        "building_block_position_matrices"
     , _numEntriesPerPage: 34
     , _searchKind: UnsortedAll
     , _requestState: Unsent
