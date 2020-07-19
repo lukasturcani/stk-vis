@@ -56,7 +56,8 @@ const Container: React.FunctionComponent<Record<string, unknown>>
             spacing={ 3 }
             style={{
                 height: '100%',
-                width: '100%',
+                width: '99vw',
+                paddingTop: '1%',
             }}
             direction='column'
         >
