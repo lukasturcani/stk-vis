@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import {
     MongoConfigurator,
-} from 'mongo-configurator/components/mongo-configurator';
+} from './styled/mongo-configurator/mongo-configurator';
 import { props, IProps, IStkVis } from 'StkVis.StkVis';
 import { IAction, updateFields } from 'StkVis.Action';
 import {
@@ -31,7 +31,9 @@ function Component(
     {
         case 'Mongo Configurator':
         {
-            return <MongoConfigurator { ...props } />;
+            return <MongoConfigurator
+                { ...props }
+            />;
         }
     }
 }
