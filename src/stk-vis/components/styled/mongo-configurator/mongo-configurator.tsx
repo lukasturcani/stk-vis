@@ -54,7 +54,10 @@ const Container: React.FunctionComponent<Record<string, unknown>>
             alignContent={ 'center' }
             justify={ 'center' }
             spacing={ 3 }
-            style={ {height: '100%'} }
+            style={{
+                height: '100%',
+                width: '100%',
+            }}
             direction='column'
         >
             { props.children }
