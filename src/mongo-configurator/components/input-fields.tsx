@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import { SearchKindSelector } from './search-kind-selector';
 
 
-interface Props
+export interface BaseProps
 {
     url: string;
     setUrl: (url: string) => void;
@@ -40,6 +40,12 @@ interface Props
 }
 
 
+interface Props extends BaseProps
+{
+    component: React.FunctionComponent<Record<string, unknown>>;
+}
+
+
 export function InputFields(
     props: Props,
 )
@@ -48,7 +54,7 @@ export function InputFields(
         = props.setBuildingBlockPositionMatrixCollection;
 
     return (
-        <Grid container>
+        <props.component>
             <Grid item>
                 <SearchKindSelector
                     buildingBlocks={ props.selectBuildingBlocks }
@@ -166,6 +172,6 @@ export function InputFields(
                     }
                 />
             </Grid>
-        </Grid>
+        </props.component>
     );
 }

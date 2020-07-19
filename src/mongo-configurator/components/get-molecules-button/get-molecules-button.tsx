@@ -18,7 +18,7 @@ import {
 } from 'MoleculeBrowser.UpdateMoleculePage';
 
 
-interface Props
+export interface BaseProps
 {
     url: string;
     moleculeKey: string;
@@ -32,6 +32,11 @@ interface Props
     selectConstructedMolecules: boolean;
     updateFields: (mongoData: IMongoData) => void;
     updateMoleculePage: (pageData: IPageData) => void;
+}
+
+
+interface Props extends BaseProps
+{
 }
 
 

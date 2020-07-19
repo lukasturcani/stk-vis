@@ -4,6 +4,12 @@ import {
     MongoConfigurator as MongoConfiguratorBase,
 } from 'mongo-configurator/components/mongo-configurator';
 import {
+    InputFields
+} from './input-fields';
+import {
+    GetMoleculesButton
+} from './get-molecules-button';
+import {
     IMongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
 import {
@@ -34,6 +40,8 @@ export function MongoConfigurator(
 {
     return <MongoConfiguratorBase
         component={ Container }
+        inputFields={ InputFields }
+        getMoleculesButton={ GetMoleculesButton }
         { ...props }
     />
 }

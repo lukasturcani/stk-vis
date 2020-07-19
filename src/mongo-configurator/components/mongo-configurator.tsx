@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { InputFields } from './input-fields';
-import { GetMoleculesButton } from './get-molecules-button';
+import { BaseProps as InputFieldsProps  } from './input-fields';
+import {
+    BaseProps as GetMoleculesButtonProps,
+} from './get-molecules-button';
 import Grid from '@material-ui/core/Grid';
 import { IAction } from 'StkVis.Action';
 import {
@@ -14,6 +16,10 @@ import {
 interface Props
 {
     component: React.FunctionComponent<Record<string, unknown>>;
+    inputFields: React.FunctionComponent<InputFieldsProps>;
+    getMoleculesButton:
+        React.FunctionComponent<GetMoleculesButtonProps>;
+
     url: string;
     moleculeKey: string;
     database: string;
@@ -71,7 +77,7 @@ export function MongoConfigurator(
 
     return (
         <props.component>
-            <InputFields
+            <props.inputFields
                 url={ url }
                 setUrl={ setUrl }
 
@@ -117,7 +123,7 @@ export function MongoConfigurator(
                 }
             />
             <Grid item>
-                <GetMoleculesButton
+                <props.getMoleculesButton
                     url={ url }
                     moleculeKey={ moleculeKey }
                     database={ database }
