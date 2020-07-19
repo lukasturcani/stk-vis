@@ -16,6 +16,10 @@ export function addValues(
     {
         for (const entry of entries.entries)
         {
+            if (entry.v === undefined)
+            {
+                continue;
+            }
             (molecules.get(entry[moleculeKey]) as IPartialMolecule)
             .propertyValues
             .set(entries.collection, entry.v.toString());
