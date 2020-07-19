@@ -5,6 +5,23 @@ import { IBond } from './IBond';
 import { IJson, IJsonValue } from '../IJson';
 
 
+export function mapKeysToMolecules(
+    molecules: IPartialMolecule[],
+)
+    : Map<string, IPartialMolecule>
+{
+        const result: Map<string, IPartialMolecule>
+            = new Map();
+
+        for (const molecule of molecules)
+        {
+            result.set(molecule.key, molecule);
+        }
+
+        return result;
+}
+
+
 
 export function fromAny(
     moleculeKey: string
