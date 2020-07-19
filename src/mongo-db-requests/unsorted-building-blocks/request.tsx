@@ -28,6 +28,10 @@ import {
 import {
     getPageKind,
 } from '../types/PageKind';
+import {
+    IPartialMolecule,
+    mapKeysToMolecules,
+} from '../types/IPartialMolecule';
 
 
 
@@ -73,17 +77,21 @@ export function request(
 
     .then( ([database, valueCollections, molecules]) =>
     {
+        const moleculeMap: Map<string, IPartialMolecule>
+            = mapKeysToMolecules(
+                molecules.slice(0, options.numEntriesPerPage)
+            );
 
         const query: IMoleculeDataQuery
             = getMoleculeDataQuery(
                 options.moleculeKey,
-                Array.from(molecules.keys()),
+                Array.from(moleculeMap.keys()),
             );
 
         return Promise.all([
 
             Promise.resolve(getPageKind({
-                numItems: molecules.size,
+                numItems: molecules.length,
                 pageIndex: options.pageIndex,
                 numEntriesPerPage: options.numEntriesPerPage,
             })),
@@ -97,14 +105,14 @@ export function request(
                 options.positionMatrixCollection,
             )
             .then(
-                addPositionMatrices(options.moleculeKey, molecules)
+                addPositionMatrices(options.moleculeKey, moleculeMap)
             ),
 
             Promise.all(
                 valueCollections
                 .map(getValueEntries(database, query))
                 .map(promise => promise.then(
-                    addValues(options.moleculeKey, molecules)
+                    addValues(options.moleculeKey, moleculeMap)
                 ))
             ),
 
