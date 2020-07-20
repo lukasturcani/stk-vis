@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import {
     InputFields as InputFieldsBase,
 } from 'mongo-configurator/components/input-fields';
+import { SearchKindSelector } from './search-kind-selector';
 
 
 export interface Props
@@ -47,6 +48,7 @@ export function InputFields(
     return (
         <InputFieldsBase { ...props }
             component={ Container }
+            searchKindSelector={ SearchKindSelector }
         />
     );
 }

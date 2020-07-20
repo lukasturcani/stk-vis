@@ -2,7 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { SearchKindSelector } from './search-kind-selector';
+import {
+    BaseProps as SearchKindSelectorProps,
+} from './search-kind-selector';
 
 
 export interface BaseProps
@@ -43,6 +45,8 @@ export interface BaseProps
 interface Props extends BaseProps
 {
     component: React.FunctionComponent<Record<string, unknown>>;
+    searchKindSelector:
+        React.FunctionComponent<SearchKindSelectorProps>;
 }
 
 
@@ -56,7 +60,7 @@ export function InputFields(
     return (
         <props.component>
             <Grid item>
-                <SearchKindSelector
+                <props.searchKindSelector
                     buildingBlocks={ props.selectBuildingBlocks }
                     setBuildingBlocks={ props.setSelectBuildingBlocks }
 

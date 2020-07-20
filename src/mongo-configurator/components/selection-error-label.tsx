@@ -1,11 +1,21 @@
 import * as React from 'react';
-import FormLabel from '@material-ui/core/FormLabel';
 
 
-interface Props
+export interface BaseProps
 {
     buildingBlocks: boolean;
     constructedMolecules: boolean;
+}
+
+interface Props extends BaseProps
+{
+    component: React.FunctionComponent<LabelProps>;
+}
+
+
+export interface LabelProps
+{
+    error: boolean;
 }
 
 
@@ -18,7 +28,17 @@ export function SelectionErrorLabel(
 
     if (!props.buildingBlocks && !props.constructedMolecules)
     {
-        return <FormLabel error={ true }>{ label }</FormLabel>;
+        return (
+            <props.component
+                error={ true }
+            >{ label }
+            </props.component>
+        );
     }
-    return  <FormLabel error={ false }> { label }</FormLabel>;
+    return  (
+        <props.component
+            error={ false }
+        >{ label }
+        </props.component>
+    );
 }

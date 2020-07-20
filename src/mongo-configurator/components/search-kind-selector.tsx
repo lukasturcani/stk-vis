@@ -1,17 +1,26 @@
 import * as React from 'react';
-import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { SelectionErrorLabel } from './selection-error-label';
+import {
+    BaseProps as LabelProps,
+    SelectionErrorLabel,
+} from './selection-error-label';
 
 
-interface Props
+export interface BaseProps
 {
     buildingBlocks: boolean;
     setBuildingBlocks: (buildingBlocks: boolean) => void;
     constructedMolecules: boolean;
     setConstructedMolecules: (constructedMolecules: boolean) => void;
+}
+
+
+interface Props extends BaseProps
+{
+    formControl: React.FunctionComponent<Record<string, unknown>>
+    errorLabel: React.FunctionComponent<LabelProps>
 }
 
 
@@ -31,7 +40,7 @@ export function SearchKindSelector(
 {
     return (
         <div>
-            <FormControl>
+            <props.formControl>
                 <FormLabel>
                     Show Me:
                 </FormLabel>
@@ -61,11 +70,11 @@ export function SearchKindSelector(
                     }
                     label="Constructed Molecules"
                   />
-                  <SelectionErrorLabel
+                  <props.errorLabel
                     buildingBlocks={ props.buildingBlocks }
                     constructedMolecules={ props.constructedMolecules }
                   />
-            </FormControl>
+            </props.formControl>
         </div>
     );
 }
