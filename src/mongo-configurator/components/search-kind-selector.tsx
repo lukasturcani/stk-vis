@@ -4,7 +4,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import {
     BaseProps as LabelProps,
-    SelectionErrorLabel,
 } from './selection-error-label';
 
 
