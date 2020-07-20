@@ -3,7 +3,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import {
     SelectionErrorLabel as SelectionErrorLabelBase,
     BaseProps,
-    LabelProps,
+    ComponentProps,
 } from 'mongo-configurator/components/selection-error-label';
 
 
@@ -18,7 +18,7 @@ export function SelectionErrorLabel(
 }
 
 
-const Label: React.FunctionComponent<LabelProps>
+const Label: React.FunctionComponent<ComponentProps>
     = (props) => (
         <FormLabel
             { ...props }

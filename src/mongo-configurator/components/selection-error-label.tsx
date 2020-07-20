@@ -9,11 +9,11 @@ export interface BaseProps
 
 interface Props extends BaseProps
 {
-    component: React.FunctionComponent<LabelProps>;
+    component: React.FunctionComponent<ComponentProps>;
 }
 
 
-export interface LabelProps
+export interface ComponentProps
 {
     error: boolean;
 }
