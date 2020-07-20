@@ -19,7 +19,7 @@ import {
 } from 'MoleculeBrowser.UpdateMoleculePage';
 
 
-interface Props
+interface BaseProps
 {
     url: string;
     moleculeKey: string;
@@ -34,17 +34,26 @@ interface Props
 }
 
 
+interface Props extends BaseProps
+{
+    button: React.FunctionComponent<ButtonProps>;
+}
+
+
+interface ButtonProps
+{
+    onClick: () => void;
+}
+
+
 export function UnsortedBuildingBlocksButton(
     props: Props,
 )
 {
     return (
-        <Button
+        <props.button
             onClick={
                 () => {
-                    const bbPosMatCol
-                        = props.buildingBlockPositionMatrixCollection;
-
                     props.updateFields({
                         url: props.url,
                         moleculeKey: props.moleculeKey,
@@ -87,6 +96,6 @@ export function UnsortedBuildingBlocksButton(
             }
         >
             <SearchIcon />
-        </Button>
+        </props.button>
     );
 }

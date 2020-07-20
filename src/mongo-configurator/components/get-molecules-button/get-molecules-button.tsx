@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import { UnsortedAllButton } from './unsorted-all-button';
 import {
@@ -37,6 +36,14 @@ export interface BaseProps
 
 interface Props extends BaseProps
 {
+    enabledButton: React.FunctionComponent<EnabledButtonProps>;
+    disabledButton: React.FunctionComponent<Record<string, unknown>>;
+}
+
+
+export interface EnabledButtonProps
+{
+    onClick: () => void;
 }
 
 
@@ -47,19 +54,34 @@ export function GetMoleculesButton(
     if (
         props.selectBuildingBlocks && props.selectConstructedMolecules
     ) {
-        return <UnsortedAllButton { ...props } />;
+        return (
+            <UnsortedAllButton
+                button={ props.enabledButton }
+                { ...props }
+            />
+        );
     }
     if (props.selectBuildingBlocks)
     {
-        return <UnsortedBuildingBlocksButton { ...props } />;
+        return (
+            <UnsortedBuildingBlocksButton
+                button={ props.enabledButton }
+                { ...props }
+            />
+        );
     }
     if (props.selectConstructedMolecules)
     {
-        return <UnsortedConstructedMoleculesButton { ...props } />;
+        return (
+            <UnsortedConstructedMoleculesButton
+                button={ props.enabledButton }
+                { ...props }
+            />
+        );
     }
     return (
-        <Button disabled={ true }>
+        <props.disabledButton>
             <SearchIcon />
-        </Button>
+        </props.disabledButton>
     );
 }

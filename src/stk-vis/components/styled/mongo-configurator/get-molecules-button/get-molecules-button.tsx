@@ -8,6 +8,8 @@ import {
 import {
     GetMoleculesButton as GetMoleculesButtonBase,
 } from 'mongo-configurator/components/get-molecules-button';
+import { DisabledButton } from './disabled-button';
+import { EnabledButton } from './enabled-button';
 
 
 interface Props
@@ -30,5 +32,9 @@ export function GetMoleculesButton(
     props: Props,
 )
 {
-    return <GetMoleculesButtonBase { ...props } />;
+    return <GetMoleculesButtonBase
+        disabledButton={ DisabledButton }
+        enabledButton={ EnabledButton }
+        { ...props }
+    />;
 }
