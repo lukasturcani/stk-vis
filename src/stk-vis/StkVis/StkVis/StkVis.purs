@@ -8,7 +8,7 @@ module StkVis.StkVis
 import StkVis.StkVis.Internal.StkVis (StkVis) as Exports
 import StkVis.Action (Action)
 import StkVis.StkVis.Internal.Reducer (reducer) as Reducer
-import StkVis.StkVis.Internal.Props (Props) as Exports
+import StkVis.StkVis.Internal.Props (Props (..)) as Exports
 import StkVis.StkVis.Internal.Props (props) as Props
 
 import StkVis.StkVis.Internal.InitialState

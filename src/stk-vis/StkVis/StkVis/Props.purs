@@ -1,5 +1,5 @@
 module StkVis.StkVis.Internal.Props
-    ( Props
+    ( Props (..)
     , props
     ) where
 

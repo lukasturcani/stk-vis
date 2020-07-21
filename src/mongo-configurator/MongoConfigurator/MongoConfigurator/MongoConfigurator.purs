@@ -18,7 +18,7 @@ import MongoConfigurator.MongoConfigurator.Internal.Reducer
     ) as Exports
 
 import MongoConfigurator.MongoConfigurator.Internal.Props
-    ( Props
+    ( Props (..)
     ) as Exports
 
 import MongoConfigurator.MongoConfigurator.Internal.Props
