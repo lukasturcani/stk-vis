@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { StkVis } from './components/stk-vis';
+import { StkVis } from './components/connected/stk-vis';
 import { reducer, initialState, IStkVis } from 'StkVis.StkVis';
 import { IAction } from 'StkVis.Action';
 import { Provider } from 'react-redux';

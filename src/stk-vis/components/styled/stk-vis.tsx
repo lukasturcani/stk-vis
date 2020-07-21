@@ -1,26 +1,15 @@
 import * as React from 'react';
-import { StkVis as StkVisBase } from 'stk-vis/components/stk-vis';
 import {
-    IMongoData
-} from 'MongoConfigurator.UpdateFields.MongoData';
-import {
-    IPageData,
-} from 'MoleculeBrowser.UpdateMoleculePage';
-
-
-interface Props
-{
-    updateFields: (mongoData: IMongoData) => void;
-    updateMoleculePage: (pageData: IPageData) => void;
-}
+    StkVis as StkVisBase,
+    BaseProps,
+} from 'stk-vis/components/stk-vis';
 
 
 export function StkVis(
-    props: Props,
+    props: BaseProps,
 )
 {
     return <StkVisBase
-        updateFields={ props.updateFields }
-        updateMoleculeFields={ props.updateMoleculePage }
+        {...props}
     />;
 }

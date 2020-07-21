@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import {
     MongoConfigurator,
 } from './styled/mongo-configurator/mongo-configurator';
-import { props, IProps, IStkVis } from 'StkVis.StkVis';
-import { IAction, updateFields } from 'StkVis.Action';
+import { IProps } from 'StkVis.StkVis';
 import {
     IMongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
@@ -13,18 +11,24 @@ import {
 } from 'MoleculeBrowser.UpdateMoleculePage';
 
 
-interface DispatchProps
+export interface DispatchProps
 {
     updateFields: (mongoData: IMongoData) => void;
     updateMoleculePage: (pageData: IPageData) => void;
 }
 
-interface PropsWithDispatch extends IProps, DispatchProps
+export interface BaseProps extends IProps, DispatchProps
 {
 }
 
-function Component(
-    props: PropsWithDispatch,
+
+export interface Props extends BaseProps
+{
+}
+
+
+export function StkVis(
+    props: Props,
 )
 {
     switch (props.kind)
@@ -37,32 +41,3 @@ function Component(
         }
     }
 }
-
-
-function mapStateToProps(
-    state: IStkVis,
-)
-    : IProps
-{
-    return props(state);
-}
-
-
-function mapDispatchToProps(
-    dispatch: (action: IAction) => void,
-)
-    : DispatchProps
-{
-    return {
-        updateFields: (mongoData: IMongoData) =>
-            dispatch(updateFields(mongoData)),
-
-        updateMoleculePage: (pageData: IPageData) =>
-            console.log(pageData),
-
-    };
-}
-
-
-export const StkVis
-    = connect(mapStateToProps, mapDispatchToProps)(Component);
