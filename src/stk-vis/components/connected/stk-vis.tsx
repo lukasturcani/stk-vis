@@ -29,7 +29,6 @@ function mapDispatchToProps(
     : DispatchProps
 {
     return {
-        kind: 'Mongo Configurator',
         updateFields: (mongoData: IMongoData) =>
             dispatch(updateFields(mongoData)),
 

@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import {
     MongoConfigurator as MongoConfiguratorBase,
     BaseProps,
+    DispatchProps,
 } from 'mongo-configurator/components/mongo-configurator';
 import {
     InputFields
@@ -19,7 +20,7 @@ import {
 
 
 export function MongoConfigurator(
-    props: BaseProps,
+    props: (BaseProps & DispatchProps),
 )
 {
     return <MongoConfiguratorBase

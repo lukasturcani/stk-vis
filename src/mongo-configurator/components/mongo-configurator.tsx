@@ -16,6 +16,7 @@ import {
 export interface BaseProps
 {
 
+    kind: 'Mongo Configurator';
     url: string;
     moleculeKey: string;
     database: string;
@@ -26,12 +27,17 @@ export interface BaseProps
     numEntriesPerPage: number;
     selectBuildingBlocks: boolean;
     selectConstructedMolecules: boolean;
+}
+
+
+export interface DispatchProps
+{
     updateFields: (mongoData: IMongoData) => void;
     updateMoleculePage: (pageData: IPageData) => void;
 }
 
 
-interface Props extends BaseProps
+interface Props extends BaseProps, DispatchProps
 {
     component: React.FunctionComponent<Record<string, unknown>>;
     inputFields: React.FunctionComponent<InputFieldsProps>;
