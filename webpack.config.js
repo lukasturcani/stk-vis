@@ -31,6 +31,11 @@ module.exports = {
                 './src/mongo-configurator',
             ),
 
+            'molecule-browser': path.join(
+                __dirname,
+                './src/molecule-browser',
+            ),
+
             'StkVis.UpdateFields.UpdateFields': path.join(
                 __dirname,
                 './output/StkVis.UpdateFields.UpdateFields',
