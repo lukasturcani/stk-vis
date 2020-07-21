@@ -3,12 +3,12 @@ module StkVis.StkVis.Internal.Props
     , props
     ) where
 
-import StkVis.StkVis.Internal.StkVis (StkVis (..))
+import StkVis.StkVis.Internal.StkVis (StkVis (..)) as StkVis
 import MongoConfigurator.MongoConfigurator as MongoConfigurator
 
 data Props
-    = Configurator MongoConfigurator.Props
+    = MongoConfigurator MongoConfigurator.Props
 
-props :: StkVis -> Props
-props (MongoConfigurator configurator)
-    = Configurator (MongoConfigurator.props configurator)
+props :: StkVis.StkVis -> Props
+props (StkVis.MongoConfigurator configurator)
+    = MongoConfigurator (MongoConfigurator.props configurator)
