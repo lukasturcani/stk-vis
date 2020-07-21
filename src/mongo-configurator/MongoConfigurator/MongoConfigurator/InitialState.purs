@@ -6,7 +6,6 @@ import MongoConfigurator.SearchKind (SearchKind (UnsortedAll))
 
 import MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
     ( MongoConfigurator (MongoConfigurator)
-    , RequestState (Unsent)
     )
 
 
@@ -22,5 +21,4 @@ initialState = MongoConfigurator
         "building_block_position_matrices"
     , _numEntriesPerPage: 34
     , _searchKind: UnsortedAll
-    , _requestState: Unsent
     }

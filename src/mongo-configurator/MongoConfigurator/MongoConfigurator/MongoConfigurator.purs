@@ -1,37 +1,13 @@
 module MongoConfigurator.MongoConfigurator
     ( module Exports
     , initialState
-    , url
-    , moleculeKey
-    , database
-    , moleculeCollection
-    , constructedMoleculeCollection
-    , positionMatrixCollection
-    , buildingBlockPositionMatrixCollection
-    , numEntriesPerPage
-    , searchKind
-    , requestState
+    , props
     ) where
 
-import MongoConfigurator.SearchKind (SearchKind)
 
 import MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
     ( MongoConfigurator
-    , RequestState (..)
     ) as Exports
-
-import MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
-    ( url
-    , moleculeKey
-    , database
-    , moleculeCollection
-    , constructedMoleculeCollection
-    , positionMatrixCollection
-    , buildingBlockPositionMatrixCollection
-    , numEntriesPerPage
-    , searchKind
-    , requestState
-    ) as Internal
 
 import MongoConfigurator.MongoConfigurator.Internal.InitialState
     ( initialState
@@ -41,37 +17,16 @@ import MongoConfigurator.MongoConfigurator.Internal.Reducer
     ( reducer
     ) as Exports
 
+import MongoConfigurator.MongoConfigurator.Internal.Props
+    ( Props
+    ) as Exports
+
+import MongoConfigurator.MongoConfigurator.Internal.Props
+    ( props
+    ) as Props
+
 initialState :: Exports.MongoConfigurator
 initialState = InitialState.initialState
 
-url :: Exports.MongoConfigurator -> String
-url = Internal.url
-
-moleculeKey :: Exports.MongoConfigurator -> String
-moleculeKey = Internal.moleculeKey
-
-database :: Exports.MongoConfigurator -> String
-database = Internal.database
-
-moleculeCollection :: Exports.MongoConfigurator -> String
-moleculeCollection = Internal.moleculeCollection
-
-constructedMoleculeCollection :: Exports.MongoConfigurator -> String
-constructedMoleculeCollection = Internal.constructedMoleculeCollection
-
-positionMatrixCollection :: Exports.MongoConfigurator -> String
-positionMatrixCollection = Internal.positionMatrixCollection
-
-buildingBlockPositionMatrixCollection
-    :: Exports.MongoConfigurator -> String
-buildingBlockPositionMatrixCollection
-    = Internal.buildingBlockPositionMatrixCollection
-
-numEntriesPerPage :: Exports.MongoConfigurator -> Int
-numEntriesPerPage = Internal.numEntriesPerPage
-
-searchKind :: Exports.MongoConfigurator -> SearchKind
-searchKind = Internal.searchKind
-
-requestState :: Exports.MongoConfigurator -> Exports.RequestState
-requestState = Internal.requestState
+props :: Exports.MongoConfigurator -> Exports.Props
+props = Props.props

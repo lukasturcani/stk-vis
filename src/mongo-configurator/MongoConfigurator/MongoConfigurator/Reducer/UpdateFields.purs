@@ -24,7 +24,6 @@ updateFields
         , _buildingBlockPositionMatrixCollection
         , _numEntriesPerPage
         , _searchKind
-        , _requestState
         }
     )
     action
@@ -41,5 +40,4 @@ updateFields
             UpdateFields.buildingBlockPositionMatrixCollection action
         , _numEntriesPerPage: UpdateFields.numEntriesPerPage action
         , _searchKind: UpdateFields.searchKind action
-        , _requestState
         }
