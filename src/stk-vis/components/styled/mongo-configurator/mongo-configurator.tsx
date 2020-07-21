@@ -2,6 +2,7 @@ import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import {
     MongoConfigurator as MongoConfiguratorBase,
+    BaseProps,
 } from 'mongo-configurator/components/mongo-configurator';
 import {
     InputFields
@@ -17,25 +18,8 @@ import {
 } from 'MoleculeBrowser.UpdateMoleculePage';
 
 
-interface Props
-{
-    url: string;
-    moleculeKey: string;
-    database: string;
-    moleculeCollection: string;
-    constructedMoleculeCollection: string;
-    positionMatrixCollection: string;
-    buildingBlockPositionMatrixCollection: string;
-    numEntriesPerPage: number;
-    selectBuildingBlocks: boolean;
-    selectConstructedMolecules: boolean;
-    updateFields: (mongoData: IMongoData) => void;
-    updateMoleculePage: (pageData: IPageData) => void;
-}
-
-
 export function MongoConfigurator(
-    props: Props,
+    props: BaseProps,
 )
 {
     return <MongoConfiguratorBase

@@ -7,29 +7,14 @@ import {
 } from 'MoleculeBrowser.UpdateMoleculePage';
 import {
     GetMoleculesButton as GetMoleculesButtonBase,
+    BaseProps,
 } from 'mongo-configurator/components/get-molecules-button';
 import { DisabledButton } from './disabled-button';
 import { EnabledButton } from './enabled-button';
 
 
-interface Props
-{
-    url: string;
-    moleculeKey: string;
-    database: string;
-    moleculeCollection: string;
-    constructedMoleculeCollection: string;
-    positionMatrixCollection: string;
-    buildingBlockPositionMatrixCollection: string;
-    numEntriesPerPage: number;
-    selectBuildingBlocks: boolean;
-    selectConstructedMolecules: boolean;
-    updateFields: (mongoData: IMongoData) => void;
-    updateMoleculePage: (pageData: IPageData) => void;
-}
-
 export function GetMoleculesButton(
-    props: Props,
+    props: BaseProps,
 )
 {
     return <GetMoleculesButtonBase

@@ -1,13 +1,11 @@
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
+import {
+    EnabledButtonProps,
+} from 'mongo-configurator/components/get-molecules-button';
 
 
-interface ButtonProps
-{
-    onClick: () => void;
-}
-
-export const EnabledButton: React.FunctionComponent<ButtonProps>
+export const EnabledButton: React.FunctionComponent<EnabledButtonProps>
     = (props) => (
         <Button
             variant={ 'contained' }
