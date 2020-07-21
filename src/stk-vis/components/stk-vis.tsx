@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
     MongoConfigurator,
 } from './styled/mongo-configurator/mongo-configurator';
-import { IProps } from 'StkVis.StkVis';
 import {
     IMongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
@@ -11,20 +10,33 @@ import {
 } from 'MoleculeBrowser.UpdateMoleculePage';
 
 
-export interface DispatchProps
+interface ConfiguratorDispatchProps
 {
+    kind: 'Mongo Configurator';
     updateFields: (mongoData: IMongoData) => void;
     updateMoleculePage: (pageData: IPageData) => void;
 }
 
-export interface BaseProps extends IProps, DispatchProps
+interface ConfiguratorBaseProps
 {
+    kind: 'Mongo Configurator';
+    url: string;
+    moleculeKey: string;
+    database: string;
+    moleculeCollection: string;
+    constructedMoleculeCollection: string;
+    positionMatrixCollection: string;
+    buildingBlockPositionMatrixCollection: string;
+    numEntriesPerPage: number;
+    selectBuildingBlocks: boolean;
+    selectConstructedMolecules: boolean;
 }
 
 
-export interface Props extends BaseProps
-{
-}
+export type BaseProps = ConfiguratorBaseProps;
+export type DispatchProps = ConfiguratorDispatchProps;
+type Props =
+    | (ConfiguratorBaseProps & ConfiguratorDispatchProps);
 
 
 export function StkVis(

@@ -12,7 +12,8 @@ import MongoConfigurator.SearchKind
     )
 
 data Props = Props
-    { url                                   :: String
+    { kind                                  :: String
+    , url                                   :: String
     , moleculeKey                           :: String
     , database                              :: String
     , moleculeCollection                    :: String
@@ -39,7 +40,8 @@ props
         , _searchKind
         }
     ) = Props
-        { url
+        { kind: "Mongo Configurator"
+        , url
         , moleculeKey
         , database
         , moleculeCollection

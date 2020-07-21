@@ -9,6 +9,7 @@ import {
 } from 'MoleculeBrowser.UpdateMoleculePage';
 import {
     StkVis as StkVisBase,
+    BaseProps,
     DispatchProps,
 } from 'stk-vis/components/stk-vis';
 
@@ -16,9 +17,9 @@ import {
 function mapStateToProps(
     state: IStkVis,
 )
-    : IProps
+    : BaseProps
 {
-    return props(state);
+    return props(state).value0.value0;
 }
 
 
@@ -28,6 +29,7 @@ function mapDispatchToProps(
     : DispatchProps
 {
     return {
+        kind: 'Mongo Configurator',
         updateFields: (mongoData: IMongoData) =>
             dispatch(updateFields(mongoData)),
 

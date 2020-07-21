@@ -1,22 +1,15 @@
 declare module 'StkVis.StkVis'
 {
+    import {
+        IProps as IConfiguratorProps,
+    } from 'MongoConfigurator.MongoConfigurator';
     import { IAction } from 'StkVis.Action';
 
-    export type IStkVis  = Record<string, unknown>;
+    export type IStkVis = Record<string, unknown>;
 
     export interface IProps
     {
-        kind: 'Mongo Configurator';
-        url: string;
-        moleculeKey: string;
-        database: string;
-        moleculeCollection: string;
-        constructedMoleculeCollection: string;
-        positionMatrixCollection: string;
-        buildingBlockPositionMatrixCollection: string;
-        numEntriesPerPage: number;
-        selectBuildingBlocks: boolean;
-        selectConstructedMolecules: boolean;
+        value0: IConfiguratorProps;
     }
 
     export const initialState: IStkVis;
