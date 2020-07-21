@@ -13,12 +13,8 @@ import {
 } from 'MoleculeBrowser.UpdateMoleculePage';
 
 
-interface Props
+export interface BaseProps
 {
-    component: React.FunctionComponent<Record<string, unknown>>;
-    inputFields: React.FunctionComponent<InputFieldsProps>;
-    getMoleculesButton:
-        React.FunctionComponent<GetMoleculesButtonProps>;
 
     url: string;
     moleculeKey: string;
@@ -32,6 +28,15 @@ interface Props
     selectConstructedMolecules: boolean;
     updateFields: (mongoData: IMongoData) => void;
     updateMoleculePage: (pageData: IPageData) => void;
+}
+
+
+interface Props extends BaseProps
+{
+    component: React.FunctionComponent<Record<string, unknown>>;
+    inputFields: React.FunctionComponent<InputFieldsProps>;
+    getMoleculesButton:
+        React.FunctionComponent<GetMoleculesButtonProps>;
 }
 
 
