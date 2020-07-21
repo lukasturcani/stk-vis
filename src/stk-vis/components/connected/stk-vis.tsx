@@ -8,10 +8,12 @@ import {
     IPageData,
 } from 'MoleculeBrowser.UpdateMoleculePage';
 import {
-    StkVis as StkVisBase,
     BaseProps,
     DispatchProps,
 } from 'stk-vis/components/stk-vis';
+import {
+    StkVis as StkVisBase,
+} from 'stk-vis/components/styled/stk-vis';
 
 
 function mapStateToProps(
