@@ -19,4 +19,13 @@ export function MoleculeBrowser(
 
 
 const Component: React.FunctionComponent<Record<string, unknown>>
-    = (props) => <div></div>;
+    = (props) => (
+        <div
+            style={{
+                height: '100%',
+                width: '100%',
+                backgroundColor: 'red',
+            }}
+        >
+        </div>
+    );
