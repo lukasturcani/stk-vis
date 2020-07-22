@@ -4,19 +4,13 @@ import {
     MongoConfigurator as MongoConfiguratorBase,
     BaseProps,
     DispatchProps,
-} from 'mongo-configurator/components/mongo-configurator';
+} from 'mongo-configurator/base/mongo-configurator';
 import {
     InputFields
 } from './input-fields';
 import {
     GetMoleculesButton
 } from './get-molecules-button';
-import {
-    IMongoData
-} from 'MongoConfigurator.UpdateFields.MongoData';
-import {
-    IPageData,
-} from 'MoleculeBrowser.UpdateMoleculePage';
 
 
 export function MongoConfigurator(

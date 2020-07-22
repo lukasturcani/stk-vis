@@ -4,7 +4,9 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        App: './src/stk-vis/index.tsx',
+        'stk-vis': './src/stk-vis/index.tsx',
+        'molecule-browser': './src/stk-vis/index.tsx',
+        'mongo-configurator': './src/stk-vis/index.tsx',
     },
     target: 'electron-renderer',
     output: {
@@ -23,17 +25,17 @@ module.exports = {
         alias: {
             'stk-vis': path.join(
                 __dirname,
-                './src/stk-vis',
+                './src/stk-vis/components',
             ),
 
             'mongo-configurator': path.join(
                 __dirname,
-                './src/mongo-configurator',
+                './src/mongo-configurator/components',
             ),
 
             'molecule-browser': path.join(
                 __dirname,
-                './src/molecule-browser',
+                './src/molecule-browser/components',
             ),
 
             'StkVis.UpdateFields.UpdateFields': path.join(

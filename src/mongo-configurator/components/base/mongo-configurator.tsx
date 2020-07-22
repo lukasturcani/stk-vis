@@ -4,7 +4,6 @@ import {
     BaseProps as GetMoleculesButtonProps,
 } from './get-molecules-button';
 import Grid from '@material-ui/core/Grid';
-import { IAction } from 'StkVis.Action';
 import {
     IMongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';

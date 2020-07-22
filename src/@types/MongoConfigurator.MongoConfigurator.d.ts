@@ -1,6 +1,11 @@
 declare module 'MongoConfigurator.MongoConfigurator'
 {
+    import {
+        IAction,
+    } from 'MongoConfigurator.Action';
+
     export type IMongoConfigurator = Record<string, unknown>;
+
     export interface IProps
     {
         value0: {
@@ -17,4 +22,13 @@ declare module 'MongoConfigurator.MongoConfigurator'
             selectConstructedMolecules: boolean;
         };
     }
+
+    export const initialState: IMongoConfigurator;
+
+    export const reducer:
+        (state: IMongoConfigurator) =>
+        (action: IAction) =>
+        IMongoConfigurator;
+
+    export const props: (state: IMongoConfigurator) => IProps;
 }
