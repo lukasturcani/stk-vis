@@ -2,8 +2,10 @@ module MongoConfigurator.MongoConfigurator
     ( module Exports
     , initialState
     , props
+    , reducer
     ) where
 
+import MongoConfigurator.Action (Action)
 
 import MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
     ( MongoConfigurator
@@ -15,7 +17,7 @@ import MongoConfigurator.MongoConfigurator.Internal.InitialState
 
 import MongoConfigurator.MongoConfigurator.Internal.Reducer
     ( reducer
-    ) as Exports
+    ) as Reducer
 
 import MongoConfigurator.MongoConfigurator.Internal.Props
     ( Props (..)
@@ -30,3 +32,7 @@ initialState = InitialState.initialState
 
 props :: Exports.MongoConfigurator -> Exports.Props
 props = Props.props
+
+reducer
+    :: Exports.MongoConfigurator -> Action -> Exports.MongoConfigurator
+reducer = Reducer.reducer
