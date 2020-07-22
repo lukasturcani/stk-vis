@@ -3,7 +3,7 @@ import {
     StkVis as StkVisBase,
     BaseProps,
     DispatchProps,
-} from 'stk-vis/components/stk-vis';
+} from 'stk-vis/base/stk-vis';
 
 
 export function StkVis(

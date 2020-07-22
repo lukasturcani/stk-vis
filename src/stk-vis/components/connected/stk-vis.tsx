@@ -14,10 +14,10 @@ import {
 import {
     BaseProps,
     DispatchProps,
-} from 'stk-vis/components/stk-vis';
+} from 'stk-vis/base/stk-vis';
 import {
     StkVis as StkVisBase,
-} from 'stk-vis/components/styled/stk-vis';
+} from 'stk-vis/styled/stk-vis';
 
 
 function mapStateToProps(

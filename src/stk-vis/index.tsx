@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { StkVis } from './components/connected/stk-vis';
+import { StkVis } from 'stk-vis/connected/stk-vis';
 import { reducer, initialState, IStkVis } from 'StkVis.StkVis';
 import { IAction } from 'StkVis.Action';
 import { Provider } from 'react-redux';
@@ -8,7 +8,7 @@ import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import  { ThemeProvider } from '@material-ui/core/styles';
-import { theme } from './components/theme';
+import { theme } from '../theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 

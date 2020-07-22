@@ -1,18 +1,18 @@
 import * as React from 'react';
 import {
     MongoConfigurator,
-} from './styled/mongo-configurator/mongo-configurator';
+} from 'mongo-configurator/styled/mongo-configurator';
 import {
     MoleculeBrowser,
-} from './styled/molecule-browser/molecule-browser';
+} from 'molecule-browser/styled/molecule-browser';
 import {
     BaseProps as ConfiguratorBaseProps,
     DispatchProps as ConfiguratorDispatchProps,
-} from 'mongo-configurator/components/mongo-configurator';
+} from 'mongo-configurator/base/mongo-configurator';
 import {
     BaseProps as BrowserBaseProps,
     DispatchProps as BrowserDispatchProps,
-} from 'molecule-browser/components/molecule-browser';
+} from 'molecule-browser/base/molecule-browser';
 import {
     IMongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
