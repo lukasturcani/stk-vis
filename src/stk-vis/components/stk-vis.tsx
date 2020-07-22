@@ -3,13 +3,15 @@ import {
     MongoConfigurator,
 } from './styled/mongo-configurator/mongo-configurator';
 import {
+    MoleculeBrowser,
+} from './styled/molecule-browser/molecule-browser';
+import {
     BaseProps as ConfiguratorBaseProps,
     DispatchProps as ConfiguratorDispatchProps,
 } from 'mongo-configurator/components/mongo-configurator';
 import {
     BaseProps as BrowserBaseProps,
     DispatchProps as BrowserDispatchProps,
-    MoleculeBrowser,
 } from 'molecule-browser/components/molecule-browser';
 import {
     IMongoData
