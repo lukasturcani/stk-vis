@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {
     MongoConfigurator,
-} from './components/connected/mongo-configurator';
+} from 'mongo-configurator/connected/mongo-configurator';
 import {
     reducer,
     initialState,

@@ -5,8 +5,8 @@ const path = require('path');
 module.exports = {
     entry: {
         'stk-vis': './src/stk-vis/index.tsx',
-        'molecule-browser': './src/stk-vis/index.tsx',
-        'mongo-configurator': './src/stk-vis/index.tsx',
+        'molecule-browser': './src/molecule-browser/index.tsx',
+        'mongo-configurator': './src/mongo-configurator/index.tsx',
     },
     target: 'electron-renderer',
     output: {
@@ -69,6 +69,11 @@ module.exports = {
             'MongoConfigurator.SearchKind': path.join(
                 __dirname,
                 './output/MongoConfigurator.SearchKind',
+            ),
+
+            'MongoConfigurator.Action': path.join(
+                __dirname,
+                './output/MongoConfigurator.Action',
             ),
 
             'MongoConfigurator.UpdateFields.UpdateFields': path.join(
