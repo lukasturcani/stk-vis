@@ -12,9 +12,6 @@ declare module 'MongoConfigurator.Action'
         type: string;
     }
 
-    export const updateMoleculePage:
-        (pageData: IPageData) => IAction;
-
     export const updateFields:
         (updateFields: IUpdateFields) => IAction;
 }

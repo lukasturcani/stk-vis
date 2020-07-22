@@ -16,7 +16,7 @@ import {
 } from 'mongo-db-requests/unsorted-constructed-molecules';
 import {
     IPageData,
-} from 'MoleculeBrowser.UpdateMoleculePage';
+} from 'MoleculeBrowser.UpdateMoleculePage.PageData';
 
 
 interface BaseProps

@@ -23,7 +23,7 @@ import {
 } from 'mongo-configurator/styled/mongo-configurator';
 import {
     IPageData,
-} from 'MoleculeBrowser.UpdateMoleculePage';
+} from 'MoleculeBrowser.UpdateMoleculePage.PageData';
 
 
 function mapStateToProps(

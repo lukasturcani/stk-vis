@@ -18,7 +18,7 @@ import {
 } from 'MongoConfigurator.UpdateFields.MongoData';
 import {
     IPageData,
-} from 'MoleculeBrowser.UpdateMoleculePage';
+} from 'MoleculeBrowser.UpdateMoleculePage.PageData';
 
 
 
