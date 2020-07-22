@@ -5,7 +5,7 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
 mainReloader(path.join(app.getAppPath(), 'main.js'));
-rendererReloader(path.join(app.getAppPath(), 'dist', 'App.js'));
+rendererReloader(path.join(app.getAppPath(), 'dist', 'stk-vis.js'));
 
 
 function createWindow () {
