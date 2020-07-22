@@ -7,6 +7,10 @@ import {
     DispatchProps as ConfiguratorDispatchProps,
 } from 'mongo-configurator/components/mongo-configurator';
 import {
+    BaseProps as BrowserBaseProps,
+    DispatchProps as BrowserDispatchProps,
+} from 'molecule-browser/components/molecule-browser';
+import {
     IMongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
 import {
@@ -16,13 +20,14 @@ import {
 
 
 export type BaseProps =
-    | ConfiguratorBaseProps;
+    | ConfiguratorBaseProps
+    | BrowserBaseProps;
 
 export type DispatchProps =
-    |ConfiguratorDispatchProps;
+    & ConfiguratorDispatchProps
+    & BrowserDispatchProps;
 
-type Props =
-    | (ConfiguratorBaseProps & ConfiguratorDispatchProps);
+export type Props = BaseProps & DispatchProps;
 
 
 export function StkVis(
@@ -37,5 +42,16 @@ export function StkVis(
                 { ...props }
             />;
         }
+        case 'Molecule Browser':
+        {
+            return <div></div>
+        }
+        default:
+        {
+            assertNever(props);
+        }
     }
 }
+
+
+function assertNever(arg: never): never { throw new Error(); }

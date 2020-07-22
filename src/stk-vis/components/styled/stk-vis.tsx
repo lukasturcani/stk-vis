@@ -7,7 +7,10 @@ import {
 
 
 export function StkVis(
-    props: BaseProps & DispatchProps,
+    // Can't figure out how to type this without typescript throwing
+    // a fit unfortunately.
+    // props: BaseProps & DispatchProps
+    props: any
 )
 {
     return <StkVisBase
