@@ -87,6 +87,23 @@ module.exports = {
                 './output/MongoConfigurator.UpdateFields.UpdateFields',
             ),
 
+            'MoleculeBrowser.Action': path.join(
+                __dirname,
+                './output/MoleculeBrowser.Action',
+            ),
+
+            'MoleculeBrowser.MoleculeBrowser': path.join(
+                __dirname,
+                './output/MoleculeBrowser.MoleculeBrowser',
+            ),
+
+            'MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage':
+                path.join(
+                    __dirname,
+                    './output/MoleculeBrowser.'
+                    + 'UpdateMoleculePage.UpdateMoleculePage',
+                ),
+
             'mongo-db-requests': path.join(
                 __dirname,
                 './src/mongo-db-requests',

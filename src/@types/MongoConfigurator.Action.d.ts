@@ -13,5 +13,5 @@ declare module 'MongoConfigurator.Action'
     }
 
     export const updateFields:
-        (updateFields: IUpdateFields) => IAction;
+        (payload: IUpdateFields) => IAction;
 }

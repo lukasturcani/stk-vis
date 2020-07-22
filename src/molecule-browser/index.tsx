@@ -6,7 +6,7 @@ import {
 import {
     reducer,
     initialState,
-    IMongoConfigurator,
+    IMoleculeBrowser,
 } from 'MoleculeBrowser.MoleculeBrowser';
 import { IAction } from 'MongoConfigurator.Action';
 import { Provider } from 'react-redux';
@@ -19,7 +19,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 const store = createStore(
-    (state: IMongoConfigurator | undefined, action: IAction) => {
+    (state: IMoleculeBrowser | undefined, action: IAction) => {
         if (state === undefined)
         {
             return initialState;
