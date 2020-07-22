@@ -21,6 +21,9 @@ import {
 import {
     MongoConfigurator as MongoConfiguratorBase,
 } from 'mongo-configurator/styled/mongo-configurator';
+import {
+    IPageData,
+} from 'MoleculeBrowser.UpdateMoleculePage';
 
 
 function mapStateToProps(
@@ -38,9 +41,16 @@ function mapDispatchToProps(
     : DispatchProps
 {
     return {
-        updateFields: (mongoData: IMongoData) => dispatch(
-            Action.updateFields(UpdateFields.updateFields(mongoData))
-        ),
+        updateFields:
+            (mongoData: IMongoData) =>
+                dispatch(
+                    Action.updateFields(
+                        UpdateFields.updateFields(mongoData)
+                    )
+                ),
+
+        updateMoleculePage:
+            (pageData: IPageData) => console.log(pageData),
     };
 }
 

@@ -4,7 +4,7 @@ import {
     SelectionErrorLabel as SelectionErrorLabelBase,
     BaseProps,
     ComponentProps,
-} from 'mongo-configurator/components/selection-error-label';
+} from 'mongo-configurator/base/selection-error-label';
 
 
 export function SelectionErrorLabel(

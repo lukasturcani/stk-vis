@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import {
     InputFields as InputFieldsBase,
     BaseProps,
-} from 'mongo-configurator/components/input-fields';
+} from 'mongo-configurator/base/input-fields';
 import { SearchKindSelector } from './search-kind-selector';
 
 

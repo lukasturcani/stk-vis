@@ -4,7 +4,7 @@ import {
     BaseProps,
     DispatchProps,
     MoleculeBrowser as MoleculeBrowserBase
-} from 'molecule-browser/components/molecule-browser';
+} from 'molecule-browser/base/molecule-browser';
 
 
 export function MoleculeBrowser(

@@ -4,7 +4,7 @@ import { SelectionErrorLabel } from './selection-error-label';
 import {
     SearchKindSelector as SearchKindSelectorBase,
     BaseProps,
-} from 'mongo-configurator/components/search-kind-selector';
+} from 'mongo-configurator/base/search-kind-selector';
 
 
 export function SearchKindSelector(

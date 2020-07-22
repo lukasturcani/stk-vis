@@ -2,7 +2,7 @@ import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import {
     EnabledButtonProps,
-} from 'mongo-configurator/components/get-molecules-button';
+} from 'mongo-configurator/base/get-molecules-button';
 
 
 export const EnabledButton: React.FunctionComponent<EnabledButtonProps>

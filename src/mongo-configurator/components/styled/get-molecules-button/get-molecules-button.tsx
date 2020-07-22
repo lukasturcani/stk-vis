@@ -8,7 +8,7 @@ import {
 import {
     GetMoleculesButton as GetMoleculesButtonBase,
     BaseProps,
-} from 'mongo-configurator/components/get-molecules-button';
+} from 'mongo-configurator/base/get-molecules-button';
 import { DisabledButton } from './disabled-button';
 import { EnabledButton } from './enabled-button';
 
