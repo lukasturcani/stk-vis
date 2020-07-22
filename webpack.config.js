@@ -16,7 +16,15 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'stkVis',
-            template: './src/stk-vis/template.html',
+            template: './src/template.html',
+            chunks: ['stk-vis'],
+            filename: 'stk-vis.html',
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Mongo Configurator',
+            template: './src/template.html',
+            chunks: ['mongo-configurator'],
+            filename: 'mongo-configurator.html',
         }),
     ],
     mode: 'development',
