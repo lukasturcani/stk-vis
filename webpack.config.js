@@ -26,6 +26,12 @@ module.exports = {
             chunks: ['mongo-configurator'],
             filename: 'mongo-configurator.html',
         }),
+        new HtmlWebpackPlugin({
+            title: 'Molecule Browser',
+            template: './src/template.html',
+            chunks: ['molecule-browser'],
+            filename: 'molecule-browser.html',
+        }),
     ],
     mode: 'development',
     resolve: {
