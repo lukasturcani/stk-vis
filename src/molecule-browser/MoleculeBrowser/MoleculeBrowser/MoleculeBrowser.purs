@@ -1,5 +1,8 @@
 module MoleculeBrowser.MoleculeBrowser
     ( module Exports
+    , initialState
+    , reducer
+    , props
     ) where
 
 import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
@@ -8,9 +11,28 @@ import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
 
 import MoleculeBrowser.MoleculeBrowser.Internal.Reducer
     ( reducer
-    ) as Exports
+    ) as Reducer
 
 import MoleculeBrowser.MoleculeBrowser.Internal.Props
     ( Props
-    , props
     ) as Exports
+
+import MoleculeBrowser.MoleculeBrowser.Internal.Props
+    ( props
+    ) as Props
+
+import MoleculeBrowser.MoleculeBrowser.Internal.InitialState
+    ( initialState
+    ) as InitialState
+
+import MoleculeBrowser.Action (Action)
+
+
+initialState :: Exports.MoleculeBrowser
+initialState = InitialState.initialState
+
+reducer :: Exports.MoleculeBrowser -> Action -> Exports.MoleculeBrowser
+reducer = Reducer.reducer
+
+props :: Exports.MoleculeBrowser -> Exports.Props
+props = Props.props

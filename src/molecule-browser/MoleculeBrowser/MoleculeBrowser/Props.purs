@@ -8,6 +8,10 @@ import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
     )
 
 data Props = Props
+    { kind :: String
+    }
 
 props :: MoleculeBrowser -> Props
 props browser = Props
+    { kind: "Molecule Browser"
+    }

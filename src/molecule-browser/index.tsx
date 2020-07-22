@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {
-    MongoConfigurator,
-} from 'mongo-configurator/connected/mongo-configurator';
+    MoleculeBrowser,
+} from 'molecule-browser/connected/molecule-browser';
 import {
     reducer,
     initialState,
     IMongoConfigurator,
-} from 'MongoConfigurator.MongoConfigurator';
+} from 'MoleculeBrowser.MoleculeBrowser';
 import { IAction } from 'MongoConfigurator.Action';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -35,7 +35,7 @@ ReactDOM.render(
     <Provider store={ store }>
         <ThemeProvider theme={theme} >
             <CssBaseline />
-            <MongoConfigurator />
+            <MoleculeBrowser />
         </ThemeProvider>
     </Provider>,
     document.getElementById('root'),
