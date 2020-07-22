@@ -1,6 +1,10 @@
 import { connect } from 'react-redux';
 import { props, IStkVis } from 'StkVis.StkVis';
-import { IAction, updateFields } from 'StkVis.Action';
+import {
+    IAction,
+    updateFields,
+    updateMoleculePage,
+} from 'StkVis.Action';
 import {
     IMongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
@@ -35,8 +39,7 @@ function mapDispatchToProps(
             dispatch(updateFields(mongoData)),
 
         updateMoleculePage: (pageData: IPageData) =>
-            console.log(pageData),
-
+            dispatch(updateMoleculePage(pageData)),
     };
 }
 

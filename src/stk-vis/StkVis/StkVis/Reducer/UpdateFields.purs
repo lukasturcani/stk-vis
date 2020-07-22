@@ -19,3 +19,5 @@ updateFields
 
     newConfigurator = MongoConfigurator.reducer configurator action'
     action' = ConfiguratorAction.updateFields (toConfigurator payload)
+
+updateFields stkVis payload = stkVis

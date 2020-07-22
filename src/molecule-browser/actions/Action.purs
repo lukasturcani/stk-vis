@@ -2,9 +2,22 @@ module MoleculeBrowser.Action
     ( Action
     ) where
 
-import MoleculeBrowser.Payload (Payload) as Payload
+import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
+    ( UpdateMoleculePage
+    )
+
+import MoleculeBrowser.Payload
+    ( Payload
+    , updateMoleculePage
+    ) as Payload
 
 type Action =
     { type    :: String
     , payload :: Payload.Payload
+    }
+
+updateMoleculePage :: UpdateMoleculePage -> Action
+updateMoleculePage payload =
+    { type: "UPDATE_MOLECULE_PAGE"
+    , payload: Payload.updateMoleculePage payload
     }

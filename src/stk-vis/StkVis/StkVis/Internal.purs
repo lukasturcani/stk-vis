@@ -3,6 +3,8 @@ module StkVis.StkVis.Internal.StkVis
     ) where
 
 import MongoConfigurator.MongoConfigurator (MongoConfigurator)
+import MoleculeBrowser.MoleculeBrowser (MoleculeBrowser)
 
 data StkVis
     = MongoConfigurator MongoConfigurator
+    | MoleculeBrowser MoleculeBrowser
