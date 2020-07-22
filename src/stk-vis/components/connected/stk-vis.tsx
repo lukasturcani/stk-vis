@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { props, IProps, IStkVis } from 'StkVis.StkVis';
+import { props, IStkVis } from 'StkVis.StkVis';
 import { IAction, updateFields } from 'StkVis.Action';
 import {
     IMongoData
