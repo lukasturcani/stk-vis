@@ -9,6 +9,7 @@ import {
 import {
     BaseProps as BrowserBaseProps,
     DispatchProps as BrowserDispatchProps,
+    MoleculeBrowser,
 } from 'molecule-browser/components/molecule-browser';
 import {
     IMongoData
@@ -44,7 +45,9 @@ export function StkVis(
         }
         case 'Molecule Browser':
         {
-            return <div></div>
+            return <MoleculeBrowser
+                {...props}
+            />;
         }
         default:
         {
