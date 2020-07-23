@@ -128,6 +128,30 @@ module.exports = {
                     + 'UpdateMoleculePage.UpdateMoleculePage',
                 ),
 
+            'Molecules.Molecules':
+                path.join(
+                    __dirname,
+                    './output/Molecules.Molecules',
+                ),
+
+            'Molecules.Action':
+                path.join(
+                    __dirname,
+                    './output/Molecules.Action',
+                ),
+
+            'RequestManager.RequestManager':
+                path.join(
+                    __dirname,
+                    './output/RequestManager.RequestManager',
+                ),
+
+            'RequestManager.Action':
+                path.join(
+                    __dirname,
+                    './output/RequestManager.Action',
+                ),
+
             'mongo-db-requests': path.join(
                 __dirname,
                 './src/mongo-db-requests',
