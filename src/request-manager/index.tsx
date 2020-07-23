@@ -2,13 +2,13 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {
     BackButton,
-} from 'request-manager/components/styled/back-button';
+} from 'request-manager/styled/back-button';
 import {
     NextButton,
-} from 'request-manager/components/styled/next-button';
+} from 'request-manager/styled/next-button';
 import {
     SortButton,
-} from 'request-manager/components/styled/sort-button';
+} from 'request-manager/styled/sort-button';
 import {
     reducer,
     initialState,
