@@ -17,7 +17,7 @@ moleculeTableProps molecules = MoleculeTableProps
 data TwoDViewerProps = TwoDViewerProps
 
 twoDViewerProps :: Molecules -> TwoDViewerProps
-twoDViewerProps molecules = TwoDViewer
+twoDViewerProps molecules = TwoDViewerProps
 
 data ThreeDViewerProps = ThreeDViewerProps
 
