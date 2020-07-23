@@ -20,7 +20,7 @@ function mapStateToProps(
 )
     : MoleculeBrowserProps
 {
-    return props(state);
+    return { ...props(state) };
 }
 
 
