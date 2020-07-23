@@ -19,7 +19,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 const store = createStore(
-    (state: IMolecules | undefined, action: IAction) => {
+    (state: IRequestManager | undefined, action: IAction) => {
         if (state === undefined)
         {
             return initialState;
