@@ -46,12 +46,12 @@ export function MoleculeBrowser(
 {
     return (
         <props.root>
-            <props.sortButton {...props.sortButtonProps} />
+            <props.sortButton    {...props.sortButtonProps}    />
             <props.moleculeTable {...props.moleculeTableProps} />
-            <props.twoDViewer {...props.twoDViewerProps} />
-            <props.threeDViewer {...props.threeDViewerProps} />
-            <props.backButton {...props.backButtonProps} />
-            <props.nextButton {...props.nextButtonProps} />
+            <props.twoDViewer    {...props.twoDViewerProps}    />
+            <props.threeDViewer  {...props.threeDViewerProps}  />
+            <props.backButton    {...props.backButtonProps}    />
+            <props.nextButton    {...props.nextButtonProps}    />
         </props.root>
     );
 }
