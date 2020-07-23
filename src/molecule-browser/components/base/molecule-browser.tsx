@@ -28,12 +28,7 @@ export interface BaseProps
 }
 
 
-export interface DispatchProps
-{
-}
-
-
-interface Props extends BaseProps, DispatchProps
+interface Props extends BaseProps
 {
     root: React.FunctionComponent<Record<string, unknown>>;
     sortButton: React.FunctionComponent<SortButtonProps>;
