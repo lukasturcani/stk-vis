@@ -5,9 +5,8 @@ import {
 } from 'MoleculeBrowser.MoleculeBrowser';
 
 import {
-    BaseProps,
-    DispatchProps,
-} from 'molecule-browser/base/molecule-browser';
+    MoleculeBrowserProps,
+} from 'MoleculeBrowser.MoleculeBrowser'
 import {
     MoleculeBrowser as MoleculeBrowserBase,
 } from 'molecule-browser/styled/molecule-browser';
@@ -19,16 +18,15 @@ from 'MoleculeBrowser.Action';
 function mapStateToProps(
     state: IMoleculeBrowser,
 )
-    : BaseProps
+    : MoleculeBrowserProps
 {
-    return props(state).value0;
+    return props(state);
 }
 
 
 function mapDispatchToProps(
     dispatch: (action: Action.IAction) => void,
 )
-    : DispatchProps
 {
     return {
     };

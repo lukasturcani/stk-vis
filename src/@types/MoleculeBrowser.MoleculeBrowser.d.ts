@@ -1,4 +1,5 @@
 declare module 'MoleculeBrowser.MoleculeBrowser'
+
 {
     import {
         IAction,
@@ -6,10 +7,23 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
 
     export type IMoleculeBrowser = Record<string, unknown>;
 
-    export interface IProps
+    export type SortButtonProps = Record<string, unknown>;
+    export type MoleculeTableProps = Record<string, unknown>;
+    export type TwoDViewerProps = Record<string, unknown>;
+    export type ThreeDViewerProps = Record<string, unknown>;
+    export type BackButtonProps = Record<string, unknown>;
+    export type NextButtonProps = Record<string, unknown>;
+
+
+    export interface MoleculeBrowserProps
     {
         value0: {
-            kind: 'Molecule Browser';
+            sortButton: SortButtonProps,
+            moleculeTable: MoleculeTableProps,
+            twoDViewer: TwoDViewerProps,
+            threeDViewer: ThreeDViewerProps,
+            backButton: BackButtonProps,
+            nextButton: NextButtonProps,
         };
     }
 
@@ -20,5 +34,6 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
         (action: IAction) =>
         IMoleculeBrowser;
 
-    export const props: (state: IMoleculeBrowser) => IProps;
+    export const props:
+        (state: IMoleculeBrowser) => MoleculeBrowserProps;
 }

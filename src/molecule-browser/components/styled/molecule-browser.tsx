@@ -1,24 +1,50 @@
 import * as React from 'react';
 
 import {
-    BaseProps,
-    DispatchProps,
+    MoleculeBrowserProps,
+} from 'MoleculeBrowser.MoleculeBrowser'
+import {
     MoleculeBrowser as MoleculeBrowserBase
 } from 'molecule-browser/base/molecule-browser';
 
+import {
+    SortButton,
+} from 'molecule-browser/styled/sort-button';
+import {
+    MoleculeTable,
+} from 'molecule-browser/styled/molecule-table';
+import {
+    TwoDViewer,
+} from 'molecule-browser/styled/2d-viewer';
+import {
+    ThreeDViewer,
+} from 'molecule-browser/styled/3d-viewer';
+import {
+    BackButton,
+} from 'molecule-browser/styled/back-button';
+import {
+    NextButton,
+} from 'molecule-browser/styled/next-button';
+
 
 export function MoleculeBrowser(
-    props: BaseProps & DispatchProps,
+    props: MoleculeBrowserProps,
 )
 {
     return <MoleculeBrowserBase
-        component={ Component }
+        root={Root}
+        sortButton={SortButton}
+        moleculeTable={MoleculeTable}
+        twoDViewer={TwoDViewer}
+        threeDViewer={ThreeDViewer}
+        backButton={BackButton}
+        nextButton={NextButton}
         {...props}
     />;
 }
 
 
-const Component: React.FunctionComponent<Record<string, unknown>>
+const Root: React.FunctionComponent<Record<string, unknown>>
     = (props) => (
         <div
             style={{
@@ -27,6 +53,7 @@ const Component: React.FunctionComponent<Record<string, unknown>>
                 backgroundColor: 'red',
             }}
         >
-            HI
+            ROOT
+            {props.children}
         </div>
     );

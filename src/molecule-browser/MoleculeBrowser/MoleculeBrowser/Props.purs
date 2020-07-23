@@ -19,3 +19,31 @@ data Props = Props
     , backButton    :: BackButtonProps
     , nextButton    :: NextButtonProps
     }
+
+data SortButtonProps = SortButtonProps
+    {
+    }
+
+data MoleculeTableProps = MoleculeTableProps
+    {
+    }
+
+data TwoDViewerProps = TwoDViewerProps
+    {
+    }
+
+data ThreeDViewerProps = ThreeDViewerProps
+    {
+    }
+
+data BackButtonProps = BackButtonProps
+    {
+    }
+
+data NextButtonProps = NextButtonProps
+    {
+    }
+
+
+props :: MoleculeBrowser -> Props
+props
