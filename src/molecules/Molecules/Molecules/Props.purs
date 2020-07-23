@@ -7,17 +7,19 @@ module Molecules.Molecules.Internal.Props
     , threeDViewerProps
     ) where
 
+import Molecules.Molecules.Internal.Molecules (Molecules)
+
 data MoleculeTableProps = MoleculeTableProps
 
-moleculeTableProps :: RequestManger -> MoleculeTableProps
-moleculeTableProps requestManger = MoleculeTableProps
+moleculeTableProps :: Molecules -> MoleculeTableProps
+moleculeTableProps molecules = MoleculeTableProps
 
 data TwoDViewerProps = TwoDViewerProps
 
-twoDViewerProps :: RequestManager -> TwoDViewerProps
-twoDViewerProps requestManager = TwoDViewer
+twoDViewerProps :: Molecules -> TwoDViewerProps
+twoDViewerProps molecules = TwoDViewer
 
 data ThreeDViewerProps = ThreeDViewerProps
 
-threeDViewerProps :: RequestManager -> ThreeDViewerProps
-threeDViewerProps requestManager = ThreeDViewerProps
+threeDViewerProps :: Molecules -> ThreeDViewerProps
+threeDViewerProps molecules = ThreeDViewerProps
