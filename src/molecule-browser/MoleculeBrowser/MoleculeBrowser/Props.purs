@@ -3,10 +3,23 @@ module MoleculeBrowser.MoleculeBrowser.Internal.Props
     , props
     ) where
 
-import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
-    ( MoleculeBrowser (..)
+import Molecules.Molecules
+    ( MoleculeTableProps
+    , moleculeTableProps
+    , TwoDViewerProps
+    , twoDViewerProps
+    , ThreeDViewerProps
+    , threeDViewerProps
     )
 
+import RequestManager.RequestManager
+    ( NextButtonProps
+    , nextButtonProps
+    , BackButtonProps
+    , backButtonProps
+    , SortButtonProps
+    , sortButtonProps
+    )
 
 data Props = Props
     { sortButton    :: SortButtonProps
@@ -17,48 +30,12 @@ data Props = Props
     , nextButton    :: NextButtonProps
     }
 
-data SortButtonProps = SortButtonProps
-    {
-    }
-
-data MoleculeTableProps = MoleculeTableProps
-    {
-    }
-
-data TwoDViewerProps = TwoDViewerProps
-    {
-    }
-
-data ThreeDViewerProps = ThreeDViewerProps
-    {
-    }
-
-data RequestOptions = RequestOptions
-    {
-    }
-
-data BackButtonProps = BackButtonProps
-    { disabled       :: Boolean
-    }
-
-data NextButtonProps = NextButtonProps
-    {
-    }
-
-
 props :: MoleculeBrowser -> Props
-props MoleculeBrowser = Props
-    { sortButton: SortButtonProps
-        {}
-    , moleculeTable: MoleculeTableProps
-        {}
-    , twoDViewer: TwoDViewerProps
-        {}
-    , threeDViewer: ThreeDViewerProps
-        {}
-    , backButton: BackButtonProps
-        { disabled: false
-        }
-    , nextButton: NextButtonProps
-        {}
+props (MoleculeBrowser {_requestManager, _molecules}) = Props
+    { sortButton:       sortButtonProps _requestManager
+    , moleculeTable:    moleculeTableProps _molecules
+    , twoDViewer:       twoDViewerProps _molecules
+    , threeDViewer:     threeDViewerProps _molecules
+    , backButton:       backButtonProps _requestManager
+    , nextButton:       nextButtonProps _requestManager
     }
