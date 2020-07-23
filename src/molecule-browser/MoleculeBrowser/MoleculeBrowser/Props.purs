@@ -48,17 +48,17 @@ data NextButtonProps = NextButtonProps
 
 props :: MoleculeBrowser -> Props
 props MoleculeBrowser = Props
-    { sortButton:    SortButtonProps
+    { sortButton: SortButtonProps
         {}
     , moleculeTable: MoleculeTableProps
         {}
-    , twoDViewer:    TwoDViewerProps
+    , twoDViewer: TwoDViewerProps
         {}
-    , threeDViewer:  ThreeDViewerProps
+    , threeDViewer: ThreeDViewerProps
         {}
-    , backButton:    BackButtonProps
+    , backButton: BackButtonProps
         { disabled: false
         }
-    , nextButton:   NextButtonProps
+    , nextButton: NextButtonProps
         {}
     }
