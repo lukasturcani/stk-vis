@@ -20,5 +20,5 @@ import RequestManager.RequestManager.Internal.InitialState
     ( initialState
     ) as InitialState
 
-initialState :: RequestManager
+initialState :: Exports.RequestManager
 initialState = InitialState.initialState
