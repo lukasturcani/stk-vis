@@ -1,8 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {
-    RequestManager,
-} from 'request-manager/connected/request-manager';
+    BackButton,
+} from 'request-manager/components/styled/back-button';
+import {
+    NextButton,
+} from 'request-manager/components/styled/next-button';
+import {
+    SortButton,
+} from 'request-manager/components/styled/sort-button';
 import {
     reducer,
     initialState,
@@ -35,7 +41,11 @@ ReactDOM.render(
     <Provider store={ store }>
         <ThemeProvider theme={theme} >
             <CssBaseline />
-            <RequestManager />
+            <div>
+                <BackButton />
+                <NextButton />
+                <SortButton />
+            </div>
         </ThemeProvider>
     </Provider>,
     document.getElementById('root'),

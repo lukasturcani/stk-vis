@@ -1,8 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {
-    Molecules,
-} from 'molecules/connected/molecules';
+    TwoDViewer,
+} from 'molecules/styled/2d-viewer';
+import {
+    ThreeDViewer,
+} from 'molecules/styled/3d-viewer';
+import {
+    MoleculeTable,
+} from 'molecules/styled/molecule-table';
 import {
     reducer,
     initialState,
@@ -35,7 +41,11 @@ ReactDOM.render(
     <Provider store={ store }>
         <ThemeProvider theme={theme} >
             <CssBaseline />
-            <Molecules />
+            <div>
+                <MoleculeTable />
+                <TwoDViewer />
+                <ThreeDViewer />
+            </div>
         </ThemeProvider>
     </Provider>,
     document.getElementById('root'),
