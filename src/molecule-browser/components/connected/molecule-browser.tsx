@@ -20,6 +20,7 @@ function mapStateToProps(
 )
     : MoleculeBrowserProps
 {
+    // Reconstruct as plain object to prevent react/redux warnings.
     return { ...props(state) };
 }
 
