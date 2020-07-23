@@ -7,6 +7,8 @@ module.exports = {
         'stk-vis': './src/stk-vis/index.tsx',
         'molecule-browser': './src/molecule-browser/index.tsx',
         'mongo-configurator': './src/mongo-configurator/index.tsx',
+        'molecules': './src/molecules/index.tsx',
+        'request-manager': './src/request-manager/index.tsx',
     },
     target: 'electron-renderer',
     output: {
@@ -31,6 +33,18 @@ module.exports = {
             template: './src/template.html',
             chunks: ['molecule-browser'],
             filename: 'molecule-browser.html',
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Request Manager',
+            template: './src/template.html',
+            chunks: ['request-manager'],
+            filename: 'request-manager.html',
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Molecules',
+            template: './src/template.html',
+            chunks: ['molecules'],
+            filename: 'molecules.html',
         }),
     ],
     mode: 'development',
