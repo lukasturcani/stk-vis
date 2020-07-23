@@ -27,5 +27,6 @@ const Component: React.FunctionComponent<Record<string, unknown>>
                 backgroundColor: 'red',
             }}
         >
+            HI
         </div>
     );
