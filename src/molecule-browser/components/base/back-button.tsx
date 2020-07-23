@@ -4,14 +4,22 @@ import {
 } from 'MoleculeBrowser.MoleculeBrowser'
 
 
+interface Props extends BackButtonProps
+{
+    button: React.FunctionComponent<ButtonProps>;
+}
+
+export interface ButtonProps
+{
+    disabled: boolean;
+}
+
 
 export function BackButton(
-    props: BackButtonProps,
+    props: Props,
 )
 {
-    return (
-        <button>
-            Back
-        </button>
-    );
+    return <props.button
+        disabled={props.value0.disabled}
+    />;
 }

@@ -34,7 +34,8 @@ data ThreeDViewerProps = ThreeDViewerProps
     }
 
 data BackButtonProps = BackButtonProps
-    {
+    { disabled       :: Boolean
+    , requestOptions :: RequestOptions
     }
 
 data NextButtonProps = NextButtonProps

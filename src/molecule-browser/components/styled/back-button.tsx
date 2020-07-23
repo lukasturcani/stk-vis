@@ -1,5 +1,8 @@
 import * as React from 'react';
+import Button from '@material-ui/core/Button';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import {
+    ButtonProps,
     BackButton as BackButtonBase
 } from 'molecule-browser/base/back-button';
 import {
@@ -9,5 +12,18 @@ import {
 
 export const BackButton: React.FunctionComponent<BackButtonProps>
     = (props) => <BackButtonBase
+        button={StyledButton}
         {...props}
     />;
+
+
+const StyledButton: React.FunctionComponent<ButtonProps>
+    = (props) => (
+        <Button
+            variant={ 'contained' }
+            color={ 'primary' }
+            {...props}
+        >
+            <NavigateBeforeIcon />
+        </Button>
+    );

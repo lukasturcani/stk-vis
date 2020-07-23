@@ -11,7 +11,14 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
     export type MoleculeTableProps = Record<string, unknown>;
     export type TwoDViewerProps = Record<string, unknown>;
     export type ThreeDViewerProps = Record<string, unknown>;
-    export type BackButtonProps = Record<string, unknown>;
+
+    export interface BackButtonProps
+    {
+        value0: {
+            disabled: boolean;
+        };
+    }
+
     export type NextButtonProps = Record<string, unknown>;
 
 
