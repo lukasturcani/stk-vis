@@ -33,9 +33,12 @@ data ThreeDViewerProps = ThreeDViewerProps
     {
     }
 
+data RequestOptions = RequestOptions
+    {
+    }
+
 data BackButtonProps = BackButtonProps
     { disabled       :: Boolean
-    , requestOptions :: RequestOptions
     }
 
 data NextButtonProps = NextButtonProps
@@ -45,10 +48,17 @@ data NextButtonProps = NextButtonProps
 
 props :: MoleculeBrowser -> Props
 props MoleculeBrowser = Props
-    { sortButton: SortButtonProps {}
-    , moleculeTable: MoleculeTableProps {}
-    , twoDViewer: TwoDViewerProps {}
-    , threeDViewer: ThreeDViewerProps {}
-    , backButton: BackButtonProps {}
-    , nextButton: NextButtonProps {}
+    { sortButton:    SortButtonProps
+        {}
+    , moleculeTable: MoleculeTableProps
+        {}
+    , twoDViewer:    TwoDViewerProps
+        {}
+    , threeDViewer:  ThreeDViewerProps
+        {}
+    , backButton:    BackButtonProps
+        { disabled: false
+        }
+    , nextButton:   NextButtonProps
+        {}
     }
