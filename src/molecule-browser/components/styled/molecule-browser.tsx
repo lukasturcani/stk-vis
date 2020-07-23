@@ -9,22 +9,22 @@ import {
 
 import {
     SortButton,
-} from 'molecule-browser/styled/sort-button';
+} from 'request-manager/styled/sort-button';
 import {
     MoleculeTable,
-} from 'molecule-browser/styled/molecule-table';
+} from 'molecules/styled/molecule-table';
 import {
     TwoDViewer,
-} from 'molecule-browser/styled/2d-viewer';
+} from 'molecules/styled/2d-viewer';
 import {
     ThreeDViewer,
-} from 'molecule-browser/styled/3d-viewer';
+} from 'molecules/styled/3d-viewer';
 import {
     BackButton,
-} from 'molecule-browser/styled/back-button';
+} from 'request-manager/styled/back-button';
 import {
     NextButton,
-} from 'molecule-browser/styled/next-button';
+} from 'request-manager/styled/next-button';
 
 
 export function MoleculeBrowser(

@@ -4,7 +4,7 @@ import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import {
     ButtonProps,
     BackButton as BackButtonBase
-} from 'molecule-browser/base/back-button';
+} from 'request-manager/base/back-button';
 import {
     BackButtonProps,
 } from 'MoleculeBrowser.MoleculeBrowser'

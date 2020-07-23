@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
     TwoDViewer as TwoDViewerBase,
-} from 'molecule-browser/base/2d-viewer';
+} from 'molecules/base/2d-viewer';
 import {
     TwoDViewerProps,
 } from 'MoleculeBrowser.MoleculeBrowser'

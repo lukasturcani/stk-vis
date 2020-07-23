@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
     NextButton as NextButtonBase
-} from 'molecule-browser/base/next-button';
+} from 'request-manager/base/next-button';
 import {
     NextButtonProps,
 } from 'MoleculeBrowser.MoleculeBrowser'

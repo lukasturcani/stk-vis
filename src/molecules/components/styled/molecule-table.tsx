@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
     MoleculeTable as MoleculeTableBase,
-} from 'molecule-browser/base/molecule-table';
+} from 'molecules/base/molecule-table';
 import {
     MoleculeTableProps,
 } from 'MoleculeBrowser.MoleculeBrowser'

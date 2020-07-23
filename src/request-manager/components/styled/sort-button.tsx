@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
     SortButton as SortButtonBase
-} from 'molecule-browser/base/sort-button';
+} from 'request-manager/base/sort-button';
 import {
     SortButtonProps,
 } from 'MoleculeBrowser.MoleculeBrowser'

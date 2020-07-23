@@ -42,6 +42,16 @@ module.exports = {
                 './src/stk-vis/components',
             ),
 
+            'molecules': path.join(
+                __dirname,
+                './src/molecules/components',
+            ),
+
+            'request-manager': path.join(
+                __dirname,
+                './src/request-manager/components',
+            ),
+
             'mongo-configurator': path.join(
                 __dirname,
                 './src/mongo-configurator/components',
