@@ -4,13 +4,21 @@ import{
 } from 'MoleculeBrowser.MoleculeBrowser'
 
 
+interface Props extends NextButtonProps
+{
+    button: React.FunctionComponent<ButtonProps>;
+}
+
+
+export interface ButtonProps
+{
+}
+
+
 export function NextButton(
-    props: NextButtonProps,
+    props: Props,
 )
 {
-    return (
-        <button>
-            Next
-        </button>
-    );
+    return <props.button
+    />;
 }

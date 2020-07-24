@@ -1,17 +1,24 @@
 import * as React from 'react';
 import {
     SortButtonProps
-} from 'MoleculeBrowser.MoleculeBrowser';
+} from 'RequestManager.RequestManager';
 
+
+interface Props extends SortButtonProps
+{
+    button: React.FunctionComponent<ButtonProps>;
+}
+
+
+export interface ButtonProps
+{
+}
 
 
 export function SortButton(
-    props: SortButtonProps,
+    props: Props,
 )
 {
-    return (
-        <button>
-            Sort
-        </button>
-    );
+    return <props.button
+    />;
 }
