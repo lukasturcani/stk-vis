@@ -7,7 +7,7 @@ import {
 } from 'request-manager/base/back-button';
 import {
     BackButtonProps,
-} from 'MoleculeBrowser.MoleculeBrowser'
+} from 'RequestManager.RequestManager'
 
 
 export const BackButton: React.FunctionComponent<BackButtonProps>

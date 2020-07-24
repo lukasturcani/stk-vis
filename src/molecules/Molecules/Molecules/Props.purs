@@ -15,9 +15,13 @@ moleculeTableProps :: Molecules -> MoleculeTableProps
 moleculeTableProps molecules = MoleculeTableProps
 
 data TwoDViewerProps = TwoDViewerProps
+    { smiles :: String
+    }
 
 twoDViewerProps :: Molecules -> TwoDViewerProps
 twoDViewerProps molecules = TwoDViewerProps
+    { smiles: "C1CCCCC1"
+    }
 
 data ThreeDViewerProps = ThreeDViewerProps
 

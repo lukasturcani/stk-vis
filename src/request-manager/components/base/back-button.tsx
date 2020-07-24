@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
     BackButtonProps
-} from 'MoleculeBrowser.MoleculeBrowser'
+} from 'RequestManager.RequestManager'
 
 
 interface Props extends BackButtonProps

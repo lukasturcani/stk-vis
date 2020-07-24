@@ -4,7 +4,7 @@ import {
 } from 'molecules/base/molecule-table';
 import {
     MoleculeTableProps,
-} from 'MoleculeBrowser.MoleculeBrowser'
+} from 'Molecules.Molecules'
 
 
 export const MoleculeTable: React.FunctionComponent<MoleculeTableProps>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
     MoleculeTableProps,
-} from 'MoleculeBrowser.MoleculeBrowser'
+} from 'Molecules.Molecules'
 
 
 export function MoleculeTable(

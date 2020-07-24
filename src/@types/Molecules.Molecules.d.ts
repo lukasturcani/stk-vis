@@ -5,8 +5,14 @@ declare module 'Molecules.Molecules'
         IAction,
     } from 'Molecules.Action';
 
+    export interface TwoDViewerProps
+    {
+        value0: {
+            smiles: string;
+        };
+    }
+
     export type MoleculeTableProps = Record<string, unknown>;
-    export type TwoDViewerProps = Record<string, unknown>;
     export type ThreeDViewerProps = Record<string, unknown>;
     export type IMolecules = Record<string, unknown>;
     export const initialState: IMolecules;

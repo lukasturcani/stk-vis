@@ -1,7 +1,7 @@
 import * as React from 'react';
 import{
     NextButtonProps,
-} from 'MoleculeBrowser.MoleculeBrowser'
+} from 'RequestManager.RequestManager'
 
 
 interface Props extends NextButtonProps

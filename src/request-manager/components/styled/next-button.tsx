@@ -7,7 +7,7 @@ import {
 } from 'request-manager/base/next-button';
 import {
     NextButtonProps,
-} from 'MoleculeBrowser.MoleculeBrowser'
+} from 'RequestManager.RequestManager'
 
 
 export const NextButton: React.FunctionComponent<NextButtonProps>

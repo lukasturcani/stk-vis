@@ -4,23 +4,18 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
     import {
         IAction,
     } from 'MoleculeBrowser.Action';
+    import {
+        ThreeDViewerProps,
+        TwoDViewerProps,
+        MoleculeTableProps,
+    } from 'Molecules.Molecules';
+    import {
+        SortButtonProps,
+        NextButtonProps,
+        BackButtonProps,
+    } from 'RequestManager.RequestManager';
 
     export type IMoleculeBrowser = Record<string, unknown>;
-
-    export type SortButtonProps = Record<string, unknown>;
-    export type MoleculeTableProps = Record<string, unknown>;
-    export type TwoDViewerProps = Record<string, unknown>;
-    export type ThreeDViewerProps = Record<string, unknown>;
-
-    export interface BackButtonProps
-    {
-        value0: {
-            disabled: boolean;
-        };
-    }
-
-    export type NextButtonProps = Record<string, unknown>;
-
 
     export interface MoleculeBrowserProps
     {

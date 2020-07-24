@@ -1,13 +1,17 @@
 import * as React from 'react';
 import {
     MoleculeBrowserProps,
-    SortButtonProps,
+} from 'MoleculeBrowser.MoleculeBrowser'
+import {
     MoleculeTableProps,
     TwoDViewerProps,
     ThreeDViewerProps,
+} from 'Molecules.Molecules';
+import {
+    SortButtonProps,
     BackButtonProps,
     NextButtonProps,
-} from 'MoleculeBrowser.MoleculeBrowser'
+} from 'RequestManager.RequestManager';
 
 
 interface Props extends MoleculeBrowserProps

@@ -4,7 +4,7 @@ import {
 } from 'molecules/base/3d-viewer';
 import {
     ThreeDViewerProps,
-} from 'MoleculeBrowser.MoleculeBrowser'
+} from 'Molecules.Molecules'
 
 
 export const ThreeDViewer: React.FunctionComponent<ThreeDViewerProps>
