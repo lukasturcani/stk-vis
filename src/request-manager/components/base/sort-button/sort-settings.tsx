@@ -5,9 +5,6 @@ import {
 import {
     BaseProps as FormProps
 } from './form';
-import {
-    ascending,
-} from 'RequestManager.SortType';
 
 
 export interface BaseProps
@@ -34,12 +31,15 @@ export interface DialogProps
     onClose: () => void;
 }
 
+type SortType = 'ascending' | 'descending';
+
 
 export function SortSettings(
     props: Props
 )
 {
-    const [sortType, setSortType] = React.useState(ascending);
+
+    const [sortType, setSortType] = React.useState('ascending');
     const [collection, setCollection] = React.useState('');
     return (
         <props.dialog
@@ -48,14 +48,14 @@ export function SortSettings(
         >
             <props.container>
                 <props.form
-                    sortType={sortType}
+                    sortType={sortType as SortType}
                     setSortType={setSortType}
                     collection={collection}
                     setCollection={setCollection}
                     collections={props.collections}
                 />
                 <props.submitButton
-                    sortType={sortType}
+                    sortType={sortType as SortType}
                     collection={collection}
                     setOpen={props.setOpen}
                 />

@@ -1,12 +1,9 @@
 import * as React from 'react';
-import {
-    ISortType,
-} from 'RequestManager.SortType';
 
 
 export interface BaseProps
 {
-    sortType: ISortType;
+    sortType: 'ascending' | 'descending';
     setOpen: (open: boolean) => void;
     collection: string;
 }
@@ -46,7 +43,7 @@ interface SubmitOptions
 {
     collection: string;
     setOpen: (open: boolean) => void;
-    sortType: ISortType;
+    sortType: 'ascending' | 'descending';
 }
 
 
