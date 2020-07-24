@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Grid from '@material-ui/core/Grid';
 import MaterialTable from 'material-table';
 import Paper from '@material-ui/core/Paper';
 import {
@@ -21,14 +22,21 @@ type Empty= Record<string, unknown>;
 
 const Container: React.FunctionComponent<Empty>
     = (props) => (
-        <Paper
+        <Grid item
+            xs={6}
             style={{
-                height: '100%',
-                overflow: 'auto',
+                height: '83%',
             }}
         >
-            {props.children}
-        </Paper>
+            <Paper
+                style={{
+                    height: '100%',
+                    overflow: 'auto',
+                }}
+            >
+                {props.children}
+            </Paper>
+        </Grid>
     );
 
 
