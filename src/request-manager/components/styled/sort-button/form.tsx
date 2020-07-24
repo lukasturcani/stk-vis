@@ -43,7 +43,11 @@ const Select: React.FunctionComponent<SelectProps>
             style={{
                 minWidth: 150,
             }}
-            {...props}
+            value={props.value}
+            onChange={
+                props.onChange as
+                (event: {target: {value: unknown}}) => void
+            }
         />
     );
 
