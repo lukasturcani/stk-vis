@@ -47,7 +47,14 @@ ReactDOM.render(
                     width: '100vw',
                 }}
             >
-                <MoleculeTable />
+                <div
+                    style={{
+                        height: '25%',
+                        width: '25%',
+                    }}
+                >
+                    <MoleculeTable />
+                </div>
                 <div
                     style={{
                         height: '25%',

@@ -4,7 +4,10 @@ module Molecules.Molecules
     , moleculeTableProps
     , twoDViewerProps
     , threeDViewerProps
+    , get
     ) where
+
+import Data.Map (lookup) as Map
 
 import Molecules.Molecules.Internal.Molecules
     ( Molecules
@@ -37,3 +40,9 @@ twoDViewerProps = Props.twoDViewerProps
 
 threeDViewerProps :: Exports.Molecules -> Exports.ThreeDViewerProps
 threeDViewerProps = Props.threeDViewerProps
+
+get :: Map String String -> String
+get map key =
+    case lookup key map of
+        Nothing -> ""
+        Just string -> string

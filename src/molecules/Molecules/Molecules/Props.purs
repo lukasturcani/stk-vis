@@ -9,6 +9,7 @@ module Molecules.Molecules.Internal.Props
 
 import Prelude
 import Data.Either (Either (Right, Left))
+import Data.Map (Map, fromFoldable)
 import Molecules.Molecules.Internal.Molecules (Molecules)
 import MolDraw.DrawMol.Mesh (MeshOptions, Mesh, meshes)
 import MolDraw.Atom (atom)
@@ -18,9 +19,18 @@ import MolDraw.Position (position)
 import MolDraw.GeometryData (GeometryData, maybeMolecule)
 
 data MoleculeTableProps = MoleculeTableProps
+    { columns :: Array String
+    , selectedRow :: Int
+    , rows :: Array (Map String String)
+    }
 
 moleculeTableProps :: Molecules -> MoleculeTableProps
 moleculeTableProps molecules = MoleculeTableProps
+    { columns: ["one", "two", "three", "four"]
+    , selectedRow: 1
+    , rows:
+        []
+    }
 
 data TwoDViewerProps = TwoDViewerProps
     { smiles :: String

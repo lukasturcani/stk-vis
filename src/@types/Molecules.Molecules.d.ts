@@ -22,7 +22,18 @@ declare module 'Molecules.Molecules'
         };
     }
 
-    export type MoleculeTableProps = Record<string, unknown>;
+
+    type IMap = unknown;
+
+    export interface MoleculeTableProps
+    {
+        value0: {
+            columns: string[];
+            selectedRow: number;
+            rows: IMap[];
+        };
+    }
+
     export type IMolecules = Record<string, unknown>;
     export const initialState: IMolecules;
 
@@ -39,4 +50,6 @@ declare module 'Molecules.Molecules'
 
     export const threeDViewerProps:
         (state: IMolecules) => ThreeDViewerProps;
+
+    export const get: (map: IMap) => (key: string) => string
 }
