@@ -48,8 +48,22 @@ ReactDOM.render(
                 }}
             >
                 <MoleculeTable />
-                <TwoDViewer />
-                <ThreeDViewer />
+                <div
+                    style={{
+                        height: '25%',
+                        width: '25%',
+                    }}
+                >
+                    <TwoDViewer />
+                </div>
+                <div
+                    style={{
+                        height: '25%',
+                        width: '25%',
+                    }}
+                >
+                    <ThreeDViewer />
+                </div>
             </div>
         </ThemeProvider>
     </Provider>,
