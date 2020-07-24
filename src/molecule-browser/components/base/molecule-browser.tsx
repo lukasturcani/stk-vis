@@ -14,11 +14,14 @@ import {
 } from 'RequestManager.RequestManager';
 
 
+type Empty = Record<string, unknown>;
+
 interface Props extends MoleculeBrowserProps
 {
     root: React.FunctionComponent<Record<string, unknown>>;
     sortButton: React.FunctionComponent<SortButtonProps>;
     moleculeTable: React.FunctionComponent<MoleculeTableProps>;
+    viewerContainer: React.FunctionComponent<Empty>;
     twoDViewer: React.FunctionComponent<TwoDViewerProps>;
     threeDViewer: React.FunctionComponent<ThreeDViewerProps>;
     backButton: React.FunctionComponent<BackButtonProps>;
@@ -34,8 +37,10 @@ export function MoleculeBrowser(
         <props.root>
             <props.sortButton    {...props.value0.sortButton}    />
             <props.moleculeTable {...props.value0.moleculeTable} />
-            <props.twoDViewer    {...props.value0.twoDViewer}    />
-            <props.threeDViewer  {...props.value0.threeDViewer}  />
+            <props.viewerContainer>
+                <props.twoDViewer    {...props.value0.twoDViewer}    />
+                <props.threeDViewer  {...props.value0.threeDViewer}  />
+            </props.viewerContainer>
             <props.backButton    {...props.value0.backButton}    />
             <props.nextButton    {...props.value0.nextButton}    />
         </props.root>

@@ -36,6 +36,7 @@ export function MoleculeBrowser(
         root={Root}
         sortButton={SortButton}
         moleculeTable={MoleculeTable}
+        viewerContainer={ViewerContainer}
         twoDViewer={TwoDViewer}
         threeDViewer={ThreeDViewer}
         backButton={BackButton}
@@ -51,6 +52,18 @@ const Root: React.FunctionComponent<Record<string, unknown>>
             style={{
                 height: '100%',
                 width: '100%',
+            }}
+        >
+            {props.children}
+        </Grid>
+    );
+
+const ViewerContainer: React.FunctionComponent<Record<string, unknown>>
+    = (props) => (
+        <Grid item
+            xs={6}
+            style={{
+                height: '83%',
             }}
         >
             {props.children}
