@@ -48,7 +48,9 @@ const Select: React.FunctionComponent<SelectProps>
                 props.onChange as
                 (event: {target: {value: unknown}}) => void
             }
-        />
+        >
+            {props.children}
+        </SelectBase>
     );
 
 
