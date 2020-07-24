@@ -31,14 +31,13 @@ export interface DialogProps
     onClose: () => void;
 }
 
-type SortType = 'ascending' | 'descending';
-
-
 export function SortSettings(
     props: Props
 )
 {
 
+    // sortType requires a type-assertion when passed to props.form
+    // props.submitButton from string to 'ascending' | 'descending'.
     const [sortType, setSortType] = React.useState('ascending');
     const [collection, setCollection] = React.useState('');
     return (
@@ -48,14 +47,14 @@ export function SortSettings(
         >
             <props.container>
                 <props.form
-                    sortType={sortType as SortType}
+                    sortType={sortType as 'ascending' | 'descending'}
                     setSortType={setSortType}
                     collection={collection}
                     setCollection={setCollection}
                     collections={props.collections}
                 />
                 <props.submitButton
-                    sortType={sortType as SortType}
+                    sortType={sortType as 'ascending' | 'descending'}
                     collection={collection}
                     setOpen={props.setOpen}
                 />
