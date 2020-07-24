@@ -18,6 +18,10 @@ export const TwoDViewer: React.FunctionComponent<TwoDViewerProps>
 const Canvas: React.FunctionComponent<CanvasProps>
     = (props) => (
         <canvas
+            style={{
+                height: '100%',
+                width: '100%',
+            }}
             {...props}
         >
             {props.children}
