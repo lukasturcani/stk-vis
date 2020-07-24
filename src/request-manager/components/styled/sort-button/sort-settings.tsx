@@ -8,10 +8,10 @@ import {
 } from 'request-manager/base/sort-button/sort-settings';
 import {
     Form,
-} from 'request-manager/connected/sort-button/form';
+} from 'request-manager/styled/sort-button/form';
 import {
     SubmitButton,
-} from 'request-manager/connected/sort-button/submit-button';
+} from 'request-manager/styled/sort-button/submit-button';
 
 
 export const SortSettings: React.FunctionComponent<BaseProps>

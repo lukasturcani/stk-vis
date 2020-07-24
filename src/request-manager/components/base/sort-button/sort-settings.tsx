@@ -35,7 +35,7 @@ export interface DialogProps
 }
 
 
-function SortSettings(
+export function SortSettings(
     props: Props
 )
 {

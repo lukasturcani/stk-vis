@@ -4,12 +4,12 @@ import DoneIcon from '@material-ui/icons/Done';
 import {
     BaseProps,
     ButtonProps,
-    SubmitSortButton as SubmitSortButtonBase
-} from 'request-manager/base/sort-button/submit-sort-button';
+    SubmitButton as SubmitButtonBase
+} from 'request-manager/base/sort-button/submit-button';
 
 
-export const SubmitSortButton: React.FunctionComponent<BaseProps>
-    = (props) => <SubmitSortButtonBase
+export const SubmitButton: React.FunctionComponent<BaseProps>
+    = (props) => <SubmitButtonBase
         button={StyledButton}
         {...props}
     />;

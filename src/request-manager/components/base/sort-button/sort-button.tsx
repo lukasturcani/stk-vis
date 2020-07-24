@@ -3,7 +3,7 @@ import {
     SortButtonProps
 } from 'RequestManager.RequestManager';
 import {
-    SortSettingsProps,
+    BaseProps as SortSettingsProps,
 } from './sort-settings';
 
 
