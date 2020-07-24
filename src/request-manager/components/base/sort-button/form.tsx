@@ -50,7 +50,7 @@ export function Form(
                 onChange={e => props.setCollection(e.target.value)}
             >
                 <props.menuItem key='' value=''>
-                    None
+                    <em>None</em>
                 </props.menuItem>
                 {
                     props.collections.map(name => (

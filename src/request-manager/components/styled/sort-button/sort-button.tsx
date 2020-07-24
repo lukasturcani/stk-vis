@@ -8,13 +8,27 @@ import {
 import {
     SortButtonProps,
 } from 'RequestManager.RequestManager'
+import {
+    SortSettings,
+} from 'request-manager/styled/sort-button/sort-settings';
 
 
 export const SortButton: React.FunctionComponent<SortButtonProps>
     = (props) => <SortButtonBase
+        container={Container}
         button={StyledButton}
         {...props}
+        sortSettings={SortSettings}
     />;
+
+type Empty = Record<string, unknown>;
+
+const Container: React.FunctionComponent<Empty>
+    = (props) => (
+        <div>
+            {props.children}
+        </div>
+    );
 
 
 const StyledButton: React.FunctionComponent<ButtonProps>
