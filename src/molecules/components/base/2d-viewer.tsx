@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as smilesDrawer from 'smiles-drawer';
+import { elementColors } from './element-colors';
 import {
     TwoDViewerProps
 } from 'Molecules.Molecules';
