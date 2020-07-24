@@ -66,6 +66,16 @@ const ViewerContainer: React.FunctionComponent<Record<string, unknown>>
                 height: '83%',
             }}
         >
-            {props.children}
+            <Grid container
+                style={ {
+                    height: '100%',
+                    width: '100%',
+                } }
+                alignItems='center'
+                justify='center'
+                direction='row'
+            >
+                {props.children}
+            </Grid>
         </Grid>
     );

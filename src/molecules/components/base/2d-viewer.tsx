@@ -7,6 +7,7 @@ import {
 
 interface Props extends TwoDViewerProps
 {
+    container: React.FunctionComponent<Record<string, unknown>>;
     canvas: React.FunctionComponent<CanvasProps>;
 }
 
@@ -53,17 +54,19 @@ export function TwoDViewer(
 
     });
     return (
-        <props.canvas
-            id={'TwoDViewer'}
-        >
-            {
-                // Use the selected molecule as the div content, so
-                // that the div is forced to re-render when the
-                // selected molecule changes. If this is not the case,
-                // the rendered molecule does not change, even when a
-                // new molecule is selected.
-                props.value0.smiles
-            }
-        </props.canvas>
+        <props.container>
+            <props.canvas
+                id={'TwoDViewer'}
+            >
+                {
+                    // Use the selected molecule as the div content, so
+                    // that the div is forced to re-render when the
+                    // selected molecule changes. If this is not the case,
+                    // the rendered molecule does not change, even when a
+                    // new molecule is selected.
+                    props.value0.smiles
+                }
+            </props.canvas>
+        </props.container>
     );
 }

@@ -35,7 +35,14 @@ ReactDOM.render(
     <Provider store={ store }>
         <ThemeProvider theme={theme} >
             <CssBaseline />
-            <MoleculeBrowser />
+            <div
+                style={{
+                    height: '98vh',
+                    width: '98vw',
+                }}
+            >
+                <MoleculeBrowser />
+            </div>
         </ThemeProvider>
     </Provider>,
     document.getElementById('root'),

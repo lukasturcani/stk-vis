@@ -7,10 +7,11 @@ import { useTheme } from '@material-ui/core/styles';
 
 interface Props extends ThreeDViewerProps
 {
-    container: React.FunctionComponent<ContainerProps>;
+    container: React.FunctionComponent<Record<string, unknown>>;
+    canvas: React.FunctionComponent<CanvasProps>;
 }
 
-export interface ContainerProps
+export interface CanvasProps
 {
     id: string;
 }
@@ -54,16 +55,18 @@ export function ThreeDViewer(
         md.drawMol(scene);
     });
     return (
-        <props.container
-            id={'ThreeDViewer'}
-        >
-        {
-            // Use the selected molecule as the div content, so that
-            // the div is forced to re-render when the selected
-            // molecule changes. If this is not the case, the rendered
-            // molecule does not change, even when a new molecule is
-            // selected.
-        }
+        <props.container>
+            <props.canvas
+                id={'ThreeDViewer'}
+            >
+            {
+                // Use the selected molecule as the div content, so that
+                // the div is forced to re-render when the selected
+                // molecule changes. If this is not the case, the rendered
+                // molecule does not change, even when a new molecule is
+                // selected.
+            }
+            </props.canvas>
         </props.container>
     );
 }
