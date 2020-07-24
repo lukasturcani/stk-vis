@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import SortIcon from '@material-ui/icons/Sort';
+import Grid from '@material-ui/core/Grid';
 import {
     SortButton as SortButtonBase,
     ButtonProps,
@@ -25,9 +26,11 @@ type Empty = Record<string, unknown>;
 
 const Container: React.FunctionComponent<Empty>
     = (props) => (
-        <div>
+        <Grid item
+            xs={12}
+        >
             {props.children}
-        </div>
+        </Grid>
     );
 
 

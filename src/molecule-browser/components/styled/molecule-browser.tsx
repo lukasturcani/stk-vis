@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Grid from '@material-ui/core/Grid';
 
 import {
     MoleculeBrowserProps,
@@ -46,14 +47,12 @@ export function MoleculeBrowser(
 
 const Root: React.FunctionComponent<Record<string, unknown>>
     = (props) => (
-        <div
+        <Grid container
             style={{
                 height: '100%',
                 width: '100%',
-                backgroundColor: 'red',
             }}
         >
-            ROOT
             {props.children}
-        </div>
+        </Grid>
     );
