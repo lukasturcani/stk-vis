@@ -15,7 +15,6 @@ data NextButtonProps = NextButtonProps
 nextButtonProps :: RequestManager -> NextButtonProps
 nextButtonProps requestManager = NextButtonProps
 
-
 data BackButtonProps = BackButtonProps
     { disabled :: Boolean
     }
@@ -26,6 +25,10 @@ backButtonProps requestManager = BackButtonProps
     }
 
 data SortButtonProps = SortButtonProps
+    { collections :: Array String
+    }
 
 sortButtonProps :: RequestManager -> SortButtonProps
 sortButtonProps requestManager = SortButtonProps
+    { collections: ["one", "two", "three"]
+    }

@@ -152,6 +152,12 @@ module.exports = {
                     './output/RequestManager.Action',
                 ),
 
+            'RequestManager.SortType':
+                path.join(
+                    __dirname,
+                    './output/RequestManager.SortType',
+                ),
+
             'mongo-db-requests': path.join(
                 __dirname,
                 './src/mongo-db-requests',
