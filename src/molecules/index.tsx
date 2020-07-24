@@ -2,13 +2,13 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {
     TwoDViewer,
-} from 'molecules/styled/2d-viewer';
+} from 'molecules/connected/2d-viewer';
 import {
     ThreeDViewer,
-} from 'molecules/styled/3d-viewer';
+} from 'molecules/connected/3d-viewer';
 import {
     MoleculeTable,
-} from 'molecules/styled/molecule-table';
+} from 'molecules/connected/molecule-table';
 import {
     reducer,
     initialState,
