@@ -23,4 +23,13 @@ declare module 'RequestManager.RequestManager'
         (state: IRequestManager) =>
         (action: IAction) =>
         IRequestManager;
+
+    export const nextButtonProps:
+        (state: IRequestManager) => NextButtonProps;
+
+    export const backButtonProps:
+        (state: IRequestManager) => BackButtonProps;
+
+    export const sortButtonProps:
+        (state: IRequestManager) => SortButtonProps;
 }
