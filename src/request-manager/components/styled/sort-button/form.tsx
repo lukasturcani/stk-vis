@@ -2,7 +2,7 @@ import * as React from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
 import MaterialFormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
-import MenuItemBase from '@material-ui/core/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem';
 import SelectBase from '@material-ui/core/Select';
 import {
     Form as FormBase,
@@ -53,15 +53,6 @@ const Select: React.FunctionComponent<SelectProps>
         </SelectBase>
     );
 
-
-const MenuItem: React.FunctionComponent<MenuItemProps>
-    = (props) => (
-        <MenuItemBase
-            {...props}
-        >
-            {props.children}
-        </MenuItemBase>
-    );
 
 const FormControl: React.FunctionComponent<Empty>
     = (props) => (
