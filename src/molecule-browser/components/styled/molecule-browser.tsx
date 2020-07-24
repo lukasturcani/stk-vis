@@ -39,6 +39,7 @@ export function MoleculeBrowser(
         viewerContainer={ViewerContainer}
         twoDViewer={TwoDViewer}
         threeDViewer={ThreeDViewer}
+        navigationButtonContainer={NavigationButtonContainer}
         backButton={BackButton}
         nextButton={NextButton}
         {...props}
@@ -80,6 +81,22 @@ const ViewerContainer: React.FunctionComponent<Record<string, unknown>>
                 alignItems='center'
                 justify='center'
                 direction='row'
+            >
+                {props.children}
+            </Grid>
+        </Grid>
+    );
+
+
+type Empty = Record<string, unknown>;
+const NavigationButtonContainer: React.FunctionComponent<Empty>
+    = (props) => (
+        <Grid item
+            xs={12}
+        >
+            <Grid container
+                spacing={3}
+                justify={ 'center' }
             >
                 {props.children}
             </Grid>

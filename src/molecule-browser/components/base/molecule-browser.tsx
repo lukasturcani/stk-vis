@@ -24,6 +24,7 @@ interface Props extends MoleculeBrowserProps
     viewerContainer: React.FunctionComponent<Empty>;
     twoDViewer: React.FunctionComponent<TwoDViewerProps>;
     threeDViewer: React.FunctionComponent<ThreeDViewerProps>;
+    navigationButtonContainer: React.FunctionComponent<Empty>;
     backButton: React.FunctionComponent<BackButtonProps>;
     nextButton: React.FunctionComponent<NextButtonProps>;
 }
@@ -41,8 +42,10 @@ export function MoleculeBrowser(
                 <props.twoDViewer    {...props.value0.twoDViewer}    />
                 <props.threeDViewer  {...props.value0.threeDViewer}  />
             </props.viewerContainer>
-            <props.backButton    {...props.value0.backButton}    />
-            <props.nextButton    {...props.value0.nextButton}    />
+            <props.navigationButtonContainer>
+                <props.backButton    {...props.value0.backButton}    />
+                <props.nextButton    {...props.value0.nextButton}    />
+            </props.navigationButtonContainer>
         </props.root>
     );
 }

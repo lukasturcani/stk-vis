@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import {
@@ -19,11 +20,13 @@ export const NextButton: React.FunctionComponent<NextButtonProps>
 
 const StyledButton: React.FunctionComponent<ButtonProps>
     = (props) => (
-        <Button
-            variant={ 'contained' }
-            color={ 'primary' }
-            {...props}
-        >
-            <NavigateNextIcon />
-        </Button>
+        <Grid item>
+            <Button
+                variant={ 'contained' }
+                color={ 'primary' }
+                {...props}
+            >
+                <NavigateNextIcon />
+            </Button>
+        </Grid>
     );
