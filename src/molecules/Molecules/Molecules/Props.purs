@@ -8,6 +8,7 @@ module Molecules.Molecules.Internal.Props
     ) where
 
 import Molecules.Molecules.Internal.Molecules (Molecules)
+import MolDraw.DrawMol.Mesh (Mesh)
 
 data MoleculeTableProps = MoleculeTableProps
 
@@ -24,6 +25,8 @@ twoDViewerProps molecules = TwoDViewerProps
     }
 
 data ThreeDViewerProps = ThreeDViewerProps
+    { meshes :: Array Mesh
+    }
 
 threeDViewerProps :: Molecules -> ThreeDViewerProps
 threeDViewerProps molecules = ThreeDViewerProps

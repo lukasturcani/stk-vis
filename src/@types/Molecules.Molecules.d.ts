@@ -4,6 +4,9 @@ declare module 'Molecules.Molecules'
     import {
         IAction,
     } from 'Molecules.Action';
+    import {
+        Mesh,
+    } from 'mol-draw';
 
     export interface TwoDViewerProps
     {
@@ -12,8 +15,14 @@ declare module 'Molecules.Molecules'
         };
     }
 
+    export interface ThreeDViewerProps
+    {
+        value0: {
+            meshes: Mesh[];
+        };
+    }
+
     export type MoleculeTableProps = Record<string, unknown>;
-    export type ThreeDViewerProps = Record<string, unknown>;
     export type IMolecules = Record<string, unknown>;
     export const initialState: IMolecules;
 
