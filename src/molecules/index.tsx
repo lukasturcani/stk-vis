@@ -41,7 +41,12 @@ ReactDOM.render(
     <Provider store={ store }>
         <ThemeProvider theme={theme} >
             <CssBaseline />
-            <div>
+            <div
+                style={{
+                    height: '100vh',
+                    width: '100vw',
+                }}
+            >
                 <MoleculeTable />
                 <TwoDViewer />
                 <ThreeDViewer />
