@@ -48,6 +48,10 @@ const Container: React.FunctionComponent<Record<string, unknown>>
 const Canvas: React.FunctionComponent<CanvasProps>
     = (props) => (
         <div
+            style={{
+                height: '100%',
+                width: '100%',
+            }}
             {...props}
         >
             {props.children}
