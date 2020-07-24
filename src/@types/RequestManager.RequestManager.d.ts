@@ -15,6 +15,7 @@ declare module 'RequestManager.RequestManager'
     }
 
     export type NextButtonProps = Record<string, unknown>;
+    export type SortButtonProps = Record<string, unknown>;
 
     export const initialState: IRequestManager;
 
