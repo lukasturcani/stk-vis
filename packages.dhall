@@ -123,6 +123,25 @@ let upstream =
 
 let overrides = {=}
 
-let additions = {=}
+let additions =
+    { molDraw =
+        { dependencies =
+            [ "arrays"
+            , "console"
+            , "effect"
+            , "either"
+            , "integers"
+            , "math"
+            , "numbers"
+            , "ordered-collections"
+            , "strings"
+            , "stringutils"
+            ]
+        , repo =
+            "https://github.com/lukasturcani/molDraw"
+        , version =
+            "v1.0.11"
+        }
+    }
 
 in  upstream // overrides // additions
