@@ -4,7 +4,13 @@ You can edit this file as you like.
 -}
 { name = "my-project"
 , dependencies =
-  [ "console", "effect", "molDraw", "ordered-collections", "psci-support" ]
+  [ "console"
+  , "effect"
+  , "molDraw"
+  , "ordered-collections"
+  , "psci-support"
+  , "tuples"
+  ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
 }

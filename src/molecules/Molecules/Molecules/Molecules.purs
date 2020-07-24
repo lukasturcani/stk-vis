@@ -7,7 +7,8 @@ module Molecules.Molecules
     , get
     ) where
 
-import Data.Map (lookup) as Map
+import Data.Map (Map, lookup) as Map
+import Data.Maybe (Maybe (Nothing, Just))
 
 import Molecules.Molecules.Internal.Molecules
     ( Molecules
@@ -41,8 +42,8 @@ twoDViewerProps = Props.twoDViewerProps
 threeDViewerProps :: Exports.Molecules -> Exports.ThreeDViewerProps
 threeDViewerProps = Props.threeDViewerProps
 
-get :: Map String String -> String
+get :: Map.Map String String -> String -> String
 get map key =
-    case lookup key map of
+    case Map.lookup key map of
         Nothing -> ""
         Just string -> string

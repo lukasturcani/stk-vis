@@ -10,6 +10,7 @@ module Molecules.Molecules.Internal.Props
 import Prelude
 import Data.Either (Either (Right, Left))
 import Data.Map (Map, fromFoldable)
+import Data.Tuple (Tuple (Tuple))
 import Molecules.Molecules.Internal.Molecules (Molecules)
 import MolDraw.DrawMol.Mesh (MeshOptions, Mesh, meshes)
 import MolDraw.Atom (atom)
@@ -29,7 +30,23 @@ moleculeTableProps molecules = MoleculeTableProps
     { columns: ["one", "two", "three", "four"]
     , selectedRow: 1
     , rows:
-        []
+        [ fromFoldable
+            [ Tuple "one" "a"
+            , Tuple "two" "A"
+            ]
+        , fromFoldable
+            [ Tuple "one" "b"
+            , Tuple "two" "B"
+            , Tuple "three" "beta"
+            , Tuple "four" "4"
+            ]
+        , fromFoldable
+            [ Tuple "one" "c"
+            , Tuple "two" "C"
+            , Tuple "three" "g"
+            , Tuple "four" "45"
+            ]
+        ]
     }
 
 data TwoDViewerProps = TwoDViewerProps
