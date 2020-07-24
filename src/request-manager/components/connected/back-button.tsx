@@ -1,24 +1,24 @@
 import { connect } from 'react-redux';
 import {
-    twoDViewerProps,
-    IMolecules,
-    TwoDViewerProps,
-} from 'Molecules.Molecules';
+    backButtonProps,
+    IRequestManager,
+    BackButtonProps,
+} from 'RequestManager.RequestManager';
 import {
-    TwoDViewer as TwoDViewerBase,
-} from 'molecules/styled/2d-viewer';
+    BackButton as BackButtonBase,
+} from 'request-manager/styled/back-button';
 
 import * as Action
-from 'Molecules.Action';
+from 'RequestManager.Action';
 
 
 function mapStateToProps(
-    state: IMolecules,
+    state: IRequestManager,
 )
-    : TwoDViewerProps
+    : BackButtonProps
 {
     // Reconstruct as plain object to prevent react/redux warnings.
-    return { ...twoDViewerProps(state) };
+    return { ...backButtonProps(state) };
 }
 
 
@@ -31,7 +31,7 @@ function mapDispatchToProps(
 }
 
 
-export const TwoDViewer
+export const BackButton
     = connect
     (mapStateToProps, mapDispatchToProps)
-    (TwoDViewerBase);
+    (BackButtonBase);
