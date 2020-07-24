@@ -49,10 +49,16 @@ export function MoleculeBrowser(
 const Root: React.FunctionComponent<Record<string, unknown>>
     = (props) => (
         <Grid container
-            style={{
+            style={ {
                 height: '100%',
                 width: '100%',
-            }}
+                margin: 0,
+                padding: 10,
+            } }
+            spacing={3}
+            alignItems='center'
+            justify='center'
+            direction='row'
         >
             {props.children}
         </Grid>
