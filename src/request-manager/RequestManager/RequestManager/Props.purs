@@ -17,9 +17,13 @@ nextButtonProps requestManager = NextButtonProps
 
 
 data BackButtonProps = BackButtonProps
+    { disabled :: Boolean
+    }
 
 backButtonProps :: RequestManager -> BackButtonProps
 backButtonProps requestManager = BackButtonProps
+    { disabled: false
+    }
 
 data SortButtonProps = SortButtonProps
 
