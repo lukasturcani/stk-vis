@@ -12,9 +12,9 @@ import {
 import {
     reducer,
     initialState,
-    IMolecules,
+    Molecules,
 } from 'Molecules.Molecules';
-import { IAction } from 'Molecules.Action';
+import { Action } from 'Molecules.Action';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
@@ -25,7 +25,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 const store = createStore(
-    (state: IMolecules | undefined, action: IAction) => {
+    (state: Molecules | undefined, action: Action) => {
         if (state === undefined)
         {
             return initialState;

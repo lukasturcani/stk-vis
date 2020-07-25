@@ -12,9 +12,9 @@ import {
 import {
     reducer,
     initialState,
-    IRequestManager,
+    RequestManager,
 } from 'RequestManager.RequestManager';
-import { IAction } from 'RequestManager.Action';
+import { Action } from 'RequestManager.Action';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
@@ -25,7 +25,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 const store = createStore(
-    (state: IRequestManager | undefined, action: IAction) => {
+    (state: RequestManager | undefined, action: Action) => {
         if (state === undefined)
         {
             return initialState;

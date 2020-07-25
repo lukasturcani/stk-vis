@@ -35,43 +35,43 @@ export function MongoConfigurator(
     props: Props,
 )
 {
-    props = props.value0;
-
     const [url, setUrl]
-        = React.useState(props.url);
+        = React.useState(props.value0.url);
 
     const [moleculeKey, setMoleculeKey]
-        = React.useState(props.moleculeKey);
+        = React.useState(props.value0.moleculeKey);
 
     const [database, setDatabase]
-        = React.useState(props.database);
+        = React.useState(props.value0.database);
 
     const [moleculeCollection, setMoleculeCollection]
-        = React.useState(props.moleculeCollection);
+        = React.useState(props.value0.moleculeCollection);
 
     const [
         constructedMoleculeCollection,
         setConstructedMoleculeCollection,
     ]
-        = React.useState(props.constructedMoleculeCollection);
+        = React.useState(props.value0.constructedMoleculeCollection);
 
     const [positionMatrixCollection, setPositionMatrixCollection]
-        = React.useState(props.positionMatrixCollection);
+        = React.useState(props.value0.positionMatrixCollection);
 
     const [
         buildingBlockPositionMatrixCollection,
         setBuildingBlockPositionMatrixCollection,
     ]
-        = React.useState(props.buildingBlockPositionMatrixCollection);
+        = React.useState(
+            props.value0.buildingBlockPositionMatrixCollection
+        );
 
     const [numEntriesPerPage, setNumEntriesPerPage]
-        = React.useState(props.numEntriesPerPage);
+        = React.useState(props.value0.numEntriesPerPage);
 
     const [selectBuildingBlocks, setSelectBuildingBlocks]
-        = React.useState(props.selectBuildingBlocks);
+        = React.useState(props.value0.selectBuildingBlocks);
 
     const [selectConstructedMolecules, setSelectConstructedMolecules]
-        = React.useState(props.selectConstructedMolecules);
+        = React.useState(props.value0.selectConstructedMolecules);
 
     return (
         <props.component>

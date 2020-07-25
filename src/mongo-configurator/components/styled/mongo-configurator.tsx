@@ -2,9 +2,11 @@ import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import {
     MongoConfigurator as MongoConfiguratorBase,
-    BaseProps,
     DispatchProps,
 } from 'mongo-configurator/base/mongo-configurator';
+import {
+    Props as BaseProps
+} from 'MongoConfigurator.MongoConfigurator';
 import {
     InputFields
 } from './input-fields';
