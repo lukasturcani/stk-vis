@@ -5,34 +5,20 @@ import {
 } from './get-molecules-button';
 import Grid from '@material-ui/core/Grid';
 import {
-    IMongoData
+    MongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
 import {
-    IPageData,
+    PageData,
 } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
-
-
-export interface BaseProps
-{
-
-    kind: 'Mongo Configurator';
-    url: string;
-    moleculeKey: string;
-    database: string;
-    moleculeCollection: string;
-    constructedMoleculeCollection: string;
-    positionMatrixCollection: string;
-    buildingBlockPositionMatrixCollection: string;
-    numEntriesPerPage: number;
-    selectBuildingBlocks: boolean;
-    selectConstructedMolecules: boolean;
-}
+import {
+    Props as BaseProps,
+} from 'MongoConfigurator.MongoConfigurator';
 
 
 export interface DispatchProps
 {
-    updateFields: (mongoData: IMongoData) => void;
-    updateMoleculePage: (pageData: IPageData) => void;
+    updateFields: (mongoData: MongoData) => void;
+    updateMoleculePage: (pageData: PageData) => void;
 }
 
 
@@ -49,6 +35,8 @@ export function MongoConfigurator(
     props: Props,
 )
 {
+    props = props.value0;
+
     const [url, setUrl]
         = React.useState(props.url);
 

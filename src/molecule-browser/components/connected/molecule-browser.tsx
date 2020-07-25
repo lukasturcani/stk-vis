@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import {
     props,
-    IMoleculeBrowser,
+    MoleculeBrowser,
 } from 'MoleculeBrowser.MoleculeBrowser';
 
 import {
@@ -16,7 +16,7 @@ from 'MoleculeBrowser.Action';
 
 
 function mapStateToProps(
-    state: IMoleculeBrowser,
+    state: MoleculeBrowser,
 )
     : MoleculeBrowserProps
 {
@@ -26,7 +26,7 @@ function mapStateToProps(
 
 
 function mapDispatchToProps(
-    dispatch: (action: Action.IAction) => void,
+    dispatch: (action: Action.Action) => void,
 )
 {
     return {

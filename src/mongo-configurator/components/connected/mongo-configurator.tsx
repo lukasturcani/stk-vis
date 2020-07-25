@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import {
+    Props,
     props,
     MongoConfigurator as State,
 } from 'MongoConfigurator.MongoConfigurator';
@@ -15,7 +16,6 @@ import * as UpdateFields
 from 'MongoConfigurator.UpdateFields.UpdateFields';
 
 import {
-    BaseProps,
     DispatchProps,
 } from 'mongo-configurator/base/mongo-configurator';
 import {
@@ -29,9 +29,9 @@ import {
 function mapStateToProps(
     state: State,
 )
-    : BaseProps
+    : Props
 {
-    return props(state).value0;
+    return {...props(state)};
 }
 
 

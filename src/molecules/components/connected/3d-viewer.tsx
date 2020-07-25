@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import {
     threeDViewerProps,
-    IMolecules,
+    Molecules,
     ThreeDViewerProps,
 } from 'Molecules.Molecules'
 import {
@@ -13,7 +13,7 @@ from 'Molecules.Action';
 
 
 function mapStateToProps(
-    state: IMolecules,
+    state: Molecules,
 )
     : ThreeDViewerProps
 {
@@ -23,7 +23,7 @@ function mapStateToProps(
 
 
 function mapDispatchToProps(
-    dispatch: (action: Action.IAction) => void,
+    dispatch: (action: Action.Action) => void,
 )
 {
     return {

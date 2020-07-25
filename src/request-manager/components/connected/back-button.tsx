@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import {
     backButtonProps,
-    IRequestManager,
+    RequestManager,
     BackButtonProps,
 } from 'RequestManager.RequestManager';
 import {
@@ -13,7 +13,7 @@ from 'RequestManager.Action';
 
 
 function mapStateToProps(
-    state: IRequestManager,
+    state: RequestManager,
 )
     : BackButtonProps
 {
@@ -23,7 +23,7 @@ function mapStateToProps(
 
 
 function mapDispatchToProps(
-    dispatch: (action: Action.IAction) => void,
+    dispatch: (action: Action.Action) => void,
 )
 {
     return {
