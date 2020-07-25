@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { StkVis } from 'stk-vis/connected/stk-vis';
-import { reducer, initialState, StkVis } from 'StkVis.StkVis';
+import { reducer, initialState, StkVis as State } from 'StkVis.StkVis';
 import { Action } from 'StkVis.Action';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -13,7 +13,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 const store = createStore(
-    (state: StkVis | undefined, action: Action) => {
+    (state: State | undefined, action: Action) => {
         if (state === undefined)
         {
             return initialState;

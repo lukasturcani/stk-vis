@@ -6,9 +6,9 @@ import {
 import {
     reducer,
     initialState,
-    IMoleculeBrowser,
+    MoleculeBrowser as State,
 } from 'MoleculeBrowser.MoleculeBrowser';
-import { IAction } from 'MoleculeBrowser.Action';
+import { Action } from 'MoleculeBrowser.Action';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
@@ -19,7 +19,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 const store = createStore(
-    (state: IMoleculeBrowser | undefined, action: IAction) => {
+    (state: State | undefined, action: Action) => {
         if (state === undefined)
         {
             return initialState;
