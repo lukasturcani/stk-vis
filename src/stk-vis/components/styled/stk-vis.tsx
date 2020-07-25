@@ -6,6 +6,9 @@ import {
 import {
     Props as BaseProps,
 } from 'StkVis.StkVis';
+import {
+    MongoConfigurator,
+} from 'mongo-configurator/styled/mongo-configurator';
 
 
 export function StkVis(
@@ -13,6 +16,7 @@ export function StkVis(
 )
 {
     return <StkVisBase
+        mongoConfigurator={MongoConfigurator}
         {...props}
     />;
 }

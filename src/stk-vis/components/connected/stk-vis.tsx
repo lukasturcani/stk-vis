@@ -38,11 +38,13 @@ function mapDispatchToProps(
     : DispatchProps
 {
     return {
-        updateFields: (mongoData: MongoData) =>
-            dispatch(updateFields(mongoData)),
+        dispatch: {
+            updateFields: (mongoData: MongoData) =>
+                dispatch(updateFields(mongoData)),
 
-        updateMoleculePage: (pageData: PageData) =>
-            dispatch(updateMoleculePage(pageData)),
+            updateMoleculePage: (pageData: PageData) =>
+                dispatch(updateMoleculePage(pageData)),
+        },
     };
 }
 

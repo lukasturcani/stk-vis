@@ -14,8 +14,8 @@ declare module 'StkVis.StkVis'
 
     export interface Props
     {
-        value0: ConfiguratorProps;
-        value1: MoleculeBrowserProps;
+        value0?: ConfiguratorProps;
+        value1?: MoleculeBrowserProps;
     }
 
     export const initialState: StkVis;
