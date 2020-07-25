@@ -12,9 +12,8 @@ import {
     IPageData,
 } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
 import {
-    BaseProps,
-    DispatchProps,
-} from 'stk-vis/base/stk-vis';
+    Props,
+} from 'StkVis.StkVis';
 import {
     StkVis as StkVisBase,
 } from 'stk-vis/styled/stk-vis';
@@ -23,9 +22,9 @@ import {
 function mapStateToProps(
     state: IStkVis,
 )
-    : BaseProps
+    : Props
 {
-    return props(state).value0.value0;
+    return {...props(state)};
 }
 
 

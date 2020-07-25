@@ -6,9 +6,8 @@ import {
     MoleculeBrowser,
 } from 'molecule-browser/styled/molecule-browser';
 import {
-    BaseProps as ConfiguratorBaseProps,
-    DispatchProps as ConfiguratorDispatchProps,
-} from 'mongo-configurator/base/mongo-configurator';
+    Props,
+} from 'StkVis.StkVis';
 import {
     IMongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
@@ -17,28 +16,22 @@ import {
 } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
 
 
-
-export type BaseProps =
-    | ConfiguratorBaseProps
-
-export type DispatchProps =
-    & ConfiguratorDispatchProps
-
-export type Props = BaseProps & DispatchProps;
-
-
 export function StkVis(
     props: Props,
 )
 {
-    switch (props.kind)
+    console.log(props);
+    if (props.value0 !== undefined)
     {
-        case 'Mongo Configurator':
-        {
-            return <MongoConfigurator
-                { ...props }
+        return <MongoConfigurator
+                { ...props.value0 }
             />;
-        }
+    }
+    if (props.value1 !== undefined)
+    {
+        return <MoleculeBrowser
+            {...props.value1}
+        />;
     }
 }
 

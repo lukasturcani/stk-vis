@@ -5,7 +5,7 @@ import {
 } from 'MoleculeBrowser.MoleculeBrowser';
 
 import {
-    MoleculeBrowserProps,
+    Props as MoleculeBrowserProps,
 } from 'MoleculeBrowser.MoleculeBrowser'
 import {
     MoleculeBrowser as MoleculeBrowserBase,

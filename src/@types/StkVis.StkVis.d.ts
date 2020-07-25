@@ -1,15 +1,21 @@
 declare module 'StkVis.StkVis'
 {
     import {
-        IProps as IConfiguratorProps,
+        Props as ConfiguratorProps,
     } from 'MongoConfigurator.MongoConfigurator';
+
+    import {
+        Props as MoleculeBrowserProps
+    } from 'MoleculeBrowser.MoleculeBrowser';
+
     import { IAction } from 'StkVis.Action';
 
     export type IStkVis = Record<string, unknown>;
 
-    export interface IProps
+    export interface Props
     {
-        value0: IConfiguratorProps;
+        value0: ConfiguratorProps;
+        value1: MoleculeBrowserProps;
     }
 
     export const initialState: IStkVis;
@@ -17,6 +23,5 @@ declare module 'StkVis.StkVis'
     export const reducer:
         (state: IStkVis) => (action: IAction) => IStkVis;
 
-    export const props:
-        (state: IStkVis) => IProps;
+    export const props: (state: IStkVis) => Props;
 }

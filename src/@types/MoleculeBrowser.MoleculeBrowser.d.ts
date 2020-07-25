@@ -17,7 +17,7 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
 
     export type IMoleculeBrowser = Record<string, unknown>;
 
-    export interface MoleculeBrowserProps
+    export interface Props
     {
         value0: {
             sortButton: SortButtonProps,
@@ -36,6 +36,5 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
         (action: IAction) =>
         IMoleculeBrowser;
 
-    export const props:
-        (state: IMoleculeBrowser) => MoleculeBrowserProps;
+    export const props: (state: IMoleculeBrowser) => Props;
 }

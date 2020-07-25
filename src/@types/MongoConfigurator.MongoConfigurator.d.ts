@@ -6,7 +6,7 @@ declare module 'MongoConfigurator.MongoConfigurator'
 
     export type IMongoConfigurator = Record<string, unknown>;
 
-    export interface IProps
+    export interface Props
     {
         value0: {
             kind: 'Mongo Configurator';
@@ -30,5 +30,5 @@ declare module 'MongoConfigurator.MongoConfigurator'
         (action: IAction) =>
         IMongoConfigurator;
 
-    export const props: (state: IMongoConfigurator) => IProps;
+    export const props: (state: IMongoConfigurator) => Props;
 }

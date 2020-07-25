@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-    MoleculeBrowserProps,
+    Props as MoleculeBrowserProps,
 } from 'MoleculeBrowser.MoleculeBrowser'
 import {
     MoleculeTableProps,
