@@ -1,11 +1,11 @@
 declare module 'MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage'
 {
     import {
-        IPageData
+        PageData
     } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
 
-    export type IUpdateMoleculePage = Record<string, unknown>;
+    export type UpdateMoleculePage = Record<string, unknown>;
 
     export const updateMoleculePage:
-        (pageData: IPageData) => IUpdateMoleculePage;
+        (pageData: PageData) => UpdateMoleculePage;
 }

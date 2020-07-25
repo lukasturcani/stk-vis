@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import {
     updateFields,
-    IAction,
+    Action,
 } from 'StkVis.Action';
 import {
     unsortedAll,
@@ -12,10 +12,10 @@ import {
     request,
 } from 'mongo-db-requests/unsorted-all';
 import {
-    IMongoData
+    MongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
 import {
-    IPageData,
+    PageData,
 } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
 
 
@@ -29,8 +29,8 @@ interface BaseProps
     positionMatrixCollection: string;
     buildingBlockPositionMatrixCollection: string;
     numEntriesPerPage: number;
-    updateFields: (mongoData: IMongoData) => void;
-    updateMoleculePage: (pageData: IPageData) => void;
+    updateFields: (mongoData: MongoData) => void;
+    updateMoleculePage: (pageData: PageData) => void;
 }
 
 

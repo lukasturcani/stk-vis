@@ -1,11 +1,5 @@
 import * as React from 'react';
 import {
-    IMongoData
-} from 'MongoConfigurator.UpdateFields.MongoData';
-import {
-    IPageData,
-} from 'MoleculeBrowser.UpdateMoleculePage.PageData';
-import {
     GetMoleculesButton as GetMoleculesButtonBase,
     BaseProps,
 } from 'mongo-configurator/base/get-molecules-button';

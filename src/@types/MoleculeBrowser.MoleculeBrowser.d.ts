@@ -2,7 +2,7 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
 
 {
     import {
-        IAction,
+        Action,
     } from 'MoleculeBrowser.Action';
     import {
         ThreeDViewerProps,
@@ -15,7 +15,7 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
         BackButtonProps,
     } from 'RequestManager.RequestManager';
 
-    export type IMoleculeBrowser = Record<string, unknown>;
+    export type MoleculeBrowser = Record<string, unknown>;
 
     export interface Props
     {
@@ -29,12 +29,12 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
         };
     }
 
-    export const initialState: IMoleculeBrowser;
+    export const initialState: MoleculeBrowser;
 
     export const reducer:
-        (state: IMoleculeBrowser) =>
-        (action: IAction) =>
-        IMoleculeBrowser;
+        (state: MoleculeBrowser) =>
+        (action: Action) =>
+        MoleculeBrowser;
 
-    export const props: (state: IMoleculeBrowser) => Props;
+    export const props: (state: MoleculeBrowser) => Props;
 }

@@ -1,6 +1,6 @@
 declare module 'Molecules.Action'
 {
-    export interface IAction
+    export interface Action
     {
         type: string;
     }

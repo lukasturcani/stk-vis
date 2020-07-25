@@ -6,9 +6,9 @@ import {
 import {
     reducer,
     initialState,
-    IMongoConfigurator,
+    MongoConfigurator,
 } from 'MongoConfigurator.MongoConfigurator';
-import { IAction } from 'MongoConfigurator.Action';
+import { Action } from 'MongoConfigurator.Action';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
@@ -19,7 +19,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 const store = createStore(
-    (state: IMongoConfigurator | undefined, action: IAction) => {
+    (state: MongoConfigurator | undefined, action: Action) => {
         if (state === undefined)
         {
             return initialState;

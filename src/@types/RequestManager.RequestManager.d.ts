@@ -2,10 +2,10 @@ declare module 'RequestManager.RequestManager'
 
 {
     import {
-        IAction,
+        Action,
     } from 'RequestManager.Action';
 
-    export type IRequestManager = Record<string, unknown>;
+    export type RequestManager = Record<string, unknown>;
 
     export interface BackButtonProps
     {
@@ -23,19 +23,19 @@ declare module 'RequestManager.RequestManager'
 
     export type NextButtonProps = Record<string, unknown>;
 
-    export const initialState: IRequestManager;
+    export const initialState: RequestManager;
 
     export const reducer:
-        (state: IRequestManager) =>
-        (action: IAction) =>
-        IRequestManager;
+        (state: RequestManager) =>
+        (action: Action) =>
+        RequestManager;
 
     export const nextButtonProps:
-        (state: IRequestManager) => NextButtonProps;
+        (state: RequestManager) => NextButtonProps;
 
     export const backButtonProps:
-        (state: IRequestManager) => BackButtonProps;
+        (state: RequestManager) => BackButtonProps;
 
     export const sortButtonProps:
-        (state: IRequestManager) => SortButtonProps;
+        (state: RequestManager) => SortButtonProps;
 }

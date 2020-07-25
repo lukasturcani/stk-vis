@@ -8,12 +8,12 @@ import {
 import {
     UnsortedConstructedMoleculesButton,
 } from './unsorted-constructed-molecules-button';
-import { IAction } from 'StkVis.Action';
+import { Action } from 'StkVis.Action';
 import {
-    IMongoData
+    MongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
 import {
-    IPageData,
+    PageData,
 } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
 
 
@@ -29,8 +29,8 @@ export interface BaseProps
     numEntriesPerPage: number;
     selectBuildingBlocks: boolean;
     selectConstructedMolecules: boolean;
-    updateFields: (mongoData: IMongoData) => void;
-    updateMoleculePage: (pageData: IPageData) => void;
+    updateFields: (mongoData: MongoData) => void;
+    updateMoleculePage: (pageData: PageData) => void;
 }
 
 

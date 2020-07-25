@@ -1,11 +1,11 @@
 declare module 'MongoConfigurator.UpdateFields.UpdateFields'
 {
     import {
-        IMongoData,
+        MongoData,
     } from 'MongoConfigurator.UpdateFields.MongoData';
 
-    export type IUpdateFields = Record<string, unknown>;
+    export type UpdateFields = Record<string, unknown>;
 
     export const updateFields:
-        (mongoData: IMongoData) => IUpdateFields;
+        (mongoData: MongoData) => UpdateFields;
 }

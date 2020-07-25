@@ -1,8 +1,8 @@
 declare module 'MongoConfigurator.UpdateFields.MongoData'
 {
-    import { ISearchKind } from 'MongoConfigurator.SearchKind';
+    import { SearchKind } from 'MongoConfigurator.SearchKind';
 
-    export interface IMongoData
+    export interface MongoData
     {
         url: string;
         database: string;
@@ -12,6 +12,6 @@ declare module 'MongoConfigurator.UpdateFields.MongoData'
         positionMatrixCollection: string;
         buildingBlockPositionMatrixCollection: string;
         numEntriesPerPage: number;
-        searchKind: ISearchKind;
+        searchKind: SearchKind;
     }
 }

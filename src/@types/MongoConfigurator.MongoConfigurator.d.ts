@@ -1,10 +1,10 @@
 declare module 'MongoConfigurator.MongoConfigurator'
 {
     import {
-        IAction,
+        Action,
     } from 'MongoConfigurator.Action';
 
-    export type IMongoConfigurator = Record<string, unknown>;
+    export type MongoConfigurator = Record<string, unknown>;
 
     export interface Props
     {
@@ -23,12 +23,12 @@ declare module 'MongoConfigurator.MongoConfigurator'
         };
     }
 
-    export const initialState: IMongoConfigurator;
+    export const initialState: MongoConfigurator;
 
     export const reducer:
-        (state: IMongoConfigurator) =>
-        (action: IAction) =>
-        IMongoConfigurator;
+        (state: MongoConfigurator) =>
+        (action: Action) =>
+        MongoConfigurator;
 
-    export const props: (state: IMongoConfigurator) => Props;
+    export const props: (state: MongoConfigurator) => Props;
 }

@@ -1,14 +1,14 @@
 declare module 'MoleculeBrowser.Action'
 {
     import {
-        IUpdateMoleculePage
+        UpdateMoleculePage
     } from 'MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage';
 
-    export interface IAction
+    export interface Action
     {
         type: string;
     }
 
     export const updateMoleculePage:
-        (payload: IUpdateMoleculePage) => IAction;
+        (payload: UpdateMoleculePage) => Action;
 }

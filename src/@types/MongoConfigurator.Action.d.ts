@@ -1,17 +1,17 @@
 declare module 'MongoConfigurator.Action'
 {
     import {
-        IUpdateFields
+        UpdateFields
     } from 'MongoConfigurator.UpdateFields.UpdateFields';
     import {
-        IPageData
+        PageData
     } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
 
-    export interface IAction
+    export interface Action
     {
         type: string;
     }
 
     export const updateFields:
-        (payload: IUpdateFields) => IAction;
+        (payload: UpdateFields) => Action;
 }

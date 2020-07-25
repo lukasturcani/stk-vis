@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import {
     props,
-    IMongoConfigurator,
+    MongoConfigurator as State,
 } from 'MongoConfigurator.MongoConfigurator';
 
 import * as Action
 from 'MongoConfigurator.Action';
 
 import {
-    IMongoData
+    MongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
 
 import * as UpdateFields
@@ -22,12 +22,12 @@ import {
     MongoConfigurator as MongoConfiguratorBase,
 } from 'mongo-configurator/styled/mongo-configurator';
 import {
-    IPageData,
+    PageData,
 } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
 
 
 function mapStateToProps(
-    state: IMongoConfigurator,
+    state: State,
 )
     : BaseProps
 {
@@ -36,13 +36,13 @@ function mapStateToProps(
 
 
 function mapDispatchToProps(
-    dispatch: (action: Action.IAction) => void,
+    dispatch: (action: Action.Action) => void,
 )
     : DispatchProps
 {
     return {
         updateFields:
-            (mongoData: IMongoData) =>
+            (mongoData: MongoData) =>
                 dispatch(
                     Action.updateFields(
                         UpdateFields.updateFields(mongoData)
@@ -50,7 +50,7 @@ function mapDispatchToProps(
                 ),
 
         updateMoleculePage:
-            (pageData: IPageData) => console.log(pageData),
+            (pageData: PageData) => console.log(pageData),
     };
 }
 

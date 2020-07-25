@@ -2,7 +2,7 @@ declare module 'Molecules.Molecules'
 
 {
     import {
-        IAction,
+        Action,
     } from 'Molecules.Action';
     import {
         Mesh,
@@ -23,33 +23,33 @@ declare module 'Molecules.Molecules'
     }
 
 
-    type IMap = unknown;
+    type Map = unknown;
 
     export interface MoleculeTableProps
     {
         value0: {
             columns: string[];
             selectedRow: number;
-            rows: IMap[];
+            rows: Map[];
         };
     }
 
-    export type IMolecules = Record<string, unknown>;
-    export const initialState: IMolecules;
+    export type Molecules = Record<string, unknown>;
+    export const initialState: Molecules;
 
     export const reducer:
-        (state: IMolecules) =>
-        (action: IAction) =>
-        IMolecules;
+        (state: Molecules) =>
+        (action: Action) =>
+        Molecules;
 
     export const moleculeTableProps:
-        (state: IMolecules) => MoleculeTableProps;
+        (state: Molecules) => MoleculeTableProps;
 
     export const twoDViewerProps:
-        (state: IMolecules) => TwoDViewerProps;
+        (state: Molecules) => TwoDViewerProps;
 
     export const threeDViewerProps:
-        (state: IMolecules) => ThreeDViewerProps;
+        (state: Molecules) => ThreeDViewerProps;
 
-    export const get: (map: IMap) => (key: string) => string
+    export const get: (map: Map) => (key: string) => string
 }

@@ -8,7 +8,7 @@ import {
     initialState,
     IMoleculeBrowser,
 } from 'MoleculeBrowser.MoleculeBrowser';
-import { IAction } from 'MongoConfigurator.Action';
+import { IAction } from 'MoleculeBrowser.Action';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';

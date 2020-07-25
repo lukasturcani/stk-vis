@@ -1,7 +1,7 @@
 declare module 'MongoConfigurator.SearchKind'
 {
-    export type ISearchKind = Record<string, unknown>;
-    export const unsortedAll: ISearchKind;
-    export const unsortedBuildingBlocks: ISearchKind;
-    export const unsortedConstructedMolecules: ISearchKind;
+    export type SearchKind = Record<string, unknown>;
+    export const unsortedAll: SearchKind;
+    export const unsortedBuildingBlocks: SearchKind;
+    export const unsortedConstructedMolecules: SearchKind;
 }
