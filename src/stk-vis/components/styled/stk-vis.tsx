@@ -1,16 +1,15 @@
 import * as React from 'react';
 import {
     StkVis as StkVisBase,
-    BaseProps,
     DispatchProps,
 } from 'stk-vis/base/stk-vis';
+import {
+    Props as BaseProps,
+} from 'StkVis.StkVis';
 
 
 export function StkVis(
-    // Can't figure out how to type this without typescript throwing
-    // a fit unfortunately.
-    // props: BaseProps & DispatchProps
-    props: any
+    props: BaseProps & DispatchProps,
 )
 {
     return <StkVisBase

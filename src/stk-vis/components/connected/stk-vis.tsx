@@ -18,6 +18,9 @@ import {
 import {
     StkVis as StkVisBase,
 } from 'stk-vis/styled/stk-vis';
+import {
+    DispatchProps,
+} from 'stk-vis/base/stk-vis';
 
 
 function mapStateToProps(

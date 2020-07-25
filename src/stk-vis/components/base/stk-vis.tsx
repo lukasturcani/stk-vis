@@ -1,7 +1,23 @@
 import * as React from 'react';
+import {
+    DispatchProps as ConfiguratorDispatchProps,
+} from 'mongo-configurator/base/mongo-configurator';
+import {
+    Props as BaseProps,
+} from 'StkVis.StkVis';
+
+
+export type DispatchProps =
+    & ConfiguratorDispatchProps
+
+
+interface Props extends BaseProps, DispatchProps
+{
+}
+
 
 export function StkVis(
-    props: any,
+    props: Props,
 )
 {
     return (
