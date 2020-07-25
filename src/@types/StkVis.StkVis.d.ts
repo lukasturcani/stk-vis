@@ -8,9 +8,9 @@ declare module 'StkVis.StkVis'
         Props as MoleculeBrowserProps
     } from 'MoleculeBrowser.MoleculeBrowser';
 
-    import { IAction } from 'StkVis.Action';
+    import { Action } from 'StkVis.Action';
 
-    export type IStkVis = Record<string, unknown>;
+    export type StkVis = Record<string, unknown>;
 
     export interface Props
     {
@@ -18,10 +18,10 @@ declare module 'StkVis.StkVis'
         value1: MoleculeBrowserProps;
     }
 
-    export const initialState: IStkVis;
+    export const initialState: StkVis;
 
     export const reducer:
-        (state: IStkVis) => (action: IAction) => IStkVis;
+        (state: StkVis) => (action: Action) => StkVis;
 
-    export const props: (state: IStkVis) => Props;
+    export const props: (state: StkVis) => Props;
 }

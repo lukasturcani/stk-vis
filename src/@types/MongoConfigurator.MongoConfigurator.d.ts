@@ -9,7 +9,6 @@ declare module 'MongoConfigurator.MongoConfigurator'
     export interface Props
     {
         value0: {
-            kind: 'Mongo Configurator';
             url: string;
             moleculeKey: string;
             database: string;

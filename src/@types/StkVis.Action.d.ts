@@ -1,20 +1,20 @@
 declare module 'StkVis.Action'
 {
     import {
-        IMongoData
+        MongoData
     } from 'MongoConfigurator.UpdateFields.MongoData';
     import {
-        IPageData
+        PageData
     } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
 
-    export interface IAction
+    export interface Action
     {
         type: string;
     }
 
     export const updateFields:
-        (mongoData: IMongoData) => IAction;
+        (mongoData: MongoData) => Action;
 
     export const updateMoleculePage:
-        (pageData: IPageData) => IAction;
+        (pageData: PageData) => Action;
 }

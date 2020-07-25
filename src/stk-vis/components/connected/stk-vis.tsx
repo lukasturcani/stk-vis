@@ -1,26 +1,27 @@
 import { connect } from 'react-redux';
-import { props, IStkVis } from 'StkVis.StkVis';
 import {
-    IAction,
+    props,
+    StkVis as State,
+    Props,
+} from 'StkVis.StkVis';
+import {
+    Action,
     updateFields,
     updateMoleculePage,
 } from 'StkVis.Action';
 import {
-    IMongoData
+    MongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
 import {
-    IPageData,
+    PageData,
 } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
-import {
-    Props,
-} from 'StkVis.StkVis';
 import {
     StkVis as StkVisBase,
 } from 'stk-vis/styled/stk-vis';
 
 
 function mapStateToProps(
-    state: IStkVis,
+    state: State,
 )
     : Props
 {
@@ -29,15 +30,15 @@ function mapStateToProps(
 
 
 function mapDispatchToProps(
-    dispatch: (action: IAction) => void,
+    dispatch: (action: Action) => void,
 )
     : DispatchProps
 {
     return {
-        updateFields: (mongoData: IMongoData) =>
+        updateFields: (mongoData: MongoData) =>
             dispatch(updateFields(mongoData)),
 
-        updateMoleculePage: (pageData: IPageData) =>
+        updateMoleculePage: (pageData: PageData) =>
             dispatch(updateMoleculePage(pageData)),
     };
 }
