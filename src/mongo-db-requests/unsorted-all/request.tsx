@@ -8,6 +8,7 @@ import {
     ISuccess,
 } from './IResult';
 import {
+    RequestError,
     DatabaseConnectionError,
     CollectionConnectionError,
 } from '../errors';
@@ -157,7 +158,7 @@ export function request(
     })
 
     .catch(
-        (err: Error) =>
+        (err: Error | RequestError) =>
         {
             if (err instanceof DatabaseConnectionError)
             {

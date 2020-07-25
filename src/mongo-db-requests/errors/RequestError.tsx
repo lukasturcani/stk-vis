@@ -1,3 +1,9 @@
-export class RequestError extends Error
+export class RequestError
 {
+    error: Error;
+
+    constructor(message: string = '')
+    {
+        this.error = new Error(message);
+    }
 }
