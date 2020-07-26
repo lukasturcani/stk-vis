@@ -9,10 +9,10 @@ module Molecules.Molecules.Internal.Props
 
 import Prelude
 import Data.Either (Either (Right, Left))
-import Data.Map (Map, fromFoldable)
-import Data.Tuple (Tuple (Tuple), fst)
+import Data.Map (Map)
+import Data.Tuple (fst)
 import Molecules.Molecules.Internal.Molecules (Molecules (..))
-import Molecules.Molecule (Molecule, properties)
+import Molecules.Molecule (properties)
 import MolDraw.DrawMol.Mesh (MeshOptions, Mesh, meshes)
 import MolDraw.Atom (atom)
 import MolDraw.Bond (bond)
@@ -20,8 +20,7 @@ import MolDraw.ChemicalSymbol (ChemicalSymbol (..))
 import MolDraw.Position (position)
 import MolDraw.GeometryData (GeometryData, maybeMolecule)
 import SelectingCollection
-    ( SelectingCollection
-    , selected
+    ( selected
     , all
     )
 

@@ -1,20 +1,28 @@
 module Molecules.InitializeMolecules
     ( InitializeMolecules
-    , Molecule
     , initializeMolecules
     , molecules
+    , columns
     ) where
 
 import SelectingCollection (SelectingCollection)
 import Molecules.Molecule (Molecule)
 
-newtype InitializeMolecules
-    = InitializeMolecules (SelectingCollection Molecule)
+data InitializeMolecules
+    = InitializeMolecules (SelectingCollection Molecule) (Array String)
+
+
 
 initializeMolecules
-    :: SelectingCollection Molecule -> InitializeMolecules
+    :: SelectingCollection Molecule
+    -> Array String
+    -> InitializeMolecules
+
 initializeMolecules = InitializeMolecules
 
 molecules :: InitializeMolecules -> SelectingCollection Molecule
-molecules (InitializeMolecules molecules') = molecules'
+molecules (InitializeMolecules molecules' _) = molecules'
+
+columns :: InitializeMolecules -> Array String
+columns (InitializeMolecules _ columns') = columns'
 

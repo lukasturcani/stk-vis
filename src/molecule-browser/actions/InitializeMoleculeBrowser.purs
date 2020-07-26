@@ -7,6 +7,7 @@ module MoleculeBrowser.InitializeMoleculeBrowser
 
 import RequestManager.RequestManager (RequestManager)
 import SelectingCollection (SelectingCollection)
+import Molecules.Molecule (Molecule)
 
 import RequestManager.InitializeRequestManager
     ( InitializeRequestManager
@@ -18,7 +19,6 @@ import RequestManager.InitializeRequestManager
 
 import Molecules.InitializeMolecules
     ( InitializeMolecules
-    , Molecule
     )
 
 import Molecules.InitializeMolecules
@@ -33,12 +33,14 @@ data InitializeMoleculeBrowser = InitializeMoleculeBrowser
 initializeMoleculeBrowser
     :: RequestManager
     -> SelectingCollection Molecule
+    -> Array String
     -> InitializeMoleculeBrowser
-initializeMoleculeBrowser requestManager molecules
+initializeMoleculeBrowser requestManager molecules columns
     = InitializeMoleculeBrowser
     { _initializeRequestManager:
         RequestManager.initializeRequestManager
-    , _initializeMolecules: Molecules.initializeMolecules molecules
+    , _initializeMolecules:
+        Molecules.initializeMolecules molecules columns
     }
 
 initializeRequestManager
