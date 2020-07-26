@@ -3,7 +3,6 @@ module Molecules.Payload
     , initializeMolecules
     ) where
 
-import Molecules.Molecules (Molecules)
 import Molecules.InitializeMolecules (InitializeMolecules)
 
 data Payload

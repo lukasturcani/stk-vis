@@ -3,6 +3,7 @@ module Molecules.Molecules.Internal.Reducer
     ) where
 
 import Molecules.Action (Action)
+import Molecules.Payload (Payload (..))
 import Molecules.Molecules.Internal.Molecules (Molecules)
 
 import Molecules.Molecules.Internal.Reducer.Internal.InitializeMolecules

@@ -6,5 +6,4 @@ import Molecules.Molecules.Internal.Molecules (Molecules)
 import Molecules.InitializeMolecules (InitializeMolecules, molecules)
 
 initializeMolecules :: Molecules -> InitializeMolecules -> Molecules
-initializeMolecules molecules payload =
-    InitializeMolecules.molecules payload
+initializeMolecules _ payload = molecules payload

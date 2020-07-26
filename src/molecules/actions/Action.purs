@@ -3,10 +3,10 @@ module Molecules.Action
     , initializeMolecules
     ) where
 
-import Molecules.Molecules (Molecules)
+import Molecules.InitializeMolecules (InitializeMolecules)
 
 import Molecules.Payload
-    ( Payload (..)
+    ( Payload
     , initializeMolecules
     ) as Payload
 

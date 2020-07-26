@@ -1,19 +1,20 @@
 module Molecules.InitializeMolecules
     ( InitializeMolecules
+    , Molecule
     , initializeMolecules
     , molecules
     ) where
 
-import Molecules.Molecules (Molecules)
+data Molecule = Molecule
 
 data InitializeMolecules = InitializeMolecules
-    { _molecules :: Molecules
+    { _molecules :: Array Molecule
     }
 
-initializeMolecules :: Molecules -> InitializeMolecules
+initializeMolecules :: Array Molecule -> InitializeMolecules
 initializeMolecules molecules' = InitializeMolecules
     { _molecules: molecules'
     }
 
-molecules :: InitializeMolecules -> Molecules
+molecules :: InitializeMolecules -> Array Molecule
 molecules (InitializeMolecules { _molecules }) = _molecules

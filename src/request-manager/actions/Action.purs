@@ -3,10 +3,8 @@ module RequestManager.Action
     , initializeRequestManager
     ) where
 
-import RequestManager.RequestManager (RequestManager)
-
 import RequestManager.Payload
-    ( Payload (..)
+    ( Payload
     , initializeRequestManager
     ) as Payload
 

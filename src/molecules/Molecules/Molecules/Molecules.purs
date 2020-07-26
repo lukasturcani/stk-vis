@@ -1,5 +1,6 @@
 module Molecules.Molecules
     ( module Exports
+    , reducer
     , initialState
     , moleculeTableProps
     , twoDViewerProps
@@ -9,6 +10,7 @@ module Molecules.Molecules
 
 import Data.Map (Map, lookup) as Map
 import Data.Maybe (Maybe (Nothing, Just))
+import Molecules.Molecules.Internal.Reducer (reducer) as Reducer
 
 import Molecules.Molecules.Internal.Molecules
     ( Molecules
@@ -30,8 +32,12 @@ import Molecules.Molecules.Internal.Props
     , threeDViewerProps
     ) as Props
 
+
 initialState :: Exports.Molecules
 initialState = InitialState.initialState
+
+reducer :: Exports.Molecules -> Action -> Exports.Molecules
+reducer = Reducer.reducer
 
 moleculeTableProps :: Exports.Molecules -> Exports.MoleculeTableProps
 moleculeTableProps = Props.moleculeTableProps
