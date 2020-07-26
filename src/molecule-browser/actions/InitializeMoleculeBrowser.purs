@@ -1,6 +1,8 @@
 module MoleculeBrowser.InitializeMoleculeBrowser
     ( InitializeMoleculeBrowser
     , initializeMoleculeBrowser
+    , initializeMolecules
+    , initializeRequestManager
     ) where
 
 import RequestManager.RequestManager (RequestManager)
