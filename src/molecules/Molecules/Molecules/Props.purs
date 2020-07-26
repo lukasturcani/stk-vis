@@ -8,17 +8,11 @@ module Molecules.Molecules.Internal.Props
     ) where
 
 import Prelude
-import Data.Either (Either (Right, Left))
 import Data.Map (Map)
 import Data.Tuple (fst, snd)
 import Molecules.Molecules.Internal.Molecules (Molecules (..))
-import Molecules.Molecule (properties, smiles)
-import MolDraw.DrawMol.Mesh (MeshOptions, Mesh, meshes)
-import MolDraw.Atom (atom)
-import MolDraw.Bond (bond)
-import MolDraw.ChemicalSymbol (ChemicalSymbol (..))
-import MolDraw.Position (position)
-import MolDraw.GeometryData (GeometryData, maybeMolecule)
+import Molecules.Molecule (properties, smiles, meshes)
+import MolDraw.DrawMol.Mesh (MeshOptions, Mesh)
 import SelectingCollection
     ( selected
     , all
@@ -56,24 +50,6 @@ data ThreeDViewerProps = ThreeDViewerProps
 foreign import meshOptions :: MeshOptions
 
 threeDViewerProps :: Molecules -> ThreeDViewerProps
-threeDViewerProps molecules = ThreeDViewerProps
-    { meshes: meshes'
+threeDViewerProps (Molecules { _molecules }) = ThreeDViewerProps
+    { meshes: meshes $ snd $ selected _molecules
     }
-  where
-    atoms =
-        [ atom C (position 1.0 0.0 0.0)
-        , atom H (position 2.0 0.0 0.0)
-        , atom H (position 0.0 0.0 0.0)
-        ]
-    bonds =
-        [ bond 1 0 1
-        , bond 1 0 2
-        ]
-    molecule = maybeMolecule atoms bonds
-    meshes' = do
-        geometryData <- maybeToArray molecule
-        meshes meshOptions geometryData
-
-maybeToArray :: Either String GeometryData -> Array GeometryData
-maybeToArray (Left _) = []
-maybeToArray (Right geometryData) = [geometryData]
