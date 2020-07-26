@@ -6,8 +6,7 @@ module Molecules.InitializeMolecules
     ) where
 
 import SelectingCollection (SelectingCollection)
-
-data Molecule = Molecule
+import Molecules.Molecule (Molecule)
 
 newtype InitializeMolecules
     = InitializeMolecules (SelectingCollection Molecule)
