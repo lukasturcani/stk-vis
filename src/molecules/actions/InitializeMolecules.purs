@@ -1,24 +1,21 @@
 module Molecules.InitializeMolecules
     ( InitializeMolecules
-    , Molecules (..)
     , Molecule
     , initializeMolecules
     , molecules
     ) where
 
+import SelectingCollection (SelectingCollection)
+
 data Molecule = Molecule
 
-data Molecules = Molecules
-    { previous :: Array Molecule
-    , selected :: Molecule
-    , next     :: Array Molecule
-    }
+newtype InitializeMolecules
+    = InitializeMolecules (SelectingCollection Molecule)
 
-newtype InitializeMolecules = InitializeMolecules Molecules
-
-initializeMolecules :: Molecules -> InitializeMolecules
+initializeMolecules
+    :: SelectingCollection Molecule -> InitializeMolecules
 initializeMolecules = InitializeMolecules
 
-molecules :: InitializeMolecules -> Molecules
+molecules :: InitializeMolecules -> SelectingCollection Molecule
 molecules (InitializeMolecules molecules') = molecules'
 

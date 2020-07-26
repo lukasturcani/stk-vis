@@ -5,7 +5,7 @@ module StkVis.StkVis.Internal.Reducer.Internal.InitializeMoleculeBrowser
 import Prelude
 import StkVis.StkVis.Internal.StkVis (StkVis (MoleculeBrowser))
 import MoleculeBrowser.MoleculeBrowser (initialState, reducer)
-import MoleculeBrowser.Action (initializeMoleculeBrowser)
+import MoleculeBrowser.Action (initializeMoleculeBrowser) as Browser
 
 import StkVis.InitializeMoleculeBrowser
     ( InitializeMoleculeBrowser
@@ -17,4 +17,5 @@ initializeMoleculeBrowser
 initializeMoleculeBrowser stkVis payload =
     MoleculeBrowser $ reducer initialState action
   where
-    action = initializeMoleculeBrowser $ toMoleculeBrowser payload
+    action =
+        Browser.initializeMoleculeBrowser $ toMoleculeBrowser payload

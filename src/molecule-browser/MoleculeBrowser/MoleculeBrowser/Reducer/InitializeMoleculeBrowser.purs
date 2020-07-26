@@ -3,7 +3,7 @@ module MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMolec
     ) where
 
 import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
-    ( MoleculeBrowser
+    ( MoleculeBrowser (..)
     )
 
 import MoleculeBrowser.InitializeMoleculeBrowser

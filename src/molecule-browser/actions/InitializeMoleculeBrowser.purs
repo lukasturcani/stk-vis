@@ -6,7 +6,7 @@ module MoleculeBrowser.InitializeMoleculeBrowser
     ) where
 
 import RequestManager.RequestManager (RequestManager)
-import Molecules.Molecules (Molecules)
+import SelectingCollection (SelectingCollection)
 
 import RequestManager.InitializeRequestManager
     ( InitializeRequestManager
@@ -18,6 +18,7 @@ import RequestManager.InitializeRequestManager
 
 import Molecules.InitializeMolecules
     ( InitializeMolecules
+    , Molecule
     )
 
 import Molecules.InitializeMolecules
@@ -30,12 +31,14 @@ data InitializeMoleculeBrowser = InitializeMoleculeBrowser
     }
 
 initializeMoleculeBrowser
-    :: RequestManager -> Molecules -> InitializeMoleculeBrowser
+    :: RequestManager
+    -> SelectingCollection Molecule
+    -> InitializeMoleculeBrowser
 initializeMoleculeBrowser requestManager molecules
     = InitializeMoleculeBrowser
     { _initializeRequestManager:
         RequestManager.initializeRequestManager
-    , _initializeMolecules: Molecules.initializeMolecules
+    , _initializeMolecules: Molecules.initializeMolecules molecules
     }
 
 initializeRequestManager
