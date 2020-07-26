@@ -10,9 +10,9 @@ module Molecules.Molecules.Internal.Props
 import Prelude
 import Data.Either (Either (Right, Left))
 import Data.Map (Map)
-import Data.Tuple (fst)
+import Data.Tuple (fst, snd)
 import Molecules.Molecules.Internal.Molecules (Molecules (..))
-import Molecules.Molecule (properties)
+import Molecules.Molecule (properties, smiles)
 import MolDraw.DrawMol.Mesh (MeshOptions, Mesh, meshes)
 import MolDraw.Atom (atom)
 import MolDraw.Bond (bond)
@@ -44,8 +44,8 @@ data TwoDViewerProps = TwoDViewerProps
     }
 
 twoDViewerProps :: Molecules -> TwoDViewerProps
-twoDViewerProps molecules = TwoDViewerProps
-    { smiles: "C1CCCCC1"
+twoDViewerProps (Molecules { _molecules }) = TwoDViewerProps
+    { smiles: smiles $ snd $ selected _molecules
     }
 
 data ThreeDViewerProps = ThreeDViewerProps
