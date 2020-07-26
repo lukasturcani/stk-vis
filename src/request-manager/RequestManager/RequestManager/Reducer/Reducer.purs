@@ -2,9 +2,12 @@ module RequestManager.RequestManager.Internal.Reducer
     ( reducer
     ) where
 
-import RequestManager.RequestManager (RequestManager)
 import RequestManager.Action (Action)
 import RequestManager.Payload (Payload (..))
+
+import RequestManager.RequestManager.Internal.RequestManager
+    ( RequestManager
+    )
 
 import RequestManager.RequestManager.Internal.Reducer.Internal.InitializeRequestManager
     ( initializeRequestManager

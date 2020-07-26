@@ -17,7 +17,7 @@ data Molecules = Molecules
 newtype InitializeMolecules = InitializeMolecules Molecules
 
 initializeMolecules :: Molecules -> InitializeMolecules
-initializeMolecules  molecules = InitializeMolecules molecules
+initializeMolecules = InitializeMolecules
 
 molecules :: InitializeMolecules -> Molecules
 molecules (InitializeMolecules molecules') = molecules'

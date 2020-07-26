@@ -7,6 +7,8 @@ module RequestManager.RequestManager
     , sortButtonProps
     ) where
 
+import RequestManager.Action (Action)
+
 import RequestManager.RequestManager.Internal.RequestManager
     ( RequestManager
     ) as Exports

@@ -16,8 +16,16 @@ import RequestManager.RequestManager
     ( reducer
     ) as RequestManager
 
+import RequestManager.Action
+    ( initializeRequestManager
+    ) as RequestManager
+
 import Molecules.Molecules
     ( reducer
+    ) as Molecules
+
+import Molecules.Action
+    ( initializeMolecules
     ) as Molecules
 
 initializeMoleculeBrowser
@@ -31,9 +39,11 @@ initializeMoleculeBrowser
   where
     requestManager = RequestManager.reducer
         _requestManager
-        (initializeRequestManager payload)
+        (RequestManager.initializeRequestManager
+            (initializeRequestManager payload)
+        )
 
     molecules = Molecules.reducer
         _molecules
-        (initializeMolecules payload)
+        (Molecules.initializeMolecules (initializeMolecules payload))
 

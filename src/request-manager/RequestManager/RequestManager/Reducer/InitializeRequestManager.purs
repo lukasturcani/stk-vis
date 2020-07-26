@@ -2,14 +2,14 @@ module RequestManager.RequestManager.Internal.Reducer.Internal.InitializeRequest
     ( initializeRequestManager
     ) where
 
-import RequestManager.RequestManager (RequestManager)
+import RequestManager.RequestManager.Internal.RequestManager
+    ( RequestManager (RequestManager)
+    )
 
 import RequestManager.InitializeRequestManager
     ( InitializeRequestManager
-    , requestManager
     )
 
 initializeRequestManager
     :: RequestManager -> InitializeRequestManager -> RequestManager
-initializeRequestManager requestManager' payload =
-    requestManager payload
+initializeRequestManager _ payload = RequestManager
