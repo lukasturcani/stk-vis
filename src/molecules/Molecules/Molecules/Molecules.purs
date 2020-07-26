@@ -11,6 +11,7 @@ module Molecules.Molecules
 import Data.Map (Map, lookup) as Map
 import Data.Maybe (Maybe (Nothing, Just))
 import Molecules.Molecules.Internal.Reducer (reducer) as Reducer
+import Molecules.Action (Action)
 
 import Molecules.Molecules.Internal.Molecules
     ( Molecules

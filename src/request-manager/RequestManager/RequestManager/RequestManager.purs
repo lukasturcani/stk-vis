@@ -1,5 +1,6 @@
 module RequestManager.RequestManager
     ( module Exports
+    , reducer
     , initialState
     , nextButtonProps
     , backButtonProps
@@ -25,6 +26,13 @@ import RequestManager.RequestManager.Internal.Props
 import RequestManager.RequestManager.Internal.InitialState
     ( initialState
     ) as InitialState
+
+import RequestManager.RequestManager.Internal.Reducer
+    ( reducer
+    ) as Reducer
+
+reducer :: Exports.RequestManager -> Action -> Exports.RequestManager
+reducer = Reducer.reducer
 
 initialState :: Exports.RequestManager
 initialState = InitialState.initialState

@@ -35,7 +35,7 @@ initializeMoleculeBrowser requestManager molecules
     = InitializeMoleculeBrowser
     { _initializeRequestManager:
         RequestManager.initializeRequestManager requestManager
-    , _initializeMolecules: Molecules.initializeMolecules molecules
+    , _initializeMolecules: Molecules.initializeMolecules []
     }
 
 initializeRequestManager
