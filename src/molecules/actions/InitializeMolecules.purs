@@ -1,5 +1,6 @@
 module Molecules.InitializeMolecules
     ( InitializeMolecules
+    , Molecules (..)
     , Molecule
     , initializeMolecules
     , molecules
@@ -7,14 +8,17 @@ module Molecules.InitializeMolecules
 
 data Molecule = Molecule
 
-data InitializeMolecules = InitializeMolecules
-    { _molecules :: Array Molecule
+data Molecules = Molecules
+    { previous :: Array Molecule
+    , selected :: Molecule
+    , next     :: Array Molecule
     }
 
-initializeMolecules :: Array Molecule -> InitializeMolecules
-initializeMolecules molecules' = InitializeMolecules
-    { _molecules: molecules'
-    }
+newtype InitializeMolecules = InitializeMolecules Molecules
 
-molecules :: InitializeMolecules -> Array Molecule
-molecules (InitializeMolecules { _molecules }) = _molecules
+initializeMolecules :: Molecules -> InitializeMolecules
+initializeMolecules  molecules = InitializeMolecules molecules
+
+molecules :: InitializeMolecules -> Molecules
+molecules (InitializeMolecules molecules') = molecules'
+

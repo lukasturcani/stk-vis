@@ -3,7 +3,7 @@ module Molecules.Molecules.Internal.Reducer.Internal.InitializeMolecules
     ) where
 
 import Molecules.Molecules.Internal.Molecules (Molecules (..))
-import Molecules.InitializeMolecules (InitializeMolecules, molecules)
+import Molecules.InitializeMolecules (InitializeMolecules)
 
 initializeMolecules :: Molecules -> InitializeMolecules -> Molecules
 initializeMolecules _ payload = Molecules
