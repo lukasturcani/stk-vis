@@ -1,7 +1,7 @@
 module Molecules.InitializeMolecules
     ( InitializeMolecules
     , initializeMolecules
-    )
+    ) where
 
 import Molecules.Molecules (Molecules)
 

@@ -1,17 +1,26 @@
-module StkVis.InitializeMoleculeBrowser
+module MoleculeBrowser.InitializeMoleculeBrowser
     ( InitializeMoleculeBrowser
     , initializeMoleculeBrowser
     ) where
 
+import RequestManager.RequestManager (RequestManager)
+import Molecules.Molecules (Molecules)
+
 import RequestManager.InitializeRequestManager
     ( InitializeRequestManager
-    , initializeRequestManager
     )
+
+import RequestManager.InitializeRequestManager
+    ( initializeRequestManager
+    ) as RequestManager
 
 import Molecules.InitializeMolecules
     ( InitializeMolecules
-    , initializeMolecules
     )
+
+import Molecules.InitializeMolecules
+    ( initializeMolecules
+    ) as Molecules
 
 data InitializeMoleculeBrowser = InitializeMoleculeBrowser
     { _initializeRequestManager :: InitializeRequestManager
@@ -23,22 +32,24 @@ initializeMoleculeBrowser
 initializeMoleculeBrowser requestManager molecules
     = InitializeMoleculeBrowser
     { _initializeRequestManager:
-        initializeRequestManager requestManager
-    , _initializeMolecules: initializeMolecules molecules
+        RequestManager.initializeRequestManager requestManager
+    , _initializeMolecules: Molecules.initializeMolecules molecules
     }
 
 initializeRequestManager
     :: InitializeMoleculeBrowser -> InitializeRequestManager
 initializeRequestManager
-    InitializeMoleculeBrowser
+    (InitializeMoleculeBrowser
         { _initializeRequestManager
         }
+    )
     = _initializeRequestManager
 
 initializeMolecules
     :: InitializeMoleculeBrowser -> InitializeMolecules
 initializeMolecules
-    InitializeMoleculeBrowser
+    (InitializeMoleculeBrowser
         { _initializeMolecules
         }
+    )
     = _initializeMolecules
