@@ -1,6 +1,6 @@
 module MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMoleculeBrowser
     ( initializeMoleculeBrowser
-    )
+    ) where
 
 import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
     ( MoleculeBrowser
