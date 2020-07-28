@@ -17,4 +17,10 @@ declare module 'StkVis.Action'
 
     export const updateMoleculePage:
         (pageData: PageData) => Action;
+
+    export const initializeMoleculeBrowser:
+        (requestManager: any) =>
+        (molecules: SelectingCollection<Molecule>) =>
+        (columns: string[]) =>
+        Action
 }

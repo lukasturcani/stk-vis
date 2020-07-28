@@ -21,6 +21,9 @@ import {
 import {
     DispatchProps,
 } from 'stk-vis/base/stk-vis';
+import {
+    initializeMoleculeBrowser,
+} from './utilities';
 
 
 function mapStateToProps(
@@ -44,6 +47,9 @@ function mapDispatchToProps(
 
             updateMoleculePage: (pageData: PageData) =>
                 dispatch(updateMoleculePage(pageData)),
+
+            initializeMoleculeBrowser:
+                initializeMoleculeBrowser(dispatch),
         },
     };
 }
