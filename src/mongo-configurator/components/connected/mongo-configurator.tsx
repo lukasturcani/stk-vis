@@ -24,6 +24,12 @@ import {
 import {
     PageData,
 } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
+import {
+    IMolecule,
+} from 'mongo-db-requests/types/IMolecule';
+import {
+    PageKind,
+} from 'mongo-db-requests/types/PageKind';
 
 
 function mapStateToProps(
@@ -51,6 +57,16 @@ function mapDispatchToProps(
 
         updateMoleculePage:
             (pageData: PageData) => console.log(pageData),
+
+        initializeMoleculeBrowser:
+            ( molecules: IMolecule[]
+            ,  pageKind: PageKind
+            , valueCollections: string []
+            ) => {
+                console.log(molecules);
+                console.log(pageKind);
+                console.log(valueCollections);
+            },
     };
 }
 

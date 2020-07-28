@@ -13,12 +13,23 @@ import {
 import {
     Props as BaseProps,
 } from 'MongoConfigurator.MongoConfigurator';
+import {
+    IMolecule,
+} from 'mongo-db-requests/types/IMolecule';
+import {
+    PageKind,
+} from 'mongo-db-requests/types/PageKind';
 
 
 export interface DispatchProps
 {
     updateFields: (mongoData: MongoData) => void;
     updateMoleculePage: (pageData: PageData) => void;
+    initializeMoleculeBrowser:
+        ( molecules: IMolecule[]
+        , pageKind: PageKind
+        , valueCollections: string[]
+        ) => void;
 }
 
 
@@ -142,6 +153,9 @@ export function MongoConfigurator(
                     }
                     updateFields={ props.updateFields }
                     updateMoleculePage={ props.updateMoleculePage }
+                    initializeMoleculeBrowser= {
+                        props.initializeMoleculeBrowser
+                    }
                 />
             </Grid>
         </props.component>

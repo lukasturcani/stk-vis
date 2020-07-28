@@ -15,6 +15,12 @@ import {
 import {
     PageData,
 } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
+import {
+    IMolecule,
+} from 'mongo-db-requests/types/IMolecule';
+import {
+    PageKind,
+} from 'mongo-db-requests/types/PageKind';
 
 
 export interface BaseProps
@@ -31,6 +37,11 @@ export interface BaseProps
     selectConstructedMolecules: boolean;
     updateFields: (mongoData: MongoData) => void;
     updateMoleculePage: (pageData: PageData) => void;
+    initializeMoleculeBrowser:
+        ( molecules: IMolecule[]
+        , pageKind: PageKind
+        , valueCollections: string[]
+        ) => void;
 }
 
 
