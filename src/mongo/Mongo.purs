@@ -7,6 +7,7 @@ module Mongo
     , database
     , collections
     , find
+    , find'
     ) where
 
 data Client = Client
@@ -20,3 +21,6 @@ foreign import collections :: Database -> Promise (Array String)
 
 foreign import find
     :: Database -> String -> Query -> Promise (Array Entry)
+
+find' :: Database -> Query -> String -> Promise (Array Entry)
+find' db query collection = find db collection query

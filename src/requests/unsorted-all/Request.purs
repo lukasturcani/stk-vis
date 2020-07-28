@@ -4,10 +4,11 @@ module Requests.UnsortedAll.Internal.Request
 
 import Prelude
 import Mongo as Mongo
-import Data.Array (slice)
+import Data.Array (slice, concat)
 import Requests.UnsortedAll.Internal.Result (Result (..))
-import Effect.Promise (Promise)
+import Effect.Promise (Promise, all)
 import Data.Set (Set, fromFoldable, insert, member)
+import SelectingCollection (selectingCollection)
 
 type RequestOptions =
     { url                                   :: String
@@ -24,6 +25,7 @@ type RequestOptions =
 foreign import query :: Mongo.Query
 
 request :: RequestOptions -> Promise Result
+
 request options = do
 
     let nonValueCollections
@@ -49,14 +51,27 @@ request options = do
     let dataQuery = Utils.dataQuery molecules
 
     matrixEntries1
-        <- find database options.positionMatrixCollection dataQuery
+        <- Mongo.find
+            database
+            options.positionMatrixCollection
+            dataQuery
 
     matrixEntries2
-        <- find
+        <- Mongo.find
             database
             options.buildingBlockPositionMatrixCollection
             dataQuery
 
+    let matrices
+        = Utils.toMatrices (concat matrixEntries1 matrixEntries2)
+
+    values
+        <- all $ map (Mongo.find' database dataQuery) valueCollections
+
+    let collections
+        = Utils.toCollection <$> values <*> valueCollections
+
+    molecules molecules matrices
 
 
     pure
@@ -65,5 +80,7 @@ request options = do
                 (length moleculeEntries)
                 options.pageIndex
                 options.numEntriesPerPage
+            , valueCollections
+            , molecules: selectingCollection [] first rest
             }
         )
