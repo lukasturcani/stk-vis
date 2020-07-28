@@ -30,6 +30,6 @@ toValidated (Molecule { _molecule }) = _molecule
 molecule :: Validated.Molecule -> Keys -> Properties -> Molecule
 molecule mol keys' props = Molecule
     { _keys: keys'
-    , molecule: mol
-    , properties: props
+    , _molecule: mol
+    , _properties: props
     }
