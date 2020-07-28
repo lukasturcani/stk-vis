@@ -1,4 +1,5 @@
-import { Result } from 'Requests.UnsortedAll';
+import { IMolecule } from '../types/IMolecule';
+import { PageKind } from '../types/PageKind';
 
 
 export const enum ResultKind
@@ -14,8 +15,9 @@ export const enum ResultKind
 export interface ISuccess
 {
     kind: ResultKind.Success;
-    result: Result;
-
+    molecules: IMolecule[];
+    pageKind: PageKind;
+    valueCollections: string[];
 }
 
 export interface IDatabaseConnectionError
