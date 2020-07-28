@@ -29,6 +29,7 @@ export interface DispatchProps
         ( molecules: IMolecule[]
         , pageKind: PageKind
         , valueCollections: string[]
+        , moleculeKey: string
         ) => void;
 }
 

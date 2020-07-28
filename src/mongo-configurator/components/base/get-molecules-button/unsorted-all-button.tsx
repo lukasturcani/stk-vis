@@ -44,6 +44,7 @@ interface BaseProps
         ( molecules: IMolecule[]
         , pageKind: PageKind
         , valueCollections: string[]
+        , moleculeKey: string,
         ) => void;
 }
 
@@ -113,11 +114,19 @@ export function UnsortedAllButton(
                         {
                             case ResultKind.Success:
                             {
-                                props.initializeMoleculeBrowser(
-                                    result.molecules,
-                                    result.pageKind,
-                                    result.valueCollections,
-                                );
+                                if (result.molecules.length === 0)
+                                {
+                                    console.log('No molecules');
+                                }
+                                else
+                                {
+                                    props.initializeMoleculeBrowser(
+                                        result.molecules,
+                                        result.pageKind,
+                                        result.valueCollections,
+                                        props.moleculeKey,
+                                    );
+                                }
                                 break;
                             }
                             case ResultKind.DatabaseConnectionError:

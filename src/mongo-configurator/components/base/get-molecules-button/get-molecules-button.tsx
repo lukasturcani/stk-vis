@@ -41,6 +41,7 @@ export interface BaseProps
         ( molecules: IMolecule[]
         , pageKind: PageKind
         , valueCollections: string[]
+        , moleculeKey: string
         ) => void;
 }
 

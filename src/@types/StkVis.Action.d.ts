@@ -6,6 +6,12 @@ declare module 'StkVis.Action'
     import {
         PageData
     } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
+    import {
+        SelectingCollection
+    } from 'SelectingCollection';
+    import {
+        Molecule
+    } from 'Molecules.Molecule';
 
     export interface Action
     {
