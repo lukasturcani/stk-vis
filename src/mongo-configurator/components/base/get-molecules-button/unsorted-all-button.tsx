@@ -17,6 +17,15 @@ import {
 import {
     PageData,
 } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
+import {
+    ResultKind,
+} from 'mongo-db-requests/unsorted-all';
+import {
+    IMolecule,
+} from 'mongo-db-requests/types/IMolecule';
+import {
+    PageKind,
+} from 'mongo-db-requests/types/PageKind';
 
 
 interface BaseProps
@@ -31,6 +40,11 @@ interface BaseProps
     numEntriesPerPage: number;
     updateFields: (mongoData: MongoData) => void;
     updateMoleculePage: (pageData: PageData) => void;
+    initializeMoleculeBrowser:
+        ( molecules: IMolecule[]
+        , pageKind: PageKind
+        , valueCollections: string[]
+        ) => void;
 }
 
 
@@ -94,7 +108,36 @@ export function UnsortedAllButton(
                         pageIndex: 0,
 
                     })
-                    .then(result => props.updateMoleculePage(result));
+                    .then(result => {
+                        switch (result.kind)
+                        {
+                            case ResultKind.Success:
+                            {
+                                props.initializeMoleculeBrowser(
+                                    result.molecules,
+                                    result.pageKind,
+                                    result.valueCollections,
+                                );
+                                break;
+                            }
+                            case ResultKind.DatabaseConnectionError:
+                            {
+                                console.log('database error');
+                                break;
+                            }
+                            case ResultKind.CollectionConnectionError:
+                            {
+                                console.log('collection error');
+                                break;
+                            }
+                            case ResultKind.UncategorizedError:
+                            {
+                                console.log('uncategorized error');
+                                break;
+                            }
+
+                        }
+                    });
                 }
             }
         >
