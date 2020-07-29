@@ -1,8 +1,5 @@
 module Requests.Molecule.Internal.ToMoleculeEntry
     ( toMoleculeEntry
-    , MoleculeEntry
-    , AtomEntry
-    , BondEntry
     ) where
 
 import Prelude
@@ -14,22 +11,12 @@ import Data.Foldable (foldM)
 import Requests.Utils (maybeFold)
 import Mongo as Mongo
 
-type AtomEntry =
-    { atomicNumber :: Int
-    , charge       :: Int
-    }
+import Requests.Molecule.Internal.MoleculeEntry
+    ( MoleculeEntry
+    , AtomEntry
+    , BondEntry
+    )
 
-type BondEntry =
-    { order   :: Int
-    , atom1Id :: Int
-    , atom2Id :: Int
-    }
-
-type MoleculeEntry a b =
-    { keys  :: Map String String
-    , atoms :: Array a
-    , bonds :: Array b
-    }
 
 toAtomEntry :: Array Int -> Maybe AtomEntry
 toAtomEntry entry = do
@@ -46,7 +33,10 @@ toBondEntry entry = do
 
 type Helpers =
     { empty   :: Map String String
-    , insert  :: String -> String -> Map String String
+
+    , insert
+        :: String -> String -> Map String String -> Map String String
+
     , nothing :: Maybe (MoleculeEntry Unit Unit)
     , just    :: Unit -> Maybe Unit
     }
@@ -63,8 +53,8 @@ toMoleculeEntry entry = do
 
     let
         helpers =
-            { empty
-            , insert
+            { empty: empty
+            , insert: insert
             , nothing: Nothing
             , just: Just
             }
@@ -72,8 +62,9 @@ toMoleculeEntry entry = do
     unchecked <- toUncheckedMoleculeEntry helpers entry
     atomEntries <- foldM (maybeFold toAtomEntry) Nil unchecked.atoms
     bondEntries <- foldM (maybeFold toBondEntry) Nil unchecked.bonds
-    pure
+    pure (
         { keys: unchecked.keys
         , atoms: fromFoldable atomEntries
         , bonds: fromFoldable bondEntries
         }
+    )

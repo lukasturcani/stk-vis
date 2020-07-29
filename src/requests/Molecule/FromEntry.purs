@@ -2,18 +2,41 @@ module Requests.Molecule.Internal.FromEntry
     ( fromEntry
     ) where
 
+import Prelude
 import Mongo as Mongo
 import Data.Maybe (Maybe)
+import Data.Foldable (foldM)
+import Data.List (List (Nil))
+import Data.Map (empty)
+import Data.Array (fromFoldable)
 import ValidatedMolecule.ChemicalSymbol (chemicalSymbol) as Validated
-import ValidatedMolecule (atom) as Validated
+import ValidatedMolecule.Position (position) as Validated
 import Requests.Molecule.Internal.Data (Molecule (Molecule))
 import Requests.Molecule.Internal.ToMoleculeEntry (toMoleculeEntry)
+import Requests.Utils (maybeFold)
+
+import ValidatedMolecule
+    ( Bond
+    , Atom
+    , atom
+    , bond
+    , molecule
+    ) as Validated
+
+import Requests.Molecule.Internal.MoleculeEntry
+    ( AtomEntry
+    , BondEntry
+    )
 
 fromEntry :: Mongo.Entry -> Maybe Molecule
-toMolecule entry = do
-    entry <- toMoleculeEntry entry
-    atoms <- foldM (maybeFold atom) Nil entry.atoms
-    validated <- Validated.molecule atoms (map bond entry.bond)
+fromEntry entry = do
+    moleculeEntry <- toMoleculeEntry entry
+    atoms <- foldM (maybeFold atom) Nil moleculeEntry.atoms
+    validated <-
+        Validated.molecule
+        (fromFoldable atoms)
+        (map bond moleculeEntry.bonds)
+
     pure $ Molecule
         { _keys: empty
         , _properties: empty
@@ -28,6 +51,6 @@ atom ({ atomicNumber }) = do
             chemicalSymbol
             (Validated.position 0.0 0.0 0.0)
 
-bond :: BondEntry -> ValidatedBond
+bond :: BondEntry -> Validated.Bond
 bond ({ order, atom1Id, atom2Id })
     = Validated.bond order atom1Id atom2Id

@@ -17,8 +17,10 @@ exports.toUncheckedMoleculeEntry = helpers => entry =>
     result['bonds'] = bonds;
 
     let keys = helpers.empty;
-    for (const [key, value] of Object.entries(entry))
+    for (const entry_ of Object.entries(entry))
     {
+        const [key, value] = entry_;
+
         if (
             key !== 'a'
             &&

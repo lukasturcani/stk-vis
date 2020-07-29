@@ -2,8 +2,8 @@ module Requests.Molecule
     ( module Exports
     , keys
     , properties
-    , molecule
     , toValidated
+    , fromEntry
     ) where
 
 import Mongo as Mongo

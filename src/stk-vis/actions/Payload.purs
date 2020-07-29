@@ -6,8 +6,12 @@ module StkVis.Payload
     ) where
 
 import Prelude
+import RequestManager.RequestManager (RequestManager)
 import MongoConfigurator.UpdateFields.MongoData (MongoData)
 import MoleculeBrowser.UpdateMoleculePage.PageData (PageData)
+import SelectingCollection (SelectingCollection)
+import Molecules.Molecule (Molecule)
+import StkVis.InitializeMoleculeBrowser (InitializeMoleculeBrowser)
 
 import StkVis.UpdateFields
     ( UpdateFields
