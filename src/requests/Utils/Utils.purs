@@ -1,9 +1,10 @@
 module Requests.Utils
-    ( toMolecules
+    ( toMolecule
     ) where
 
+import Data.Array (concat)
 import Requests.Molecule (Molecule)
 import Mongo as Mongo
 
-foreign import toMolecules :: Array Mongo.Entry -> Array Molecule
+foreign import toMolecule :: Mongo.Entry -> Array Molecule
 foreign import dataQuery :: Array Molecule -> Mongo.Query

@@ -1,7 +1,21 @@
-module Requests.UnsortedAll.Intern
+module Requests.UnsortedAll
     ( request
+    , module Exports
     ) where
 
-import Requests.UnsortedAll
+import Effect.Promise (Promise)
 
-request :: RequestOptions ->
+import Requests.UnsortedAll.Internal.Request
+    ( RequestOptions
+    ) as Exports
+
+import Requests.UnsortedAll.Internal.Result
+    ( Result (..)
+    ) as Exports
+
+import Requests.UnsortedAll.Internal.Request
+    ( request
+    ) as Request
+
+request :: Exports.RequestOptions -> Promise Exports.Result
+request = Request.request

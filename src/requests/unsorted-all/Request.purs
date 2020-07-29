@@ -1,5 +1,6 @@
 module Requests.UnsortedAll.Internal.Request
     ( request
+    , Requestptions
     ) where
 
 import Prelude
@@ -45,7 +46,7 @@ request options = do
         <- Mongo.find database options.moleculeCollection query
 
     let molecules
-        = Utils.toMolecules
+        = concat <<< map Utils.toMolecule
         $ slice 0 options.numEntriesPerPage moleculeEntries
 
     let dataQuery = Utils.dataQuery molecules
