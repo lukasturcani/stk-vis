@@ -11,6 +11,7 @@ You can edit this file as you like.
   , "promises"
   , "psci-support"
   , "tuples"
+  , "validated-molecule"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
