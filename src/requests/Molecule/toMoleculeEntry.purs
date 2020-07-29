@@ -6,7 +6,7 @@ module Requests.Molecule.Internal.ToMoleculeEntry
     ) where
 
 import Prelude
-import Data.List (List (Nil), (:))
+import Data.List (List (Nil))
 import Data.Maybe (Maybe (Nothing, Just))
 import Data.Array (fromFoldable, (!!))
 import Data.Map (Map, empty, insert)
@@ -16,7 +16,7 @@ import Mongo as Mongo
 
 type AtomEntry =
     { atomicNumber :: Int
-    , charge       :: Number
+    , charge       :: Int
     }
 
 type BondEntry =
@@ -61,12 +61,13 @@ toMoleculeEntry
 
 toMoleculeEntry entry = do
 
-    let helpers = {
-          empty
-        , insert
-        , nothing: Nothing
-        , just: Just
-        }
+    let
+        helpers =
+            { empty
+            , insert
+            , nothing: Nothing
+            , just: Just
+            }
 
     unchecked <- toUncheckedMoleculeEntry helpers entry
     atomEntries <- foldM (maybeFold toAtomEntry) Nil unchecked.atoms
