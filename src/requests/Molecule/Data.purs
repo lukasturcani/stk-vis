@@ -1,5 +1,7 @@
-module Requests.Molecule
-    ( Molecule
+module Requests.Molecule.Internal.Data
+    ( Molecule (..)
+    , Keys
+    , Properties
     , keys
     , properties
     , molecule
@@ -26,10 +28,3 @@ properties (Molecule { _properties }) = _properties
 
 toValidated :: Molecule -> Validated.Molecule
 toValidated (Molecule { _molecule }) = _molecule
-
-molecule :: Validated.Molecule -> Keys -> Properties -> Molecule
-molecule mol keys' props = Molecule
-    { _keys: keys'
-    , _molecule: mol
-    , _properties: props
-    }
