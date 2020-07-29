@@ -5,7 +5,7 @@ module Requests.UnsortedAll.Internal.Request
 
 import Prelude
 import Mongo as Mongo
-import Data.Array (filter, slice, concat)
+import Data.Array (filter, slice, concat, length)
 import Requests.UnsortedAll.Internal.Result (Result (..))
 import Effect.Promise (Promise, all)
 import Data.Set (Set, fromFoldable, insert, member)
@@ -54,13 +54,13 @@ request options = do
 
     let
         molecules =
-            concat <<< maybeToArray <<< map Molecule.fromEntry $
+            concat <<< map maybeToArray <<< map Molecule.fromEntry $
             slice 0 options.numEntriesPerPage rawMoleculeEntries
 
     pure
         (Result
             { pageKind: pageKind
-                (length moleculeEntries)
+                (length rawMoleculeEntries)
                 options.pageIndex
                 options.numEntriesPerPage
             , valueCollections
