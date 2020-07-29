@@ -11,7 +11,7 @@ import MongoConfigurator.UpdateFields.MongoData (MongoData)
 import MoleculeBrowser.UpdateMoleculePage.PageData (PageData)
 import SelectingCollection (SelectingCollection)
 import Molecules.Molecule (Molecule)
-import StkVis.InitializeMoleculeBrowser (InitializeMoleculeBrowser)
+import StkVis.InitializeMoleculeBrowser as InitializeMoleculeBrowser
 
 import StkVis.UpdateFields
     ( UpdateFields
@@ -23,10 +23,6 @@ import StkVis.UpdateMoleculePage
     , updateMoleculePage
     ) as UpdateMoleculePage
 
-import StkVis.InitializeMoleculeBrowser
-    ( InitializeMoleculeBrowser
-    , initializeMoleculeBrowser
-    ) as InitializeMoleculeBrowser
 
 data Payload
     = UpdateFields UpdateFields.UpdateFields
@@ -45,8 +41,8 @@ initializeMoleculeBrowser
     :: RequestManager
     -> SelectingCollection Molecule
     -> Array String
-    -> InitializeMoleculeBrowser
+    -> Payload
 
-initializeMoleculeBrowser
+initializeMoleculeBrowser a b c
     = InitializeMoleculeBrowser
-    <<< InitializeMoleculeBrowser.initializeMoleculeBrowser
+    $ InitializeMoleculeBrowser.initializeMoleculeBrowser a b c

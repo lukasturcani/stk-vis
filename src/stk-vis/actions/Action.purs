@@ -4,8 +4,11 @@ module StkVis.Action
     , updateMoleculePage
     ) where
 
+import RequestManager.RequestManager (RequestManager)
+import SelectingCollection (SelectingCollection)
 import MongoConfigurator.UpdateFields.MongoData (MongoData)
 import MoleculeBrowser.UpdateMoleculePage.PageData (PageData)
+import Molecules.Molecule (Molecule)
 
 import StkVis.Payload
     ( Payload
@@ -35,7 +38,7 @@ initializeMoleculeBrowser
     :: RequestManager
     -> SelectingCollection Molecule
     -> Array String
-    -> InitializeMoleculeBrowser
+    -> Action
 
 initializeMoleculeBrowser
     requestManager
