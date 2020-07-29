@@ -8,6 +8,7 @@ module Requests.Molecule.Internal.ToMoleculeEntry
 import Data.List (List (Nil), (:))
 import Data.Maybe (Maybe (Nothing, Just))
 import Data.Array (fromFoldable)
+import Requests.Utils (maybFold)
 
 type AtomEntry =
     { atomicNumber :: Int
@@ -64,15 +65,10 @@ toMoleculeEntry entry = do
         }
 
     unchecked <- toUncheckedMoleculeEntry helpers entry
-    atomEntries <- foldM (add toAtomEntry) Nil unchecked.atoms
-    bondEntries <- foldM (add toBondEntry) Nil unchecked.bonds
+    atomEntries <- foldM (maybeFold toAtomEntry) Nil unchecked.atoms
+    bondEntries <- foldM (maybeFold toBondEntry) Nil unchecked.bonds
     pure
         { keys: unchecked.keys
         , atoms: fromFoldable atomEntries
         , bonds: fromFoldable bondEntries
         }
-
-add :: forall a. (a -> Maybe a) -> List a -> a -> Maybe (List a)
-add f xs x = do
-    fx <- f x
-    pure (fx : xs)

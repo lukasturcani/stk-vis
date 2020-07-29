@@ -1,14 +1,20 @@
 module Requests.Utils
-    ( toMolecule
+    ( maybeFold
+    , maybeToArray
     ) where
 
-import Data.Map (Map, empty, insert)
-import Data.Maybe (Maybe (Nothing, Just))
-import ValidatedMolecule as Validated
-import Requests.Molecule (Molecule)
-import Mongo as Mongo
+import Prelude
+import Data.Maybe (Maybe (..))
+import Data.List (List)
 
-
-    }
 
 foreign import dataQuery :: Array Molecule -> Mongo.Query
+
+maybeFold :: forall a. (a -> Maybe a) -> List a -> a -> Maybe (List a)
+maybeFold f xs x = do
+    fx <- f x
+    pure (fx : xs)
+
+maybeToArray :: forall a. Maybe a -> Array a
+maybeToArray Nothing = []
+maybeToArray (Just x) = [x]
