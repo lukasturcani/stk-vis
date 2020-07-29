@@ -7,8 +7,6 @@ import Data.Maybe (Maybe)
 import Requests.Molecule.Internal.Data (Molecule)
 
 fromEntry :: Mongo.Entry -> Maybe Molecule
-
-toMolecule :: Mongo.Entry -> Maybe Molecule
 toMolecule entry = do
     entry <- toMoleculeEntry entry
     validated <- Validated.molecule (map atom entry.atoms) (map bond entry.bond)
@@ -17,9 +15,3 @@ toMolecule entry = do
 atom :: AtomEntry -> Maybe Validated.Atom
 atom ({ atomicNumber }) = Validated.atom(
 
-foreign import toMoleculeImpl
-    :: toMoleculeImplHelpers -> Mongo.Entry -> Maybe Validated.Molecule
-
-toMolecule :: Mong.Entry -> Array Molecule
-toMolecule = toMoleculeImpl
-    {

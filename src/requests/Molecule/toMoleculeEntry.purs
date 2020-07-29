@@ -1,5 +1,8 @@
-module Requests.Utils.Internal.ToMoleculeEntry
+module Requests.Molecule.Internal.ToMoleculeEntry
     ( toMoleculeEntry
+    , MoleculeEntry
+    , AtomEntry
+    , BondEntry
     ) where
 
 import Data.List (List (Nil), (:))
