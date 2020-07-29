@@ -5,10 +5,8 @@ module Requests.Utils
 
 import Prelude
 import Data.Maybe (Maybe (..))
-import Data.List (List)
+import Data.List (List, (:))
 
-
-foreign import dataQuery :: Array Molecule -> Mongo.Query
 
 maybeFold :: forall a. (a -> Maybe a) -> List a -> a -> Maybe (List a)
 maybeFold f xs x = do

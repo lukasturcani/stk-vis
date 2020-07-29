@@ -4,7 +4,6 @@ module Requests.Molecule.Internal.Data
     , Properties
     , keys
     , properties
-    , molecule
     , toValidated
     ) where
 

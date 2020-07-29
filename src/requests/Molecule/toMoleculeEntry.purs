@@ -5,10 +5,14 @@ module Requests.Molecule.Internal.ToMoleculeEntry
     , BondEntry
     ) where
 
+import Prelude
 import Data.List (List (Nil), (:))
 import Data.Maybe (Maybe (Nothing, Just))
-import Data.Array (fromFoldable)
-import Requests.Utils (maybFold)
+import Data.Array (fromFoldable, (!!))
+import Data.Map (Map, empty, insert)
+import Data.Foldable (foldM)
+import Requests.Utils (maybeFold)
+import Mongo as Mongo
 
 type AtomEntry =
     { atomicNumber :: Int
@@ -57,8 +61,8 @@ toMoleculeEntry
 
 toMoleculeEntry entry = do
 
-    let helpers =
-        { empty
+    let helpers = {
+          empty
         , insert
         , nothing: Nothing
         , just: Just

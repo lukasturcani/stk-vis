@@ -10,6 +10,8 @@ module Mongo
     , find'
     ) where
 
+import Effect.Promise (Promise)
+
 data Client = Client
 data Database = Database
 data Query = Query

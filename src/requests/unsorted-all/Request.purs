@@ -29,25 +29,30 @@ request :: RequestOptions -> Promise Result
 
 request options = do
 
-    let nonValueCollections
-        = insert options.moleculeCollection
-        $ insert options.positionMatrixCollection
-        $ insert options.buildingBlockPositionMatrixCollection
-        fromFoldable options.ignoredCollections
+    let
+        nonValueCollections =
+            insert options.moleculeCollection $
+            insert options.positionMatrixCollection $
+            insert options.buildingBlockPositionMatrixCollection $
+            fromFoldable options.ignoredCollections
 
     client <- Mongo.client options.url
     database <- Mongo.database client options.database
     collections <- Mongo.collections database
 
-    let valueCollections
-        = filter (not <<< flip member nonValueCollections) collections
+    let
+        valueCollections =
+            filter
+            (not <<< flip member nonValueCollections)
+            collections
 
-    moleculeEntries
-        <- Mongo.find database options.moleculeCollection query
+    moleculeEntries <-
+        Mongo.find database options.moleculeCollection query
 
-    let molecules
-        = concat <<< map Utils.toMolecule
-        $ slice 0 options.numEntriesPerPage moleculeEntries
+    let
+        molecules =
+            concat <<< map Utils.toMolecule $
+            slice 0 options.numEntriesPerPage moleculeEntries
 
     pure
         (Result
