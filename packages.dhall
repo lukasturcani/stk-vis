@@ -140,7 +140,7 @@ let additions =
         , repo =
             "https://github.com/lukasturcani/molDraw"
         , version =
-            "v1.0.13"
+            "v1.0.14"
         }
     , validated-molecule =
         { dependencies =
@@ -150,7 +150,7 @@ let additions =
         , repo =
             "https://github.com/lukasturcani/validated-molecule"
         , version =
-            "v1.0.3"
+            "v1.0.4"
         }
     }
 

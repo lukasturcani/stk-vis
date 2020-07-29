@@ -49,32 +49,6 @@ request options = do
         = concat <<< map Utils.toMolecule
         $ slice 0 options.numEntriesPerPage moleculeEntries
 
-    let dataQuery = Utils.dataQuery molecules
-
-    matrixEntries1
-        <- Mongo.find
-            database
-            options.positionMatrixCollection
-            dataQuery
-
-    matrixEntries2
-        <- Mongo.find
-            database
-            options.buildingBlockPositionMatrixCollection
-            dataQuery
-
-    let matrices
-        = Utils.toMatrices (concat matrixEntries1 matrixEntries2)
-
-    values
-        <- all $ map (Mongo.find' database dataQuery) valueCollections
-
-    let collections
-        = Utils.toCollection <$> values <*> valueCollections
-
-    molecules molecules matrices
-
-
     pure
         (Result
             { pageKind: pageKind
@@ -82,6 +56,43 @@ request options = do
                 options.pageIndex
                 options.numEntriesPerPage
             , valueCollections
-            , molecules: selectingCollection [] first rest
+            , molecules: molecules
             }
         )
+
+    -- let dataQuery = Utils.dataQuery molecules
+
+    -- matrixEntries1
+    --     <- Mongo.find
+    --         database
+    --         options.positionMatrixCollection
+    --         dataQuery
+
+    -- matrixEntries2
+    --     <- Mongo.find
+    --         database
+    --         options.buildingBlockPositionMatrixCollection
+    --         dataQuery
+
+    -- let matrices
+    --     = Utils.toMatrices (concat matrixEntries1 matrixEntries2)
+
+    -- values
+    --     <- all $ map (Mongo.find' database dataQuery) valueCollections
+
+    -- let collections
+    --     = Utils.toCollection <$> values <*> valueCollections
+
+    -- molecules molecules matrices
+
+
+    -- pure
+    --     (Result
+    --         { pageKind: pageKind
+    --             (length moleculeEntries)
+    --             options.pageIndex
+    --             options.numEntriesPerPage
+    --         , valueCollections
+    --         , molecules: selectingCollection [] first rest
+    --         }
+    --     )

@@ -7,7 +7,7 @@ import Requests.Molecule (Molecule)
 
 data Result = Result
     { valueCollections :: Array String
-    , molecules        :: SelectingCollection Molecule
+    , molecules        :: Array Molecule
     , pageKind         :: PageKind
     }
 
