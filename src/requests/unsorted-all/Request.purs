@@ -1,15 +1,18 @@
 module Requests.UnsortedAll.Internal.Request
     ( request
-    , Requestptions
+    , RequestOptions
     ) where
 
 import Prelude
 import Mongo as Mongo
-import Data.Array (slice, concat)
+import Data.Array (filter, slice, concat)
 import Requests.UnsortedAll.Internal.Result (Result (..))
 import Effect.Promise (Promise, all)
 import Data.Set (Set, fromFoldable, insert, member)
 import SelectingCollection (selectingCollection)
+import Requests.Molecule as Molecule
+import Requests.Utils (maybeToArray)
+import Requests.PageKind (pageKind)
 
 type RequestOptions =
     { url                                   :: String
@@ -46,13 +49,13 @@ request options = do
             (not <<< flip member nonValueCollections)
             collections
 
-    moleculeEntries <-
+    rawMoleculeEntries <-
         Mongo.find database options.moleculeCollection query
 
     let
         molecules =
-            concat <<< map Utils.toMolecule $
-            slice 0 options.numEntriesPerPage moleculeEntries
+            concat <<< maybeToArray <<< map Molecule.fromEntry $
+            slice 0 options.numEntriesPerPage rawMoleculeEntries
 
     pure
         (Result
