@@ -1,4 +1,0 @@
-exports.toMolecule = helpers => entry =>
-{
-
-}
