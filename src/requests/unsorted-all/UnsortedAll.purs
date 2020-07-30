@@ -3,7 +3,7 @@ module Requests.UnsortedAll
     , module Exports
     ) where
 
-import Effect.Promise (Promise)
+import Effect.Promise (class Deferred, Promise)
 
 import Requests.UnsortedAll.Internal.Request
     ( RequestOptions
@@ -17,5 +17,5 @@ import Requests.UnsortedAll.Internal.Request
     ( request
     ) as Request
 
-request :: Exports.RequestOptions -> Promise Exports.Result
+request :: Deferred => Exports.RequestOptions -> Promise Exports.Result
 request = Request.request

@@ -158,6 +158,12 @@ module.exports = {
                     './output/RequestManager.SortType',
                 ),
 
+            'Requests.UnsortedAll':
+                path.join(
+                    __dirname,
+                    './output/Requests.UnsortedAll',
+                ),
+
             'mongo-db-requests': path.join(
                 __dirname,
                 './src/mongo-db-requests',

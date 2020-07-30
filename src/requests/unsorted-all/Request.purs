@@ -7,7 +7,7 @@ import Prelude
 import Mongo as Mongo
 import Data.Array (filter, slice, concat, length)
 import Requests.UnsortedAll.Internal.Result (Result (..))
-import Effect.Promise (Promise, all)
+import Effect.Promise (class Deferred, Promise, all)
 import Data.Set (Set, fromFoldable, insert, member)
 import SelectingCollection (selectingCollection)
 import Requests.Molecule as Molecule
@@ -28,7 +28,7 @@ type RequestOptions =
 
 foreign import query :: Mongo.Query
 
-request :: RequestOptions -> Promise Result
+request :: Deferred => RequestOptions -> Promise Result
 
 request options = do
 

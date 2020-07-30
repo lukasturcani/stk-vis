@@ -9,17 +9,14 @@ import {
     unsortedAll,
 } from 'MongoConfigurator.SearchKind';
 import {
-    request,
-} from 'mongo-db-requests/unsorted-all';
-import {
     MongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
 import {
     PageData,
 } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
 import {
-    ResultKind,
-} from 'mongo-db-requests/unsorted-all';
+    request,
+} from 'Requests.UnsortedAll';
 import {
     IMolecule,
 } from 'mongo-db-requests/types/IMolecule';
@@ -86,7 +83,7 @@ export function UnsortedAllButton(
                         numEntriesPerPage: props.numEntriesPerPage,
                         searchKind: unsortedAll,
                     });
-                    request({
+                    request()({
                         url: props.url,
 
                         database: props.database,
@@ -110,42 +107,7 @@ export function UnsortedAllButton(
 
                     })
                     .then(result => {
-                        switch (result.kind)
-                        {
-                            case ResultKind.Success:
-                            {
-                                if (result.molecules.length === 0)
-                                {
-                                    console.log('No molecules');
-                                }
-                                else
-                                {
-                                    props.initializeMoleculeBrowser(
-                                        result.molecules,
-                                        result.pageKind,
-                                        result.valueCollections,
-                                        props.moleculeKey,
-                                    );
-                                }
-                                break;
-                            }
-                            case ResultKind.DatabaseConnectionError:
-                            {
-                                console.log('database error');
-                                break;
-                            }
-                            case ResultKind.CollectionConnectionError:
-                            {
-                                console.log('collection error');
-                                break;
-                            }
-                            case ResultKind.UncategorizedError:
-                            {
-                                console.log('uncategorized error');
-                                break;
-                            }
-
-                        }
+                        console.log(result);
                     });
                 }
             }
