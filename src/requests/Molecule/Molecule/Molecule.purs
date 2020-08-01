@@ -12,8 +12,11 @@ import ValidatedMolecule as Validated
 
 import Requests.Molecule.Internal.Data
     ( Molecule
-    , Keys
     , Properties
+    ) as Exports
+
+import Requests.Molecule.Internal.MoleculeKey
+    ( MoleculeKey
     ) as Exports
 
 import Requests.Molecule.Internal.Data
@@ -26,8 +29,8 @@ import Requests.Molecule.Internal.FromEntry
     ( fromEntry
     ) as  FromEntry
 
-keys :: Exports.Molecule -> Exports.Keys
-keys = Data.keys
+key :: Exports.Molecule -> Exports.MoleculeKey
+key = Data.key
 
 properties :: Exports.Molecule -> Exports.Properties
 properties = Data.properties

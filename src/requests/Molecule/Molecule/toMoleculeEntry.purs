@@ -6,10 +6,10 @@ import Prelude
 import Data.List (List (Nil))
 import Data.Maybe (Maybe (Nothing, Just))
 import Data.Array (fromFoldable, (!!))
-import Data.Map (Map, empty, insert)
 import Data.Foldable (foldM)
 import Requests.Utils (maybeFold)
 import Mongo as Mongo
+import Requests.Molecule.Internal.MoleculeKey (MoleculeKey)
 
 import Requests.Molecule.Internal.MoleculeEntry
     ( MoleculeEntry
@@ -32,34 +32,30 @@ toBondEntry entry = do
     pure { atom1Id, atom2Id, order }
 
 type Helpers =
-    { empty   :: Map String String
-
-    , insert
-        :: String -> String -> Map String String -> Map String String
-
-    , nothing :: Maybe (MoleculeEntry Unit Unit)
+    { nothing :: Maybe (MoleculeEntry Unit Unit)
     , just    :: Unit -> Maybe Unit
     }
 
 foreign import toUncheckedMoleculeEntry
     :: Helpers
+    -> MoleculeKey
     -> Mongo.Entry
     -> Maybe (MoleculeEntry (Array Int) (Array Int))
 
 toMoleculeEntry
-    :: Mongo.Entry -> Maybe (MoleculeEntry AtomEntry BondEntry)
+    :: MoleculeKey
+    -> Mongo.Entry
+    -> Maybe (MoleculeEntry AtomEntry BondEntry)
 
-toMoleculeEntry entry = do
+toMoleculeEntry moleculeKey entry = do
 
     let
         helpers =
-            { empty: empty
-            , insert: insert
-            , nothing: Nothing
+            { nothing: Nothing
             , just: Just
             }
 
-    unchecked <- toUncheckedMoleculeEntry helpers entry
+    unchecked <- toUncheckedMoleculeEntry helpers moleculeKey entry
     atomEntries <- foldM (maybeFold toAtomEntry) Nil unchecked.atoms
     bondEntries <- foldM (maybeFold toBondEntry) Nil unchecked.bonds
     pure (

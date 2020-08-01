@@ -5,12 +5,14 @@ module Requests.UnsortedAll.Internal.Request
 
 import Prelude
 import Mongo as Mongo
-import Data.Array (filter, slice, concat, length)
+import Data.Array as Array
 import Requests.UnsortedAll.Internal.Result (Result (..))
 import Effect.Promise (class Deferred, Promise, all)
 import Data.Set (Set, fromFoldable, insert, member)
+import Data.Map (keys)
 import SelectingCollection (selectingCollection)
 import Requests.Molecule as Molecule
+import Requests.Molecule.Utils as Molecule
 import Requests.Utils (maybeToArray)
 import Requests.PageKind (pageKind)
 
@@ -45,7 +47,7 @@ request options = do
 
     let
         valueCollections =
-            filter
+            Array.filter
             (not <<< flip member nonValueCollections)
             collections
 
@@ -55,11 +57,13 @@ request options = do
     let
         molecules =
             Molecule.toMap options.moleculeKey <<<
-            concat <<< map (maybeToArray <<< Molecule.fromEntry) $
-            slice 0 options.numEntriesPerPage rawMoleculeEntries
+            Array.concat <<<
+            map (maybeToArray <<< Molecule.fromEntry) $
+            Array.slice 0 options.numEntriesPerPage rawMoleculeEntries
 
-    let
-        dataQuery = Utils.dataQuery options.moleculeKey molecules
+        dataQuery =
+            Utils.dataQuery options.moleculeKey
+            (Array.fromFoldable <<< keys $ molecules)
 
     -- matrixEntries1
     --     <- Mongo.find
@@ -74,7 +78,7 @@ request options = do
     --         dataQuery
 
     -- let matrices
-    --     = Utils.toMatrices (concat matrixEntries1 matrixEntries2)
+    --     = Utils.toMatrices (Array.concat matrixEntries1 matrixEntries2)
 
     -- values
     --     <- all $ map (Mongo.find' database dataQuery) valueCollections
@@ -88,7 +92,7 @@ request options = do
     -- pure
     --     (Result
     --         { pageKind: pageKind
-    --             (length moleculeEntries)
+    --             (Array.length moleculeEntries)
     --             options.pageIndex
     --             options.numEntriesPerPage
     --         , valueCollections

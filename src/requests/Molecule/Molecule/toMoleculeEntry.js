@@ -1,4 +1,4 @@
-exports.toUncheckedMoleculeEntry = helpers => entry =>
+exports.toUncheckedMoleculeEntry = helpers => moleculeKey => entry =>
 {
     const result = {};
 
@@ -12,27 +12,16 @@ exports.toUncheckedMoleculeEntry = helpers => entry =>
     const bonds = entry['b'];
     if (!Array.isArray(bonds))
     {
-        return helpers.nothing
+        return helpers.nothing;
     }
     result['bonds'] = bonds;
 
-    let keys = helpers.empty;
-    for (const entry_ of Object.entries(entry))
+    const key = entry[moleculeKey];
+    if (key === undefined)
     {
-        const [key, value] = entry_;
-
-        if (
-            key !== 'a'
-            &&
-            key !== 'b'
-            &&
-            key !== '_id'
-            &&
-            typeof value === 'string'
-        ){
-            keys = helpers.insert(key)(value)(keys);
-        }
+        return helpers.nothing;
     }
-    result['keys'] = keys;
+    result['key'] = key;
+
     return helpers.just(result);
 }

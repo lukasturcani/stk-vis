@@ -2,25 +2,25 @@ module Requests.Molecule.Internal.Data
     ( Molecule (..)
     , Keys
     , Properties
-    , keys
+    , key
     , properties
     , toValidated
     ) where
 
 import Data.Map (Map)
 import ValidatedMolecule as Validated
+import Requests.Molecule.Internal.MoleculeKey (MoleculeKey)
 
-type Keys = Map String String
 type Properties = Map String String
 
 data Molecule = Molecule
-    { _keys       :: Keys
+    { _key        :: MoleculeKey
     , _properties :: Properties
     , _molecule   :: Validated.Molecule
     }
 
-keys :: Molecule -> Map String String
-keys (Molecule { _keys }) = _keys
+key :: Molecule -> MoleculeKey
+key (Molecule { _key }) = _key
 
 properties :: Molecule -> Map String String
 properties (Molecule { _properties }) = _properties
