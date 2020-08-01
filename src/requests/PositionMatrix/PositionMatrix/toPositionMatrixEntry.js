@@ -17,6 +17,7 @@ exports.toPositionMatrixEntryImpl
     }
     else
     {
+        const resultMatrix = [];
         for (const row of matrix)
         {
             if (
@@ -32,8 +33,13 @@ exports.toPositionMatrixEntryImpl
             ) {
                 return helpers.nothing;
             }
+            else
+            {
+                const [x, y, z] = row;
+                resultMatrix.push(helpers.position(x)(y)(z));
+            }
         }
+        result['matrix'] = resultMatrix;
+        return helpers.just(result);
     }
-    result['matrix'] = matrix;
-    return helpers.just(result);
 };

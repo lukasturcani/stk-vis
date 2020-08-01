@@ -5,9 +5,9 @@ module Requests.Molecule.Internal.ToMoleculeEntry
 import Prelude
 import Data.List (List (Nil))
 import Data.Maybe (Maybe (Nothing, Just))
+import Data.Maybe.Utils (addWith)
 import Data.Array (fromFoldable, (!!))
 import Data.Foldable (foldM)
-import Requests.Utils (maybeFold)
 import Mongo as Mongo
 import Requests.MoleculeKey (MoleculeKeyName)
 
@@ -56,8 +56,8 @@ toMoleculeEntry moleculeKey entry = do
             }
 
     unchecked <- toUncheckedMoleculeEntry helpers moleculeKey entry
-    atomEntries <- foldM (maybeFold toAtomEntry) Nil unchecked.atoms
-    bondEntries <- foldM (maybeFold toBondEntry) Nil unchecked.bonds
+    atomEntries <- foldM (addWith toAtomEntry) Nil unchecked.atoms
+    bondEntries <- foldM (addWith toBondEntry) Nil unchecked.bonds
     pure (
         { key: unchecked.key
         , atoms: fromFoldable atomEntries

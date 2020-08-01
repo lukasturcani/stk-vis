@@ -90,7 +90,7 @@ request options = do
     --let collections =
     --    Utils.toCollection <$> values <*> valueCollections
 
-    positioned = Utils.addPositionMatrices molecules matrices
+        positioned = Utils.addPositionMatrices molecules matrices
 
 
     pure

@@ -5,6 +5,7 @@ module Requests.Molecule.Internal.FromEntry
 import Prelude
 import Mongo as Mongo
 import Data.Maybe (Maybe)
+import Data.Maybe.Utils (addWith)
 import Data.Foldable (foldM)
 import Data.List (List (Nil))
 import Data.Map (empty)
@@ -13,7 +14,6 @@ import ValidatedMolecule.ChemicalSymbol (chemicalSymbol) as Validated
 import ValidatedMolecule.Position (position) as Validated
 import Requests.Molecule.Internal.Data (Molecule (Molecule))
 import Requests.Molecule.Internal.ToMoleculeEntry (toMoleculeEntry)
-import Requests.Utils (maybeFold)
 
 import ValidatedMolecule
     ( Bond
@@ -33,7 +33,7 @@ import Requests.MoleculeKey (MoleculeKeyName)
 fromEntry :: MoleculeKeyName -> Mongo.Entry -> Maybe Molecule
 fromEntry moleculeKey entry = do
     moleculeEntry <- toMoleculeEntry moleculeKey entry
-    atoms <- foldM (maybeFold atom) Nil moleculeEntry.atoms
+    atoms <- foldM (addWith atom) Nil moleculeEntry.atoms
     validated <-
         Validated.molecule
         (fromFoldable atoms)

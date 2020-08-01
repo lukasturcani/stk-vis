@@ -1,32 +1,18 @@
 module Requests.Utils
-    ( maybeFold
-    , maybeToArray
-    , dataQuery
+    ( dataQuery
+    , addPotitionMatrices
     ) where
 
 import Prelude
-import Data.Maybe (Maybe (..))
-import Data.Map (Map)
-import Data.List (List, (:))
+import Data.Map (Map, toUnfoldable, lookup)
+import Data.Tuple (Tuple (Tuple))
+import Data.Maybe (Maybe)
+import Data.Maybe.Utils as Maybe
 import Mongo as Mongo
 import Requests.MoleculeKey (MoleculeKeyName, MoleculeKeyValue)
 import Requests.Molecule (Molecule)
-import Requests.PositionMatrix (PositionMatrix)
+import Requests.PositionMatrix (PositionMatrix, matrix)
 
-maybeFold
-    :: forall a b
-    . (a -> Maybe b)
-    -> List b
-    -> a
-    -> Maybe (List b)
-
-maybeFold f xs x = do
-    fx <- f x
-    pure (fx : xs)
-
-maybeToArray :: forall a. Maybe a -> Array a
-maybeToArray Nothing = []
-maybeToArray (Just x) = [x]
 
 foreign import dataQuery
     :: MoleculeKeyName -> Array MoleculeKeyValue -> Mongo.Query
@@ -38,6 +24,15 @@ addPositionMatrices
     -> Array Molecule
 
 addPositionMatrices molecules matrices = do
-    (Tuple key molecule) <- Array.fromFoldable (items molecules)
-    matrix <- maybeToArray
-    maybeToArray $ addPositionMatrix molecule matrix
+    (Tuple key molecule) <- toUnfoldable molecules
+    positionMatrix <- Maybe.toArray (lookup key matrices)
+    Maybe.toArray (molecule `addPositionMatrix` positionMatrix)
+
+addPositionMatrix :: Molecule -> PositionMatrix -> Maybe Molecule
+addPositionMatrix molecule positionMatrix = do
+    let validated = toValidated molecule
+    zipWith setPosition (Validated.atoms molecule) (matrix positionMatrix)
+
+setPosition :: MoleculeAtom -> Postion -> Validated.
+
+
