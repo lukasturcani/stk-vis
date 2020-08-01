@@ -5,7 +5,7 @@ module Requests.PositionMatrix.Internal.FromEntry
 import Requests.PositionMatrix.Internal.Data (PositionMatrix (..))
 import Mongo as Mongo
 
-import Requests.PositionMatrix.Internal.PositionMatrixEntry
+import Requests.PositionMatrix.Internal.ToPositionMatrixEntry
     ( toPositionMatrixEntry
     )
 
