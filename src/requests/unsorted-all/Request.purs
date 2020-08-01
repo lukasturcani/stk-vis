@@ -13,7 +13,7 @@ import Data.Map (keys)
 import SelectingCollection (selectingCollection)
 import Requests.Molecule as Molecule
 import Requests.Molecule.Utils as Molecule
-import Requests.Utils (maybeToArray)
+import Requests.Utils as Utils
 import Requests.PageKind (pageKind)
 import Requests.PositionMatrix as Matrix
 import Requests.PositionMatrix.Utils as Matrix
@@ -59,7 +59,7 @@ request options = do
     let
         molecules =
             Molecule.toMap <<< Array.concat <<<
-            map (maybeToArray <<< Molecule.fromEntry) $
+            map (Utils.maybeToArray <<< Molecule.fromEntry) $
             Array.slice 0 options.numEntriesPerPage rawMoleculeEntries
 
         dataQuery =
@@ -81,7 +81,7 @@ request options = do
     let
         matrices =
             Matrix.toMap <<< Array.concat <<<
-            map (maybeToArray <<< Matrix.fromEntry)
+            map (Utils.maybeToArray <<< Matrix.fromEntry)
             (Array.concat [matrixEntries1, matrixEntries2])
 
     --values <-

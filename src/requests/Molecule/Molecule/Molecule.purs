@@ -1,6 +1,6 @@
 module Requests.Molecule
     ( module Exports
-    , keys
+    , key
     , properties
     , toValidated
     , fromEntry
@@ -15,7 +15,7 @@ import Requests.Molecule.Internal.Data
     , Properties
     ) as Exports
 
-import Requests.MoleculeKey (MoleculeKeyValue)
+import Requests.MoleculeKey (MoleculeKeyName, MoleculeKeyValue)
 
 import Requests.Molecule.Internal.Data
     ( key
@@ -36,5 +36,5 @@ properties = Data.properties
 toValidated :: Exports.Molecule -> Validated.Molecule
 toValidated = Data.toValidated
 
-fromEntry :: Mongo.Entry -> Maybe Exports.Molecule
+fromEntry :: MoleculeKeyName -> Mongo.Entry -> Maybe Exports.Molecule
 fromEntry = FromEntry.fromEntry
