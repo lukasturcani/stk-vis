@@ -10,6 +10,7 @@ import Requests.UnsortedAll.Internal.Result (Result (..))
 import Effect.Promise (class Deferred, Promise, all)
 import Data.Set (Set, fromFoldable, insert, member)
 import Data.Map (keys)
+import Data.Maybe.Utils as Maybe
 import SelectingCollection (selectingCollection)
 import Requests.Molecule as Molecule
 import Requests.Molecule.Utils as Molecule
@@ -59,7 +60,7 @@ request options = do
     let
         molecules =
             Molecule.toMap <<< Array.concat <<<
-            map (Utils.maybeToArray <<< Molecule.fromEntry) $
+            map (Maybe.toArray <<< Molecule.fromEntry) $
             Array.slice 0 options.numEntriesPerPage rawMoleculeEntries
 
         dataQuery =
@@ -81,7 +82,7 @@ request options = do
     let
         matrices =
             Matrix.toMap <<< Array.concat <<<
-            map (Utils.maybeToArray <<< Matrix.fromEntry)
+            map (Maybe.toArray <<< Matrix.fromEntry)
             (Array.concat [matrixEntries1, matrixEntries2])
 
     --values <-

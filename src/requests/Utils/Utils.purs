@@ -1,19 +1,27 @@
 module Requests.Utils
     ( dataQuery
-    , addPotitionMatrices
+    , addPositionMatrices
     ) where
 
 import Prelude
+import Data.Array (zipWith)
 import Data.Map (Map, toUnfoldable, lookup)
 import Data.Tuple (Tuple (Tuple))
 import Data.Maybe (Maybe)
 import Data.Maybe.Utils as Maybe
 import Mongo as Mongo
 import Requests.MoleculeKey (MoleculeKeyName, MoleculeKeyValue)
-import Requests.Molecule (Molecule)
 import Requests.PositionMatrix (PositionMatrix, matrix)
 import ValidatedMolecule.Position as Position
 import ValidatedMolecule as Validated
+
+import Requests.Molecule
+    ( Molecule
+    , toValidated
+    , key
+    , properties
+    , fromValidated
+    )
 
 
 foreign import dataQuery
@@ -31,17 +39,20 @@ addPositionMatrices molecules matrices = do
     Maybe.toArray (molecule `addPositionMatrix` positionMatrix)
 
 addPositionMatrix :: Molecule -> PositionMatrix -> Maybe Molecule
-addPositionMatrix molecule positionMatrix =
-    Validated.molecule atoms bonds
+addPositionMatrix molecule positionMatrix = do
+    newMolecule <- Validated.molecule atoms bonds
+    pure $ fromValidated
+        (key molecule)
+        (properties molecule)
+        newMolecule
   where
     validated = toValidated molecule
     atoms =
         zipWith
         setPosition
-        (Validated.atoms molecule)
+        (Validated.atoms validated)
         (matrix positionMatrix)
-    bonds = map toBond (Validated.bonds molecule)
-
+    bonds = map toBond (Validated.bonds validated)
 
 setPosition
     :: Validated.MoleculeAtom -> Position.Position -> Validated.Atom
