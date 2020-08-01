@@ -12,10 +12,6 @@ import Requests.PositionMatrix.Internal.PositionMatrixEntry
     ( PositionMatrixEntry
     )
 
-import Requests.PositionMatrix.Internal.PositionMatrixEntry
-    ( PositionMatrixEntry
-    )
-
 type Helpers =
     { nothing :: Maybe Unit
     , just    :: Unit -> Maybe Unit

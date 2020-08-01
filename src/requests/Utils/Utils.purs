@@ -12,6 +12,8 @@ import Mongo as Mongo
 import Requests.MoleculeKey (MoleculeKeyName, MoleculeKeyValue)
 import Requests.Molecule (Molecule)
 import Requests.PositionMatrix (PositionMatrix, matrix)
+import ValidatedMolecule.Position as Position
+import ValidatedMolecule as Validated
 
 
 foreign import dataQuery
@@ -29,10 +31,27 @@ addPositionMatrices molecules matrices = do
     Maybe.toArray (molecule `addPositionMatrix` positionMatrix)
 
 addPositionMatrix :: Molecule -> PositionMatrix -> Maybe Molecule
-addPositionMatrix molecule positionMatrix = do
-    let validated = toValidated molecule
-    zipWith setPosition (Validated.atoms molecule) (matrix positionMatrix)
+addPositionMatrix molecule positionMatrix =
+    Validated.molecule atoms bonds
+  where
+    validated = toValidated molecule
+    atoms =
+        zipWith
+        setPosition
+        (Validated.atoms molecule)
+        (matrix positionMatrix)
+    bonds = map toBond (Validated.bonds molecule)
 
-setPosition :: MoleculeAtom -> Postion -> Validated.
 
+setPosition
+    :: Validated.MoleculeAtom -> Position.Position -> Validated.Atom
 
+setPosition atom position =
+    Validated.atom (Validated.chemicalSymbol atom) position
+
+toBond :: Validated.MoleculeBond -> Validated.Bond
+toBond bond = Validated.bond order atom1Id atom2Id
+  where
+    order = Validated.order bond
+    atom1Id = Validated.id $ Validated.atom1 bond
+    atom2Id = Validated.id $ Validated.atom2 bond
