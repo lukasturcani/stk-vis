@@ -3,11 +3,9 @@ module Requests.Molecule.Utils
     ) where
 
 import Data.Map (Map, fromFoldable)
-import Requests.Molecue (Molecule, keys)
+import Requests.Molecule (MoleculeKeyValue, Molecule, key)
 
-type MoleculeKeyName = String
-type MoleculeKey = String
-
-
-toMap :: MoleculeKeyName -> Array Molecule -> Map MoleculeKey Molecule
-toMap moleculeKey molecules = fromFoldable
+toMap :: Array Molecule -> Map MoleculeKeyValue Molecule
+toMap moleculeKey molecules
+    = fromFoldable
+    $ map (\m -> Tuple (key molecule) molecule) molecules

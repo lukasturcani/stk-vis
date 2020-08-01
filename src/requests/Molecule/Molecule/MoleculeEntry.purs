@@ -4,7 +4,7 @@ module Requests.Molecule.Internal.MoleculeEntry
     , BondEntry
     ) where
 
-import Requests.Molecule.Internal.MoleculeKey (MoleculeKey)
+import Requests.Molecule.Internal.MoleculeKey (MoleculeKeyValue)
 import Data.Map (Map)
 
 type AtomEntry =
@@ -19,7 +19,7 @@ type BondEntry =
     }
 
 type MoleculeEntry a b =
-    { key   :: MoleculeKey
+    { key   :: MoleculeKeyValue
     , atoms :: Array a
     , bonds :: Array b
     }

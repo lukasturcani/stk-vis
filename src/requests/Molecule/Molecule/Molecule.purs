@@ -16,7 +16,8 @@ import Requests.Molecule.Internal.Data
     ) as Exports
 
 import Requests.Molecule.Internal.MoleculeKey
-    ( MoleculeKey
+    ( MoleculeKeyName
+    , MoleculeKeyValue
     ) as Exports
 
 import Requests.Molecule.Internal.Data

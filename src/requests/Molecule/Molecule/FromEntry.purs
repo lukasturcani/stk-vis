@@ -28,9 +28,9 @@ import Requests.Molecule.Internal.MoleculeEntry
     , BondEntry
     )
 
-import Requests.Molecule.Internal.MoleculeKey (MoleculeKey)
+import Requests.Molecule.Internal.MoleculeKey (MoleculeKeyName)
 
-fromEntry :: MoleculeKey -> Mongo.Entry -> Maybe Molecule
+fromEntry :: MoleculeKeyName -> Mongo.Entry -> Maybe Molecule
 fromEntry moleculeKey entry = do
     moleculeEntry <- toMoleculeEntry moleculeKey entry
     atoms <- foldM (maybeFold atom) Nil moleculeEntry.atoms
@@ -40,7 +40,7 @@ fromEntry moleculeKey entry = do
         (map bond moleculeEntry.bonds)
 
     pure $ Molecule
-        { _key: empty
+        { _key: moleculeEntry.key
         , _properties: empty
         , _molecule: validated
         }

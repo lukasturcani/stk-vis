@@ -56,8 +56,7 @@ request options = do
 
     let
         molecules =
-            Molecule.toMap options.moleculeKey <<<
-            Array.concat <<<
+            Molecule.toMap <<< Array.concat <<<
             map (maybeToArray <<< Molecule.fromEntry) $
             Array.slice 0 options.numEntriesPerPage rawMoleculeEntries
 

@@ -9,7 +9,7 @@ import Data.Array (fromFoldable, (!!))
 import Data.Foldable (foldM)
 import Requests.Utils (maybeFold)
 import Mongo as Mongo
-import Requests.Molecule.Internal.MoleculeKey (MoleculeKey)
+import Requests.Molecule.Internal.MoleculeKey (MoleculeKeyName)
 
 import Requests.Molecule.Internal.MoleculeEntry
     ( MoleculeEntry
@@ -38,12 +38,12 @@ type Helpers =
 
 foreign import toUncheckedMoleculeEntry
     :: Helpers
-    -> MoleculeKey
+    -> MoleculeKeyName
     -> Mongo.Entry
     -> Maybe (MoleculeEntry (Array Int) (Array Int))
 
 toMoleculeEntry
-    :: MoleculeKey
+    :: MoleculeKeyName
     -> Mongo.Entry
     -> Maybe (MoleculeEntry AtomEntry BondEntry)
 

@@ -9,17 +9,17 @@ module Requests.Molecule.Internal.Data
 
 import Data.Map (Map)
 import ValidatedMolecule as Validated
-import Requests.Molecule.Internal.MoleculeKey (MoleculeKey)
+import Requests.Molecule.Internal.MoleculeKey (MoleculeKeyValue)
 
 type Properties = Map String String
 
 data Molecule = Molecule
-    { _key        :: MoleculeKey
+    { _key        :: MoleculeKeyValue
     , _properties :: Properties
     , _molecule   :: Validated.Molecule
     }
 
-key :: Molecule -> MoleculeKey
+key :: Molecule -> MoleculeKeyValue
 key (Molecule { _key }) = _key
 
 properties :: Molecule -> Map String String

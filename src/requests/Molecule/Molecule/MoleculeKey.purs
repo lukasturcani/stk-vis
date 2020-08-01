@@ -1,5 +1,7 @@
 module Requests.Molecule.Internal.MoleculeKey
-    ( MoleculeKey
+    ( MoleculeKeyName
+    , MoleculeKeyValue
     ) where
 
-type MoleculeKey = String
+type MoleculeKeyName = String
+type MoleculeKeyValue = String
