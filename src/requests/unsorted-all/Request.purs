@@ -90,13 +90,13 @@ request options = do
     --let collections =
     --    Utils.toCollection <$> values <*> valueCollections
 
-    -- molecules molecules matrices
+    positioned = Utils.addPositionMatrices molecules matrices
 
 
     pure
         (Result
             { pageKind: pageKind
-                (Array.length moleculeEntries)
+                (Array.length rawMoleculeEntries)
                 options.pageIndex
                 options.numEntriesPerPage
             , valueCollections
