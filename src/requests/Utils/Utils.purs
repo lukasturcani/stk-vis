@@ -27,3 +27,5 @@ maybeToArray Nothing = []
 maybeToArray (Just x) = [x]
 
 foreign import dataQuery ::  -> Array String -> Mongo.Query
+
+

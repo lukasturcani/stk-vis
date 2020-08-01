@@ -1,4 +1,4 @@
-module Requests.Molecule.Internal.MoleculeKey
+module Requests.MoleculeKey
     ( MoleculeKeyName
     , MoleculeKeyValue
     ) where

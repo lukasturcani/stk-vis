@@ -15,6 +15,8 @@ import Requests.Molecule as Molecule
 import Requests.Molecule.Utils as Molecule
 import Requests.Utils (maybeToArray)
 import Requests.PageKind (pageKind)
+import Requests.PositionMatrix as Matrix
+import Requests.PositionMatrix.Utils as Matrix
 
 type RequestOptions =
     { url                                   :: String
@@ -64,37 +66,39 @@ request options = do
             Utils.dataQuery options.moleculeKey
             (Array.fromFoldable <<< keys $ molecules)
 
-    -- matrixEntries1
-    --     <- Mongo.find
-    --         database
-    --         options.positionMatrixCollection
-    --         dataQuery
+    matrixEntries1 <-
+        Mongo.find
+            database
+            options.positionMatrixCollection
+            dataQuery
 
-    -- matrixEntries2
-    --     <- Mongo.find
-    --         database
-    --         options.buildingBlockPositionMatrixCollection
-    --         dataQuery
+    matrixEntries2 <-
+        Mongo.find
+            database
+            options.buildingBlockPositionMatrixCollection
+            dataQuery
 
-    -- let matrices
-    --     = Utils.toMatrices (Array.concat matrixEntries1 matrixEntries2)
+    let matrices =
+        Matrix.toMap <<< Array.concat <<<
+        map (maybeToArray <<< Matrix.fromEntry)
+        (Array.concat [matrixEntries1, matrixEntries2])
 
-    -- values
-    --     <- all $ map (Mongo.find' database dataQuery) valueCollections
+    values <-
+        all $ map (Mongo.find' database dataQuery) valueCollections
 
-    -- let collections
-    --     = Utils.toCollection <$> values <*> valueCollections
+    let collections =
+        Utils.toCollection <$> values <*> valueCollections
 
     -- molecules molecules matrices
 
 
-    -- pure
-    --     (Result
-    --         { pageKind: pageKind
-    --             (Array.length moleculeEntries)
-    --             options.pageIndex
-    --             options.numEntriesPerPage
-    --         , valueCollections
-    --         , molecules: selectingCollection [] first rest
-    --         }
-    --     )
+    pure
+        (Result
+            { pageKind: pageKind
+                (Array.length moleculeEntries)
+                options.pageIndex
+                options.numEntriesPerPage
+            , valueCollections
+            , molecules: selectingCollection [] first rest
+            }
+        )
