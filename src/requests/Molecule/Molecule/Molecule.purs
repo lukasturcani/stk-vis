@@ -18,7 +18,7 @@ import Requests.Molecule.Internal.Data
 import Requests.MoleculeKey (MoleculeKeyValue)
 
 import Requests.Molecule.Internal.Data
-    ( keys
+    ( key
     , properties
     , toValidated
     ) as Data

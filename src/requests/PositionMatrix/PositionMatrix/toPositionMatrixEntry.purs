@@ -2,6 +2,7 @@ module Requests.PositionMatrix.Internal.ToPositionMatrixEntry
     ( toPositionMatrixEntry
     ) where
 
+import Prelude
 import Mongo as Mongo
 import Data.Maybe (Maybe (Nothing, Just))
 import Requests.MoleculeKey (MoleculeKeyName)
@@ -10,8 +11,12 @@ import Requests.PositionMatrix.Internal.PositionMatrixEntry
     ( PositionMatrixEntry
     )
 
+import Requests.PositionMatrix.Internal.PositionMatrixEntry
+    ( PositionMatrixEntry
+    )
+
 type Helpers =
-    { nothing :: Maybe (MoleculeEntry Unit Unit)
+    { nothing :: Maybe Unit
     , just    :: Unit -> Maybe Unit
     }
 

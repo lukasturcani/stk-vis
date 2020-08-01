@@ -2,6 +2,9 @@ module Requests.PositionMatrix.Internal.FromEntry
     ( fromEntry
     ) where
 
+import Prelude
+import Requests.MoleculeKey (MoleculeKeyName)
+import Data.Maybe (Maybe)
 import Requests.PositionMatrix.Internal.Data (PositionMatrix (..))
 import Mongo as Mongo
 

@@ -7,7 +7,7 @@ module Requests.PositionMatrix.Internal.Data
 
 import Requests.MoleculeKey (MoleculeKeyValue)
 
-type Matrix = Array (Array Number))
+type Matrix = Array (Array Number)
 
 data PositionMatrix = PositionMatrix
     { _key    :: MoleculeKeyValue

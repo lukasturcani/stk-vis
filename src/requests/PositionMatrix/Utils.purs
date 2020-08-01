@@ -6,6 +6,7 @@ import Prelude
 import Data.Tuple (Tuple (Tuple))
 import Data.Map (Map, fromFoldable)
 import Requests.MoleculeKey (MoleculeKeyValue)
+import Requests.PositionMatrix (PositionMatrix, key)
 
 toMap :: Array PositionMatrix -> Map MoleculeKeyValue PositionMatrix
 toMap matrices

@@ -78,16 +78,17 @@ request options = do
             options.buildingBlockPositionMatrixCollection
             dataQuery
 
-    let matrices =
-        Matrix.toMap <<< Array.concat <<<
-        map (maybeToArray <<< Matrix.fromEntry)
-        (Array.concat [matrixEntries1, matrixEntries2])
+    let
+        matrices =
+            Matrix.toMap <<< Array.concat <<<
+            map (maybeToArray <<< Matrix.fromEntry)
+            (Array.concat [matrixEntries1, matrixEntries2])
 
-    values <-
-        all $ map (Mongo.find' database dataQuery) valueCollections
+    --values <-
+    --    all $ map (Mongo.find' database dataQuery) valueCollections
 
-    let collections =
-        Utils.toCollection <$> values <*> valueCollections
+    --let collections =
+    --    Utils.toCollection <$> values <*> valueCollections
 
     -- molecules molecules matrices
 

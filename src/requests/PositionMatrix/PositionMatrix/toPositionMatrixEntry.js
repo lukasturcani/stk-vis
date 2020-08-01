@@ -1,4 +1,5 @@
-module.exports = helpers => moleculeKey => entry =>
+exports.toPositionMatrixEntryImpl
+    = helpers => moleculeKey => entry =>
 {
     const result = {};
 

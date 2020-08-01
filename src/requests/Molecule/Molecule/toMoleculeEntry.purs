@@ -59,7 +59,7 @@ toMoleculeEntry moleculeKey entry = do
     atomEntries <- foldM (maybeFold toAtomEntry) Nil unchecked.atoms
     bondEntries <- foldM (maybeFold toBondEntry) Nil unchecked.bonds
     pure (
-        { keys: unchecked.keys
+        { key: unchecked.key
         , atoms: fromFoldable atomEntries
         , bonds: fromFoldable bondEntries
         }

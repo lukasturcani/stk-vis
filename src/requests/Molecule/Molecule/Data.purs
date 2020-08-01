@@ -1,6 +1,5 @@
 module Requests.Molecule.Internal.Data
     ( Molecule (..)
-    , Keys
     , Properties
     , key
     , properties
