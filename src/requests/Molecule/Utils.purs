@@ -2,10 +2,12 @@ module Requests.Molecule.Utils
     ( toMap
     ) where
 
+import Prelude
+import Data.Tuple (Tuple (Tuple))
 import Data.Map (Map, fromFoldable)
 import Requests.Molecule (MoleculeKeyValue, Molecule, key)
 
 toMap :: Array Molecule -> Map MoleculeKeyValue Molecule
-toMap moleculeKey molecules
+toMap molecules
     = fromFoldable
-    $ map (\m -> Tuple (key molecule) molecule) molecules
+    $ map (\molecule -> Tuple (key molecule) molecule) molecules
