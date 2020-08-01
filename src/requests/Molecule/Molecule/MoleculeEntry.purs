@@ -4,7 +4,7 @@ module Requests.Molecule.Internal.MoleculeEntry
     , BondEntry
     ) where
 
-import Requests.Molecule.Internal.MoleculeKey (MoleculeKeyValue)
+import Requests.MoleculeKey (MoleculeKeyValue)
 import Data.Map (Map)
 
 type AtomEntry =

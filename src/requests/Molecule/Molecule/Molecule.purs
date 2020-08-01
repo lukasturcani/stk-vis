@@ -15,10 +15,7 @@ import Requests.Molecule.Internal.Data
     , Properties
     ) as Exports
 
-import Requests.Molecule.Internal.MoleculeKey
-    ( MoleculeKeyName
-    , MoleculeKeyValue
-    ) as Exports
+import Requests.MoleculeKey (MoleculeKeyValue)
 
 import Requests.Molecule.Internal.Data
     ( keys
@@ -30,7 +27,7 @@ import Requests.Molecule.Internal.FromEntry
     ( fromEntry
     ) as  FromEntry
 
-key :: Exports.Molecule -> Exports.MoleculeKey
+key :: Exports.Molecule -> MoleculeKeyValue
 key = Data.key
 
 properties :: Exports.Molecule -> Exports.Properties

@@ -28,7 +28,7 @@ import Requests.Molecule.Internal.MoleculeEntry
     , BondEntry
     )
 
-import Requests.Molecule.Internal.MoleculeKey (MoleculeKeyName)
+import Requests.MoleculeKey (MoleculeKeyName)
 
 fromEntry :: MoleculeKeyName -> Mongo.Entry -> Maybe Molecule
 fromEntry moleculeKey entry = do

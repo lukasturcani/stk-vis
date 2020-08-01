@@ -9,7 +9,7 @@ import Data.Array (fromFoldable, (!!))
 import Data.Foldable (foldM)
 import Requests.Utils (maybeFold)
 import Mongo as Mongo
-import Requests.Molecule.Internal.MoleculeKey (MoleculeKeyName)
+import Requests.MoleculeKey (MoleculeKeyName)
 
 import Requests.Molecule.Internal.MoleculeEntry
     ( MoleculeEntry

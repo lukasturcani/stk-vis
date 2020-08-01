@@ -9,7 +9,7 @@ module Requests.Molecule.Internal.Data
 
 import Data.Map (Map)
 import ValidatedMolecule as Validated
-import Requests.Molecule.Internal.MoleculeKey (MoleculeKeyValue)
+import Requests.MoleculeKey (MoleculeKeyValue)
 
 type Properties = Map String String
 
