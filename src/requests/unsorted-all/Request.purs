@@ -40,7 +40,7 @@ request options = do
             fromFoldable options.ignoredCollections
 
     client <- Mongo.client options.url
-    database <- Mongo.database client options.database
+    let database = Mongo.database client options.database
     collections <- Mongo.collections database
 
     let
@@ -54,21 +54,12 @@ request options = do
 
     let
         molecules =
-            concat <<< map maybeToArray <<< map Molecule.fromEntry $
+            Molecule.toMap options.moleculeKey <<<
+            concat <<< map (maybeToArray <<< Molecule.fromEntry) $
             slice 0 options.numEntriesPerPage rawMoleculeEntries
 
-    pure
-        (Result
-            { pageKind: pageKind
-                (length rawMoleculeEntries)
-                options.pageIndex
-                options.numEntriesPerPage
-            , valueCollections
-            , molecules: molecules
-            }
-        )
-
-    -- let dataQuery = Utils.dataQuery molecules
+    let
+        dataQuery = Utils.dataQuery options.moleculeKey molecules
 
     -- matrixEntries1
     --     <- Mongo.find

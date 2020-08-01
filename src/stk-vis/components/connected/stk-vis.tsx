@@ -47,7 +47,7 @@ function mapDispatchToProps(
             updateMoleculePage: (pageData: PageData) =>
                 dispatch(updateMoleculePage(pageData)),
 
-            initializeMoleculeBrowser: undefined;
+            initializeMoleculeBrowser: undefined,
         },
     };
 }

@@ -4,10 +4,11 @@ module Requests.UnsortedAll.Internal.Result
 
 import Requests.PageKind (PageKind)
 import Requests.Molecule (Molecule)
+import SelectingCollection (SelectingCollection)
 
 data Result = Result
     { valueCollections :: Array String
-    , molecules        :: Array Molecule
+    , molecules        :: SelectingCollection Molecule
     , pageKind         :: PageKind
     }
 
