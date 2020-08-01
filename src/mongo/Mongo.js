@@ -1,6 +1,10 @@
 let { MongoClient } = require('mongodb');
 
-exports.client = url => MongoClient.connect(url);
+exports.client = url => MongoClient.connect(
+    url,
+    {useUnifiedTopology: true}
+);
+
 exports.database = client => database => client.db(database);
 
 exports.collections = database => database
