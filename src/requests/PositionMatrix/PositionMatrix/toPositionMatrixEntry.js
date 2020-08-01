@@ -34,4 +34,5 @@ module.exports = helpers => moleculeKey => entry =>
         }
     }
     result['matrix'] = matrix;
+    return helpers.just(result);
 };
