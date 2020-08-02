@@ -12,10 +12,10 @@ module Mongo
 
 import Effect.Promise (Promise)
 
-data Client = Client
-data Database = Database
-data Query = Query
-data Entry = Entry
+foreign import data Client   :: Type
+foreign import data Database :: Type
+foreign import data Query    :: Type
+foreign import data Entry    :: Type
 
 foreign import client :: String -> Promise Client
 foreign import database :: Client -> String -> Database

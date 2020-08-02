@@ -47,8 +47,8 @@ fromEntries
     -> Array Mongo.Entry
     -> Collection
 
-fromEntries key name entries = Collection
-    { _name: name
+fromEntries key name' entries = Collection
+    { _name: name'
     , _values: fromFoldable valueEntries
     }
   where

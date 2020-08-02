@@ -54,15 +54,30 @@ addPositionMatrix molecule positionMatrix = do
         (matrix positionMatrix)
     bonds = map toBond (Validated.bonds validated)
 
-setPosition
-    :: Validated.MoleculeAtom -> Position.Position -> Validated.Atom
+    setPosition
+        :: Validated.MoleculeAtom
+        -> Position.Position
+        -> Validated.Atom
 
-setPosition atom position =
-    Validated.atom (Validated.chemicalSymbol atom) position
+    setPosition atom position =
+        Validated.atom (Validated.chemicalSymbol atom) position
 
-toBond :: Validated.MoleculeBond -> Validated.Bond
-toBond bond = Validated.bond order atom1Id atom2Id
+    toBond :: Validated.MoleculeBond -> Validated.Bond
+    toBond bond = Validated.bond order atom1Id atom2Id
+      where
+        order = Validated.order bond
+        atom1Id = Validated.id $ Validated.atom1 bond
+        atom2Id = Validated.id $ Validated.atom2 bond
+
+addValues :: Array Molecule -> Array Collection -> Array Molecule
+addValues molecules collections = do
+    molecule <- molecules
+    pure (addValues_ molecule collections)
   where
-    order = Validated.order bond
-    atom1Id = Validated.id $ Validated.atom1 bond
-    atom2Id = Validated.id $ Validated.atom2 bond
+    addValues_ molecule collections =
+        concatMap (value (key molecule)) collections
+
+    value key collection = case get collection key of
+        Just x -> [Tuple (name collection) x]
+        Nothing -> []
+

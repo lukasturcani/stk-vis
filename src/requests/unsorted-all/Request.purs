@@ -74,7 +74,7 @@ request options = do
         Mongo.find database options.moleculeCollection query
 
     let
-        molecules =
+        baseMolecules =
             Molecule.toMap <<< Array.concat <<<
             map (
                 Maybe.toArray <<<
@@ -84,7 +84,7 @@ request options = do
 
         dataQuery =
             Utils.dataQuery options.moleculeKey
-            (Array.fromFoldable <<< keys $ molecules)
+            (Array.fromFoldable <<< keys $ baseMolecules)
 
     matrixEntries1 <-
         Mongo.find
@@ -106,7 +106,7 @@ request options = do
             ) $
             (Array.concat [matrixEntries1, matrixEntries2])
 
-        positioned = Utils.addPositionMatrices molecules matrices
+        positioned = Utils.addPositionMatrices baseMolecules matrices
 
     values <-
         all $ map (Mongo.find' database dataQuery) valueCollections
@@ -116,7 +116,9 @@ request options = do
             Collection.fromEntries options.moleculeKey <$>
             valueCollections <*> values
 
-    collection <- collectionPromise positioned
+        molecules = Utils.addValues positioned values
+
+    collection <- collectionPromise molecules
 
     pure
         (Result
