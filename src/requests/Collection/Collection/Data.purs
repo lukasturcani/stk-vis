@@ -7,7 +7,7 @@ module Requests.Collection.Internal.Data
     ) where
 
 import Prelude
-import Data.Maybe (Maybe (Just, Nothing))
+import Data.Array (concat)
 import Data.Map (Map, fromFoldable)
 import Requests.MoleculeKey (MoleculeKeyValue, MoleculeKeyName)
 
@@ -25,18 +25,17 @@ name (Collection { _name }) = _name
 get :: Collection -> MoleculeKeyValue -> Maybe CollectionValue
 get (Collection { _values }) key = lookup key _values
 
-type ValueEntry =
-    { key   :: MoleculeKeyValue
-    , value :: CollectionValue
-    }
-
 type Helpers =
-    { nothing :: Maybe Unit
-    , just    :: Unit -> Maybe Unit
+    { tuple :: Unit -> Unit -> Tuple Unit Unit
     }
 
 foreign import toEntry
-    :: Helpers -> MoleculeKeyName -> Mongo.Entry -> Maybe ValueEntry
+    :: Helpers
+    -> MoleculeKeyName
+    -> Mongo.Entry
+    -- Returns an empty array if conversion fails and an array of
+    -- one tuple if it is successful.
+    -> Array (Tuple MoleculeKeyValue CollectionValue)
 
 fromEntries
     :: MoleculeKeyName
@@ -49,6 +48,5 @@ fromEntries key name entries = Collection
     , _values: fromFoldable valueEntries
     }
   where
-    helpers = { nothing: Nothing, just: Just }
-    valueEntries = map (toTuple <<< toEntry helpers key) entries
-    toTuple {key, value} = Tuple key value
+    helpers = { tuple: Tuple }
+    valueEntries = concat $ map (toEntry helpers key) entries
