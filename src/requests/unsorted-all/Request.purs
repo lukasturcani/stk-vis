@@ -105,13 +105,13 @@ request options = do
             ) $
             (Array.concat [matrixEntries1, matrixEntries2])
 
-    --values <-
-    --    all $ map (Mongo.find' database dataQuery) valueCollections
-
-    --let collections =
-    --    Utils.toCollection <$> values <*> valueCollections
-
         positioned = Utils.addPositionMatrices molecules matrices
+
+    values <-
+        all $ map (Mongo.find' database dataQuery) valueCollections
+
+    let collections =
+        Utils.toCollection <$> values <*> valueCollections
 
     collection <- collectionPromise positioned
 
