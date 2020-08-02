@@ -16,6 +16,7 @@ import Data.Maybe.Utils as Maybe
 import SelectingCollection (SelectingCollection, selectingCollection)
 import Requests.Utils as Utils
 import Requests.PageKind (pageKind)
+import Requests.Collection as Collection
 
 import Requests.Molecule
     ( Molecule
@@ -61,13 +62,13 @@ request options = do
 
     client <- Mongo.client options.url
     let database = Mongo.database client options.database
-    collections <- Mongo.collections database
+    collectionNames <- Mongo.collections database
 
     let
         valueCollections =
             Array.filter
             (not <<< flip member nonValueCollections)
-            collections
+            collectionNames
 
     rawMoleculeEntries <-
         Mongo.find database options.moleculeCollection query
@@ -110,8 +111,10 @@ request options = do
     values <-
         all $ map (Mongo.find' database dataQuery) valueCollections
 
-    let collections =
-        Utils.toCollection <$> values <*> valueCollections
+    let
+        collections =
+            Collection.fromEntries options.moleculeKey <$>
+            valueCollections <*> values
 
     collection <- collectionPromise positioned
 

@@ -4,11 +4,15 @@ module Requests.Collection.Internal.Data
     , CollectionName
     , name
     , get
+    , fromEntries
     ) where
 
 import Prelude
+import Mongo as Mongo
 import Data.Array (concat)
-import Data.Map (Map, fromFoldable)
+import Data.Map (Map, fromFoldable, lookup)
+import Data.Maybe (Maybe)
+import Data.Tuple (Tuple (Tuple))
 import Requests.MoleculeKey (MoleculeKeyValue, MoleculeKeyName)
 
 type CollectionValue = String
