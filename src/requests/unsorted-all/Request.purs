@@ -116,7 +116,7 @@ request options = do
             Collection.fromEntries options.moleculeKey <$>
             valueCollections <*> values
 
-        molecules = Utils.addValues positioned values
+        molecules = Utils.addValues positioned collections
 
     collection <- collectionPromise molecules
 

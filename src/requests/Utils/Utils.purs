@@ -1,19 +1,22 @@
 module Requests.Utils
     ( dataQuery
     , addPositionMatrices
+    , addValues
     ) where
 
 import Prelude
-import Data.Array (zipWith)
-import Data.Map (Map, toUnfoldable, lookup)
+import Data.Array (zipWith, concatMap)
+import Data.Map (Map, toUnfoldable, lookup, fromFoldable)
 import Data.Tuple (Tuple (Tuple))
-import Data.Maybe (Maybe)
+import Data.Maybe (Maybe (Just, Nothing))
 import Data.Maybe.Utils as Maybe
 import Mongo as Mongo
 import Requests.MoleculeKey (MoleculeKeyName, MoleculeKeyValue)
 import Requests.PositionMatrix (PositionMatrix, matrix)
 import ValidatedMolecule.Position as Position
 import ValidatedMolecule as Validated
+import Requests.Collection as Collection
+import Requests.Molecule as Molecule
 
 import Requests.Molecule
     ( Molecule
@@ -69,15 +72,24 @@ addPositionMatrix molecule positionMatrix = do
         atom1Id = Validated.id $ Validated.atom1 bond
         atom2Id = Validated.id $ Validated.atom2 bond
 
-addValues :: Array Molecule -> Array Collection -> Array Molecule
+addValues
+    :: Array Molecule.Molecule
+    -> Array Collection.Collection
+    -> Array Molecule.Molecule
+
 addValues molecules collections = do
     molecule <- molecules
     pure (addValues_ molecule collections)
   where
-    addValues_ molecule collections =
-        concatMap (value (key molecule)) collections
+    addValues_ molecule collection =
+        Molecule.fromValidated
+            (key molecule)
+            (properties molecule collection)
+            (toValidated molecule)
 
-    value key collection = case get collection key of
-        Just x -> [Tuple (name collection) x]
+    properties molecule collections' =
+        fromFoldable $ concatMap (value (key molecule)) collections'
+
+    value key collection = case Collection.get collection key of
+        Just x -> [Tuple (Collection.name collection) x]
         Nothing -> []
-
