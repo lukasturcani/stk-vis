@@ -7,17 +7,32 @@ import Prelude
 import Mongo as Mongo
 import Data.Array as Array
 import Requests.UnsortedAll.Internal.Result (Result (..))
-import Effect.Promise (class Deferred, Promise, all)
-import Data.Set (Set, fromFoldable, insert, member)
+import Effect.Exception (error)
+import Effect.Promise (class Deferred, Promise, all, reject)
+import Data.Set (fromFoldable, insert, member)
 import Data.Map (keys)
+import Data.Maybe (Maybe (Nothing, Just))
 import Data.Maybe.Utils as Maybe
-import SelectingCollection (selectingCollection)
-import Requests.Molecule as Molecule
-import Requests.Molecule.Utils as Molecule
+import SelectingCollection (SelectingCollection, selectingCollection)
 import Requests.Utils as Utils
 import Requests.PageKind (pageKind)
-import Requests.PositionMatrix as Matrix
-import Requests.PositionMatrix.Utils as Matrix
+
+import Requests.Molecule
+    ( Molecule
+    , fromEntry
+    ) as Molecule
+
+import Requests.Molecule.Utils
+    ( toMap
+    ) as Molecule
+
+import Requests.PositionMatrix
+    ( fromEntry
+    ) as Matrix
+
+import Requests.PositionMatrix.Utils
+    ( toMap
+    ) as Matrix
 
 type RequestOptions =
     { url                                   :: String
@@ -60,7 +75,10 @@ request options = do
     let
         molecules =
             Molecule.toMap <<< Array.concat <<<
-            map (Maybe.toArray <<< Molecule.fromEntry) $
+            map (
+                Maybe.toArray <<<
+                    Molecule.fromEntry options.moleculeKey
+            ) $
             Array.slice 0 options.numEntriesPerPage rawMoleculeEntries
 
         dataQuery =
@@ -82,7 +100,9 @@ request options = do
     let
         matrices =
             Matrix.toMap <<< Array.concat <<<
-            map (Maybe.toArray <<< Matrix.fromEntry)
+            map (
+                Maybe.toArray <<< Matrix.fromEntry options.moleculeKey
+            ) $
             (Array.concat [matrixEntries1, matrixEntries2])
 
     --values <-
@@ -93,6 +113,7 @@ request options = do
 
         positioned = Utils.addPositionMatrices molecules matrices
 
+    collection <- collectionPromise positioned
 
     pure
         (Result
@@ -101,6 +122,15 @@ request options = do
                 options.pageIndex
                 options.numEntriesPerPage
             , valueCollections
-            , molecules: selectingCollection [] first rest
+            , molecules: collection
             }
         )
+
+collectionPromise
+    :: Deferred
+    => Array Molecule.Molecule
+    -> Promise (SelectingCollection Molecule.Molecule)
+
+collectionPromise molecules = case Array.uncons molecules of
+    Just { head: x, tail: xs } -> pure $ selectingCollection [] x xs
+    Nothing -> reject $ error "No valid molecules were found."
