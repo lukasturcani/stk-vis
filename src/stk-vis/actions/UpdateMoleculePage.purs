@@ -1,6 +1,7 @@
 module StkVis.UpdateMoleculePage
     ( UpdateMoleculePage
     , updateMoleculePage
+    , toBrowser
     ) where
 
 import Prelude
@@ -18,3 +19,8 @@ newtype UpdateMoleculePage
 updateMoleculePage :: PageData -> UpdateMoleculePage
 updateMoleculePage
     = UpdateMoleculePage <<< UpdateMoleculePage.updateMoleculePage
+
+toBrowser
+    :: UpdateMoleculePage -> UpdateMoleculePage.UpdateMoleculePage
+
+toBrowser (UpdateMoleculePage payload) = payload

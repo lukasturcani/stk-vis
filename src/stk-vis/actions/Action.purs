@@ -2,7 +2,6 @@ module StkVis.Action
     ( Action
     , updateFields
     , updateMoleculePage
-    , initializeMoleculeBrowser
     ) where
 
 import RequestManager.RequestManager (RequestManager)

@@ -12,9 +12,6 @@ import {
     MongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
 import {
-    PageData,
-} from 'MoleculeBrowser.UpdateMoleculePage.PageData';
-import {
     request,
     Result,
 } from 'Requests.UnsortedAll';
@@ -37,8 +34,7 @@ interface BaseProps
     buildingBlockPositionMatrixCollection: string;
     numEntriesPerPage: number;
     updateFields: (mongoData: MongoData) => void;
-    updateMoleculePage: (pageData: PageData) => void;
-    initializeMoleculeBrowser: (result: Result) => void;
+    updateMoleculePage: (result: Result) => void;
 }
 
 
@@ -102,9 +98,7 @@ export function UnsortedAllButton(
                         pageIndex: 0,
 
                     })
-                    .then(result => {
-                        console.log(result);
-                    });
+                    .then(props.updateMoleculePage);
                 }
             }
         >

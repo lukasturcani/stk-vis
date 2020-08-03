@@ -1,16 +1,23 @@
 module StkVis.Utils.UnsortedAll
-    ( initializeMoleculeBrowser
+    ( updateMoleculePage
     ) where
 
 import Requests.UnsortedAll (Result)
+import Data.Array ((:))
 import StkVis.Action as Action
 import RequestManager
 
-initializeMoleculeBrowser
-    :: (Action -> Effect Unit) -> Result -> Effect Unit
+type MoleculeKeyName = String
 
-initializeMoleculeBrowser
+updateMoleculePage
+    :: (Action -> Effect Unit)
+    -> MoleculeKeyName
+    -> Result
+    -> Effect Unit
+
+updateMoleculePage
     dispatch
+    moleculeKey
     (Result
         { valueCollections
         , molecules
@@ -19,11 +26,10 @@ initializeMoleculeBrowser
     )
     = do
         let
-            action =
-                Action.initializeMoleculeBrowser
-                    RequestManager.initialState
-                    (map )
-                    valueCollections
+            action = Action.updateMoleculePage
+                { molecules: map _toMolecule molecules
+                , columns: moleculeKey : valueCollections
+                }
 
         dispatch action
 
