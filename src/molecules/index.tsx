@@ -83,20 +83,41 @@ ReactDOM.render(
                     <MoleculeTable />
                 </Grid>
                 <Grid item
-                    xs={6}
                     style={{
-                        height: '50%',
+                        height: '100%',
+                        width: '100%',
                     }}
-                >
-                    <TwoDViewer />
-                </Grid>
-                <Grid item
                     xs={6}
-                    style={{
-                        height: '50%',
-                    }}
                 >
-                    <ThreeDViewer />
+                    <Grid container
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            margin: 0,
+                            padding: 10,
+                        }}
+                        spacing={3}
+                        alignItems='center'
+                        justify='center'
+                        direction='row'
+                    >
+                        <Grid item
+                            xs={12}
+                            style={{
+                                height: '50%',
+                            }}
+                        >
+                            <TwoDViewer />
+                        </Grid>
+                        <Grid item
+                            xs={12}
+                            style={{
+                                height: '50%',
+                            }}
+                        >
+                            <ThreeDViewer />
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         </ThemeProvider>
