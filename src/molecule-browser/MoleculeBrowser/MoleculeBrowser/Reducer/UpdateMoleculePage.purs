@@ -8,6 +8,8 @@ import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
 
 import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
     ( UpdateMoleculePage
+    , molecules
+    , columns
     )
 
 import Molecules.Molecules as Molecules

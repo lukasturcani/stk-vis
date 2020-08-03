@@ -2,17 +2,18 @@ module StkVis.Utils.UnsortedAll
     ( updateMoleculePage
     ) where
 
-import Requests.UnsortedAll (Result)
-import Requets.Molecule (Molecule) as Requests
+import Prelude
+import Effect (Effect)
+import Requests.UnsortedAll (Result (..))
+import Requests.Molecule (Molecule, properties) as Requests
 import Molecules.Molecule (Molecule, molecule) as Molecules
 import Data.Array ((:))
 import StkVis.Action as Action
-import RequestManager
 
 type MoleculeKeyName = String
 
 updateMoleculePage
-    :: (Action -> Effect Unit)
+    :: (Action.Action -> Effect Unit)
     -> MoleculeKeyName
     -> Result
     -> Effect Unit

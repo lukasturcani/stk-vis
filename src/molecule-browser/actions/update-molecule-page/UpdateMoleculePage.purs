@@ -7,10 +7,11 @@ module MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
 
 import SelectingCollection (SelectingCollection)
 import Molecules.Molecule (Molecule)
+import MoleculeBrowser.UpdateMoleculePage.PageData (PageData)
 
 data UpdateMoleculePage = UpdateMoleculePage
-    { _molecules: SelectingCollection Molecule
-    , _columns: Array String
+    { _molecules :: SelectingCollection Molecule
+    , _columns   :: Array String
     }
 
 type Molecules = SelectingCollection Molecule

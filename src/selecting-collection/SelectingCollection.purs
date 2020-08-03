@@ -10,14 +10,13 @@ import Prelude
 import Data.Map (Map, toUnfoldable, insert, union, fromFoldable)
 import Data.Tuple (Tuple (Tuple), snd)
 import Data.Array (zipWith, length, (..))
-import Data.Functor (class Functor)
 
 data SelectingCollection a = SelectingCollection
     { _selected :: Tuple Int a
     , _all      :: Map Int a
     }
 
-instance FunctorSelectingCollection :: Functor SelectingCollection
+instance functorSelectingCollection :: Functor SelectingCollection
   where
     map
         f
