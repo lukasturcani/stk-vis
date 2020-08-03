@@ -2,6 +2,8 @@ module RequestManager.RequestManager.Internal.InitialState
     ( initialState
     ) where
 
+import RequestManager.PageKind (PageKind (Middle))
+
 import RequestManager.RequestManager.Internal.RequestManager
     ( RequestManager (UnsortedAll)
     ) as RequestManager
@@ -10,7 +12,7 @@ import RequestManager.RequestManager.Internal.RequestManager.UnsortedAll
     ( UnsortedAll (UnsortedAll)
     ) as UnsortedAll
 
-initialState :: RequestManager
+initialState :: RequestManager.RequestManager
 initialState = RequestManager.UnsortedAll unsortedAll
   where
     unsortedAll = UnsortedAll.UnsortedAll
@@ -24,4 +26,5 @@ initialState = RequestManager.UnsortedAll unsortedAll
         , _pageIndex: 0
         , _numEntriesPerPage: 34
         , _ignoredCollections: []
+        , _pageKind: Middle
         }
