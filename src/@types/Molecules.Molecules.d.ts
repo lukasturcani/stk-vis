@@ -7,6 +7,10 @@ declare module 'Molecules.Molecules'
     import {
         Mesh,
     } from 'mol-draw';
+    import {
+        SelectingCollection
+    } from 'SelectingCollection';
+    import { Molecule } from 'Molecules.Molecule';
 
     export interface TwoDViewerProps
     {
@@ -35,7 +39,10 @@ declare module 'Molecules.Molecules'
     }
 
     export type Molecules = Record<string, unknown>;
-    export const initialState: Molecules;
+    export const initialState:
+        (columns: string[]) =>
+        (molecules: SelectingCollection<Molecule>) =>
+        Molecules;
 
     export const reducer:
         (state: Molecules) =>

@@ -14,6 +14,9 @@ import {
     initialState,
     Molecules,
 } from 'Molecules.Molecules';
+import {
+    molecule,
+} from 'Molecules.Utils'
 import { Action } from 'Molecules.Action';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -22,13 +25,21 @@ import thunk from 'redux-thunk';
 import  { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { selectingCollection } from 'SelectingCollection';
 
 
 const store = createStore(
     (state: Molecules | undefined, action: Action) => {
         if (state === undefined)
         {
-            return initialState;
+            return initialState
+            (['one', 'two', 'three'])
+            (
+                selectingCollection
+                ([])
+                (molecule)
+                ([])
+            );
         }
         return reducer(state)(action);
     },

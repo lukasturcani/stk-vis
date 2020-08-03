@@ -60,11 +60,11 @@ export function ThreeDViewer(
                 id={'ThreeDViewer'}
             >
             {
-                // Use the selected molecule as the div content, so that
-                // the div is forced to re-render when the selected
-                // molecule changes. If this is not the case, the rendered
-                // molecule does not change, even when a new molecule is
-                // selected.
+                // Use the selected molecule as the div content, so
+                // that the div is forced to re-render when the
+                // selected molecule changes. If this is not the case,
+                // the rendered molecule does not change, even when a
+                // new molecule is selected.
             }
             </props.canvas>
         </props.container>

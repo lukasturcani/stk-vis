@@ -12,6 +12,8 @@ import Data.Map (Map, lookup) as Map
 import Data.Maybe (Maybe (Nothing, Just))
 import Molecules.Molecules.Internal.Reducer (reducer) as Reducer
 import Molecules.Action (Action)
+import SelectingCollection (SelectingCollection)
+import Molecules.Molecule (Molecule)
 
 import Molecules.Molecules.Internal.Molecules
     ( Molecules
@@ -33,8 +35,15 @@ import Molecules.Molecules.Internal.Props
     , threeDViewerProps
     ) as Props
 
+import Molecules.Molecules.Internal.InitialState
+    ( Columns
+    ) as Exports
 
-initialState :: Exports.Molecules
+initialState
+    ::  Exports.Columns
+    -> SelectingCollection Molecule
+    -> Exports.Molecules
+
 initialState = InitialState.initialState
 
 reducer :: Exports.Molecules -> Action -> Exports.Molecules
