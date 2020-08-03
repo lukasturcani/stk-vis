@@ -1,15 +1,17 @@
 module RequestManager.Action
     ( Action
     , initializeUnsortedAll
+    , initializeUnsortedBuildingBlocks
     ) where
 
-import RequestManager.Payload
-    ( Payload
-    , initializeUnsortedAll
-    ) as Payload
+import RequestManager.Payload as Payload
 
 import RequestManager.InitializeUnsortedAll
     ( InitializeUnsortedAll
+    )
+
+import RequestManager.InitializeUnsortedBuildingBlocks
+    ( InitializeUnsortedBuildingBlocks
     )
 
 type Action =
@@ -21,4 +23,12 @@ initializeUnsortedAll :: InitializeUnsortedAll -> Action
 initializeUnsortedAll payload =
     { type: "INITIALIZE_UNSORTED_ALL"
     , payload: Payload.initializeUnsortedAll payload
+    }
+
+initializeUnsortedBuildingBlocks
+    :: InitializeUnsortedBuildingBlocks -> Action
+
+initializeUnsortedBuildingBlocks payload =
+    { type: "INITIALIZE_UNSORTED_BUILDING_BLOCKS"
+    , payload: Payload.initializeUnsortedBuildingBlocks payload
     }
