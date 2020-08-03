@@ -25,12 +25,11 @@ initializeUnsortedBuildingBlocks _ payload
             , _database: (Payload.database payload)
             , _moleculeKey: (Payload.moleculeKey payload)
             , _moleculeCollection: (Payload.moleculeCollection payload)
+            , _constructedMoleculeCollection:
+                (Payload.constructedMoleculeCollection payload)
 
             , _positionMatrixCollection:
                 (Payload.positionMatrixCollection payload)
-
-            , _buildingBlockPositionMatrixCollection:
-                (Payload.buildingBlockPositionMatrixCollection payload)
 
             , _pageIndex: (Payload.pageIndex payload)
             , _numEntriesPerPage: (Payload.numEntriesPerPage payload)
