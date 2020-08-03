@@ -17,6 +17,10 @@ import RequestManager.RequestManager.Internal.Reducer.Internal.InitializeUnsorte
     ( initializeUnsortedBuildingBlocks
     )
 
+import RequestManager.RequestManager.Internal.Reducer.Internal.InitializeUnsortedConstructedMolecules
+    ( initializeUnsortedConstructedMolecules
+    )
+
 reducer :: RequestManager -> Action -> RequestManager
 reducer
     requestManager
@@ -27,3 +31,8 @@ reducer
     requestManager
     ({ payload: (InitializeUnsortedBuildingBlocks payload) })
     = initializeUnsortedBuildingBlocks requestManager payload
+
+reducer
+    requestManager
+    ({ payload: (InitializeUnsortedConstructedMolecules payload) })
+    = initializeUnsortedConstructedMolecules requestManager payload

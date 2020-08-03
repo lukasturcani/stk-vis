@@ -38,7 +38,7 @@ initializeUnsortedBuildingBlocks payload =
     , payload: Payload.initializeUnsortedBuildingBlocks payload
     }
 
-initializeUnsortedBuildingBlocks
+initializeUnsortedConstructedMolecules
     :: InitializeUnsortedConstructedMolecules -> Action
 
 initializeUnsortedConstructedMolecules payload =
