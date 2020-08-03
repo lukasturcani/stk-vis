@@ -1,15 +1,15 @@
 module RequestManager.Action
     ( Action
-    , initializeRequestManager
+    , initializeUnsortedAll
     ) where
 
 import RequestManager.Payload
     ( Payload
-    , initializeRequestManager
+    , initializeUnsortedAll
     ) as Payload
 
-import RequestManager.InitializeRequestManager
-    ( InitializeRequestManager
+import RequestManager.InitializeUnsortedAll
+    ( InitializeUnsortedAll
     )
 
 type Action =
@@ -17,9 +17,8 @@ type Action =
     , payload :: Payload.Payload
     }
 
-initializeRequestManager :: InitializeRequestManager -> Action
-initializeRequestManager initializeRequestManager' =
-    { type: "INITIALIZE_REQUEST_MANAGER"
-    , payload:
-        Payload.initializeRequestManager initializeRequestManager'
+initializeUnsortedAll :: InitializeUnsortedAll -> Action
+initializeUnsortedAll payload =
+    { type: "INITIALIZE_UNSORTED_ALL"
+    , payload: Payload.initializeUnsortedAll payload
     }

@@ -1,14 +1,16 @@
 module RequestManager.Payload
     ( Payload (..)
-    , initializeRequestManager
+    , initializeUnsortedAll
     ) where
 
-import RequestManager.InitializeRequestManager
-    ( InitializeRequestManager
+import RequestManager.InitializeUnsortedAll
+    ( InitializeUnsortedAll
+    , UnsortedAllData
+    , initializeUnsortedAll
     )
 
 data Payload
-    = InitializeRequestManager InitializeRequestManager
+    = InitializeUnsortedAll InitializeUnsortedAll
 
-initializeRequestManager :: InitializeRequestManager -> Payload
-initializeRequestManager = InitializeRequestManager
+initializeUnsortedAll :: InitializeUnsortedAll -> Payload
+initializeUnsortedAll = InitializeUnsortedAll
