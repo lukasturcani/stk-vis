@@ -14,6 +14,7 @@ import {
     initialState,
     Molecules,
 } from 'Molecules.Molecules';
+import { Molecule } from 'Molecules.Molecule';
 import {
     molecule,
 } from 'Molecules.Utils'
@@ -32,11 +33,13 @@ const store = createStore(
     (state: Molecules | undefined, action: Action) => {
         if (state === undefined)
         {
+            const empty: Molecule[] = [];
+
             return initialState
             (['one', 'two', 'three'])
             (
                 selectingCollection
-                ([])
+                (empty)
                 (molecule)
                 ([])
             );
