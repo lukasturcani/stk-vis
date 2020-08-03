@@ -14,7 +14,7 @@ import ValidatedMolecule.ChemicalSymbol as ChemicalSymbol
 
 data Molecule = Molecule
     { _properties :: Map String String
-    , _meshes     :: Array Mesh.Mesh
+    , _molecule   :: Validated.Molecule
     , _smiles     :: String
     }
 
@@ -24,12 +24,9 @@ properties (Molecule { _properties }) = _properties
 molecule :: Validated.Molecule -> Map String String -> Molecule
 molecule molecule' properties' = Molecule
     { _properties: properties'
-    , _meshes: meshes'
+    , _molecule: molecule'
     , _smiles: _smiles' molecule'
     }
-  where
-    meshes' = Mesh.meshes meshOptions geometryData
-    geometryData = fromValidatedMolecule molecule'
 
 type Helpers =
     { atoms :: Validated.Molecule -> Array Validated.MoleculeAtom
@@ -64,4 +61,7 @@ smiles :: Molecule -> String
 smiles (Molecule { _smiles }) = _smiles
 
 meshes :: Molecule -> Array Mesh.Mesh
-meshes (Molecule { _meshes }) = _meshes
+meshes (Molecule { _molecule }) = meshes'
+  where
+    meshes' = Mesh.meshes meshOptions geometryData
+    geometryData = fromValidatedMolecule _molecule

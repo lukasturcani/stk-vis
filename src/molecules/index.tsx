@@ -102,7 +102,7 @@ const moleculeKey: string = 'InChIKey';
 
 request()({
     url: 'mongodb://localhost:27017',
-    database: 'stkVis2',
+    database: 'stkVis',
     moleculeKey,
     moleculeCollection: 'molecules',
     positionMatrixCollection: 'position_matrices',
@@ -112,6 +112,9 @@ request()({
     numEntriesPerPage: 34,
     ignoredCollections: [],
 }).then(
-    result => initializeMolecules
-        (store.dispatch)(moleculeKey)(result)
+    result => {
+        console.log(result);
+        initializeMolecules
+        (store.dispatch)(moleculeKey)(result);
+    }
 );
