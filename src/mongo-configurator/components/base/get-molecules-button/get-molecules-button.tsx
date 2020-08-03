@@ -37,12 +37,6 @@ export interface BaseProps
     selectConstructedMolecules: boolean;
     updateFields: (mongoData: MongoData) => void;
     updateMoleculePage: (pageData: PageData) => void;
-    initializeMoleculeBrowser:
-        ( molecules: IMolecule[]
-        , pageKind: PageKind
-        , valueCollections: string[]
-        , moleculeKey: string
-        ) => void;
 }
 
 

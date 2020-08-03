@@ -25,12 +25,6 @@ export interface DispatchProps
 {
     updateFields: (mongoData: MongoData) => void;
     updateMoleculePage: (pageData: PageData) => void;
-    initializeMoleculeBrowser:
-        ( molecules: IMolecule[]
-        , pageKind: PageKind
-        , valueCollections: string[]
-        , moleculeKey: string
-        ) => void;
 }
 
 
@@ -154,9 +148,6 @@ export function MongoConfigurator(
                     }
                     updateFields={ props.updateFields }
                     updateMoleculePage={ props.updateMoleculePage }
-                    initializeMoleculeBrowser= {
-                        props.initializeMoleculeBrowser
-                    }
                 />
             </Grid>
         </props.component>

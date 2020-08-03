@@ -3,6 +3,8 @@ module StkVis.Utils.UnsortedAll
     ) where
 
 import Requests.UnsortedAll (Result)
+import Requets.Molecule (Molecule) as Requests
+import Molecules.Molecule (Molecule, molecule) as Molecules
 import Data.Array ((:))
 import StkVis.Action as Action
 import RequestManager
@@ -33,3 +35,6 @@ updateMoleculePage
 
         dispatch action
 
+_toMolecule :: Requests.Molecule -> Molecules.Molecule
+_toMolecule molecule =
+    Molecules.molecule (Requests.properties molecule)
