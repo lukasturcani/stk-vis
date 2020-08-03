@@ -2,6 +2,8 @@ module RequestManager.RequestManager.Internal.Reducer.Internal.InitializeUnsorte
     ( initializeUnsortedAll
     ) where
 
+import RequestManager.InitializeUnsortedAll as Payload
+
 import RequestManager.RequestManager.Internal.RequestManager
     ( RequestManager (UnsortedAll)
     ) as RequestManager
@@ -10,10 +12,13 @@ import RequestManager.RequestManager.Internal.RequestManager.UnsortedAll
     as UnsortedAll
 
 initializeUnsortedAll
-    :: RequestManager -> InitializeUnsortedAll -> RequestManager
+    :: RequestManager.RequestManager
+    -> Payload.InitializeUnsortedAll
+    -> RequestManager.RequestManager
+
 initializeUnsortedAll _ payload
     = RequestManager.UnsortedAll unsortedAll
   where
     unsortedAll = UnsortedAll.UnsortedAll
-        { _url: (UnsortedAll.url payload)
+        { _url: (Payload.url payload)
         }
