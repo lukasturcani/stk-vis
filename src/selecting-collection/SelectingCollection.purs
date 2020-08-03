@@ -10,11 +10,26 @@ import Prelude
 import Data.Map (Map, toUnfoldable, insert, union, fromFoldable)
 import Data.Tuple (Tuple (Tuple), snd)
 import Data.Array (zipWith, length, (..))
+import Data.Functor (class Functor)
 
 data SelectingCollection a = SelectingCollection
     { _selected :: Tuple Int a
     , _all      :: Map Int a
     }
+
+instance FunctorSelectingCollection :: Functor SelectingCollection
+  where
+    map
+        f
+        (SelectingCollection
+            { _selected: Tuple key value
+            , _all
+            }
+        )
+        = SelectingCollection
+            { _selected: Tuple key (f value)
+            , _all: map f _all
+            }
 
 selectingCollection
     :: forall a

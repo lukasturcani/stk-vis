@@ -16,6 +16,7 @@ import {
 } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
 import {
     request,
+    Result,
 } from 'Requests.UnsortedAll';
 import {
     IMolecule,
@@ -37,12 +38,7 @@ interface BaseProps
     numEntriesPerPage: number;
     updateFields: (mongoData: MongoData) => void;
     updateMoleculePage: (pageData: PageData) => void;
-    initializeMoleculeBrowser:
-        ( molecules: IMolecule[]
-        , pageKind: PageKind
-        , valueCollections: string[]
-        , moleculeKey: string,
-        ) => void;
+    initializeMoleculeBrowser: (result: Result) => void;
 }
 
 
