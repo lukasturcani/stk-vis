@@ -11,8 +11,9 @@ module RequestManager.InitializeUnsortedAll
     , pageIndex
     , numEntriesPerPage
     , ignoredCollections
-    , pageIndex
     ) where
+
+import RequestManager.PageKind (PageKind)
 
 type UnsortedAllData =
     { url                                   :: String
@@ -39,6 +40,38 @@ data InitializeUnsortedAll = InitializeUnsortedAll
     , _ignoredCollections                    :: Array String
     , _pageKind                              :: PageKind
     }
+
+initializeUnsortedAll :: UnsortedAllData -> InitializeUnsortedAll
+initializeUnsortedAll
+    { url: url'
+    , database: database'
+    , moleculeKey: moleculeKey'
+    , moleculeCollection: moleculeCollection'
+    , positionMatrixCollection: positionMatrixCollection'
+
+    , buildingBlockPositionMatrixCollection:
+        buildingBlockPositionMatrixCollection'
+
+    , pageIndex: pageIndex'
+    , numEntriesPerPage: numEntriesPerPage'
+    , ignoredCollections: ignoredCollections'
+    , pageKind: pageKind'
+    }
+    = InitializeUnsortedAll
+        { _url: url'
+        , _database: database'
+        , _moleculeKey: moleculeKey'
+        , _moleculeCollection: moleculeCollection'
+        , _positionMatrixCollection: positionMatrixCollection'
+
+        , _buildingBlockPositionMatrixCollection:
+            buildingBlockPositionMatrixCollection'
+
+        , _pageIndex: pageIndex'
+        , _numEntriesPerPage: numEntriesPerPage'
+        , _ignoredCollections: ignoredCollections'
+        , _pageKind: pageKind'
+        }
 
 url :: InitializeUnsortedAll -> String
 url (InitializeUnsortedAll { _url }) = _url

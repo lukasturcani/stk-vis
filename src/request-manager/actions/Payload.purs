@@ -5,8 +5,6 @@ module RequestManager.Payload
 
 import RequestManager.InitializeUnsortedAll
     ( InitializeUnsortedAll
-    , UnsortedAllData
-    , initializeUnsortedAll
     )
 
 data Payload
