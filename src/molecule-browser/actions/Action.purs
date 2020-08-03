@@ -10,7 +10,6 @@ import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
 import MoleculeBrowser.Payload
     ( Payload
     , updateMoleculePage
-    , initializeMoleculeBrowser
     ) as Payload
 
 type Action =
