@@ -31,6 +31,7 @@ import { theme } from '../theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { selectingCollection } from 'SelectingCollection';
 import { request } from 'Requests.UnsortedAll';
+import Grid from '@material-ui/core/Grid';
 
 
 const store = createStore(
@@ -61,37 +62,43 @@ ReactDOM.render(
     <Provider store={ store }>
         <ThemeProvider theme={theme} >
             <CssBaseline />
-            <div
+            <Grid container
                 style={{
                     height: '100vh',
                     width: '100vw',
+                    margin: 0,
+                    padding: 10,
                 }}
+                spacing={3}
+                alignItems='center'
+                justify='center'
+                direction='row'
             >
-                <div
+                <Grid item
+                    xs={6}
                     style={{
                         height: '100%',
-                        width: '100%',
                     }}
                 >
                     <MoleculeTable />
-                </div>
-                <div
+                </Grid>
+                <Grid item
+                    xs={6}
                     style={{
                         height: '50%',
-                        width: '50%',
                     }}
                 >
                     <TwoDViewer />
-                </div>
-                <div
+                </Grid>
+                <Grid item
+                    xs={6}
                     style={{
                         height: '50%',
-                        width: '50%',
                     }}
                 >
                     <ThreeDViewer />
-                </div>
-            </div>
+                </Grid>
+            </Grid>
         </ThemeProvider>
     </Provider>,
     document.getElementById('root'),
