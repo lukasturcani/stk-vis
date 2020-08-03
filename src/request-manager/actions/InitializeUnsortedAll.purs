@@ -11,6 +11,7 @@ module RequestManager.InitializeUnsortedAll
     , pageIndex
     , numEntriesPerPage
     , ignoredCollections
+    , pageKind
     ) where
 
 import RequestManager.PageKind (PageKind)

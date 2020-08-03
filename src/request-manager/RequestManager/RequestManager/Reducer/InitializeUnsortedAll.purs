@@ -21,4 +21,18 @@ initializeUnsortedAll _ payload
   where
     unsortedAll = UnsortedAll.UnsortedAll
         { _url: (Payload.url payload)
+        , _database: (Payload.database payload)
+        , _moleculeKey: (Payload.moleculeKey payload)
+        , _moleculeCollection: (Payload.moleculeCollection payload)
+
+        , _positionMatrixCollection:
+            (Payload.positionMatrixCollection payload)
+
+        , _buildingBlockPositionMatrixCollection:
+            (Payload.buildingBlockPositionMatrixCollection payload)
+
+        , _pageIndex: (Payload.pageIndex payload)
+        , _numEntriesPerPage: (Payload.numEntriesPerPage payload)
+        , _ignoredCollections: (Payload.ignoredCollections payload)
+        , _pageKind: (Payload.pageKind payload)
         }
