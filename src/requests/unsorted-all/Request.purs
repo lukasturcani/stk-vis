@@ -113,8 +113,10 @@ request options = do
 
     let
         collections =
-            Collection.fromEntries options.moleculeKey <$>
-            valueCollections <*> values
+            Array.zipWith
+                (Collection.fromEntries options.moleculeKey)
+                valueCollections
+                values
 
         molecules = Utils.addValues positioned collections
 
