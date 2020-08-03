@@ -4,4 +4,5 @@ declare module 'Molecules.Action'
     {
         type: string;
     }
+
 }

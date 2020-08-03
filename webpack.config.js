@@ -146,6 +146,12 @@ module.exports = {
                     './output/Molecules.Utils',
                 ),
 
+            'Molecules.Utils.UnsortedAll':
+                path.join(
+                    __dirname,
+                    './output/Molecules.Utils.UnsortedAll',
+                ),
+
             'RequestManager.RequestManager':
                 path.join(
                     __dirname,

@@ -18,7 +18,10 @@ import { Molecule } from 'Molecules.Molecule';
 import {
     molecule,
 } from 'Molecules.Utils'
-import { Action } from 'Molecules.Action';
+import {
+    initializeMolecules,
+} from 'Molecules.Utils.UnsortedAll';
+import * as Action from 'Molecules.Action';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
@@ -27,10 +30,11 @@ import  { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { selectingCollection } from 'SelectingCollection';
+import { request } from 'Requests.UnsortedAll';
 
 
 const store = createStore(
-    (state: Molecules | undefined, action: Action) => {
+    (state: Molecules | undefined, action: Action.Action) => {
         if (state === undefined)
         {
             // Needs the variable to give the correct type to
@@ -94,6 +98,20 @@ ReactDOM.render(
 );
 
 // Add database molecules.
+const moleculeKey: string = 'InChIKey';
 
-
-
+request()({
+    url: 'mongodb://localhost:27017',
+    database: 'stkVis2',
+    moleculeKey,
+    moleculeCollection: 'molecules',
+    positionMatrixCollection: 'position_matrices',
+    buildingBlockPositionMatrixCollection:
+        'building_block_position_matrices',
+    pageIndex: 0,
+    numEntriesPerPage: 34,
+    ignoredCollections: [],
+}).then(
+    result => initializeMolecules
+        (store.dispatch)(moleculeKey)(result)
+);

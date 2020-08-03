@@ -15,6 +15,7 @@ declare module 'Requests.UnsortedAll'
         ignoredCollections: string[];
     }
 
-    export const request: (options: RequestOptions) => Promise<Result>;
+    export const request:
+        () => (options: RequestOptions) => Promise<Result>;
 
 }
