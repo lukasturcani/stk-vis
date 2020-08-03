@@ -6,7 +6,7 @@ exports._smilesImpl = helpers => molecule =>
     const atoms = helpers.atoms(molecule);
     const bonds = helpers.bonds(molecule);
 
-    const molecule = new chemlib.Molecule(
+    const chemlibMolecule = new chemlib.Molecule(
         atoms.length,
         bonds.length
     );
@@ -16,7 +16,7 @@ exports._smilesImpl = helpers => molecule =>
     for (const atom of atoms)
     {
         moleculeAtoms.push(
-            molecule.addAtom(
+         chemlibMolecule.addAtom(
                 helpers.atomicNumber(helpers.chemicalSymbol(atom))
             )
         );
@@ -24,12 +24,12 @@ exports._smilesImpl = helpers => molecule =>
 
     for (const bond of bonds)
     {
-        molecule.addOrChangeBond(
+         chemlibMolecule.addOrChangeBond(
             helpers.id(helpers.atom1(bond)),
             helpers.id(helpers.atom2(bond)),
             helpers.order(bond)
         );
     }
 
-    return molecule.toSmiles();
+    return chemlibMolecule.toSmiles();
 };
