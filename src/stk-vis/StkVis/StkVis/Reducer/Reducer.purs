@@ -14,11 +14,6 @@ import StkVis.StkVis.Internal.Reducer.Internal.UpdateMoleculePage
     ( updateMoleculePage
     )
 
-import StkVis.StkVis.Internal.Reducer.Internal.InitializeMoleculeBrowser
-    ( initializeMoleculeBrowser
-    )
-
-
 reducer :: StkVis -> Action -> StkVis
 reducer
     stkVis
@@ -29,8 +24,3 @@ reducer
     stkVis
     ({ payload: (UpdateMoleculePage payload) })
     = updateMoleculePage stkVis payload
-
-reducer
-    stkVis
-    ({ payload: (InitializeMoleculeBrowser payload) })
-    = initializeMoleculeBrowser stkVis payload

@@ -9,12 +9,12 @@ import RequestManager.RequestManager.Internal.RequestManager
     ( RequestManager
     )
 
-import RequestManager.RequestManager.Internal.Reducer.Internal.InitializeRequestManager
-    ( initializeRequestManager
+import RequestManager.RequestManager.Internal.Reducer.Internal.InitializeUnsortedAll
+    ( initializeUnsortedAll
     )
 
 reducer :: RequestManager -> Action -> RequestManager
 reducer
     requestManager
-    ({ payload: (InitializeRequestManager payload) })
-    = initializeRequestManager requestManager payload
+    ({ payload: (InitializeUnsortedAll payload) })
+    = initializeUnsortedAll requestManager payload

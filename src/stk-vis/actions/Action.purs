@@ -33,20 +33,3 @@ updateMoleculePage data' =
     { type: "UPDATE_MOLECULE_PAGE"
     , payload: Payload.updateMoleculePage data'
     }
-
-initializeMoleculeBrowser
-    :: RequestManager
-    -> SelectingCollection Molecule
-    -> Array String
-    -> Action
-
-initializeMoleculeBrowser
-    requestManager
-    molecules
-    columns =
-        { type: "INITIALIZE_MOLECULE_BROWSER"
-        , payload: Payload.initializeMoleculeBrowser
-            requestManager
-            molecules
-            columns
-        }
