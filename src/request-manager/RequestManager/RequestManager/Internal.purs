@@ -2,6 +2,9 @@ module RequestManager.RequestManager.Internal.RequestManager
     ( RequestManager (..)
     ) where
 
+import RequestManager.SortType (SortType)
+import RequestManager.PageKind (PageKind)
+
 data RequestManager
     = UnsortedAll UnsortedAll
     | UnsortedBuildingBlocks UnsortedBuildingBlocks
