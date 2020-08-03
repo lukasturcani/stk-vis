@@ -5,7 +5,7 @@ module StkVis.Utils.UnsortedAll
 import Prelude
 import Effect (Effect)
 import Requests.UnsortedAll (Result (..))
-import Requests.Molecule (Molecule, properties) as Requests
+import Requests.Molecule as Requests
 import Molecules.Molecule (Molecule, molecule) as Molecules
 import Data.Array ((:))
 import StkVis.Action as Action
@@ -38,4 +38,6 @@ updateMoleculePage
 
 _toMolecule :: Requests.Molecule -> Molecules.Molecule
 _toMolecule molecule =
-    Molecules.molecule (Requests.properties molecule)
+    Molecules.molecule
+        (Requests.toValidated molecule)
+        (Requests.properties molecule)

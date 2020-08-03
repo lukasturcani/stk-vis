@@ -9,7 +9,6 @@ import Molecules.Molecules.Internal.Molecules
 
 import Molecules.Molecule (Molecule)
 import SelectingCollection (SelectingCollection)
-import Data.Map (empty)
 
 type Columns = Array String
 
