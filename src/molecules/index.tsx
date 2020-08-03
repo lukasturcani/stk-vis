@@ -33,6 +33,8 @@ const store = createStore(
     (state: Molecules | undefined, action: Action) => {
         if (state === undefined)
         {
+            // Needs the variable to give the correct type to
+            // the empty list for the selectingCollection call.
             const empty: Molecule[] = [];
 
             return initialState
