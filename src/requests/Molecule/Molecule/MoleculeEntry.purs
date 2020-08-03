@@ -5,7 +5,6 @@ module Requests.Molecule.Internal.MoleculeEntry
     ) where
 
 import Requests.MoleculeKey (MoleculeKeyValue)
-import Data.Map (Map)
 
 type AtomEntry =
     { atomicNumber :: Int
