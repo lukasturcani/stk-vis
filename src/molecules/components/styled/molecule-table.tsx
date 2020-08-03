@@ -25,7 +25,7 @@ type Empty= Record<string, unknown>;
 const Container: React.FunctionComponent<Empty>
     = (props) => (
         <Grid item
-            xs={6}
+            xs={12}
             style={{
                 height: '83%',
             }}
