@@ -140,6 +140,12 @@ module.exports = {
                     './output/Molecules.Action',
                 ),
 
+            'Molecules.Utils':
+                path.join(
+                    __dirname,
+                    './output/Molecules.Utils',
+                ),
+
             'RequestManager.RequestManager':
                 path.join(
                     __dirname,
@@ -162,6 +168,12 @@ module.exports = {
                 path.join(
                     __dirname,
                     './output/Requests.UnsortedAll',
+                ),
+
+            'SelectingCollection':
+                path.join(
+                    __dirname,
+                    './output/SelectingCollection',
                 ),
 
             'mongo-db-requests': path.join(
