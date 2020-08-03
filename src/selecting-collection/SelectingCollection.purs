@@ -39,7 +39,7 @@ selectingCollection
 
 selectingCollection previous selected' next = SelectingCollection
     { _selected: selectedTuple
-    , _all: union previous' next'
+    , _all: insert numPrevious selected' (union previous' next')
     }
   where
     numPrevious = length previous
