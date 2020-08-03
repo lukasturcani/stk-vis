@@ -28,7 +28,7 @@ toBondEntry :: Array Int -> Maybe BondEntry
 toBondEntry entry = do
     atom1Id <- entry !! 0
     atom2Id <- entry !! 1
-    order   <- entry !! 1
+    order   <- entry !! 2
     pure { atom1Id, atom2Id, order }
 
 type Helpers =

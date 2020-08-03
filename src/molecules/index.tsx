@@ -69,24 +69,24 @@ ReactDOM.render(
             >
                 <div
                     style={{
-                        height: '25%',
-                        width: '25%',
+                        height: '100%',
+                        width: '100%',
                     }}
                 >
                     <MoleculeTable />
                 </div>
                 <div
                     style={{
-                        height: '25%',
-                        width: '25%',
+                        height: '50%',
+                        width: '50%',
                     }}
                 >
                     <TwoDViewer />
                 </div>
                 <div
                     style={{
-                        height: '25%',
-                        width: '25%',
+                        height: '50%',
+                        width: '50%',
                     }}
                 >
                     <ThreeDViewer />
@@ -112,9 +112,6 @@ request()({
     numEntriesPerPage: 34,
     ignoredCollections: [],
 }).then(
-    result => {
-        console.log(result);
-        initializeMolecules
-        (store.dispatch)(moleculeKey)(result);
-    }
+    result => initializeMolecules
+        (store.dispatch)(moleculeKey)(result)
 );
