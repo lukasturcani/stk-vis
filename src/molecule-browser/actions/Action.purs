@@ -1,6 +1,7 @@
 module MoleculeBrowser.Action
     ( Action
     , initializeMoleculeBrowser
+    , updateMoleculePage
     ) where
 
 import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage

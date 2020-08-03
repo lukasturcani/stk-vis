@@ -2,6 +2,7 @@ module StkVis.StkVis.Internal.Reducer.Internal.UpdateMoleculePage
     ( updateMoleculePage
     ) where
 
+import Prelude
 import StkVis.StkVis.Internal.StkVis as StkVis
 import StkVis.UpdateMoleculePage (UpdateMoleculePage, toBrowser)
 import MoleculeBrowser.MoleculeBrowser as MoleculeBrowser

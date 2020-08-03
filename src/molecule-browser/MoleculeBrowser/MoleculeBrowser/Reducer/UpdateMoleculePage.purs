@@ -27,8 +27,8 @@ updateMoleculePage
     )
     payload
     = MoleculeBrowser
-        { _requestManager
-        , newMolecules
+        { _requestManager: _requestManager
+        , _molecules: newMolecules
         }
   where
     newMolecules = Molecules.reducer _molecules action
