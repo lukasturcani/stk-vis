@@ -5,13 +5,15 @@ import Paper from '@material-ui/core/Paper';
 import {
     TableProps,
     MoleculeTable as MoleculeTableBase,
+    DispatchProps,
 } from 'molecules/base/molecule-table';
 import {
     MoleculeTableProps,
 } from 'Molecules.Molecules'
 
 
-export const MoleculeTable: React.FunctionComponent<MoleculeTableProps>
+export const MoleculeTable:
+    React.FunctionComponent<MoleculeTableProps & DispatchProps>
     = (props) => <MoleculeTableBase
         container={Container}
         table={Table}

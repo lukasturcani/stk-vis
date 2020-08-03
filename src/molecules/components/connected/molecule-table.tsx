@@ -7,9 +7,14 @@ import {
 import {
     MoleculeTable as MoleculeTableBase,
 } from 'molecules/styled/molecule-table';
+import {
+    DispatchProps,
+} from 'molecules/base/molecule-table';
 
 import * as Action
 from 'Molecules.Action';
+import { selectMolecule } from 'Molecules.SelectMolecule';
+import { Molecule } from 'Molecules.Molecule';
 
 
 function mapStateToProps(
@@ -25,8 +30,15 @@ function mapStateToProps(
 function mapDispatchToProps(
     dispatch: (action: Action.Action) => void,
 )
+    : DispatchProps
 {
     return {
+        selectMolecule:
+            (selected: number, molecule: Molecule) => dispatch(
+                Action.selectMolecule(
+                    selectMolecule(selected)(molecule)
+                )
+            ),
     };
 }
 

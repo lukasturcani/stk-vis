@@ -140,6 +140,12 @@ module.exports = {
                     './output/Molecules.Action',
                 ),
 
+            'Molecules.SelectMolecule':
+                path.join(
+                    __dirname,
+                    './output/Molecules.SelectMolecule',
+                ),
+
             'Molecules.Utils':
                 path.join(
                     __dirname,

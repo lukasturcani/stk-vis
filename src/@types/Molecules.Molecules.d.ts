@@ -32,6 +32,7 @@ declare module 'Molecules.Molecules'
     export interface MoleculeTableProps
     {
         value0: {
+            molecules: Molecule[];
             columns: string[];
             selectedRow: number;
             rows: Map[];

@@ -3,11 +3,16 @@ import {
     MoleculeTableProps,
     get,
 } from 'Molecules.Molecules'
+import { Molecule } from 'Molecules.Molecule';
 
 type Empty = Record<string, unknown>;
 
+export interface DispatchProps
+{
+    selectMolecule: (selected: number, molecule: Molecule) => void;
+}
 
-interface Props extends MoleculeTableProps
+interface Props extends MoleculeTableProps, DispatchProps
 {
     container: React.FunctionComponent<Empty>;
     table: React.FunctionComponent<TableProps>
@@ -72,7 +77,11 @@ export function MoleculeTable(
                 }
                 selectedRow={props.value0.selectedRow}
                 onRowClick={
-                    (e, selectedRow) => console.log(e, selectedRow)
+                    (e, selectedRow) => props.selectMolecule(
+                        selectedRow.tableData.id,
+                        props.value0.molecules
+                            [selectedRow.tableData.id],
+                    )
                 }
             />
         </props.container>

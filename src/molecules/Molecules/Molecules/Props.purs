@@ -10,6 +10,7 @@ module Molecules.Molecules.Internal.Props
 import Prelude
 import Data.Map (Map)
 import Data.Tuple (fst, snd)
+import Molecules.Molecule as Molecule
 import Molecules.Molecules.Internal.Molecules (Molecules (..))
 import Molecules.Molecule (properties, smiles, meshes)
 import MolDraw.DrawMol.Mesh (MeshOptions, Mesh)
@@ -22,6 +23,7 @@ data MoleculeTableProps = MoleculeTableProps
     { columns :: Array String
     , selectedRow :: Int
     , rows :: Array (Map String String)
+    , molecules :: Array Molecule.Molecule
     }
 
 moleculeTableProps :: Molecules -> MoleculeTableProps
@@ -30,8 +32,11 @@ moleculeTableProps
     = MoleculeTableProps
         { columns: _columns
         , selectedRow: fst (selected _molecules)
-        , rows: map properties (all _molecules)
+        , rows: map properties molecules
+        , molecules: molecules
         }
+  where
+    molecules = all _molecules
 
 data TwoDViewerProps = TwoDViewerProps
     { smiles :: String

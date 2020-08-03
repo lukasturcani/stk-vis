@@ -1,14 +1,12 @@
 module Molecules.Action
     ( Action
     , initializeMolecules
+    , selectMolecule
     ) where
 
 import Molecules.InitializeMolecules (InitializeMolecules)
-
-import Molecules.Payload
-    ( Payload
-    , initializeMolecules
-    ) as Payload
+import Molecules.SelectMolecule (SelectMolecule)
+import Molecules.Payload as Payload
 
 type Action =
     { type    :: String
@@ -16,7 +14,13 @@ type Action =
     }
 
 initializeMolecules :: InitializeMolecules -> Action
-initializeMolecules initializeMolecules' =
+initializeMolecules payload =
     { type: "INITIALIZE_MOLECULES"
-    , payload: Payload.initializeMolecules initializeMolecules'
+    , payload: Payload.initializeMolecules payload
+    }
+
+selectMolecule :: SelectMolecule -> Action
+selectMolecule payload =
+    { type: "SELECT_MOLECULE"
+    , payload: Payload.selectMolecule payload
     }
