@@ -23,7 +23,7 @@ data UnsortedAll = UnsortedAll
     , _pageKind                              :: PageKind
     }
 
-data UnsortedBuildingBlocks
+data UnsortedBuildingBlocks = UnsortedBuildingBlocks
     { _url                                   :: String
     , _database                              :: String
     , _moleculeKey                           :: String
@@ -36,7 +36,7 @@ data UnsortedBuildingBlocks
     , _pageKind                              :: PageKind
     }
 
-data UnsortedConstructedMolecules
+data UnsortedConstructedMolecules = UnsortedConstructedMolecules
     { _url                                   :: String
     , _database                              :: String
     , _moleculeKey                           :: String
