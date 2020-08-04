@@ -25,7 +25,7 @@ import {
 } from 'RequestManager.Action';
 import {
     PageKind,
-    Middle,
+    middle,
 } from 'RequestManager.PageKind';
 import {
     SortType,
@@ -83,7 +83,7 @@ const ignoredCollections: string[]
     = [];
 
 const pageKind: PageKind
-    = Middle;
+    = middle;
 
 const sortedCollection: string
     = 'numAtoms';
