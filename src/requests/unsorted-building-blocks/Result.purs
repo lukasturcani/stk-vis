@@ -1,4 +1,4 @@
-module Requests.UnsortedAll.Internal.Result
+module Requests.UnsortedBuildingBlocks.Internal.Result
     ( Result (..)
     ) where
 
