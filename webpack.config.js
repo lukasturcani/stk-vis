@@ -188,6 +188,40 @@ module.exports = {
                     './output/RequestManager.InitializeSortedAll',
                 ),
 
+            'RequestManager.InitializeSortedBuildingBlocks':
+                path.join(
+                    __dirname,
+                    './output/RequestManager.'
+                    + 'InitializeSortedBuildingBlocks',
+                ),
+
+            'RequestManager.InitializeSortedConstructedMolecules':
+                path.join(
+                    __dirname,
+                    './output/RequestManager.'
+                    + 'InitializeSortedConstructedMolecules',
+                ),
+
+            'RequestManager.InitializeUnsortedAll':
+                path.join(
+                    __dirname,
+                    './output/RequestManager.InitializeUnsortedAll',
+                ),
+
+            'RequestManager.InitializeUnsortedBuildingBlocks':
+                path.join(
+                    __dirname,
+                    './output/RequestManager.'
+                    + 'InitializeUnsortedBuildingBlocks',
+                ),
+
+            'RequestManager.InitializeUnsortedConstructedMolecules':
+                path.join(
+                    __dirname,
+                    './output/RequestManager.'
+                    + 'InitializeUnsortedConstructedMolecules',
+                ),
+
             'Requests.UnsortedAll':
                 path.join(
                     __dirname,
