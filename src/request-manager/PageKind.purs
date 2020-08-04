@@ -8,8 +8,6 @@ module RequestManager.PageKind
     , onlyIncomplete
     ) where
 
-import Prelude
-
 data PageKind
     = First
     | Middle
