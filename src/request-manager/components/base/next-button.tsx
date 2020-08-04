@@ -2,9 +2,16 @@ import * as React from 'react';
 import{
     NextButtonProps,
 } from 'RequestManager.RequestManager'
+import {
+    RequestResult,
+} from 'RequestManager.RequestResult';
 
+export interface DispatchProps
+{
+    handleResult: (result: RequestResult) => void;
+}
 
-interface Props extends NextButtonProps
+interface Props extends NextButtonProps, DispatchProps
 {
     button: React.FunctionComponent<ButtonProps>;
 }
@@ -22,7 +29,7 @@ export function NextButton(
 {
     return <props.button
         onClick={
-            () => props.value0.request.then(props.value0.handleResult)
+            () => props.value0.request.then(props.handleResult)
         }
     />;
 }

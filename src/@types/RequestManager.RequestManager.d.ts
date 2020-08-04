@@ -29,7 +29,6 @@ declare module 'RequestManager.RequestManager'
         value0: {
             lastPage: boolean;
             request: Promise<RequestResult>;
-            handleResult: (result: RequestResult) => void;
         };
     }
 
