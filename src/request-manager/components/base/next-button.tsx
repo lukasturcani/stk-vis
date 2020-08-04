@@ -29,7 +29,7 @@ export function NextButton(
 {
     return <props.button
         onClick={
-            () => props.value0.request.then(props.handleResult)
+            () => props.value0.request().then(props.handleResult)
         }
     />;
 }

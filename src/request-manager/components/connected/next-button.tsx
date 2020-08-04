@@ -7,6 +7,9 @@ import {
 import {
     NextButton as NextButtonBase,
 } from 'request-manager/styled/next-button';
+import {
+    DispatchProps,
+} from 'request-manager/base/next-button';
 
 import * as Action
 from 'RequestManager.Action';
@@ -25,8 +28,10 @@ function mapStateToProps(
 function mapDispatchToProps(
     dispatch: (action: Action.Action) => void,
 )
+    : DispatchProps
 {
     return {
+        handleResult: result => console.log(result),
     };
 }
 
