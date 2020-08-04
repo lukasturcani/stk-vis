@@ -12,6 +12,7 @@ interface Props extends NextButtonProps
 
 export interface ButtonProps
 {
+    onClick: () => void;
 }
 
 
@@ -20,5 +21,8 @@ export function NextButton(
 )
 {
     return <props.button
+        onClick={
+            () => props.value0.request.then(props.value0.handleResult)
+        }
     />;
 }

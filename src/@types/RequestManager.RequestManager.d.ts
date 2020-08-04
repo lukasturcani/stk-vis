@@ -4,6 +4,9 @@ declare module 'RequestManager.RequestManager'
     import {
         Action,
     } from 'RequestManager.Action';
+    import {
+        RequestResult,
+    } 'RequestManager.RequestResult';
 
     export type RequestManager = Record<string, unknown>;
 
@@ -25,6 +28,8 @@ declare module 'RequestManager.RequestManager'
     {
         value0: {
             lastPage: boolean;
+            request: Promise<RequestResult>;
+            handleResult: (result: RequestResult) => void;
         };
     }
 
