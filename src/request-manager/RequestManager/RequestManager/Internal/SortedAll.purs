@@ -1,5 +1,6 @@
 module RequestManager.RequestManager.Internal.RequestManager.SortedAll
     ( SortedAll (..)
+    , _pageKind
     ) where
 
 import RequestManager.SortType (SortType)
@@ -19,3 +20,6 @@ data SortedAll = SortedAll
     , _sortType                              :: SortType
     , _pageKind                              :: PageKind
     }
+
+_pageKind :: SortedAll -> PageKind
+_pageKind (SortedAll { _pageKind: pageKind  }) = pageKind

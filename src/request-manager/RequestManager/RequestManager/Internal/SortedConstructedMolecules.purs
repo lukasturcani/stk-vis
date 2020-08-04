@@ -1,5 +1,6 @@
 module RequestManager.RequestManager.Internal.RequestManager.SortedConstructedMolecules
     ( SortedConstructedMolecules (..)
+    , _pageKind
     ) where
 
 import RequestManager.SortType (SortType)
@@ -19,3 +20,7 @@ data SortedConstructedMolecules = SortedConstructedMolecules
     , _sortType                              :: SortType
     , _pageKind                              :: PageKind
     }
+
+_pageKind :: SortedConstructedMolecules -> PageKind
+_pageKind (SortedConstructedMolecules { _pageKind: pageKind })
+    = pageKind

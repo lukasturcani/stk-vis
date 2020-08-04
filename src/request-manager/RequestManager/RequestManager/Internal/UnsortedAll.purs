@@ -1,5 +1,6 @@
 module RequestManager.RequestManager.Internal.RequestManager.UnsortedAll
     ( UnsortedAll (..)
+    , _pageKind
     ) where
 
 import RequestManager.PageKind (PageKind)
@@ -16,3 +17,7 @@ data UnsortedAll = UnsortedAll
     , _ignoredCollections                    :: Array String
     , _pageKind                              :: PageKind
     }
+
+
+_pageKind :: UnsortedAll -> PageKind
+_pageKind (UnsortedAll { _pageKind: pageKind }) = pageKind

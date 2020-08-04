@@ -1,5 +1,6 @@
 module RequestManager.RequestManager.Internal.RequestManager.SortedBuildingBlocks
     ( SortedBuildingBlocks (..)
+    , _pageKind
     ) where
 
 import RequestManager.SortType (SortType)
@@ -19,3 +20,6 @@ data SortedBuildingBlocks = SortedBuildingBlocks
     , _sortType                              :: SortType
     , _pageKind                              :: PageKind
     }
+
+_pageKind :: SortedBuildingBlocks -> PageKind
+_pageKind (SortedBuildingBlocks { _pageKind: pageKind }) = pageKind
