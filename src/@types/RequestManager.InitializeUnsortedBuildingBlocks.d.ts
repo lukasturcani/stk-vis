@@ -20,7 +20,7 @@ declare module 'RequestManager.InitializeUnsortedBuildingBlocks'
         pageKind: PageKind;
     }
 
-    export const initializeSortedAll:
+    export const initializeUnsortedBuildingBlocks:
         (data: UnsortedBuildingBlocksData) =>
         InitializeUnsortedBuildingBlocks;
 }

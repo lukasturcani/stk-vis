@@ -20,7 +20,7 @@ declare module 'RequestManager.InitializeUnsortedConstructedMolecules'
         pageKind: PageKind;
     }
 
-    export const initializeSortedAll:
+    export const initializeUnsortedConstructedMolecules:
         (data: UnsortedConstructedMoleculesData) =>
         InitializeUnsortedConstructedMolecules;
 }

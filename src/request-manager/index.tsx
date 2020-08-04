@@ -14,15 +14,26 @@ import {
     initialState,
     RequestManager,
 } from 'RequestManager.RequestManager';
-import {
-    Action,
-    initializeUnsortedAll,
-    initializeUnsortedBuildingBlocks,
-    initializeUnsortedConstructedMolecules,
-    initializeSortedAll,
-    initializeSortedBuildingBlocks,
-    initializeSortedConstructedMolecules,
-} from 'RequestManager.Action';
+import * as Action from 'RequestManager.Action';
+
+import * as UnsortedAll
+from 'RequestManager.InitializeUnsortedAll';
+
+import * as UnsortedBBs
+from 'RequestManager.InitializeUnsortedBuildingBlocks';
+
+import * as UnsortedCMs
+from 'RequestManager.InitializeUnsortedConstructedMolecules';
+
+import * as SortedAll
+from 'RequestManager.InitializeSortedAll';
+
+import * as SortedBBs
+from 'RequestManager.InitializeSortedBuildingBlocks';
+
+import * as SortedCMs
+from 'RequestManager.InitializeSortedConstructedMolecules';
+
 import {
     PageKind,
     middle,
@@ -41,7 +52,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 const store = createStore(
-    (state: RequestManager | undefined, action: Action) => {
+    (state: RequestManager | undefined, action: Action.Action) => {
         if (state === undefined)
         {
             return initialState;
@@ -90,6 +101,42 @@ const sortedCollection: string
 
 const sortType: SortType
     = ascending;
+
+const initializeUnsortedAll
+    = (data: UnsortedAll.UnsortedAllData) =>
+        Action.initializeUnsortedAll(
+            UnsortedAll.initializeUnsortedAll(data)
+        );
+
+const initializeUnsortedBuildingBlocks
+    = (data: UnsortedBBs.UnsortedBuildingBlocksData) =>
+        Action.initializeUnsortedBuildingBlocks(
+            UnsortedBBs.initializeUnsortedBuildingBlocks(data)
+        );
+
+const initializeUnsortedConstructedMolecules
+    = (data: UnsortedCMs.UnsortedConstructedMoleculesData) =>
+        Action.initializeUnsortedConstructedMolecules(
+            UnsortedCMs.initializeUnsortedConstructedMolecules(data)
+        );
+
+const initializeSortedAll
+    = (data: SortedAll.SortedAllData) =>
+        Action.initializeSortedAll(
+            SortedAll.initializeSortedAll(data)
+        );
+
+const initializeSortedBuildingBlocks
+    = (data: SortedBBs.SortedBuildingBlocksData) =>
+        Action.initializeSortedBuildingBlocks(
+            SortedBBs.initializeSortedBuildingBlocks(data)
+        );
+
+const initializeSortedConstructedMolecules
+    = (data: SortedCMs.SortedConstructedMoleculesData) =>
+        Action.initializeSortedConstructedMolecules(
+            SortedCMs.initializeSortedConstructedMolecules(data)
+        );
 
 
 ReactDOM.render(

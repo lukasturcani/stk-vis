@@ -19,6 +19,6 @@ declare module 'RequestManager.InitializeUnsortedAll'
         pageKind: PageKind;
     }
 
-    export const initializeSortedAll:
+    export const initializeUnsortedAll:
         (data: UnsortedAllData) => InitializeUnsortedAll;
 }
