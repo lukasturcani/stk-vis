@@ -5,7 +5,7 @@ module RequestManager.RequestManager.Internal.Props.Internal.NextButton
 
 import RequestManager.RequestResult (RequestResult)
 import RequestManager.PageKind (PageKind (..))
-import Effect.Promise (Promise)
+import Effect.Promise (class Deferred, Promise)
 
 import RequestManager.RequestManager.Internal.RequestManager
     ( RequestManager (..)
@@ -32,7 +32,7 @@ import RequestManager.RequestManager.Internal.RequestManager.SortedConstructedMo
 
 data NextButtonProps = NextButtonProps
     { lastPage     :: Boolean
-    , request      :: Promise RequestResult
+    , request      :: Deferred => Promise RequestResult
     }
 
 nextButtonProps :: RequestManager -> NextButtonProps
@@ -48,7 +48,7 @@ _lastPage OnlyComplete   = true
 _lastPage OnlyIncomplete = true
 _lastPage _              = false
 
-_request :: RequestManager -> Promise RequestResult
+_request :: Deferred => RequestManager -> Promise RequestResult
 
 _request (UnsortedAll manager)
     = UnsortedAll._nextRequest manager
