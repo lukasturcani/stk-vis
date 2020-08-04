@@ -48,7 +48,7 @@ type RequestOptions =
     , ignoredCollections                    :: Array String
     }
 
-foreign import query :: MoleculeKeyName => Mongo.Query
+foreign import query :: MoleculeKeyName -> Mongo.Query
 
 request :: Deferred => RequestOptions -> Promise Result
 
@@ -75,7 +75,10 @@ request options = do
         Mongo.toArray $
         Mongo.limit (options.numEntriesPerPage+1) $
         Mongo.skip (options.pageIndex * options.numEntriesPerPage) $
-        Mongo.find database options.moleculeCollection query
+        Mongo.find
+            database
+            options.moleculeCollection
+            (query options.moleculeKey)
 
     let
         baseMolecules =

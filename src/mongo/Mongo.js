@@ -23,3 +23,7 @@ exports.skip = number => cursor => cursor.skip(number);
 exports.limit = number => cursor => cursor.limit(number);
 
 exports.toArray = cursor => cursor.toArray();
+
+exports.aggregate = database => collection => query => database
+    .collection(collection)
+    .aggregate(query);
