@@ -29,6 +29,10 @@ import RequestManager.RequestManager.Internal.Reducer.Internal.InitializeSortedB
     ( initializeSortedBuildingBlocks
     )
 
+import RequestManager.RequestManager.Internal.Reducer.Internal.InitializeSortedConstructedMolecules
+    ( initializeSortedConstructedMolecules
+    )
+
 reducer :: RequestManager -> Action -> RequestManager
 reducer
     requestManager
@@ -54,3 +58,8 @@ reducer
     requestManager
     ({ payload: (InitializeSortedBuildingBlocks payload) })
     = initializeSortedBuildingBlocks requestManager payload
+
+reducer
+    requestManager
+    ({ payload: (InitializeSortedConstructedMolecules payload) })
+    = initializeSortedConstructedMolecules requestManager payload
