@@ -21,7 +21,12 @@ declare module 'RequestManager.RequestManager'
         };
     }
 
-    export type NextButtonProps = Record<string, unknown>;
+    export interface NextButtonProps
+    {
+        value0: {
+            lastPage: boolean;
+        };
+    }
 
     export const initialState: RequestManager;
 
