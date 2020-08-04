@@ -1,1 +1,3 @@
-exports.query = {};
+exports.query = moleculeKey => ({
+    [moleculeKey]: { $exists: true },
+});

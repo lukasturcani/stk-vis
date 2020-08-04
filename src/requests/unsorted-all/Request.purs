@@ -17,6 +17,7 @@ import SelectingCollection (SelectingCollection, selectingCollection)
 import Requests.Utils as Utils
 import Requests.PageKind (pageKind)
 import Requests.Collection as Collection
+import Requests.MoleculeKey (MoleculeKeyName)
 
 import Requests.Molecule
     ( Molecule
@@ -47,7 +48,7 @@ type RequestOptions =
     , ignoredCollections                    :: Array String
     }
 
-foreign import query :: Mongo.Query
+foreign import query :: MoleculeKeyName => Mongo.Query
 
 request :: Deferred => RequestOptions -> Promise Result
 
@@ -71,6 +72,9 @@ request options = do
             collectionNames
 
     rawMoleculeEntries <-
+        Mongo.toArray $
+        Mongo.limit (options.numEntriesPerPage+1) $
+        Mongo.skip (options.pageIndex * options.numEntriesPerPage) $
         Mongo.find database options.moleculeCollection query
 
     let
@@ -87,13 +91,13 @@ request options = do
             (Array.fromFoldable <<< keys $ baseMolecules)
 
     matrixEntries1 <-
-        Mongo.find
+        Mongo.toArray $ Mongo.find
             database
             options.positionMatrixCollection
             dataQuery
 
     matrixEntries2 <-
-        Mongo.find
+        Mongo.toArray $ Mongo.find
             database
             options.buildingBlockPositionMatrixCollection
             dataQuery
@@ -109,7 +113,9 @@ request options = do
         positioned = Utils.addPositionMatrices baseMolecules matrices
 
     values <-
-        all $ map (Mongo.find' database dataQuery) valueCollections
+        all $ map
+            (Mongo.toArray <<< Mongo.find' database dataQuery)
+            valueCollections
 
     let
         collections =

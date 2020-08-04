@@ -17,4 +17,9 @@ exports.collections = database => database
 exports.find = database => collection => query => database
     .collection(collection)
     .find(query)
-    .toArray();
+
+exports.skip = number => cursor => cursor.skip(number);
+
+exports.limit = number => cursor => cursor.limit(number);
+
+exports.toArray = cursor => cursor.toArray();
