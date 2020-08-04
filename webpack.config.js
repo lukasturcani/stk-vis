@@ -182,6 +182,12 @@ module.exports = {
                     './output/RequestManager.PageKind',
                 ),
 
+            'RequestManager.InitializeSortedAll':
+                path.join(
+                    __dirname,
+                    './output/RequestManager.InitializeSortedAll',
+                ),
+
             'Requests.UnsortedAll':
                 path.join(
                     __dirname,
