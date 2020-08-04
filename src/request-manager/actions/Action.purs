@@ -4,6 +4,7 @@ module RequestManager.Action
     , initializeUnsortedBuildingBlocks
     , initializeUnsortedConstructedMolecules
     , initializeSortedAll
+    , initializeSortedBuildingBlocks
     ) where
 
 import RequestManager.Payload as Payload
@@ -22,6 +23,10 @@ import RequestManager.InitializeUnsortedConstructedMolecules
 
 import RequestManager.InitializeSortedAll
     ( InitializeSortedAll
+    )
+
+import RequestManager.InitializeSortedBuildingBlocks
+    ( InitializeSortedBuildingBlocks
     )
 
 type Action =
@@ -55,4 +60,12 @@ initializeSortedAll :: InitializeSortedAll -> Action
 initializeSortedAll payload =
     { type: "INITIALIZE_SORTED_ALL"
     , payload: Payload.initializeSortedAll payload
+    }
+
+initializeSortedBuildingBlocks
+    :: InitializeSortedBuildingBlocks -> Action
+
+initializeSortedBuildingBlocks payload =
+    { type: "INITIALIZE_SORTED_BUILDING_BLOCKS"
+    , payload: Payload.initializeSortedBuildingBlocks payload
     }

@@ -4,6 +4,7 @@ module RequestManager.Payload
     , initializeUnsortedBuildingBlocks
     , initializeUnsortedConstructedMolecules
     , initializeSortedAll
+    , initializeSortedBuildingBlocks
     ) where
 
 import RequestManager.InitializeUnsortedAll
@@ -22,12 +23,17 @@ import RequestManager.InitializeSortedAll
     ( InitializeSortedAll
     )
 
+import RequestManager.InitializeSortedBuildingBlocks
+    ( InitializeSortedBuildingBlocks
+    )
+
 data Payload
     = InitializeUnsortedAll InitializeUnsortedAll
     | InitializeUnsortedBuildingBlocks InitializeUnsortedBuildingBlocks
     | InitializeUnsortedConstructedMolecules
         InitializeUnsortedConstructedMolecules
     | InitializeSortedAll InitializeSortedAll
+    | InitializeSortedBuildingBlocks InitializeSortedBuildingBlocks
 
 initializeUnsortedAll :: InitializeUnsortedAll -> Payload
 initializeUnsortedAll = InitializeUnsortedAll
@@ -45,3 +51,7 @@ initializeUnsortedConstructedMolecules
 
 initializeSortedAll :: InitializeSortedAll -> Payload
 initializeSortedAll = InitializeSortedAll
+
+initializeSortedBuildingBlocks
+    :: InitializeSortedBuildingBlocks -> Payload
+initializeSortedBuildingBlocks = InitializeSortedBuildingBlocks

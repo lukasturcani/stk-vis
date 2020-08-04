@@ -25,6 +25,10 @@ import RequestManager.RequestManager.Internal.Reducer.Internal.InitializeSortedA
     ( initializeSortedAll
     )
 
+import RequestManager.RequestManager.Internal.Reducer.Internal.InitializeSortedBuildingBlocks
+    ( initializeSortedBuildingBlocks
+    )
+
 reducer :: RequestManager -> Action -> RequestManager
 reducer
     requestManager
@@ -45,3 +49,8 @@ reducer
     requestManager
     ({ payload: (InitializeSortedAll payload) })
     = initializeSortedAll requestManager payload
+
+reducer
+    requestManager
+    ({ payload: (InitializeSortedBuildingBlocks payload) })
+    = initializeSortedBuildingBlocks requestManager payload
