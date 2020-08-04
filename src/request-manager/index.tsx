@@ -37,6 +37,11 @@ from 'RequestManager.InitializeSortedConstructedMolecules';
 import {
     PageKind,
     middle,
+    first,
+    lastComplete,
+    lastIncomplete,
+    onlyComplete,
+    onlyIncomplete,
 } from 'RequestManager.PageKind';
 import {
     SortType,
@@ -93,7 +98,7 @@ const numEntriesPerPage: number
 const ignoredCollections: string[]
     = [];
 
-const pageKind: PageKind
+let pageKind: PageKind
     = middle;
 
 const sortedCollection: string
@@ -278,6 +283,37 @@ ReactDOM.render(
                     }
                 >
                     SortedConstructedMolecules
+                </button>
+
+                <button
+                    onClick={ () => { pageKind = first; } }
+                >
+                    First
+                </button>
+                <button
+                    onClick={ () => { pageKind = middle; } }
+                >
+                    Middle
+                </button>
+                <button
+                    onClick={ () => { pageKind = lastComplete; } }
+                >
+                    Last Complete
+                </button>
+                <button
+                    onClick={ () => { pageKind = lastIncomplete; } }
+                >
+                    Last Incomplete
+                </button>
+                <button
+                    onClick={ () => { pageKind = onlyComplete; } }
+                >
+                    Only Complete
+                </button>
+                <button
+                    onClick={ () => { pageKind = onlyIncomplete; } }
+                >
+                    Only Incomplete
                 </button>
 
             </div>
