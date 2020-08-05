@@ -5,7 +5,7 @@ module RequestManager.RequestManager.Internal.Reducer.Internal.SetSorted
 import RequestManager.RequestManager.Internal.RequestManager
     as RequestManager
 
-import RequestManager.SetSorted as Payload
+import RequestManager.SetSorted as SetSorted
 
 import RequestManager.RequestManager.Internal.Reducer.Internal.SetSorted.Internal.UnsortedAll
     as UnsortedAll
@@ -27,7 +27,7 @@ import RequestManager.RequestManager.Internal.Reducer.Internal.SetSorted.Interna
 
 setSorted
     :: RequestManager.RequestManager
-    -> Payload.SetSorted
+    -> SetSorted.SetSorted
     -> RequestManager.RequestManager
 
 setSorted
