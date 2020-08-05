@@ -67,3 +67,39 @@ _nextRequest
             , sortType: Utils.toRequestSortType sortType
             }
         pure (RequestResult.SortedAll  result)
+
+_previousRequest
+    :: Deferred => SortedAll -> Promise RequestResult.RequestResult
+
+_previousRequest
+    (SortedAll
+        { _url: url
+        , _database: database
+        , _moleculeKey: moleculeKey
+        , _moleculeCollection: moleculeCollection
+        , _positionMatrixCollection: positionMatrixCollection
+        , _buildingBlockPositionMatrixCollection:
+            buildingBlockPositionMatrixCollection
+        , _pageIndex
+        , _numEntriesPerPage: numEntriesPerPage
+        , _ignoredCollections: ignoredCollections
+        , _sortedCollection: sortedCollection
+        , _sortType: sortType
+        , _pageKind: pageKind
+        }
+    )
+    = do
+        result <- request
+            { url
+            , database
+            , moleculeKey
+            , moleculeCollection
+            , positionMatrixCollection
+            , buildingBlockPositionMatrixCollection
+            , pageIndex: Utils.previousPageIndex _pageIndex
+            , numEntriesPerPage
+            , ignoredCollections
+            , sortedCollection
+            , sortType: Utils.toRequestSortType sortType
+            }
+        pure (RequestResult.SortedAll  result)

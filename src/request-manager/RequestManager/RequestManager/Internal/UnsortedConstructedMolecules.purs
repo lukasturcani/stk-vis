@@ -62,3 +62,36 @@ _nextRequest
             , ignoredCollections
             }
         pure (RequestResult.UnsortedConstructedMolecules result)
+
+_previousRequest
+    :: Deferred
+    => UnsortedConstructedMolecules
+    -> Promise RequestResult.RequestResult
+
+_previousRequest
+    (UnsortedConstructedMolecules
+        { _url: url
+        , _database: database
+        , _moleculeKey: moleculeKey
+        , _moleculeCollection: moleculeCollection
+        , _constructedMoleculeCollection: constructedMoleculeCollection
+        , _positionMatrixCollection: positionMatrixCollection
+        , _pageIndex
+        , _numEntriesPerPage: numEntriesPerPage
+        , _ignoredCollections: ignoredCollections
+        , _pageKind: pageKind
+        }
+    )
+    = do
+        result <- request
+            { url
+            , database
+            , moleculeKey
+            , moleculeCollection
+            , constructedMoleculeCollection
+            , positionMatrixCollection
+            , pageIndex: Utils.previousPageIndex _pageIndex
+            , numEntriesPerPage
+            , ignoredCollections
+            }
+        pure (RequestResult.UnsortedConstructedMolecules result)
