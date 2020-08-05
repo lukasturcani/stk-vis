@@ -89,6 +89,7 @@ request options = do
 
     let
         sortedCollection = SortedCollection.fromEntries
+            options.sortedCollection
             options.moleculeKey
             (Array.slice 0 options.numEntriesPerPage sortedEntries)
 
