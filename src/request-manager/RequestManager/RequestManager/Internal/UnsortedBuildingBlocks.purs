@@ -2,7 +2,7 @@ module RequestManager.RequestManager.Internal.RequestManager.UnsortedBuildingBlo
     ( UnsortedBuildingBlocks (..)
     , _pageKind
     , _nextRequest
-    , _previousRequest
+    , _backRequest
     ) where
 
 import Prelude
@@ -63,12 +63,12 @@ _nextRequest
             }
         pure (RequestResult.UnsortedBuildingBlocks result)
 
-_previousRequest
+_backRequest
     :: Deferred
     => UnsortedBuildingBlocks
     -> Promise RequestResult.RequestResult
 
-_previousRequest
+_backRequest
     (UnsortedBuildingBlocks
         { _url: url
         , _database: database

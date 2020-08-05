@@ -2,7 +2,7 @@ module RequestManager.RequestManager.Internal.RequestManager.UnsortedConstructed
     ( UnsortedConstructedMolecules (..)
     , _pageKind
     , _nextRequest
-    , _previousRequest
+    , _backRequest
     ) where
 
 import Prelude
@@ -64,12 +64,12 @@ _nextRequest
             }
         pure (RequestResult.UnsortedConstructedMolecules result)
 
-_previousRequest
+_backRequest
     :: Deferred
     => UnsortedConstructedMolecules
     -> Promise RequestResult.RequestResult
 
-_previousRequest
+_backRequest
     (UnsortedConstructedMolecules
         { _url: url
         , _database: database

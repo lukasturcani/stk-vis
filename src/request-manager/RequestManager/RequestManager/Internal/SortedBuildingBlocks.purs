@@ -2,7 +2,7 @@ module RequestManager.RequestManager.Internal.RequestManager.SortedBuildingBlock
     ( SortedBuildingBlocks (..)
     , _pageKind
     , _nextRequest
-    , _previousRequest
+    , _backRequest
     ) where
 
 import Prelude
@@ -70,12 +70,12 @@ _nextRequest
             }
         pure (RequestResult.SortedBuildingBlocks result)
 
-_previousRequest
+_backRequest
     :: Deferred
     => SortedBuildingBlocks
     -> Promise RequestResult.RequestResult
 
-_previousRequest
+_backRequest
     (SortedBuildingBlocks
         { _url: url
         , _database: database

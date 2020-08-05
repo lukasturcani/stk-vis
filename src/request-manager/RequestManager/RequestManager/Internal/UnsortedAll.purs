@@ -2,7 +2,7 @@ module RequestManager.RequestManager.Internal.RequestManager.UnsortedAll
     ( UnsortedAll (..)
     , _pageKind
     , _nextRequest
-    , _previousRequest
+    , _backRequest
     ) where
 
 import Prelude
@@ -63,10 +63,10 @@ _nextRequest
             }
         pure (RequestResult.UnsortedAll result)
 
-_previousRequest
+_backRequest
     :: Deferred => UnsortedAll -> Promise RequestResult.RequestResult
 
-_previousRequest
+_backRequest
     (UnsortedAll
         { _url: url
         , _database: database

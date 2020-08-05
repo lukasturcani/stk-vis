@@ -50,19 +50,19 @@ _disabled _              = false
 _request :: Deferred => RequestManager -> Promise RequestResult
 
 _request (UnsortedAll manager)
-    = UnsortedAll._previousRequest manager
+    = UnsortedAll._backRequest manager
 
 _request (UnsortedBuildingBlocks manager)
-    = UnsortedBuildingBlocks._previousRequest manager
+    = UnsortedBuildingBlocks._backRequest manager
 
 _request (UnsortedConstructedMolecules manager)
-    = UnsortedConstructedMolecules._previousRequest manager
+    = UnsortedConstructedMolecules._backRequest manager
 
 _request (SortedAll manager)
-    = SortedAll._previousRequest manager
+    = SortedAll._backRequest manager
 
 _request (SortedBuildingBlocks manager)
-    = SortedBuildingBlocks._previousRequest manager
+    = SortedBuildingBlocks._backRequest manager
 
 _request (SortedConstructedMolecules manager)
-    = SortedConstructedMolecules._previousRequest manager
+    = SortedConstructedMolecules._backRequest manager
