@@ -12,5 +12,5 @@ exports._toTuple = tuple => moleculeKey => entry =>
         return [];
     }
 
-    return tuple(key)(value.toString());
+    return [tuple(key)(value.toString())];
 };
