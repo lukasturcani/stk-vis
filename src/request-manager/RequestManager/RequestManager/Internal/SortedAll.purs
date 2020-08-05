@@ -12,6 +12,9 @@ import RequestManager.RequestResult as RequestResult
 import Requests.SortedAll (request)
 import Requests.SortType as Requests.SortType
 
+import RequestManager.RequestManager.Internal.RequestManager.Internal.Utils
+    as Utils
+
 data SortedAll = SortedAll
     { _url                                   :: String
     , _database                              :: String
@@ -42,11 +45,12 @@ _nextRequest
         , _positionMatrixCollection: positionMatrixCollection
         , _buildingBlockPositionMatrixCollection:
             buildingBlockPositionMatrixCollection
-        , _pageIndex: pageIndex
+        , _pageIndex
         , _numEntriesPerPage: numEntriesPerPage
         , _ignoredCollections: ignoredCollections
         , _sortedCollection: sortedCollection
         , _sortType: sortType
+        , _pageKind: pageKind
         }
     )
     = do
@@ -57,7 +61,7 @@ _nextRequest
             , moleculeCollection
             , positionMatrixCollection
             , buildingBlockPositionMatrixCollection
-            , pageIndex
+            , pageIndex: Utils.nextPageIndex pageKind _pageIndex
             , numEntriesPerPage
             , ignoredCollections
             , sortedCollection
