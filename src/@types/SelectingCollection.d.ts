@@ -6,4 +6,6 @@ declare module 'SelectingCollection'
         (selected: T) =>
         (next: T[]) =>
         SelectingCollection<T>;
+
+    export const all: <T>(collection: SelectingCollection<T>) => T[];
 }
