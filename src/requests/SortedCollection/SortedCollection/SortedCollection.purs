@@ -6,18 +6,20 @@ module Requests.SortedCollection
     , keys
     ) where
 
+import Prelude
 import Data.Tuple (Tuple (Tuple))
 import Data.Array as Array
 import Data.Maybe.Utils as Maybe
-import Requests.MoleculeKey (MoleculeKeyValue)
+import Data.Map as Map
+import Requests.MoleculeKey (MoleculeKeyValue, MoleculeKeyName)
 import Requests.Molecule as Molecule
-import Requests.MoleculeKey (MoleculeKeyName)
+import Mongo as Mongo
 
 type CollectionName = String
 
 data SortedCollection = SortedCollection
     { _name   :: CollectionName
-    , _values :: Map MoleculeKeyValue String
+    , _values :: Map.Map MoleculeKeyValue String
     , _order  :: Array MoleculeKeyValue
     }
 
@@ -46,7 +48,7 @@ foreign import _toTuple
 
 addMolecules
     :: SortedCollection
-    -> Map MoleculeKeyValue Molecule.Molecule
+    -> Map.Map MoleculeKeyValue Molecule.Molecule
     -> Array Molecule.Molecule
 
 addMolecules
@@ -54,10 +56,10 @@ addMolecules
     molecules
     = do
         key <- _order
-        value <- Maybe.toArray (lookup key _values)
-        molecule <- Maybe.toArray (lookup key molecules)
+        value <- Maybe.toArray (Map.lookup key _values)
+        molecule <- Maybe.toArray (Map.lookup key molecules)
         pure $ Molecule.fromValidated
             (Molecule.key molecule)
-            (insert _name value (Molecule.properties molecule))
+            (Map.insert _name value (Molecule.properties molecule))
             (Molecule.toValidated molecule)
 

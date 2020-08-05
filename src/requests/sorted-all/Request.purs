@@ -10,7 +10,6 @@ import Requests.SortedAll.Internal.Result (Result (..))
 import Effect.Exception (error)
 import Effect.Promise (class Deferred, Promise, all, reject)
 import Data.Set (fromFoldable, insert, member)
-import Data.Map (keys)
 import Data.Maybe (Maybe (Nothing, Just))
 import Data.Maybe.Utils as Maybe
 import SelectingCollection (SelectingCollection, selectingCollection)
@@ -19,6 +18,7 @@ import Requests.PageKind (pageKind)
 import Requests.Collection as Collection
 import Requests.MoleculeKey (MoleculeKeyName)
 import Requests.SortType (SortType, isAscending)
+import Requests.SortedCollection as SortedCollection
 
 import Requests.Molecule
     ( Molecule
@@ -51,7 +51,7 @@ type RequestOptions =
     , sortType                              :: SortType
     }
 
-type IsAscending = Boolean;
+type IsAscending = Boolean
 
 foreign import query
     :: MoleculeKeyName -> IsAscending -> Mongo.AggregationQuery
@@ -121,7 +121,7 @@ request options = do
             map (
                 Maybe.toArray <<<
                     Molecule.fromEntry options.moleculeKey
-            )
+            ) $
             rawMoleculeEntries
 
         matrices =
