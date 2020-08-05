@@ -1,5 +1,6 @@
 module RequestManager.SetSorted
     ( SetSorted
+    , CollectionName
     , setSorted
     , collection
     , sortType
