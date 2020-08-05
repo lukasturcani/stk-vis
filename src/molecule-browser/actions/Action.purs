@@ -3,6 +3,7 @@ module MoleculeBrowser.Action
     , updateMoleculePage
     , initializeMolecules
     , setSorted
+    , setUnsorted
     ) where
 
 import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
@@ -15,6 +16,10 @@ import MoleculeBrowser.InitializeMolecules
 
 import MoleculeBrowser.SetSorted
     ( SetSorted
+    )
+
+import MoleculeBrowser.SetUnsorted
+    ( SetUnsorted
     )
 
 import MoleculeBrowser.Payload as Payload
@@ -40,4 +45,10 @@ setSorted :: SetSorted -> Action
 setSorted payload =
     { type: "SET_SORTED"
     , payload: Payload.setSorted payload
+    }
+
+setUnsorted :: SetUnsorted -> Action
+setUnsorted payload =
+    { type: "SET_UNSORTED"
+    , payload: Payload.setUnsorted payload
     }
