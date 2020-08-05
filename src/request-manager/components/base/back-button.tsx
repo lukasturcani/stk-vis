@@ -2,9 +2,18 @@ import * as React from 'react';
 import {
     BackButtonProps
 } from 'RequestManager.RequestManager'
+import {
+    RequestResult,
+} from 'RequestManager.RequestResult';
 
 
-interface Props extends BackButtonProps
+export interface DispatchProps
+{
+    handleResult: (result: RequestResult) => void;
+}
+
+
+interface Props extends BackButtonProps, DispatchProps
 {
     button: React.FunctionComponent<ButtonProps>;
 }
@@ -12,6 +21,7 @@ interface Props extends BackButtonProps
 export interface ButtonProps
 {
     disabled: boolean;
+    onClick: () => void;
 }
 
 
@@ -20,6 +30,9 @@ export function BackButton(
 )
 {
     return <props.button
+        onClick={
+            () => props.value0.request().then(props.handleResult)
+        }
         disabled={props.value0.disabled}
     />;
 }

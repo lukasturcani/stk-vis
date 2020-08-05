@@ -5,7 +5,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import {
     ButtonProps,
-    NextButton as NextButtonBase
+    NextButton as NextButtonBase,
     DispatchProps,
 } from 'request-manager/base/next-button';
 import {

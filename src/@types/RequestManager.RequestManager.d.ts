@@ -14,6 +14,7 @@ declare module 'RequestManager.RequestManager'
     {
         value0: {
             disabled: boolean;
+            request: () => Promise<RequestResult>;
         };
     }
 

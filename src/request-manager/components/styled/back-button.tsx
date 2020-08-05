@@ -4,12 +4,14 @@ import Button from '@material-ui/core/Button';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import {
     ButtonProps,
-    BackButton as BackButtonBase
+    BackButton as BackButtonBase,
+    DispatchProps,
 } from 'request-manager/base/back-button';
 import {
     BackButtonProps,
 } from 'RequestManager.RequestManager'
 
+type Props = NextButtonProps & DispatchProps;
 
 export const BackButton: React.FunctionComponent<BackButtonProps>
     = (props) => <BackButtonBase
