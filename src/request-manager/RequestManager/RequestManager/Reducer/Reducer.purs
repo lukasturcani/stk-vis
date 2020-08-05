@@ -33,6 +33,14 @@ import RequestManager.RequestManager.Internal.Reducer.Internal.InitializeSortedC
     ( initializeSortedConstructedMolecules
     )
 
+import RequestManager.RequestManager.Internal.Reducer.Internal.SetUnsorted
+    ( setUnsorted
+    )
+
+import RequestManager.RequestManager.Internal.Reducer.Internal.SetSorted
+    ( setSorted
+    )
+
 reducer :: RequestManager -> Action -> RequestManager
 reducer
     requestManager
@@ -63,3 +71,14 @@ reducer
     requestManager
     ({ payload: (InitializeSortedConstructedMolecules payload) })
     = initializeSortedConstructedMolecules requestManager payload
+
+reducer
+    requestManager
+    ({ payload: (SetUnsorted payload) })
+    = setUnsorted requestManager payload
+
+reducer
+    requestManager
+    ({ payload: (SetSorted payload) })
+    = setSorted requestManager payload
+

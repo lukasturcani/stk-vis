@@ -1,11 +1,11 @@
-module RequestManager.RequestManager.Internal.Reducer.Internal.SetSorted.Internal.SortedAll
+module RequestManager.RequestManager.Internal.Reducer.Internal.SetUnsorted.Internal.SortedAll
     ( setUnsorted
     ) where
 
 import RequestManager.RequestManager.Internal.RequestManager
     as RequestManager
 
-import RequestManager.SetSorted as SetSorted
+import RequestManager.SetUnsorted as SetUnsorted
 
 import RequestManager.RequestManager.Internal.RequestManager.SortedAll
     as SortedAll

@@ -1,4 +1,4 @@
-module RequestManager.RequestManager.Internal.Reducer.Internal.SetSorted.Internal.SortedConstructedMolecules
+module RequestManager.RequestManager.Internal.Reducer.Internal.SetUnsorted.Internal.SortedConstructedMolecules
     ( setUnsorted
     ) where
 
