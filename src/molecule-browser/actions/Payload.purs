@@ -4,6 +4,12 @@ module MoleculeBrowser.Payload
     , initializeMolecules
     , setSorted
     , setUnsorted
+    , initializeSortedAll
+    , initializeSortedBuildingBlocks
+    , initializeSortedConstructedMolecules
+    , initializeUnsortedAll
+    , initializeUnsortedBuildingBlocks
+    , initializeUnsortedConstructedMolecules
     ) where
 
 import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
@@ -27,6 +33,14 @@ data Payload
     | InitializeMolecules InitializeMolecules
     | SetSorted SetSorted
     | SetUnsorted SetUnsorted
+    | InitializeUnsortedAll InitializeUnsortedAll
+    | InitializeUnsortedBuildingBlocks InitializeUnsortedBuildingBlocks
+    | InitializeUnsortedConstructedMolecules
+        InitializeUnsortedConstructedMolecules
+    | InitializeSortedAll InitializeSortedAll
+    | InitializeSortedBuildingBlocks InitializeSortedBuildingBlocks
+    | InitializeSortedConstructedMolecules
+        InitializeSortedConstructedMolecules
 
 updateMoleculePage :: UpdateMoleculePage -> Payload
 updateMoleculePage = UpdateMoleculePage
@@ -39,3 +53,27 @@ setSorted = SetSorted
 
 setUnsorted :: SetUnsorted -> Payload
 setUnsorted = SetUnsorted
+
+initializeSortedAll :: InitializeSortedAll -> Payload
+initializeSortedAll = InitializeSortedAll
+
+initializeSortedBuildingBlocks
+    :: InitializeSortedBuildingBlocks -> Payload
+initializeSortedBuildingBlocks = InitializeSortedBuildingBlocks
+
+initializeSortedConstructedMolecules
+    :: InitializeSortedConstructedMolecules -> Payload
+initializeSortedConstructedMolecules
+    = InitializeSortedConstructedMolecules
+
+initializeUnsortedAll :: InitializeUnsortedAll -> Payload
+initializeUnsortedAll = InitializeUnsortedAll
+
+initializeUnsortedBuildingBlocks
+    :: InitializeUnsortedBuildingBlocks -> Payload
+initializeSortedBuildingBlocks
+
+initializeUnsortedConstructedMolecules
+    :: InitializeUnsortedConstructedMolecules -> Payload
+initializeUnsortedConstructedMolecules
+    = InitializeUnsortedConstructedMolecules
