@@ -58,17 +58,6 @@ function mapDispatchToProps(
         updateMoleculePage:
             (pageData: PageData) => console.log(pageData),
 
-        initializeMoleculeBrowser:
-            ( molecules: IMolecule[]
-            ,  pageKind: PageKind
-            , valueCollections: string []
-            , moleculeKey: string
-            ) => {
-                console.log(molecules);
-                console.log(pageKind);
-                console.log(valueCollections);
-                console.log(moleculeKey);
-            },
     };
 }
 

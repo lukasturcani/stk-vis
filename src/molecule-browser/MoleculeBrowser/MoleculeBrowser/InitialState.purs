@@ -15,5 +15,5 @@ initialState :: MoleculeBrowser
 initialState = MoleculeBrowser
     { _requestManager: RequestManager.initialState
     , _molecules: Molecules.initialState
-        [] (selectingCollection [] molecule [])
+        ["one", "two", "five"] (selectingCollection [] molecule [])
     }
