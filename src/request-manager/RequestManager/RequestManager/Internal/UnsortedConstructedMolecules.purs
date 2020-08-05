@@ -8,7 +8,10 @@ import Prelude
 import RequestManager.PageKind (PageKind)
 import Effect.Promise (class Deferred, Promise)
 import RequestManager.RequestResult as RequestResult
-import Requests.UnsortedAll (request)
+import Requests.UnsortedConstructedMolecules (request)
+
+import RequestManager.RequestManager.Internal.RequestManager.Internal.Utils
+    as Utils
 
 data UnsortedConstructedMolecules = UnsortedConstructedMolecules
     { _url                                   :: String
@@ -38,10 +41,12 @@ _nextRequest
         , _database: database
         , _moleculeKey: moleculeKey
         , _moleculeCollection: moleculeCollection
+        , _constructedMoleculeCollection: constructedMoleculeCollection
         , _positionMatrixCollection: positionMatrixCollection
-        , _pageIndex: pageIndex
+        , _pageIndex
         , _numEntriesPerPage: numEntriesPerPage
         , _ignoredCollections: ignoredCollections
+        , _pageKind: pageKind
         }
     )
     = do
@@ -50,11 +55,10 @@ _nextRequest
             , database
             , moleculeKey
             , moleculeCollection
+            , constructedMoleculeCollection
             , positionMatrixCollection
-            , buildingBlockPositionMatrixCollection:
-                "building_block_position_matrices"
-            , pageIndex
+            , pageIndex: Utils.nextPageIndex pageKind _pageIndex
             , numEntriesPerPage
             , ignoredCollections
             }
-        pure (RequestResult.UnsortedAll result)
+        pure (RequestResult.UnsortedConstructedMolecules result)
