@@ -6,6 +6,8 @@ module RequestManager.Action
     , initializeSortedAll
     , initializeSortedBuildingBlocks
     , initializeSortedConstructedMolecules
+    , setUnsorted
+    , setSorted
     ) where
 
 import RequestManager.Payload as Payload
@@ -33,6 +35,9 @@ import RequestManager.InitializeSortedBuildingBlocks
 import RequestManager.InitializeSortedConstructedMolecules
     ( InitializeSortedConstructedMolecules
     )
+
+import RequestManager.SetUnsorted (SetUnsorted)
+import RequestManager.SetSorted (SetSorted)
 
 type Action =
     { type    :: String
@@ -81,4 +86,16 @@ initializeSortedConstructedMolecules
 initializeSortedConstructedMolecules payload =
     { type: "INITIALIZE_SORTED_CONSTRUCTED_MOLECULES"
     , payload: Payload.initializeSortedConstructedMolecules payload
+    }
+
+setUnsorted :: SetUnsorted -> Action
+setUnsorted payload =
+    { type: "SET_UNSORTED"
+    , payload: Payload.setUnsorted payload
+    }
+
+setSorted :: SetSorted -> Action
+setSorted payload =
+    { type: "SET_SORTED"
+    , payload: Payload.setSorted payload
     }
