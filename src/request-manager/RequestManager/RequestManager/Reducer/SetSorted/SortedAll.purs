@@ -42,7 +42,7 @@ setSorted
             , _numEntriesPerPage
             , _ignoredCollections
             , _pageKind
-            , _sortedCollection: collection payload
-            , _sortType: sortType payload
+            , _sortedCollection: SetSorted.collection payload
+            , _sortType: SetSorted.sortType payload
             }
         )

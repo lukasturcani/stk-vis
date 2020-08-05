@@ -21,8 +21,8 @@ setSorted
         , _database
         , _moleculeKey
         , _moleculeCollection
+        , _constructedMoleculeCollection
         , _positionMatrixCollection
-        , _buildingBlockPositionMatrixCollection
         , _pageIndex
         , _numEntriesPerPage
         , _ignoredCollections
@@ -36,13 +36,13 @@ setSorted
             , _database
             , _moleculeKey
             , _moleculeCollection
+            , _constructedMoleculeCollection
             , _positionMatrixCollection
-            , _buildingBlockPositionMatrixCollection
             , _pageIndex
             , _numEntriesPerPage
             , _ignoredCollections
             , _pageKind
-            , _sortedCollection: collection payload
-            , _sortType: sortType payload
+            , _sortedCollection: SetSorted.collection payload
+            , _sortType: SetSorted.sortType payload
             }
         )
