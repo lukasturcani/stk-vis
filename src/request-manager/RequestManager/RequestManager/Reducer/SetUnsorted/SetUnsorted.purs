@@ -7,15 +7,6 @@ import RequestManager.RequestManager.Internal.RequestManager
 
 import RequestManager.SetUnsorted as SetUnsorted
 
-import RequestManager.RequestManager.Internal.Reducer.Internal.SetUnsorted.Internal.UnsortedAll
-    as UnsortedAll
-
-import RequestManager.RequestManager.Internal.Reducer.Internal.SetUnsorted.Internal.UnsortedBuildingBlocks
-    as UnsortedBuildingBlocks
-
-import RequestManager.RequestManager.Internal.Reducer.Internal.SetUnsorted.Internal.UnsortedConstructedMolecules
-    as UnsortedConstructedMolecules
-
 import RequestManager.RequestManager.Internal.Reducer.Internal.SetUnsorted.Internal.SortedAll
     as SortedAll
 
@@ -31,19 +22,19 @@ setUnsorted
     -> RequestManager.RequestManager
 
 setUnsorted
-    (RequestManager.UnsortedAll manager)
+    manager@(RequestManager.UnsortedAll _)
     payload
-    = UnsortedAll.setUnsorted manager payload
+    = manager
 
 setUnsorted
-    (RequestManager.UnsortedBuildingBlocks manager)
+    manager@(RequestManager.UnsortedBuildingBlocks _)
     payload
-    = UnsortedBuildingBlocks.setUnsorted manager payload
+    = manager
 
 setUnsorted
-    (RequestManager.UnsortedConstructedMolecules manager)
+    manager@(RequestManager.UnsortedConstructedMolecules _)
     payload
-    = UnsortedConstructedMolecules.setUnsorted manager payload
+    = manager
 
 setUnsorted
     (RequestManager.SortedAll manager)
