@@ -62,6 +62,7 @@ request options = do
 
     let
         nonValueCollections =
+            insert options.sortedCollection $
             insert options.moleculeCollection $
             insert options.positionMatrixCollection $
             insert options.buildingBlockPositionMatrixCollection $
@@ -88,8 +89,8 @@ request options = do
 
     let
         sortedCollection = SortedCollection.fromEntries
-            options.moleculeKey $
-            Array.slice 0 options.numEntriesPerPage sortedEntries
+            options.moleculeKey
+            (Array.slice 0 options.numEntriesPerPage sortedEntries)
 
         dataQuery = Utils.dataQuery
             options.moleculeKey
@@ -143,14 +144,19 @@ request options = do
                 valueCollections
                 values
 
-        molecules = Utils.addValues positioned collections
+        molecules =
+            Molecule.toMap
+                (Utils.addValues positioned collections)
 
-    collection <- collectionPromise molecules
+        sortedMolecules =
+            sortedCollection `SortedCollection.addMolecules` molecules
+
+    collection <- collectionPromise sortedMolecules
 
     pure
         (Result
             { pageKind: pageKind
-                (Array.length rawMoleculeEntries)
+                (Array.length sortedEntries)
                 options.pageIndex
                 options.numEntriesPerPage
             , valueCollections
