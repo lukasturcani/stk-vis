@@ -222,6 +222,18 @@ module.exports = {
                     + 'InitializeUnsortedConstructedMolecules',
                 ),
 
+            'RequestManager.SetSorted':
+                path.join(
+                    __dirname,
+                    './output/RequestManager.SetSorted',
+                ),
+
+            'RequestManager.SetUnsorted':
+                path.join(
+                    __dirname,
+                    './output/RequestManager.SetUnsorted',
+                ),
+
             'Requests.UnsortedAll':
                 path.join(
                     __dirname,
