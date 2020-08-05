@@ -162,7 +162,8 @@ request options = do
                 (Array.length sortedEntries)
                 options.pageIndex
                 options.numEntriesPerPage
-            , valueCollections
+            , valueCollections: Array.concat
+                [[options.sortedCollection], valueCollections]
             , molecules: collection
             }
         )
