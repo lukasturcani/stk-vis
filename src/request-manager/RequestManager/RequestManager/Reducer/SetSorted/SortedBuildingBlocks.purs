@@ -11,7 +11,7 @@ import RequestManager.RequestManager.Internal.RequestManager.SortedBuildingBlock
     as SortedBuildingBlocks
 
 setSorted
-    :: SortedBuildingBlocks
+    :: SortedBuildingBlocks.SortedBuildingBlocks
     -> SetSorted.SetSorted
     -> RequestManager.RequestManager
 

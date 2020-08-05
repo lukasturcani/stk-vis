@@ -11,7 +11,7 @@ import RequestManager.RequestManager.Internal.RequestManager.SortedAll
     as SortedAll
 
 setSorted
-    :: SortedAll
+    :: SortedAll.SortedAll
     -> SetSorted.SetSorted
     -> RequestManager.RequestManager
 

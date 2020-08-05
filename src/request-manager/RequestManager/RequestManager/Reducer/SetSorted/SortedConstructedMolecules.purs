@@ -11,7 +11,7 @@ import RequestManager.RequestManager.Internal.RequestManager.SortedConstructedMo
     as SortedConstructedMolecules
 
 setSorted
-    :: SortedConstructedMolecules
+    :: SortedConstructedMolecules.SortedConstructedMolecules
     -> SetSorted.SetSorted
     -> RequestManager.RequestManager
 
