@@ -1,19 +1,19 @@
-module Requests.UnsortedAll
+module Requests.SortedAll
     ( request
     , module Exports
     ) where
 
 import Effect.Promise (class Deferred, Promise)
 
-import Requests.UnsortedAll.Internal.Request
+import Requests.SortedAll.Internal.Request
     ( RequestOptions
     ) as Exports
 
-import Requests.UnsortedAll.Internal.Result
+import Requests.SortedAll.Internal.Result
     ( Result (..)
     ) as Exports
 
-import Requests.UnsortedAll.Internal.Request
+import Requests.SortedAll.Internal.Request
     ( request
     ) as Request
 

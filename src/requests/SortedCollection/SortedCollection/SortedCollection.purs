@@ -1,16 +1,22 @@
 module Requests.SortedCollection
     ( SortedCollection
+    , CollectionName
     , addMolecules
     , fromEntries
     , keys
     ) where
 
+import Data.Tuple (Tuple (Tuple))
+import Data.Array as Array
 import Data.Maybe.Utils as Maybe
 import Requests.MoleculeKey (MoleculeKeyValue)
 import Requests.Molecule as Molecule
+import Requests.MoleculeKey (MoleculeKeyName)
+
+type CollectionName = String
 
 data SortedCollection = SortedCollection
-    { _name   :: String
+    { _name   :: CollectionName
     , _values :: Map MoleculeKeyValue String
     , _order  :: Array MoleculeKeyValue
     }
@@ -18,11 +24,25 @@ data SortedCollection = SortedCollection
 keys :: SortedCollection -> Array MoleculeKeyValue
 keys (SortedCollection { _order }) = _order
 
-fromEntries :: MoleculeKeyName -> Array Mongo.Entry -> SortedCollection
-fromEntries key entries = SortedCollection
-    { _values:
-    , _order:
+fromEntries
+    :: CollectionName
+    -> MoleculeKeyName
+    -> Array Mongo.Entry
+    -> SortedCollection
+
+fromEntries name key entries = SortedCollection
+    { _name: name
+    , _values: Map.fromFoldable entries'
+    , _order: map (\(Tuple k _) -> k) entries'
     }
+  where
+    entries' = Array.concatMap (_toTuple Tuple key) entries
+
+foreign import _toTuple
+    :: (String -> String -> Tuple String String)
+    -> MoleculeKeyName
+    -> Mongo.Entry
+    -> Array (Tuple String String)
 
 addMolecules
     :: SortedCollection
