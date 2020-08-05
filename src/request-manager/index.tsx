@@ -72,7 +72,7 @@ const url: string
     = 'mongodb://localhost:27017';
 
 const database: string
-    = 'stkVis2';
+    = 'stkVis';
 
 const moleculeKey: string
     = 'InChIKey';
@@ -102,7 +102,7 @@ let pageKind: PageKind
     = middle;
 
 const sortedCollection: string
-    = 'numAtoms';
+    = 'numBonds';
 
 const sortType: SortType
     = ascending;
