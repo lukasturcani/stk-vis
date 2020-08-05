@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {
     SortSettings as SortSettingsBase,
-    BaseProps,
+    CoreProps,
 } from 'request-manager/base/sort-button/sort-settings';
 import {
     Form,
@@ -14,7 +14,7 @@ import {
 } from 'request-manager/styled/sort-button/submit-button';
 
 
-export const SortSettings: React.FunctionComponent<BaseProps>
+export const SortSettings: React.FunctionComponent<CoreProps>
     = (props) => <SortSettingsBase
         dialog={Dialog}
         container={Container}

@@ -1,11 +1,20 @@
 import * as React from 'react';
 import {
-    BaseProps as SubmitButtonProps,
+    CoreProps as SubmitButtonProps,
 } from './submit-button';
 import {
     BaseProps as FormProps
 } from './form';
 
+
+export interface DispatchProps
+{
+    setSortedCollection:
+        (
+            sortType: 'ascending' | 'descending',
+            collection: string,
+        ) => void
+}
 
 export interface BaseProps
 {
@@ -14,10 +23,11 @@ export interface BaseProps
     collections: string[];
 }
 
+export type CoreProps = BaseProps & DispatchProps;
 
 type Empty = Record<string, unknown>;
 
-interface Props extends BaseProps
+interface Props extends BaseProps, DispatchProps
 {
     dialog: React.FunctionComponent<DialogProps>;
     container: React.FunctionComponent<Empty>;
@@ -54,6 +64,7 @@ export function SortSettings(
                     collections={props.collections}
                 />
                 <props.submitButton
+                    setSortedCollection={props.setSortedCollection}
                     sortType={sortType as 'ascending' | 'descending'}
                     collection={collection}
                     setOpen={props.setOpen}

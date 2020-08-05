@@ -1,5 +1,14 @@
 import * as React from 'react';
 
+export interface DispatchProps
+{
+    setSortedCollection:
+        (
+            sortType: 'ascending' | 'descending',
+            collection: string,
+        ) => void
+}
+
 
 export interface BaseProps
 {
@@ -9,7 +18,10 @@ export interface BaseProps
 }
 
 
-interface Props extends BaseProps
+export type CoreProps = BaseProps & DispatchProps;
+
+
+interface Props extends BaseProps, DispatchProps
 {
     button: React.FunctionComponent<ButtonProps>;
 }
@@ -28,32 +40,14 @@ export function SubmitButton(
     return (
         <props.button
             onClick={
-                submit({
-                    sortType: props.sortType,
-                    collection: props.collection,
-                    setOpen: props.setOpen,
-                })
+                () => {
+                    props.setOpen(false);
+                    props.setSortedCollection(
+                        props.sortType,
+                        props.collection,
+                    );
+                }
             }
         />
     );
-}
-
-
-interface SubmitOptions
-{
-    collection: string;
-    setOpen: (open: boolean) => void;
-    sortType: 'ascending' | 'descending';
-}
-
-
-function submit(
-    options: SubmitOptions,
-)
-{
-    return () => {
-        options.setOpen(false);
-        console.log(options.collection);
-        console.log(options.sortType);
-    };
 }

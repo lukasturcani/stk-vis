@@ -3,13 +3,24 @@ import {
     SortButtonProps
 } from 'RequestManager.RequestManager';
 import {
-    BaseProps as SortSettingsProps,
+    CoreProps as SortSettingsProps,
 } from './sort-settings';
 
 
 type Empty = Record<string, unknown>;
 
-interface Props extends SortButtonProps
+export interface DispatchProps
+{
+    setSortedCollection:
+        (
+            sortType: 'ascending' | 'descending',
+            collection: string,
+        ) => void
+}
+
+export type CoreProps = SortButtonProps & DispatchProps;
+
+interface Props extends SortButtonProps, DispatchProps
 {
     container: React.FunctionComponent<Empty>;
     button: React.FunctionComponent<ButtonProps>;
@@ -34,6 +45,7 @@ export function SortButton(
                 onClick={ () => setOpen(true) }
             />
             <props.sortSettings
+                setSortedCollection={props.setSortedCollection}
                 open={open}
                 setOpen={setOpen}
                 collections={props.value0.collections}

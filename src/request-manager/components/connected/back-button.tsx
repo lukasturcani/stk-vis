@@ -13,9 +13,6 @@ from 'RequestManager.Action';
 import {
     DispatchProps,
 } from 'request-manager/base/back-button';
-import {
-    all,
-} from 'SelectingCollection';
 
 
 function mapStateToProps(
@@ -34,9 +31,7 @@ function mapDispatchToProps(
     : DispatchProps
 {
     return {
-        handleResult: result => console.log(
-            all(result.value0.value0.molecules)
-        ),
+        handleResult: result => console.log(result),
     };
 }
 

@@ -11,9 +11,9 @@ import {
     BackButtonProps,
 } from 'RequestManager.RequestManager'
 
-type Props = NextButtonProps & DispatchProps;
+type Props = BackButtonProps & DispatchProps;
 
-export const BackButton: React.FunctionComponent<BackButtonProps>
+export const BackButton: React.FunctionComponent<Props>
     = (props) => <BackButtonBase
         button={StyledButton}
         {...props}
