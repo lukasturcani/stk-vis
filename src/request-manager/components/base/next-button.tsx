@@ -11,6 +11,8 @@ export interface DispatchProps
     handleResult: (result: RequestResult) => void;
 }
 
+export type CoreProps = DispatchProps & NextButtonProps;
+
 interface Props extends NextButtonProps, DispatchProps
 {
     button: React.FunctionComponent<ButtonProps>;

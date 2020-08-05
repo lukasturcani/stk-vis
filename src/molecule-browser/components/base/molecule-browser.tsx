@@ -3,20 +3,46 @@ import {
     Props as MoleculeBrowserProps,
 } from 'MoleculeBrowser.MoleculeBrowser'
 import {
-    MoleculeTableProps,
     TwoDViewerProps,
     ThreeDViewerProps,
 } from 'Molecules.Molecules';
 import {
-    SortButtonProps,
-    BackButtonProps,
-    NextButtonProps,
-} from 'RequestManager.RequestManager';
+    CoreProps as BackButtonProps,
+} from 'request-manager/base/back-button';
+import {
+    CoreProps as MoleculeTableProps,
+} from 'molecules/base/molecule-table';
+
+import {
+    CoreProps as NextButtonProps,
+} from 'request-manager/base/next-button';
+import {
+    CoreProps as SortButtonProps,
+} from 'request-manager/base/sort-button';
+import {
+    RequestResult,
+} from 'RequestManager.RequestResult';
+import { Molecule } from 'Molecules.Molecule';
 
 
 type Empty = Record<string, unknown>;
 
-interface Props extends MoleculeBrowserProps
+export interface DispatchProps
+{
+    dispatch: {
+        setSortedCollection:
+            (
+                sortType: 'ascending' | 'descending',
+                collection: string,
+            ) => void,
+        handleResult: (result: RequestResult) => void;
+        selectMolecule: (selected: number, molecule: Molecule) => void;
+    }
+}
+
+export type CoreProps = DispatchProps & MoleculeBrowserProps;
+
+interface Props extends MoleculeBrowserProps, DispatchProps
 {
     root: React.FunctionComponent<Record<string, unknown>>;
     sortButton: React.FunctionComponent<SortButtonProps>;
@@ -36,15 +62,27 @@ export function MoleculeBrowser(
 {
     return (
         <props.root>
-            <props.sortButton    {...props.value0.sortButton}    />
-            <props.moleculeTable {...props.value0.moleculeTable} />
+            <props.sortButton
+                {...props.dispatch}
+                {...props.value0.sortButton}
+            />
+            <props.moleculeTable
+                {...props.dispatch}
+                {...props.value0.moleculeTable}
+            />
             <props.viewerContainer>
                 <props.twoDViewer    {...props.value0.twoDViewer}    />
                 <props.threeDViewer  {...props.value0.threeDViewer}  />
             </props.viewerContainer>
             <props.navigationButtonContainer>
-                <props.backButton    {...props.value0.backButton}    />
-                <props.nextButton    {...props.value0.nextButton}    />
+                <props.backButton
+                    {...props.dispatch}
+                    {...props.value0.backButton}
+                />
+                <props.nextButton
+                    {...props.dispatch}
+                    {...props.value0.nextButton}
+                />
             </props.navigationButtonContainer>
         </props.root>
     );

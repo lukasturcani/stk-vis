@@ -13,6 +13,11 @@ import {
 
 import * as Action
 from 'MoleculeBrowser.Action';
+import {
+    ascending,
+    descending,
+} from 'RequestManager.SortType';
+import { Molecule } from 'Molecules.Molecule';
 
 
 function mapStateToProps(
@@ -30,6 +35,41 @@ function mapDispatchToProps(
 )
 {
     return {
+        dispatch: {
+            selectMolecule:
+                (selected: number, molecule: Molecule) => dispatch(
+                    Action.selectMolecule(
+                        selectMolecule(selected)(molecule)
+                    )
+                ),
+            handleResult: result => console.log(result),
+            setSortedCollection:
+                (
+                    sortType: 'ascending' | 'descending',
+                    collection: string,
+                ) =>
+                {
+                    if (collection === '')
+                    {
+                        dispatch(
+                            Action.setUnsorted(setUnsortedPayload)
+                        );
+                    }
+                    else
+                    {
+                        dispatch(
+                            Action.setSorted(
+                                setSortedPayload
+                                (collection)
+                                (
+                                    sortType === 'ascending'?
+                                    ascending : descending
+                                )
+                            )
+                        );
+                    }
+                },
+        },
     };
 }
 

@@ -18,6 +18,8 @@ interface Props extends MoleculeTableProps, DispatchProps
     table: React.FunctionComponent<TableProps>
 }
 
+export type CoreProps = DispatchProps & MoleculeTableProps;
+
 export interface TableColumn
 {
     title: string;

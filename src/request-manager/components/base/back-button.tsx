@@ -12,6 +12,7 @@ export interface DispatchProps
     handleResult: (result: RequestResult) => void;
 }
 
+export type CoreProps = DispatchProps & BackButtonProps;
 
 interface Props extends BackButtonProps, DispatchProps
 {

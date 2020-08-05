@@ -2,10 +2,8 @@ import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 
 import {
-    Props as MoleculeBrowserProps,
-} from 'MoleculeBrowser.MoleculeBrowser'
-import {
-    MoleculeBrowser as MoleculeBrowserBase
+    MoleculeBrowser as MoleculeBrowserBase,
+    CoreProps,
 } from 'molecule-browser/base/molecule-browser';
 
 import {
@@ -29,7 +27,7 @@ import {
 
 
 export function MoleculeBrowser(
-    props: MoleculeBrowserProps,
+    props: CoreProps,
 )
 {
     return <MoleculeBrowserBase
