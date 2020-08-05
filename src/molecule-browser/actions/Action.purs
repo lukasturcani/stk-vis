@@ -2,6 +2,7 @@ module MoleculeBrowser.Action
     ( Action
     , updateMoleculePage
     , initializeMolecules
+    , setSorted
     ) where
 
 import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
@@ -10,6 +11,10 @@ import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
 
 import MoleculeBrowser.InitializeMolecules
     ( InitializeMolecules
+    )
+
+import MoleculeBrowser.SetSorted
+    ( SetSorted
     )
 
 import MoleculeBrowser.Payload as Payload
@@ -29,4 +34,10 @@ initializeMolecules :: InitializeMolecules -> Action
 initializeMolecules payload =
     { type: "INITIALIZE_MOLECULES"
     , payload: Payload.initializeMolecules payload
+    }
+
+setSorted :: SetSorted -> Action
+setSorted payload =
+    { type: "SET_SORTED"
+    , payload: Payload.setSorted payload
     }

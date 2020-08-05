@@ -13,6 +13,10 @@ import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMolec
     ( initializeMolecules
     )
 
+import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.SetSorted
+    ( setSorted
+    )
+
 import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
     ( MoleculeBrowser
     )
@@ -27,3 +31,8 @@ reducer
     browser
     ({ payload: (InitializeMolecules payload) })
     = initializeMolecules browser payload
+
+reducer
+    browser
+    ({ payload: (SetSorted payload) })
+    = setSorted browser payload
