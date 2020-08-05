@@ -2,6 +2,7 @@ module RequestManager.RequestManager.Internal.RequestManager.UnsortedAll
     ( UnsortedAll (..)
     , _pageKind
     , _nextRequest
+    , _previousRequest
     ) where
 
 import Prelude

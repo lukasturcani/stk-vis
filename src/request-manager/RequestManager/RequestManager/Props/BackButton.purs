@@ -4,9 +4,27 @@ module RequestManager.RequestManager.Internal.Props.Internal.BackButton
     ) where
 
 import RequestManager.RequestManager.Internal.RequestManager
-    ( RequestManager
+    ( RequestManager (..)
     , _pageKind
     )
+
+import RequestManager.RequestManager.Internal.RequestManager.UnsortedAll
+    as UnsortedAll
+
+import RequestManager.RequestManager.Internal.RequestManager.UnsortedBuildingBlocks
+    as UnsortedBuildingBlocks
+
+import RequestManager.RequestManager.Internal.RequestManager.UnsortedConstructedMolecules
+    as UnsortedConstructedMolecules
+
+import RequestManager.RequestManager.Internal.RequestManager.SortedAll
+    as SortedAll
+
+import RequestManager.RequestManager.Internal.RequestManager.SortedBuildingBlocks
+    as SortedBuildingBlocks
+
+import RequestManager.RequestManager.Internal.RequestManager.SortedConstructedMolecules
+    as SortedConstructedMolecules
 
 import RequestManager.RequestResult (RequestResult)
 import RequestManager.PageKind (PageKind (..))

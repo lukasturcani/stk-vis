@@ -2,6 +2,7 @@ module RequestManager.RequestManager.Internal.RequestManager.UnsortedConstructed
     ( UnsortedConstructedMolecules (..)
     , _pageKind
     , _nextRequest
+    , _previousRequest
     ) where
 
 import Prelude

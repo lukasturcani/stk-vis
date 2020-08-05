@@ -2,6 +2,7 @@ module RequestManager.RequestManager.Internal.RequestManager.UnsortedBuildingBlo
     ( UnsortedBuildingBlocks (..)
     , _pageKind
     , _nextRequest
+    , _previousRequest
     ) where
 
 import Prelude
