@@ -5,12 +5,11 @@ module RequestManager.RequestManager.Internal.RequestManager.SortedAll
     ) where
 
 import Prelude
-import RequestManager.SortType (SortType (..))
+import RequestManager.SortType (SortType)
 import RequestManager.PageKind (PageKind)
 import Effect.Promise (class Deferred, Promise)
 import RequestManager.RequestResult as RequestResult
 import Requests.SortedAll (request)
-import Requests.SortType as Requests.SortType
 
 import RequestManager.RequestManager.Internal.RequestManager.Internal.Utils
     as Utils
@@ -65,11 +64,6 @@ _nextRequest
             , numEntriesPerPage
             , ignoredCollections
             , sortedCollection
-            , sortType: _toRequestSortType sortType
+            , sortType: Utils.toRequestSortType sortType
             }
         pure (RequestResult.SortedAll  result)
-
-
-_toRequestSortType :: SortType -> Requests.SortType.SortType
-_toRequestSortType Ascending = Requests.SortType.Ascending
-_toRequestSortType Descending = Requests.SortType.Descending
