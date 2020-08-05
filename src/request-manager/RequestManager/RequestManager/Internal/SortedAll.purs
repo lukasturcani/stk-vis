@@ -5,11 +5,12 @@ module RequestManager.RequestManager.Internal.RequestManager.SortedAll
     ) where
 
 import Prelude
-import RequestManager.SortType (SortType)
+import RequestManager.SortType (SortType (..))
 import RequestManager.PageKind (PageKind)
 import Effect.Promise (class Deferred, Promise)
 import RequestManager.RequestResult as RequestResult
-import Requests.UnsortedAll (request)
+import Requests.SortedAll (request)
+import Requests.SortType as Requests.SortType
 
 data SortedAll = SortedAll
     { _url                                   :: String
@@ -44,6 +45,8 @@ _nextRequest
         , _pageIndex: pageIndex
         , _numEntriesPerPage: numEntriesPerPage
         , _ignoredCollections: ignoredCollections
+        , _sortedCollection: sortedCollection
+        , _sortType: sortType
         }
     )
     = do
@@ -57,5 +60,12 @@ _nextRequest
             , pageIndex
             , numEntriesPerPage
             , ignoredCollections
+            , sortedCollection
+            , sortType: _toRequestSortType sortType
             }
-        pure (RequestResult.UnsortedAll  result)
+        pure (RequestResult.SortedAll  result)
+
+
+_toRequestSortType :: SortType -> Requests.SortType.SortType
+_toRequestSortType Ascending = Requests.SortType.Ascending
+_toRequestSortType Descending = Requests.SortType.Descending
