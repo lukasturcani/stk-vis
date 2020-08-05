@@ -13,6 +13,14 @@ import {
 
 import * as Action
 from 'RequestManager.Action';
+import {
+    setUnsorted,
+    setUnsorted as setUnsortedPayload
+} from 'RequestManager.SetUnsorted';
+import {
+    setSorted,
+    setSorted as SetSortedPayload
+} from 'RequestManager.SetSorted';
 
 
 function mapStateToProps(
@@ -35,7 +43,15 @@ function mapDispatchToProps(
             (
                 sortType: 'ascending' | 'descending',
                 collection: string,
-            ) => { console.log(sortType, collection) },
+            ) =>
+            {
+                if (collection === '')
+                {
+                    dispatch(
+                        Action.setUnsorted(setUnsortedPayload)
+                    );
+                }
+            },
     };
 }
 

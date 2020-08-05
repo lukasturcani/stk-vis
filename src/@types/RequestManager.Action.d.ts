@@ -29,6 +29,14 @@ declare module 'RequestManager.Action'
         InitializeUnsortedConstructedMolecules,
     } from 'RequestManager.InitializeUnsortedConstructedMolecules';
 
+    import {
+        SetSorted,
+    } from 'RequestManager.SetSorted';
+
+    import {
+        SetUnsorted,
+    } from 'RequestManager.SetUnsorted';
+
     export const initializeUnsortedAll:
         (payload: InitializeUnsortedAll) => Action;
 
@@ -46,5 +54,11 @@ declare module 'RequestManager.Action'
 
     export const initializeSortedConstructedMolecules:
         (payload: InitializeSortedConstructedMolecules) => Action;
+
+    export const setUnsorted:
+        (payload: SetUnsorted) => Action;
+
+    export const setSorted:
+        (payload: SetSorted) => Action;
 
 }
