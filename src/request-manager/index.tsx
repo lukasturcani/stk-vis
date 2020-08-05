@@ -72,7 +72,7 @@ const url: string
     = 'mongodb://localhost:27017';
 
 const database: string
-    = 'stkVis';
+    = 'stkVis2';
 
 const moleculeKey: string
     = 'InChIKey';
