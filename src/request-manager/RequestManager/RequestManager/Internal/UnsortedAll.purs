@@ -10,7 +10,7 @@ import Effect.Promise (class Deferred, Promise)
 import RequestManager.RequestResult as RequestResult
 import Requests.UnsortedAll (request)
 
-import RequestManager.RequestManager.Internal.RequestManager.Internal..Utils
+import RequestManager.RequestManager.Internal.RequestManager.Internal.Utils
     as Utils
 
 data UnsortedAll = UnsortedAll
@@ -45,7 +45,7 @@ _nextRequest
         , _pageIndex
         , _numEntriesPerPage: numEntriesPerPage
         , _ignoredCollections: ignoredCollections
-        , _pageKind
+        , _pageKind: pageKind
         }
     )
     = do
@@ -56,7 +56,7 @@ _nextRequest
             , moleculeCollection
             , positionMatrixCollection
             , buildingBlockPositionMatrixCollection
-            , pageIndex: Utils.nextPageIndex _pageKind _pageIndex
+            , pageIndex: Utils.nextPageIndex pageKind _pageIndex
             , numEntriesPerPage
             , ignoredCollections
             }
