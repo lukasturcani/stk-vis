@@ -19,8 +19,12 @@ import {
 } from 'RequestManager.SetUnsorted';
 import {
     setSorted,
-    setSorted as SetSortedPayload
+    setSorted as setSortedPayload
 } from 'RequestManager.SetSorted';
+import {
+    ascending,
+    descending,
+} from 'RequestManager.SortType';
 
 
 function mapStateToProps(
@@ -49,6 +53,19 @@ function mapDispatchToProps(
                 {
                     dispatch(
                         Action.setUnsorted(setUnsortedPayload)
+                    );
+                }
+                else
+                {
+                    dispatch(
+                        Action.setSorted(
+                            setSortedPayload
+                            (collection)
+                            (
+                                sortType === 'ascending'?
+                                ascending : descending
+                            )
+                        )
                     );
                 }
             },
