@@ -59,4 +59,3 @@ setSorted
     (RequestManager.SortedConstructedMolecules manager)
     payload
     = SortedConstructedMolecules.setSorted manager payload
-
