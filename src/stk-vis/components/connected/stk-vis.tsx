@@ -25,12 +25,16 @@ import {
 } from './utilities';
 
 
-function mapStateToProps(
+function mapStateToProps<a>(
     state: State,
 )
-    : Props
+    : Props<a>
 {
-    return {...props(state)};
+    return {
+        ...props({
+
+        })(state)
+    };
 }
 
 

@@ -8,8 +8,8 @@ declare module 'StkVis.StkVis'
         Props as MoleculeBrowserProps
     } from 'MoleculeBrowser.MoleculeBrowser';
     import {
-        RequestResult,
-    } from 'RequestManager.RequestResult';
+        UpdateMoleculePage
+    } from 'RequestManager.UpdateMoleculePage';
 
     import { Action } from 'StkVis.Action';
 
@@ -26,13 +26,13 @@ declare module 'StkVis.StkVis'
     export const reducer:
         (state: StkVis) => (action: Action) => StkVis;
 
-    export interface Helpers<a>
+    export interface ActionCreators<a>
     {
-        pageRequestResultToAction: <a>(result: RequestResult) => a;
+        updateMoleculePage: (payload: UpdateMoleculePage) => a;
     }
 
     export const props:
-        <a>(helpers: Helpers<a>) =>
+        <a>(actionCreators: ActionCreators<a>) =>
         (state: StkVis) =>
         Props<a>;
 }

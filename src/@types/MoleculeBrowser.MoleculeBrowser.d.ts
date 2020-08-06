@@ -15,8 +15,8 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
         BackButtonProps,
     } from 'RequestManager.RequestManager';
     import {
-        RequestResult,
-    } from 'RequestManager.RequestResult';
+        UpdateMoleculePage,
+    } from 'RequestManager.UpdateMoleculePage';
 
     export type MoleculeBrowser = Record<string, unknown>;
 
@@ -39,13 +39,13 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
         (action: Action) =>
         MoleculeBrowser;
 
-    export interface Helpers<a>
+    export interface ActionCreators<a>
     {
-        pageRequestResultToAction: <a>(result: RequestResult) => a;
+        updateMoleculePage: (payload: UpdateMoleculePage) => a;
     }
 
     export const props:
-        <a>(helpers: Helpers<a>) =>
+        <a>(actionCreators: ActionCreators<a>) =>
         (state: MoleculeBrowser) =>
         Props<a>;
 }

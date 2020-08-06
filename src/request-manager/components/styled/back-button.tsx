@@ -13,11 +13,15 @@ import {
 
 type Props<a> = BackButtonProps<a> & DispatchProps;
 
-export const BackButton
-    = (props) => <BackButtonBase
+export function BackButton<a>(
+    props: Props<a>,
+)
+{
+    return <BackButtonBase
         button={StyledButton}
         {...props}
     />;
+}
 
 
 const StyledButton: React.FunctionComponent<ButtonProps>

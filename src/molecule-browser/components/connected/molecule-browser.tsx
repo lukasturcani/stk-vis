@@ -23,13 +23,13 @@ import {
 } from 'RequestManager.RequestResult';
 
 
-function mapStateToProps(
+function mapStateToProps<a>(
     state: State,
 )
-    : MoleculeBrowserProps
+    : MoleculeBrowserProps<a>
 {
     // Reconstruct as plain object to prevent react/redux warnings.
-    return { ...props(state) };
+    return { ...props()(state) };
 }
 
 
