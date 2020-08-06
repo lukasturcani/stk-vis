@@ -3,7 +3,9 @@ module MoleculeBrowser.Action
     , updateMoleculePage
     , initializeMolecules
     , setSorted
+    , setSorted_
     , setUnsorted
+    , setUnsorted_
     , initializeSortedAllMoleculeBrowser
     , initializeSortedBuildingBlocksMoleculeBrowser
     , initializeSortedConstructedMoleculesMoleculeBrowser
@@ -22,13 +24,8 @@ import MoleculeBrowser.InitializeMolecules
     ( InitializeMolecules
     )
 
-import MoleculeBrowser.SetSorted
-    ( SetSorted
-    )
-
-import MoleculeBrowser.SetUnsorted
-    ( SetUnsorted
-    )
+import MoleculeBrowser.SetSorted as SetSorted
+import MoleculeBrowser.SetUnsorted as SetUnsorted
 
 import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedAll
     ( InitializeUnsortedAll
@@ -57,6 +54,8 @@ import MoleculeBrowser.InitializeMoleculeBrowser.SortedConstructedMolecules
 import MoleculeBrowser.SelectMolecule as SelectMolecule
 
 import Molecules.Molecule (Molecule)
+import RequestManager.SortType (SortType)
+import RequestManager.SetSorted (CollectionName)
 import MoleculeBrowser.Payload as Payload
 
 type Action =
@@ -76,17 +75,24 @@ initializeMolecules payload =
     , payload: Payload.initializeMolecules payload
     }
 
-setSorted :: SetSorted -> Action
+setSorted :: SetSorted.SetSorted -> Action
 setSorted payload =
     { type: "SET_SORTED"
     , payload: Payload.setSorted payload
     }
 
-setUnsorted :: SetUnsorted -> Action
+setSorted_ :: CollectionName -> SortType -> Action
+setSorted_ name sortType = setSorted
+    (SetSorted.setSorted name sortType)
+
+setUnsorted :: SetUnsorted.SetUnsorted -> Action
 setUnsorted payload =
     { type: "SET_UNSORTED"
     , payload: Payload.setUnsorted payload
     }
+
+setUnsorted_ :: Action
+setUnsorted_ = setUnsorted SetUnsorted.setUnsorted
 
 initializeSortedAllMoleculeBrowser
     :: MoleculeBrowser.InitializeSortedAll
