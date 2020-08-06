@@ -1,7 +1,7 @@
 module RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Utils
     ( disabled
     , previousPageIndex
-    )
+    ) where
 
 import RequestManager.PageKind (PageKind)
 

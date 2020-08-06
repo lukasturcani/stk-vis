@@ -1,34 +1,42 @@
-module RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.UnsortedAll
+module RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.SortedAll
     ( backButtonProps
     ) where
 
-import RequestManager.RequestManager.Internal.RequestManager.UnsortedAll
-    ( UnsortedAll (UnsortedAll)
+import RequestManager.RequestManager.Internal.RequestManager.SortedAll
+    ( SortedAll (SortedAll)
     )
 
 import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Props
     ( BackButtonProps (..)
     )
 
-import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Utils as Utils
+import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Utils
+    ( disabled
+    , previousPageIndex
+    ) as Utils
 
-import RequestManager.UpdatedMoleculePage
+import RequestManager.PageKind (fromRequest)
+import RequestManager.SortType (toRequest)
+
+import RequestManager.UpdateMoleculePage
     ( UpdateMoleculePage
     , updateMoleculePage
     )
 
-import Requests.UnsortedAll as Request
+import RequestManager.RequestResult (RequestResult (SortedAll))
+import Requests.SortedAll as Request
+import Data.Array as Array
 
 
 backButtonProps
     :: forall a
     .  (UpdateMoleculePage -> a)
-    -> UnsortedAll
+    -> SortedAll
     -> BackButtonProps a
 
 backButtonProps
     createAction
-    (UnsortedAll
+    (SortedAll
         { _url: url
         , _database: database
         , _moleculeKey: moleculeKey
@@ -40,48 +48,45 @@ backButtonProps
         , _numEntriesPerPage: numEntriesPerPage
         , _ignoredCollections: ignoredCollections
         , _pageKind: pageKind
+        , _sortedCollection: sortedCollection
+        , _sortType: sortType
         }
     )
     = BackButtonProps
         { disabled: Utils.disabled pageKind
-        , request
+        , request: RequestResult.SortedAll request
         , onClick
         }
   where
+    pageIndex = Utils.previousPageIndex _pageIndex
     request = Request.request
-        {
+        { url
+        , database
+        , moleculeKey
+        , moleculeCollection
+        , positionMatrixCollection
+        , buildingBlockPositionMatrixCollection
+        , pageIndex
+        , numEntriesPerPage
+        , ignoredCollections
+        , sortedCollection
+        , sortType: toRequest sortType
         }
+
     onClick dispatch = do
-
-       let pageIndex = Utils.previousPageIndex _pageIndex
-
         result <- request
-            { url
-            , database
-            , moleculeKey
-            , moleculeCollection
-            , positionMatrixCollection
-            , buildingBlockPositionMatrixCollection
-            , pageIndex
-            , numEntriesPerPage
-            , ignoredCollections
-            }
 
-        let payload = updateMoleculePage
-            { url
-            , database
-            , moleculeKey
-            , moleculeCollection
-            , positionMatrixCollection
-            , buildingBlockPositionMatrixCollection
-            , pageIndex
-            , numEntriesPerPage
-            , ignoredCollections
-            }
+        let
+            (Result { valueCollections, molecules, pageKind' }) =
+                result
 
+            payload = updateMoleculePage
+                { columns:
+                    Array.concat [[moleculeKey], valueCollections]
+                , moleculeKey
+                , molecules
+                , pageIndex
+                , pageKind: fromRequest pageKind'
+                }
 
-_request :: Deferred => UnsortedAll -> Promise Request.Result
-_request
-    (UnsortedAll
-    )
-    = request
+        pure (dispatch (createAction payload))

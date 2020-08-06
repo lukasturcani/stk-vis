@@ -1,6 +1,6 @@
 module RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Props
     ( BackButtonProps (..)
-    )
+    ) where
 
 import Prelude
 import Effect.Promise (class Deferred, Promise)

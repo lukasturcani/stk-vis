@@ -17,7 +17,7 @@ import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal
 
 import RequestManager.PageKind (fromRequest)
 
-import RequestManager.UpdatedMoleculePage
+import RequestManager.UpdateMoleculePage
     ( UpdateMoleculePage
     , updateMoleculePage
     )
@@ -55,6 +55,7 @@ backButtonProps
         , onClick
         }
   where
+    pageIndex = Utils.previousPageIndex _pageIndex
     request = Request.request
         { url
         , database
@@ -68,17 +69,20 @@ backButtonProps
         }
 
     onClick dispatch = do
+        result <- request
 
-       let pageIndex = Utils.previousPageIndex _pageIndex
+        let
+            (Result { valueCollections, molecules, pageKind' }) =
+                result
 
-        Result { valueCollections, molecules, pageKind' } <- request
-
-        let payload = updateMoleculePage
-            { columns: Array.concat [[moleculeKey], valueCollections]
-            , moleculeKey
-            , molecules
-            , pageIndex
-            , pageKind: fromRequest pageKind'
-            }
+            payload = updateMoleculePage
+                { columns:
+                    Array.concat [[moleculeKey], valueCollections]
+                , moleculeKey
+                , molecules
+                , pageIndex
+                , pageKind: fromRequest pageKind'
+                }
 
         pure (dispatch (createAction payload))
+
