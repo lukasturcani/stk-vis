@@ -84,7 +84,7 @@ setUnsorted payload =
     }
 
 initializeSortedAllMoleculeBrowser
-    :: MoleculeBrowser.SortedAll
+    :: MoleculeBrowser.InitializeSortedAll
     -> Action
 
 initializeSortedAllMoleculeBrowser payload =
@@ -93,7 +93,7 @@ initializeSortedAllMoleculeBrowser payload =
     }
 
 initializeSortedBuildingBlocksMoleculeBrowser
-    :: MoleculeBrowser.SortedBuildingBlocks
+    :: MoleculeBrowser.InitializeSortedBuildingBlocks
     -> Action
 
 initializeSortedBuildingBlocksMoleculeBrowser payload =
@@ -103,7 +103,7 @@ initializeSortedBuildingBlocksMoleculeBrowser payload =
     }
 
 initializeSortedConstructedMoleculesMoleculeBrowser
-    :: MoleculeBrowser.SortedConstructedMolecules
+    :: MoleculeBrowser.InitializeSortedConstructedMolecules
     -> Action
 
 initializeSortedConstructedMoleculesMoleculeBrowser payload =
@@ -114,7 +114,7 @@ initializeSortedConstructedMoleculesMoleculeBrowser payload =
     }
 
 initializeUnsortedAllMoleculeBrowser
-    :: MoleculeBrowser.UnsortedAll
+    :: MoleculeBrowser.InitializeUnsortedAll
     -> Action
 
 initializeUnsortedAllMoleculeBrowser payload =
@@ -123,7 +123,7 @@ initializeUnsortedAllMoleculeBrowser payload =
     }
 
 initializeUnsortedBuildingBlocksMoleculeBrowser
-    :: MoleculeBrowser.UnsortedBuildingBlocks
+    :: MoleculeBrowser.InitializeUnsortedBuildingBlocks
     -> Action
 
 initializeUnsortedBuildingBlocksMoleculeBrowser payload =
@@ -133,7 +133,7 @@ initializeUnsortedBuildingBlocksMoleculeBrowser payload =
     }
 
 initializeUnsortedConstructedMoleculesMoleculeBrowser
-    :: MoleculeBrowser.UnsortedConstructedMolecules
+    :: MoleculeBrowser.InitializeUnsortedConstructedMolecules
     -> Action
 
 initializeUnsortedConstructedMoleculesMoleculeBrowser payload =

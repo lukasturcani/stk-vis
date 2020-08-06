@@ -10,11 +10,13 @@ import Molecules.Molecules as Molecules
 import Molecules.Action as Molecules.Action
 import RequestManager.RequestManager as Manager
 import RequestManager.Action as Manager.Action
-import MoleculeBrowser.InitializeUnsortedConstructedMolecules as Payload
+
+import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedConstructedMolecules
+    as Payload
 
 initializeUnsortedConstructedMolecules
     :: MoleculeBrowser
-    -> InitializeUnsortedConstructedMolecules
+    -> Payload.InitializeUnsortedConstructedMolecules
     -> MoleculeBrowser
 
 initializeUnsortedConstructedMolecules
@@ -24,12 +26,12 @@ initializeUnsortedConstructedMolecules
         { _molecules: Molecules.reducer
             _molecules
             (Molecules.Action.initializeMolecules
-                (initializeMolecules payload)
+                (Payload.initializeMolecules payload)
             )
 
         , _requestManager: Manager.reducer
             _requestManager
             (Manager.Action.initializeUnsortedConstructedMolecules
-                (initializeRequestManager payload)
+                (Payload.initializeRequestManager payload)
             )
         }

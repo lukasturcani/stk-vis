@@ -21,10 +21,6 @@ import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.SetUnsorted
     ( setUnsorted
     )
 
-import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
-    ( MoleculeBrowser
-    )
-
 import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMoleculeBrowser.SortedAll
     ( initializeSortedAll
     ) as InitializeMoleculeBrowser
@@ -52,22 +48,6 @@ import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMolec
 import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
     ( MoleculeBrowser
     )
-
-import
-
-reducer :: MoleculeBrowser -> Action -> MoleculeBrowser
-reducer
-    browser
-    ({ payload: (UpdateMoleculePage payload) })
-    = updateMoleculePage browser payload
-
-reducer
-    browser
-    ({ payload: (InitializeMolecules payload) })
-    = initializeMolecules browser payload
-
-reducer
-    browser
 
 reducer :: MoleculeBrowser -> Action -> MoleculeBrowser
 reducer

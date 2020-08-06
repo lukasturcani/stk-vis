@@ -10,11 +10,11 @@ import Molecules.Molecules as Molecules
 import Molecules.Action as Molecules.Action
 import RequestManager.RequestManager as Manager
 import RequestManager.Action as Manager.Action
-import MoleculeBrowser.InitializeSortedAll as Payload
+import MoleculeBrowser.InitializeMoleculeBrowser.SortedAll as Payload
 
 initializeSortedAll
     :: MoleculeBrowser
-    -> InitializeSortedAll
+    -> Payload.InitializeSortedAll
     -> MoleculeBrowser
 
 initializeSortedAll

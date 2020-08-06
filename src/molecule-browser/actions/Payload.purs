@@ -103,7 +103,7 @@ initializeSortedConstructedMoleculesMoleculeBrowser
 initializeSortedConstructedMoleculesMoleculeBrowser
     = InitializeSortedConstructedMoleculesMoleculeBrowser
 
-initializeUnsortedAll
+initializeUnsortedAllMoleculeBrowser
     :: MoleculeBrowser.InitializeUnsortedAll
     -> Payload
 
@@ -111,13 +111,14 @@ initializeUnsortedAllMoleculeBrowser
     = InitializeUnsortedAllMoleculeBrowser
 
 initializeUnsortedBuildingBlocksMoleculeBrowser
-    :: InitializeUnsortedBuildingBlocksMoleculeBrowser
+    :: MoleculeBrowser.InitializeUnsortedBuildingBlocks
     -> Payload
 
-initializeSortedBuildingBlocksMoleculeBrowser
+initializeUnsortedBuildingBlocksMoleculeBrowser
+    = InitializeUnsortedBuildingBlocksMoleculeBrowser
 
 initializeUnsortedConstructedMoleculesMoleculeBrowser
-    :: InitializeUnsortedConstructedMoleculesMoleculeBrowser
+    :: MoleculeBrowser.InitializeUnsortedConstructedMolecules
     -> Payload
 
 initializeUnsortedConstructedMoleculesMoleculeBrowser
