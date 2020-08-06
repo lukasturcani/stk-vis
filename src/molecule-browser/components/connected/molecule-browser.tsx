@@ -49,21 +49,17 @@ function mapDispatchToProps(
                 {
                     if (collection === '')
                     {
-                        dispatch(
-                            Action.setUnsorted(setUnsortedPayload)
-                        );
+                        dispatch(Action.setUnsorted_);
                     }
                     else
                     {
                         dispatch(
-                            Action.setSorted(
-                                setSortedPayload
+                            Action.setSorted_
                                 (collection)
                                 (
                                     sortType === 'ascending'?
                                     ascending : descending
                                 )
-                            )
                         );
                     }
                 },
