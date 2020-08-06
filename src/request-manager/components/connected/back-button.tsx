@@ -21,7 +21,11 @@ function mapStateToProps(
     : BackButtonProps<Action.Action>
 {
     // Reconstruct as plain object to prevent react/redux warnings.
-    return { ...backButtonProps()(state) };
+    return {
+        ...backButtonProps
+        (Action.updateMoleculePage)
+        (state)
+    };
 }
 
 

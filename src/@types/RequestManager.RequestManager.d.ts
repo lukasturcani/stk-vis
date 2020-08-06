@@ -7,6 +7,9 @@ declare module 'RequestManager.RequestManager'
     import {
         RequestResult,
     } from 'RequestManager.RequestResult';
+    import {
+        UpdateMoleculePage,
+    } from 'RequestManager.UpdateMoleculePage';
 
     export type RequestManager = Record<string, unknown>;
 
@@ -45,10 +48,8 @@ declare module 'RequestManager.RequestManager'
     export const nextButtonProps:
         (state: RequestManager) => NextButtonProps;
 
-    type ToAction<a> = (result: RequestResult) => a;
-
     export const backButtonProps:
-        <a>(toAction: ToAction<a>) =>
+        <a>(updateMoleculePage: (payload: UpdateMoleculePage) => a) =>
         (state: RequestManager) =>
         BackButtonProps<a>;
 

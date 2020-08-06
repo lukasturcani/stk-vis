@@ -234,6 +234,12 @@ module.exports = {
                     './output/RequestManager.SetUnsorted',
                 ),
 
+            'RequestManager.UpdateMoleculePage':
+                path.join(
+                    __dirname,
+                    './output/RequestManager.UpdateMoleculePage',
+                ),
+
             'Requests.UnsortedAll':
                 path.join(
                     __dirname,

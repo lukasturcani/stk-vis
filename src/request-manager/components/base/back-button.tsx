@@ -14,7 +14,7 @@ export interface DispatchProps
 
 export type CoreProps<a> = DispatchProps & BackButtonProps<a>;
 
-interface Props extends BackButtonProps, DispatchProps
+interface Props<a> extends BackButtonProps<a>, DispatchProps
 {
     button: React.FunctionComponent<ButtonProps>;
 }
@@ -26,8 +26,8 @@ export interface ButtonProps
 }
 
 
-export function BackButton(
-    props: Props,
+export function BackButton<a>(
+    props: Props<a>,
 )
 {
     return <props.button
