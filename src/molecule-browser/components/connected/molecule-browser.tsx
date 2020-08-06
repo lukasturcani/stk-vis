@@ -29,7 +29,7 @@ import {
 function mapStateToProps<a>(
     state: State,
 )
-    : MoleculeBrowserProps<a>
+    : MoleculeBrowserProps<Action.Action>
 {
     // Reconstruct as plain object to prevent react/redux warnings.
     return {

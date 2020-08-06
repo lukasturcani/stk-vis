@@ -4,11 +4,7 @@ import {
     StkVis as State,
     Props,
 } from 'StkVis.StkVis';
-import {
-    Action,
-    updateFields,
-    updateMoleculePage,
-} from 'StkVis.Action';
+import * as Action from 'StkVis.Action';
 import {
     MongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
@@ -23,33 +19,38 @@ import {
 } from 'stk-vis/base/stk-vis';
 import {
 } from './utilities';
+import {
+    UpdateMoleculePage,
+} from 'RequestManager.UpdateMoleculePage';
 
 
 function mapStateToProps<a>(
     state: State,
 )
-    : Props<a>
+    : Props<Action.Action>
 {
     return {
         ...props({
-
+            updateMoleculePage:
+                (payload: UpdateMoleculePage) =>
+                    Action.updateMoleculePage(payload)
         })(state)
     };
 }
 
 
 function mapDispatchToProps(
-    dispatch: (action: Action) => void,
+    dispatch: (action: Action.Action) => void,
 )
     : DispatchProps
 {
     return {
         dispatch: {
             updateFields: (mongoData: MongoData) =>
-                dispatch(updateFields(mongoData)),
+                dispatch(Action.updateFields(mongoData)),
 
             updateMoleculePage: (pageData: PageData) =>
-                dispatch(updateMoleculePage(pageData)),
+                dispatch(Action.updateMoleculePage(pageData)),
 
         },
     };
