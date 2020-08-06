@@ -2,6 +2,8 @@ module RequestManager.UpdateMoleculePage
     ( UpdateMoleculePage
     , PageData
     , updateMoleculePage
+    , pageKind
+    , pageIndex
     ) where
 
 import SelectingCollection (SelectingCollection)
@@ -40,3 +42,8 @@ updateMoleculePage
         , _pageKind: pageKind
         }
 
+pageKind :: UpdateMoleculePage -> PageKind
+pageKind (UpdateMoleculePage { _pageKind }) = _pageKind
+
+pageIndex :: UpdateMoleculePage -> Int
+pageIndex (UpdateMoleculePage { _pageIndex }) = _pageIndex

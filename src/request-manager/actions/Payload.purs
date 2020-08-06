@@ -8,6 +8,7 @@ module RequestManager.Payload
     , initializeSortedConstructedMolecules
     , setUnsorted
     , setSorted
+    , updateMoleculePage
     ) where
 
 import RequestManager.InitializeUnsortedAll
@@ -34,6 +35,10 @@ import RequestManager.InitializeSortedConstructedMolecules
     ( InitializeSortedConstructedMolecules
     )
 
+import RequestManager.UpdateMoleculePage
+    ( UpdateMoleculePage
+    )
+
 import RequestManager.SetUnsorted (SetUnsorted)
 import RequestManager.SetSorted (SetSorted)
 
@@ -48,6 +53,7 @@ data Payload
         InitializeSortedConstructedMolecules
     | SetUnsorted SetUnsorted
     | SetSorted SetSorted
+    | UpdateMoleculePage UpdateMoleculePage
 
 initializeUnsortedAll :: InitializeUnsortedAll -> Payload
 initializeUnsortedAll = InitializeUnsortedAll
@@ -82,3 +88,6 @@ setUnsorted = SetUnsorted
 
 setSorted :: SetSorted -> Payload
 setSorted = SetSorted
+
+updateMoleculePage :: UpdateMoleculePage -> Payload
+updateMoleculePage = UpdateMoleculePage

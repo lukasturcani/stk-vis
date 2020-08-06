@@ -8,6 +8,7 @@ module RequestManager.Action
     , initializeSortedConstructedMolecules
     , setUnsorted
     , setSorted
+    , updateMoleculePage
     ) where
 
 import RequestManager.Payload as Payload
@@ -98,4 +99,10 @@ setSorted :: SetSorted -> Action
 setSorted payload =
     { type: "SET_SORTED"
     , payload: Payload.setSorted payload
+    }
+
+updateMoleculePage :: UpdateMoleculePage -> Action
+updateMoleculePage payload =
+    { type: "UPDATE_MOLECULE_PAGE"
+    , payload: Payload.updateMoleculePage payload
     }
