@@ -3,7 +3,8 @@ module RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal
     , previousPageIndex
     ) where
 
-import RequestManager.PageKind (PageKind)
+import Prelude
+import RequestManager.PageKind (PageKind (..))
 
 disabled :: PageKind -> Boolean
 disabled First          = true

@@ -2,6 +2,8 @@ module RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal
     ( backButtonProps
     ) where
 
+import Prelude
+
 import RequestManager.RequestManager.Internal.RequestManager.SortedBuildingBlocks
     ( SortedBuildingBlocks (SortedBuildingBlocks)
     )
@@ -23,7 +25,7 @@ import RequestManager.UpdateMoleculePage
     , updateMoleculePage
     )
 
-import RequestManager.RequestResult (RequestResult (SortedBuildingBlocks))
+import RequestManager.RequestResult as RequestResult
 import Requests.SortedBuildingBlocks as Request
 import Data.Array as Array
 
@@ -76,8 +78,9 @@ backButtonProps
         result <- request
 
         let
-            (Result { valueCollections, molecules, pageKind' }) =
-                result
+            (Request.Result
+                { valueCollections, molecules, pageKind' }
+            ) = result
 
             payload = updateMoleculePage
                 { columns:

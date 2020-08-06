@@ -2,7 +2,6 @@ module RequestManager.RequestManager.Internal.RequestManager.UnsortedConstructed
     ( UnsortedConstructedMolecules (..)
     , _pageKind
     , _nextRequest
-    , _backRequest
     ) where
 
 import Prelude
@@ -59,39 +58,6 @@ _nextRequest
             , constructedMoleculeCollection
             , positionMatrixCollection
             , pageIndex: Utils.nextPageIndex pageKind _pageIndex
-            , numEntriesPerPage
-            , ignoredCollections
-            }
-        pure (RequestResult.UnsortedConstructedMolecules result)
-
-_backRequest
-    :: Deferred
-    => UnsortedConstructedMolecules
-    -> Promise RequestResult.RequestResult
-
-_backRequest
-    (UnsortedConstructedMolecules
-        { _url: url
-        , _database: database
-        , _moleculeKey: moleculeKey
-        , _moleculeCollection: moleculeCollection
-        , _constructedMoleculeCollection: constructedMoleculeCollection
-        , _positionMatrixCollection: positionMatrixCollection
-        , _pageIndex
-        , _numEntriesPerPage: numEntriesPerPage
-        , _ignoredCollections: ignoredCollections
-        , _pageKind: pageKind
-        }
-    )
-    = do
-        result <- request
-            { url
-            , database
-            , moleculeKey
-            , moleculeCollection
-            , constructedMoleculeCollection
-            , positionMatrixCollection
-            , pageIndex: Utils.previousPageIndex _pageIndex
             , numEntriesPerPage
             , ignoredCollections
             }

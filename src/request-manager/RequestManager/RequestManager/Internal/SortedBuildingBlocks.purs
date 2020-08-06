@@ -2,7 +2,6 @@ module RequestManager.RequestManager.Internal.RequestManager.SortedBuildingBlock
     ( SortedBuildingBlocks (..)
     , _pageKind
     , _nextRequest
-    , _backRequest
     ) where
 
 import Prelude
@@ -63,43 +62,6 @@ _nextRequest
             , constructedMoleculeCollection
             , positionMatrixCollection
             , pageIndex: Utils.nextPageIndex pageKind _pageIndex
-            , numEntriesPerPage
-            , ignoredCollections
-            , sortedCollection
-            , sortType: Utils.toRequestSortType sortType
-            }
-        pure (RequestResult.SortedBuildingBlocks result)
-
-_backRequest
-    :: Deferred
-    => SortedBuildingBlocks
-    -> Promise RequestResult.RequestResult
-
-_backRequest
-    (SortedBuildingBlocks
-        { _url: url
-        , _database: database
-        , _moleculeKey: moleculeKey
-        , _moleculeCollection: moleculeCollection
-        , _positionMatrixCollection: positionMatrixCollection
-        , _constructedMoleculeCollection: constructedMoleculeCollection
-        , _pageIndex
-        , _numEntriesPerPage: numEntriesPerPage
-        , _ignoredCollections: ignoredCollections
-        , _sortedCollection: sortedCollection
-        , _sortType: sortType
-        , _pageKind: pageKind
-        }
-    )
-    = do
-        result <- request
-            { url
-            , database
-            , moleculeKey
-            , moleculeCollection
-            , constructedMoleculeCollection
-            , positionMatrixCollection
-            , pageIndex: Utils.previousPageIndex _pageIndex
             , numEntriesPerPage
             , ignoredCollections
             , sortedCollection

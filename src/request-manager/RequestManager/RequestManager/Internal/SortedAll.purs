@@ -2,7 +2,6 @@ module RequestManager.RequestManager.Internal.RequestManager.SortedAll
     ( SortedAll (..)
     , _pageKind
     , _nextRequest
-    , _backRequest
     ) where
 
 import Prelude
@@ -62,42 +61,6 @@ _nextRequest
             , positionMatrixCollection
             , buildingBlockPositionMatrixCollection
             , pageIndex: Utils.nextPageIndex pageKind _pageIndex
-            , numEntriesPerPage
-            , ignoredCollections
-            , sortedCollection
-            , sortType: Utils.toRequestSortType sortType
-            }
-        pure (RequestResult.SortedAll  result)
-
-_backRequest
-    :: Deferred => SortedAll -> Promise RequestResult.RequestResult
-
-_backRequest
-    (SortedAll
-        { _url: url
-        , _database: database
-        , _moleculeKey: moleculeKey
-        , _moleculeCollection: moleculeCollection
-        , _positionMatrixCollection: positionMatrixCollection
-        , _buildingBlockPositionMatrixCollection:
-            buildingBlockPositionMatrixCollection
-        , _pageIndex
-        , _numEntriesPerPage: numEntriesPerPage
-        , _ignoredCollections: ignoredCollections
-        , _sortedCollection: sortedCollection
-        , _sortType: sortType
-        , _pageKind: pageKind
-        }
-    )
-    = do
-        result <- request
-            { url
-            , database
-            , moleculeKey
-            , moleculeCollection
-            , positionMatrixCollection
-            , buildingBlockPositionMatrixCollection
-            , pageIndex: Utils.previousPageIndex _pageIndex
             , numEntriesPerPage
             , ignoredCollections
             , sortedCollection
