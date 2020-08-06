@@ -1,6 +1,5 @@
 module RequestManager.RequestManager.Internal.Props.Internal.BackButton
     ( BackButtonProps
-    , ActionCreators
     , backButtonProps
     ) where
 
@@ -8,58 +7,40 @@ import RequestManager.RequestManager.Internal.RequestManager
     ( RequestManager (..)
     )
 
-type ActionCreators a =
-    { initializeUnsortedAll
-        :: InitializeUnsortedAll -> a
-
-    , initializeUnsortedBuildingBlocks
-        :: InitializeUnsortedBuildingBlocks -> a
-
-    , initializeUnsortedConstructedMolecules
-        :: InitializeUnsortedConstructedMolecules -> a
-
-    , initializeSortedAll
-        :: InitializeSortedAll -> a
-
-    , initializeSortedBuildingBlocks
-        :: InitializeSortedBuildingBlocks -> a
-
-    , initializeSortedConstructedMolecules
-        :: InitializeSortedConstructedMolecules -> a
-    }
-
 backButtonProps
     :: forall a
-    .  ActionCreators a
+    .  (UpdateMoleculePage -> a)
     -> RequestManager
     -> BackButtonProps a
 
-backButtonProps helpers (UnsortedAll manager)
+backButtonProps updateMoleculePage (UnsortedAll manager)
     = UnsortedAll.backButtonProps
-        helpers.initializeUnsortedAll
+        updateMoleculePage
         manager
 
-backButtonProps helpers (UnsortedBuildingBlocks manager)
+backButtonProps updateMoleculePage (UnsortedBuildingBlocks manager)
     = UnsortedBuildingBlocks.backButtonProps
-        helpers.initializeUnsortedBuildingBlocks
+        updateMoleculePage
         manager
 
-backButtonProps helpers (UnsortedConstructedMolecules manager)
+backButtonProps
+    updateMoleculePage
+    (UnsortedConstructedMolecules manager)
     = UnsortedConstructedMolecules.backButtonProps
-        helpers.initializeUnsortedConstructedMolecules
+        updateMoleculePage
         manager
 
-backButtonProps helpers (SortedAll manager)
+backButtonProps updateMoleculePage (SortedAll manager)
     = SortedAll.backButtonProps
-        helpers.initializeSortedAll
+        updateMoleculePage
         manager
 
-backButtonProps helpers (SortedBuildingBlocks manager)
+backButtonProps updateMoleculePage (SortedBuildingBlocks manager)
     = SortedBuildingBlocks.backButtonProps
-        helpers.initializeSortedBuildingBlocks
+        updateMoleculePage
         manager
 
-backButtonProps helpers (SortedConstructedMolecules manager)
+backButtonProps updateMoleculePage (SortedConstructedMolecules manager)
     = SortedConstructedMolecules.backButtonProps
-        helpers.initializeSortedConstructedMolecules
+        updateMoleculePage
         manager

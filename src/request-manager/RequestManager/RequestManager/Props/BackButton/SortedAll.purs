@@ -10,46 +10,24 @@ import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal
     ( BackButtonProps (..)
     )
 
-import RequestManager.InitializeUnsortedAll (InitializeUnsortedAll)
+import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Utils as Utils
+
+import RequestManager.UpdatedMoleculePage
+    ( UpdateMoleculePage
+    , updateMoleculePage
+    )
+
 import Requests.UnsortedAll as Request
 
 
 backButtonProps
     :: forall a
-    .  (InitializeUnsortedAll -> a)
+    .  (UpdateMoleculePage -> a)
     -> UnsortedAll
     -> BackButtonProps a
 
 backButtonProps
     createAction
-    (UnsortedAll
-        { _url
-        , _database
-        , _moleculeKey
-        , _moleculeCollection
-        , _positionMatrixCollection
-        , _buildingBlockPositionMatrixCollection
-        , _pageIndex
-        , _numEntriesPerPage
-        , _ignoredCollections
-        , _pageKind
-        }
-    )
-    = BackButtonProps
-        { disabled: Utils.disabled _pageKind
-        , request
-        , onClick
-        }
-  where
-    request = _request manager
-    onClick = do
-        result <- request
-
-
-_request
-    :: Deferred => UnsortedAll -> Promise Request.Result
-
-_request
     (UnsortedAll
         { _url: url
         , _database: database
@@ -64,7 +42,19 @@ _request
         , _pageKind: pageKind
         }
     )
-    = do
+    = BackButtonProps
+        { disabled: Utils.disabled pageKind
+        , request
+        , onClick
+        }
+  where
+    request = Request.request
+        {
+        }
+    onClick dispatch = do
+
+       let pageIndex = Utils.previousPageIndex _pageIndex
+
         result <- request
             { url
             , database
@@ -72,22 +62,26 @@ _request
             , moleculeCollection
             , positionMatrixCollection
             , buildingBlockPositionMatrixCollection
-            , pageIndex: Utils.previousPageIndex _pageIndex
+            , pageIndex
             , numEntriesPerPage
             , ignoredCollections
             }
-        pure (RequestResult.UnsortedAll result)
 
-backButtonProps helpers manager = BackButtonProps
-        { disabled: _disabled (_pageKind manager)
-        , request
-        , onClick
-        }
-  where
-    request :: Deferred => Promise RequestResult
-    request = _request manager
+        let payload = updateMoleculePage
+            { url
+            , database
+            , moleculeKey
+            , moleculeCollection
+            , positionMatrixCollection
+            , buildingBlockPositionMatrixCollection
+            , pageIndex
+            , numEntriesPerPage
+            , ignoredCollections
+            }
 
-    onClick :: Deferred => (a -> Effect Unit) -> Promise (Effect Unit)
-    onClick dispatch = do
-       result <- request
-       pure (dispatch (_toAction helpers manager result))
+
+_request :: Deferred => UnsortedAll -> Promise Request.Result
+_request
+    (UnsortedAll
+    )
+    = request
