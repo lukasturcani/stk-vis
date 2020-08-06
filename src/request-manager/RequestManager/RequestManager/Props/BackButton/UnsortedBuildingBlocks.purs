@@ -27,6 +27,8 @@ import RequestManager.UpdateMoleculePage
 import RequestManager.RequestResult as RequestResult
 import Requests.UnsortedBuildingBlocks as Request
 import Data.Array as Array
+import Effect.Promise (class Deferred, Promise)
+import Effect (Effect)
 
 
 backButtonProps
@@ -52,11 +54,18 @@ backButtonProps
     )
     = BackButtonProps
         { disabled: Utils.disabled pageKind
-        , request: RequestResult.UnsortedBuildingBlocks request
+        , request: request'
         , onClick
         }
   where
     pageIndex = Utils.previousPageIndex _pageIndex
+
+    request' :: Deferred => Promise RequestResult.RequestResult
+    request' = do
+       result <- request
+       pure $ RequestResult.UnsortedBuildingBlocks result
+
+    request :: Deferred => Promise Request.Result
     request = Request.request
         { url
         , database
@@ -69,12 +78,13 @@ backButtonProps
         , ignoredCollections
         }
 
+    onClick :: Deferred => (a -> Effect Unit) -> Promise (Effect Unit)
     onClick dispatch = do
         result <- request
 
         let
             (Request.Result
-                { valueCollections, molecules, pageKind' }
+                { valueCollections, molecules, pageKind: pageKind' }
             ) = result
 
             payload = updateMoleculePage
@@ -87,4 +97,3 @@ backButtonProps
                 }
 
         pure (dispatch (createAction payload))
-

@@ -1,6 +1,6 @@
 module MoleculeBrowser.MoleculeBrowser.Internal.Props
     ( Props
-    , Helpers
+    , ActionCreators
     , props
     ) where
 
@@ -8,7 +8,8 @@ import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
     ( MoleculeBrowser (..)
     )
 
-import RequestManager.RequestResult (RequestResult)
+import RequestManager.UpdateMoleculePage (UpdateMoleculePage)
+
 
 import Molecules.Molecules
     ( MoleculeTableProps
@@ -37,25 +38,28 @@ data Props a = Props
     , nextButton    :: NextButtonProps
     }
 
-type Helpers a =
-    { pageRequestResultToAction :: (RequestResult -> a)
+type ActionCreators a =
+    { updateMoleculePage :: (UpdateMoleculePage -> a)
     }
 
 props
     :: forall a
-    .  Helpers a
+    .  ActionCreators a
     -> MoleculeBrowser
     -> Props a
 
-props helpers (MoleculeBrowser {_requestManager, _molecules}) = Props
-    { sortButton:       sortButtonProps _requestManager
-    , moleculeTable:    moleculeTableProps _molecules
-    , twoDViewer:       twoDViewerProps _molecules
-    , threeDViewer:     threeDViewerProps _molecules
+props
+    actionCreators
+    (MoleculeBrowser {_requestManager, _molecules})
+    = Props
+        { sortButton:       sortButtonProps _requestManager
+        , moleculeTable:    moleculeTableProps _molecules
+        , twoDViewer:       twoDViewerProps _molecules
+        , threeDViewer:     threeDViewerProps _molecules
 
-    , backButton: backButtonProps
-        helpers.pageRequestResultToAction
-        _requestManager
+        , backButton: backButtonProps
+            actionCreators.updateMoleculePage
+            _requestManager
 
-    , nextButton:       nextButtonProps _requestManager
-    }
+        , nextButton:       nextButtonProps _requestManager
+        }

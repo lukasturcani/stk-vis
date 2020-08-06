@@ -15,7 +15,7 @@ import MoleculeBrowser.MoleculeBrowser.Internal.Reducer
 
 import MoleculeBrowser.MoleculeBrowser.Internal.Props
     ( Props
-    , Helpers
+    , ActionCreators
     ) as Exports
 
 import MoleculeBrowser.MoleculeBrowser.Internal.Props
@@ -37,7 +37,7 @@ reducer = Reducer.reducer
 
 props
     :: forall a
-    .  Exports.Helpers a
+    .  Exports.ActionCreators a
     -> Exports.MoleculeBrowser
     -> Exports.Props a
 props = Props.props

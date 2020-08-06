@@ -1,30 +1,30 @@
 module StkVis.StkVis.Internal.Props
     ( Props (..)
-    , Helpers
+    , ActionCreators
     , props
     ) where
 
 import StkVis.StkVis.Internal.StkVis (StkVis (..)) as StkVis
 import MongoConfigurator.MongoConfigurator as MongoConfigurator
 import MoleculeBrowser.MoleculeBrowser as MoleculeBrowser
-import RequestManager.RequestResult (RequestResult)
+import RequestManager.UpdateMoleculePage (UpdateMoleculePage)
 
 data Props a
     = MongoConfigurator MongoConfigurator.Props
     | MoleculeBrowser (MoleculeBrowser.Props a)
 
-type Helpers a =
-    { pageRequestResultToAction :: (RequestResult -> a)
+type ActionCreators a =
+    { updateMoleculePage :: (UpdateMoleculePage -> a)
     }
 
 props
     :: forall a
-    .  Helpers a
+    .  ActionCreators a
     -> StkVis.StkVis
     -> Props a
 
-props helpers (StkVis.MongoConfigurator configurator)
+props actionCreators (StkVis.MongoConfigurator configurator)
     = MongoConfigurator (MongoConfigurator.props configurator)
 
-props helpers (StkVis.MoleculeBrowser browser)
-    = MoleculeBrowser (MoleculeBrowser.props helpers browser)
+props actionCreators (StkVis.MoleculeBrowser browser)
+    = MoleculeBrowser (MoleculeBrowser.props actionCreators browser)

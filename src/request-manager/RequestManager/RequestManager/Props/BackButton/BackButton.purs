@@ -1,11 +1,11 @@
 module RequestManager.RequestManager.Internal.Props.Internal.BackButton
-    ( BackButtonProps
+    ( module Exports
     , backButtonProps
     ) where
 
 import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Props
     ( BackButtonProps
-    )
+    ) as Exports
 
 import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.UnsortedAll
     as UnsortedAll
@@ -29,11 +29,15 @@ import RequestManager.RequestManager.Internal.RequestManager
     ( RequestManager (..)
     )
 
+import RequestManager.UpdateMoleculePage
+    ( UpdateMoleculePage
+    )
+
 backButtonProps
     :: forall a
     .  (UpdateMoleculePage -> a)
     -> RequestManager
-    -> BackButtonProps a
+    -> Exports.BackButtonProps a
 
 backButtonProps updateMoleculePage (UnsortedAll manager)
     = UnsortedAll.backButtonProps

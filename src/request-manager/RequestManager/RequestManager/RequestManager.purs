@@ -8,7 +8,7 @@ module RequestManager.RequestManager
     ) where
 
 import RequestManager.Action (Action)
-import RequestManager.RequestResult (RequestResult)
+import RequestManager.UpdateMoleculePage (UpdateMoleculePage)
 
 import RequestManager.RequestManager.Internal.RequestManager
     ( RequestManager
@@ -45,7 +45,7 @@ nextButtonProps = Props.nextButtonProps
 
 backButtonProps
     :: forall a
-    .  (RequestResult -> a)
+    .  (UpdateMoleculePage -> a)
     -> Exports.RequestManager
     -> Exports.BackButtonProps a
 

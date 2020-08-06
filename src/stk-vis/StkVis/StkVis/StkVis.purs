@@ -8,8 +8,12 @@ module StkVis.StkVis
 import StkVis.StkVis.Internal.StkVis (StkVis) as Exports
 import StkVis.Action (Action)
 import StkVis.StkVis.Internal.Reducer (reducer) as Reducer
-import StkVis.StkVis.Internal.Props (Props (..), Helpers) as Exports
 import StkVis.StkVis.Internal.Props (props) as Props
+
+import StkVis.StkVis.Internal.Props
+    ( Props (..)
+    , ActionCreators
+    ) as Exports
 
 import StkVis.StkVis.Internal.InitialState
     (initialState) as InitialState
@@ -22,7 +26,7 @@ reducer = Reducer.reducer
 
 props
     :: forall a
-    .  Exports.Helpers a
+    .  Exports.ActionCreators a
     -> Exports.StkVis
     -> Exports.Props a
 props = Props.props
