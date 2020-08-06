@@ -18,6 +18,9 @@ import {
     descending,
 } from 'RequestManager.SortType';
 import { Molecule } from 'Molecules.Molecule';
+import {
+    RequestResult,
+} from 'RequestManager.RequestResult';
 
 
 function mapStateToProps(
@@ -40,7 +43,8 @@ function mapDispatchToProps(
                 (selected: number, molecule: Molecule) => dispatch(
                     Action.selectMolecule_(selected)(molecule)
                 ),
-            handleResult: result => console.log(result),
+            handleResult:
+                (result: RequestResult) => console.log(result),
             setSortedCollection:
                 (
                     sortType: 'ascending' | 'descending',
