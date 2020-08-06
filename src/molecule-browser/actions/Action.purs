@@ -4,6 +4,12 @@ module MoleculeBrowser.Action
     , initializeMolecules
     , setSorted
     , setUnsorted
+    , initializeSortedAllMoleculeBrowser
+    , initializeSortedBuildingBlocksMoleculeBrowser
+    , initializeSortedConstructedMoleculesMoleculeBrowser
+    , initializeUnsortedAllMoleculeBrowser
+    , initializeUnsortedBuildingBlocksMoleculeBrowser
+    , initializeUnsortedConstructedMoleculesMoleculeBrowser
     ) where
 
 import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
@@ -21,6 +27,30 @@ import MoleculeBrowser.SetSorted
 import MoleculeBrowser.SetUnsorted
     ( SetUnsorted
     )
+
+import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedAll
+    ( InitializeUnsortedAll
+    ) as MoleculeBrowser
+
+import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+    ( InitializeUnsortedBuildingBlocks
+    ) as MoleculeBrowser
+
+import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedConstructedMolecules
+    ( InitializeUnsortedConstructedMolecules
+    ) as MoleculeBrowser
+
+import MoleculeBrowser.InitializeMoleculeBrowser.SortedAll
+    ( InitializeSortedAll
+    ) as MoleculeBrowser
+
+import MoleculeBrowser.InitializeMoleculeBrowser.SortedBuildingBlocks
+    ( InitializeSortedBuildingBlocks
+    ) as MoleculeBrowser
+
+import MoleculeBrowser.InitializeMoleculeBrowser.SortedConstructedMolecules
+    ( InitializeSortedConstructedMolecules
+    ) as MoleculeBrowser
 
 import MoleculeBrowser.Payload as Payload
 
@@ -51,4 +81,64 @@ setUnsorted :: SetUnsorted -> Action
 setUnsorted payload =
     { type: "SET_UNSORTED"
     , payload: Payload.setUnsorted payload
+    }
+
+initializeSortedAllMoleculeBrowser
+    :: MoleculeBrowser.SortedAll
+    -> Action
+
+initializeSortedAllMoleculeBrowser payload =
+    { type: "INITIALIZE_SORTED_ALL_MOLECULE_BROWSER"
+    , payload: Payload.initializeSortedAllMoleculeBrowser payload
+    }
+
+initializeSortedBuildingBlocksMoleculeBrowser
+    :: MoleculeBrowser.SortedBuildingBlocks
+    -> Action
+
+initializeSortedBuildingBlocksMoleculeBrowser payload =
+    { type: "INITIALIZE_SORTED_BUILDING_BLOCKS_MOLECULE_BROWSER"
+    , payload: Payload.initializeSortedBuildingBlocksMoleculeBrowser
+        payload
+    }
+
+initializeSortedConstructedMoleculesMoleculeBrowser
+    :: MoleculeBrowser.SortedConstructedMolecules
+    -> Action
+
+initializeSortedConstructedMoleculesMoleculeBrowser payload =
+    { type: "INITIALIZE_SORTED_CONSTRUCTED_MOLECULES_MOLECULE_BROWSER"
+    , payload:
+        Payload.initializeSortedConstructedMoleculesMoleculeBrowser
+            payload
+    }
+
+initializeUnsortedAllMoleculeBrowser
+    :: MoleculeBrowser.UnsortedAll
+    -> Action
+
+initializeUnsortedAllMoleculeBrowser payload =
+    { type: "INITIALIZE_UNSORTED_ALL_MOLECULE_BROWSER"
+    , payload: Payload.initializeUnsortedAllMoleculeBrowser payload
+    }
+
+initializeUnsortedBuildingBlocksMoleculeBrowser
+    :: MoleculeBrowser.UnsortedBuildingBlocks
+    -> Action
+
+initializeUnsortedBuildingBlocksMoleculeBrowser payload =
+    { type: "INITIALIZE_UNSORTED_BUILDING_BLOCKS_MOLECULE_BROWSER"
+    , payload: Payload.initializeUnsortedBuildingBlocksMoleculeBrowser
+        payload
+    }
+
+initializeUnsortedConstructedMoleculesMoleculeBrowser
+    :: MoleculeBrowser.UnsortedConstructedMolecules
+    -> Action
+
+initializeUnsortedConstructedMoleculesMoleculeBrowser payload =
+    { type: "INITIALIZE_UNSORTED_CONSTRUCTED_MOLECULES_MOLECULE_BROWSER"
+    , payload:
+        Payload.initializeUnsortedConstructedMoleculesMoleculeBrowser
+            payload
     }

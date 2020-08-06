@@ -4,12 +4,12 @@ module MoleculeBrowser.Payload
     , initializeMolecules
     , setSorted
     , setUnsorted
-    , initializeSortedAll
-    , initializeSortedBuildingBlocks
-    , initializeSortedConstructedMolecules
-    , initializeUnsortedAll
-    , initializeUnsortedBuildingBlocks
-    , initializeUnsortedConstructedMolecules
+    , initializeSortedAllMoleculeBrowser
+    , initializeSortedBuildingBlocksMoleculeBrowser
+    , initializeSortedConstructedMoleculesMoleculeBrowser
+    , initializeUnsortedAllMoleculeBrowser
+    , initializeUnsortedBuildingBlocksMoleculeBrowser
+    , initializeUnsortedConstructedMoleculesMoleculeBrowser
     ) where
 
 import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
@@ -28,19 +28,47 @@ import MoleculeBrowser.SetUnsorted
     ( SetUnsorted
     )
 
+import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedAll
+    ( InitializeUnsortedAll
+    ) as MoleculeBrowser
+
+import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+    ( InitializeUnsortedBuildingBlocks
+    ) as MoleculeBrowser
+
+import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedConstructedMolecules
+    ( InitializeUnsortedConstructedMolecules
+    ) as MoleculeBrowser
+
+import MoleculeBrowser.InitializeMoleculeBrowser.SortedAll
+    ( InitializeSortedAll
+    ) as MoleculeBrowser
+
+import MoleculeBrowser.InitializeMoleculeBrowser.SortedBuildingBlocks
+    ( InitializeSortedBuildingBlocks
+    ) as MoleculeBrowser
+
+import MoleculeBrowser.InitializeMoleculeBrowser.SortedConstructedMolecules
+    ( InitializeSortedConstructedMolecules
+    ) as MoleculeBrowser
+
 data Payload
     = UpdateMoleculePage UpdateMoleculePage
     | InitializeMolecules InitializeMolecules
     | SetSorted SetSorted
     | SetUnsorted SetUnsorted
-    | InitializeUnsortedAll InitializeUnsortedAll
-    | InitializeUnsortedBuildingBlocks InitializeUnsortedBuildingBlocks
-    | InitializeUnsortedConstructedMolecules
-        InitializeUnsortedConstructedMolecules
-    | InitializeSortedAll InitializeSortedAll
-    | InitializeSortedBuildingBlocks InitializeSortedBuildingBlocks
-    | InitializeSortedConstructedMolecules
-        InitializeSortedConstructedMolecules
+    | InitializeUnsortedAllMoleculeBrowser
+        MoleculeBrowser.InitializeUnsortedAll
+    | InitializeUnsortedBuildingBlocksMoleculeBrowser
+        MoleculeBrowser.InitializeUnsortedBuildingBlocks
+    | InitializeUnsortedConstructedMoleculesMoleculeBrowser
+        MoleculeBrowser.InitializeUnsortedConstructedMolecules
+    | InitializeSortedAllMoleculeBrowser
+        MoleculeBrowser.InitializeSortedAll
+    | InitializeSortedBuildingBlocksMoleculeBrowser
+        MoleculeBrowser.InitializeSortedBuildingBlocks
+    | InitializeSortedConstructedMoleculesMoleculeBrowser
+        MoleculeBrowser.InitializeSortedConstructedMolecules
 
 updateMoleculePage :: UpdateMoleculePage -> Payload
 updateMoleculePage = UpdateMoleculePage
@@ -54,26 +82,43 @@ setSorted = SetSorted
 setUnsorted :: SetUnsorted -> Payload
 setUnsorted = SetUnsorted
 
-initializeSortedAll :: InitializeSortedAll -> Payload
-initializeSortedAll = InitializeSortedAll
+initializeSortedAllMoleculeBrowser
+    :: MoleculeBrowser.InitializeSortedAll
+    -> Payload
 
-initializeSortedBuildingBlocks
-    :: InitializeSortedBuildingBlocks -> Payload
-initializeSortedBuildingBlocks = InitializeSortedBuildingBlocks
+initializeSortedAllMoleculeBrowser
+    = InitializeSortedAllMoleculeBrowser
 
-initializeSortedConstructedMolecules
-    :: InitializeSortedConstructedMolecules -> Payload
-initializeSortedConstructedMolecules
-    = InitializeSortedConstructedMolecules
+initializeSortedBuildingBlocksMoleculeBrowser
+    :: MoleculeBrowser.InitializeSortedBuildingBlocks
+    -> Payload
 
-initializeUnsortedAll :: InitializeUnsortedAll -> Payload
-initializeUnsortedAll = InitializeUnsortedAll
+initializeSortedBuildingBlocksMoleculeBrowser
+    = InitializeSortedBuildingBlocksMoleculeBrowser
 
-initializeUnsortedBuildingBlocks
-    :: InitializeUnsortedBuildingBlocks -> Payload
-initializeSortedBuildingBlocks
+initializeSortedConstructedMoleculesMoleculeBrowser
+    :: MoleculeBrowser.InitializeSortedConstructedMolecules
+    -> Payload
 
-initializeUnsortedConstructedMolecules
-    :: InitializeUnsortedConstructedMolecules -> Payload
-initializeUnsortedConstructedMolecules
-    = InitializeUnsortedConstructedMolecules
+initializeSortedConstructedMoleculesMoleculeBrowser
+    = InitializeSortedConstructedMoleculesMoleculeBrowser
+
+initializeUnsortedAll
+    :: MoleculeBrowser.InitializeUnsortedAll
+    -> Payload
+
+initializeUnsortedAllMoleculeBrowser
+    = InitializeUnsortedAllMoleculeBrowser
+
+initializeUnsortedBuildingBlocksMoleculeBrowser
+    :: InitializeUnsortedBuildingBlocksMoleculeBrowser
+    -> Payload
+
+initializeSortedBuildingBlocksMoleculeBrowser
+
+initializeUnsortedConstructedMoleculesMoleculeBrowser
+    :: InitializeUnsortedConstructedMoleculesMoleculeBrowser
+    -> Payload
+
+initializeUnsortedConstructedMoleculesMoleculeBrowser
+    = InitializeUnsortedConstructedMoleculesMoleculeBrowser
