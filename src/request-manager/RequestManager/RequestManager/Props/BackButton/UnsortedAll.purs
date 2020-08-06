@@ -24,7 +24,6 @@ import RequestManager.UpdateMoleculePage
     , updateMoleculePage
     )
 
-import RequestManager.RequestResult as RequestResult
 import Requests.UnsortedAll as Request
 import Data.Array as Array
 import Effect.Promise (class Deferred, Promise)
@@ -55,7 +54,6 @@ backButtonProps
     )
     = BackButtonProps
         { disabled: Utils.disabled pageKind
-        , request: request'
         , onClick
         }
   where
@@ -73,11 +71,6 @@ backButtonProps
         , numEntriesPerPage
         , ignoredCollections
         }
-
-    request' :: Deferred => Promise RequestResult.RequestResult
-    request' = do
-       result <- request
-       pure $ RequestResult.UnsortedAll result
 
     onClick :: Deferred => (a -> Effect Unit) -> Promise (Effect Unit)
     onClick dispatch = do

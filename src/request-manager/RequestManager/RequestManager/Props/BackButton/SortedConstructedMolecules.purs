@@ -25,7 +25,6 @@ import RequestManager.UpdateMoleculePage
     , updateMoleculePage
     )
 
-import RequestManager.RequestResult as RequestResult
 import Requests.SortedConstructedMolecules as Request
 import Data.Array as Array
 import Effect.Promise (class Deferred, Promise)
@@ -57,16 +56,10 @@ backButtonProps
     )
     = BackButtonProps
         { disabled: Utils.disabled pageKind
-        , request: request'
         , onClick
         }
   where
     pageIndex = Utils.previousPageIndex _pageIndex
-
-    request' :: Deferred => Promise RequestResult.RequestResult
-    request' = do
-       result <- request
-       pure $ RequestResult.SortedConstructedMolecules result
 
     request :: Deferred => Promise Request.Result
     request = Request.request

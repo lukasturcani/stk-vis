@@ -25,7 +25,6 @@ import RequestManager.UpdateMoleculePage
     , updateMoleculePage
     )
 
-import RequestManager.RequestResult as RequestResult
 import Requests.SortedBuildingBlocks as Request
 import Data.Array as Array
 import Effect.Promise (class Deferred, Promise)
@@ -57,7 +56,6 @@ backButtonProps
     )
     = BackButtonProps
         { disabled: Utils.disabled pageKind
-        , request: request'
         , onClick
         }
   where
@@ -77,11 +75,6 @@ backButtonProps
         , sortedCollection
         , sortType: toRequest sortType
         }
-
-    request' :: Deferred => Promise RequestResult.RequestResult
-    request' = do
-       result <- request
-       pure $ RequestResult.SortedBuildingBlocks result
 
     onClick :: Deferred => (a -> Effect Unit) -> Promise (Effect Unit)
     onClick dispatch = do
