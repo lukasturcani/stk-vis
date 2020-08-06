@@ -63,34 +63,3 @@ _nextRequest
             }
         pure (RequestResult.UnsortedAll result)
 
-_backRequest
-    :: Deferred => UnsortedAll -> Promise RequestResult.RequestResult
-
-_backRequest
-    (UnsortedAll
-        { _url: url
-        , _database: database
-        , _moleculeKey: moleculeKey
-        , _moleculeCollection: moleculeCollection
-        , _positionMatrixCollection: positionMatrixCollection
-        , _buildingBlockPositionMatrixCollection:
-            buildingBlockPositionMatrixCollection
-        , _pageIndex
-        , _numEntriesPerPage: numEntriesPerPage
-        , _ignoredCollections: ignoredCollections
-        , _pageKind: pageKind
-        }
-    )
-    = do
-        result <- request
-            { url
-            , database
-            , moleculeKey
-            , moleculeCollection
-            , positionMatrixCollection
-            , buildingBlockPositionMatrixCollection
-            , pageIndex: Utils.previousPageIndex _pageIndex
-            , numEntriesPerPage
-            , ignoredCollections
-            }
-        pure (RequestResult.UnsortedAll result)

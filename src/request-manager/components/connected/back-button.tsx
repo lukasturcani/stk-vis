@@ -18,10 +18,10 @@ import {
 function mapStateToProps(
     state: RequestManager,
 )
-    : BackButtonProps
+    : BackButtonProps<Action.Action>
 {
     // Reconstruct as plain object to prevent react/redux warnings.
-    return { ...backButtonProps(state) };
+    return { ...backButtonProps()(state) };
 }
 
 

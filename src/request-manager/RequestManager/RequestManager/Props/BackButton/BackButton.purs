@@ -1,5 +1,6 @@
 module RequestManager.RequestManager.Internal.Props.Internal.BackButton
     ( BackButtonProps
+    , ActionCreators
     , backButtonProps
     ) where
 
@@ -40,13 +41,33 @@ data BackButtonProps a = BackButtonProps
         :: Deferred => (a -> Effect Unit) -> Promise (Effect Unit)
     }
 
+type ActionCreators a =
+    { initializeUnsortedAll
+        :: InitializeUnsortedAll -> a
+
+    , initializeUnsortedBuildingBlocks
+        :: InitializeUnsortedBuildingBlocks -> a
+
+    , initializeUnsortedConstructedMolecules
+        :: InitializeUnsortedConstructedMolecules -> a
+
+    , initializeSortedAll
+        :: InitializeSortedAll -> a
+
+    , initializeSortedBuildingBlocks
+        :: InitializeSortedBuildingBlocks -> a
+
+    , initializeSortedConstructedMolecules
+        :: InitializeSortedConstructedMolecules -> a
+    }
+
 backButtonProps
     :: forall a
-    .  (RequestResult -> a)
+    .  Helpers a
     -> RequestManager
     -> BackButtonProps a
 
-backButtonProps toAction manager = BackButtonProps
+backButtonProps helpers manager = BackButtonProps
         { disabled: _disabled (_pageKind manager)
         , request
         , onClick
@@ -58,7 +79,16 @@ backButtonProps toAction manager = BackButtonProps
     onClick :: Deferred => (a -> Effect Unit) -> Promise (Effect Unit)
     onClick dispatch = do
        result <- request
-       pure (dispatch (toAction result))
+       pure (dispatch (_toAction helpers manager result))
+
+_toAction
+    :: forall a
+    .  Helpers a
+    -> RequestManager
+    -> RequestResult
+    -> a
+
+_toAction helpers (UnsortedAll result)
 
 _disabled :: PageKind -> Boolean
 _disabled First          = true
