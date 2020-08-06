@@ -35,7 +35,7 @@ data Props a = Props
     , twoDViewer    :: TwoDViewerProps
     , threeDViewer  :: ThreeDViewerProps
     , backButton    :: BackButtonProps a
-    , nextButton    :: NextButtonProps
+    , nextButton    :: NextButtonProps a
     }
 
 type ActionCreators a =
@@ -61,5 +61,7 @@ props
             actionCreators.updateMoleculePage
             _requestManager
 
-        , nextButton:       nextButtonProps _requestManager
+        , nextButton: nextButtonProps
+            actionCreators.updateMoleculePage
+            _requestManager
         }

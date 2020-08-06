@@ -31,11 +31,14 @@ declare module 'RequestManager.RequestManager'
         };
     }
 
-    export interface NextButtonProps
+    export interface NextButtonProps<a>
     {
         value0: {
             lastPage: boolean;
-            request: () => Promise<RequestResult>;
+            onClick:
+                () =>
+                (dispatch: (action: a) => void) =>
+                Promise<void>;
         };
     }
 
@@ -47,7 +50,7 @@ declare module 'RequestManager.RequestManager'
         RequestManager;
 
     export const nextButtonProps:
-        (state: RequestManager) => NextButtonProps;
+        <a>(state: RequestManager) => NextButtonProps<a>;
 
     export const backButtonProps:
         <a>(updateMoleculePage: (payload: UpdateMoleculePage) => a) =>
