@@ -40,7 +40,12 @@ reducer = Reducer.reducer
 initialState :: Exports.RequestManager
 initialState = InitialState.initialState
 
-nextButtonProps :: Exports.RequestManager -> Exports.NextButtonProps
+nextButtonProps
+    :: forall a
+    .  (UpdateMoleculePage -> a)
+    -> Exports.RequestManager
+    -> Exports.NextButtonProps a
+
 nextButtonProps = Props.nextButtonProps
 
 backButtonProps
