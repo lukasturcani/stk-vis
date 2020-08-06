@@ -14,17 +14,20 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
         NextButtonProps,
         BackButtonProps,
     } from 'RequestManager.RequestManager';
+    import {
+        RequestResult,
+    } from 'RequestManager.RequestResult';
 
     export type MoleculeBrowser = Record<string, unknown>;
 
-    export interface Props
+    export interface Props<a>
     {
         value0: {
             sortButton: SortButtonProps,
             moleculeTable: MoleculeTableProps,
             twoDViewer: TwoDViewerProps,
             threeDViewer: ThreeDViewerProps,
-            backButton: BackButtonProps,
+            backButton: BackButtonProps<a>,
             nextButton: NextButtonProps,
         };
     }
@@ -36,5 +39,13 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
         (action: Action) =>
         MoleculeBrowser;
 
-    export const props: (state: MoleculeBrowser) => Props;
+    export interface Helpers<a>
+    {
+        pageRequestResultToAction: <a>(result: RequestResult) => a;
+    }
+
+    export const props:
+        <a>(helpers: Helpers<a>) =>
+        (state: MoleculeBrowser) =>
+        Props<a>;
 }

@@ -11,12 +11,12 @@ declare module 'RequestManager.RequestManager'
     export type RequestManager = Record<string, unknown>;
 
     type Dispatch<a> = (action: a) => void;
-    export interface BackButtonProps
+    export interface BackButtonProps<a>
     {
         value0: {
             disabled: boolean;
             request: () => Promise<RequestResult>;
-            onClick: <a>() => (dispatch: Dispatch<a>) => Promise<void>;
+            onClick: () => (dispatch: Dispatch<a>) => Promise<void>;
         };
     }
 
@@ -45,8 +45,12 @@ declare module 'RequestManager.RequestManager'
     export const nextButtonProps:
         (state: RequestManager) => NextButtonProps;
 
+    type ToAction<a> = (result: RequestResult) => a;
+
     export const backButtonProps:
-        (state: RequestManager) => BackButtonProps;
+        <a>(toAction: ToAction<a>) =>
+        (state: RequestManager) =>
+        BackButtonProps<a>;
 
     export const sortButtonProps:
         (state: RequestManager) => SortButtonProps;
