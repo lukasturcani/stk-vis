@@ -1,69 +1,72 @@
 module RequestManager.RequestManager.Internal.Props.Internal.NextButton
-    ( NextButtonProps
+    ( module Exports
     , nextButtonProps
     ) where
 
-import RequestManager.RequestResult (RequestResult)
-import RequestManager.PageKind (PageKind (..))
-import Effect.Promise (class Deferred, Promise)
+import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.Props
+    ( NextButtonProps
+    ) as Exports
+
+import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.UnsortedAll
+    as UnsortedAll
+
+import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.UnsortedBuildingBlocks
+    as UnsortedBuildingBlocks
+
+import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.UnsortedConstructedMolecules
+    as UnsortedConstructedMolecules
+
+import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.SortedAll
+    as SortedAll
+
+import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.SortedBuildingBlocks
+    as SortedBuildingBlocks
+
+import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.SortedConstructedMolecules
+    as SortedConstructedMolecules
 
 import RequestManager.RequestManager.Internal.RequestManager
     ( RequestManager (..)
-    , _pageKind
     )
 
-import RequestManager.RequestManager.Internal.RequestManager.UnsortedAll
-    as UnsortedAll
+import RequestManager.UpdateMoleculePage
+    ( UpdateMoleculePage
+    )
 
-import RequestManager.RequestManager.Internal.RequestManager.UnsortedBuildingBlocks
-    as UnsortedBuildingBlocks
+nextButtonProps
+    :: forall a
+    .  (UpdateMoleculePage -> a)
+    -> RequestManager
+    -> Exports.NextButtonProps a
 
-import RequestManager.RequestManager.Internal.RequestManager.UnsortedConstructedMolecules
-    as UnsortedConstructedMolecules
+nextButtonProps updateMoleculePage (UnsortedAll manager)
+    = UnsortedAll.nextButtonProps
+        updateMoleculePage
+        manager
 
-import RequestManager.RequestManager.Internal.RequestManager.SortedAll
-    as SortedAll
+nextButtonProps updateMoleculePage (UnsortedBuildingBlocks manager)
+    = UnsortedBuildingBlocks.nextButtonProps
+        updateMoleculePage
+        manager
 
-import RequestManager.RequestManager.Internal.RequestManager.SortedBuildingBlocks
-    as SortedBuildingBlocks
+nextButtonProps
+    updateMoleculePage
+    (UnsortedConstructedMolecules manager)
+    = UnsortedConstructedMolecules.nextButtonProps
+        updateMoleculePage
+        manager
 
-import RequestManager.RequestManager.Internal.RequestManager.SortedConstructedMolecules
-    as SortedConstructedMolecules
+nextButtonProps updateMoleculePage (SortedAll manager)
+    = SortedAll.nextButtonProps
+        updateMoleculePage
+        manager
 
-data NextButtonProps = NextButtonProps
-    { lastPage     :: Boolean
-    , request      :: Deferred => Promise RequestResult
-    }
+nextButtonProps updateMoleculePage (SortedBuildingBlocks manager)
+    = SortedBuildingBlocks.nextButtonProps
+        updateMoleculePage
+        manager
 
-nextButtonProps :: RequestManager -> NextButtonProps
-nextButtonProps manager = NextButtonProps
-    { lastPage: _lastPage (_pageKind manager)
-    , request:  _request manager
-    }
-
-_lastPage :: PageKind -> Boolean
-_lastPage LastComplete   = true
-_lastPage LastIncomplete = true
-_lastPage OnlyComplete   = true
-_lastPage OnlyIncomplete = true
-_lastPage _              = false
-
-_request :: Deferred => RequestManager -> Promise RequestResult
-
-_request (UnsortedAll manager)
-    = UnsortedAll._nextRequest manager
-
-_request (UnsortedBuildingBlocks manager)
-    = UnsortedBuildingBlocks._nextRequest manager
-
-_request (UnsortedConstructedMolecules manager)
-    = UnsortedConstructedMolecules._nextRequest manager
-
-_request (SortedAll manager)
-    = SortedAll._nextRequest manager
-
-_request (SortedBuildingBlocks manager)
-    = SortedBuildingBlocks._nextRequest manager
-
-_request (SortedConstructedMolecules manager)
-    = SortedConstructedMolecules._nextRequest manager
+nextButtonProps updateMoleculePage (SortedConstructedMolecules manager)
+    = SortedConstructedMolecules.nextButtonProps
+        updateMoleculePage
+        manager
