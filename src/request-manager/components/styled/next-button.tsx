@@ -6,16 +6,13 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import {
     ButtonProps,
     NextButton as NextButtonBase,
-    DispatchProps,
+    CoreProps,
 } from 'request-manager/base/next-button';
-import {
-    NextButtonProps,
-} from 'RequestManager.RequestManager'
 
-type Props = NextButtonProps & DispatchProps;
 
-export const NextButton: React.FunctionComponent<Props>
-    = (props) =>
+export function NextButton<a>(
+    props: CoreProps<a>
+)
 {
     if (props.value0.lastPage)
     {

@@ -9,6 +9,7 @@ import {
 } from 'request-manager/styled/next-button';
 import {
     DispatchProps,
+    CoreProps,
 } from 'request-manager/base/next-button';
 
 import * as Action
@@ -18,25 +19,30 @@ from 'RequestManager.Action';
 function mapStateToProps(
     state: RequestManager,
 )
-    : NextButtonProps
+    : NextButtonProps<Action.Action>
 {
     // Reconstruct as plain object to prevent react/redux warnings.
-    return { ...nextButtonProps(state) };
+    return {
+        ...nextButtonProps
+        (Action.updateMoleculePage)
+        (state)
+    };
 }
 
 
 function mapDispatchToProps(
     dispatch: (action: Action.Action) => void,
 )
-    : DispatchProps
+    : DispatchProps<Action.Action>
 {
-    return {
-        handleResult: result => console.log(result),
-    };
+    return { dispatch };
 }
 
 
 export const NextButton
     = connect
     (mapStateToProps, mapDispatchToProps)
-    (NextButtonBase);
+    (
+        NextButtonBase as
+        React.FunctionComponent<CoreProps<Action.Action>>
+    );

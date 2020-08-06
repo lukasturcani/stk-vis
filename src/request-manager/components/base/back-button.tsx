@@ -2,9 +2,6 @@ import * as React from 'react';
 import {
     BackButtonProps
 } from 'RequestManager.RequestManager'
-import {
-    RequestResult,
-} from 'RequestManager.RequestResult';
 
 
 export interface DispatchProps<a>

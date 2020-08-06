@@ -50,7 +50,9 @@ declare module 'RequestManager.RequestManager'
         RequestManager;
 
     export const nextButtonProps:
-        <a>(state: RequestManager) => NextButtonProps<a>;
+        <a>(updateMoleculePage: (payload: UpdateMoleculePage) => a) =>
+        (state: RequestManager) =>
+        NextButtonProps<a>;
 
     export const backButtonProps:
         <a>(updateMoleculePage: (payload: UpdateMoleculePage) => a) =>

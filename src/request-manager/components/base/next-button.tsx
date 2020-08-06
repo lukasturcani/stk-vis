@@ -2,18 +2,15 @@ import * as React from 'react';
 import{
     NextButtonProps,
 } from 'RequestManager.RequestManager'
-import {
-    RequestResult,
-} from 'RequestManager.RequestResult';
 
-export interface DispatchProps
+export interface DispatchProps<a>
 {
-    handleResult: (result: RequestResult) => void;
+    dispatch: (action: a) => void
 }
 
-export type CoreProps = DispatchProps & NextButtonProps;
+export type CoreProps<a> = DispatchProps<a> & NextButtonProps<a>;
 
-interface Props extends NextButtonProps, DispatchProps
+interface Props<a> extends NextButtonProps<a>, DispatchProps<a>
 {
     button: React.FunctionComponent<ButtonProps>;
 }
@@ -25,13 +22,11 @@ export interface ButtonProps
 }
 
 
-export function NextButton(
-    props: Props,
+export function NextButton<a>(
+    props: Props<a>,
 )
 {
     return <props.button
-        onClick={
-            () => props.value0.request().then(props.handleResult)
-        }
+        onClick={() => props.value0.onClick()(props.dispatch)}
     />;
 }
