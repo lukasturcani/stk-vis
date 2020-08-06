@@ -31,16 +31,16 @@ data UpdateMoleculePage = UpdateMoleculePage
 
 updateMoleculePage :: PageData -> UpdateMoleculePage
 updateMoleculePage
-    { columns
-    , moleculeKey
-    , molecules
+    { columns: columns'
+    , moleculeKey: moleculeKey'
+    , molecules: molecules'
     , pageIndex: pageIndex'
     , pageKind: pageKind'
     }
     = UpdateMoleculePage
-        { _columns: columns
-        , _moleculeKey: moleculeKey
-        , _molecules: molecules
+        { _columns: columns'
+        , _moleculeKey: moleculeKey'
+        , _molecules: molecules'
         , _pageIndex: pageIndex'
         , _pageKind: pageKind'
         }

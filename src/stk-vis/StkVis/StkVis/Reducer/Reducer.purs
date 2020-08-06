@@ -7,7 +7,7 @@ import StkVis.Action (Action)
 import StkVis.Payload (Payload (..))
 
 import StkVis.StkVis.Internal.Reducer.Internal.UpdateFields
-    (updateFields
+    ( updateFields
     )
 
 import StkVis.StkVis.Internal.Reducer.Internal.UpdateMoleculePage

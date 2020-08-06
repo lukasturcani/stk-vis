@@ -5,6 +5,7 @@ module StkVis.Action
     ) where
 
 import MongoConfigurator.UpdateFields.MongoData (MongoData)
+import StkVis.UpdateMoleculePage (UpdateMoleculePage)
 
 import StkVis.Payload
     ( Payload

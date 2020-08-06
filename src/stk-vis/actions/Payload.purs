@@ -6,6 +6,7 @@ module StkVis.Payload
 
 import Prelude
 import MongoConfigurator.UpdateFields.MongoData (MongoData)
+import StkVis.UpdateMoleculePage (UpdateMoleculePage)
 
 import StkVis.UpdateFields
     ( UpdateFields

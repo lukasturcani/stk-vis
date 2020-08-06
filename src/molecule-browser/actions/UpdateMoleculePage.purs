@@ -8,6 +8,9 @@ module MoleculeBrowser.UpdateMoleculePage
 import Prelude
 import RequestManager.UpdateMoleculePage as Base
 import Molecules.InitializeMolecules as InitMols
+import Molecules.Molecule as Molecule
+import Requests.Molecule as Request
+import Data.Map as Map
 
 newtype UpdateMoleculePage = UpdateMoleculePage Base.UpdateMoleculePage
 
@@ -17,7 +20,9 @@ updateMoleculePage = UpdateMoleculePage
 toRequestManager :: UpdateMoleculePage -> Base.UpdateMoleculePage
 toRequestManager (UpdateMoleculePage payload) = payload
 
-initializeMolecules :: UpdateMoleculePage -> InitializeMolecules
+initializeMolecules
+    :: UpdateMoleculePage -> InitMols.InitializeMolecules
+
 initializeMolecules (UpdateMoleculePage payload)
     = InitMols.initializeMolecules molecules (Base.columns payload)
   where
@@ -25,15 +30,15 @@ initializeMolecules (UpdateMoleculePage payload)
     molecules = map (_toMolecule moleculeKey) (Base.molecules payload)
 
 _toMolecule
-    :: MoleculeKeyName -> Requests.Molecule -> Molecules.Molecule
+    :: String -> Request.Molecule -> Molecule.Molecule
 
 _toMolecule moleculeKey molecule =
-    Molecules.molecule validated properties
+    Molecule.molecule validated properties
   where
-    validated =Requests.toValidated molecule
+    validated =Request.toValidated molecule
     properties =
-        insert
+        Map.insert
             moleculeKey
-            (Requests.key molecule)
-            (Requests.properties molecule)
+            (Request.key molecule)
+            (Request.properties molecule)
 

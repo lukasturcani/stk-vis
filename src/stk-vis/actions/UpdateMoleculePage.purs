@@ -15,8 +15,7 @@ newtype UpdateMoleculePage
 updateMoleculePage :: Manager.UpdateMoleculePage -> UpdateMoleculePage
 updateMoleculePage
     =   UpdateMoleculePage
-    <<< Browser.updateMoleuclePage
-    <<< Manager.updateMoleculePage
+    <<< Browser.updateMoleculePage
 
 toMoleculeBrowser :: UpdateMoleculePage -> Browser.UpdateMoleculePage
 toMoleculeBrowser (UpdateMoleculePage payload) = payload
