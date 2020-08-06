@@ -45,3 +45,15 @@ reducer
     browser
     ({ payload: (SetUnsorted payload) })
     = setUnsorted browser payload
+
+reducer
+    browser
+    ({ payload: (InitializeUnsortedAllMoleculeBrowser payload) })
+    = MoleculeBrowser.initializeUnsortedAll browser payload
+
+reducer
+    browser
+    ({ payload:
+        (InitializeUnsortedBuildingBlocksMoleculeBrowser payload)
+    })
+    = MoleculeBrowser.initializeUnsortedBuildingBlocks browser payload
