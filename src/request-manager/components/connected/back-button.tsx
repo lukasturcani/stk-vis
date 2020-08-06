@@ -38,9 +38,10 @@ function mapDispatchToProps(
     return { dispatch };
 }
 
-type Empty = Record<string, unknown>
-
 export const BackButton
     = connect
     (mapStateToProps, mapDispatchToProps)
-    (BackButtonBase as React.FunctionComponent<CoreProps<Action.Action>>);
+    (
+        BackButtonBase as
+        React.FunctionComponent<CoreProps<Action.Action>>
+    );
