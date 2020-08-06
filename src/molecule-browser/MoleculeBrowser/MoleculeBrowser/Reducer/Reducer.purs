@@ -25,6 +25,50 @@ import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
     ( MoleculeBrowser
     )
 
+import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMoleculeBrowser.SortedAll
+    ( initializeSortedAll
+    ) as InitializeMoleculeBrowser
+
+import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMoleculeBrowser.SortedBuildingBlocks
+    ( initializeSortedBuildingBlocks
+    ) as InitializeMoleculeBrowser
+
+import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMoleculeBrowser.SortedConstructedMolecules
+    ( initializeSortedConstructedMolecules
+    ) as InitializeMoleculeBrowser
+
+import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMoleculeBrowser.UnsortedAll
+    ( initializeUnsortedAll
+    ) as InitializeMoleculeBrowser
+
+import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+    ( initializeUnsortedBuildingBlocks
+    ) as InitializeMoleculeBrowser
+
+import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMoleculeBrowser.UnsortedConstructedMolecules
+    ( initializeUnsortedConstructedMolecules
+    ) as InitializeMoleculeBrowser
+
+import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
+    ( MoleculeBrowser
+    )
+
+import
+
+reducer :: MoleculeBrowser -> Action -> MoleculeBrowser
+reducer
+    browser
+    ({ payload: (UpdateMoleculePage payload) })
+    = updateMoleculePage browser payload
+
+reducer
+    browser
+    ({ payload: (InitializeMolecules payload) })
+    = initializeMolecules browser payload
+
+reducer
+    browser
+
 reducer :: MoleculeBrowser -> Action -> MoleculeBrowser
 reducer
     browser
@@ -49,11 +93,45 @@ reducer
 reducer
     browser
     ({ payload: (InitializeUnsortedAllMoleculeBrowser payload) })
-    = MoleculeBrowser.initializeUnsortedAll browser payload
+    = InitializeMoleculeBrowser.initializeUnsortedAll browser payload
 
 reducer
     browser
     ({ payload:
         (InitializeUnsortedBuildingBlocksMoleculeBrowser payload)
     })
-    = MoleculeBrowser.initializeUnsortedBuildingBlocks browser payload
+    = InitializeMoleculeBrowser.initializeUnsortedBuildingBlocks
+        browser
+        payload
+
+reducer
+    browser
+    ({ payload:
+        (InitializeUnsortedConstructedMoleculesMoleculeBrowser payload)
+    })
+    = InitializeMoleculeBrowser.initializeUnsortedConstructedMolecules
+        browser
+        payload
+
+reducer
+    browser
+    ({ payload: (InitializeSortedAllMoleculeBrowser payload) })
+    = InitializeMoleculeBrowser.initializeSortedAll browser payload
+
+reducer
+    browser
+    ({ payload:
+        (InitializeSortedBuildingBlocksMoleculeBrowser payload)
+    })
+    = InitializeMoleculeBrowser.initializeSortedBuildingBlocks
+        browser
+        payload
+
+reducer
+    browser
+    ({ payload:
+        (InitializeSortedConstructedMoleculesMoleculeBrowser payload)
+    })
+    = InitializeMoleculeBrowser.initializeSortedConstructedMolecules
+        browser
+        payload
