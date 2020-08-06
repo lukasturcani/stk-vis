@@ -67,3 +67,17 @@ _request
             , ignoredCollections
             }
         pure (RequestResult.UnsortedAll result)
+
+backButtonProps helpers manager = BackButtonProps
+        { disabled: _disabled (_pageKind manager)
+        , request
+        , onClick
+        }
+  where
+    request :: Deferred => Promise RequestResult
+    request = _request manager
+
+    onClick :: Deferred => (a -> Effect Unit) -> Promise (Effect Unit)
+    onClick dispatch = do
+       result <- request
+       pure (dispatch (_toAction helpers manager result))
