@@ -10,6 +10,7 @@ module MoleculeBrowser.Payload
     , initializeUnsortedAllMoleculeBrowser
     , initializeUnsortedBuildingBlocksMoleculeBrowser
     , initializeUnsortedConstructedMoleculesMoleculeBrowser
+    , selectMolecule
     ) where
 
 import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
@@ -52,6 +53,8 @@ import MoleculeBrowser.InitializeMoleculeBrowser.SortedConstructedMolecules
     ( InitializeSortedConstructedMolecules
     ) as MoleculeBrowser
 
+import MoleculeBrowser.SelectMolecule (SelectMolecule)
+
 data Payload
     = UpdateMoleculePage UpdateMoleculePage
     | InitializeMolecules InitializeMolecules
@@ -69,6 +72,7 @@ data Payload
         MoleculeBrowser.InitializeSortedBuildingBlocks
     | InitializeSortedConstructedMoleculesMoleculeBrowser
         MoleculeBrowser.InitializeSortedConstructedMolecules
+    | SelectMolecule SelectMolecule
 
 updateMoleculePage :: UpdateMoleculePage -> Payload
 updateMoleculePage = UpdateMoleculePage
@@ -123,3 +127,6 @@ initializeUnsortedConstructedMoleculesMoleculeBrowser
 
 initializeUnsortedConstructedMoleculesMoleculeBrowser
     = InitializeUnsortedConstructedMoleculesMoleculeBrowser
+
+selectMolecule :: SelectMolecule -> Payload
+selectMolecule = SelectMolecule

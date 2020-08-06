@@ -49,6 +49,10 @@ import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
     ( MoleculeBrowser
     )
 
+import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.SelectMolecule
+    ( selectMolecule
+    )
+
 reducer :: MoleculeBrowser -> Action -> MoleculeBrowser
 reducer
     browser
@@ -115,3 +119,8 @@ reducer
     = InitializeMoleculeBrowser.initializeSortedConstructedMolecules
         browser
         payload
+
+reducer
+    browser
+    ({ payload: (SelectMolecule payload) })
+    = selectMolecule browser payload
