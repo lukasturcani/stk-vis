@@ -11,6 +11,7 @@ module MoleculeBrowser.Action
     , initializeUnsortedBuildingBlocksMoleculeBrowser
     , initializeUnsortedConstructedMoleculesMoleculeBrowser
     , selectMolecule
+    , selectMolecule_
     ) where
 
 import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
@@ -53,8 +54,9 @@ import MoleculeBrowser.InitializeMoleculeBrowser.SortedConstructedMolecules
     ( InitializeSortedConstructedMolecules
     ) as MoleculeBrowser
 
-import MoleculeBrowser.SelectMolecule (SelectMolecule)
+import MoleculeBrowser.SelectMolecule as SelectMolecule
 
+import Molecules.Molecule (Molecule)
 import MoleculeBrowser.Payload as Payload
 
 type Action =
@@ -146,8 +148,12 @@ initializeUnsortedConstructedMoleculesMoleculeBrowser payload =
             payload
     }
 
-selectMolecule :: SelectMolecule -> Action
+selectMolecule :: SelectMolecule.SelectMolecule -> Action
 selectMolecule payload =
     { type: "SELECT_MOLECULE"
     , payload: Payload.selectMolecule payload
     }
+
+selectMolecule_ :: Int -> Molecule -> Action
+selectMolecule_ id molecule = selectMolecule
+    (SelectMolecule.selectMolecule id molecule)

@@ -38,9 +38,7 @@ function mapDispatchToProps(
         dispatch: {
             selectMolecule:
                 (selected: number, molecule: Molecule) => dispatch(
-                    Action.selectMolecule(
-                        selectMolecule(selected)(molecule)
-                    )
+                    Action.selectMolecule_(selected)(molecule)
                 ),
             handleResult: result => console.log(result),
             setSortedCollection:
