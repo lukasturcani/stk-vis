@@ -11,6 +11,7 @@ import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal
     )
 
 import RequestManager.InitializeUnsortedAll (InitializeUnsortedAll)
+import Requests.UnsortedAll as Request
 
 
 backButtonProps
@@ -34,10 +35,19 @@ backButtonProps
         , _pageKind
         }
     )
-    =
+    = BackButtonProps
+        { disabled: Utils.disabled _pageKind
+        , request
+        , onClick
+        }
+  where
+    request = _request manager
+    onClick = do
+        result <- request
+
 
 _request
-    :: Deferred => UnsortedAll -> Promise RequestResult.RequestResult
+    :: Deferred => UnsortedAll -> Promise Request.Result
 
 _request
     (UnsortedAll
