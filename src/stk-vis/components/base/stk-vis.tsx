@@ -16,7 +16,7 @@ export interface DispatchProps
 }
 
 
-interface Props extends BaseProps, DispatchProps
+interface Props<a> extends BaseProps<a>, DispatchProps
 {
     mongoConfigurator: React.FunctionComponent<ConfiguratorProps>
 }
@@ -25,8 +25,8 @@ type ConfiguratorProps
     = ConfiguratorBaseProps & ConfiguratorDispatchProps
 
 
-export function StkVis(
-    props: Props,
+export function StkVis<a>(
+    props: Props<a>,
 )
 {
     if (props.value0 !== undefined)

@@ -21,6 +21,9 @@ import { Molecule } from 'Molecules.Molecule';
 import {
     RequestResult,
 } from 'RequestManager.RequestResult';
+import {
+    UpdateMoleculePage,
+} from 'RequestManager.UpdateMoleculePage';
 
 
 function mapStateToProps<a>(
@@ -29,7 +32,15 @@ function mapStateToProps<a>(
     : MoleculeBrowserProps<a>
 {
     // Reconstruct as plain object to prevent react/redux warnings.
-    return { ...props()(state) };
+    return {
+        ...props
+        ({
+            updateMoleculePage:
+                (payload: UpdateMoleculePage) =>
+                    Action.updateMoleculePage(payload)
+        })
+        (state)
+    };
 }
 
 

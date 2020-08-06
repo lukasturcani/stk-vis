@@ -26,8 +26,8 @@ import {
 } from 'request-manager/styled/next-button';
 
 
-export function MoleculeBrowser(
-    props: CoreProps,
+export function MoleculeBrowser<a>(
+    props: CoreProps<a>,
 )
 {
     return <MoleculeBrowserBase

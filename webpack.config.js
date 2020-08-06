@@ -121,11 +121,10 @@ module.exports = {
                 './output/MoleculeBrowser.MoleculeBrowser',
             ),
 
-            'MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage':
+            'MoleculeBrowser.UpdateMoleculePage':
                 path.join(
                     __dirname,
-                    './output/MoleculeBrowser.'
-                    + 'UpdateMoleculePage.UpdateMoleculePage',
+                    './output/MoleculeBrowser.UpdateMoleculePage',
                 ),
 
             'Molecules.Molecules':

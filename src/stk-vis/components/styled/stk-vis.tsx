@@ -11,8 +11,8 @@ import {
 } from 'mongo-configurator/styled/mongo-configurator';
 
 
-export function StkVis(
-    props: BaseProps & DispatchProps,
+export function StkVis<a>(
+    props: BaseProps<a> & DispatchProps,
 )
 {
     return <StkVisBase
