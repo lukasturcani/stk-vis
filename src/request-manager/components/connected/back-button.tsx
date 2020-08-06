@@ -32,13 +32,10 @@ function mapStateToProps(
 function mapDispatchToProps(
     dispatch: (action: Action.Action) => void,
 )
-    : DispatchProps
+    : DispatchProps<Action.Action>
 {
-    return {
-        handleResult: result => console.log(result),
-    };
+    return { dispatch };
 }
-
 
 export const BackButton
     = connect

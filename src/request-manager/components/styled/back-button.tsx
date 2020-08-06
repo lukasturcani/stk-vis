@@ -11,7 +11,7 @@ import {
     BackButtonProps,
 } from 'RequestManager.RequestManager'
 
-type Props<a> = BackButtonProps<a> & DispatchProps;
+type Props<a> = BackButtonProps<a> & DispatchProps<a>;
 
 export function BackButton<a>(
     props: Props<a>,

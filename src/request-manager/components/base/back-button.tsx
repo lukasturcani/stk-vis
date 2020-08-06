@@ -7,14 +7,14 @@ import {
 } from 'RequestManager.RequestResult';
 
 
-export interface DispatchProps
+export interface DispatchProps<a>
 {
-    handleResult: (result: RequestResult) => void;
+    dispatch: (action: a) => void
 }
 
-export type CoreProps<a> = DispatchProps & BackButtonProps<a>;
+export type CoreProps<a> = DispatchProps<a> & BackButtonProps<a>;
 
-interface Props<a> extends BackButtonProps<a>, DispatchProps
+interface Props<a> extends BackButtonProps<a>, DispatchProps<a>
 {
     button: React.FunctionComponent<ButtonProps>;
 }
@@ -31,9 +31,7 @@ export function BackButton<a>(
 )
 {
     return <props.button
-        onClick={
-            () => props.value0.request().then(props.handleResult)
-        }
+        onClick={() => props.value0.onClick()(props.dispatch)}
         disabled={props.value0.disabled}
     />;
 }
