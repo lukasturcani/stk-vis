@@ -6,10 +6,10 @@ module RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal
 import Prelude
 import RequestManager.PageKind (PageKind (..))
 
-nextPageIndex :: Int -> Int
-nextPageIndex pageIndex
-    | pageIndex <= 0 = 0
-    | otherwise      = pageIndex - 1
+nextPageIndex :: PageKind -> Int -> Int
+nextPageIndex LastIncomplete pageIndex = pageIndex
+nextPageIndex OnlyIncomplete _         = 0
+nextPageIndex _              pageIndex = pageIndex + 1
 
 lastPage :: PageKind -> Boolean
 lastPage LastComplete   = true

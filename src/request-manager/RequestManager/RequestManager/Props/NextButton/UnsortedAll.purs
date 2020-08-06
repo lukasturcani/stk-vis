@@ -57,7 +57,7 @@ nextButtonProps
         , onClick
         }
   where
-    pageIndex = Utils.nextPageIndex _pageIndex
+    pageIndex = Utils.nextPageIndex pageKind _pageIndex
 
     request :: Deferred => Promise Request.Result
     request = Request.request
