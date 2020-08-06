@@ -10,11 +10,13 @@ declare module 'RequestManager.RequestManager'
 
     export type RequestManager = Record<string, unknown>;
 
+    type Dispatch<a> = (action: a) => void;
     export interface BackButtonProps
     {
         value0: {
             disabled: boolean;
             request: () => Promise<RequestResult>;
+            onClick: <a>() => (dispatch: Dispatch<a>) => Promise<void>;
         };
     }
 

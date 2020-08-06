@@ -3,6 +3,8 @@ module RequestManager.RequestManager.Internal.Props.Internal.BackButton
     , backButtonProps
     ) where
 
+import Prelude
+
 import RequestManager.RequestManager.Internal.RequestManager
     ( RequestManager (..)
     , _pageKind
@@ -29,17 +31,33 @@ import RequestManager.RequestManager.Internal.RequestManager.SortedConstructedMo
 import RequestManager.RequestResult (RequestResult)
 import RequestManager.PageKind (PageKind (..))
 import Effect.Promise (class Deferred, Promise)
+import Effect (Effect)
 
 data BackButtonProps = BackButtonProps
     { disabled :: Boolean
     , request  :: Deferred => Promise RequestResult
+    , onClick
+        :: Deferred => (Int -> Effect Unit) -> Promise (Effect Unit)
     }
 
-backButtonProps :: RequestManager -> BackButtonProps
-backButtonProps manager = BackButtonProps
+backButtonProps
+    :: (RequestResult -> Int)
+    -> RequestManager
+    -> BackButtonProps
+
+backButtonProps toAction manager = BackButtonProps
         { disabled: _disabled (_pageKind manager)
-        , request: _request manager
+        , request
+        , onClick
         }
+  where
+    request :: Deferred => Promise RequestResult
+    request = _request manager
+
+    onClick :: Deferred => (Int -> Effect Unit) -> Promise (Effect Unit)
+    onClick dispatch = do
+       result <- request
+       pure (dispatch (toAction result))
 
 _disabled :: PageKind -> Boolean
 _disabled First          = true
