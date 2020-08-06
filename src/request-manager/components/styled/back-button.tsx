@@ -3,18 +3,13 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import {
-    ButtonProps,
     BackButton as BackButtonBase,
-    DispatchProps,
+    CoreProps,
+    ButtonProps,
 } from 'request-manager/base/back-button';
-import {
-    BackButtonProps,
-} from 'RequestManager.RequestManager'
-
-type Props<a> = BackButtonProps<a> & DispatchProps<a>;
 
 export function BackButton<a>(
-    props: Props<a>,
+    props: CoreProps<a>,
 )
 {
     return <BackButtonBase

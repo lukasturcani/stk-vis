@@ -12,6 +12,7 @@ import * as Action
 from 'RequestManager.Action';
 import {
     DispatchProps,
+    CoreProps,
 } from 'request-manager/base/back-button';
 
 
@@ -37,7 +38,9 @@ function mapDispatchToProps(
     return { dispatch };
 }
 
+type Empty = Record<string, unknown>
+
 export const BackButton
     = connect
     (mapStateToProps, mapDispatchToProps)
-    (BackButtonBase);
+    (BackButtonBase as React.FunctionComponent<CoreProps<Action.Action>>);
