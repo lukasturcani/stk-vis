@@ -33,17 +33,18 @@ import RequestManager.PageKind (PageKind (..))
 import Effect.Promise (class Deferred, Promise)
 import Effect (Effect)
 
-data BackButtonProps = BackButtonProps
+data BackButtonProps a = BackButtonProps
     { disabled :: Boolean
     , request  :: Deferred => Promise RequestResult
     , onClick
-        :: Deferred => (Int -> Effect Unit) -> Promise (Effect Unit)
+        :: Deferred => (a -> Effect Unit) -> Promise (Effect Unit)
     }
 
 backButtonProps
-    :: (RequestResult -> Int)
+    :: forall a
+    .  (RequestResult -> a)
     -> RequestManager
-    -> BackButtonProps
+    -> BackButtonProps a
 
 backButtonProps toAction manager = BackButtonProps
         { disabled: _disabled (_pageKind manager)
@@ -54,7 +55,7 @@ backButtonProps toAction manager = BackButtonProps
     request :: Deferred => Promise RequestResult
     request = _request manager
 
-    onClick :: Deferred => (Int -> Effect Unit) -> Promise (Effect Unit)
+    onClick :: Deferred => (a -> Effect Unit) -> Promise (Effect Unit)
     onClick dispatch = do
        result <- request
        pure (dispatch (toAction result))

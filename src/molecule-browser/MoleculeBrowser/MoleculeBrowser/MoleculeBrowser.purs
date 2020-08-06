@@ -15,6 +15,7 @@ import MoleculeBrowser.MoleculeBrowser.Internal.Reducer
 
 import MoleculeBrowser.MoleculeBrowser.Internal.Props
     ( Props
+    , Helpers
     ) as Exports
 
 import MoleculeBrowser.MoleculeBrowser.Internal.Props
@@ -34,5 +35,9 @@ initialState = InitialState.initialState
 reducer :: Exports.MoleculeBrowser -> Action -> Exports.MoleculeBrowser
 reducer = Reducer.reducer
 
-props :: Exports.MoleculeBrowser -> Exports.Props
+props
+    :: forall a
+    .  Exports.Helpers a
+    -> Exports.MoleculeBrowser
+    -> Exports.Props a
 props = Props.props

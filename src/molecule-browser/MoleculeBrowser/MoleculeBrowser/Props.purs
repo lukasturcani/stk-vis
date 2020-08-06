@@ -1,11 +1,14 @@
 module MoleculeBrowser.MoleculeBrowser.Internal.Props
     ( Props
+    , Helpers
     , props
     ) where
 
 import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
     ( MoleculeBrowser (..)
     )
+
+import RequestManager.RequestResult (RequestResult)
 
 import Molecules.Molecules
     ( MoleculeTableProps
@@ -25,21 +28,34 @@ import RequestManager.RequestManager
     , sortButtonProps
     )
 
-data Props = Props
+data Props a = Props
     { sortButton    :: SortButtonProps
     , moleculeTable :: MoleculeTableProps
     , twoDViewer    :: TwoDViewerProps
     , threeDViewer  :: ThreeDViewerProps
-    , backButton    :: BackButtonProps
+    , backButton    :: BackButtonProps a
     , nextButton    :: NextButtonProps
     }
 
-props :: MoleculeBrowser -> Props
-props (MoleculeBrowser {_requestManager, _molecules}) = Props
+type Helpers a =
+    { pageRequestResultToAction :: (RequestResult -> a)
+    }
+
+props
+    :: forall a
+    .  Helpers a
+    -> MoleculeBrowser
+    -> Props a
+
+props helpers (MoleculeBrowser {_requestManager, _molecules}) = Props
     { sortButton:       sortButtonProps _requestManager
     , moleculeTable:    moleculeTableProps _molecules
     , twoDViewer:       twoDViewerProps _molecules
     , threeDViewer:     threeDViewerProps _molecules
-    , backButton:       backButtonProps _requestManager
+
+    , backButton: backButtonProps
+        helpers.pageRequestResultToAction
+        _requestManager
+
     , nextButton:       nextButtonProps _requestManager
     }

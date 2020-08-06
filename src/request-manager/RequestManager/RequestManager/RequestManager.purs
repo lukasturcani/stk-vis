@@ -8,6 +8,7 @@ module RequestManager.RequestManager
     ) where
 
 import RequestManager.Action (Action)
+import RequestManager.RequestResult (RequestResult)
 
 import RequestManager.RequestManager.Internal.RequestManager
     ( RequestManager
@@ -42,7 +43,12 @@ initialState = InitialState.initialState
 nextButtonProps :: Exports.RequestManager -> Exports.NextButtonProps
 nextButtonProps = Props.nextButtonProps
 
-backButtonProps :: Exports.RequestManager -> Exports.BackButtonProps
+backButtonProps
+    :: forall a
+    .  (RequestResult -> a)
+    -> Exports.RequestManager
+    -> Exports.BackButtonProps a
+
 backButtonProps = Props.backButtonProps
 
 sortButtonProps :: Exports.RequestManager -> Exports.SortButtonProps
