@@ -31,15 +31,15 @@ updateMoleculePage
     { columns
     , moleculeKey
     , molecules
-    , pageIndex
-    , pageKind
+    , pageIndex: pageIndex'
+    , pageKind: pageKind'
     }
     = UpdateMoleculePage
         { _columns: columns
         , _moleculeKey: moleculeKey
         , _molecules: molecules
-        , _pageIndex: pageIndex
-        , _pageKind: pageKind
+        , _pageIndex: pageIndex'
+        , _pageKind: pageKind'
         }
 
 pageKind :: UpdateMoleculePage -> PageKind

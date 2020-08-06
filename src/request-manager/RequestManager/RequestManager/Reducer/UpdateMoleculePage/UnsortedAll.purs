@@ -1,37 +1,37 @@
-module RequestManager.RequestManager.Internal.Reducer._UpdateMoleculePage._UnsortedBuildingBlocks
+module RequestManager.RequestManager.Internal.Reducer.Internal.UpdateMoleculePage.Internal.UnsortedAll
     ( updateMoleculePage
     ) where
 
 import RequestManager.UpdateMoleculePage as Payload
 
-import RequestManager.RequestManager.Internal.RequestManager.UnsortedBuildingBlocks
-    as UnsortedBuildingBlocks
+import RequestManager.RequestManager.Internal.RequestManager.UnsortedAll
+    as UnsortedAll
 
 updateMoleculePage
-    :: RequestManager.RequestManager
+    :: UnsortedAll.UnsortedAll
     -> Payload.UpdateMoleculePage
-    -> RequestManager.RequestManager
+    -> UnsortedAll.UnsortedAll
 
 updateMoleculePage
-    (UnsortedBuildingBlocks.UnsortedBuildingBlocks
+    (UnsortedAll.UnsortedAll
         { _url
         , _database
         , _moleculeKey
         , _moleculeCollection
-        , _constructedMoleculeCollection
         , _positionMatrixCollection
+        , _buildingBlockPositionMatrixCollection
         , _numEntriesPerPage
         , _ignoredCollections
         }
     )
     payload
-    = UnsortedBuildingBlocks.UnsortedBuildingBlocks
+    = UnsortedAll.UnsortedAll
         { _url
         , _database
         , _moleculeKey
         , _moleculeCollection
-        , _constructedMoleculeCollection
         , _positionMatrixCollection
+        , _buildingBlockPositionMatrixCollection
         , _pageIndex: Payload.pageIndex payload
         , _numEntriesPerPage
         , _ignoredCollections

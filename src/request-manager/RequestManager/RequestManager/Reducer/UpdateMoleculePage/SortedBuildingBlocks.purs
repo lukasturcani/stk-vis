@@ -1,4 +1,4 @@
-module RequestManager.RequestManager.Internal.Reducer._UpdateMoleculePage._SortedBuildingBlocks
+module RequestManager.RequestManager.Internal.Reducer.Internal.UpdateMoleculePage.Internal.SortedBuildingBlocks
     ( updateMoleculePage
     ) where
 
@@ -8,9 +8,9 @@ import RequestManager.RequestManager.Internal.RequestManager.SortedBuildingBlock
     as SortedBuildingBlocks
 
 updateMoleculePage
-    :: RequestManager.RequestManager
+    :: SortedBuildingBlocks.SortedBuildingBlocks
     -> Payload.UpdateMoleculePage
-    -> RequestManager.RequestManager
+    -> SortedBuildingBlocks.SortedBuildingBlocks
 
 updateMoleculePage
     (SortedBuildingBlocks.SortedBuildingBlocks

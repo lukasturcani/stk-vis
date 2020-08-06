@@ -1,25 +1,25 @@
-module RequestManager.RequestManager.Internal.Reducer._UpdateMoleculePage._SortedAll
+module RequestManager.RequestManager.Internal.Reducer.Internal.UpdateMoleculePage.Internal.SortedConstructedMolecules
     ( updateMoleculePage
     ) where
 
 import RequestManager.UpdateMoleculePage as Payload
 
-import RequestManager.RequestManager.Internal.RequestManager.SortedAll
-    as SortedAll
+import RequestManager.RequestManager.Internal.RequestManager.SortedConstructedMolecules
+    as SortedConstructedMolecules
 
 updateMoleculePage
-    :: RequestManager.RequestManager
+    :: SortedConstructedMolecules.SortedConstructedMolecules
     -> Payload.UpdateMoleculePage
-    -> RequestManager.RequestManager
+    -> SortedConstructedMolecules.SortedConstructedMolecules
 
 updateMoleculePage
-    (SortedAll.SortedAll
+    (SortedConstructedMolecules.SortedConstructedMolecules
         { _url
         , _database
         , _moleculeKey
         , _moleculeCollection
+        , _constructedMoleculeCollection
         , _positionMatrixCollection
-        , _buildingBlockPositionMatrixCollection
         , _numEntriesPerPage
         , _ignoredCollections
         , _sortedCollection
@@ -27,13 +27,13 @@ updateMoleculePage
         }
     )
     payload
-    = SortedAll.SortedAll
+    = SortedConstructedMolecules.SortedConstructedMolecules
         { _url
         , _database
         , _moleculeKey
         , _moleculeCollection
+        , _constructedMoleculeCollection
         , _positionMatrixCollection
-        , _buildingBlockPositionMatrixCollection
         , _pageIndex: Payload.pageIndex payload
         , _numEntriesPerPage
         , _ignoredCollections

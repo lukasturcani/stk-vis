@@ -41,6 +41,10 @@ import RequestManager.RequestManager.Internal.Reducer.Internal.SetSorted
     ( setSorted
     )
 
+import RequestManager.RequestManager.Internal.Reducer.Internal.UpdateMoleculePage
+    ( updateMoleculePage
+    )
+
 reducer :: RequestManager -> Action -> RequestManager
 reducer
     requestManager
@@ -82,3 +86,7 @@ reducer
     ({ payload: (SetSorted payload) })
     = setSorted requestManager payload
 
+reducer
+    requestManager
+    ({ payload: (UpdateMoleculePage payload) })
+    = updateMoleculePage requestManager payload

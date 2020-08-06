@@ -37,6 +37,10 @@ import RequestManager.InitializeSortedConstructedMolecules
     ( InitializeSortedConstructedMolecules
     )
 
+import RequestManager.UpdateMoleculePage
+    ( UpdateMoleculePage
+    )
+
 import RequestManager.SetUnsorted (SetUnsorted)
 import RequestManager.SetSorted (SetSorted)
 
