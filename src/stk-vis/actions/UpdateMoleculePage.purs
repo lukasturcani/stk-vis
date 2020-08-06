@@ -1,26 +1,22 @@
 module StkVis.UpdateMoleculePage
     ( UpdateMoleculePage
     , updateMoleculePage
-    , toBrowser
+    , toMoleculeBrowser
     ) where
 
 import Prelude
-import MoleculeBrowser.UpdateMoleculePage.PageData (PageData)
-
-import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
-    ( UpdateMoleculePage
-    , updateMoleculePage
-    ) as UpdateMoleculePage
+import RequestManager.UpdateMoleculePage as Manager
+import MoleculeBrowser.UpdateMoleculePage as Browser
 
 
 newtype UpdateMoleculePage
-    = UpdateMoleculePage UpdateMoleculePage.UpdateMoleculePage
+    = UpdateMoleculePage Browser.UpdateMoleculePage
 
-updateMoleculePage :: PageData -> UpdateMoleculePage
+updateMoleculePage :: Manager.UpdateMoleculePage -> UpdateMoleculePage
 updateMoleculePage
-    = UpdateMoleculePage <<< UpdateMoleculePage.updateMoleculePage
+    =   UpdateMoleculePage
+    <<< Browser.updateMoleuclePage
+    <<< Manager.updateMoleculePage
 
-toBrowser
-    :: UpdateMoleculePage -> UpdateMoleculePage.UpdateMoleculePage
-
-toBrowser (UpdateMoleculePage payload) = payload
+toMoleculeBrowser :: UpdateMoleculePage -> Browser.UpdateMoleculePage
+toMoleculeBrowser (UpdateMoleculePage payload) = payload

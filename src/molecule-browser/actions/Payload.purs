@@ -13,7 +13,7 @@ module MoleculeBrowser.Payload
     , selectMolecule
     ) where
 
-import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
+import MoleculeBrowser.UpdateMoleculePage
     ( UpdateMoleculePage
     )
 

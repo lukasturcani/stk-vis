@@ -6,7 +6,6 @@ module StkVis.Payload
 
 import Prelude
 import MongoConfigurator.UpdateFields.MongoData (MongoData)
-import MoleculeBrowser.UpdateMoleculePage.PageData (PageData)
 
 import StkVis.UpdateFields
     ( UpdateFields
@@ -15,7 +14,6 @@ import StkVis.UpdateFields
 
 import StkVis.UpdateMoleculePage
     ( UpdateMoleculePage
-    , updateMoleculePage
     ) as UpdateMoleculePage
 
 
@@ -26,6 +24,5 @@ data Payload
 updateFields :: MongoData -> Payload
 updateFields = UpdateFields <<< UpdateFields.updateFields
 
-updateMoleculePage :: PageData -> Payload
-updateMoleculePage
-    = UpdateMoleculePage <<< UpdateMoleculePage.updateMoleculePage
+updateMoleculePage :: UpdateMoleculePage -> Payload
+updateMoleculePage = UpdateMoleculePage

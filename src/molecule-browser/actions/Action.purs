@@ -16,7 +16,7 @@ module MoleculeBrowser.Action
     , selectMolecule_
     ) where
 
-import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
+import MoleculeBrowser.UpdateMoleculePage
     ( UpdateMoleculePage
     )
 

@@ -6,14 +6,15 @@ import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
     ( MoleculeBrowser (..)
     )
 
-import MoleculeBrowser.UpdateMoleculePage.UpdateMoleculePage
+import MoleculeBrowser.UpdateMoleculePage
     ( UpdateMoleculePage
-    , molecules
-    , columns
+    , toRequestManager
+    , initializeMolecules
     )
 
+import RequestManager.RequestManager as Manager
+import RequestManager.Action as Manager.Action
 import Molecules.Molecules as Molecules
-import Molecules.InitializeMolecules as InitializeMolecules
 import Molecules.Action as Molecules.Action
 
 updateMoleculePage
@@ -27,13 +28,14 @@ updateMoleculePage
     )
     payload
     = MoleculeBrowser
-        { _requestManager: _requestManager
-        , _molecules: newMolecules
+        { _requestManager: Manager.reducer
+            _requestManager
+            (Manager.Action.updateMoleculePage
+                (toRequestManager payload)
+            )
+        , _molecules: Molecules.reducer
+            _molecules
+            (Molecules.Action.initializeMolecules
+                (initializeMolecules payload)
+            )
         }
-  where
-    newMolecules = Molecules.reducer _molecules action
-    action = Molecules.Action.initializeMolecules
-        (InitializeMolecules.initializeMolecules
-            (molecules payload)
-            (columns payload)
-        )

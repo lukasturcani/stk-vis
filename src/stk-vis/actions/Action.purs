@@ -5,7 +5,6 @@ module StkVis.Action
     ) where
 
 import MongoConfigurator.UpdateFields.MongoData (MongoData)
-import MoleculeBrowser.UpdateMoleculePage.PageData (PageData)
 
 import StkVis.Payload
     ( Payload
@@ -24,7 +23,7 @@ updateFields data' =
     , payload: Payload.updateFields data'
     }
 
-updateMoleculePage :: PageData -> Action
+updateMoleculePage :: UpdateMoleculePage -> Action
 updateMoleculePage data' =
     { type: "UPDATE_MOLECULE_PAGE"
     , payload: Payload.updateMoleculePage data'
