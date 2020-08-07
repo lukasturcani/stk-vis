@@ -8,13 +8,17 @@ import StkVis.StkVis.Internal.StkVis (StkVis (..)) as StkVis
 import MongoConfigurator.MongoConfigurator as MongoConfigurator
 import MoleculeBrowser.MoleculeBrowser as MoleculeBrowser
 import RequestManager.UpdateMoleculePage (UpdateMoleculePage)
+import RequestManager.SetSorted (SetSorted)
+import RequestManager.SetUnsorted (SetUnsorted)
 
 data Props a
     = MongoConfigurator MongoConfigurator.Props
     | MoleculeBrowser (MoleculeBrowser.Props a)
 
 type ActionCreators a =
-    { updateMoleculePage :: (UpdateMoleculePage -> a)
+    { updateMoleculePage :: UpdateMoleculePage -> a
+    , setSorted :: SetSorted -> a
+    , setUnsorted :: SetUnsorted -> a
     }
 
 props
