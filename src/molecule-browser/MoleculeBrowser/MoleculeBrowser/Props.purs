@@ -60,9 +60,7 @@ props
     (MoleculeBrowser {_requestManager, _molecules})
     = Props
         { sortButton: sortButtonProps
-            { setSorted: actionCreators.setSorted
-            , setUnsorted: actionCreators.setUnsorted
-            }
+            actionCreators
             _requestManager
 
         , moleculeTable: moleculeTableProps

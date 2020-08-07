@@ -58,8 +58,8 @@ backButtonProps
 backButtonProps = Props.backButtonProps
 
 sortButtonProps
-    :: forall a
-    .  Exports.ActionCreators a
+    :: forall a r
+    .  Exports.ActionCreators a r
     -> Exports.RequestManager
     -> Exports.SortButtonProps a
 

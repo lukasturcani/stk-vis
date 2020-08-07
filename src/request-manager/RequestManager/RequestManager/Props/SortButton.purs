@@ -34,14 +34,15 @@ data SortButtonProps a = SortButtonProps
 
     }
 
-type ActionCreators a =
+type ActionCreators a r =
     { setSorted   :: SetSorted -> a
     , setUnsorted :: SetUnsorted -> a
+    | r
     }
 
 sortButtonProps
-    :: forall a
-    .  ActionCreators a -> RequestManager -> SortButtonProps a
+    :: forall a r
+    .  ActionCreators a r -> RequestManager -> SortButtonProps a
 
 sortButtonProps actionCreators requestManager = SortButtonProps
     { collections: valueCollections requestManager
