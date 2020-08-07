@@ -29,10 +29,6 @@ export interface BaseProps<a>
 
     setUnsorted: (dispatch: (action: a) => void) => void
 
-    updateMoleculePage:
-        () =>
-        (dispatch: (action: a) => void) =>
-        void;
 }
 
 export type CoreProps<a> = BaseProps<a> & DispatchProps<a>;
@@ -79,7 +75,6 @@ export function SortSettings<a>(
                     dispatch={props.dispatch}
                     setSorted={props.setSorted}
                     setUnsorted={props.setUnsorted}
-                    updateMoleculePage={props.updateMoleculePage}
                     sortType={sortType as 'ascending' | 'descending'}
                     collection={collection}
                     setOpen={props.setOpen}

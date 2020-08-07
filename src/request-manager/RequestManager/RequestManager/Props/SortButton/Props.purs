@@ -27,8 +27,6 @@ data SortButtonProps a = SortButtonProps
 
     , setUnsorted :: DispatchAction a -> Effect Unit
 
-    , updateMoleculePage
-        :: Deferred => DispatchAction a -> Promise (Effect Unit)
     }
 
 type ActionCreators a r =

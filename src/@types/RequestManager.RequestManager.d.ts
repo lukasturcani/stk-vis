@@ -44,10 +44,6 @@ declare module 'RequestManager.RequestManager'
                 void
             setUnsorted: (dispatch: (action: a) => void) => void
 
-            updateMoleculePage:
-                () =>
-                (dispatch: (action: a) => void) =>
-                void;
         };
     }
 
