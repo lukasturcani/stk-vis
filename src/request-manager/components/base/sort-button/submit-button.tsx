@@ -20,12 +20,13 @@ export interface BaseProps<a>
     collection: string;
 
     setSorted:
+        () =>
         (dispatch: (action: a) => void) =>
         (collection: string) =>
         (sortType: SortType) =>
-        void
+        void;
 
-    setUnsorted: (dispatch: (action: a) => void) => void
+    setUnsorted: () => (dispatch: (action: a) => void) => void;
 
 }
 
@@ -56,11 +57,12 @@ export function SubmitButton<a>(
                     props.setOpen(false);
                     if (props.collection === '')
                     {
-                        props.setUnsorted(props.dispatch);
+                        props.setUnsorted()(props.dispatch);
                     }
                     else
                     {
                         props.setSorted
+                            ()
                             (props.dispatch)
                             (props.collection)
                             (

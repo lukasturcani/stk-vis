@@ -22,12 +22,13 @@ export interface BaseProps<a>
     collections: string[];
 
     setSorted:
+        () =>
         (dispatch: (action: a) => void) =>
         (collection: string) =>
         (sortType: SortType) =>
-        void
+        void;
 
-    setUnsorted: (dispatch: (action: a) => void) => void
+    setUnsorted: () => (dispatch: (action: a) => void) => void;
 
 }
 
