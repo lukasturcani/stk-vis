@@ -5,6 +5,9 @@ declare module 'Molecules.Molecules'
         Action,
     } from 'Molecules.Action';
     import {
+        SelectMolecule,
+    } from 'Molecules.SelectMolecule';
+    import {
         Mesh,
     } from 'mol-draw';
     import {
@@ -29,14 +32,24 @@ declare module 'Molecules.Molecules'
 
     type Map = unknown;
 
-    export interface MoleculeTableProps
+    export interface MoleculeTableProps<a>
     {
         value0: {
             molecules: Molecule[];
             columns: string[];
             selectedRow: number;
             rows: Map[];
+            selectMolecule:
+                (dispatch: (action: a) => void) =>
+                (id: number) =>
+                (molecule: Molecule) =>
+                void;
         };
+    }
+
+    export interface ActionCreators<a>
+    {
+        selectMolecule: (payload: SelectMolecule) => a;
     }
 
     export type Molecules = Record<string, unknown>;
@@ -51,7 +64,9 @@ declare module 'Molecules.Molecules'
         Molecules;
 
     export const moleculeTableProps:
-        (state: Molecules) => MoleculeTableProps;
+        <a>(actionCreators: ActionCreators<a>) =>
+        (state: Molecules) =>
+        MoleculeTableProps<a>;
 
     export const twoDViewerProps:
         (state: Molecules) => TwoDViewerProps;

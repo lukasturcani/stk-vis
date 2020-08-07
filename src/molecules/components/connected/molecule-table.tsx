@@ -9,6 +9,7 @@ import {
 } from 'molecules/styled/molecule-table';
 import {
     DispatchProps,
+    CoreProps,
 } from 'molecules/base/molecule-table';
 
 import * as Action
@@ -20,30 +21,32 @@ import { Molecule } from 'Molecules.Molecule';
 function mapStateToProps(
     state: Molecules,
 )
-    : MoleculeTableProps
+    : MoleculeTableProps<Action.Action>
 {
     // Reconstruct as plain object to prevent react/redux warnings.
-    return { ...moleculeTableProps(state) };
+    return {
+        ...moleculeTableProps
+        ({
+            selectMolecule: Action.selectMolecule,
+        })
+        (state)
+    };
 }
 
 
 function mapDispatchToProps(
     dispatch: (action: Action.Action) => void,
 )
-    : DispatchProps
+    : DispatchProps<Action.Action>
 {
-    return {
-        selectMolecule:
-            (selected: number, molecule: Molecule) => dispatch(
-                Action.selectMolecule(
-                    selectMolecule(selected)(molecule)
-                )
-            ),
-    };
+    return { dispatch };
 }
 
 
 export const MoleculeTable
     = connect
     (mapStateToProps, mapDispatchToProps)
-    (MoleculeTableBase);
+    (
+        MoleculeTableBase as
+        React.FunctionComponent<CoreProps<Action.Action>>
+    );
