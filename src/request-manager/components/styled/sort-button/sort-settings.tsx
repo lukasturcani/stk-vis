@@ -14,14 +14,18 @@ import {
 } from 'request-manager/styled/sort-button/submit-button';
 
 
-export const SortSettings: React.FunctionComponent<CoreProps>
-    = (props) => <SortSettingsBase
+export function SortSettings<a>(
+    props: CoreProps<a>,
+)
+{
+    return <SortSettingsBase
         dialog={Dialog}
         container={Container}
         form={Form}
         submitButton={SubmitButton}
         {...props}
     />;
+}
 
 type Empty = Record<string, unknown>;
 const Container: React.FunctionComponent<Empty>

@@ -9,22 +9,18 @@ import {
 
 type Empty = Record<string, unknown>;
 
-export interface DispatchProps
+export interface DispatchProps<a>
 {
-    setSortedCollection:
-        (
-            sortType: 'ascending' | 'descending',
-            collection: string,
-        ) => void
+    dispatch: (action: a) => void;
 }
 
-export type CoreProps = SortButtonProps & DispatchProps;
+export type CoreProps<a> = SortButtonProps<a> & DispatchProps<a>;
 
-interface Props extends SortButtonProps, DispatchProps
+interface Props<a> extends SortButtonProps<a>, DispatchProps<a>
 {
     container: React.FunctionComponent<Empty>;
     button: React.FunctionComponent<ButtonProps>;
-    sortSettings: React.FunctionComponent<SortSettingsProps>;
+    sortSettings: React.FunctionComponent<SortSettingsProps<a>>;
 }
 
 
@@ -34,8 +30,8 @@ export interface ButtonProps
 }
 
 
-export function SortButton(
-    props: Props,
+export function SortButton<a>(
+    props: Props<a>,
 )
 {
     const [open, setOpen] =  React.useState(false);
@@ -45,7 +41,9 @@ export function SortButton(
                 onClick={ () => setOpen(true) }
             />
             <props.sortSettings
-                setSortedCollection={props.setSortedCollection}
+                dispatch={props.dispatch}
+                setUnsorted={props.value0.setUnsorted}
+                setSorted={props.value0.setSorted}
                 open={open}
                 setOpen={setOpen}
                 collections={props.value0.collections}

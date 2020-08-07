@@ -45,14 +45,14 @@ export type CoreProps<a> = DispatchProps & MoleculeBrowserProps<a>;
 interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps
 {
     root: React.FunctionComponent<Record<string, unknown>>;
-    sortButton: React.FunctionComponent<SortButtonProps>;
+    sortButton: React.FunctionComponent<SortButtonProps<a>>;
     moleculeTable: React.FunctionComponent<MoleculeTableProps>;
     viewerContainer: React.FunctionComponent<Empty>;
     twoDViewer: React.FunctionComponent<TwoDViewerProps>;
     threeDViewer: React.FunctionComponent<ThreeDViewerProps>;
     navigationButtonContainer: React.FunctionComponent<Empty>;
     backButton: React.FunctionComponent<BackButtonProps<a>>;
-    nextButton: React.FunctionComponent<NextButtonProps>;
+    nextButton: React.FunctionComponent<NextButtonProps<a>>;
 }
 
 

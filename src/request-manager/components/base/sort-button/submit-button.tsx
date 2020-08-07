@@ -1,27 +1,38 @@
 import * as React from 'react';
+import {
+    SortType
+} from 'RequestManager.SortType';
+import {
+    ascending,
+    descending,
+} from 'RequestManager.SortType';
 
-export interface DispatchProps
+export interface DispatchProps<a>
 {
-    setSortedCollection:
-        (
-            sortType: 'ascending' | 'descending',
-            collection: string,
-        ) => void
+    dispatch: (action: a) => void;
 }
 
 
-export interface BaseProps
+export interface BaseProps<a>
 {
     sortType: 'ascending' | 'descending';
     setOpen: (open: boolean) => void;
     collection: string;
+
+    setSorted:
+        (dispatch: (action: a) => void) =>
+        (collection: string) =>
+        (sortType: SortType) =>
+        void
+
+    setUnsorted: (dispatch: (action: a) => void) => void
 }
 
 
-export type CoreProps = BaseProps & DispatchProps;
+export type CoreProps<a> = BaseProps<a> & DispatchProps<a>;
 
 
-interface Props extends BaseProps, DispatchProps
+interface Props<a> extends BaseProps<a>, DispatchProps<a>
 {
     button: React.FunctionComponent<ButtonProps>;
 }
@@ -33,8 +44,8 @@ export interface ButtonProps
 }
 
 
-export function SubmitButton(
-    props: Props,
+export function SubmitButton<a>(
+    props: Props<a>,
 )
 {
     return (
@@ -42,10 +53,21 @@ export function SubmitButton(
             onClick={
                 () => {
                     props.setOpen(false);
-                    props.setSortedCollection(
-                        props.sortType,
-                        props.collection,
-                    );
+                    if (props.collection === '')
+                    {
+                        props.setUnsorted(props.dispatch);
+                        return;
+                    }
+                    else
+                    {
+                        props.setSorted
+                            (props.dispatch)
+                            (props.collection)
+                            (
+                                props.sortType === 'ascending'?
+                                ascending : descending
+                            )
+                    }
                 }
             }
         />

@@ -10,6 +10,15 @@ declare module 'RequestManager.RequestManager'
     import {
         UpdateMoleculePage,
     } from 'RequestManager.UpdateMoleculePage';
+    import {
+        SortType
+    } from 'RequestManager.SortType';
+    import {
+        SetSorted
+    } from 'RequestManager.SetSorted';
+    import {
+        SetUnsorted
+    } from 'RequestManager.SetUnsorted';
 
     export type RequestManager = Record<string, unknown>;
 
@@ -24,11 +33,23 @@ declare module 'RequestManager.RequestManager'
         };
     }
 
-    export interface SortButtonProps
+    export interface SortButtonProps<a>
     {
         value0: {
             collections: string[];
+            setSorted:
+                (dispatch: (action: a) => void) =>
+                (collection: string) =>
+                (sortType: SortType) =>
+                void
+            setUnsorted: (dispatch: (action: a) => void) => void
         };
+    }
+
+    export interface ActionCreators<a>
+    {
+        setSorted: (payload: SetSorted) => a;
+        setUnsorted: (payload: SetUnsorted) => a;
     }
 
     export interface NextButtonProps<a>
@@ -60,5 +81,7 @@ declare module 'RequestManager.RequestManager'
         BackButtonProps<a>;
 
     export const sortButtonProps:
-        (state: RequestManager) => SortButtonProps;
+        <a>(actionCreators: ActionCreators<a>) =>
+        (state: RequestManager)
+        => SortButtonProps<a>;
 }

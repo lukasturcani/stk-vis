@@ -5,34 +5,41 @@ import {
 import {
     BaseProps as FormProps
 } from './form';
+import {
+    SortType
+} from 'RequestManager.SortType';
 
 
-export interface DispatchProps
+export interface DispatchProps<a>
 {
-    setSortedCollection:
-        (
-            sortType: 'ascending' | 'descending',
-            collection: string,
-        ) => void
+    dispatch: (action: a) => void;
 }
 
-export interface BaseProps
+export interface BaseProps<a>
 {
     open: boolean;
     setOpen: (open: boolean) => void;
     collections: string[];
+
+    setSorted:
+        (dispatch: (action: a) => void) =>
+        (collection: string) =>
+        (sortType: SortType) =>
+        void
+
+    setUnsorted: (dispatch: (action: a) => void) => void
 }
 
-export type CoreProps = BaseProps & DispatchProps;
+export type CoreProps<a> = BaseProps<a> & DispatchProps<a>;
 
 type Empty = Record<string, unknown>;
 
-interface Props extends BaseProps, DispatchProps
+interface Props<a> extends BaseProps<a>, DispatchProps<a>
 {
     dialog: React.FunctionComponent<DialogProps>;
     container: React.FunctionComponent<Empty>;
     form: React.FunctionComponent<FormProps>;
-    submitButton: React.FunctionComponent<SubmitButtonProps>;
+    submitButton: React.FunctionComponent<SubmitButtonProps<a>>;
 }
 
 export interface DialogProps
@@ -41,8 +48,8 @@ export interface DialogProps
     onClose: () => void;
 }
 
-export function SortSettings(
-    props: Props
+export function SortSettings<a>(
+    props: Props<a>,
 )
 {
 
@@ -64,7 +71,9 @@ export function SortSettings(
                     collections={props.collections}
                 />
                 <props.submitButton
-                    setSortedCollection={props.setSortedCollection}
+                    dispatch={props.dispatch}
+                    setSorted={props.setSorted}
+                    setUnsorted={props.setUnsorted}
                     sortType={sortType as 'ascending' | 'descending'}
                     collection={collection}
                     setOpen={props.setOpen}

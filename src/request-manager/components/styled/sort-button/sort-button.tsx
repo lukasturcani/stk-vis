@@ -14,13 +14,17 @@ import {
 } from 'request-manager/styled/sort-button/sort-settings';
 
 
-export const SortButton: React.FunctionComponent<CoreProps>
-    = (props) => <SortButtonBase
+export function SortButton<a>(
+    props: CoreProps<a>,
+)
+{
+    return <SortButtonBase
         container={Container}
         button={StyledButton}
         {...props}
         sortSettings={SortSettings}
     />;
+}
 
 type Empty = Record<string, unknown>;
 

@@ -8,7 +8,8 @@ import {
     SortButton as SortButtonBase,
 } from 'request-manager/styled/sort-button';
 import {
-    DispatchProps
+    DispatchProps,
+    CoreProps,
 } from 'request-manager/base/sort-button';
 
 import * as Action
@@ -30,50 +31,33 @@ import {
 function mapStateToProps(
     state: RequestManager,
 )
-    : SortButtonProps
+    : SortButtonProps<Action.Action>
 {
     // Reconstruct as plain object to prevent react/redux warnings.
-    return { ...sortButtonProps(state) };
+    return {
+        ...sortButtonProps
+        ({
+            setSorted: Action.setSorted,
+            setUnsorted: Action.setUnsorted,
+        })
+        (state)
+    };
 }
 
 
 function mapDispatchToProps(
     dispatch: (action: Action.Action) => void,
 )
-    : DispatchProps
+    : DispatchProps<Action.Action>
 {
-    return {
-        setSortedCollection:
-            (
-                sortType: 'ascending' | 'descending',
-                collection: string,
-            ) =>
-            {
-                if (collection === '')
-                {
-                    dispatch(
-                        Action.setUnsorted(setUnsortedPayload)
-                    );
-                }
-                else
-                {
-                    dispatch(
-                        Action.setSorted(
-                            setSortedPayload
-                            (collection)
-                            (
-                                sortType === 'ascending'?
-                                ascending : descending
-                            )
-                        )
-                    );
-                }
-            },
-    };
+    return { dispatch };
 }
 
 
 export const SortButton
     = connect
     (mapStateToProps, mapDispatchToProps)
-    (SortButtonBase);
+    (
+        SortButtonBase as
+        React.FunctionComponent<CoreProps<Action.Action>>
+    );

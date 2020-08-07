@@ -23,12 +23,12 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
     export interface Props<a>
     {
         value0: {
-            sortButton: SortButtonProps,
+            sortButton: SortButtonProps<a>,
             moleculeTable: MoleculeTableProps,
             twoDViewer: TwoDViewerProps,
             threeDViewer: ThreeDViewerProps,
             backButton: BackButtonProps<a>,
-            nextButton: NextButtonProps,
+            nextButton: NextButtonProps<a>,
         };
     }
 
