@@ -36,4 +36,5 @@ initializeUnsortedConstructedMolecules _ payload
             , _numEntriesPerPage: (Payload.numEntriesPerPage payload)
             , _ignoredCollections: (Payload.ignoredCollections payload)
             , _pageKind: (Payload.pageKind payload)
+            , _columns: Payload.columns payload
             }

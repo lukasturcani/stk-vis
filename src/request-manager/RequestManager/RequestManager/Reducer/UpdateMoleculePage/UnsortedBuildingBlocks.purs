@@ -36,4 +36,5 @@ updateMoleculePage
         , _numEntriesPerPage
         , _ignoredCollections
         , _pageKind: Payload.pageKind payload
+        , _columns: Payload.columns payload
         }

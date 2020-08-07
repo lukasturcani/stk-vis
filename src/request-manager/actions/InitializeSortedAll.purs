@@ -14,6 +14,7 @@ module RequestManager.InitializeSortedAll
     , pageKind
     , sortedCollection
     , sortType
+    , columns
     ) where
 
 import RequestManager.PageKind (PageKind)
@@ -32,6 +33,7 @@ type SortedAllData =
     , pageKind                              :: PageKind
     , sortedCollection                      :: String
     , sortType                              :: SortType
+    , columns                               :: Array String
     }
 
 data InitializeSortedAll = InitializeSortedAll
@@ -47,6 +49,7 @@ data InitializeSortedAll = InitializeSortedAll
     , _pageKind                              :: PageKind
     , _sortedCollection                      :: String
     , _sortType                              :: SortType
+    , _columns                               :: Array String
     }
 
 initializeSortedAll :: SortedAllData -> InitializeSortedAll
@@ -66,6 +69,7 @@ initializeSortedAll
     , pageKind: pageKind'
     , sortedCollection: sortedCollection'
     , sortType: sortType'
+    , columns: columns'
     }
     = InitializeSortedAll
         { _url: url'
@@ -83,6 +87,7 @@ initializeSortedAll
         , _pageKind: pageKind'
         , _sortedCollection: sortedCollection'
         , _sortType: sortType'
+        , _columns: columns'
         }
 
 url :: InitializeSortedAll -> String
@@ -130,3 +135,6 @@ sortedCollection (InitializeSortedAll { _sortedCollection })
 
 sortType :: InitializeSortedAll -> SortType
 sortType (InitializeSortedAll { _sortType }) = _sortType
+
+columns :: InitializeSortedAll -> Array String
+columns (InitializeSortedAll { _columns }) = _columns

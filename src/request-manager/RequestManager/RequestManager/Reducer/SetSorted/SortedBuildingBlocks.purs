@@ -27,6 +27,7 @@ setSorted
         , _numEntriesPerPage
         , _ignoredCollections
         , _pageKind
+        , _columns
         }
     )
     payload
@@ -42,6 +43,7 @@ setSorted
             , _numEntriesPerPage
             , _ignoredCollections
             , _pageKind
+            , _columns
             , _sortedCollection: SetSorted.collection payload
             , _sortType: SetSorted.sortType payload
             }

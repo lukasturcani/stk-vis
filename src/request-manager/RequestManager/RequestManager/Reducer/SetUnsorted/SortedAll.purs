@@ -30,6 +30,7 @@ setUnsorted
         , _numEntriesPerPage
         , _ignoredCollections
         , _pageKind
+        , _columns
         }
     )
     payload
@@ -45,5 +46,6 @@ setUnsorted
             , _numEntriesPerPage
             , _ignoredCollections
             , _pageKind
+            , _columns
             }
         )

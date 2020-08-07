@@ -38,4 +38,5 @@ initializeSortedConstructedMolecules _ payload
             , _pageKind: Payload.pageKind payload
             , _sortedCollection: Payload.sortedCollection payload
             , _sortType: Payload.sortType payload
+            , _columns: Payload.columns payload
             }

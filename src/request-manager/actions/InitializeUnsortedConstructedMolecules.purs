@@ -12,6 +12,7 @@ module RequestManager.InitializeUnsortedConstructedMolecules
     , numEntriesPerPage
     , ignoredCollections
     , pageKind
+    , columns
     ) where
 
 import RequestManager.PageKind (PageKind)
@@ -27,6 +28,7 @@ type UnsortedConstructedMoleculesData =
     , numEntriesPerPage                     :: Int
     , ignoredCollections                    :: Array String
     , pageKind                              :: PageKind
+    , columns                               :: Array String
     }
 
 data InitializeUnsortedConstructedMolecules
@@ -41,6 +43,7 @@ data InitializeUnsortedConstructedMolecules
         , _numEntriesPerPage                     :: Int
         , _ignoredCollections                    :: Array String
         , _pageKind                              :: PageKind
+        , _columns                               :: Array String
         }
 
 initializeUnsortedConstructedMolecules
@@ -58,6 +61,7 @@ initializeUnsortedConstructedMolecules
     , numEntriesPerPage: numEntriesPerPage'
     , ignoredCollections: ignoredCollections'
     , pageKind: pageKind'
+    , columns: columns'
     }
     = InitializeUnsortedConstructedMolecules
         { _url: url'
@@ -73,6 +77,7 @@ initializeUnsortedConstructedMolecules
         , _numEntriesPerPage: numEntriesPerPage'
         , _ignoredCollections: ignoredCollections'
         , _pageKind: pageKind'
+        , _columns: columns'
         }
 
 url :: InitializeUnsortedConstructedMolecules -> String
@@ -128,3 +133,7 @@ ignoredCollections
 pageKind :: InitializeUnsortedConstructedMolecules -> PageKind
 pageKind (InitializeUnsortedConstructedMolecules { _pageKind })
     = _pageKind
+
+columns :: InitializeUnsortedConstructedMolecules -> Array String
+columns (InitializeUnsortedConstructedMolecules { _columns })
+    = _columns

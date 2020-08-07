@@ -14,6 +14,7 @@ module RequestManager.InitializeSortedConstructedMolecules
     , pageKind
     , sortedCollection
     , sortType
+    , columns
     ) where
 
 import RequestManager.PageKind (PageKind)
@@ -30,6 +31,7 @@ type SortedConstructedMoleculesData =
     , numEntriesPerPage                     :: Int
     , ignoredCollections                    :: Array String
     , pageKind                              :: PageKind
+    , columns                               :: Array String
     , sortedCollection                      :: String
     , sortType                              :: SortType
     }
@@ -46,6 +48,7 @@ data InitializeSortedConstructedMolecules
         , _numEntriesPerPage                     :: Int
         , _ignoredCollections                    :: Array String
         , _pageKind                              :: PageKind
+        , _columns                               :: Array String
         , _sortedCollection                      :: String
         , _sortType                              :: SortType
         }
@@ -65,6 +68,7 @@ initializeSortedConstructedMolecules
     , numEntriesPerPage: numEntriesPerPage'
     , ignoredCollections: ignoredCollections'
     , pageKind: pageKind'
+    , columns: columns'
     , sortedCollection: sortedCollection'
     , sortType: sortType'
     }
@@ -82,6 +86,7 @@ initializeSortedConstructedMolecules
         , _numEntriesPerPage: numEntriesPerPage'
         , _ignoredCollections: ignoredCollections'
         , _pageKind: pageKind'
+        , _columns: columns'
         , _sortedCollection: sortedCollection'
         , _sortType: sortType'
         }
@@ -141,6 +146,9 @@ ignoredCollections
 pageKind :: InitializeSortedConstructedMolecules -> PageKind
 pageKind (InitializeSortedConstructedMolecules { _pageKind })
     = _pageKind
+
+columns :: InitializeSortedConstructedMolecules -> Array String
+columns (InitializeSortedConstructedMolecules { _columns }) = _columns
 
 sortedCollection :: InitializeSortedConstructedMolecules -> String
 sortedCollection
