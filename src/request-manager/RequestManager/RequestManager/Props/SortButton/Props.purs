@@ -12,7 +12,6 @@ import RequestManager.SortType (SortType)
 import RequestManager.SetSorted (SetSorted)
 import RequestManager.SetUnsorted (SetUnsorted)
 import RequestManager.UpdateMoleculePage (UpdateMoleculePage)
-import Effect.Promise (class Deferred, Promise)
 
 type DispatchAction a = a -> Effect Unit
 type CollectionName = String
