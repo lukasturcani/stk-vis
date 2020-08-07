@@ -19,34 +19,22 @@ import {
 import {
     CoreProps as SortButtonProps,
 } from 'request-manager/base/sort-button';
-import {
-    RequestResult,
-} from 'RequestManager.RequestResult';
-import { Molecule } from 'Molecules.Molecule';
 
 
 type Empty = Record<string, unknown>;
 
-export interface DispatchProps
+export interface DispatchProps<a>
 {
-    dispatch: {
-        setSortedCollection:
-            (
-                sortType: 'ascending' | 'descending',
-                collection: string,
-            ) => void,
-        handleResult: (result: RequestResult) => void;
-        selectMolecule: (selected: number, molecule: Molecule) => void;
-    }
+    dispatch: (action: a) => void;
 }
 
-export type CoreProps<a> = DispatchProps & MoleculeBrowserProps<a>;
+export type CoreProps<a> = DispatchProps<a> & MoleculeBrowserProps<a>;
 
-interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps
+interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps<a>
 {
     root: React.FunctionComponent<Record<string, unknown>>;
     sortButton: React.FunctionComponent<SortButtonProps<a>>;
-    moleculeTable: React.FunctionComponent<MoleculeTableProps>;
+    moleculeTable: React.FunctionComponent<MoleculeTableProps<a>>;
     viewerContainer: React.FunctionComponent<Empty>;
     twoDViewer: React.FunctionComponent<TwoDViewerProps>;
     threeDViewer: React.FunctionComponent<ThreeDViewerProps>;

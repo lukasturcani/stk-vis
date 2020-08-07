@@ -17,6 +17,15 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
     import {
         UpdateMoleculePage,
     } from 'RequestManager.UpdateMoleculePage';
+    import {
+        SelectMolecule,
+    } from 'Molecules.SelectMolecule';
+    import {
+        SetSorted,
+    } from 'RequestManager.SetSorted';
+    import {
+        SetUnsorted,
+    } from 'RequestManager.SetUnsorted';
 
     export type MoleculeBrowser = Record<string, unknown>;
 
@@ -24,7 +33,7 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
     {
         value0: {
             sortButton: SortButtonProps<a>,
-            moleculeTable: MoleculeTableProps,
+            moleculeTable: MoleculeTableProps<a>,
             twoDViewer: TwoDViewerProps,
             threeDViewer: ThreeDViewerProps,
             backButton: BackButtonProps<a>,
@@ -42,6 +51,9 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
     export interface ActionCreators<a>
     {
         updateMoleculePage: (payload: UpdateMoleculePage) => a;
+        setSorted: (payload: SetSorted) => a;
+        setUnsorted: (payload: SetUnsorted) => a;
+        selectMolecule: (payload: SelectMolecule) => a;
     }
 
     export const props:

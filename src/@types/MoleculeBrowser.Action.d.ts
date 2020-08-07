@@ -9,6 +9,11 @@ declare module 'MoleculeBrowser.Action'
     import {
         Molecule,
     } from 'Molecules.Molecule';
+    import {
+        SelectMolecule,
+    } from 'Molecules.SelectMolecule';
+    import { SetSorted } from 'RequestManager.SetSorted';
+    import { SetUnsorted } from 'RequestManager.SetUnsorted';
 
     export interface Action
     {
@@ -18,11 +23,12 @@ declare module 'MoleculeBrowser.Action'
     export const updateMoleculePage:
         (payload: UpdateMoleculePage) => Action;
 
-    export const setSorted_:
-        (collection: string) => (sortType: SortType) => Action
+    export const setSorted:
+        (payload: SetSorted) => Action;
 
-    export const setUnsorted_: Action;
+    export const setUnsorted:
+        (payload: SetUnsorted) => Action;
 
-    export const selectMolecule_:
-        (id: number) => (molecule: Molecule) => Action;
+    export const selectMolecule:
+        (payload: SelectMolecule) => Action;
 }

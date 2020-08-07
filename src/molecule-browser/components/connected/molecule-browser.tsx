@@ -11,19 +11,17 @@ import {
     MoleculeBrowser as MoleculeBrowserBase,
 } from 'molecule-browser/styled/molecule-browser';
 
-import * as Action
-from 'MoleculeBrowser.Action';
 import {
-    ascending,
-    descending,
-} from 'RequestManager.SortType';
-import { Molecule } from 'Molecules.Molecule';
-import {
-    RequestResult,
-} from 'RequestManager.RequestResult';
+    CoreProps
+} from 'molecule-browser/base/molecule-browser';
+
+import * as Action from 'MoleculeBrowser.Action';
 import {
     UpdateMoleculePage,
 } from 'RequestManager.UpdateMoleculePage';
+import { SetSorted } from 'RequestManager.SetSorted';
+import { SetUnsorted } from 'RequestManager.SetUnsorted';
+import { SelectMolecule } from 'Molecules.SelectMolecule';
 
 
 function mapStateToProps<a>(
@@ -37,7 +35,19 @@ function mapStateToProps<a>(
         ({
             updateMoleculePage:
                 (payload: UpdateMoleculePage) =>
-                    Action.updateMoleculePage(payload)
+                    Action.updateMoleculePage(payload),
+
+            setSorted:
+                (payload: SetSorted) =>
+                    Action.setSorted(payload),
+
+            setUnsorted:
+                (payload: SetUnsorted) =>
+                    Action.setUnsorted(payload),
+
+            selectMolecule:
+                (payload: SelectMolecule) =>
+                    Action.selectMolecule(payload),
         })
         (state)
     };
@@ -48,42 +58,14 @@ function mapDispatchToProps(
     dispatch: (action: Action.Action) => void,
 )
 {
-    return {
-        dispatch: {
-            selectMolecule:
-                (selected: number, molecule: Molecule) => dispatch(
-                    Action.selectMolecule_(selected)(molecule)
-                ),
-            handleResult:
-                (result: RequestResult) => console.log(result),
-            setSortedCollection:
-                (
-                    sortType: 'ascending' | 'descending',
-                    collection: string,
-                ) =>
-                {
-                    if (collection === '')
-                    {
-                        dispatch(Action.setUnsorted_);
-                    }
-                    else
-                    {
-                        dispatch(
-                            Action.setSorted_
-                                (collection)
-                                (
-                                    sortType === 'ascending'?
-                                    ascending : descending
-                                )
-                        );
-                    }
-                },
-        },
-    };
+    return { dispatch };
 }
 
 
 export const MoleculeBrowser
     = connect
     (mapStateToProps, mapDispatchToProps)
-    (MoleculeBrowserBase);
+    (
+        MoleculeBrowserBase as
+        React.FunctionComponent<CoreProps<Action.Action>>
+    );
