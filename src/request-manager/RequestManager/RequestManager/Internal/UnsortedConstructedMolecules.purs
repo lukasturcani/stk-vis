@@ -15,5 +15,5 @@ data UnsortedConstructedMolecules = UnsortedConstructedMolecules
     , _numEntriesPerPage                     :: Int
     , _ignoredCollections                    :: Array String
     , _pageKind                              :: PageKind
-    , _columns                               :: Array String
+    , _valueCollections                      :: Array String
     }

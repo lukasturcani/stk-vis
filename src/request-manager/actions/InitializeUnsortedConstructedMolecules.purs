@@ -12,7 +12,7 @@ module RequestManager.InitializeUnsortedConstructedMolecules
     , numEntriesPerPage
     , ignoredCollections
     , pageKind
-    , columns
+    , valueCollections
     ) where
 
 import RequestManager.PageKind (PageKind)
@@ -28,7 +28,7 @@ type UnsortedConstructedMoleculesData =
     , numEntriesPerPage                     :: Int
     , ignoredCollections                    :: Array String
     , pageKind                              :: PageKind
-    , columns                               :: Array String
+    , valueCollections                      :: Array String
     }
 
 data InitializeUnsortedConstructedMolecules
@@ -43,7 +43,7 @@ data InitializeUnsortedConstructedMolecules
         , _numEntriesPerPage                     :: Int
         , _ignoredCollections                    :: Array String
         , _pageKind                              :: PageKind
-        , _columns                               :: Array String
+        , _valueCollections                      :: Array String
         }
 
 initializeUnsortedConstructedMolecules
@@ -61,7 +61,7 @@ initializeUnsortedConstructedMolecules
     , numEntriesPerPage: numEntriesPerPage'
     , ignoredCollections: ignoredCollections'
     , pageKind: pageKind'
-    , columns: columns'
+    , valueCollections: valueCollections'
     }
     = InitializeUnsortedConstructedMolecules
         { _url: url'
@@ -77,7 +77,7 @@ initializeUnsortedConstructedMolecules
         , _numEntriesPerPage: numEntriesPerPage'
         , _ignoredCollections: ignoredCollections'
         , _pageKind: pageKind'
-        , _columns: columns'
+        , _valueCollections: valueCollections'
         }
 
 url :: InitializeUnsortedConstructedMolecules -> String
@@ -134,6 +134,7 @@ pageKind :: InitializeUnsortedConstructedMolecules -> PageKind
 pageKind (InitializeUnsortedConstructedMolecules { _pageKind })
     = _pageKind
 
-columns :: InitializeUnsortedConstructedMolecules -> Array String
-columns (InitializeUnsortedConstructedMolecules { _columns })
-    = _columns
+valueCollections :: InitializeUnsortedConstructedMolecules -> Array String
+valueCollections
+    (InitializeUnsortedConstructedMolecules { _valueCollections })
+    = _valueCollections

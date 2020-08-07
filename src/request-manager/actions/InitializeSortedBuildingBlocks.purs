@@ -14,7 +14,7 @@ module RequestManager.InitializeSortedBuildingBlocks
     , pageKind
     , sortedCollection
     , sortType
-    , columns
+    , valueCollections
     ) where
 
 import RequestManager.PageKind (PageKind)
@@ -31,7 +31,7 @@ type SortedBuildingBlocksData =
     , numEntriesPerPage                     :: Int
     , ignoredCollections                    :: Array String
     , pageKind                              :: PageKind
-    , columns                               :: Array String
+    , valueCollections                      :: Array String
     , sortedCollection                      :: String
     , sortType                              :: SortType
     }
@@ -48,7 +48,7 @@ data InitializeSortedBuildingBlocks
         , _numEntriesPerPage                     :: Int
         , _ignoredCollections                    :: Array String
         , _pageKind                              :: PageKind
-        , _columns                               :: Array String
+        , _valueCollections                      :: Array String
         , _sortedCollection                      :: String
         , _sortType                              :: SortType
         }
@@ -67,7 +67,7 @@ initializeSortedBuildingBlocks
     , numEntriesPerPage: numEntriesPerPage'
     , ignoredCollections: ignoredCollections'
     , pageKind: pageKind'
-    , columns: columns'
+    , valueCollections: valueCollections'
     , sortedCollection: sortedCollection'
     , sortType: sortType'
     }
@@ -85,7 +85,7 @@ initializeSortedBuildingBlocks
         , _numEntriesPerPage: numEntriesPerPage'
         , _ignoredCollections: ignoredCollections'
         , _pageKind: pageKind'
-        , _columns: columns'
+        , _valueCollections: valueCollections'
         , _sortedCollection: sortedCollection'
         , _sortType: sortType'
         }
@@ -136,8 +136,9 @@ ignoredCollections
 pageKind :: InitializeSortedBuildingBlocks -> PageKind
 pageKind (InitializeSortedBuildingBlocks { _pageKind }) = _pageKind
 
-columns :: InitializeSortedBuildingBlocks -> Array String
-columns (InitializeSortedBuildingBlocks { _columns }) = _columns
+valueCollections :: InitializeSortedBuildingBlocks -> Array String
+valueCollections (InitializeSortedBuildingBlocks { _valueCollections })
+    = _valueCollections
 
 sortedCollection :: InitializeSortedBuildingBlocks -> String
 sortedCollection (InitializeSortedBuildingBlocks { _sortedCollection })

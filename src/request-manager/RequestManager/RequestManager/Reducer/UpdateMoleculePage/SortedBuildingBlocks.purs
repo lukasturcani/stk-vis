@@ -40,5 +40,5 @@ updateMoleculePage
         , _sortedCollection
         , _sortType
         , _pageKind: Payload.pageKind payload
-        , _columns: Payload.columns payload
+        , _valueCollections: Payload.valueCollections payload
         }

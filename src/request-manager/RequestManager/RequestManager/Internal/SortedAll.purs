@@ -18,5 +18,5 @@ data SortedAll = SortedAll
     , _sortedCollection                      :: String
     , _sortType                              :: SortType
     , _pageKind                              :: PageKind
-    , _columns                               :: Array String
+    , _valueCollections                      :: Array String
     }

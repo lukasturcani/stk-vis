@@ -12,7 +12,7 @@ module RequestManager.InitializeUnsortedBuildingBlocks
     , numEntriesPerPage
     , ignoredCollections
     , pageKind
-    , columns
+    , valueCollections
     ) where
 
 import RequestManager.PageKind (PageKind)
@@ -28,7 +28,7 @@ type UnsortedBuildingBlocksData =
     , numEntriesPerPage                     :: Int
     , ignoredCollections                    :: Array String
     , pageKind                              :: PageKind
-    , columns                               :: Array String
+    , valueCollections                      :: Array String
     }
 
 data InitializeUnsortedBuildingBlocks
@@ -43,7 +43,7 @@ data InitializeUnsortedBuildingBlocks
         , _numEntriesPerPage                     :: Int
         , _ignoredCollections                    :: Array String
         , _pageKind                              :: PageKind
-        , _columns                               :: Array String
+        , _valueCollections                      :: Array String
         }
 
 initializeUnsortedBuildingBlocks
@@ -60,7 +60,7 @@ initializeUnsortedBuildingBlocks
     , numEntriesPerPage: numEntriesPerPage'
     , ignoredCollections: ignoredCollections'
     , pageKind: pageKind'
-    , columns: columns'
+    , valueCollections: valueCollections'
     }
     = InitializeUnsortedBuildingBlocks
         { _url: url'
@@ -76,7 +76,7 @@ initializeUnsortedBuildingBlocks
         , _numEntriesPerPage: numEntriesPerPage'
         , _ignoredCollections: ignoredCollections'
         , _pageKind: pageKind'
-        , _columns: columns'
+        , _valueCollections: valueCollections'
         }
 
 url :: InitializeUnsortedBuildingBlocks -> String
@@ -125,5 +125,7 @@ ignoredCollections
 pageKind :: InitializeUnsortedBuildingBlocks -> PageKind
 pageKind (InitializeUnsortedBuildingBlocks { _pageKind }) = _pageKind
 
-columns :: InitializeUnsortedBuildingBlocks -> Array String
-columns (InitializeUnsortedBuildingBlocks { _columns }) = _columns
+valueCollections :: InitializeUnsortedBuildingBlocks -> Array String
+valueCollections
+    (InitializeUnsortedBuildingBlocks { _valueCollections })
+    = _valueCollections

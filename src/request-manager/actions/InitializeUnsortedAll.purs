@@ -12,7 +12,7 @@ module RequestManager.InitializeUnsortedAll
     , numEntriesPerPage
     , ignoredCollections
     , pageKind
-    , columns
+    , valueCollections
     ) where
 
 import RequestManager.PageKind (PageKind)
@@ -28,7 +28,7 @@ type UnsortedAllData =
     , numEntriesPerPage                     :: Int
     , ignoredCollections                    :: Array String
     , pageKind                              :: PageKind
-    , columns                               :: Array String
+    , valueCollections                      :: Array String
     }
 
 data InitializeUnsortedAll = InitializeUnsortedAll
@@ -42,7 +42,7 @@ data InitializeUnsortedAll = InitializeUnsortedAll
     , _numEntriesPerPage                     :: Int
     , _ignoredCollections                    :: Array String
     , _pageKind                              :: PageKind
-    , _columns                               :: Array String
+    , _valueCollections                      :: Array String
     }
 
 initializeUnsortedAll :: UnsortedAllData -> InitializeUnsortedAll
@@ -60,7 +60,7 @@ initializeUnsortedAll
     , numEntriesPerPage: numEntriesPerPage'
     , ignoredCollections: ignoredCollections'
     , pageKind: pageKind'
-    , columns: columns'
+    , valueCollections: valueCollections'
     }
     = InitializeUnsortedAll
         { _url: url'
@@ -76,7 +76,7 @@ initializeUnsortedAll
         , _numEntriesPerPage: numEntriesPerPage'
         , _ignoredCollections: ignoredCollections'
         , _pageKind: pageKind'
-        , _columns: columns'
+        , _valueCollections: valueCollections'
         }
 
 url :: InitializeUnsortedAll -> String
@@ -118,5 +118,6 @@ ignoredCollections (InitializeUnsortedAll { _ignoredCollections })
 pageKind :: InitializeUnsortedAll -> PageKind
 pageKind (InitializeUnsortedAll { _pageKind }) = _pageKind
 
-columns :: InitializeUnsortedAll -> Array String
-columns (InitializeUnsortedAll { _columns }) = _columns
+valueCollections :: InitializeUnsortedAll -> Array String
+valueCollections (InitializeUnsortedAll { _valueCollections })
+    = _valueCollections

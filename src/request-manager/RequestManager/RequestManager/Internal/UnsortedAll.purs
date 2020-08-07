@@ -15,5 +15,5 @@ data UnsortedAll = UnsortedAll
     , _numEntriesPerPage                     :: Int
     , _ignoredCollections                    :: Array String
     , _pageKind                              :: PageKind
-    , _columns                               :: Array String
+    , _valueCollections                      :: Array String
     }
