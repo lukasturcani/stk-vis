@@ -1,5 +1,6 @@
 module RequestManager.RequestManager.Internal.RequestManager.SortedBuildingBlocks
     ( SortedBuildingBlocks (..)
+    , valueCollections
     ) where
 
 import RequestManager.SortType (SortType)
@@ -20,3 +21,7 @@ data SortedBuildingBlocks = SortedBuildingBlocks
     , _pageKind                              :: PageKind
     , _valueCollections                      :: Array String
     }
+
+valueCollections :: SortedBuildingBlocks -> Array String
+valueCollections (SortedBuildingBlocks { _valueCollections })
+    = _valueCollections

@@ -1,5 +1,6 @@
 module RequestManager.RequestManager.Internal.RequestManager.UnsortedBuildingBlocks
     ( UnsortedBuildingBlocks (..)
+    , valueCollections
     ) where
 
 import RequestManager.PageKind (PageKind)
@@ -17,3 +18,7 @@ data UnsortedBuildingBlocks = UnsortedBuildingBlocks
     , _pageKind                              :: PageKind
     , _valueCollections                      :: Array String
     }
+
+valueCollections :: UnsortedBuildingBlocks -> Array String
+valueCollections (UnsortedBuildingBlocks { _valueCollections })
+    = _valueCollections

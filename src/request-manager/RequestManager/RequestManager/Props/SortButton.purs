@@ -4,7 +4,10 @@ module RequestManager.RequestManager.Internal.Props.Internal.SortButton
     ) where
 
 import RequestManager.RequestManager.Internal.RequestManager
-    (RequestManager)
+    ( RequestManager
+    , valueCollections
+    )
+
 
 data SortButtonProps = SortButtonProps
     { collections :: Array String
@@ -12,5 +15,5 @@ data SortButtonProps = SortButtonProps
 
 sortButtonProps :: RequestManager -> SortButtonProps
 sortButtonProps requestManager = SortButtonProps
-    { collections: ["one", "two", "three"]
+    { collections: valueCollections requestManager
     }

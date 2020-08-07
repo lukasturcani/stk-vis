@@ -1,5 +1,6 @@
 module RequestManager.RequestManager.Internal.RequestManager.SortedConstructedMolecules
     ( SortedConstructedMolecules (..)
+    , valueCollections
     ) where
 
 import RequestManager.SortType (SortType)
@@ -20,3 +21,7 @@ data SortedConstructedMolecules = SortedConstructedMolecules
     , _pageKind                              :: PageKind
     , _valueCollections                      :: Array String
     }
+
+valueCollections :: SortedConstructedMolecules -> Array String
+valueCollections (SortedConstructedMolecules { _valueCollections })
+    = _valueCollections

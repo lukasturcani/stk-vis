@@ -1,5 +1,6 @@
 module RequestManager.RequestManager.Internal.RequestManager.SortedAll
     ( SortedAll (..)
+    , valueCollections
     ) where
 
 import RequestManager.SortType (SortType)
@@ -20,3 +21,7 @@ data SortedAll = SortedAll
     , _pageKind                              :: PageKind
     , _valueCollections                      :: Array String
     }
+
+valueCollections :: SortedAll -> Array String
+valueCollections (SortedAll { _valueCollections })
+    = _valueCollections
