@@ -18,6 +18,7 @@ import RequestManager.RequestManager.Internal.Props
     ( NextButtonProps
     , BackButtonProps
     , SortButtonProps
+    , ActionCreators
     ) as Exports
 
 import RequestManager.RequestManager.Internal.Props
@@ -56,5 +57,10 @@ backButtonProps
 
 backButtonProps = Props.backButtonProps
 
-sortButtonProps :: Exports.RequestManager -> Exports.SortButtonProps
+sortButtonProps
+    :: forall a
+    .  Exports.ActionCreators a
+    -> Exports.RequestManager
+    -> Exports.SortButtonProps a
+
 sortButtonProps = Props.sortButtonProps

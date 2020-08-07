@@ -14,5 +14,6 @@ import RequestManager.RequestManager.Internal.Props.Internal.BackButton
 
 import RequestManager.RequestManager.Internal.Props.Internal.SortButton
     ( SortButtonProps
+    , ActionCreators
     , sortButtonProps
     ) as Exports

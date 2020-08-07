@@ -11,10 +11,11 @@ import RequestManager.RequestManager.Internal.RequestManager
     , valueCollections
     )
 
+import Prelude
 import RequestManager.SetSorted (SetSorted, setSorted)
 import RequestManager.SetUnsorted (SetUnsorted, setUnsorted)
-
 import RequestManager.SortType (SortType)
+import Effect (Effect)
 
 
 type DispatchAction a = a -> Effect Unit
