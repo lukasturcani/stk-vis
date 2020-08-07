@@ -12,6 +12,7 @@ import {
 } from 'molecule-browser/styled/molecule-browser';
 
 import {
+    DispatchProps,
     CoreProps
 } from 'molecule-browser/base/molecule-browser';
 
@@ -57,6 +58,7 @@ function mapStateToProps<a>(
 function mapDispatchToProps(
     dispatch: (action: Action.Action) => void,
 )
+    : DispatchProps<Action.Action>
 {
     return { dispatch };
 }

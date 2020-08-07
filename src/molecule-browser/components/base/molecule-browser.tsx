@@ -51,11 +51,11 @@ export function MoleculeBrowser<a>(
     return (
         <props.root>
             <props.sortButton
-                {...props.dispatch}
+                dispatch={props.dispatch}
                 {...props.value0.sortButton}
             />
             <props.moleculeTable
-                {...props.dispatch}
+                dispatch={props.dispatch}
                 {...props.value0.moleculeTable}
             />
             <props.viewerContainer>
@@ -64,11 +64,11 @@ export function MoleculeBrowser<a>(
             </props.viewerContainer>
             <props.navigationButtonContainer>
                 <props.backButton
-                    {...props.dispatch}
+                    dispatch={props.dispatch}
                     {...props.value0.backButton}
                 />
                 <props.nextButton
-                    {...props.dispatch}
+                    dispatch={props.dispatch}
                     {...props.value0.nextButton}
                 />
             </props.navigationButtonContainer>
