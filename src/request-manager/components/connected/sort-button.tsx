@@ -39,6 +39,7 @@ function mapStateToProps(
         ({
             setSorted: Action.setSorted,
             setUnsorted: Action.setUnsorted,
+            updateMoleculePage: Action.updateMoleculePage,
         })
         (state)
     };

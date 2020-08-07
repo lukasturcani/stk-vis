@@ -26,6 +26,12 @@ export interface BaseProps<a>
         void
 
     setUnsorted: (dispatch: (action: a) => void) => void
+
+    updateMoleculePage:
+        () =>
+        (dispatch: (action: a) => void) =>
+        void;
+
 }
 
 
@@ -56,7 +62,6 @@ export function SubmitButton<a>(
                     if (props.collection === '')
                     {
                         props.setUnsorted(props.dispatch);
-                        return;
                     }
                     else
                     {
@@ -68,6 +73,7 @@ export function SubmitButton<a>(
                                 ascending : descending
                             )
                     }
+                    props.updateMoleculePage()(props.dispatch);
                 }
             }
         />

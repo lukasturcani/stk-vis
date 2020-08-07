@@ -43,6 +43,11 @@ declare module 'RequestManager.RequestManager'
                 (sortType: SortType) =>
                 void
             setUnsorted: (dispatch: (action: a) => void) => void
+
+            updateMoleculePage:
+                () =>
+                (dispatch: (action: a) => void) =>
+                void;
         };
     }
 
@@ -50,6 +55,7 @@ declare module 'RequestManager.RequestManager'
     {
         setSorted: (payload: SetSorted) => a;
         setUnsorted: (payload: SetUnsorted) => a;
+        updateMoleculePage: (payload: UpdateMoleculePage) => a;
     }
 
     export interface NextButtonProps<a>

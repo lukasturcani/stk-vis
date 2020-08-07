@@ -44,6 +44,7 @@ export function SortButton<a>(
                 dispatch={props.dispatch}
                 setUnsorted={props.value0.setUnsorted}
                 setSorted={props.value0.setSorted}
+                updateMoleculePage={props.value0.updateMoleculePage}
                 open={open}
                 setOpen={setOpen}
                 collections={props.value0.collections}
