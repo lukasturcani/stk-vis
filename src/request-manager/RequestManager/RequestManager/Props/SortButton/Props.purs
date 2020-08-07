@@ -12,6 +12,7 @@ import RequestManager.SortType (SortType)
 import RequestManager.SetSorted (SetSorted)
 import RequestManager.SetUnsorted (SetUnsorted)
 import RequestManager.UpdateMoleculePage (UpdateMoleculePage)
+import Effect.Promise (class Deferred, Promise)
 
 type DispatchAction a = a -> Effect Unit
 type CollectionName = String
@@ -20,12 +21,16 @@ data SortButtonProps a = SortButtonProps
     { collections :: Array String
 
     , setSorted
-        :: DispatchAction a
+        :: Deferred
+        => DispatchAction a
         -> CollectionName
         -> SortType
-        -> Effect Unit
+        -> Promise (Effect Unit)
 
-    , setUnsorted :: DispatchAction a -> Effect Unit
+    , setUnsorted
+        :: Deferred
+        => DispatchAction a
+        -> Promise (Effect Unit)
 
     }
 

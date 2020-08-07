@@ -5,6 +5,8 @@ module RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal
 import RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal.Props
     ( SortButtonProps (SortButtonProps)
     , ActionCreators
+    , DispatchAction
+    , CollectionName
     )
 
 import RequestManager.RequestManager.Internal.RequestManager.SortedAll
@@ -13,7 +15,8 @@ import RequestManager.RequestManager.Internal.RequestManager.SortedAll
 
 import Prelude
 import Data.Array as Array
-import Requests.SortedAll as Request
+import Requests.SortedAll as SortedRequest
+import Requests.UnsortedAll as UnsortedRequest
 import RequestManager.SetSorted (setSorted)
 import RequestManager.SetUnsorted (setUnsorted)
 import RequestManager.UpdateMoleculePage (updateMoleculePage)
@@ -21,6 +24,7 @@ import Effect.Promise (class Deferred, Promise)
 import RequestManager.SortType (toRequest)
 import RequestManager.PageKind (fromRequest)
 import Effect (Effect)
+import Effect.Promise (class Deferred, Promise)
 
 sortButtonProps
     :: forall a r
@@ -51,43 +55,78 @@ sortButtonProps
     { collections: _valueCollections
     , setSorted: setSorted'
     , setUnsorted: setUnsorted'
-    , updateMoleculePage: updateMoleculePage'
     }
   where
-    setSorted' dispatch collection sortType'
-        = dispatch
-            (actionCreators.setSorted
-                (setSorted collection sortType')
-            )
-
-    setUnsorted' dispatch
-        = dispatch (actionCreators.setUnsorted setUnsorted)
-
     pageIndex = 0
 
-    request :: Deferred => Promise Request.Result
-    request = Request.request
-        { url
-        , database
-        , moleculeKey
-        , moleculeCollection
-        , positionMatrixCollection
-        , buildingBlockPositionMatrixCollection
-        , pageIndex
-        , numEntriesPerPage
-        , ignoredCollections
-        , sortedCollection
-        , sortType: toRequest sortType
-        }
+    setSorted'
+        :: Deferred
+        => DispatchAction a
+        -> CollectionName
+        -> SortType
+        -> Promise (Effect Unit)
 
+    setSorted' dispatch collection sortType' = do
+        _ <- pure
+            (dispatch
+                (actionCreators.setSorted
+                    (setSorted collection sortType')
+                )
+            )
 
-    updateMoleculePage'
-        :: Deferred => (a -> Effect Unit) -> Promise (Effect Unit)
-    updateMoleculePage' dispatch = do
-        result <- request
+        result <- SortedRequest.request
+            { url
+            , database
+            , moleculeKey
+            , moleculeCollection
+            , positionMatrixCollection
+            , buildingBlockPositionMatrixCollection
+            , pageIndex
+            , numEntriesPerPage
+            , ignoredCollections
+            , collection
+            , sortType: toRequest sortType'
+            }
 
         let
-            (Request.Result
+            (SortedRequest.Result
+                { valueCollections, molecules, pageKind: pageKind' }
+            ) = result
+
+            payload = updateMoleculePage
+                { columns:
+                    Array.concat [[moleculeKey], valueCollections]
+                , moleculeKey
+                , molecules
+                , pageIndex
+                , pageKind: fromRequest pageKind'
+                , valueCollections
+                }
+
+        pure (dispatch (actionCreators.updateMoleculePage payload))
+
+    setUnsorted'
+        :: Deferred
+        => DispatchAction a
+        -> Promise (Effect Unit)
+
+    setUnsorted' dispatch = do
+        _ <- pure (dispatch (actionCreators.setUnsorted setUnsorted))
+
+        result <- UnsortedRequest.request
+            { url
+            , database
+            , moleculeKey
+            , moleculeCollection
+            , positionMatrixCollection
+            , buildingBlockPositionMatrixCollection
+            , pageIndex
+            , numEntriesPerPage
+            , ignoredCollections
+            }
+
+        let
+            (UnsortedRequest.Result
                 { valueCollections, molecules, pageKind: pageKind' }
             ) = result
 
