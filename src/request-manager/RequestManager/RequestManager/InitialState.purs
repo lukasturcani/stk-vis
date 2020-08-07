@@ -27,5 +27,5 @@ initialState = RequestManager.UnsortedAll unsortedAll
         , _numEntriesPerPage: 34
         , _ignoredCollections: []
         , _pageKind: Middle
-        , _columns: []
+        , _valueCollections: []
         }
