@@ -25,8 +25,8 @@ reducer :: Exports.StkVis -> Action -> Exports.StkVis
 reducer = Reducer.reducer
 
 props
-    :: forall a
-    .  Exports.ActionCreators a
+    :: forall a r
+    .  Exports.ActionCreators a r
     -> Exports.StkVis
     -> Exports.Props a
 props = Props.props

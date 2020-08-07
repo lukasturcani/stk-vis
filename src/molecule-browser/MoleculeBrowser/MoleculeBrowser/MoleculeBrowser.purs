@@ -36,8 +36,8 @@ reducer :: Exports.MoleculeBrowser -> Action -> Exports.MoleculeBrowser
 reducer = Reducer.reducer
 
 props
-    :: forall a
-    .  Exports.ActionCreators a
+    :: forall a r
+    .  Exports.ActionCreators a r
     -> Exports.MoleculeBrowser
     -> Exports.Props a
 props = Props.props

@@ -27,6 +27,7 @@ import Molecules.Molecules.Internal.Props
     ( MoleculeTableProps
     , TwoDViewerProps
     , ThreeDViewerProps
+    , ActionCreators
     ) as Exports
 
 import Molecules.Molecules.Internal.Props
@@ -49,7 +50,12 @@ initialState = InitialState.initialState
 reducer :: Exports.Molecules -> Action -> Exports.Molecules
 reducer = Reducer.reducer
 
-moleculeTableProps :: Exports.Molecules -> Exports.MoleculeTableProps
+moleculeTableProps
+    :: forall a r
+    .  Exports.ActionCreators a r
+    -> Exports.Molecules
+    -> Exports.MoleculeTableProps a
+
 moleculeTableProps = Props.moleculeTableProps
 
 twoDViewerProps :: Exports.Molecules -> Exports.TwoDViewerProps

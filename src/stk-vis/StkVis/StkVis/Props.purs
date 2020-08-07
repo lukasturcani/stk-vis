@@ -10,20 +10,22 @@ import MoleculeBrowser.MoleculeBrowser as MoleculeBrowser
 import RequestManager.UpdateMoleculePage (UpdateMoleculePage)
 import RequestManager.SetSorted (SetSorted)
 import RequestManager.SetUnsorted (SetUnsorted)
+import Molecules.SelectMolecule (SelectMolecule)
 
 data Props a
     = MongoConfigurator MongoConfigurator.Props
     | MoleculeBrowser (MoleculeBrowser.Props a)
 
-type ActionCreators a =
+type ActionCreators a r =
     { updateMoleculePage :: UpdateMoleculePage -> a
     , setSorted :: SetSorted -> a
     , setUnsorted :: SetUnsorted -> a
+    , selectMolecule :: SelectMolecule -> a
     }
 
 props
-    :: forall a
-    .  ActionCreators a
+    :: forall a r
+    .  ActionCreators a r
     -> StkVis.StkVis
     -> Props a
 

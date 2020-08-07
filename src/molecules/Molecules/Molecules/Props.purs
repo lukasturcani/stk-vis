@@ -5,38 +5,66 @@ module Molecules.Molecules.Internal.Props
     , twoDViewerProps
     , ThreeDViewerProps
     , threeDViewerProps
+    , DispatchAction
+    , ActionCreators
     ) where
 
 import Prelude
 import Data.Map (Map)
+import Effect (Effect)
 import Data.Tuple (fst, snd)
 import Molecules.Molecule as Molecule
 import Molecules.Molecules.Internal.Molecules (Molecules (..))
 import Molecules.Molecule (properties, smiles, meshes)
 import MolDraw.DrawMol.Mesh (MeshOptions, Mesh)
+import Molecules.SelectMolecule (SelectMolecule, selectMolecule)
+
 import SelectingCollection
     ( selected
     , all
     )
 
-data MoleculeTableProps = MoleculeTableProps
+
+type DispatchAction a = a -> Effect Unit
+
+data MoleculeTableProps a = MoleculeTableProps
     { columns :: Array String
     , selectedRow :: Int
     , rows :: Array (Map String String)
     , molecules :: Array Molecule.Molecule
+    , selectMolecule
+        :: DispatchAction a
+        -> Int
+        -> Molecule.Molecule
+        -> Effect Unit
     }
 
-moleculeTableProps :: Molecules -> MoleculeTableProps
+type ActionCreators a r =
+    { selectMolecule :: SelectMolecule -> a
+    | r
+    }
+
 moleculeTableProps
+    :: forall a r
+    . ActionCreators a r -> Molecules -> MoleculeTableProps a
+
+moleculeTableProps
+    actionCreators
     (Molecules { _columns, _molecules })
     = MoleculeTableProps
         { columns: _columns
         , selectedRow: fst (selected _molecules)
         , rows: map properties molecules
         , molecules: molecules
+        , selectMolecule: selectMolecule'
         }
   where
     molecules = all _molecules
+    selectMolecule' dispatch id molecule =
+        dispatch
+            (actionCreators.selectMolecule
+                (selectMolecule id molecule)
+            )
 
 data TwoDViewerProps = TwoDViewerProps
     { smiles :: String

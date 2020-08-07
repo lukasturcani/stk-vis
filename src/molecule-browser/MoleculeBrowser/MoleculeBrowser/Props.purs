@@ -11,6 +11,7 @@ import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
 import RequestManager.UpdateMoleculePage (UpdateMoleculePage)
 import RequestManager.SetSorted (SetSorted)
 import RequestManager.SetUnsorted (SetUnsorted)
+import Molecules.SelectMolecule (SelectMolecule)
 
 
 import Molecules.Molecules
@@ -33,22 +34,24 @@ import RequestManager.RequestManager
 
 data Props a = Props
     { sortButton    :: SortButtonProps a
-    , moleculeTable :: MoleculeTableProps
+    , moleculeTable :: MoleculeTableProps a
     , twoDViewer    :: TwoDViewerProps
     , threeDViewer  :: ThreeDViewerProps
     , backButton    :: BackButtonProps a
     , nextButton    :: NextButtonProps a
     }
 
-type ActionCreators a =
+type ActionCreators a r =
     { updateMoleculePage :: UpdateMoleculePage -> a
     , setSorted          :: SetSorted -> a
     , setUnsorted        :: SetUnsorted -> a
+    , selectMolecule     :: SelectMolecule -> a
+    | r
     }
 
 props
-    :: forall a
-    .  ActionCreators a
+    :: forall a r
+    .  ActionCreators a r
     -> MoleculeBrowser
     -> Props a
 
@@ -62,7 +65,10 @@ props
             }
             _requestManager
 
-        , moleculeTable:    moleculeTableProps _molecules
+        , moleculeTable: moleculeTableProps
+            actionCreators
+            _molecules
+
         , twoDViewer:       twoDViewerProps _molecules
         , threeDViewer:     threeDViewerProps _molecules
 
