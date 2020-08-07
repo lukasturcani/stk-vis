@@ -1,8 +1,5 @@
 module RequestManager.RequestManager.Internal.Props.Internal.SortButton
-    ( SortButtonProps
-    , DispatchAction
-    , CollectionName
-    , ActionCreators
+    ( module Exports
     , sortButtonProps
     ) where
 
@@ -15,71 +12,65 @@ import Prelude
 import RequestManager.SetSorted (SetSorted, setSorted)
 import RequestManager.SetUnsorted (SetUnsorted, setUnsorted)
 import RequestManager.SortType (SortType)
-import Effect (Effect)
-import Effect.Promise (class Deferred, Promise)
 
+import RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal.Props
+    ( SortButtonProps
+    , ActionCreators
+    ) as Exports
 
-type DispatchAction a = a -> Effect Unit
-type CollectionName = String
+import RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal.UnsortedAll
+    as UnsortedAll
 
-data SortButtonProps a = SortButtonProps
-    { collections :: Array String
+import RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal.UnsortedBuildingBlocks
+    as UnsortedBuildingBlocks
 
-    , setSorted
-        :: DispatchAction a
-        -> CollectionName
-        -> SortType
-        -> Effect Unit
+import RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal.UnsortedConstructedMolecules
+    as UnsortedConstructedMolecules
 
-    , setUnsorted :: DispatchAction a -> Effect Unit
+import RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal.SortedAll
+    as SortedAll
 
-    , updateMoleculePage
-        :: Deferred => DispatchAction a -> Promise (Effect Unit)
-    }
+import RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal.SortedBuildingBlocks
+    as SortedBuildingBlocks
 
-type ActionCreators a r =
-    { setSorted          :: SetSorted -> a
-    , setUnsorted        :: SetUnsorted -> a
-    , updateMoleculePage :: UpdateMoleculePage -> a
-    | r
-    }
+import RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal.SortedConstructedMolecules
+    as SortedConstructedMolecules
+
 
 sortButtonProps
     :: forall a r
-    .  ActionCreators a r -> RequestManager -> SortButtonProps a
+    .  Exports.ActionCreators a r
+    -> RequestManager
+    -> Exports.SortButtonProps a
 
-sortButtonProps actionCreators requestManager = SortButtonProps
-    { collections: valueCollections requestManager
-    , setSorted: setSorted'
-    , setUnsorted: setUnsorted'
-    , updateMoleculePage: updateMoleculePage'
-    }
-  where
-    setSorted' dispatch collection sortType
-        = dispatch
-            (actionCreators.setSorted
-                (setSorted collection sortType)
-            )
+sortButtonProps actionCreators (UnsortedAll manager)
+    = UnsortedAll.sortButtonProps
+        actionCreators
+        manager
 
-    setUnsorted' dispatch
-        = dispatch (actionCreators.setUnsorted setUnsorted)
+sortButtonProps actionCreators (UnsortedBuildingBlocks manager)
+    = UnsortedBuildingBlocks.sortButtonProps
+        actionCreators
+        manager
 
-    updateMoleculePage' dispatch = do
-        result <- request
+sortButtonProps
+    actionCreators
+    (UnsortedConstructedMolecules manager)
+    = UnsortedConstructedMolecules.sortButtonProps
+        actionCreators
+        manager
 
-        let
-            (Request.Result
-                { valueCollections, molecules, pageKind: pageKind' }
-            ) = result
+sortButtonProps actionCreators (SortedAll manager)
+    = SortedAll.sortButtonProps
+        actionCreators
+        manager
 
-            payload = updateMoleculePage
-                { columns:
-                    Array.concat [[moleculeKey], valueCollections]
-                , moleculeKey
-                , molecules
-                , pageIndex
-                , pageKind: fromRequest pageKind'
-                , valueCollections
-                }
+sortButtonProps actionCreators (SortedBuildingBlocks manager)
+    = SortedBuildingBlocks.sortButtonProps
+        actionCreators
+        manager
 
-        pure (dispatch (createAction payload))
+sortButtonProps actionCreators (SortedConstructedMolecules manager)
+    = SortedConstructedMolecules.sortButtonProps
+        actionCreators
+        manager
