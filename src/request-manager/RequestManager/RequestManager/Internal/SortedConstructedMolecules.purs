@@ -1,18 +1,9 @@
 module RequestManager.RequestManager.Internal.RequestManager.SortedConstructedMolecules
     ( SortedConstructedMolecules (..)
-    , _pageKind
-    , _nextRequest
     ) where
 
-import Prelude
 import RequestManager.SortType (SortType)
 import RequestManager.PageKind (PageKind)
-import Effect.Promise (class Deferred, Promise)
-import RequestManager.RequestResult as RequestResult
-import Requests.SortedConstructedMolecules (request)
-
-import RequestManager.RequestManager.Internal.RequestManager.Internal.Utils
-    as Utils
 
 data SortedConstructedMolecules = SortedConstructedMolecules
     { _url                                   :: String
@@ -28,44 +19,3 @@ data SortedConstructedMolecules = SortedConstructedMolecules
     , _sortType                              :: SortType
     , _pageKind                              :: PageKind
     }
-
-_pageKind :: SortedConstructedMolecules -> PageKind
-_pageKind (SortedConstructedMolecules { _pageKind: pageKind })
-    = pageKind
-
-_nextRequest
-    :: Deferred
-    => SortedConstructedMolecules
-    -> Promise RequestResult.RequestResult
-
-_nextRequest
-    (SortedConstructedMolecules
-        { _url: url
-        , _database: database
-        , _moleculeKey: moleculeKey
-        , _moleculeCollection: moleculeCollection
-        , _constructedMoleculeCollection: constructedMoleculeCollection
-        , _positionMatrixCollection: positionMatrixCollection
-        , _pageIndex
-        , _numEntriesPerPage: numEntriesPerPage
-        , _ignoredCollections: ignoredCollections
-        , _sortedCollection: sortedCollection
-        , _sortType: sortType
-        , _pageKind: pageKind
-        }
-    )
-    = do
-        result <- request
-            { url
-            , database
-            , moleculeKey
-            , moleculeCollection
-            , constructedMoleculeCollection
-            , positionMatrixCollection
-            , pageIndex: Utils.nextPageIndex pageKind _pageIndex
-            , numEntriesPerPage
-            , ignoredCollections
-            , sortedCollection
-            , sortType: Utils.toRequestSortType sortType
-            }
-        pure (RequestResult.SortedConstructedMolecules result)

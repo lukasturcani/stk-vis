@@ -1,17 +1,8 @@
 module RequestManager.RequestManager.Internal.RequestManager.UnsortedAll
     ( UnsortedAll (..)
-    , _pageKind
-    , _nextRequest
     ) where
 
-import Prelude
 import RequestManager.PageKind (PageKind)
-import Effect.Promise (class Deferred, Promise)
-import RequestManager.RequestResult as RequestResult
-import Requests.UnsortedAll (request)
-
-import RequestManager.RequestManager.Internal.RequestManager.Internal.Utils
-    as Utils
 
 data UnsortedAll = UnsortedAll
     { _url                                   :: String
@@ -25,40 +16,3 @@ data UnsortedAll = UnsortedAll
     , _ignoredCollections                    :: Array String
     , _pageKind                              :: PageKind
     }
-
-
-_pageKind :: UnsortedAll -> PageKind
-_pageKind (UnsortedAll { _pageKind: pageKind }) = pageKind
-
-_nextRequest
-    :: Deferred => UnsortedAll -> Promise RequestResult.RequestResult
-
-_nextRequest
-    (UnsortedAll
-        { _url: url
-        , _database: database
-        , _moleculeKey: moleculeKey
-        , _moleculeCollection: moleculeCollection
-        , _positionMatrixCollection: positionMatrixCollection
-        , _buildingBlockPositionMatrixCollection:
-            buildingBlockPositionMatrixCollection
-        , _pageIndex
-        , _numEntriesPerPage: numEntriesPerPage
-        , _ignoredCollections: ignoredCollections
-        , _pageKind: pageKind
-        }
-    )
-    = do
-        result <- request
-            { url
-            , database
-            , moleculeKey
-            , moleculeCollection
-            , positionMatrixCollection
-            , buildingBlockPositionMatrixCollection
-            , pageIndex: Utils.nextPageIndex pageKind _pageIndex
-            , numEntriesPerPage
-            , ignoredCollections
-            }
-        pure (RequestResult.UnsortedAll result)
-
