@@ -88,6 +88,7 @@ backButtonProps
                 , molecules
                 , pageIndex
                 , pageKind: fromRequest pageKind'
+                , valueCollections
                 }
 
         pure (dispatch (createAction payload))
