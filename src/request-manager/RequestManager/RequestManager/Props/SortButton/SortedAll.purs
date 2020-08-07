@@ -21,10 +21,9 @@ import RequestManager.SetSorted (setSorted)
 import RequestManager.SetUnsorted (setUnsorted)
 import RequestManager.UpdateMoleculePage (updateMoleculePage)
 import Effect.Promise (class Deferred, Promise)
-import RequestManager.SortType (toRequest)
+import RequestManager.SortType (SortType, toRequest)
 import RequestManager.PageKind (fromRequest)
 import Effect (Effect)
-import Effect.Promise (class Deferred, Promise)
 
 sortButtonProps
     :: forall a r
@@ -52,10 +51,10 @@ sortButtonProps
         }
     )
     = SortButtonProps
-    { collections: _valueCollections
-    , setSorted: setSorted'
-    , setUnsorted: setUnsorted'
-    }
+        { collections: _valueCollections
+        , setSorted: setSorted'
+        , setUnsorted: setUnsorted'
+        }
   where
     pageIndex = 0
 
@@ -84,7 +83,7 @@ sortButtonProps
             , pageIndex
             , numEntriesPerPage
             , ignoredCollections
-            , collection
+            , sortedCollection: collection
             , sortType: toRequest sortType'
             }
 
