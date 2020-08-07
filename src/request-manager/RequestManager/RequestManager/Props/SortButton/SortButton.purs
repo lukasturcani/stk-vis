@@ -3,15 +3,6 @@ module RequestManager.RequestManager.Internal.Props.Internal.SortButton
     , sortButtonProps
     ) where
 
-import RequestManager.RequestManager.Internal.RequestManager
-    ( RequestManager
-    , valueCollections
-    )
-
-import Prelude
-import RequestManager.SetSorted (SetSorted, setSorted)
-import RequestManager.SetUnsorted (SetUnsorted, setUnsorted)
-import RequestManager.SortType (SortType)
 
 import RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal.Props
     ( SortButtonProps
@@ -36,6 +27,9 @@ import RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal
 import RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal.SortedConstructedMolecules
     as SortedConstructedMolecules
 
+import RequestManager.RequestManager.Internal.RequestManager
+    ( RequestManager (..)
+    )
 
 sortButtonProps
     :: forall a r

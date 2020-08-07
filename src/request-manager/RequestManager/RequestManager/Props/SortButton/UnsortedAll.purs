@@ -4,13 +4,22 @@ module RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal
 
 import RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal.Props
     ( SortButtonProps (SortButtonProps)
+    , ActionCreators
     )
 
 import RequestManager.RequestManager.Internal.RequestManager.UnsortedAll
     ( UnsortedAll (UnsortedAll)
     )
 
+import Prelude
+import Data.Array as Array
 import Requests.UnsortedAll as Request
+import RequestManager.SetSorted (setSorted)
+import RequestManager.SetUnsorted (setUnsorted)
+import RequestManager.UpdateMoleculePage (updateMoleculePage)
+import Effect.Promise (class Deferred, Promise)
+import RequestManager.PageKind (fromRequest)
+import Effect (Effect)
 
 sortButtonProps
     :: forall a r
@@ -32,19 +41,20 @@ sortButtonProps
         , _numEntriesPerPage: numEntriesPerPage
         , _ignoredCollections: ignoredCollections
         , _pageKind: pageKind
+        , _valueCollections
         }
     )
     = SortButtonProps
-    { collections: valueCollections requestManager
-    , setUnsorted: setUnsorted'
+    { collections: _valueCollections
+    , setSorted: setSorted'
     , setUnsorted: setUnsorted'
     , updateMoleculePage: updateMoleculePage'
     }
   where
-    setUnsorted' dispatch collection sortType
+    setSorted' dispatch collection sortType
         = dispatch
-            (actionCreators.setUnsorted
-                (setUnsorted collection sortType)
+            (actionCreators.setSorted
+                (setSorted collection sortType)
             )
 
     setUnsorted' dispatch

@@ -8,6 +8,10 @@ module RequestManager.RequestManager.Internal.Props.Internal.SortButton.Internal
 import Prelude
 import Effect (Effect)
 import Effect.Promise (class Deferred, Promise)
+import RequestManager.SortType (SortType)
+import RequestManager.SetSorted (SetSorted)
+import RequestManager.SetUnsorted (SetUnsorted)
+import RequestManager.UpdateMoleculePage (UpdateMoleculePage)
 
 type DispatchAction a = a -> Effect Unit
 type CollectionName = String
