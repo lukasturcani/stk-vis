@@ -1,5 +1,6 @@
 module MongoConfigurator.MongoConfigurator.Internal.Props
     ( Props
+    , module Exports
     , props
     ) where
 
@@ -11,7 +12,17 @@ import MongoConfigurator.SearchKind
     ( SearchKind (..)
     )
 
-data Props = Props
+import MongoConfigurator.MongoConfigurator.Internal.Props.Internal.GetMoleculesButton
+    ( GetMoleculesButtonProps
+    , ActionCreators
+    , getMoleculesButtonProps
+    )
+
+import MongoConfigurator.MongoConfigurator.Internal.Props.Internal.GetMoleculesButton
+    ( ActionCreators
+    ) as Exports
+
+data Props a = Props
     { url                                   :: String
     , moleculeKey                           :: String
     , database                              :: String
@@ -22,11 +33,14 @@ data Props = Props
     , numEntriesPerPage                     :: Int
     , selectBuildingBlocks                  :: Boolean
     , selectConstructedMolecules            :: Boolean
+
+    , getMoleculesButton :: GetMoleculesButtonProps a
     }
 
-props :: MongoConfigurator -> Props
+props :: forall a. ActionCreators a -> MongoConfigurator -> Props a
 props
-    (MongoConfigurator
+    actionCreators
+    configurator@(MongoConfigurator
         { _url: url
         , _database: database
         , _moleculeKey: moleculeKey
@@ -50,6 +64,8 @@ props
         , selectBuildingBlocks: selectBuildingBlocks _searchKind
         , selectConstructedMolecules:
             selectConstructedMolecules _searchKind
+        , getMoleculesButton:
+            getMoleculesButtonProps actionCreators configurator
         }
 
 selectBuildingBlocks :: SearchKind -> Boolean
