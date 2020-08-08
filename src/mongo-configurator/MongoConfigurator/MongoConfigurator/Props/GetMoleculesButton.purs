@@ -11,19 +11,25 @@ import Effect (Effect)
 import Effect.Promise (class Deferred, Promise)
 
 import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
-    ( UnsortedAll
+    ( InitializeUnsortedAll
+    , initializeUnsortedAll
     )
 
 import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
-    ( UnsortedBuildingBlocks
+    ( InitializeUnsortedBuildingBlocks
+    , initializeUnsortedBuildingBlocks
     )
 
 import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
-    ( UnsortedConstructedMolecules
+    ( InitializeUnsortedConstructedMolecules
+    , initializeUnsortedConstructedMolecules
     )
 
+import Molecules.IntializeMolecules (initializeMolecules)
+import RequestManager.InitializeUnsortedAll (initializeUnsortedAll)
 import Requests.UnsortedAll as AllRequest
 import Requests.UnsortedBuildingBlocks as BuildingBlocksRequest
+import RequestManager.PageKind (fromRequest)
 
 import Requests.UnsortedConstructedMolecules
     as ConstructedMoleculesRequest
@@ -52,12 +58,12 @@ data GetMoleculesButtonProps a = GetMoleculesButtonProps
     }
 
 type ActionCreators a r =
-    { InitializeUnsortedAll :: InitializeUnsortedAll -> a
+    { initializeUnsortedAll :: InitializeUnsortedAll -> a
 
-    , InitializeUnsortedBuildingBlocks
+    , initializeUnsortedBuildingBlocks
         :: InitializeUnsortedBuildingBlocks -> a
 
-    , InitializeUnsortedConstructedMolecules
+    , initializeUnsortedConstructedMolecules
         :: InitializeUnsortedConstructedMolecules -> a
 
     | r
@@ -115,11 +121,9 @@ getMoleculesButtonProps
                 , moleculeCollection
                 , positionMatrixCollection
                 , buildingBlockPositionMatrixCollection
-                , pageIndex
+                , pageIndex: 0
                 , numEntriesPerPage
-                , ignoredCollections
-                , sortedCollection
-                , sortType: toRequest sortType
+                , ignoredCollections: []
                 }
 
             let
@@ -130,14 +134,29 @@ getMoleculesButtonProps
                     }
                 ) = result
 
-                payload = updateMoleculePage
-                    { columns:
-                        Array.concat [[moleculeKey], valueCollections]
-                    , moleculeKey
-                    , molecules
-                    , pageIndex
-                    , pageKind: fromRequest pageKind'
-                    , valueCollections
-                    }
+                payload = initializeUnsortedAll
+                    (initializeMolecules
+                        molecules
+                        (Array.concat
+                            [[moleculeKey], valueCollections]
+                        )
+                    )
+                    (initializeRequestManager
+                        { url
+                        , database
+                        , moleculeKey
+                        , moleculeCollection
+                        , positionMatrixCollection
+                        , buildingBlocksPositionMatrixCollection
+                        , pageIndex: 0
+                        , numEntriesPerPage
+                        , ignoredCollections: []
+                        , pageKind: fromRequest pageKind'
+                        , valueCollections
+                        }
+                    )
 
-            pure (dispatch (createAction payload))
+            pure
+                (dispatch
+                    (actionCreators.initializeUnsortedAll payload)
+                )
