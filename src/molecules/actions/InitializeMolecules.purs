@@ -11,8 +11,6 @@ import Molecules.Molecule (Molecule)
 data InitializeMolecules
     = InitializeMolecules (SelectingCollection Molecule) (Array String)
 
-
-
 initializeMolecules
     :: SelectingCollection Molecule
     -> Array String
