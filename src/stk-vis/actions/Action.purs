@@ -4,6 +4,9 @@ module StkVis.Action
     , initializeUnsortedAll
     , initializeUnsortedBuildingBlocks
     , initializeUnsortedConstructedMolecules
+    , setSorted
+    , setUnsorted
+    , selectMolecule
     ) where
 
 import StkVis.UpdateMoleculePage (UpdateMoleculePage)
@@ -17,6 +20,16 @@ import StkVis.InitializeMoleculeBrowser.UnsortedBuildingBlocks
     )
 import StkVis.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
+    )
+
+import StkVis.SetSorted
+    ( SetSorted
+    )
+import StkVis.SetUnsorted
+    ( SetUnsorted
+    )
+import StkVis.SelectMolecule
+    ( SelectMolecule
     )
 
 type Action =
@@ -54,3 +67,20 @@ initializeUnsortedConstructedMolecules payload =
     , payload: Payload.initializeUnsortedConstructedMolecules payload
     }
 
+setSorted :: SetSorted -> Action
+setSorted payload =
+    { type: "SET_SORTED"
+    , payload: Payload.setSorted payload
+    }
+
+setUnsorted :: SetUnsorted -> Action
+setUnsorted payload =
+    { type: "SET_UNSORTED"
+    , payload: Payload.setUnsorted payload
+    }
+
+selectMolecule :: SelectMolecule -> Action
+selectMolecule payload =
+    { type: "SELECT_MOLECULE"
+    , payload: Payload.selectMolecule payload
+    }

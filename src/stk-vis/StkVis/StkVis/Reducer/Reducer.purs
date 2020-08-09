@@ -9,6 +9,15 @@ import StkVis.Payload (Payload (..))
 import StkVis.StkVis.Internal.Reducer.Internal.UpdateMoleculePage
     ( updateMoleculePage
     )
+import StkVis.StkVis.Internal.Reducer.Internal.SetSorted
+    ( setSorted
+    )
+import StkVis.StkVis.Internal.Reducer.Internal.SetUnsorted
+    ( setUnsorted
+    )
+import StkVis.StkVis.Internal.Reducer.Internal.SelectMolecule
+    ( selectMolecule
+    )
 import StkVis.StkVis.Internal.Reducer.Internal.InitializeUnsortedAll
     ( initializeUnsortedAll
     )
@@ -25,6 +34,21 @@ reducer
     stkVis
     ({ payload: (UpdateMoleculePage payload) })
     = updateMoleculePage stkVis payload
+
+reducer
+    stkVis
+    ({ payload: (SetSorted payload) })
+    = setSorted stkVis payload
+
+reducer
+    stkVis
+    ({ payload: (SetUnsorted payload) })
+    = setUnsorted stkVis payload
+
+reducer
+    stkVis
+    ({ payload: (SelectMolecule payload) })
+    = selectMolecule stkVis payload
 
 reducer
     stkVis
