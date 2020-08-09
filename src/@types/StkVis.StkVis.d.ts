@@ -33,11 +33,20 @@ declare module 'StkVis.StkVis'
 
     export type StkVis = Record<string, unknown>;
 
-    export interface Props<a>
+    interface Props1<a>
     {
-        value0?: ConfiguratorProps<a>;
-        value1?: MoleculeBrowserProps<a>;
+        value0: "Mongo Configurator";
+        value1: ConfiguratorProps<a>;
     }
+
+    interface Props2<a>
+    {
+        value0: "Molecule Browser";
+        value1: MoleculeBrowserProps<a>;
+    }
+
+    export type Props<a> = Props1<a> | Props2<a>;
+
 
     export const initialState: StkVis;
 
