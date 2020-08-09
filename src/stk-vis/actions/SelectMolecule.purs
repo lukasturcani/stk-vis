@@ -1,15 +1,15 @@
-module StkVis.SetSorted
-    ( SetSorted
-    , setSorted
+module StkVis.SelectMolecule
+    ( SelectMolecule
+    , selectMolecule
     , toMoleculeBrowser
     ) where
 
-import MoleculeBrowser.SetSorted as Base
+import MoleculeBrowser.SelectMolecule as Base
 
-newtype SetSorted = SetSorted Base.SetSorted
+newtype SelectMolecule = SelectMolecule Base.SelectMolecule
 
-setSorted :: Base.SetSorted -> SetSorted
-setSorted = SetSorted
+selectMolecule :: Base.SelectMolecule -> SelectMolecule
+selectMolecule = SelectMolecule
 
-toMoleculeBrowser :: SetSorted -> Base.SetSorted
-toMoleculeBrowser (SetSorted payload) = payload
+toMoleculeBrowser :: SelectMolecule -> Base.SelectMolecule
+toMoleculeBrowser (SelectMolecule payload) = payload
