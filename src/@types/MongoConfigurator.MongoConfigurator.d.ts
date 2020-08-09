@@ -25,7 +25,7 @@ declare module 'MongoConfigurator.MongoConfigurator'
         constructedMoleculeCollection: string;
         positionMatrixCollection: string;
         buildingBlockPositionMatrixCollection: string;
-        numEntriesPerPageString: number;
+        numEntriesPerPage: number;
         selectBuildingBlocks: boolean;
         selectConstructedMolecules: boolean;
     }
