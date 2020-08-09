@@ -21,6 +21,24 @@ import {
 import {
     UpdateMoleculePage,
 } from 'RequestManager.UpdateMoleculePage';
+import {
+    SelectMolecule
+} from 'Molecules.SelectMolecule';
+import {
+    SetUnsorted
+} from 'RequestManager.SetUnsorted';
+import {
+    SetSorted,
+} from 'RequestManager.SetSorted';
+import {
+    InitializeUnsortedAll
+} from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll';
+import {
+    InitializeUnsortedBuildingBlocks
+} from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks';
+import {
+    InitializeUnsortedConstructedMolecules
+} from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules';
 
 
 function mapStateToProps<a>(
@@ -30,9 +48,33 @@ function mapStateToProps<a>(
 {
     return {
         ...props({
+
             updateMoleculePage:
                 (payload: UpdateMoleculePage) =>
-                    Action.updateMoleculePage(payload)
+                    Action.updateMoleculePage(payload),
+
+            setSorted:
+                (payload: SetSorted) => Action.setSorted(payload),
+
+            setUnsorted:
+                (payload: SetUnsorted) => Action.setUnsorted(payload),
+
+            selectMolecule:
+                (payload: SelectMolecule) =>
+                    Action.selectMolecule(payload),
+
+            initializeUnsortedAll:
+                (payload: InitializeUnsortedAll) =>
+                    Action.initializeUnsortedAll(payload),
+
+            initializeUnsortedBuildingBlocks:
+                (payload: InitializeUnsortedBuildingBlocks) =>
+                    Action.initializeUnsortedBuildingBlocks(payload),
+
+            initializeUnsortedConstructedMolecules:
+                (payload: InitializeUnsortedConstructedMolecules) =>
+                    Action.initializeUnsortedConstructedMolecules(payload),
+
         })(state)
     };
 }
