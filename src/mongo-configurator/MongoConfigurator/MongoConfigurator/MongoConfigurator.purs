@@ -21,6 +21,7 @@ import MongoConfigurator.MongoConfigurator.Internal.Reducer
 
 import MongoConfigurator.MongoConfigurator.Internal.Props
     ( Props
+    , ActionCreators
     ) as Exports
 
 import MongoConfigurator.MongoConfigurator.Internal.Props
@@ -30,7 +31,12 @@ import MongoConfigurator.MongoConfigurator.Internal.Props
 initialState :: Exports.MongoConfigurator
 initialState = InitialState.initialState
 
-props :: Exports.MongoConfigurator -> Exports.Props
+props
+    :: forall a r
+    .  Exports.ActionCreators a r
+    -> Exports.MongoConfigurator
+    -> Exports.Props a
+
 props = Props.props
 
 reducer

@@ -37,7 +37,7 @@ data Props a = Props
     , getMoleculesButton :: GetMoleculesButtonProps a
     }
 
-props :: forall a. ActionCreators a -> MongoConfigurator -> Props a
+props :: forall a r. ActionCreators a r -> MongoConfigurator -> Props a
 props
     actionCreators
     configurator@(MongoConfigurator

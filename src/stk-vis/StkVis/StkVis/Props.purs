@@ -12,8 +12,20 @@ import RequestManager.SetSorted (SetSorted)
 import RequestManager.SetUnsorted (SetUnsorted)
 import Molecules.SelectMolecule (SelectMolecule)
 
+import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
+    ( InitializeUnsortedAll
+    )
+
+import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+    ( InitializeUnsortedBuildingBlocks
+    )
+
+import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
+    ( InitializeUnsortedConstructedMolecules
+    )
+
 data Props a
-    = MongoConfigurator MongoConfigurator.Props
+    = MongoConfigurator (MongoConfigurator.Props a)
     | MoleculeBrowser (MoleculeBrowser.Props a)
 
 type ActionCreators a r =
@@ -21,6 +33,12 @@ type ActionCreators a r =
     , setSorted :: SetSorted -> a
     , setUnsorted :: SetUnsorted -> a
     , selectMolecule :: SelectMolecule -> a
+    , initializeUnsortedAll :: InitializeUnsortedAll -> a
+    , initializeUnsortedBuildingBlocks
+        :: InitializeUnsortedBuildingBlocks -> a
+    , initializeUnsortedConstructedMolecules
+        :: InitializeUnsortedConstructedMolecules -> a
+    | r
     }
 
 props
@@ -30,7 +48,8 @@ props
     -> Props a
 
 props actionCreators (StkVis.MongoConfigurator configurator)
-    = MongoConfigurator (MongoConfigurator.props configurator)
+    = MongoConfigurator
+        (MongoConfigurator.props actionCreators configurator)
 
 props actionCreators (StkVis.MoleculeBrowser browser)
     = MoleculeBrowser (MoleculeBrowser.props actionCreators browser)
