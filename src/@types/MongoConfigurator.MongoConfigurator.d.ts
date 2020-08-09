@@ -3,10 +3,45 @@ declare module 'MongoConfigurator.MongoConfigurator'
     import {
         Action,
     } from 'MongoConfigurator.Action';
+    import {
+        InitializeUnsortedAll
+    } from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll';
+    import {
+        InitializeUnsortedBuildingBlocks
+    } from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks';
+    import {
+        InitializeUnsortedConstructedMolecules
+    } from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules';
 
     export type MongoConfigurator = Record<string, unknown>;
 
-    export interface Props
+
+    export interface MongoData
+    {
+        url: string;
+        moleculeKey: string;
+        database: string;
+        moleculeCollection: string
+        constructedMoleculeCollection: string;
+        positionMatrixCollection: string;
+        buildingBlockPositionMatrixCollection: string;
+        numEntriesPerPageString: string;
+        selectBuildingBlocks: boolean;
+        selectConstructedMolecules: boolean;
+    }
+
+    export interface GetMoleculesButtonProps<a>
+    {
+        value0: {
+            onClick:
+                () =>
+                (dispatch: (action: a) => void) =>
+                (data: MongoData) =>
+                Promise<void>;
+        }
+    }
+
+    export interface Props<a>
     {
         value0: {
             url: string;
@@ -19,6 +54,7 @@ declare module 'MongoConfigurator.MongoConfigurator'
             numEntriesPerPage: number;
             selectBuildingBlocks: boolean;
             selectConstructedMolecules: boolean;
+            getMoleculesButton: GetMoleculesButtonProps<a>;
         };
     }
 
@@ -29,5 +65,20 @@ declare module 'MongoConfigurator.MongoConfigurator'
         (action: Action) =>
         MongoConfigurator;
 
-    export const props: (state: MongoConfigurator) => Props;
+    export interface ActionCreators<a>
+    {
+        initializeUnsortedAll:
+            (payload: InitializeUnsortedAll) => a;
+
+        initializeUnsortedBuildingBlocks:
+            (payload: InitializeUnsortedBuildingBlocks) => a;
+
+        initializeUnsortedConstructedMolecules:
+            (payload: InitializeUnsortedConstructedMolecules) => a;
+    }
+
+    export const props:
+        <a>(creatos: ActionCreators<a>) =>
+        (state: MongoConfigurator) =>
+        Props<a>;
 }
