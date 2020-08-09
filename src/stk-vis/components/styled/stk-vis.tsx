@@ -1,22 +1,23 @@
 import * as React from 'react';
 import {
     StkVis as StkVisBase,
-    DispatchProps,
+    CoreProps,
 } from 'stk-vis/base/stk-vis';
-import {
-    Props as BaseProps,
-} from 'StkVis.StkVis';
 import {
     MongoConfigurator,
 } from 'mongo-configurator/styled/mongo-configurator';
+import {
+    MoleculeBrowser,
+} from 'molecule-browser/styled/molecule-browser';
 
 
 export function StkVis<a>(
-    props: BaseProps<a> & DispatchProps,
+    props: CoreProps<a>
 )
 {
     return <StkVisBase
         mongoConfigurator={MongoConfigurator}
+        moleculeBrowser={MoleculeBrowser}
         {...props}
     />;
 }

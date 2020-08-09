@@ -16,6 +16,7 @@ import {
 } from 'stk-vis/styled/stk-vis';
 import {
     DispatchProps,
+    CoreProps,
 } from 'stk-vis/base/stk-vis';
 import {
 } from './utilities';
@@ -42,20 +43,15 @@ function mapStateToProps<a>(
 function mapDispatchToProps(
     dispatch: (action: Action.Action) => void,
 )
-    : DispatchProps
+    : DispatchProps<Action.Action>
 {
-    return {
-        dispatch: {
-            updateFields: (mongoData: MongoData) =>
-                dispatch(Action.updateFields(mongoData)),
-
-            updateMoleculePage: (pageData: PageData) =>
-                dispatch(Action.updateMoleculePage(pageData)),
-
-        },
-    };
+    return { dispatch };
 }
 
 
 export const StkVis
-    = connect(mapStateToProps, mapDispatchToProps)(StkVisBase);
+    = connect(mapStateToProps, mapDispatchToProps)
+    (
+        StkVisBase as
+        React.FunctionComponent<CoreProps<Action.Action>>
+    );

@@ -1,29 +1,28 @@
 import * as React from 'react';
 import {
-    DispatchProps as ConfiguratorDispatchProps,
+    CoreProps as ConfiguratorProps
 } from 'mongo-configurator/base/mongo-configurator';
 import {
-    Props as ConfiguratorBaseProps,
-} from 'MongoConfigurator.MongoConfigurator';
+    CoreProps as BrowserProps
+} from 'molecule-browser/base/molecule-browser';
 import {
     Props as BaseProps,
 } from 'StkVis.StkVis';
 
 
-export interface DispatchProps
+export interface DispatchProps<a>
 {
-    dispatch: ConfiguratorDispatchProps;
+    dispatch: (action: a) => void;
 }
 
+export type CoreProps<a> = BaseProps<a> & DispatchProps<a>;
 
-interface Props<a> extends BaseProps<a>, DispatchProps
+
+interface Props<a> extends BaseProps<a>, DispatchProps<a>
 {
-    mongoConfigurator: React.FunctionComponent<ConfiguratorProps>
+    mongoConfigurator: React.FunctionComponent<ConfiguratorProps<a>>;
+    moleculeBrowser: React.FunctionComponent<BrowserProps<a>>;
 }
-
-type ConfiguratorProps
-    = ConfiguratorBaseProps & ConfiguratorDispatchProps
-
 
 export function StkVis<a>(
     props: Props<a>,
@@ -32,8 +31,15 @@ export function StkVis<a>(
     if (props.value0 !== undefined)
     {
         return <props.mongoConfigurator
+            dispatch={props.dispatch}
             {...props.value0}
-            {...props.dispatch}
+        />;
+    }
+    if (props.value1 !== undefined)
+    {
+        return <props.moleculeBrowser
+            dispatch={props.dispatch}
+            value0={props.value1.value0}
         />;
     }
     return <div>YOU SHOULD NEVER SEE THIS!!</div>;
