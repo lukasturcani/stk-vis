@@ -89,8 +89,8 @@ type ActionCreators a r =
     }
 
 getMoleculesButtonProps
-    :: forall a
-    .  ActionCreators a
+    :: forall a r
+    .  ActionCreators a r
     -> MongoConfigurator
     -> GetMoleculesButtonProps a
 
@@ -206,7 +206,7 @@ getMoleculesButtonProps
                     }
                 ) = result
 
-                payload = initializeUnsortedAll
+                payload = initializeUnsortedConstructedMolecules
                     (initializeMolecules
                         (map
                             (Molecule.molecule' moleculeKey)
@@ -233,7 +233,9 @@ getMoleculesButtonProps
 
             pure
                 (dispatch
-                    (actionCreators.initializeUnsortedAll payload)
+                    (actionCreators.initializeUnsortedConstructedMolecules
+                        payload
+                    )
                 )
 
     onClick
@@ -270,7 +272,7 @@ getMoleculesButtonProps
                     }
                 ) = result
 
-                payload = initializeUnsortedAll
+                payload = initializeUnsortedBuildingBlocks
                     (initializeMolecules
                         (map
                             (Molecule.molecule' moleculeKey)
@@ -297,7 +299,9 @@ getMoleculesButtonProps
 
             pure
                 (dispatch
-                    (actionCreators.initializeUnsortedAll payload)
+                    (actionCreators.initializeUnsortedBuildingBlocks
+                        payload
+                    )
                 )
 
     onClick
