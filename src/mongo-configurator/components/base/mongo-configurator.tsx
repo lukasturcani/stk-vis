@@ -1,12 +1,6 @@
 import * as React from 'react';
 import { BaseProps as InputFieldsProps  } from './input-fields';
-import {
-    BaseProps as GetMoleculesButtonProps,
-} from './get-molecules-button';
 import Grid from '@material-ui/core/Grid';
-import {
-    MongoData
-} from 'MongoConfigurator.UpdateFields.MongoData';
 import {
     PageData,
 } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
@@ -21,24 +15,29 @@ import {
 } from 'mongo-db-requests/types/PageKind';
 
 
-export interface DispatchProps
+export interface DispatchProps<a>
 {
-    updateFields: (mongoData: MongoData) => void;
-    updateMoleculePage: (pageData: PageData) => void;
+    dispatch: (action: a) => void
 }
 
+export type CoreProps<a> = BaseProps<a> & DispatchProps<a>;
 
-interface Props extends BaseProps, DispatchProps
+interface Props<a> extends BaseProps<a>, DispatchProps<a>
 {
     component: React.FunctionComponent<Record<string, unknown>>;
     inputFields: React.FunctionComponent<InputFieldsProps>;
-    getMoleculesButton:
-        React.FunctionComponent<GetMoleculesButtonProps>;
+    button: React.FunctionComponent<ButtonProps>;
+}
+
+export interface ButtonProps
+{
+    disabled: boolean;
+    onClick: () => void;
 }
 
 
-export function MongoConfigurator(
-    props: Props,
+export function MongoConfigurator<a>(
+    props: Props<a>,
 )
 {
     const [url, setUrl]
@@ -127,27 +126,29 @@ export function MongoConfigurator(
                 }
             />
             <Grid item>
-                <props.getMoleculesButton
-                    url={ url }
-                    moleculeKey={ moleculeKey }
-                    database={ database }
-                    moleculeCollection={ moleculeCollection }
-                    constructedMoleculeCollection={
-                        constructedMoleculeCollection
+                <props.button
+                    disabled={
+                        !selectConstructedMolecules
+                        &&
+                        !selectBuildingBlocks
                     }
-                    positionMatrixCollection={
-                        positionMatrixCollection
-                    }
-                    buildingBlockPositionMatrixCollection={
-                        buildingBlockPositionMatrixCollection
-                    }
-                    numEntriesPerPage={ numEntriesPerPage }
-                    selectBuildingBlocks={ selectBuildingBlocks }
-                    selectConstructedMolecules={
-                        selectConstructedMolecules
-                    }
-                    updateFields={ props.updateFields }
-                    updateMoleculePage={ props.updateMoleculePage }
+                    onClick={() => {
+                        props.value0.getMoleculesButton.value0.onClick
+                            ()
+                            (props.dispatch)
+                            ({
+                                url,
+                                moleculeKey,
+                                database,
+                                moleculeCollection,
+                                constructedMoleculeCollection,
+                                positionMatrixCollection,
+                                buildingBlockPositionMatrixCollection,
+                                numEntriesPerPage,
+                                selectBuildingBlocks,
+                                selectConstructedMolecules,
+                            })
+                    }}
                 />
             </Grid>
         </props.component>

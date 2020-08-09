@@ -9,13 +9,7 @@ import * as Action
 from 'MongoConfigurator.Action';
 
 import {
-    MongoData
-} from 'MongoConfigurator.UpdateFields.MongoData';
-
-import * as UpdateFields
-from 'MongoConfigurator.UpdateFields.UpdateFields';
-
-import {
+    CoreProps,
     DispatchProps,
 } from 'mongo-configurator/base/mongo-configurator';
 import {
@@ -35,34 +29,37 @@ import {
 function mapStateToProps(
     state: State,
 )
-    : Props
+    : Props<Action.Action>
 {
-    return {...props(state)};
+    return {
+        ...props
+        ({
+            initializeUnsortedAll: Action.initializeUnsortedAll,
+
+            initializeUnsortedBuildingBlocks:
+                Action.initializeUnsortedBuildingBlocks,
+
+            initializeUnsortedConstructedMolecules:
+                Action.initializeUnsortedConstructedMolecules,
+        })
+        (state)
+    };
 }
 
 
 function mapDispatchToProps(
     dispatch: (action: Action.Action) => void,
 )
-    : DispatchProps
+    : DispatchProps<Action.Action>
 {
-    return {
-        updateFields:
-            (mongoData: MongoData) =>
-                dispatch(
-                    Action.updateFields(
-                        UpdateFields.updateFields(mongoData)
-                    )
-                ),
-
-        updateMoleculePage:
-            (pageData: PageData) => console.log(pageData),
-
-    };
+    return { dispatch };
 }
 
 
 export const MongoConfigurator
     = connect
     (mapStateToProps, mapDispatchToProps)
-    (MongoConfiguratorBase);
+    (
+        MongoConfiguratorBase as
+        React.FunctionComponent<CoreProps<Action.Action>>
+    );

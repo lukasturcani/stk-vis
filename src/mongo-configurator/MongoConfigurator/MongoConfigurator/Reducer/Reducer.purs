@@ -17,3 +17,19 @@ reducer
     configurator
     ({ payload: (UpdateFields payload) })
     = updateFields configurator payload
+
+
+reducer
+    configurator
+    ({ payload: (InitializeUnsortedAll payload) })
+    = configurator
+
+reducer
+    configurator
+    ({ payload: (InitializeUnsortedConstructedMolecules payload) })
+    = configurator
+
+reducer
+    configurator
+    ({ payload: (InitializeUnsortedBuildingBlocks payload) })
+    = configurator

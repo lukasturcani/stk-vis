@@ -1,28 +1,25 @@
 import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
+import ButtonBase from '@material-ui/core/Button';
+import SearchIcon from '@material-ui/icons/Search';
 import {
     MongoConfigurator as MongoConfiguratorBase,
-    DispatchProps,
+    CoreProps,
+    ButtonProps,
 } from 'mongo-configurator/base/mongo-configurator';
-import {
-    Props as BaseProps
-} from 'MongoConfigurator.MongoConfigurator';
 import {
     InputFields
 } from './input-fields';
-import {
-    GetMoleculesButton
-} from './get-molecules-button';
 
 
-export function MongoConfigurator(
-    props: (BaseProps & DispatchProps),
+export function MongoConfigurator<a>(
+    props: CoreProps<a>,
 )
 {
     return <MongoConfiguratorBase
         component={ Container }
         inputFields={ InputFields }
-        getMoleculesButton={ GetMoleculesButton }
+        button={ Button }
         { ...props }
     />
 }
@@ -44,4 +41,15 @@ const Container: React.FunctionComponent<Record<string, unknown>>
         >
             { props.children }
         </Grid>
+    );
+
+const Button: React.FunctionComponent<ButtonProps>
+    = (props) => (
+        <ButtonBase
+            variant={ 'contained' }
+            color={ 'primary' }
+            {...props}
+        >
+            <SearchIcon />
+        </ButtonBase>
     );

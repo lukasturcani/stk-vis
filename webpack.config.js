@@ -101,6 +101,29 @@ module.exports = {
                 './output/MongoConfigurator.SearchKind',
             ),
 
+            'MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll':
+                path.join(
+                    __dirname,
+                    './output/MongoConfigurator.'
+                    + 'InitializeMoleculeBrowser.UnsortedAll',
+                ),
+
+            'MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks':
+                path.join(
+                    __dirname,
+                    './output/MongoConfigurator.'
+                    + 'InitializeMoleculeBrowser.'
+                    + 'UnsortedBuildingBlocks',
+                ),
+
+            'MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules':
+                path.join(
+                    __dirname,
+                    './output/MongoConfigurator.'
+                    + 'InitializeMoleculeBrowser.'
+                    + 'UnsortedConstructedMolecules',
+                ),
+
             'MongoConfigurator.Action': path.join(
                 __dirname,
                 './output/MongoConfigurator.Action',
