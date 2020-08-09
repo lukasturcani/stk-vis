@@ -7,12 +7,17 @@ module StkVis.Action
     ) where
 
 import StkVis.UpdateMoleculePage (UpdateMoleculePage)
+import StkVis.Payload as Payload
 
-import StkVis.Payload
-    ( Payload
-    , updateFields
-    , updateMoleculePage
-    ) as Payload
+import StkVis.InitializeMoleculeBrowser.UnsortedAll
+    ( InitializeUnsortedAll
+    )
+import StkVis.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+    ( InitializeUnsortedBuildingBlocks
+    )
+import StkVis.InitializeMoleculeBrowser.UnsortedConstructedMolecules
+    ( InitializeUnsortedConstructedMolecules
+    )
 
 type Action =
     { type    :: String
@@ -28,7 +33,7 @@ updateMoleculePage payload =
 initializeUnsortedAll :: InitializeUnsortedAll -> Action
 initializeUnsortedAll payload =
     { type: "INITIALIZE_UNSORTED_ALL_MOLECULE_BROWSER"
-    , payload: Payload.initializeUnsortedAll
+    , payload: Payload.initializeUnsortedAll payload
     }
 
 initializeUnsortedBuildingBlocks
@@ -37,7 +42,7 @@ initializeUnsortedBuildingBlocks
 
 initializeUnsortedBuildingBlocks payload =
     { type: "INITIALIZE_UNSORTED_BUILDING_BLOCKS_MOLECULE_BROWSER"
-    , payload: Payload.initializeUnsortedBuildingBlocks
+    , payload: Payload.initializeUnsortedBuildingBlocks payload
     }
 
 initializeUnsortedConstructedMolecules
@@ -46,6 +51,6 @@ initializeUnsortedConstructedMolecules
 
 initializeUnsortedConstructedMolecules payload =
     { type: "INITIALIZE_UNSORTED_CONSTRUCTED_MOLECULES_MOLECULE_BROWSER"
-    , payload: Payload.initializeUnsortedConstructedMolecules
+    , payload: Payload.initializeUnsortedConstructedMolecules payload
     }
 

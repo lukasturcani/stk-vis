@@ -1,25 +1,30 @@
 module StkVis.Payload
     ( Payload (..)
     , updateMoleculePage
+    , initializeUnsortedAll
     , initializeUnsortedBuildingBlocks
     , initializeUnsortedConstructedMolecules
     ) where
 
-import Prelude
 import StkVis.UpdateMoleculePage (UpdateMoleculePage)
-
-import StkVis.UpdateFields
-    ( UpdateFields
-    , updateFields
-    ) as UpdateFields
 
 import StkVis.UpdateMoleculePage
     ( UpdateMoleculePage
     ) as UpdateMoleculePage
 
+import StkVis.InitializeMoleculeBrowser.UnsortedAll
+    ( InitializeUnsortedAll
+    )
+import StkVis.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+    ( InitializeUnsortedBuildingBlocks
+    )
+import StkVis.InitializeMoleculeBrowser.UnsortedConstructedMolecules
+    ( InitializeUnsortedConstructedMolecules
+    )
+
 
 data Payload
-    | UpdateMoleculePage UpdateMoleculePage.UpdateMoleculePage
+    = UpdateMoleculePage UpdateMoleculePage.UpdateMoleculePage
     | InitializeUnsortedAll InitializeUnsortedAll
     | InitializeUnsortedBuildingBlocks InitializeUnsortedBuildingBlocks
     | InitializeUnsortedConstructedMolecules

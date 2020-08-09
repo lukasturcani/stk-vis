@@ -3,6 +3,7 @@ module MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
     , initializeUnsortedBuildingBlocks
     , initializeMolecules
     , initializeRequestManager
+    , toMoleculeBrowser
     ) where
 
 import Molecules.InitializeMolecules as Molecules
@@ -37,3 +38,9 @@ initializeRequestManager
 
 initializeRequestManager (InitializeUnsortedBuildingBlocks payload)
     = Base.initializeRequestManager payload
+
+toMoleculeBrowser
+    :: InitializeUnsortedBuildingBlocks
+    -> Base.InitializeUnsortedBuildingBlocks
+
+toMoleculeBrowser (InitializeUnsortedBuildingBlocks payload) = payload

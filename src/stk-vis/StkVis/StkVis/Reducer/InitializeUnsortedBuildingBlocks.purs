@@ -2,9 +2,15 @@ module StkVis.StkVis.Internal.Reducer.Internal.InitializeUnsortedBuildingBlocks
     ( initializeUnsortedBuildingBlocks
     ) where
 
+import Prelude
 import StkVis.StkVis.Internal.StkVis as StkVis
 import MoleculeBrowser.MoleculeBrowser as MoleculeBrowser
 import MoleculeBrowser.Action as MB.Action
+
+import StkVis.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+    ( InitializeUnsortedBuildingBlocks
+    , toMoleculeBrowser
+    )
 
 initializeUnsortedBuildingBlocks
     :: StkVis.StkVis
@@ -14,8 +20,8 @@ initializeUnsortedBuildingBlocks
 initializeUnsortedBuildingBlocks
     stkVis
     payload
-    = stkVis.MoleculeBrowser $ MoleculeBrowser.reducer
+    = StkVis.MoleculeBrowser $ MoleculeBrowser.reducer
         MoleculeBrowser.initialState
-        (MB.Action.initializeUnsortedBuildingBlocks
+        (MB.Action.initializeUnsortedBuildingBlocksMoleculeBrowser
             (toMoleculeBrowser payload)
         )
