@@ -19,8 +19,6 @@ import {
     CoreProps,
 } from 'stk-vis/base/stk-vis';
 import {
-} from './utilities';
-import {
     UpdateMoleculePage,
 } from 'RequestManager.UpdateMoleculePage';
 

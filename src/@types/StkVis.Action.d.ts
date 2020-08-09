@@ -1,32 +1,17 @@
 declare module 'StkVis.Action'
 {
     import {
-        MongoData
-    } from 'MongoConfigurator.UpdateFields.MongoData';
-    import {
-        PageData
-    } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
-    import {
-        SelectingCollection
-    } from 'SelectingCollection';
-    import {
-        Molecule
-    } from 'Molecules.Molecule';
+        UpdateMoleculePage,
+    } from 'StkVis.UpdateMoleculePage';
 
     export interface Action
     {
         type: string;
     }
 
-    export const updateFields:
-        (mongoData: MongoData) => Action;
-
     export const updateMoleculePage:
-        (pageData: PageData) => Action;
+        (payload: UpdateMoleculePage) => Action;
 
-    export const initializeMoleculeBrowser:
-        (requestManager: any) =>
-        (molecules: SelectingCollection<Molecule>) =>
-        (columns: string[]) =>
-        Action
+    export const
+
 }
