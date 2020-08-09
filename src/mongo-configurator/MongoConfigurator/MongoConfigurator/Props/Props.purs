@@ -33,6 +33,7 @@ data Props a = Props
     , numEntriesPerPage                     :: Int
     , selectBuildingBlocks                  :: Boolean
     , selectConstructedMolecules            :: Boolean
+    , type                                  :: String
 
     , getMoleculesButton :: GetMoleculesButtonProps a
     }
@@ -66,6 +67,7 @@ props
             selectConstructedMolecules _searchKind
         , getMoleculesButton:
             getMoleculesButtonProps actionCreators configurator
+        , type: "Mongo Configurator"
         }
 
 selectBuildingBlocks :: SearchKind -> Boolean

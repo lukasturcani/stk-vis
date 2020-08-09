@@ -39,6 +39,7 @@ data Props a = Props
     , threeDViewer  :: ThreeDViewerProps
     , backButton    :: BackButtonProps a
     , nextButton    :: NextButtonProps a
+    , type          :: String
     }
 
 type ActionCreators a r =
@@ -77,4 +78,6 @@ props
         , nextButton: nextButtonProps
             actionCreators.updateMoleculePage
             _requestManager
+
+        , type: "Molecule Browser"
         }

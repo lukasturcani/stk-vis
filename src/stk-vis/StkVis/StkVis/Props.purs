@@ -25,8 +25,8 @@ import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     )
 
 data Props a
-    = MongoConfigurator String (MongoConfigurator.Props a)
-    | MoleculeBrowser String (MoleculeBrowser.Props a)
+    = MongoConfigurator (MongoConfigurator.Props a)
+    | MoleculeBrowser (MoleculeBrowser.Props a)
 
 type ActionCreators a r =
     { updateMoleculePage :: UpdateMoleculePage -> a
@@ -49,10 +49,8 @@ props
 
 props actionCreators (StkVis.MongoConfigurator configurator)
     = MongoConfigurator
-        "Mongo Configurator"
         (MongoConfigurator.props actionCreators configurator)
 
 props actionCreators (StkVis.MoleculeBrowser browser)
     = MoleculeBrowser
-        "Molecule Browser"
         (MoleculeBrowser.props actionCreators browser)

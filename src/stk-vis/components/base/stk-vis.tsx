@@ -28,18 +28,18 @@ export function StkVis<a>(
     props: Props<a>,
 )
 {
-    if (props.value0 === "Mongo Configurator")
+    if (props.value0.value0.type === "Mongo Configurator")
     {
         return <props.mongoConfigurator
             dispatch={props.dispatch}
-            {...props.value1}
+            value0={props.value0.value0}
         />;
     }
-    if (props.value0 === "Molecule Browser")
+    if (props.value0.value0.type === "Molecule Browser")
     {
         return <props.moleculeBrowser
             dispatch={props.dispatch}
-            value0={props.value1.value0}
+            value0={props.value0.value0}
         />;
     }
     return <div>YOU SHOULD NEVER SEE THIS!!</div>;

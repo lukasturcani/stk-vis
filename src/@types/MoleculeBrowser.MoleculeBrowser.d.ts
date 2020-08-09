@@ -32,6 +32,7 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
     export interface Props<a>
     {
         value0: {
+            type: "Molecule Browser";
             sortButton: SortButtonProps<a>,
             moleculeTable: MoleculeTableProps<a>,
             twoDViewer: TwoDViewerProps,
