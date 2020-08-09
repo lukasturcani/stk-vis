@@ -49,8 +49,8 @@ const Root: React.FunctionComponent<Record<string, unknown>>
     = (props) => (
         <Grid container
             style={ {
-                height: '100%',
-                width: '100%',
+                height: '100vh',
+                width: '100vw',
                 margin: 0,
                 padding: 10,
             } }
