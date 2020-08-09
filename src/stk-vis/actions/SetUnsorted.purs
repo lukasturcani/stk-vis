@@ -4,7 +4,7 @@ module StkVis.SetUnsorted
     , toMoleculeBrowser
     ) where
 
-import MoleculeBrowser.SetSorted as Base
+import MoleculeBrowser.SetUnsorted as Base
 
 newtype SetUnsorted = SetUnsorted Base.SetUnsorted
 
