@@ -23,4 +23,3 @@ molecules (InitializeMolecules molecules' _) = molecules'
 
 columns :: InitializeMolecules -> Array String
 columns (InitializeMolecules _ columns') = columns'
-

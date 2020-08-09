@@ -2,15 +2,17 @@ module Molecules.Molecule
     ( Molecule
     , properties
     , molecule
+    , molecule'
     , smiles
     , meshes
     ) where
 
-import Data.Map (Map)
+import Data.Map (Map, insert)
 import MolDraw.DrawMol.Mesh as Mesh
 import MolDraw.GeometryData (fromValidatedMolecule)
 import ValidatedMolecule as Validated
 import ValidatedMolecule.ChemicalSymbol as ChemicalSymbol
+import Requests.Molecule as Request
 
 data Molecule = Molecule
     { _properties :: Map String String
@@ -22,11 +24,23 @@ properties :: Molecule -> Map String String
 properties (Molecule { _properties }) = _properties
 
 molecule :: Validated.Molecule -> Map String String -> Molecule
-molecule molecule' properties' = Molecule
+molecule validated properties' = Molecule
     { _properties: properties'
-    , _molecule: molecule'
-    , _smiles: _smiles' molecule'
+    , _molecule: validated
+    , _smiles: _smiles' validated
     }
+
+type MoleculeKeyName = String
+
+molecule' :: MoleculeKeyName -> Request.Molecule -> Molecule
+molecule' moleculeKey requestMolecule = molecule validated properties'
+  where
+    validated = Request.toValidated requestMolecule
+    properties' =
+        insert
+            moleculeKey
+            (Request.key requestMolecule)
+            (Request.properties requestMolecule)
 
 type Helpers =
     { atoms :: Validated.Molecule -> Array Validated.MoleculeAtom
