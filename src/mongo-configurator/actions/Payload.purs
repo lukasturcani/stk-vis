@@ -1,6 +1,9 @@
 module MongoConfigurator.Payload
     ( Payload (..)
     , updateFields
+    , initializeUnsortedAll
+    , initializeUnsortedBuildingBlocks
+    , initializeUnsortedConstructedMolecules
     ) where
 
 import MongoConfigurator.UpdateFields.UpdateFields (UpdateFields)
@@ -26,3 +29,20 @@ data Payload
 
 updateFields :: UpdateFields -> Payload
 updateFields = UpdateFields
+
+initializeUnsortedAll :: InitializeUnsortedAll -> Payload
+initializeUnsortedAll = InitializeUnsortedAll
+
+initializeUnsortedBuildingBlocks
+    :: InitializeUnsortedBuildingBlocks
+    -> Payload
+
+initializeUnsortedBuildingBlocks = InitializeUnsortedBuildingBlocks
+
+initializeUnsortedConstructedMolecules
+    :: InitializeUnsortedConstructedMolecules
+    -> Payload
+
+initializeUnsortedConstructedMolecules
+    = InitializeUnsortedConstructedMolecules
+

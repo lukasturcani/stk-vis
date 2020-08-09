@@ -1,10 +1,25 @@
 module MongoConfigurator.Action
     ( Action
     , updateFields
+    , initializeUnsortedAll
+    , initializeUnsortedBuildingBlocks
+    , initializeUnsortedConstructedMolecules
     ) where
 
 import MongoConfigurator.UpdateFields.UpdateFields (UpdateFields)
-import MongoConfigurator.Payload (Payload, updateFields) as Payload
+import MongoConfigurator.Payload as Payload
+
+import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
+    ( InitializeUnsortedAll
+    )
+
+import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+    ( InitializeUnsortedBuildingBlocks
+    )
+
+import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
+    ( InitializeUnsortedConstructedMolecules
+    )
 
 type Action =
     { type    :: String
