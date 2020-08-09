@@ -6,21 +6,37 @@ import StkVis.StkVis.Internal.StkVis (StkVis)
 import StkVis.Action (Action)
 import StkVis.Payload (Payload (..))
 
-import StkVis.StkVis.Internal.Reducer.Internal.UpdateFields
-    ( updateFields
-    )
-
 import StkVis.StkVis.Internal.Reducer.Internal.UpdateMoleculePage
     ( updateMoleculePage
     )
+import StkVis.StkVis.Internal.Reducer.Internal.InitializeUnsortedAll
+    ( initializeUnsortedAll
+    )
+import StkVis.StkVis.Internal.Reducer.Internal.InitializeUnsortedBuildingBlocks
+    ( initializeUnsortedBuildingBlocks
+    )
+import StkVis.StkVis.Internal.Reducer.Internal.InitializeUnsortedConstructedMolecules
+    ( initializeUnsortedConstructedMolecules
+    )
 
 reducer :: StkVis -> Action -> StkVis
-reducer
-    stkVis
-    ({ payload: (UpdateFields payload) })
-    = updateFields stkVis payload
 
 reducer
     stkVis
     ({ payload: (UpdateMoleculePage payload) })
     = updateMoleculePage stkVis payload
+
+reducer
+    stkVis
+    ({ payload: (InitializeUnsortedAll payload) })
+    = initializeUnsortedAll stkVis payload
+
+reducer
+    stkVis
+    ({ payload: (InitializeUnsortedBuildingBlocks payload) })
+    = initializeUnsortedBuildingBlocks stkVis payload
+
+reducer
+    stkVis
+    ({ payload: (InitializeUnsortedConstructedMolecules payload) })
+    = initializeUnsortedConstructedMolecules stkVis payload
