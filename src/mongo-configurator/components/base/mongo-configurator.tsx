@@ -7,12 +7,6 @@ import {
 import {
     Props as BaseProps,
 } from 'MongoConfigurator.MongoConfigurator';
-import {
-    IMolecule,
-} from 'mongo-db-requests/types/IMolecule';
-import {
-    PageKind,
-} from 'mongo-db-requests/types/PageKind';
 
 
 export interface DispatchProps<a>

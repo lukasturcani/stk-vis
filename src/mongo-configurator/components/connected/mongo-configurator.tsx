@@ -18,12 +18,6 @@ import {
 import {
     PageData,
 } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
-import {
-    IMolecule,
-} from 'mongo-db-requests/types/IMolecule';
-import {
-    PageKind,
-} from 'mongo-db-requests/types/PageKind';
 
 
 function mapStateToProps(
