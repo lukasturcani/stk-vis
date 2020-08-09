@@ -1,12 +1,8 @@
-module MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+module StkVis.InitializeMoleculeBrowser.UnsortedBuildingBlocks
     ( InitializeUnsortedBuildingBlocks
     , initializeUnsortedBuildingBlocks
-    , initializeMolecules
-    , initializeRequestManager
+    , toMongoConfigurator
     ) where
-
-import Molecules.InitializeMolecules as Molecules
-import RequestManager.InitializeUnsortedBuildingBlocks as Manager
 
 import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedBuildingBlocks
     as Base
@@ -16,24 +12,14 @@ newtype InitializeUnsortedBuildingBlocks
         Base.InitializeUnsortedBuildingBlocks
 
 initializeUnsortedBuildingBlocks
-    :: Molecules.InitializeMolecules
-    -> Manager.InitializeUnsortedBuildingBlocks
+    :: Base.InitializeUnsortedBuildingBlocks
     -> InitializeUnsortedBuildingBlocks
 
-initializeUnsortedBuildingBlocks molecules manager
-    = InitializeUnsortedBuildingBlocks
-        (Base.initializeUnsortedBuildingBlocks molecules manager)
+initializeUnsortedBuildingBlocks = InitializeUnsortedBuildingBlocks
 
-initializeMolecules
+toMongoConfigurator
     :: InitializeUnsortedBuildingBlocks
-    -> Molecules.InitializeMolecules
+    -> Base.InitializeUnsortedBuildingBlocks
 
-initializeMolecules (InitializeUnsortedBuildingBlocks payload)
-    = Base.initializeMolecules payload
-
-initializeRequestManager
-    :: InitializeUnsortedBuildingBlocks
-    -> Manager.InitializeUnsortedBuildingBlocks
-
-initializeRequestManager (InitializeUnsortedBuildingBlocks payload)
-    = Base.initializeRequestManager payload
+toMongoConfigurator (InitializeUnsortedBuildingBlocks payload)
+    = payload
