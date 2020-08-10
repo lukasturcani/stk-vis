@@ -30,11 +30,6 @@ import RequestManager.RequestManager.Internal.RequestManager
     ( RequestManager (..)
     )
 
-import RequestManager.InitializeMongoConfigurator
-    ( InitializeMongoConfigurator
-    , initializeMongoConfigurator
-    )
-
 breadcrumbsProps
     :: forall a r
     .  Exports.ActionCreators a r

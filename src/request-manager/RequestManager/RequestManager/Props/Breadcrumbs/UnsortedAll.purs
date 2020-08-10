@@ -15,8 +15,7 @@ import RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Interna
     )
 
 import RequestManager.InitializeMongoConfigurator
-    ( InitializeMongoConfigurator
-    , initializeMongoConfigurator
+    ( initializeMongoConfigurator
     )
 
 import MongoConfigurator.SearchKind as SearchKind
