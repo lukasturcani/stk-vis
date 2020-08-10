@@ -9,7 +9,7 @@ import {
     Breadcrumbs as BreadcrumbsBase,
     ConfiguratorLinkProps,
     CoreProps,
-} from 'molecule-browser/base/breadcrumbs';
+} from 'request-manager/base/breadcrumbs';
 import { theme } from '../../../theme';
 
 export function Breadcrumbs<a>(

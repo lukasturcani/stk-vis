@@ -26,7 +26,7 @@ import {
 } from 'request-manager/styled/next-button';
 import {
     Breadcrumbs
-} from 'molecule-browser/styled/breadcrumbs';
+} from 'request-manager/styled/breadcrumbs';
 
 
 export function MoleculeBrowser<a>(

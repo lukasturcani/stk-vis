@@ -21,7 +21,7 @@ import {
 } from 'request-manager/base/sort-button';
 import {
     CoreProps as BreadcrumbsProps,
-} from './breadcrumbs';
+} from 'request-manager/base/breadcrumbs';
 
 
 type Empty = Record<string, unknown>;
