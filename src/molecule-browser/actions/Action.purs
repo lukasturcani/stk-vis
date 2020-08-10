@@ -14,6 +14,7 @@ module MoleculeBrowser.Action
     , initializeUnsortedConstructedMoleculesMoleculeBrowser
     , selectMolecule
     , selectMolecule_
+    , initializeMongoConfigurator
     ) where
 
 import MoleculeBrowser.UpdateMoleculePage
@@ -52,6 +53,10 @@ import MoleculeBrowser.InitializeMoleculeBrowser.SortedConstructedMolecules
     ) as MoleculeBrowser
 
 import MoleculeBrowser.SelectMolecule as SelectMolecule
+
+import MoleculeBrowser.InitializeMongoConfigurator
+    ( InitializeMongoConfigurator
+    )
 
 import Molecules.Molecule (Molecule)
 import RequestManager.SortType (SortType)
@@ -163,3 +168,9 @@ selectMolecule payload =
 selectMolecule_ :: Int -> Molecule -> Action
 selectMolecule_ id molecule = selectMolecule
     (SelectMolecule.selectMolecule id molecule)
+
+initializeMongoConfigurator :: InitializeMongoConfigurator -> Action
+initializeMongoConfigurator payload =
+    { type: "INITIALIZE_MONGO_CONFIGURATOR"
+    , payload: Payload.initializeMongoConfigurator payload
+    }

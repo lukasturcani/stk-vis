@@ -124,3 +124,8 @@ reducer
     browser
     ({ payload: (SelectMolecule payload) })
     = selectMolecule browser payload
+
+reducer
+    browser
+    ({ payload: (InitializeMongoConfigurator payload) })
+    = browser

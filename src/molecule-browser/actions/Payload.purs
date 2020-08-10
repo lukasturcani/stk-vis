@@ -11,6 +11,7 @@ module MoleculeBrowser.Payload
     , initializeUnsortedBuildingBlocksMoleculeBrowser
     , initializeUnsortedConstructedMoleculesMoleculeBrowser
     , selectMolecule
+    , initializeMongoConfigurator
     ) where
 
 import MoleculeBrowser.UpdateMoleculePage
@@ -53,6 +54,10 @@ import MoleculeBrowser.InitializeMoleculeBrowser.SortedConstructedMolecules
     ( InitializeSortedConstructedMolecules
     ) as MoleculeBrowser
 
+import MoleculeBrowser.InitializeMongoConfigurator
+    ( InitializeMongoConfigurator
+    )
+
 import MoleculeBrowser.SelectMolecule (SelectMolecule)
 
 data Payload
@@ -73,6 +78,7 @@ data Payload
     | InitializeSortedConstructedMoleculesMoleculeBrowser
         MoleculeBrowser.InitializeSortedConstructedMolecules
     | SelectMolecule SelectMolecule
+    | InitializeMongoConfigurator InitializeMongoConfigurator
 
 updateMoleculePage :: UpdateMoleculePage -> Payload
 updateMoleculePage = UpdateMoleculePage
@@ -130,3 +136,6 @@ initializeUnsortedConstructedMoleculesMoleculeBrowser
 
 selectMolecule :: SelectMolecule -> Payload
 selectMolecule = SelectMolecule
+
+initializeMongoConfigurator :: InitializeMongoConfigurator -> Payload
+initializeMongoConfigurator = InitializeMongoConfigurator
