@@ -13,6 +13,10 @@ import RequestManager.SetSorted (SetSorted)
 import RequestManager.SetUnsorted (SetUnsorted)
 import Molecules.SelectMolecule (SelectMolecule)
 
+import RequestManager.InitializeMongoConfigurator
+    ( InitializeMongoConfigurator
+    )
+
 
 import Molecules.Molecules
     ( MoleculeTableProps
@@ -30,6 +34,8 @@ import RequestManager.RequestManager
     , backButtonProps
     , SortButtonProps
     , sortButtonProps
+    , BreadcrumbsProps
+    , breadcrumbsProps
     )
 
 data Props a = Props
@@ -39,14 +45,16 @@ data Props a = Props
     , threeDViewer  :: ThreeDViewerProps
     , backButton    :: BackButtonProps a
     , nextButton    :: NextButtonProps a
+    , breadcrumbs   :: BreadcrumbsProps a
     , type          :: String
     }
 
 type ActionCreators a r =
-    { updateMoleculePage :: UpdateMoleculePage -> a
-    , setSorted          :: SetSorted -> a
-    , setUnsorted        :: SetUnsorted -> a
-    , selectMolecule     :: SelectMolecule -> a
+    { updateMoleculePage          :: UpdateMoleculePage -> a
+    , setSorted                   :: SetSorted -> a
+    , setUnsorted                 :: SetUnsorted -> a
+    , selectMolecule              :: SelectMolecule -> a
+    , initializeMongoConfigurator :: InitializeMongoConfigurator -> a
     | r
     }
 
@@ -79,5 +87,6 @@ props
             actionCreators.updateMoleculePage
             _requestManager
 
+        , breadcrumbs : breadcrumbsProps actionCreators _requestManager
         , type: "Molecule Browser"
         }

@@ -4,15 +4,21 @@ module MoleculeBrowser.InitializeMongoConfigurator
     , toMongoConfigurator
     ) where
 
-import MongoConfigurator.InitializeMongoConfigurator as Base
+import MongoConfigurator.InitializeMongoConfigurator as Configurator
+import RequestManager.InitializeMongoConfigurator as Manager
 
 newtype InitializeMongoConfigurator
-    = InitializeMongoConfigurator Base.InitializeMongoConfigurator
+    = InitializeMongoConfigurator Manager.InitializeMongoConfigurator
 
 initializeMongoConfigurator
-    :: Base.InitializeMongoConfigurator -> InitializeMongoConfigurator
+    :: Manager.InitializeMongoConfigurator
+    -> InitializeMongoConfigurator
+
 initializeMongoConfigurator = InitializeMongoConfigurator
 
 toMongoConfigurator
-    :: InitializeMongoConfigurator -> Base.InitializeMongoConfigurator
-toMongoConfigurator (InitializeMongoConfigurator payload) = payload
+    :: InitializeMongoConfigurator
+    -> Configurator.InitializeMongoConfigurator
+
+toMongoConfigurator (InitializeMongoConfigurator payload)
+    = Manager.toMongoConfigurator payload

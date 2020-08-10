@@ -24,6 +24,10 @@ import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
     )
 
+import MoleculeBrowser.InitializeMongoConfigurator
+    ( InitializeMongoConfigurator
+    )
+
 data Props a
     = MongoConfigurator (MongoConfigurator.Props a)
     | MoleculeBrowser (MoleculeBrowser.Props a)
@@ -38,6 +42,7 @@ type ActionCreators a r =
         :: InitializeUnsortedBuildingBlocks -> a
     , initializeUnsortedConstructedMolecules
         :: InitializeUnsortedConstructedMolecules -> a
+    , initializeMongoConfigurator:: InitializeMongoConfigurator -> a
     | r
     }
 
