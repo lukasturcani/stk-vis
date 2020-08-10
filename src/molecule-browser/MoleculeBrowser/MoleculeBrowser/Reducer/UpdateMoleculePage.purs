@@ -6,10 +6,8 @@ import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
     ( MoleculeBrowser (..)
     )
 
-import MoleculeBrowser.UpdateMoleculePage
+import RequestManager.UpdateMoleculePage
     ( UpdateMoleculePage
-    , toRequestManager
-    , initializeMolecules
     )
 
 import RequestManager.RequestManager as Manager
@@ -30,9 +28,8 @@ updateMoleculePage
     = MoleculeBrowser
         { _requestManager: Manager.reducer
             _requestManager
-            (Manager.Action.updateMoleculePage
-                (toRequestManager payload)
-            )
+            (Manager.Action.updateMoleculePage payload)
+
         , _molecules: Molecules.reducer
             _molecules
             (Molecules.Action.initializeMolecules

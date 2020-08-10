@@ -17,7 +17,7 @@ import RequestManager.UpdateMoleculePage
     ( UpdateMoleculePage
     )
 
-import MoleculeBrowser.InitializeMolecules
+import Molecules.InitializeMolecules
     ( InitializeMolecules
     )
 

@@ -7,9 +7,8 @@ import StkVis.StkVis.Internal.StkVis as StkVis
 import MoleculeBrowser.MoleculeBrowser as MoleculeBrowser
 import MoleculeBrowser.Action as MB.Action
 
-import StkVis.UpdateMoleculePage
+import RequestManager.UpdateMoleculePage
     ( UpdateMoleculePage
-    , toMoleculeBrowser
     )
 
 
@@ -21,11 +20,11 @@ updateMoleculePage
     payload
     = StkVis.MoleculeBrowser $ MoleculeBrowser.reducer
         MoleculeBrowser.initialState
-        (MB.Action.updateMoleculePage (toMoleculeBrowser payload))
+        (MB.Action.updateMoleculePage payload)
 
 updateMoleculePage
     (StkVis.MoleculeBrowser browser)
     payload
     = StkVis.MoleculeBrowser $ MoleculeBrowser.reducer
         browser
-        (MB.Action.updateMoleculePage (toMoleculeBrowser payload))
+        (MB.Action.updateMoleculePage payload)

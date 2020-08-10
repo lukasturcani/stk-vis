@@ -6,7 +6,7 @@ import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
     ( MoleculeBrowser (MoleculeBrowser)
     )
 
-import MoleculeBrowser.SelectMolecule
+import Molecules.SelectMolecule
     ( SelectMolecule
     )
 
