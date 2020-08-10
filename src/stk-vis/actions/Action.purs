@@ -10,7 +10,7 @@ module StkVis.Action
     , initializeMongoConfigurator
     ) where
 
-import StkVis.UpdateMoleculePage (UpdateMoleculePage)
+import RequestManager.UpdateMoleculePage as Manager
 import StkVis.Payload as Payload
 
 import StkVis.InitializeMoleculeBrowser.UnsortedAll
@@ -42,7 +42,7 @@ type Action =
     , payload :: Payload.Payload
     }
 
-updateMoleculePage :: UpdateMoleculePage -> Action
+updateMoleculePage :: Manager.UpdateMoleculePage -> Action
 updateMoleculePage payload =
     { type: "UPDATE_MOLECULE_PAGE"
     , payload: Payload.updateMoleculePage payload

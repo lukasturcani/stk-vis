@@ -14,13 +14,13 @@ declare module 'StkVis.Action'
     } from 'RequestManager.SetSorted';
     import {
         InitializeUnsortedAll
-    } from 'MongoConfigurator.InitializeUnsortedAll';
+    } from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll';
     import {
         InitializeUnsortedBuildingBlocks
-    } from 'MongoConfigurator.InitializeUnsortedBuildingBlocks';
+    } from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks';
     import {
         InitializeUnsortedConstructedMolecules
-    } from 'MongoConfigurator.InitializeUnsortedConstructedMolecules';
+    } from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules';
     import {
         InitializeMongoConfigurator
     } from 'RequestManager.InitializeMongoConfigurator';
