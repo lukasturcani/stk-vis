@@ -19,7 +19,7 @@ import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
 import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
     ( InitializeUnsortedBuildingBlocks
     )
-import StkVis.InitializeMoleculeBrowser.UnsortedConstructedMolecules
+import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
     )
 

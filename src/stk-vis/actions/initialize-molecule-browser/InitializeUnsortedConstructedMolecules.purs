@@ -1,29 +1,26 @@
 module StkVis.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
     , initializeUnsortedConstructedMolecules
-    , toMoleculeBrowser
+    , toMongoConfigurator
     ) where
 
 import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
-    as Base
-
-import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedConstructedMolecules
-    as MoleculeBrowser
+    as Configurator
 
 newtype InitializeUnsortedConstructedMolecules
     = InitializeUnsortedConstructedMolecules
-        Base.InitializeUnsortedConstructedMolecules
+        Configurator.InitializeUnsortedConstructedMolecules
 
 initializeUnsortedConstructedMolecules
-    :: Base.InitializeUnsortedConstructedMolecules
+    :: Configurator.InitializeUnsortedConstructedMolecules
     -> InitializeUnsortedConstructedMolecules
 
 initializeUnsortedConstructedMolecules
     = InitializeUnsortedConstructedMolecules
 
-toMoleculeBrowser
+toMongoConfigurator
     :: InitializeUnsortedConstructedMolecules
-    -> MoleculeBrowser.InitializeUnsortedConstructedMolecules
+    -> Configurator.InitializeUnsortedConstructedMolecules
 
-toMoleculeBrowser (InitializeUnsortedConstructedMolecules payload)
-    = Base.toMoleculeBrowser payload
+toMongoConfigurator (InitializeUnsortedConstructedMolecules payload)
+    = payload

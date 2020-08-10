@@ -9,7 +9,7 @@ import MoleculeBrowser.Action as MB.Action
 
 import StkVis.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
-    , toMoleculeBrowser
+    , toMongoConfigurator
     )
 
 initializeUnsortedConstructedMolecules
@@ -23,5 +23,5 @@ initializeUnsortedConstructedMolecules
     = StkVis.MoleculeBrowser $ MoleculeBrowser.reducer
         MoleculeBrowser.initialState
         (MB.Action.initializeUnsortedConstructedMoleculesMoleculeBrowser
-            (toMoleculeBrowser payload)
+            (toMongoConfigurator payload)
         )

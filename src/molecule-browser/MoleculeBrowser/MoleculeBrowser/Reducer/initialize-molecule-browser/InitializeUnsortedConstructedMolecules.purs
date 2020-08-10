@@ -11,27 +11,34 @@ import Molecules.Action as Molecules.Action
 import RequestManager.RequestManager as Manager
 import RequestManager.Action as Manager.Action
 
+import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
+    as Configurator
+
 import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedConstructedMolecules
-    as Payload
+    as Browser
 
 initializeUnsortedConstructedMolecules
     :: MoleculeBrowser
-    -> Payload.InitializeUnsortedConstructedMolecules
+    -> Browser.InitializeUnsortedConstructedMolecules
     -> MoleculeBrowser
 
 initializeUnsortedConstructedMolecules
     (MoleculeBrowser { _molecules, _requestManager })
     payload
     = MoleculeBrowser
-        { _molecules: Molecules.reducer
-            _molecules
-            (Molecules.Action.initializeMolecules
-                (Payload.initializeMolecules payload)
-            )
-
+        { _molecules: Molecules.reducer _molecules initializeMolecules
         , _requestManager: Manager.reducer
             _requestManager
-            (Manager.Action.initializeUnsortedConstructedMolecules
-                (Payload.initializeRequestManager payload)
-            )
+            initializeRequestManager
         }
+
+  where
+
+    payload' = Browser.toMongoConfigurator payload
+
+    initializeMolecules = Molecules.Action.initializeMolecules
+        (Configurator.initializeMolecules payload')
+
+    initializeRequestManager
+        = Manager.Action.initializeUnsortedConstructedMolecules
+            (Configurator.initializeRequestManager payload')

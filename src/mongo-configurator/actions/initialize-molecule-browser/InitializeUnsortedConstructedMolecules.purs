@@ -3,46 +3,45 @@ module MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     , initializeUnsortedConstructedMolecules
     , initializeMolecules
     , initializeRequestManager
-    , toMoleculeBrowser
     ) where
 
-import Molecules.InitializeMolecules as Molecules
-import RequestManager.InitializeUnsortedConstructedMolecules as Manager
+import Molecules.InitializeMolecules
+    ( InitializeMolecules
+    )
 
-import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedConstructedMolecules
-    as Base
+import RequestManager.InitializeUnsortedConstructedMolecules as Base
 
-newtype InitializeUnsortedConstructedMolecules
+data InitializeUnsortedConstructedMolecules
     = InitializeUnsortedConstructedMolecules
-        Base.InitializeUnsortedConstructedMolecules
+        { _initializeMolecules :: InitializeMolecules
+        , _initializeRequestManager
+            :: Base.InitializeUnsortedConstructedMolecules
+        }
 
 initializeUnsortedConstructedMolecules
-    :: Molecules.InitializeMolecules
-    -> Manager.InitializeUnsortedConstructedMolecules
+    :: InitializeMolecules
+    -> Base.InitializeUnsortedConstructedMolecules
     -> InitializeUnsortedConstructedMolecules
 
 initializeUnsortedConstructedMolecules molecules manager
     = InitializeUnsortedConstructedMolecules
-        (Base.initializeUnsortedConstructedMolecules molecules manager)
+        { _initializeMolecules: molecules
+        , _initializeRequestManager: manager
+        }
 
 initializeMolecules
-    :: InitializeUnsortedConstructedMolecules
-    -> Molecules.InitializeMolecules
+    :: InitializeUnsortedConstructedMolecules -> InitializeMolecules
 
-initializeMolecules (InitializeUnsortedConstructedMolecules payload)
-    = Base.initializeMolecules payload
-
-initializeRequestManager
-    :: InitializeUnsortedConstructedMolecules
-    -> Manager.InitializeUnsortedConstructedMolecules
+initializeMolecules
+    (InitializeUnsortedConstructedMolecules { _initializeMolecules })
+    = _initializeMolecules
 
 initializeRequestManager
-    (InitializeUnsortedConstructedMolecules payload)
-    = Base.initializeRequestManager payload
-
-toMoleculeBrowser
     :: InitializeUnsortedConstructedMolecules
     -> Base.InitializeUnsortedConstructedMolecules
 
-toMoleculeBrowser (InitializeUnsortedConstructedMolecules payload)
-    = payload
+initializeRequestManager
+    (InitializeUnsortedConstructedMolecules
+        { _initializeRequestManager }
+    )
+    = _initializeRequestManager
