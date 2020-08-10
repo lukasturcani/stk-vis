@@ -19,6 +19,9 @@ import {
 import {
     CoreProps as SortButtonProps,
 } from 'request-manager/base/sort-button';
+import {
+    CoreProps as BreadcrumbsProps,
+} from './breadcrumbs';
 
 
 type Empty = Record<string, unknown>;
@@ -33,6 +36,7 @@ export type CoreProps<a> = DispatchProps<a> & MoleculeBrowserProps<a>;
 interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps<a>
 {
     root: React.FunctionComponent<Record<string, unknown>>;
+    breadcrumbs: React.FunctionComponent<BreadcrumbsProps<a>>;
     sortButton: React.FunctionComponent<SortButtonProps<a>>;
     moleculeTable: React.FunctionComponent<MoleculeTableProps<a>>;
     viewerContainer: React.FunctionComponent<Empty>;
@@ -50,6 +54,10 @@ export function MoleculeBrowser<a>(
 {
     return (
         <props.root>
+            <props.breadcrumbs
+                dispatch={props.dispatch}
+                value0={props.value0.breadcrumbs.value0}
+            />
             <props.sortButton
                 dispatch={props.dispatch}
                 {...props.value0.sortButton}

@@ -29,10 +29,18 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
 
     export type MoleculeBrowser = Record<string, unknown>;
 
+    export interface BreadcrumbsProps<a>
+    {
+        value0: {
+            onClick: (dispatch: (action: a) => void) => void,
+        }
+    }
+
     export interface Props<a>
     {
         value0: {
             type: "Molecule Browser";
+            breadcrumbs: BreadcrumbsProps<a>,
             sortButton: SortButtonProps<a>,
             moleculeTable: MoleculeTableProps<a>,
             twoDViewer: TwoDViewerProps,
