@@ -1,4 +1,4 @@
-module StkVis.StkVis.Internal.Reduer.Internal.InitializeMongoConfigurator
+module StkVis.StkVis.Internal.Reducer.Internal.InitializeMongoConfigurator
     ( initializeMongoConfigurator
     ) where
 

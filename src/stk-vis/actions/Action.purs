@@ -7,6 +7,7 @@ module StkVis.Action
     , setSorted
     , setUnsorted
     , selectMolecule
+    , initializeMongoConfigurator
     ) where
 
 import StkVis.UpdateMoleculePage (UpdateMoleculePage)
@@ -30,6 +31,10 @@ import StkVis.SetUnsorted
     )
 import StkVis.SelectMolecule
     ( SelectMolecule
+    )
+
+import StkVis.InitializeMongoConfigurator
+    ( InitializeMongoConfigurator
     )
 
 type Action =
@@ -83,4 +88,10 @@ selectMolecule :: SelectMolecule -> Action
 selectMolecule payload =
     { type: "SELECT_MOLECULE"
     , payload: Payload.selectMolecule payload
+    }
+
+initializeMongoConfigurator :: InitializeMongoConfigurator -> Action
+initializeMongoConfigurator payload =
+    { type: "INITIALIZE_MONGO_CONFIGURATOR"
+    , payload: Payload.initializeMongoConfigurator payload
     }

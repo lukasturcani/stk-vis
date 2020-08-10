@@ -28,6 +28,10 @@ import StkVis.StkVis.Internal.Reducer.Internal.InitializeUnsortedConstructedMole
     ( initializeUnsortedConstructedMolecules
     )
 
+import StkVis.StkVis.Internal.Reducer.Internal.InitializeMongoConfigurator
+    ( initializeMongoConfigurator
+    )
+
 reducer :: StkVis -> Action -> StkVis
 
 reducer
@@ -64,3 +68,8 @@ reducer
     stkVis
     ({ payload: (InitializeUnsortedConstructedMolecules payload) })
     = initializeUnsortedConstructedMolecules stkVis payload
+
+reducer
+    stkVis
+    ({ payload: (InitializeMongoConfigurator payload) })
+    = initializeMongoConfigurator stkVis payload
