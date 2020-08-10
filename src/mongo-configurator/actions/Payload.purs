@@ -6,8 +6,6 @@ module MongoConfigurator.Payload
     , initializeMongoConfigurator
     ) where
 
-import MongoConfigurator.UpdateFields.UpdateFields (UpdateFields)
-
 import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
     ( InitializeUnsortedAll
     )
@@ -25,7 +23,7 @@ import MongoConfigurator.InitializeMongoConfigurator
     )
 
 data Payload
-    | InitializeUnsortedAll InitializeUnsortedAll
+    = InitializeUnsortedAll InitializeUnsortedAll
     | InitializeUnsortedBuildingBlocks InitializeUnsortedBuildingBlocks
     | InitializeUnsortedConstructedMolecules
         InitializeUnsortedConstructedMolecules

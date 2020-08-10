@@ -8,20 +8,11 @@ import MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
     ( MongoConfigurator
     )
 
-import MongoConfigurator.MongoConfigurator.Internal.Reducer.Internal.UpdateFields
-    (updateFields)
-
 import MongoConfigurator.MongoConfigurator.Internal.Reducer.Internal.InitializeMongoConfigurator
     ( initializeMongoConfigurator
     )
 
 reducer :: MongoConfigurator -> Action -> MongoConfigurator
-reducer
-    configurator
-    ({ payload: (UpdateFields payload) })
-    = updateFields configurator payload
-
-
 reducer
     configurator
     ({ payload: (InitializeUnsortedAll payload) })
