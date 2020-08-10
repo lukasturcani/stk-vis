@@ -11,9 +11,10 @@ module MongoConfigurator.InitializeMongoConfigurator
     , buildingBlockPositionMatrixCollection
     , numEntriesPerPage
     , ignoredCollections
-    , selectBuildingBlocks
-    , selectConstructedMolecules
+    , searchKind
     ) where
+
+import MongoConfigurator.SearchKind (SearchKind)
 
 type ConfiguratorData =
     { url                                   :: String
@@ -25,8 +26,7 @@ type ConfiguratorData =
     , buildingBlockPositionMatrixCollection :: String
     , numEntriesPerPage                     :: Int
     , ignoredCollections                    :: Array String
-    , selectBuildingBlocks                  :: Boolean
-    , selectConstructedMolecules            :: Boolean
+    , searchKind                            :: SearchKind
     }
 
 data InitializeMongoConfigurator = InitializeMongoConfigurator
@@ -39,8 +39,7 @@ data InitializeMongoConfigurator = InitializeMongoConfigurator
     , _buildingBlockPositionMatrixCollection :: String
     , _numEntriesPerPage                     :: Int
     , _ignoredCollections                    :: Array String
-    , _selectBuildingBlocks                  :: Boolean
-    , _selectConstructedMolecules            :: Boolean
+    , _searchKind                            :: SearchKind
     }
 
 initializeMongoConfigurator
@@ -57,8 +56,7 @@ initializeMongoConfigurator
         _buildingBlockPositionMatrixCollection
     , numEntriesPerPage: _numEntriesPerPage
     , ignoredCollections: _ignoredCollections
-    , selectBuildingBlocks: _selectBuildingBlocks
-    , selectConstructedMolecules: _selectConstructedMolecules
+    , searchKind: _searchKind
     }
     = InitializeMongoConfigurator
         { _url
@@ -70,8 +68,7 @@ initializeMongoConfigurator
         , _buildingBlockPositionMatrixCollection
         , _numEntriesPerPage
         , _ignoredCollections
-        , _selectBuildingBlocks
-        , _selectConstructedMolecules
+        , _searchKind
         }
 
 url :: InitializeMongoConfigurator -> String
@@ -116,12 +113,8 @@ ignoredCollections
     (InitializeMongoConfigurator { _ignoredCollections })
     = _ignoredCollections
 
-selectBuildingBlocks :: InitializeMongoConfigurator -> Boolean
-selectBuildingBlocks
-    (InitializeMongoConfigurator { _selectBuildingBlocks })
-    = _selectBuildingBlocks
+searchKind :: InitializeMongoConfigurator -> SearchKind
+searchKind
+    (InitializeMongoConfigurator { _searchKind })
+    = _searchKind
 
-selectConstructedMolecules :: InitializeMongoConfigurator -> Boolean
-selectConstructedMolecules
-    (InitializeMongoConfigurator { _selectConstructedMolecules })
-    = _selectConstructedMolecules

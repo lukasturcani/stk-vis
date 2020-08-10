@@ -11,6 +11,9 @@ import MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
 import MongoConfigurator.MongoConfigurator.Internal.Reducer.Internal.UpdateFields
     (updateFields)
 
+import MongoConfigurator.MongoConfigurator.Internal.Reducer.Internal.InitializeMongoConfigurator
+    ( initializeMongoConfigurator
+    )
 
 reducer :: MongoConfigurator -> Action -> MongoConfigurator
 reducer
@@ -33,3 +36,8 @@ reducer
     configurator
     ({ payload: (InitializeUnsortedBuildingBlocks payload) })
     = configurator
+
+reducer
+    configurator
+    ({ payload: (InitializeMongoConfigurator payload) })
+    = initializeMongoConfigurator configurator payload

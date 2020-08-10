@@ -4,6 +4,7 @@ module MongoConfigurator.Action
     , initializeUnsortedAll
     , initializeUnsortedBuildingBlocks
     , initializeUnsortedConstructedMolecules
+    , initializeMongoConfigurator
     ) where
 
 import MongoConfigurator.UpdateFields.UpdateFields (UpdateFields)
@@ -19,6 +20,10 @@ import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
 
 import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
+    )
+
+import MongoConfigurator.InitializeMongoConfigurator
+    ( InitializeMongoConfigurator
     )
 
 type Action =
@@ -53,4 +58,12 @@ initializeUnsortedConstructedMolecules
 initializeUnsortedConstructedMolecules payload =
     { type: "INITIALIZE_UNSORTED_CONSTRUCTED_MOLECULES"
     , payload: Payload.initializeUnsortedConstructedMolecules payload
+    }
+
+initializeMongoConfigurator
+    :: InitializeMongoConfigurator -> Action
+
+initializeMongoConfigurator payload =
+    { type: "INITIALIZE_MONGO_CONFIGURATOR"
+    , payload: Payload.initializeMongoConfigurator payload
     }
