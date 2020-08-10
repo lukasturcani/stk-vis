@@ -4,9 +4,6 @@ module MoleculeBrowser.Action
     , initializeMolecules
     , setSorted
     , setUnsorted
-    , initializeSortedAllMoleculeBrowser
-    , initializeSortedBuildingBlocksMoleculeBrowser
-    , initializeSortedConstructedMoleculesMoleculeBrowser
     , initializeUnsortedAllMoleculeBrowser
     , initializeUnsortedBuildingBlocksMoleculeBrowser
     , initializeUnsortedConstructedMoleculesMoleculeBrowser
@@ -37,18 +34,6 @@ import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
 import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
     ) as Configurator
-
-import MoleculeBrowser.InitializeMoleculeBrowser.SortedAll
-    ( InitializeSortedAll
-    ) as MoleculeBrowser
-
-import MoleculeBrowser.InitializeMoleculeBrowser.SortedBuildingBlocks
-    ( InitializeSortedBuildingBlocks
-    ) as MoleculeBrowser
-
-import MoleculeBrowser.InitializeMoleculeBrowser.SortedConstructedMolecules
-    ( InitializeSortedConstructedMolecules
-    ) as MoleculeBrowser
 
 import Molecules.SelectMolecule as SelectMolecule
 
@@ -88,36 +73,6 @@ setUnsorted payload =
     , payload: Payload.setUnsorted payload
     }
 
-initializeSortedAllMoleculeBrowser
-    :: MoleculeBrowser.InitializeSortedAll
-    -> Action
-
-initializeSortedAllMoleculeBrowser payload =
-    { type: "INITIALIZE_SORTED_ALL_MOLECULE_BROWSER"
-    , payload: Payload.initializeSortedAllMoleculeBrowser payload
-    }
-
-initializeSortedBuildingBlocksMoleculeBrowser
-    :: MoleculeBrowser.InitializeSortedBuildingBlocks
-    -> Action
-
-initializeSortedBuildingBlocksMoleculeBrowser payload =
-    { type: "INITIALIZE_SORTED_BUILDING_BLOCKS_MOLECULE_BROWSER"
-    , payload: Payload.initializeSortedBuildingBlocksMoleculeBrowser
-        payload
-    }
-
-initializeSortedConstructedMoleculesMoleculeBrowser
-    :: MoleculeBrowser.InitializeSortedConstructedMolecules
-    -> Action
-
-initializeSortedConstructedMoleculesMoleculeBrowser payload =
-    { type: "INITIALIZE_SORTED_CONSTRUCTED_MOLECULES_MOLECULE_BROWSER"
-    , payload:
-        Payload.initializeSortedConstructedMoleculesMoleculeBrowser
-            payload
-    }
-
 initializeUnsortedAllMoleculeBrowser
     :: Configurator.InitializeUnsortedAll
     -> Action
@@ -153,10 +108,6 @@ selectMolecule payload =
     { type: "SELECT_MOLECULE"
     , payload: Payload.selectMolecule payload
     }
-
-selectMolecule_ :: Int -> Molecule -> Action
-selectMolecule_ id molecule = selectMolecule
-    (SelectMolecule.selectMolecule id molecule)
 
 initializeMongoConfigurator :: InitializeMongoConfigurator -> Action
 initializeMongoConfigurator payload =

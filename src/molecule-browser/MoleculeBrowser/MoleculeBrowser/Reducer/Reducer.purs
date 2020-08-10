@@ -21,18 +21,6 @@ import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.SetUnsorted
     ( setUnsorted
     )
 
-import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMoleculeBrowser.SortedAll
-    ( initializeSortedAll
-    ) as InitializeMoleculeBrowser
-
-import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMoleculeBrowser.SortedBuildingBlocks
-    ( initializeSortedBuildingBlocks
-    ) as InitializeMoleculeBrowser
-
-import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMoleculeBrowser.SortedConstructedMolecules
-    ( initializeSortedConstructedMolecules
-    ) as InitializeMoleculeBrowser
-
 import MoleculeBrowser.MoleculeBrowser.Internal.Reducer.Internal.InitializeMoleculeBrowser.UnsortedAll
     ( initializeUnsortedAll
     ) as InitializeMoleculeBrowser
@@ -94,29 +82,6 @@ reducer
         (InitializeUnsortedConstructedMoleculesMoleculeBrowser payload)
     })
     = InitializeMoleculeBrowser.initializeUnsortedConstructedMolecules
-        browser
-        payload
-
-reducer
-    browser
-    ({ payload: (InitializeSortedAllMoleculeBrowser payload) })
-    = InitializeMoleculeBrowser.initializeSortedAll browser payload
-
-reducer
-    browser
-    ({ payload:
-        (InitializeSortedBuildingBlocksMoleculeBrowser payload)
-    })
-    = InitializeMoleculeBrowser.initializeSortedBuildingBlocks
-        browser
-        payload
-
-reducer
-    browser
-    ({ payload:
-        (InitializeSortedConstructedMoleculesMoleculeBrowser payload)
-    })
-    = InitializeMoleculeBrowser.initializeSortedConstructedMolecules
         browser
         payload
 
