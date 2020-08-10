@@ -4,9 +4,6 @@ module MoleculeBrowser.Payload
     , initializeMolecules
     , setSorted
     , setUnsorted
-    , initializeSortedAllMoleculeBrowser
-    , initializeSortedBuildingBlocksMoleculeBrowser
-    , initializeSortedConstructedMoleculesMoleculeBrowser
     , initializeUnsortedAllMoleculeBrowser
     , initializeUnsortedBuildingBlocksMoleculeBrowser
     , initializeUnsortedConstructedMoleculesMoleculeBrowser
@@ -69,18 +66,6 @@ import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
     ) as Configurator
 
-import MoleculeBrowser.InitializeMoleculeBrowser.SortedAll
-    ( InitializeSortedAll
-    ) as MoleculeBrowser
-
-import MoleculeBrowser.InitializeMoleculeBrowser.SortedBuildingBlocks
-    ( InitializeSortedBuildingBlocks
-    ) as MoleculeBrowser
-
-import MoleculeBrowser.InitializeMoleculeBrowser.SortedConstructedMolecules
-    ( InitializeSortedConstructedMolecules
-    ) as MoleculeBrowser
-
 import MoleculeBrowser.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
     )
@@ -105,12 +90,6 @@ data Payload
         Browser.InitializeUnsortedBuildingBlocks
     | InitializeUnsortedConstructedMoleculesMoleculeBrowser
         Browser.InitializeUnsortedConstructedMolecules
-    | InitializeSortedAllMoleculeBrowser
-        MoleculeBrowser.InitializeSortedAll
-    | InitializeSortedBuildingBlocksMoleculeBrowser
-        MoleculeBrowser.InitializeSortedBuildingBlocks
-    | InitializeSortedConstructedMoleculesMoleculeBrowser
-        MoleculeBrowser.InitializeSortedConstructedMolecules
     | SelectMolecule Browser.SelectMolecule
     | InitializeMongoConfigurator InitializeMongoConfigurator
 
