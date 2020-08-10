@@ -13,7 +13,7 @@ initializeMongoConfigurator
     :: Base.ConfiguratorData
     -> InitializeMongoConfigurator
 
-initializeMongoConfigurator configuratrData =
+initializeMongoConfigurator configuratorData =
     InitializeMongoConfigurator
         (Base.initializeMongoConfigurator configuratorData)
 
@@ -21,5 +21,4 @@ toMongoConfigurator
     :: InitializeMongoConfigurator
     -> Base.InitializeMongoConfigurator
 
-toMongoConfigurator (InitializeMongoConfigurator payload)
-    = Base.toMongoConfigurator payload
+toMongoConfigurator (InitializeMongoConfigurator payload) = payload

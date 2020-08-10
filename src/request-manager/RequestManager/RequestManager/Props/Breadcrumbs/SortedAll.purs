@@ -2,6 +2,8 @@ module RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Interna
     ( breadcrumbsProps
     ) where
 
+import Prelude
+
 import RequestManager.RequestManager.Internal.RequestManager.SortedAll
     ( SortedAll (SortedAll)
     )
@@ -9,6 +11,7 @@ import RequestManager.RequestManager.Internal.RequestManager.SortedAll
 import RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Internal.Props
     ( BreadcrumbsProps (BreadcrumbsProps)
     , ActionCreators
+    , DispatchAction
     )
 
 import RequestManager.InitializeMongoConfigurator
@@ -16,7 +19,8 @@ import RequestManager.InitializeMongoConfigurator
     , initializeMongoConfigurator
     )
 
-import MongoConfigurator.SearchKind (SearchKind (UnsortedAll))
+import MongoConfigurator.SearchKind as SearchKind
+import Effect (Effect)
 
 breadcrumbsProps
     :: forall a r
@@ -56,7 +60,7 @@ breadcrumbsProps
                 , buildingBlockPositionMatrixCollection
                 , numEntriesPerPage
                 , ignoredCollections
-                , searchKind: UnsortedAll
+                , searchKind: SearchKind.UnsortedAll
                 }
             )
         )

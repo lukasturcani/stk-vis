@@ -5,6 +5,7 @@ module RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs
 
 import RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Internal.Props
     ( BreadcrumbsProps
+    , ActionCreators
     ) as Exports
 
 import RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Internal.UnsortedAll
@@ -36,9 +37,9 @@ import RequestManager.InitializeMongoConfigurator
 
 breadcrumbsProps
     :: forall a r
-    .  ActionCreators a r
+    .  Exports.ActionCreators a r
     -> RequestManager
-    -> Exports.BackButtonProps a
+    -> Exports.BreadcrumbsProps a
 
 breadcrumbsProps actionCreators (UnsortedAll manager)
     = UnsortedAll.breadcrumbsProps

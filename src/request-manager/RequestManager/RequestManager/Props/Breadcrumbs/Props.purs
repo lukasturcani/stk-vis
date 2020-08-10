@@ -1,16 +1,22 @@
 module RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Internal.Props
     ( DispatchAction
-    , BreadcrumbsProps
+    , BreadcrumbsProps (..)
     , ActionCreators
     ) where
 
+import Prelude
+import Effect (Effect)
+import RequestManager.InitializeMongoConfigurator
+    ( InitializeMongoConfigurator
+    )
+
 type DispatchAction a = a -> Effect Unit
 
-data BreadcrumbsProps a =
+data BreadcrumbsProps a = BreadcrumbsProps
     { onClick :: DispatchAction a -> Effect Unit
     }
 
-type ActionCreators a r
+type ActionCreators a r =
     { initializeMongoConfigurator :: InitializeMongoConfigurator -> a
     | r
     }

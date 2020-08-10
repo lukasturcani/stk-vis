@@ -24,7 +24,7 @@ import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
     )
 
-import MoleculeBrowser.InitializeMongoConfigurator
+import RequestManager.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
     )
 

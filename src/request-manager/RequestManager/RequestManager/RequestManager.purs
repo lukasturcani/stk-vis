@@ -5,6 +5,7 @@ module RequestManager.RequestManager
     , nextButtonProps
     , backButtonProps
     , sortButtonProps
+    , breadcrumbsProps
     ) where
 
 import RequestManager.Action (Action)
@@ -18,6 +19,7 @@ import RequestManager.RequestManager.Internal.Props
     ( NextButtonProps
     , BackButtonProps
     , SortButtonProps
+    , BreadcrumbsProps
     , ActionCreators
     ) as Exports
 
@@ -25,6 +27,7 @@ import RequestManager.RequestManager.Internal.Props
     ( nextButtonProps
     , backButtonProps
     , sortButtonProps
+    , breadcrumbsProps
     ) as Props
 
 import RequestManager.RequestManager.Internal.InitialState
@@ -64,3 +67,11 @@ sortButtonProps
     -> Exports.SortButtonProps a
 
 sortButtonProps = Props.sortButtonProps
+
+breadcrumbsProps
+    :: forall a r
+    .  Exports.ActionCreators a r
+    -> Exports.RequestManager
+    -> Exports.BreadcrumbsProps a
+
+breadcrumbsProps = Props.breadcrumbsProps
