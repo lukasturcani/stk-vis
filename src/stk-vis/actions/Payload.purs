@@ -31,10 +31,22 @@ import StkVis.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     )
 import StkVis.SetSorted
     ( SetSorted
-    )
+    , setSorted
+    ) as StkVis
+
+import RequestManager.SetSorted
+    ( SetSorted
+    ) as Manager
+
 import StkVis.SetUnsorted
     ( SetUnsorted
-    )
+    , setUnsorted
+    ) as StkVis
+
+import RequestManager.SetUnsorted
+    ( SetUnsorted
+    ) as Manager
+
 import StkVis.SelectMolecule
     ( SelectMolecule
     )
@@ -56,8 +68,8 @@ data Payload
     | InitializeUnsortedBuildingBlocks InitializeUnsortedBuildingBlocks
     | InitializeUnsortedConstructedMolecules
         InitializeUnsortedConstructedMolecules
-    | SetSorted SetSorted
-    | SetUnsorted SetUnsorted
+    | SetSorted StkVis.SetSorted
+    | SetUnsorted StkVis.SetUnsorted
     | SelectMolecule SelectMolecule
     | InitializeMongoConfigurator StkVis.InitializeMongoConfigurator
 
@@ -80,11 +92,11 @@ initializeUnsortedConstructedMolecules
 initializeUnsortedConstructedMolecules
     = InitializeUnsortedConstructedMolecules
 
-setSorted :: SetSorted -> Payload
-setSorted = SetSorted
+setSorted :: Manager.SetSorted -> Payload
+setSorted = SetSorted <<< StkVis.setSorted
 
-setUnsorted :: SetUnsorted -> Payload
-setUnsorted = SetUnsorted
+setUnsorted :: Manager.SetUnsorted -> Payload
+setUnsorted = SetUnsorted <<< StkVis.setUnsorted
 
 selectMolecule :: SelectMolecule -> Payload
 selectMolecule = SelectMolecule

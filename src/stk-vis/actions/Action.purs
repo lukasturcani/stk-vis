@@ -23,10 +23,10 @@ import StkVis.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
     )
 
-import StkVis.SetSorted
+import RequestManager.SetSorted
     ( SetSorted
     )
-import StkVis.SetUnsorted
+import RequestManager.SetUnsorted
     ( SetUnsorted
     )
 import StkVis.SelectMolecule

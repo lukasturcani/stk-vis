@@ -1,15 +1,15 @@
 module StkVis.SetSorted
     ( SetSorted
     , setSorted
-    , toMoleculeBrowser
+    , toRequestManager
     ) where
 
-import MoleculeBrowser.SetSorted as Base
+import RequestManager.SetSorted as Manager
 
-newtype SetSorted = SetSorted Base.SetSorted
+newtype SetSorted = SetSorted Manager.SetSorted
 
-setSorted :: Base.SetSorted -> SetSorted
+setSorted :: Manager.SetSorted -> SetSorted
 setSorted = SetSorted
 
-toMoleculeBrowser :: SetSorted -> Base.SetSorted
-toMoleculeBrowser (SetSorted payload) = payload
+toRequestManager :: SetSorted -> Manager.SetSorted
+toRequestManager (SetSorted payload) = payload

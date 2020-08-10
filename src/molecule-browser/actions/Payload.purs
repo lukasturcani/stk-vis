@@ -14,6 +14,8 @@ module MoleculeBrowser.Payload
     , initializeMongoConfigurator
     ) where
 
+import Prelude
+
 import MoleculeBrowser.UpdateMoleculePage
     ( UpdateMoleculePage
     )
@@ -24,11 +26,21 @@ import MoleculeBrowser.InitializeMolecules
 
 import MoleculeBrowser.SetSorted
     ( SetSorted
-    )
+    , setSorted
+    ) as Browser
+
+import RequestManager.SetSorted
+    ( SetSorted
+    ) as Manager
 
 import MoleculeBrowser.SetUnsorted
     ( SetUnsorted
-    )
+    , setUnsorted
+    ) as Browser
+
+import RequestManager.SetUnsorted
+    ( SetUnsorted
+    ) as Manager
 
 import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedAll
     ( InitializeUnsortedAll
@@ -63,8 +75,8 @@ import MoleculeBrowser.SelectMolecule (SelectMolecule)
 data Payload
     = UpdateMoleculePage UpdateMoleculePage
     | InitializeMolecules InitializeMolecules
-    | SetSorted SetSorted
-    | SetUnsorted SetUnsorted
+    | SetSorted Browser.SetSorted
+    | SetUnsorted Browser.SetUnsorted
     | InitializeUnsortedAllMoleculeBrowser
         MoleculeBrowser.InitializeUnsortedAll
     | InitializeUnsortedBuildingBlocksMoleculeBrowser
@@ -86,11 +98,11 @@ updateMoleculePage = UpdateMoleculePage
 initializeMolecules :: InitializeMolecules -> Payload
 initializeMolecules = InitializeMolecules
 
-setSorted :: SetSorted -> Payload
-setSorted = SetSorted
+setSorted :: Manager.SetSorted -> Payload
+setSorted = SetSorted <<< Browser.setSorted
 
-setUnsorted :: SetUnsorted -> Payload
-setUnsorted = SetUnsorted
+setUnsorted :: Manager.SetUnsorted -> Payload
+setUnsorted = SetUnsorted <<< Browser.setUnsorted
 
 initializeSortedAllMoleculeBrowser
     :: MoleculeBrowser.InitializeSortedAll

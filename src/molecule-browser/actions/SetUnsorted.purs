@@ -8,8 +8,8 @@ import RequestManager.SetUnsorted as Base
 
 newtype SetUnsorted = SetUnsorted Base.SetUnsorted
 
-setUnsorted :: SetUnsorted
-setUnsorted = SetUnsorted Base.setUnsorted
+setUnsorted :: Base.SetUnsorted -> SetUnsorted
+setUnsorted = SetUnsorted
 
 toRequestManager :: SetUnsorted -> Base.SetUnsorted
 toRequestManager (SetUnsorted payload) = payload

@@ -5,12 +5,11 @@ module MoleculeBrowser.SetSorted
     ) where
 
 import RequestManager.SetSorted as Base
-import RequestManager.SortType (SortType)
 
 newtype SetSorted = SetSorted Base.SetSorted
 
-setSorted :: Base.CollectionName -> SortType -> SetSorted
-setSorted name sortType = SetSorted (Base.setSorted name sortType)
+setSorted :: Base.SetSorted -> SetSorted
+setSorted = SetSorted
 
 toRequestManager :: SetSorted -> Base.SetSorted
 toRequestManager (SetSorted payload) = payload

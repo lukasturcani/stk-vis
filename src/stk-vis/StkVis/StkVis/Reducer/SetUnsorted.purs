@@ -6,7 +6,7 @@ import Prelude
 import StkVis.StkVis.Internal.StkVis as StkVis
 import MoleculeBrowser.MoleculeBrowser as MoleculeBrowser
 import MoleculeBrowser.Action as Action
-import StkVis.SetUnsorted (SetUnsorted, toMoleculeBrowser)
+import StkVis.SetUnsorted (SetUnsorted, toRequestManager)
 
 setUnsorted :: StkVis.StkVis -> SetUnsorted -> StkVis.StkVis
 setUnsorted
@@ -14,6 +14,6 @@ setUnsorted
     payload
     = StkVis.MoleculeBrowser $ MoleculeBrowser.reducer
         browser
-        (Action.setUnsorted (toMoleculeBrowser payload))
+        (Action.setUnsorted (toRequestManager payload))
 
 setUnsorted stkVis payload = stkVis

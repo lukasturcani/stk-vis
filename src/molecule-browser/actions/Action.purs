@@ -3,9 +3,7 @@ module MoleculeBrowser.Action
     , updateMoleculePage
     , initializeMolecules
     , setSorted
-    , setSorted_
     , setUnsorted
-    , setUnsorted_
     , initializeSortedAllMoleculeBrowser
     , initializeSortedBuildingBlocksMoleculeBrowser
     , initializeSortedConstructedMoleculesMoleculeBrowser
@@ -25,8 +23,8 @@ import MoleculeBrowser.InitializeMolecules
     ( InitializeMolecules
     )
 
-import MoleculeBrowser.SetSorted as SetSorted
-import MoleculeBrowser.SetUnsorted as SetUnsorted
+import RequestManager.SetSorted as SetSorted
+import RequestManager.SetUnsorted as SetUnsorted
 
 import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedAll
     ( InitializeUnsortedAll
@@ -59,8 +57,6 @@ import MoleculeBrowser.InitializeMongoConfigurator
     )
 
 import Molecules.Molecule (Molecule)
-import RequestManager.SortType (SortType)
-import RequestManager.SetSorted (CollectionName)
 import MoleculeBrowser.Payload as Payload
 
 type Action =
@@ -85,10 +81,6 @@ setSorted payload =
     { type: "SET_SORTED"
     , payload: Payload.setSorted payload
     }
-
-setSorted_ :: CollectionName -> SortType -> Action
-setSorted_ name sortType = setSorted
-    (SetSorted.setSorted name sortType)
 
 setUnsorted :: SetUnsorted.SetUnsorted -> Action
 setUnsorted payload =
