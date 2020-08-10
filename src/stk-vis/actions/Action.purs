@@ -33,7 +33,7 @@ import StkVis.SelectMolecule
     ( SelectMolecule
     )
 
-import StkVis.InitializeMongoConfigurator
+import RequestManager.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
     )
 
@@ -90,7 +90,9 @@ selectMolecule payload =
     , payload: Payload.selectMolecule payload
     }
 
-initializeMongoConfigurator :: InitializeMongoConfigurator -> Action
+initializeMongoConfigurator
+    :: InitializeMongoConfigurator -> Action
+
 initializeMongoConfigurator payload =
     { type: "INITIALIZE_MONGO_CONFIGURATOR"
     , payload: Payload.initializeMongoConfigurator payload

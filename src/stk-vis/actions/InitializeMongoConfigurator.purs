@@ -4,22 +4,24 @@ module StkVis.InitializeMongoConfigurator
     , toMongoConfigurator
     ) where
 
-import MoleculeBrowser.InitializeMongoConfigurator as MoleculeBrowser
+import Prelude
+import MoleculeBrowser.InitializeMongoConfigurator as Browser
 import MongoConfigurator.InitializeMongoConfigurator as Configurator
+import RequestManager.InitializeMongoConfigurator as Manager
 
 newtype InitializeMongoConfigurator
-    = InitializeMongoConfigurator
-        MoleculeBrowser.InitializeMongoConfigurator
+    = InitializeMongoConfigurator Browser.InitializeMongoConfigurator
 
 initializeMongoConfigurator
-    :: MoleculeBrowser.InitializeMongoConfigurator
+    :: Manager.InitializeMongoConfigurator
     -> InitializeMongoConfigurator
 
-initializeMongoConfigurator = InitializeMongoConfigurator
+initializeMongoConfigurator =
+    InitializeMongoConfigurator <<< Browser.initializeMongoConfigurator
 
 toMongoConfigurator
     :: InitializeMongoConfigurator
     -> Configurator.InitializeMongoConfigurator
 
 toMongoConfigurator (InitializeMongoConfigurator payload)
-    = MoleculeBrowser.toMongoConfigurator payload
+    = Browser.toMongoConfigurator payload

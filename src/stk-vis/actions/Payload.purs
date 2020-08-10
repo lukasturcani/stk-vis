@@ -11,8 +11,14 @@ module StkVis.Payload
     ) where
 
 import Prelude
-import StkVis.UpdateMoleculePage as StkVis
-import RequestManager.UpdateMoleculePage as Manager
+import StkVis.UpdateMoleculePage
+    ( UpdateMoleculePage
+    , updateMoleculePage
+    ) as StkVis
+
+import RequestManager.UpdateMoleculePage
+    ( UpdateMoleculePage
+    ) as Manager
 
 import StkVis.InitializeMoleculeBrowser.UnsortedAll
     ( InitializeUnsortedAll
@@ -34,7 +40,14 @@ import StkVis.SelectMolecule
     )
 import StkVis.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
-    )
+    , initializeMongoConfigurator
+    ) as StkVis
+
+import RequestManager.InitializeMongoConfigurator
+    ( InitializeMongoConfigurator
+    ) as Manager
+
+
 
 
 data Payload
@@ -46,7 +59,7 @@ data Payload
     | SetSorted SetSorted
     | SetUnsorted SetUnsorted
     | SelectMolecule SelectMolecule
-    | InitializeMongoConfigurator InitializeMongoConfigurator
+    | InitializeMongoConfigurator StkVis.InitializeMongoConfigurator
 
 updateMoleculePage :: Manager.UpdateMoleculePage -> Payload
 updateMoleculePage = UpdateMoleculePage <<< StkVis.updateMoleculePage
@@ -76,5 +89,9 @@ setUnsorted = SetUnsorted
 selectMolecule :: SelectMolecule -> Payload
 selectMolecule = SelectMolecule
 
-initializeMongoConfigurator :: InitializeMongoConfigurator -> Payload
-initializeMongoConfigurator = InitializeMongoConfigurator
+initializeMongoConfigurator
+    :: Manager.InitializeMongoConfigurator -> Payload
+
+initializeMongoConfigurator
+    = InitializeMongoConfigurator
+    <<< StkVis.initializeMongoConfigurator
