@@ -11,11 +11,11 @@ module MoleculeBrowser.Action
     , initializeMongoConfigurator
     ) where
 
-import MoleculeBrowser.UpdateMoleculePage
+import RequestManager.UpdateMoleculePage
     ( UpdateMoleculePage
     )
 
-import MoleculeBrowser.InitializeMolecules
+import Molecules.InitializeMolecules
     ( InitializeMolecules
     )
 
