@@ -3,41 +3,37 @@ module MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
     , initializeUnsortedAll
     , initializeMolecules
     , initializeRequestManager
-    , toMoleculeBrowser
     ) where
 
-import Molecules.InitializeMolecules as Molecules
-import RequestManager.InitializeUnsortedAll as Manager
+import Molecules.InitializeMolecules
+    ( InitializeMolecules
+    )
 
-import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedAll
-    as Base
+import RequestManager.InitializeUnsortedAll as Base
 
-newtype InitializeUnsortedAll
-    = InitializeUnsortedAll Base.InitializeUnsortedAll
+data InitializeUnsortedAll = InitializeUnsortedAll
+    { _initializeMolecules      :: InitializeMolecules
+    , _initializeRequestManager :: Base.InitializeUnsortedAll
+    }
 
 initializeUnsortedAll
-    :: Molecules.InitializeMolecules
-    -> Manager.InitializeUnsortedAll
+    :: InitializeMolecules
+    -> Base.InitializeUnsortedAll
     -> InitializeUnsortedAll
 
 initializeUnsortedAll molecules manager
     = InitializeUnsortedAll
-        (Base.initializeUnsortedAll molecules manager)
+        { _initializeMolecules: molecules
+        , _initializeRequestManager: manager
+        }
 
-initializeMolecules
-    :: InitializeUnsortedAll
-    -> Molecules.InitializeMolecules
-
-initializeMolecules (InitializeUnsortedAll payload)
-    = Base.initializeMolecules payload
+initializeMolecules :: InitializeUnsortedAll -> InitializeMolecules
+initializeMolecules (InitializeUnsortedAll { _initializeMolecules })
+    = _initializeMolecules
 
 initializeRequestManager
-    :: InitializeUnsortedAll -> Manager.InitializeUnsortedAll
-
-initializeRequestManager (InitializeUnsortedAll payload)
-    = Base.initializeRequestManager payload
-
-toMoleculeBrowser
     :: InitializeUnsortedAll -> Base.InitializeUnsortedAll
 
-toMoleculeBrowser (InitializeUnsortedAll payload) = payload
+initializeRequestManager
+    (InitializeUnsortedAll { _initializeRequestManager })
+    = _initializeRequestManager

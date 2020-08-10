@@ -13,7 +13,7 @@ module StkVis.Action
 import RequestManager.UpdateMoleculePage as Manager
 import StkVis.Payload as Payload
 
-import StkVis.InitializeMoleculeBrowser.UnsortedAll
+import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
     ( InitializeUnsortedAll
     )
 import StkVis.InitializeMoleculeBrowser.UnsortedBuildingBlocks
