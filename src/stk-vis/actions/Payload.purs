@@ -75,14 +75,9 @@ import Molecules.SelectMolecule
     ( SelectMolecule
     ) as Molecules
 
-import StkVis.InitializeMongoConfigurator
+import MongoConfigurator.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
-    , initializeMongoConfigurator
-    ) as StkVis
-
-import RequestManager.InitializeMongoConfigurator
-    ( InitializeMongoConfigurator
-    ) as Manager
+    )
 
 data Payload
     = UpdateMoleculePage StkVis.UpdateMoleculePage
@@ -94,7 +89,7 @@ data Payload
     | SetSorted StkVis.SetSorted
     | SetUnsorted StkVis.SetUnsorted
     | SelectMolecule StkVis.SelectMolecule
-    | InitializeMongoConfigurator StkVis.InitializeMongoConfigurator
+    | InitializeMongoConfigurator InitializeMongoConfigurator
 
 updateMoleculePage :: Manager.UpdateMoleculePage -> Payload
 updateMoleculePage = UpdateMoleculePage <<< StkVis.updateMoleculePage
@@ -128,9 +123,5 @@ setUnsorted = SetUnsorted <<< StkVis.setUnsorted
 selectMolecule :: Molecules.SelectMolecule -> Payload
 selectMolecule = SelectMolecule <<< StkVis.selectMolecule
 
-initializeMongoConfigurator
-    :: Manager.InitializeMongoConfigurator -> Payload
-
-initializeMongoConfigurator
-    = InitializeMongoConfigurator
-    <<< StkVis.initializeMongoConfigurator
+initializeMongoConfigurator :: InitializeMongoConfigurator -> Payload
+initializeMongoConfigurator = InitializeMongoConfigurator

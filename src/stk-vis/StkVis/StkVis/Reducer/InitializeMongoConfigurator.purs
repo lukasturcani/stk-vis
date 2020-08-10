@@ -7,9 +7,8 @@ import StkVis.StkVis.Internal.StkVis as StkVis
 import MongoConfigurator.MongoConfigurator as MongoConfigurator
 import MongoConfigurator.Action as Action
 
-import StkVis.InitializeMongoConfigurator
+import MongoConfigurator.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
-    , toMongoConfigurator
     )
 
 initializeMongoConfigurator
@@ -20,8 +19,7 @@ initializeMongoConfigurator
     payload
     = StkVis.MongoConfigurator $ MongoConfigurator.reducer
         MongoConfigurator.initialState
-        (Action.initializeMongoConfigurator
-            (toMongoConfigurator payload)
+        (Action.initializeMongoConfigurator payload
         )
 
 

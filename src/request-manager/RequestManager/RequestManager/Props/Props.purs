@@ -28,7 +28,7 @@ import RequestManager.SetSorted (SetSorted)
 import RequestManager.SetUnsorted (SetUnsorted)
 import RequestManager.UpdateMoleculePage (UpdateMoleculePage)
 
-import RequestManager.InitializeMongoConfigurator
+import MongoConfigurator.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
     )
 

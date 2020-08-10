@@ -33,7 +33,7 @@ import Molecules.SelectMolecule
     ( SelectMolecule
     )
 
-import RequestManager.InitializeMongoConfigurator
+import MongoConfigurator.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
     )
 

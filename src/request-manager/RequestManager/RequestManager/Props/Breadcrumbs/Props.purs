@@ -6,7 +6,7 @@ module RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Interna
 
 import Prelude
 import Effect (Effect)
-import RequestManager.InitializeMongoConfigurator
+import MongoConfigurator.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
     )
 

@@ -13,7 +13,7 @@ import RequestManager.SetSorted (SetSorted)
 import RequestManager.SetUnsorted (SetUnsorted)
 import Molecules.SelectMolecule (SelectMolecule)
 
-import RequestManager.InitializeMongoConfigurator
+import MongoConfigurator.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
     )
 

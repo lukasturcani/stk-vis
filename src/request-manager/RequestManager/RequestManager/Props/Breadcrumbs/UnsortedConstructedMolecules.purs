@@ -14,7 +14,7 @@ import RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Interna
     , DispatchAction
     )
 
-import RequestManager.InitializeMongoConfigurator
+import MongoConfigurator.InitializeMongoConfigurator
     ( initializeMongoConfigurator
     )
 

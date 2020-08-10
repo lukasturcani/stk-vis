@@ -36,7 +36,7 @@ import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
 
 import Molecules.SelectMolecule as SelectMolecule
 
-import RequestManager.InitializeMongoConfigurator
+import MongoConfigurator.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
     )
 
