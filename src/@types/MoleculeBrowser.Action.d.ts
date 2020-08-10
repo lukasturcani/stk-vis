@@ -14,6 +14,9 @@ declare module 'MoleculeBrowser.Action'
     } from 'Molecules.SelectMolecule';
     import { SetSorted } from 'RequestManager.SetSorted';
     import { SetUnsorted } from 'RequestManager.SetUnsorted';
+    import {
+        InitializeMongoConfigurator
+    } from 'RequestManager.InitializeMongoConfigurator';
 
     export interface Action
     {
@@ -31,4 +34,7 @@ declare module 'MoleculeBrowser.Action'
 
     export const selectMolecule:
         (payload: SelectMolecule) => Action;
+
+    export const initializeMongoConfigurator:
+        (payload: InitializeMongoConfigurator) => Action;
 }

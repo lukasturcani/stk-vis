@@ -13,6 +13,7 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
         SortButtonProps,
         NextButtonProps,
         BackButtonProps,
+        BreadcrumbsProps,
     } from 'RequestManager.RequestManager';
     import {
         UpdateMoleculePage,
@@ -26,15 +27,11 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
     import {
         SetUnsorted,
     } from 'RequestManager.SetUnsorted';
+    import {
+        InitializeMongoConfigurator
+    } from 'RequestManager.InitializeMongoConfigurator';
 
     export type MoleculeBrowser = Record<string, unknown>;
-
-    export interface BreadcrumbsProps<a>
-    {
-        value0: {
-            onClick: (dispatch: (action: a) => void) => void,
-        }
-    }
 
     export interface Props<a>
     {
@@ -63,6 +60,9 @@ declare module 'MoleculeBrowser.MoleculeBrowser'
         setSorted: (payload: SetSorted) => a;
         setUnsorted: (payload: SetUnsorted) => a;
         selectMolecule: (payload: SelectMolecule) => a;
+
+        initializeMongoConfigurator:
+            (payload: InitializeMongoConfigurator) => a;
     }
 
     export const props:

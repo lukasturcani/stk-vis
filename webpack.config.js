@@ -244,6 +244,13 @@ module.exports = {
                     + 'InitializeUnsortedConstructedMolecules',
                 ),
 
+            'RequestManager.InitializeMongoConfigurator':
+                path.join(
+                    __dirname,
+                    './output/RequestManager.'
+                    + 'InitializeMongoConfigurator',
+                ),
+
             'RequestManager.SetSorted':
                 path.join(
                     __dirname,

@@ -21,6 +21,9 @@ declare module 'StkVis.Action'
     import {
         InitializeUnsortedConstructedMolecules
     } from 'MongoConfigurator.InitializeUnsortedConstructedMolecules';
+    import {
+        InitializeMongoConfigurator
+    } from 'RequestManager.InitializeMongoConfigurator';
 
     export interface Action
     {
@@ -47,6 +50,9 @@ declare module 'StkVis.Action'
 
     export const initializeUnsortedConstructedMolecules:
         (payload: InitializeUnsortedConstructedMolecules) => Action;
+
+    export const initializeMongoConfigurator:
+        (payload: InitializeMongoConfigurator) => Action;
 
 
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
     BreadcrumbsProps as BaseProps
-} from 'MoleculeBrowser.MoleculeBrowser';
+} from 'RequestManager.RequestManager';
 
 export interface DispatchProps<a>
 {

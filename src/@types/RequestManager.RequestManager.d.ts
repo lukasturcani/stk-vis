@@ -19,6 +19,9 @@ declare module 'RequestManager.RequestManager'
     import {
         SetUnsorted
     } from 'RequestManager.SetUnsorted';
+    import {
+        InitializeMongoConfigurator
+    } from 'RequestManager.InitializeMongoConfigurator';
 
     export type RequestManager = Record<string, unknown>;
 
@@ -50,12 +53,26 @@ declare module 'RequestManager.RequestManager'
         };
     }
 
-    export interface ActionCreators<a>
+    export interface BreadcrumbsProps<a>
+    {
+        value0: {
+            onClick: (dispatch: (action: a) => void) => void,
+        }
+    }
+
+    export interface SortButtonActionCreators<a>
     {
         setSorted: (payload: SetSorted) => a;
         setUnsorted: (payload: SetUnsorted) => a;
         updateMoleculePage: (payload: UpdateMoleculePage) => a;
     }
+
+    export interface BreadcrumbsActionCreators<a>
+    {
+        initializeMongoConfigurator:
+            (payload: InitializeMongoConfigurator) => a;
+    }
+
 
     export interface NextButtonProps<a>
     {
@@ -86,7 +103,12 @@ declare module 'RequestManager.RequestManager'
         BackButtonProps<a>;
 
     export const sortButtonProps:
-        <a>(actionCreators: ActionCreators<a>) =>
+        <a>(actionCreators: SortButtonActionCreators<a>) =>
         (state: RequestManager)
         => SortButtonProps<a>;
+
+    export const breadcrumbsProps:
+        <a>(actionCreators: BreadcrumbsActionCreators<a>) =>
+        (state: RequestManager)
+        => BreadcrumbsProps<a>;
 }

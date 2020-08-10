@@ -23,6 +23,9 @@ import {
 import { SetSorted } from 'RequestManager.SetSorted';
 import { SetUnsorted } from 'RequestManager.SetUnsorted';
 import { SelectMolecule } from 'Molecules.SelectMolecule';
+import {
+    InitializeMongoConfigurator
+} from 'RequestManager.InitializeMongoConfigurator';
 
 
 function mapStateToProps<a>(
@@ -49,6 +52,10 @@ function mapStateToProps<a>(
             selectMolecule:
                 (payload: SelectMolecule) =>
                     Action.selectMolecule(payload),
+
+            initializeMongoConfigurator:
+                (payload: InitializeMongoConfigurator) =>
+                    Action.initializeMongoConfigurator(payload),
         })
         (state)
     };

@@ -39,7 +39,9 @@ import {
 import {
     InitializeUnsortedConstructedMolecules
 } from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules';
-
+import {
+    InitializeMongoConfigurator
+} from 'RequestManager.InitializeMongoConfigurator';
 
 function mapStateToProps<a>(
     state: State,
@@ -74,6 +76,10 @@ function mapStateToProps<a>(
             initializeUnsortedConstructedMolecules:
                 (payload: InitializeUnsortedConstructedMolecules) =>
                     Action.initializeUnsortedConstructedMolecules(payload),
+
+            initializeMongoConfigurator:
+                (payload: InitializeMongoConfigurator) =>
+                    Action.initializeMongoConfigurator(payload),
 
         })(state)
     };

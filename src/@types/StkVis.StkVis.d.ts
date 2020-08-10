@@ -28,6 +28,9 @@ declare module 'StkVis.StkVis'
     import {
         SelectMolecule
     } from 'Molecules.SelectMolecule';
+    import {
+        InitializeMongoConfigurator
+    } from 'RequestManager.InitializeMongoConfigurator';
 
     import { Action } from 'StkVis.Action';
 
@@ -57,6 +60,9 @@ declare module 'StkVis.StkVis'
 
         initializeUnsortedConstructedMolecules:
             (payload: InitializeUnsortedConstructedMolecules) => a;
+
+        initializeMongoConfigurator:
+            (payload: InitializeMongoConfigurator) => a;
     }
 
     export const props:
