@@ -2,7 +2,7 @@ declare module 'StkVis.Action'
 {
     import {
         UpdateMoleculePage,
-    } from 'StkVis.UpdateMoleculePage';
+    } from 'RequestManager.UpdateMoleculePage';
     import {
         SelectMolecule
     } from 'Molecules.SelectMolecule';
