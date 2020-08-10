@@ -16,12 +16,15 @@ export function Breadcrumbs<a>(
     props: CoreProps<a>,
 )
 {
-    return <BreadcrumbsBase
-        container={Container}
-        breadcrumbs={StyledBreadcrumbs}
-        configuratorLink={ConfiguratorLink}
-        browserLink={BrowserLink}
-    />;
+    return (
+        <BreadcrumbsBase
+            container={Container}
+            breadcrumbs={StyledBreadcrumbs}
+            configuratorLink={ConfiguratorLink}
+            browserLink={BrowserLink}
+            {...props}
+        />
+    );
 }
 
 type Empty = Record<string, unknown>;

@@ -24,6 +24,9 @@ import {
 import {
     NextButton,
 } from 'request-manager/styled/next-button';
+import {
+    Breadcrumbs
+} from 'molecule-browser/styled/breadcrumbs';
 
 
 export function MoleculeBrowser<a>(
@@ -32,6 +35,7 @@ export function MoleculeBrowser<a>(
 {
     return <MoleculeBrowserBase
         root={Root}
+        breadcrumbs={Breadcrumbs}
         sortButton={SortButton}
         moleculeTable={MoleculeTable}
         viewerContainer={ViewerContainer}
