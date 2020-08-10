@@ -8,7 +8,6 @@ module MoleculeBrowser.Action
     , initializeUnsortedBuildingBlocksMoleculeBrowser
     , initializeUnsortedConstructedMoleculesMoleculeBrowser
     , selectMolecule
-    , selectMolecule_
     , initializeMongoConfigurator
     ) where
 
@@ -41,7 +40,6 @@ import MoleculeBrowser.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
     )
 
-import Molecules.Molecule (Molecule)
 import MoleculeBrowser.Payload as Payload
 
 type Action =

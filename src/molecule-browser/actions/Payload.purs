@@ -105,27 +105,6 @@ setSorted = SetSorted <<< Browser.setSorted
 setUnsorted :: Manager.SetUnsorted -> Payload
 setUnsorted = SetUnsorted <<< Browser.setUnsorted
 
-initializeSortedAllMoleculeBrowser
-    :: MoleculeBrowser.InitializeSortedAll
-    -> Payload
-
-initializeSortedAllMoleculeBrowser
-    = InitializeSortedAllMoleculeBrowser
-
-initializeSortedBuildingBlocksMoleculeBrowser
-    :: MoleculeBrowser.InitializeSortedBuildingBlocks
-    -> Payload
-
-initializeSortedBuildingBlocksMoleculeBrowser
-    = InitializeSortedBuildingBlocksMoleculeBrowser
-
-initializeSortedConstructedMoleculesMoleculeBrowser
-    :: MoleculeBrowser.InitializeSortedConstructedMolecules
-    -> Payload
-
-initializeSortedConstructedMoleculesMoleculeBrowser
-    = InitializeSortedConstructedMoleculesMoleculeBrowser
-
 initializeUnsortedAllMoleculeBrowser
     :: Configurator.InitializeUnsortedAll
     -> Payload
