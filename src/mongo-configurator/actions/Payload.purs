@@ -1,6 +1,5 @@
 module MongoConfigurator.Payload
     ( Payload (..)
-    , updateFields
     , initializeUnsortedAll
     , initializeUnsortedBuildingBlocks
     , initializeUnsortedConstructedMolecules
@@ -26,15 +25,11 @@ import MongoConfigurator.InitializeMongoConfigurator
     )
 
 data Payload
-    = UpdateFields UpdateFields
     | InitializeUnsortedAll InitializeUnsortedAll
     | InitializeUnsortedBuildingBlocks InitializeUnsortedBuildingBlocks
     | InitializeUnsortedConstructedMolecules
         InitializeUnsortedConstructedMolecules
     | InitializeMongoConfigurator InitializeMongoConfigurator
-
-updateFields :: UpdateFields -> Payload
-updateFields = UpdateFields
 
 initializeUnsortedAll :: InitializeUnsortedAll -> Payload
 initializeUnsortedAll = InitializeUnsortedAll

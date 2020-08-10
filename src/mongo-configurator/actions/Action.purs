@@ -1,13 +1,11 @@
 module MongoConfigurator.Action
     ( Action
-    , updateFields
     , initializeUnsortedAll
     , initializeUnsortedBuildingBlocks
     , initializeUnsortedConstructedMolecules
     , initializeMongoConfigurator
     ) where
 
-import MongoConfigurator.UpdateFields.UpdateFields (UpdateFields)
 import MongoConfigurator.Payload as Payload
 
 import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
@@ -29,12 +27,6 @@ import MongoConfigurator.InitializeMongoConfigurator
 type Action =
     { type    :: String
     , payload :: Payload.Payload
-    }
-
-updateFields :: UpdateFields -> Action
-updateFields data' =
-    { type: "UPDATE_FIELDS"
-    , payload: Payload.updateFields data'
     }
 
 initializeUnsortedAll :: InitializeUnsortedAll -> Action
