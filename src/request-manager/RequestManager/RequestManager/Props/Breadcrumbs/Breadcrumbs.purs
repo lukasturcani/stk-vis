@@ -1,7 +1,32 @@
 module RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs
-    ( BreadcrumbsProps
-    , DispatchAction
+    ( module Exports
     , breadcrumbsProps
+    ) where
+
+import RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Internal.Props
+    ( BreadcrumbsProps
+    ) as Exports
+
+import RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Internal.UnsortedAll
+    as UnsortedAll
+
+import RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Internal.UnsortedBuildingBlocks
+    as UnsortedBuildingBlocks
+
+import RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Internal.UnsortedConstructedMolecules
+    as UnsortedConstructedMolecules
+
+import RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Internal.SortedAll
+    as SortedAll
+
+import RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Internal.SortedBuildingBlocks
+    as SortedBuildingBlocks
+
+import RequestManager.RequestManager.Internal.Props.Internal.Breadcrumbs.Internal.SortedConstructedMolecules
+    as SortedConstructedMolecules
+
+import RequestManager.RequestManager.Internal.RequestManager
+    ( RequestManager (..)
     )
 
 import RequestManager.InitializeMongoConfigurator
@@ -9,45 +34,40 @@ import RequestManager.InitializeMongoConfigurator
     , initializeMongoConfigurator
     )
 
-type DispatchAction a = a -> Effect Unit
-
-data BreadcrumbsProps a =
-    { onClick :: DispatchAction a -> Effect Unit
-    }
-
-type ActionCreators a r
-    { initializeMongoConfigurator :: InitializeMongoConfigurator -> a
-    | r
-    }
-
 breadcrumbsProps
     :: forall a r
     .  ActionCreators a r
     -> RequestManager
-    -> BreadcrumbsProps a
+    -> Exports.BackButtonProps a
+
+breadcrumbsProps actionCreators (UnsortedAll manager)
+    = UnsortedAll.breadcrumbsProps
+        actionCreators
+        manager
+
+breadcrumbsProps actionCreators (UnsortedBuildingBlocks manager)
+    = UnsortedBuildingBlocks.breadcrumbsProps
+        actionCreators
+        manager
 
 breadcrumbsProps
     actionCreators
-    requestManager
-    = BreadcrumbsProps
-        { onClick
-        }
-  where
-    onClick :: DispatchAction a -> Effect Unit
-    onClick dispatch = dispatch
-        (actionCreators.initializeMongoConfigurator
-            (initializeMongoConfigurator
-                { url
-                , database
-                , moleculeKey
-                , moleculeCollection
-                , constructedMoleculeCollection
-                , positionMatrixCollection
-                , buildingBlockPositionMatrixCollection
-                , numEntriesPerPage
-                , ignoredCollections
-                , searchKind
-                }
-            )
-        )
+    (UnsortedConstructedMolecules manager)
+    = UnsortedConstructedMolecules.breadcrumbsProps
+        actionCreators
+        manager
 
+breadcrumbsProps actionCreators (SortedAll manager)
+    = SortedAll.breadcrumbsProps
+        actionCreators
+        manager
+
+breadcrumbsProps actionCreators (SortedBuildingBlocks manager)
+    = SortedBuildingBlocks.breadcrumbsProps
+        actionCreators
+        manager
+
+breadcrumbsProps actionCreators (SortedConstructedMolecules manager)
+    = SortedConstructedMolecules.breadcrumbsProps
+        actionCreators
+        manager
