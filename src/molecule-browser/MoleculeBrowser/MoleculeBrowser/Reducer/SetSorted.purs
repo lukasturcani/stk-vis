@@ -6,9 +6,8 @@ import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
     ( MoleculeBrowser (MoleculeBrowser)
     )
 
-import MoleculeBrowser.SetSorted
+import RequestManager.SetSorted
     ( SetSorted
-    , toRequestManager
     )
 
 import RequestManager.RequestManager as Manager
@@ -22,6 +21,6 @@ setSorted
         { _requestManager:
             Manager.reducer
                 _requestManager
-                (Action.setSorted (toRequestManager payload))
+                (Action.setSorted payload)
         , _molecules
         }

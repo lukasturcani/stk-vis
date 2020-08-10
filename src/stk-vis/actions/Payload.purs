@@ -11,117 +11,80 @@ module StkVis.Payload
     ) where
 
 import Prelude
-import StkVis.UpdateMoleculePage
-    ( UpdateMoleculePage
-    , updateMoleculePage
-    ) as StkVis
 
 import RequestManager.UpdateMoleculePage
     ( UpdateMoleculePage
-    ) as Manager
-
-import StkVis.InitializeMoleculeBrowser.UnsortedAll
-    ( InitializeUnsortedAll
-    , initializeUnsortedAll
-    ) as StkVis
+    )
 
 import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
     ( InitializeUnsortedAll
-    ) as Configurator
-
-
-import StkVis.InitializeMoleculeBrowser.UnsortedBuildingBlocks
-    ( InitializeUnsortedBuildingBlocks
-    , initializeUnsortedBuildingBlocks
-    ) as StkVis
+    )
 
 import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
     ( InitializeUnsortedBuildingBlocks
-    ) as Configurator
-
-import StkVis.InitializeMoleculeBrowser.UnsortedConstructedMolecules
-    ( InitializeUnsortedConstructedMolecules
-    , initializeUnsortedConstructedMolecules
-    ) as StkVis
+    )
 
 import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
-    ) as Configurator
-
-import StkVis.SetSorted
-    ( SetSorted
-    , setSorted
-    ) as StkVis
+    )
 
 import RequestManager.SetSorted
     ( SetSorted
-    ) as Manager
-
-import StkVis.SetUnsorted
-    ( SetUnsorted
-    , setUnsorted
-    ) as StkVis
+    )
 
 import RequestManager.SetUnsorted
     ( SetUnsorted
-    ) as Manager
-
-import StkVis.SelectMolecule
-    ( SelectMolecule
-    , selectMolecule
-    ) as StkVis
+    )
 
 import Molecules.SelectMolecule
     ( SelectMolecule
-    ) as Molecules
+    )
 
 import MongoConfigurator.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
     )
 
 data Payload
-    = UpdateMoleculePage StkVis.UpdateMoleculePage
-    | InitializeUnsortedAll StkVis.InitializeUnsortedAll
+    = UpdateMoleculePage UpdateMoleculePage
+    | InitializeUnsortedAll InitializeUnsortedAll
     | InitializeUnsortedBuildingBlocks
-        StkVis.InitializeUnsortedBuildingBlocks
+        InitializeUnsortedBuildingBlocks
     | InitializeUnsortedConstructedMolecules
-        StkVis.InitializeUnsortedConstructedMolecules
-    | SetSorted StkVis.SetSorted
-    | SetUnsorted StkVis.SetUnsorted
-    | SelectMolecule StkVis.SelectMolecule
+        InitializeUnsortedConstructedMolecules
+    | SetSorted SetSorted
+    | SetUnsorted SetUnsorted
+    | SelectMolecule SelectMolecule
     | InitializeMongoConfigurator InitializeMongoConfigurator
 
-updateMoleculePage :: Manager.UpdateMoleculePage -> Payload
-updateMoleculePage = UpdateMoleculePage <<< StkVis.updateMoleculePage
+updateMoleculePage :: UpdateMoleculePage -> Payload
+updateMoleculePage = UpdateMoleculePage
 
-initializeUnsortedAll :: Configurator.InitializeUnsortedAll -> Payload
+initializeUnsortedAll :: InitializeUnsortedAll -> Payload
 initializeUnsortedAll
-    = InitializeUnsortedAll <<< StkVis.initializeUnsortedAll
+    = InitializeUnsortedAll
 
 initializeUnsortedBuildingBlocks
-    :: Configurator.InitializeUnsortedBuildingBlocks
+    :: InitializeUnsortedBuildingBlocks
     -> Payload
 
 initializeUnsortedBuildingBlocks
-    = InitializeUnsortedBuildingBlocks <<<
-        StkVis.initializeUnsortedBuildingBlocks
+    = InitializeUnsortedBuildingBlocks
 
 initializeUnsortedConstructedMolecules
-    :: Configurator.InitializeUnsortedConstructedMolecules
+    :: InitializeUnsortedConstructedMolecules
     -> Payload
 
 initializeUnsortedConstructedMolecules
-    = InitializeUnsortedConstructedMolecules <<<
-        StkVis.initializeUnsortedConstructedMolecules
+    = InitializeUnsortedConstructedMolecules
 
-setSorted :: Manager.SetSorted -> Payload
-setSorted = SetSorted <<< StkVis.setSorted
+setSorted :: SetSorted -> Payload
+setSorted = SetSorted
 
-setUnsorted :: Manager.SetUnsorted -> Payload
-setUnsorted = SetUnsorted <<< StkVis.setUnsorted
+setUnsorted :: SetUnsorted -> Payload
+setUnsorted = SetUnsorted
 
-selectMolecule :: Molecules.SelectMolecule -> Payload
-selectMolecule = SelectMolecule <<< StkVis.selectMolecule
+selectMolecule :: SelectMolecule -> Payload
+selectMolecule = SelectMolecule
 
 initializeMongoConfigurator :: InitializeMongoConfigurator -> Payload
 initializeMongoConfigurator = InitializeMongoConfigurator

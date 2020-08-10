@@ -8,7 +8,6 @@ import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
 
 import MoleculeBrowser.SelectMolecule
     ( SelectMolecule
-    , toMolecules
     )
 
 import Molecules.Molecules as Molecules
@@ -23,5 +22,5 @@ selectMolecule
         , _molecules:
             Molecules.reducer
                 _molecules
-                (Action.selectMolecule (toMolecules payload))
+                (Action.selectMolecule payload)
         }

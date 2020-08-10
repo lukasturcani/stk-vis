@@ -6,9 +6,8 @@ import MoleculeBrowser.MoleculeBrowser.Internal.MoleculeBrowser
     ( MoleculeBrowser (MoleculeBrowser)
     )
 
-import MoleculeBrowser.InitializeMolecules
+import Molecules.InitializeMolecules
     ( InitializeMolecules
-    , toMolecules
     )
 
 import Molecules.Molecules as Molecules
@@ -25,5 +24,5 @@ initializeMolecules
         , _molecules:
             Molecules.reducer
                 _molecules
-                (Action.initializeMolecules (toMolecules payload))
+                (Action.initializeMolecules payload)
         }
