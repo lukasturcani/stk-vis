@@ -49,7 +49,13 @@ import RequestManager.SetUnsorted
 
 import StkVis.SelectMolecule
     ( SelectMolecule
-    )
+    , selectMolecule
+    ) as StkVis
+
+import Molecules.SelectMolecule
+    ( SelectMolecule
+    ) as Molecules
+
 import StkVis.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
     , initializeMongoConfigurator
@@ -70,7 +76,7 @@ data Payload
         InitializeUnsortedConstructedMolecules
     | SetSorted StkVis.SetSorted
     | SetUnsorted StkVis.SetUnsorted
-    | SelectMolecule SelectMolecule
+    | SelectMolecule StkVis.SelectMolecule
     | InitializeMongoConfigurator StkVis.InitializeMongoConfigurator
 
 updateMoleculePage :: Manager.UpdateMoleculePage -> Payload
@@ -98,8 +104,8 @@ setSorted = SetSorted <<< StkVis.setSorted
 setUnsorted :: Manager.SetUnsorted -> Payload
 setUnsorted = SetUnsorted <<< StkVis.setUnsorted
 
-selectMolecule :: SelectMolecule -> Payload
-selectMolecule = SelectMolecule
+selectMolecule :: Molecules.SelectMolecule -> Payload
+selectMolecule = SelectMolecule <<< StkVis.selectMolecule
 
 initializeMongoConfigurator
     :: Manager.InitializeMongoConfigurator -> Payload

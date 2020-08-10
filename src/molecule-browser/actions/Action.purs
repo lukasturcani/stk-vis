@@ -50,7 +50,7 @@ import MoleculeBrowser.InitializeMoleculeBrowser.SortedConstructedMolecules
     ( InitializeSortedConstructedMolecules
     ) as MoleculeBrowser
 
-import MoleculeBrowser.SelectMolecule as SelectMolecule
+import Molecules.SelectMolecule as SelectMolecule
 
 import MoleculeBrowser.InitializeMongoConfigurator
     ( InitializeMongoConfigurator

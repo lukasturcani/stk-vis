@@ -29,7 +29,7 @@ import RequestManager.SetSorted
 import RequestManager.SetUnsorted
     ( SetUnsorted
     )
-import StkVis.SelectMolecule
+import Molecules.SelectMolecule
     ( SelectMolecule
     )
 

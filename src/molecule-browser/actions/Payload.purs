@@ -70,7 +70,14 @@ import MoleculeBrowser.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
     )
 
-import MoleculeBrowser.SelectMolecule (SelectMolecule)
+import MoleculeBrowser.SelectMolecule
+    ( SelectMolecule
+    , selectMolecule
+    ) as Browser
+
+import Molecules.SelectMolecule
+    ( SelectMolecule
+    ) as Molecules
 
 data Payload
     = UpdateMoleculePage UpdateMoleculePage
@@ -89,7 +96,7 @@ data Payload
         MoleculeBrowser.InitializeSortedBuildingBlocks
     | InitializeSortedConstructedMoleculesMoleculeBrowser
         MoleculeBrowser.InitializeSortedConstructedMolecules
-    | SelectMolecule SelectMolecule
+    | SelectMolecule Browser.SelectMolecule
     | InitializeMongoConfigurator InitializeMongoConfigurator
 
 updateMoleculePage :: UpdateMoleculePage -> Payload
@@ -146,8 +153,8 @@ initializeUnsortedConstructedMoleculesMoleculeBrowser
 initializeUnsortedConstructedMoleculesMoleculeBrowser
     = InitializeUnsortedConstructedMoleculesMoleculeBrowser
 
-selectMolecule :: SelectMolecule -> Payload
-selectMolecule = SelectMolecule
+selectMolecule :: Molecules.SelectMolecule -> Payload
+selectMolecule = SelectMolecule <<< Browser.selectMolecule
 
 initializeMongoConfigurator :: InitializeMongoConfigurator -> Payload
 initializeMongoConfigurator = InitializeMongoConfigurator
