@@ -21,18 +21,6 @@ import RequestManager.RequestManager.Internal.Reducer.Internal.InitializeUnsorte
     ( initializeUnsortedConstructedMolecules
     )
 
-import RequestManager.RequestManager.Internal.Reducer.Internal.InitializeSortedAll
-    ( initializeSortedAll
-    )
-
-import RequestManager.RequestManager.Internal.Reducer.Internal.InitializeSortedBuildingBlocks
-    ( initializeSortedBuildingBlocks
-    )
-
-import RequestManager.RequestManager.Internal.Reducer.Internal.InitializeSortedConstructedMolecules
-    ( initializeSortedConstructedMolecules
-    )
-
 import RequestManager.RequestManager.Internal.Reducer.Internal.SetUnsorted
     ( setUnsorted
     )
@@ -60,21 +48,6 @@ reducer
     requestManager
     ({ payload: (InitializeUnsortedConstructedMolecules payload) })
     = initializeUnsortedConstructedMolecules requestManager payload
-
-reducer
-    requestManager
-    ({ payload: (InitializeSortedAll payload) })
-    = initializeSortedAll requestManager payload
-
-reducer
-    requestManager
-    ({ payload: (InitializeSortedBuildingBlocks payload) })
-    = initializeSortedBuildingBlocks requestManager payload
-
-reducer
-    requestManager
-    ({ payload: (InitializeSortedConstructedMolecules payload) })
-    = initializeSortedConstructedMolecules requestManager payload
 
 reducer
     requestManager

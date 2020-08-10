@@ -3,9 +3,6 @@ module RequestManager.Action
     , initializeUnsortedAll
     , initializeUnsortedBuildingBlocks
     , initializeUnsortedConstructedMolecules
-    , initializeSortedAll
-    , initializeSortedBuildingBlocks
-    , initializeSortedConstructedMolecules
     , setUnsorted
     , setSorted
     , updateMoleculePage
@@ -23,18 +20,6 @@ import RequestManager.InitializeUnsortedBuildingBlocks
 
 import RequestManager.InitializeUnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
-    )
-
-import RequestManager.InitializeSortedAll
-    ( InitializeSortedAll
-    )
-
-import RequestManager.InitializeSortedBuildingBlocks
-    ( InitializeSortedBuildingBlocks
-    )
-
-import RequestManager.InitializeSortedConstructedMolecules
-    ( InitializeSortedConstructedMolecules
     )
 
 import RequestManager.UpdateMoleculePage
@@ -69,28 +54,6 @@ initializeUnsortedConstructedMolecules
 initializeUnsortedConstructedMolecules payload =
     { type: "INITIALIZE_UNSORTED_CONSTRUCTED_MOLECULES"
     , payload: Payload.initializeUnsortedConstructedMolecules payload
-    }
-
-initializeSortedAll :: InitializeSortedAll -> Action
-initializeSortedAll payload =
-    { type: "INITIALIZE_SORTED_ALL"
-    , payload: Payload.initializeSortedAll payload
-    }
-
-initializeSortedBuildingBlocks
-    :: InitializeSortedBuildingBlocks -> Action
-
-initializeSortedBuildingBlocks payload =
-    { type: "INITIALIZE_SORTED_BUILDING_BLOCKS"
-    , payload: Payload.initializeSortedBuildingBlocks payload
-    }
-
-initializeSortedConstructedMolecules
-    :: InitializeSortedConstructedMolecules -> Action
-
-initializeSortedConstructedMolecules payload =
-    { type: "INITIALIZE_SORTED_CONSTRUCTED_MOLECULES"
-    , payload: Payload.initializeSortedConstructedMolecules payload
     }
 
 setUnsorted :: SetUnsorted -> Action

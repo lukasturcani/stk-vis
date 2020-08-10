@@ -3,9 +3,6 @@ module RequestManager.Payload
     , initializeUnsortedAll
     , initializeUnsortedBuildingBlocks
     , initializeUnsortedConstructedMolecules
-    , initializeSortedAll
-    , initializeSortedBuildingBlocks
-    , initializeSortedConstructedMolecules
     , setUnsorted
     , setSorted
     , updateMoleculePage
@@ -23,18 +20,6 @@ import RequestManager.InitializeUnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
     )
 
-import RequestManager.InitializeSortedAll
-    ( InitializeSortedAll
-    )
-
-import RequestManager.InitializeSortedBuildingBlocks
-    ( InitializeSortedBuildingBlocks
-    )
-
-import RequestManager.InitializeSortedConstructedMolecules
-    ( InitializeSortedConstructedMolecules
-    )
-
 import RequestManager.UpdateMoleculePage
     ( UpdateMoleculePage
     )
@@ -47,10 +32,6 @@ data Payload
     | InitializeUnsortedBuildingBlocks InitializeUnsortedBuildingBlocks
     | InitializeUnsortedConstructedMolecules
         InitializeUnsortedConstructedMolecules
-    | InitializeSortedAll InitializeSortedAll
-    | InitializeSortedBuildingBlocks InitializeSortedBuildingBlocks
-    | InitializeSortedConstructedMolecules
-        InitializeSortedConstructedMolecules
     | SetUnsorted SetUnsorted
     | SetSorted SetSorted
     | UpdateMoleculePage UpdateMoleculePage
@@ -68,20 +49,6 @@ initializeUnsortedConstructedMolecules
 
 initializeUnsortedConstructedMolecules
     = InitializeUnsortedConstructedMolecules
-
-initializeSortedAll :: InitializeSortedAll -> Payload
-initializeSortedAll = InitializeSortedAll
-
-initializeSortedBuildingBlocks
-    :: InitializeSortedBuildingBlocks -> Payload
-
-initializeSortedBuildingBlocks = InitializeSortedBuildingBlocks
-
-initializeSortedConstructedMolecules
-    :: InitializeSortedConstructedMolecules -> Payload
-
-initializeSortedConstructedMolecules
-    = InitializeSortedConstructedMolecules
 
 setUnsorted :: SetUnsorted -> Payload
 setUnsorted = SetUnsorted
