@@ -27,7 +27,7 @@ export interface ConfiguratorLinkProps
 }
 
 
-function Breadcrumbs<a>(
+export function Breadcrumbs<a>(
     props: Props<a>,
 )
 {
