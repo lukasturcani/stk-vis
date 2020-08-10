@@ -51,10 +51,14 @@ import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
     ( InitializeUnsortedAll
     ) as Configurator
 
-
 import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedBuildingBlocks
     ( InitializeUnsortedBuildingBlocks
-    ) as MoleculeBrowser
+    , initializeUnsortedBuildingBlocks
+    ) as Browser
+
+import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+    ( InitializeUnsortedBuildingBlocks
+    ) as Configurator
 
 import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
@@ -93,7 +97,7 @@ data Payload
     | InitializeUnsortedAllMoleculeBrowser
         Browser.InitializeUnsortedAll
     | InitializeUnsortedBuildingBlocksMoleculeBrowser
-        MoleculeBrowser.InitializeUnsortedBuildingBlocks
+        Browser.InitializeUnsortedBuildingBlocks
     | InitializeUnsortedConstructedMoleculesMoleculeBrowser
         MoleculeBrowser.InitializeUnsortedConstructedMolecules
     | InitializeSortedAllMoleculeBrowser
@@ -147,11 +151,12 @@ initializeUnsortedAllMoleculeBrowser
     <<< Browser.initializeUnsortedAll
 
 initializeUnsortedBuildingBlocksMoleculeBrowser
-    :: MoleculeBrowser.InitializeUnsortedBuildingBlocks
+    :: Configurator.InitializeUnsortedBuildingBlocks
     -> Payload
 
 initializeUnsortedBuildingBlocksMoleculeBrowser
     = InitializeUnsortedBuildingBlocksMoleculeBrowser
+        <<< Browser.initializeUnsortedBuildingBlocks
 
 initializeUnsortedConstructedMoleculesMoleculeBrowser
     :: MoleculeBrowser.InitializeUnsortedConstructedMolecules

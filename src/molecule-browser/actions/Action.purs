@@ -30,9 +30,9 @@ import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
     ( InitializeUnsortedAll
     ) as Configurator
 
-import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
     ( InitializeUnsortedBuildingBlocks
-    ) as MoleculeBrowser
+    ) as Configurator
 
 import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
@@ -128,7 +128,7 @@ initializeUnsortedAllMoleculeBrowser payload =
     }
 
 initializeUnsortedBuildingBlocksMoleculeBrowser
-    :: MoleculeBrowser.InitializeUnsortedBuildingBlocks
+    :: Configurator.InitializeUnsortedBuildingBlocks
     -> Action
 
 initializeUnsortedBuildingBlocksMoleculeBrowser payload =

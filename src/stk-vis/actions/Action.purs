@@ -16,7 +16,7 @@ import StkVis.Payload as Payload
 import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
     ( InitializeUnsortedAll
     )
-import StkVis.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
     ( InitializeUnsortedBuildingBlocks
     )
 import StkVis.InitializeMoleculeBrowser.UnsortedConstructedMolecules

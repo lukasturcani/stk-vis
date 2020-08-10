@@ -32,7 +32,13 @@ import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
 
 import StkVis.InitializeMoleculeBrowser.UnsortedBuildingBlocks
     ( InitializeUnsortedBuildingBlocks
-    )
+    , initializeUnsortedBuildingBlocks
+    ) as StkVis
+
+import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+    ( InitializeUnsortedBuildingBlocks
+    ) as Configurator
+
 import StkVis.InitializeMoleculeBrowser.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
     )
@@ -75,7 +81,8 @@ import RequestManager.InitializeMongoConfigurator
 data Payload
     = UpdateMoleculePage StkVis.UpdateMoleculePage
     | InitializeUnsortedAll StkVis.InitializeUnsortedAll
-    | InitializeUnsortedBuildingBlocks InitializeUnsortedBuildingBlocks
+    | InitializeUnsortedBuildingBlocks
+        StkVis.InitializeUnsortedBuildingBlocks
     | InitializeUnsortedConstructedMolecules
         InitializeUnsortedConstructedMolecules
     | SetSorted StkVis.SetSorted
@@ -91,10 +98,12 @@ initializeUnsortedAll
     = InitializeUnsortedAll <<< StkVis.initializeUnsortedAll
 
 initializeUnsortedBuildingBlocks
-    :: InitializeUnsortedBuildingBlocks
+    :: Configurator.InitializeUnsortedBuildingBlocks
     -> Payload
 
-initializeUnsortedBuildingBlocks = InitializeUnsortedBuildingBlocks
+initializeUnsortedBuildingBlocks
+    = InitializeUnsortedBuildingBlocks <<<
+        StkVis.initializeUnsortedBuildingBlocks
 
 initializeUnsortedConstructedMolecules
     :: InitializeUnsortedConstructedMolecules

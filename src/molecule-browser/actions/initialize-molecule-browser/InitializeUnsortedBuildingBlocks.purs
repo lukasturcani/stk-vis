@@ -1,45 +1,25 @@
 module MoleculeBrowser.InitializeMoleculeBrowser.UnsortedBuildingBlocks
     ( InitializeUnsortedBuildingBlocks
     , initializeUnsortedBuildingBlocks
-    , initializeMolecules
-    , initializeRequestManager
+    , toMongoConfigurator
     ) where
 
-import Molecules.InitializeMolecules
-    ( InitializeMolecules
-    )
+import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+    as Configurator
 
-import RequestManager.InitializeUnsortedBuildingBlocks as Base
-
-data InitializeUnsortedBuildingBlocks
+newtype InitializeUnsortedBuildingBlocks
     = InitializeUnsortedBuildingBlocks
-        { _initializeMolecules :: InitializeMolecules
-        , _initializeRequestManager
-            :: Base.InitializeUnsortedBuildingBlocks
-        }
+        Configurator.InitializeUnsortedBuildingBlocks
 
 initializeUnsortedBuildingBlocks
-    :: InitializeMolecules
-    -> Base.InitializeUnsortedBuildingBlocks
+    :: Configurator.InitializeUnsortedBuildingBlocks
     -> InitializeUnsortedBuildingBlocks
 
-initializeUnsortedBuildingBlocks molecules manager
-    = InitializeUnsortedBuildingBlocks
-        { _initializeMolecules: molecules
-        , _initializeRequestManager: manager
-        }
+initializeUnsortedBuildingBlocks = InitializeUnsortedBuildingBlocks
 
-initializeMolecules
-    :: InitializeUnsortedBuildingBlocks -> InitializeMolecules
-
-initializeMolecules
-    (InitializeUnsortedBuildingBlocks { _initializeMolecules })
-    = _initializeMolecules
-
-initializeRequestManager
+toMongoConfigurator
     :: InitializeUnsortedBuildingBlocks
-    -> Base.InitializeUnsortedBuildingBlocks
+    -> Configurator.InitializeUnsortedBuildingBlocks
 
-initializeRequestManager
-    (InitializeUnsortedBuildingBlocks { _initializeRequestManager })
-    = _initializeRequestManager
+toMongoConfigurator (InitializeUnsortedBuildingBlocks payload)
+    = payload
