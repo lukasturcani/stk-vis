@@ -32,7 +32,5 @@ updateMoleculePage
 
         , _molecules: Molecules.reducer
             _molecules
-            (Molecules.Action.initializeMolecules
-                (initializeMolecules payload)
-            )
+            (Molecules.Action.updateMoleculePage payload)
         }

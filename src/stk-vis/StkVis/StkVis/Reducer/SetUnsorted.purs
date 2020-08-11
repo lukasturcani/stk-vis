@@ -14,6 +14,6 @@ setUnsorted
     payload
     = StkVis.MoleculeBrowser $ MoleculeBrowser.reducer
         browser
-        (Action.setUnsorted payload
+        (Action.setUnsorted payload)
 
 setUnsorted stkVis payload = stkVis

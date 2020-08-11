@@ -14,6 +14,10 @@ import Molecules.Molecules.Internal.Reducer.Internal.SelectMolecule
     ( selectMolecule
     )
 
+import Molecules.Molecules.Internal.Reducer.Internal.UpdateMoleculePage
+    ( updateMoleculePage
+    )
+
 reducer :: Molecules -> Action -> Molecules
 reducer
     molecules
@@ -24,3 +28,8 @@ reducer
     molecules
     ({ payload: (SelectMolecule payload) })
     = selectMolecule molecules payload
+
+reducer
+    molecules
+    ({ payload: (UpdateMoleculePage payload) })
+    = updateMoleculePage molecules payload
