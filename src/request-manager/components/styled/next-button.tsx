@@ -28,7 +28,10 @@ export function NextButton<a>(
         />;
     }
     return <NextButtonBase
+        container={Container}
         button={NonLastButton}
+        successSnackbar={SuccessSnackbar}
+        errorSnackbar={ErrorSnackbar}
         {...props}
     />;
 }
