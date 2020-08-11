@@ -15,6 +15,7 @@ import Effect.Promise (class Deferred, Promise)
 
 import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.Props
     ( Snackbar
+    , Snackbars
     )
 
 nextPageIndex :: PageKind -> Int -> Int
@@ -38,13 +39,40 @@ showRefreshedSnackbar true snackbar = do
 
 showRefreshedSnackbar _ _ = pure unit
 
-errorSnackbar :: Deferred  => Snackbar  -> Error.Error -> Promise Unit
-errorSnackbar snackbar error = pure
+errorSnackbar
+    :: Deferred
+    => Snackbars
+    -> PageKind
+    -> Error.Error
+    -> Promise Unit
+
+errorSnackbar snackbars pageKind error = pure
     (unsafePerformEffect
-        (_showErrorSnackbar snackbar error)
+        (_showErrorSnackbar snackbars pageKind error)
     )
 
-_showErrorSnackbar :: Snackbar -> Error.Error -> Effect Unit
-_showErrorSnackbar snackbar error = do
-    runEffectFn1 snackbar.setMessage (Error.message error)
-    runEffectFn1 snackbar.setOpen true
+_showErrorSnackbar
+    :: Snackbars -> PageKind -> Error.Error -> Effect Unit
+
+_showErrorSnackbar snackbars LastComplete error
+    | Error.message error == "No valid molecules were found." = do
+        runEffectFn1 snackbars.success.setMessage "Refreshed!"
+        runEffectFn1 snackbars.success.setOpen true
+
+    | otherwise = do
+        runEffectFn1 snackbars.error.setMessage (Error.message error)
+        runEffectFn1 snackbars.error.setOpen true
+
+
+_showErrorSnackbar snackbars OnlyComplete error
+    | Error.message error == "No valid molecules were found." = do
+        runEffectFn1 snackbars.success.setMessage "Refreshed!"
+        runEffectFn1 snackbars.success.setOpen true
+
+    | otherwise = do
+        runEffectFn1 snackbars.error.setMessage (Error.message error)
+        runEffectFn1 snackbars.error.setOpen true
+
+_showErrorSnackbar snackbars _ error = do
+    runEffectFn1 snackbars.error.setMessage (Error.message error)
+    runEffectFn1 snackbars.error.setOpen true
