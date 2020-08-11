@@ -87,7 +87,8 @@ function getSnackbar(): Snackbar
     const [open, setOpen] = React.useState(false);
     const [message, setMessage] = React.useState('');
 
-    const onClose = (event, reason) => {
+    const onClose = (event?: React.SyntheticEvent, reason?: string) =>
+    {
         if (reason === 'clickaway')
         {
             return;
