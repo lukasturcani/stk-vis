@@ -15,6 +15,7 @@ import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal
 import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Utils
     ( disabled
     , previousPageIndex
+    , showRefreshedSnackbar
     , errorSnackbar
     ) as Utils
 
@@ -89,7 +90,12 @@ backButtonProps
         (_onClick dispatch snackbars.success)
         (Utils.errorSnackbar snackbars pageKind)
 
-    _onClick :: Deferred => DispatchAction a -> Snackbar -> Promise Unit
+    _onClick
+        :: Deferred
+        => DispatchAction a
+        -> Snackbar
+        -> Promise Unit
+
     _onClick dispatch snackbar = do
         result <- request
 

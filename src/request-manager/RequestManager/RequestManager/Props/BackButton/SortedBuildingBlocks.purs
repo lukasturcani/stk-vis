@@ -15,6 +15,8 @@ import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal
 import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Utils
     ( disabled
     , previousPageIndex
+    , showRefreshedSnackbar
+    , errorSnackbar
     ) as Utils
 
 import RequestManager.PageKind (fromRequest)
@@ -27,8 +29,9 @@ import RequestManager.UpdateMoleculePage
 
 import Requests.SortedBuildingBlocks as Request
 import Data.Array as Array
-import Effect.Promise (class Deferred, Promise)
-import Effect (Effect)
+import Effect.Promise (class Deferred, Promise, catch)
+import Effect.Unsafe (unsafePerformEffect)
+import Effect.Uncurried (runEffectFn1)
 
 
 backButtonProps
@@ -76,8 +79,23 @@ backButtonProps
         , sortType: toRequest sortType
         }
 
-    onClick :: Deferred => (a -> Effect Unit) -> Promise (Effect Unit)
-    onClick dispatch = do
+    onClick
+        :: Deferred
+        => DispatchAction a
+        -> Snackbars
+        -> Promise Unit
+
+    onClick dispatch snackbars = catch
+        (_onClick dispatch snackbars.success)
+        (Utils.errorSnackbar snackbars pageKind)
+
+    _onClick
+        :: Deferred
+        => DispatchAction a
+        -> Snackbar
+        -> Promise Unit
+
+    _onClick dispatch snackbar = do
         result <- request
 
         let
@@ -95,4 +113,13 @@ backButtonProps
                 , valueCollections
                 }
 
-        pure (dispatch (createAction payload))
+        _ <- pure (unsafePerformEffect
+            (Utils.showRefreshedSnackbar
+                (pageIndex == _pageIndex)
+                snackbar
+            )
+        )
+
+        pure (unsafePerformEffect
+            (runEffectFn1 dispatch (createAction payload))
+        )
