@@ -28,15 +28,13 @@ export function BackButton<a>(
 
 const StyledButton: React.FunctionComponent<ButtonProps>
     = (props) => (
-        <Grid item>
-            <Button
-                variant={ 'contained' }
-                color={ 'primary' }
-                {...props}
-            >
-                <NavigateBeforeIcon />
-            </Button>
-        </Grid>
+        <Button
+            variant={ 'contained' }
+            color={ 'primary' }
+            {...props}
+        >
+            <NavigateBeforeIcon />
+        </Button>
     );
 
 type Empty = Record<string, unknown>;
