@@ -91,7 +91,7 @@ nextButtonProps
 
     onClick dispatch snackbars = catch
         (_onClick dispatch snackbars.success)
-        (Utils.errorSnackbar snackbars.error)
+        (Utils.errorSnackbar snackbars pageKind)
 
     _onClick
         :: Deferred
