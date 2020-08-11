@@ -8,15 +8,15 @@ module MongoConfigurator.Action
 
 import MongoConfigurator.Payload as Payload
 
-import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
+import MoleculeBrowser.Initialize.UnsortedAll
     ( InitializeUnsortedAll
     )
 
-import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+import MoleculeBrowser.Initialize.UnsortedBuildingBlocks
     ( InitializeUnsortedBuildingBlocks
     )
 
-import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
+import MoleculeBrowser.Initialize.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
     )
 
