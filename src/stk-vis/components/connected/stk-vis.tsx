@@ -9,9 +9,6 @@ import {
     MongoData
 } from 'MongoConfigurator.UpdateFields.MongoData';
 import {
-    PageData,
-} from 'MoleculeBrowser.UpdateMoleculePage.PageData';
-import {
     StkVis as StkVisBase,
 } from 'stk-vis/styled/stk-vis';
 import {

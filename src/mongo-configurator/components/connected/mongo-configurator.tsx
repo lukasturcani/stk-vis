@@ -15,9 +15,6 @@ import {
 import {
     MongoConfigurator as MongoConfiguratorBase,
 } from 'mongo-configurator/styled/mongo-configurator';
-import {
-    PageData,
-} from 'MoleculeBrowser.UpdateMoleculePage.PageData';
 
 
 function mapStateToProps(

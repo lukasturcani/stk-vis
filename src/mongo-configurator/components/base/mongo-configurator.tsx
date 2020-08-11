@@ -2,9 +2,6 @@ import * as React from 'react';
 import { BaseProps as InputFieldsProps  } from './input-fields';
 import Grid from '@material-ui/core/Grid';
 import {
-    PageData,
-} from 'MoleculeBrowser.UpdateMoleculePage.PageData';
-import {
     Props as BaseProps,
 } from 'MongoConfigurator.MongoConfigurator';
 

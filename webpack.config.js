@@ -101,26 +101,26 @@ module.exports = {
                 './output/MongoConfigurator.SearchKind',
             ),
 
-            'MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll':
+            'MoleculeBrowser.Initialize.UnsortedAll':
                 path.join(
                     __dirname,
-                    './output/MongoConfigurator.'
-                    + 'InitializeMoleculeBrowser.UnsortedAll',
+                    './output/MoleculeBrowser.'
+                    + 'Initialize.UnsortedAll',
                 ),
 
-            'MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks':
+            'MoleculeBrowser.Initialize.UnsortedBuildingBlocks':
                 path.join(
                     __dirname,
-                    './output/MongoConfigurator.'
-                    + 'InitializeMoleculeBrowser.'
+                    './output/MoleculeBrowser.'
+                    + 'Initialize.'
                     + 'UnsortedBuildingBlocks',
                 ),
 
-            'MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules':
+            'MoleculeBrowser.Initialize.UnsortedConstructedMolecules':
                 path.join(
                     __dirname,
-                    './output/MongoConfigurator.'
-                    + 'InitializeMoleculeBrowser.'
+                    './output/MoleculeBrowser.'
+                    + 'Initialize.'
                     + 'UnsortedConstructedMolecules',
                 ),
 
@@ -143,12 +143,6 @@ module.exports = {
                 __dirname,
                 './output/MoleculeBrowser.MoleculeBrowser',
             ),
-
-            'MoleculeBrowser.UpdateMoleculePage':
-                path.join(
-                    __dirname,
-                    './output/MoleculeBrowser.UpdateMoleculePage',
-                ),
 
             'Molecules.Molecules':
                 path.join(
