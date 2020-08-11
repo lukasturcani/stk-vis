@@ -73,6 +73,17 @@ declare module 'RequestManager.RequestManager'
             (payload: InitializeMongoConfigurator) => a;
     }
 
+    export interface Snackbar
+    {
+        setOpen: (open: boolean) => void;
+        setMessage: (message: string) => void;
+    }
+
+    export interface Snackbars
+    {
+        success: Snackbar;
+        error: Snackbar;
+    }
 
     export interface NextButtonProps<a>
     {
@@ -81,6 +92,7 @@ declare module 'RequestManager.RequestManager'
             onClick:
                 () =>
                 (dispatch: (action: a) => void) =>
+                (snackbars: Snackbars) =>
                 Promise<void>;
         };
     }

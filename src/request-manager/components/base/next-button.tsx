@@ -62,8 +62,8 @@ export function NextButton<a>(
                         ()
                         (props.dispatch)
                         ({
-                            successSnackbar,
-                            errorSnackbar
+                            success: successSnackbar,
+                            error: errorSnackbar
                         })
                 }
             />
