@@ -17,12 +17,12 @@ import MoleculeBrowser.Initialize.UnsortedAll
     , initializeUnsortedAll
     )
 
-import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+import MoleculeBrowser.Initialize.UnsortedBuildingBlocks
     ( InitializeUnsortedBuildingBlocks
     , initializeUnsortedBuildingBlocks
     )
 
-import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
+import MoleculeBrowser.Initialize.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
     , initializeUnsortedConstructedMolecules
     )

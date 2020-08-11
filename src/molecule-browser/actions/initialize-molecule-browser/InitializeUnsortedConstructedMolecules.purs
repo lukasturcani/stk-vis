@@ -1,26 +1,47 @@
-module MoleculeBrowser.InitializeMoleculeBrowser.UnsortedConstructedMolecules
+module MoleculeBrowser.Initialize.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
     , initializeUnsortedConstructedMolecules
-    , toMongoConfigurator
+    , initializeMolecules
+    , initializeRequestManager
     ) where
 
-import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
-    as Configurator
+import Molecules.InitializeMolecules
+    ( InitializeMolecules
+    )
 
-newtype InitializeUnsortedConstructedMolecules
+import RequestManager.InitializeUnsortedConstructedMolecules as Base
+
+data InitializeUnsortedConstructedMolecules
     = InitializeUnsortedConstructedMolecules
-        Configurator.InitializeUnsortedConstructedMolecules
+        { _initializeMolecules :: InitializeMolecules
+        , _initializeRequestManager
+            :: Base.InitializeUnsortedConstructedMolecules
+        }
 
 initializeUnsortedConstructedMolecules
-    :: Configurator.InitializeUnsortedConstructedMolecules
+    :: InitializeMolecules
+    -> Base.InitializeUnsortedConstructedMolecules
     -> InitializeUnsortedConstructedMolecules
 
-initializeUnsortedConstructedMolecules
+initializeUnsortedConstructedMolecules molecules manager
     = InitializeUnsortedConstructedMolecules
+        { _initializeMolecules: molecules
+        , _initializeRequestManager: manager
+        }
 
-toMongoConfigurator
+initializeMolecules
+    :: InitializeUnsortedConstructedMolecules -> InitializeMolecules
+
+initializeMolecules
+    (InitializeUnsortedConstructedMolecules { _initializeMolecules })
+    = _initializeMolecules
+
+initializeRequestManager
     :: InitializeUnsortedConstructedMolecules
-    -> Configurator.InitializeUnsortedConstructedMolecules
+    -> Base.InitializeUnsortedConstructedMolecules
 
-toMongoConfigurator (InitializeUnsortedConstructedMolecules payload)
-    = payload
+initializeRequestManager
+    (InitializeUnsortedConstructedMolecules
+        { _initializeRequestManager }
+    )
+    = _initializeRequestManager

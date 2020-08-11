@@ -7,7 +7,7 @@ import StkVis.StkVis.Internal.StkVis as StkVis
 import MoleculeBrowser.MoleculeBrowser as MoleculeBrowser
 import MoleculeBrowser.Action as MB.Action
 
-import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+import MoleculeBrowser.Initialize.UnsortedBuildingBlocks
     ( InitializeUnsortedBuildingBlocks
     )
 

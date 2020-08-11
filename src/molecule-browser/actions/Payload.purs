@@ -11,8 +11,6 @@ module MoleculeBrowser.Payload
     , initializeMongoConfigurator
     ) where
 
-import Prelude
-
 import RequestManager.UpdateMoleculePage
     ( UpdateMoleculePage
     )
@@ -33,23 +31,13 @@ import MoleculeBrowser.Initialize.UnsortedAll
     ( InitializeUnsortedAll
     ) as Browser
 
-import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedBuildingBlocks
+import MoleculeBrowser.Initialize.UnsortedBuildingBlocks
     ( InitializeUnsortedBuildingBlocks
-    , initializeUnsortedBuildingBlocks
     ) as Browser
 
-import MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks
-    ( InitializeUnsortedBuildingBlocks
-    ) as Configurator
-
-import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedConstructedMolecules
+import MoleculeBrowser.Initialize.UnsortedConstructedMolecules
     ( InitializeUnsortedConstructedMolecules
-    , initializeUnsortedConstructedMolecules
     ) as Browser
-
-import MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules
-    ( InitializeUnsortedConstructedMolecules
-    ) as Configurator
 
 import MongoConfigurator.InitializeMongoConfigurator
     ( InitializeMongoConfigurator
@@ -93,20 +81,18 @@ initializeUnsortedAllMoleculeBrowser
     = InitializeUnsortedAllMoleculeBrowser
 
 initializeUnsortedBuildingBlocksMoleculeBrowser
-    :: Configurator.InitializeUnsortedBuildingBlocks
+    :: Browser.InitializeUnsortedBuildingBlocks
     -> Payload
 
 initializeUnsortedBuildingBlocksMoleculeBrowser
     = InitializeUnsortedBuildingBlocksMoleculeBrowser
-        <<< Browser.initializeUnsortedBuildingBlocks
 
 initializeUnsortedConstructedMoleculesMoleculeBrowser
-    :: Configurator.InitializeUnsortedConstructedMolecules
+    :: Browser.InitializeUnsortedConstructedMolecules
     -> Payload
 
 initializeUnsortedConstructedMoleculesMoleculeBrowser
     = InitializeUnsortedConstructedMoleculesMoleculeBrowser
-        <<< Browser.initializeUnsortedConstructedMolecules
 
 selectMolecule :: SelectMolecule -> Payload
 selectMolecule = SelectMolecule
