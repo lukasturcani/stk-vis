@@ -29,6 +29,8 @@ export interface ButtonProps
 export interface SnackbarProps
 {
     open: boolean;
+    onClose: (event?: React.SyntheticEvent, reason?: string) => void;
+    message: string;
 }
 
 
@@ -38,6 +40,7 @@ interface Snackbar
     setOpen: (open: boolean) => void;
     message: string;
     setMessage: (message: string) => void;
+    onClose: (event?: React.SyntheticEvent, reason?: string) => void;
 }
 
 
@@ -54,13 +57,25 @@ export function NextButton<a>(
     return (
         <props.container>
             <props.button
-                onClick={() => props.value0.onClick()(props.dispatch)}
+                onClick={
+                    () => props.value0.onClick
+                        ()
+                        (props.dispatch)
+                        ({
+                            successSnackbar,
+                            errorSnackbar
+                        })
+                }
             />
             <props.successSnackbar
                 open={successSnackbar.open}
+                onClose={successSnackbar.onClose}
+                message={successSnackbar.message}
             />
             <props.errorSnackbar
                 open={errorSnackbar.open}
+                onClose={errorSnackbar.onClose}
+                message={errorSnackbar.message}
             />
         </props.container>
     );
@@ -71,10 +86,20 @@ function getSnackbar(): Snackbar
 {
     const [open, setOpen] = React.useState(false);
     const [message, setMessage] = React.useState('');
+
+    const onClose = (event, reason) => {
+        if (reason === 'clickaway')
+        {
+            return;
+        }
+        setOpen(false);
+    };
+
     return {
         open,
         setOpen,
         message,
         setMessage,
+        onClose,
     };
 }
