@@ -6,18 +6,6 @@ declare module 'RequestManager.Action'
     }
 
     import {
-        InitializeSortedAll,
-    } from 'RequestManager.InitializeSortedAll';
-
-    import {
-        InitializeSortedBuildingBlocks,
-    } from 'RequestManager.InitializeSortedBuildingBlocks';
-
-    import {
-        InitializeSortedConstructedMolecules,
-    } from 'RequestManager.InitializeSortedConstructedMolecules';
-
-    import {
         InitializeUnsortedAll,
     } from 'RequestManager.InitializeUnsortedAll';
 
@@ -49,15 +37,6 @@ declare module 'RequestManager.Action'
 
     export const initializeUnsortedConstructedMolecules:
         (payload: InitializeUnsortedConstructedMolecules) => Action;
-
-    export const initializeSortedAll:
-        (payload: InitializeSortedAll) => Action;
-
-    export const initializeSortedBuildingBlocks:
-        (payload: InitializeSortedBuildingBlocks) => Action;
-
-    export const initializeSortedConstructedMolecules:
-        (payload: InitializeSortedConstructedMolecules) => Action;
 
     export const setUnsorted:
         (payload: SetUnsorted) => Action;

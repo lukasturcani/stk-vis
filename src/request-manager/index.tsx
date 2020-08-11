@@ -25,15 +25,6 @@ from 'RequestManager.InitializeUnsortedBuildingBlocks';
 import * as UnsortedCMs
 from 'RequestManager.InitializeUnsortedConstructedMolecules';
 
-import * as SortedAll
-from 'RequestManager.InitializeSortedAll';
-
-import * as SortedBBs
-from 'RequestManager.InitializeSortedBuildingBlocks';
-
-import * as SortedCMs
-from 'RequestManager.InitializeSortedConstructedMolecules';
-
 import {
     PageKind,
     middle,
@@ -125,25 +116,6 @@ const initializeUnsortedConstructedMolecules
             UnsortedCMs.initializeUnsortedConstructedMolecules(data)
         );
 
-const initializeSortedAll
-    = (data: SortedAll.SortedAllData) =>
-        Action.initializeSortedAll(
-            SortedAll.initializeSortedAll(data)
-        );
-
-const initializeSortedBuildingBlocks
-    = (data: SortedBBs.SortedBuildingBlocksData) =>
-        Action.initializeSortedBuildingBlocks(
-            SortedBBs.initializeSortedBuildingBlocks(data)
-        );
-
-const initializeSortedConstructedMolecules
-    = (data: SortedCMs.SortedConstructedMoleculesData) =>
-        Action.initializeSortedConstructedMolecules(
-            SortedCMs.initializeSortedConstructedMolecules(data)
-        );
-
-
 ReactDOM.render(
     <Provider store={ store }>
         <ThemeProvider theme={theme} >
@@ -214,75 +186,6 @@ ReactDOM.render(
                     }
                 >
                     UnsortedConstructedMolecules
-                </button>
-
-                <button
-                    onClick={
-                        () => store.dispatch(
-                            initializeSortedAll({
-                                url,
-                                database,
-                                moleculeKey,
-                                moleculeCollection,
-                                positionMatrixCollection,
-                                buildingBlockPositionMatrixCollection,
-                                pageIndex,
-                                numEntriesPerPage,
-                                ignoredCollections,
-                                pageKind,
-                                sortedCollection,
-                                sortType,
-                            })
-                        )
-                    }
-                >
-                    SortedAll
-                </button>
-
-                <button
-                    onClick={
-                        () => store.dispatch(
-                            initializeSortedBuildingBlocks({
-                                url,
-                                database,
-                                moleculeKey,
-                                moleculeCollection,
-                                constructedMoleculeCollection,
-                                positionMatrixCollection,
-                                pageIndex,
-                                numEntriesPerPage,
-                                ignoredCollections,
-                                pageKind,
-                                sortedCollection,
-                                sortType,
-                            })
-                        )
-                    }
-                >
-                    SortedBuildingBlocks
-                </button>
-
-                <button
-                    onClick={
-                        () => store.dispatch(
-                            initializeSortedConstructedMolecules({
-                                url,
-                                database,
-                                moleculeKey,
-                                moleculeCollection,
-                                constructedMoleculeCollection,
-                                positionMatrixCollection,
-                                pageIndex,
-                                numEntriesPerPage,
-                                ignoredCollections,
-                                pageKind,
-                                sortedCollection,
-                                sortType,
-                            })
-                        )
-                    }
-                >
-                    SortedConstructedMolecules
                 </button>
 
                 <button
