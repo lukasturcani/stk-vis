@@ -2,12 +2,16 @@ module RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal
     ( lastPage
     , nextPageIndex
     , showRefreshedSnackbar
+    , errorSnackbar
     ) where
 
 import Prelude
 import RequestManager.PageKind (PageKind (..))
 import Effect (Effect)
 import Effect.Uncurried (runEffectFn1)
+import Effect.Unsafe (unsafePerformEffect)
+import Effect.Exception (Error, message) as Error
+import Effect.Promise (class Deferred, Promise)
 
 import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.Props
     ( Snackbar
@@ -33,3 +37,14 @@ showRefreshedSnackbar true snackbar = do
     runEffectFn1 snackbar.setOpen true
 
 showRefreshedSnackbar _ _ = pure unit
+
+errorSnackbar :: Deferred  => Snackbar  -> Error.Error -> Promise Unit
+errorSnackbar snackbar error = pure
+    (unsafePerformEffect
+        (_showErrorSnackbar snackbar error)
+    )
+
+_showErrorSnackbar :: Snackbar -> Error.Error -> Effect Unit
+_showErrorSnackbar snackbar error = do
+    runEffectFn1 snackbar.setMessage (Error.message error)
+    runEffectFn1 snackbar.setOpen true
