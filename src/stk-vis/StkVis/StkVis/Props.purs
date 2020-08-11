@@ -12,7 +12,7 @@ import RequestManager.SetSorted (SetSorted)
 import RequestManager.SetUnsorted (SetUnsorted)
 import Molecules.SelectMolecule (SelectMolecule)
 
-import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
+import MoleculeBrowser.Initialize.UnsortedAll
     ( InitializeUnsortedAll
     )
 

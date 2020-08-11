@@ -12,7 +12,7 @@ import Effect.Promise (class Deferred, Promise)
 import Effect.Class.Console (log)
 import Data.Array as Array
 
-import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
+import MoleculeBrowser.Initialize.UnsortedAll
     ( InitializeUnsortedAll
     , initializeUnsortedAll
     )

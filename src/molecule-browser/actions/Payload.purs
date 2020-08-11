@@ -29,14 +29,9 @@ import RequestManager.SetUnsorted
     ( SetUnsorted
     )
 
-import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedAll
+import MoleculeBrowser.Initialize.UnsortedAll
     ( InitializeUnsortedAll
-    , initializeUnsortedAll
     ) as Browser
-
-import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
-    ( InitializeUnsortedAll
-    ) as Configurator
 
 import MoleculeBrowser.InitializeMoleculeBrowser.UnsortedBuildingBlocks
     ( InitializeUnsortedBuildingBlocks
@@ -91,12 +86,11 @@ setUnsorted :: SetUnsorted -> Payload
 setUnsorted = SetUnsorted
 
 initializeUnsortedAllMoleculeBrowser
-    :: Configurator.InitializeUnsortedAll
+    :: Browser.InitializeUnsortedAll
     -> Payload
 
 initializeUnsortedAllMoleculeBrowser
     = InitializeUnsortedAllMoleculeBrowser
-    <<< Browser.initializeUnsortedAll
 
 initializeUnsortedBuildingBlocksMoleculeBrowser
     :: Configurator.InitializeUnsortedBuildingBlocks

@@ -10,13 +10,11 @@ module StkVis.Payload
     , initializeMongoConfigurator
     ) where
 
-import Prelude
-
 import RequestManager.UpdateMoleculePage
     ( UpdateMoleculePage
     )
 
-import MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll
+import MoleculeBrowser.Initialize.UnsortedAll
     ( InitializeUnsortedAll
     )
 
