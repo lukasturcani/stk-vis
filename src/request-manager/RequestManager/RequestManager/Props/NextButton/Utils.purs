@@ -1,7 +1,7 @@
 module RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.Utils
     ( lastPage
     , nextPageIndex
-    , pageRefreshed
+    , showRefreshedSnackbar
     ) where
 
 import Prelude
@@ -27,9 +27,9 @@ lastPage _              = false
 
 type SamePage = Boolean
 
-pageRefreshed :: SamePage-> Snackbar -> Effect Unit
-pageRefreshed true snackbar = do
+showRefreshedSnackbar :: SamePage-> Snackbar -> Effect Unit
+showRefreshedSnackbar true snackbar = do
     runEffectFn1 snackbar.setMessage "Refreshed!"
     runEffectFn1 snackbar.setOpen true
 
-pageRefreshed _ _ = pure unit
+showRefreshedSnackbar _ _ = pure unit

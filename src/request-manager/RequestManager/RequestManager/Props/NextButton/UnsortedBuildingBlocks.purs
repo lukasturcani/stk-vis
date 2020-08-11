@@ -17,7 +17,7 @@ import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal
 import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.Utils
     ( lastPage
     , nextPageIndex
-    , pageRefreshed
+    , showRefreshedSnackbar
     ) as Utils
 
 import RequestManager.PageKind (fromRequest)
@@ -31,6 +31,7 @@ import Requests.UnsortedBuildingBlocks as Request
 import Data.Array as Array
 import Effect.Promise (class Deferred, Promise)
 import Effect (Effect)
+import Effect.Unsafe (unsafePerformEffect)
 
 
 nextButtonProps
@@ -98,9 +99,11 @@ nextButtonProps
                 , valueCollections
                 }
 
-        _ <- pure (Utils.pageRefreshed
-            (pageIndex == _pageIndex)
-            snackbars.success
+        _ <- pure (unsafePerformEffect
+            (Utils.showRefreshedSnackbar
+                (pageIndex == _pageIndex)
+                snackbars.success
+            )
         )
 
         pure (dispatch (createAction payload))
