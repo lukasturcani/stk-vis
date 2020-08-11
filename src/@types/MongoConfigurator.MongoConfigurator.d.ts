@@ -36,9 +36,22 @@ declare module 'MongoConfigurator.MongoConfigurator'
             onClick:
                 () =>
                 (dispatch: (action: a) => void) =>
+                (snackbars: Snackbars) =>
                 (data: MongoData) =>
                 Promise<void>;
         }
+    }
+
+    export interface Snackbar
+    {
+        setOpen: (open: boolean) => void;
+        setMessage: (message: string) => void;
+    }
+
+    export interface Snackbars
+    {
+        success: Snackbar;
+        error: Snackbar;
     }
 
     export interface Props<a>

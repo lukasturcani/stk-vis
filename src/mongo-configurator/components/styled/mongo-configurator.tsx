@@ -2,10 +2,13 @@ import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar'
 import {
     MongoConfigurator as MongoConfiguratorBase,
     CoreProps,
     ButtonProps,
+    SnackbarProps,
 } from 'mongo-configurator/base/mongo-configurator';
 import {
     InputFields
@@ -20,6 +23,8 @@ export function MongoConfigurator<a>(
         component={ Container }
         inputFields={ InputFields }
         button={ Button }
+        successSnackbar={SuccessSnackbar}
+        errorSnackbar={ErrorSnackbar}
         { ...props }
     />
 }
@@ -53,3 +58,40 @@ const Button: React.FunctionComponent<ButtonProps>
             <SearchIcon />
         </ButtonBase>
     );
+
+const SuccessSnackbar: React.FunctionComponent<SnackbarProps>
+    = props => (
+        <Snackbar
+            open={props.open}
+            onClose={props.onClose}
+            autoHideDuration={6000}
+        >
+            <Alert
+                severity='success'
+                onClose={props.onClose}
+            >
+                {props.message}
+            </Alert>
+        </Snackbar>
+    );
+
+const ErrorSnackbar: React.FunctionComponent<SnackbarProps>
+    = props => (
+        <Snackbar
+            open={props.open}
+            onClose={props.onClose}
+            autoHideDuration={6000}
+        >
+            <Alert
+                severity='error'
+                onClose={props.onClose}
+            >
+                {props.message}
+            </Alert>
+        </Snackbar>
+    );
+
+
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}

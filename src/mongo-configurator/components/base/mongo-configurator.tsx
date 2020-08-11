@@ -18,6 +18,8 @@ interface Props<a> extends BaseProps<a>, DispatchProps<a>
     component: React.FunctionComponent<Record<string, unknown>>;
     inputFields: React.FunctionComponent<InputFieldsProps>;
     button: React.FunctionComponent<ButtonProps>;
+    successSnackbar: React.FunctionComponent<SnackbarProps>;
+    errorSnackbar: React.FunctionComponent<SnackbarProps>;
 }
 
 export interface ButtonProps
@@ -26,11 +28,33 @@ export interface ButtonProps
     onClick: () => void;
 }
 
+export interface SnackbarProps
+{
+    open: boolean;
+    onClose: (event?: React.SyntheticEvent, reason?: string) => void;
+    message: string;
+}
+
+interface Snackbar
+{
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    message: string;
+    setMessage: (message: string) => void;
+    onClose: (event?: React.SyntheticEvent, reason?: string) => void;
+}
+
 
 export function MongoConfigurator<a>(
     props: Props<a>,
 )
 {
+    const successSnackbar: Snackbar
+        = getSnackbar();
+
+    const errorSnackbar: Snackbar
+        = getSnackbar();
+
     const [url, setUrl]
         = React.useState(props.value0.url);
 
@@ -128,6 +152,10 @@ export function MongoConfigurator<a>(
                             ()
                             (props.dispatch)
                             ({
+                                success: successSnackbar,
+                                error: errorSnackbar,
+                            })
+                            ({
                                 url,
                                 moleculeKey,
                                 database,
@@ -141,7 +169,40 @@ export function MongoConfigurator<a>(
                             })
                     }}
                 />
+                <props.successSnackbar
+                    open={successSnackbar.open}
+                    onClose={successSnackbar.onClose}
+                    message={successSnackbar.message}
+                />
+                <props.errorSnackbar
+                    open={errorSnackbar.open}
+                    onClose={errorSnackbar.onClose}
+                    message={errorSnackbar.message}
+                />
             </Grid>
         </props.component>
     );
+}
+
+function getSnackbar(): Snackbar
+{
+    const [open, setOpen] = React.useState(false);
+    const [message, setMessage] = React.useState('');
+
+    const onClose = (event?: React.SyntheticEvent, reason?: string) =>
+    {
+        if (reason === 'clickaway')
+        {
+            return;
+        }
+        setOpen(false);
+    };
+
+    return {
+        open,
+        setOpen,
+        message,
+        setMessage,
+        onClose,
+    };
 }
