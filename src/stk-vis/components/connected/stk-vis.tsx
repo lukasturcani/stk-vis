@@ -35,7 +35,7 @@ import {
 } from 'MoleculeBrowser.Initialize.UnsortedConstructedMolecules';
 import {
     InitializeMongoConfigurator
-} from 'RequestManager.InitializeMongoConfigurator';
+} from 'MongoConfigurator.InitializeMongoConfigurator';
 
 function mapStateToProps<a>(
     state: State,

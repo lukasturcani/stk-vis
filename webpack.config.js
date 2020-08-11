@@ -208,10 +208,10 @@ module.exports = {
                     + 'InitializeUnsortedConstructedMolecules',
                 ),
 
-            'RequestManager.InitializeMongoConfigurator':
+            'MongoConfigurator.InitializeMongoConfigurator':
                 path.join(
                     __dirname,
-                    './output/RequestManager.'
+                    './output/MongoConfigurator.'
                     + 'InitializeMongoConfigurator',
                 ),
 

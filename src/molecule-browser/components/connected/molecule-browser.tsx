@@ -25,7 +25,7 @@ import { SetUnsorted } from 'RequestManager.SetUnsorted';
 import { SelectMolecule } from 'Molecules.SelectMolecule';
 import {
     InitializeMongoConfigurator
-} from 'RequestManager.InitializeMongoConfigurator';
+} from 'MongoConfigurator.InitializeMongoConfigurator';
 
 
 function mapStateToProps<a>(
