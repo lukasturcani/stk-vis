@@ -1,7 +1,6 @@
 module RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Utils
     ( disabled
     , previousPageIndex
-    , showRefreshedSnackbar
     , errorSnackbar
     ) where
 
@@ -14,8 +13,7 @@ import Effect.Exception (Error, message) as Error
 import Effect.Promise (class Deferred, Promise)
 
 import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Props
-    ( Snackbar
-    , Snackbars
+    ( Snackbars
     )
 
 disabled :: PageKind -> Boolean
@@ -28,15 +26,6 @@ previousPageIndex :: Int -> Int
 previousPageIndex pageIndex
     | pageIndex <= 0 = 0
     | otherwise      = pageIndex - 1
-
-type SamePage = Boolean
-
-showRefreshedSnackbar :: SamePage-> Snackbar -> Effect Unit
-showRefreshedSnackbar true snackbar = do
-    runEffectFn1 snackbar.setMessage "Refreshed!"
-    runEffectFn1 snackbar.setOpen true
-
-showRefreshedSnackbar _ _ = pure unit
 
 errorSnackbar
     :: Deferred

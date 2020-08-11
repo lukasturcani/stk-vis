@@ -18,7 +18,6 @@ import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal
 import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Utils
     ( disabled
     , previousPageIndex
-    , showRefreshedSnackbar
     , errorSnackbar
     ) as Utils
 
@@ -110,13 +109,6 @@ backButtonProps
                 , pageKind: fromRequest pageKind'
                 , valueCollections
                 }
-
-        _ <- pure (unsafePerformEffect
-            (Utils.showRefreshedSnackbar
-                (pageIndex == _pageIndex)
-                snackbar
-            )
-        )
 
         pure (unsafePerformEffect
             (runEffectFn1 dispatch (createAction payload))
