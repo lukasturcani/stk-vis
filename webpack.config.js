@@ -245,16 +245,6 @@ module.exports = {
                     './output/SelectingCollection',
                 ),
 
-            'mongo-db-requests': path.join(
-                __dirname,
-                './src/mongo-db-requests',
-            ),
-
-            'maybe': path.join(
-                __dirname,
-                './src/maybe',
-            ),
-
         },
     },
     module: {
