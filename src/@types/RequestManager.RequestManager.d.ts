@@ -32,6 +32,7 @@ declare module 'RequestManager.RequestManager'
             onClick:
                 () =>
                 (dispatch: (action: a) => void) =>
+                (snackbars: Snackbars) =>
                 Promise<void>;
         };
     }

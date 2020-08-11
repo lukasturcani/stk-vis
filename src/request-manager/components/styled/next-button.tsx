@@ -39,33 +39,29 @@ export function NextButton<a>(
 type Empty = Record<string, unknown>;
 
 const Container: React.FunctionComponent<Empty>
-    = (props) => <div>{props.children}</div>;
+    = (props) => <Grid item>{props.children}</Grid>;
 
 
 const NonLastButton: React.FunctionComponent<ButtonProps>
     = (props) => (
-        <Grid item>
-            <Button
-                variant={ 'contained' }
-                color={ 'primary' }
-                {...props}
-            >
-                <NavigateNextIcon />
-            </Button>
-        </Grid>
+        <Button
+            variant={ 'contained' }
+            color={ 'primary' }
+            {...props}
+        >
+            <NavigateNextIcon />
+        </Button>
     );
 
 const LastButton: React.FunctionComponent<ButtonProps>
     = (props) => (
-        <Grid item>
-            <Button
-                variant={ 'contained' }
-                color={ 'primary' }
-                {...props}
-            >
-                <RefreshIcon />
-            </Button>
-        </Grid>
+        <Button
+            variant={ 'contained' }
+            color={ 'primary' }
+            {...props}
+        >
+            <RefreshIcon />
+        </Button>
     );
 
 const SuccessSnackbar: React.FunctionComponent<SnackbarProps>
