@@ -10,11 +10,14 @@ import RequestManager.RequestManager.Internal.RequestManager.UnsortedConstructed
 
 import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.Props
     ( NextButtonProps (..)
+    , DispatchAction
+    , Snackbars
     )
 
 import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.Utils
     ( lastPage
     , nextPageIndex
+    , pageRefreshed
     ) as Utils
 
 import RequestManager.PageKind (fromRequest)
@@ -71,8 +74,13 @@ nextButtonProps
         , ignoredCollections
         }
 
-    onClick :: Deferred => (a -> Effect Unit) -> Promise (Effect Unit)
-    onClick dispatch = do
+    onClick
+        :: Deferred
+        => DispatchAction a
+        -> Snackbars
+        -> Promise (Effect Unit)
+
+    onClick dispatch snackbars = do
         result <- request
 
         let
@@ -89,5 +97,11 @@ nextButtonProps
                 , pageKind: fromRequest pageKind'
                 , valueCollections
                 }
+
+        _ <- pure
+            (Utils.pageRefreshed
+                (pageIndex == _pageIndex)
+                snackbars.success
+            )
 
         pure (dispatch (createAction payload))
