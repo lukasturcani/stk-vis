@@ -21,7 +21,7 @@ declare module 'RequestManager.RequestManager'
     } from 'RequestManager.SetUnsorted';
     import {
         InitializeMongoConfigurator
-    } from 'RequestManager.InitializeMongoConfigurator';
+    } from 'MongoConfigurator.InitializeMongoConfigurator';
 
     export type RequestManager = Record<string, unknown>;
 
