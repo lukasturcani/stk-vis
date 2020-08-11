@@ -7,6 +7,11 @@ module RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal
 
 import Prelude
 import RequestManager.PageKind (PageKind (..))
+import Effect (Effect)
+import Effect.Uncurried (runEffectFn1)
+import Effect.Unsafe (unsafePerformEffect)
+import Effect.Exception (Error, message) as Error
+import Effect.Promise (class Deferred, Promise)
 
 import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Props
     ( Snackbar

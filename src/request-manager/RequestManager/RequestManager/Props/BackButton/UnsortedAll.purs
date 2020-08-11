@@ -10,6 +10,9 @@ import RequestManager.RequestManager.Internal.RequestManager.UnsortedAll
 
 import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Props
     ( BackButtonProps (..)
+    , DispatchAction
+    , Snackbars
+    , Snackbar
     )
 
 import RequestManager.RequestManager.Internal.Props.Internal.BackButton.Internal.Utils
