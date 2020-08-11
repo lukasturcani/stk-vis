@@ -31,8 +31,8 @@ import RequestManager.UpdateMoleculePage
 import Requests.SortedBuildingBlocks as Request
 import Data.Array as Array
 import Effect.Promise (class Deferred, Promise)
-import Effect (Effect)
 import Effect.Unsafe (unsafePerformEffect)
+import Effect.Uncurried (runEffectFn1)
 
 
 nextButtonProps
@@ -84,7 +84,7 @@ nextButtonProps
         :: Deferred
         => DispatchAction a
         -> Snackbars
-        -> Promise (Effect Unit)
+        -> Promise Unit
 
     onClick dispatch snackbars = do
         result <- request
@@ -111,4 +111,6 @@ nextButtonProps
             )
         )
 
-        pure (dispatch (createAction payload))
+        pure (unsafePerformEffect
+            (runEffectFn1 dispatch (createAction payload))
+        )

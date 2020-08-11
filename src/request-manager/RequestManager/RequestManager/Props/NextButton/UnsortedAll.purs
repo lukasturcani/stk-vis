@@ -32,8 +32,8 @@ import RequestManager.UpdateMoleculePage
 import Requests.UnsortedAll as Request
 import Data.Array as Array
 import Effect.Promise (class Deferred, Promise, catch)
-import Effect (Effect)
 import Effect.Unsafe (unsafePerformEffect)
+import Effect.Uncurried (runEffectFn1)
 
 
 nextButtonProps
@@ -119,4 +119,6 @@ nextButtonProps
             )
         )
 
-        pure (dispatch (createAction payload))
+        pure (unsafePerformEffect
+            (runEffectFn1 dispatch (createAction payload))
+        )
