@@ -7,11 +7,13 @@ module MongoConfigurator.MongoConfigurator.Internal.Props.Internal.GetMoleculesB
     ) where
 
 import Prelude
-import Effect.Promise (class Deferred, Promise)
+import Effect (Effect)
+import Effect.Promise (class Deferred, Promise, catch)
 import Effect.Class.Console (log)
 import Data.Array as Array
 import Effect.Uncurried (EffectFn1, runEffectFn1)
 import Effect.Unsafe (unsafePerformEffect)
+import Effect.Exception (Error, message) as Error
 
 import MoleculeBrowser.Initialize.UnsortedAll
     ( InitializeUnsortedAll
@@ -121,7 +123,18 @@ getMoleculesButtonProps
         -> MongoData
         -> Promise Unit
 
-    onClick
+    onClick dispatch snackbars mongoData = catch
+        (_onClick dispatch snackbars mongoData)
+        (_errorSnackbar snackbars)
+
+    _onClick
+        :: Deferred
+        => DispatchAction a
+        -> Snackbars
+        -> MongoData
+        -> Promise Unit
+
+    _onClick
         dispatch
         snackbars
         { url
@@ -187,7 +200,7 @@ getMoleculesButtonProps
                 )
             )
 
-    onClick
+    _onClick
         dispatch
         snackbars
         { url
@@ -255,7 +268,7 @@ getMoleculesButtonProps
                 )
             )
 
-    onClick
+    _onClick
         dispatch
         snackbars
         { url
@@ -323,7 +336,7 @@ getMoleculesButtonProps
                 )
             )
 
-    onClick
+    _onClick
         dispatch
         snackbars
         { url
@@ -340,3 +353,21 @@ getMoleculesButtonProps
         = pure (unsafePerformEffect
             (log "No valid request can be made.")
         )
+
+
+_errorSnackbar
+    :: Deferred
+    => Snackbars
+    -> Error.Error
+    -> Promise Unit
+
+_errorSnackbar snackbars error = pure
+    (unsafePerformEffect
+        (_showErrorSnackbar snackbars error)
+    )
+
+_showErrorSnackbar :: Snackbars -> Error.Error -> Effect Unit
+_showErrorSnackbar snackbars error = do
+    runEffectFn1 snackbars.error.setMessage (Error.message error)
+    runEffectFn1 snackbars.error.setOpen true
+
