@@ -7,10 +7,11 @@ module MongoConfigurator.MongoConfigurator.Internal.Props.Internal.GetMoleculesB
     ) where
 
 import Prelude
-import Effect (Effect)
 import Effect.Promise (class Deferred, Promise)
 import Effect.Class.Console (log)
 import Data.Array as Array
+import Effect.Uncurried (EffectFn1, runEffectFn1)
+import Effect.Unsafe (unsafePerformEffect)
 
 import MoleculeBrowser.Initialize.UnsortedAll
     ( InitializeUnsortedAll
@@ -52,7 +53,7 @@ import MongoConfigurator.MongoConfigurator.Internal.MongoConfigurator
 import Requests.UnsortedConstructedMolecules
     as ConstructedMoleculesRequest
 
-type DispatchAction a = a -> Effect Unit
+type DispatchAction a = EffectFn1 a Unit
 
 type MongoData =
     { url                                   :: String
@@ -67,12 +68,23 @@ type MongoData =
     , selectConstructedMolecules            :: Boolean
     }
 
+type Snackbar =
+    { setOpen    :: EffectFn1 Boolean Unit
+    , setMessage :: EffectFn1 String Unit
+    }
+
+type Snackbars =
+    { success :: Snackbar
+    , error   :: Snackbar
+    }
+
 data GetMoleculesButtonProps a = GetMoleculesButtonProps
     { onClick
         :: Deferred
         => DispatchAction a
+        -> Snackbars
         -> MongoData
-        -> Promise (Effect Unit)
+        -> Promise Unit
     }
 
 type ActionCreators a r =
@@ -105,11 +117,13 @@ getMoleculesButtonProps
     onClick
         :: Deferred
         => DispatchAction a
+        -> Snackbars
         -> MongoData
-        -> Promise (Effect Unit)
+        -> Promise Unit
 
     onClick
         dispatch
+        snackbars
         { url
         , moleculeKey
         , database
@@ -167,13 +181,15 @@ getMoleculesButtonProps
                         }
                     )
 
-            pure
-                (dispatch
+            pure (unsafePerformEffect
+                (runEffectFn1 dispatch
                     (actionCreators.initializeUnsortedAll payload)
                 )
+            )
 
     onClick
         dispatch
+        snackbars
         { url
         , moleculeKey
         , database
@@ -231,15 +247,17 @@ getMoleculesButtonProps
                         }
                     )
 
-            pure
-                (dispatch
+            pure (unsafePerformEffect
+                (runEffectFn1 dispatch
                     (actionCreators.initializeUnsortedConstructedMolecules
                         payload
                     )
                 )
+            )
 
     onClick
         dispatch
+        snackbars
         { url
         , moleculeKey
         , database
@@ -297,15 +315,17 @@ getMoleculesButtonProps
                         }
                     )
 
-            pure
-                (dispatch
+            pure (unsafePerformEffect
+                (runEffectFn1 dispatch
                     (actionCreators.initializeUnsortedBuildingBlocks
                         payload
                     )
                 )
+            )
 
     onClick
         dispatch
+        snackbars
         { url
         , moleculeKey
         , database
@@ -317,4 +337,6 @@ getMoleculesButtonProps
         , selectBuildingBlocks: false
         , selectConstructedMolecules: false
         }
-        = pure (log "No valid request can be made.")
+        = pure (unsafePerformEffect
+            (log "No valid request can be made.")
+        )
