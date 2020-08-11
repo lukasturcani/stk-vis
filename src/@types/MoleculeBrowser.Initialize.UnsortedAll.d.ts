@@ -1,4 +1,4 @@
-declare module 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll'
+declare module 'MoleculeBrowser.Initialize.UnsortedAll'
 {
     export type InitializeUnsortedAll = Record<string, unknown>;
 }

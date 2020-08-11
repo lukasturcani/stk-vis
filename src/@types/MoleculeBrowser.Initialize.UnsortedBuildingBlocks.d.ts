@@ -1,4 +1,4 @@
-declare module 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks'
+declare module 'MoleculeBrowser.Initialize.UnsortedBuildingBlocks'
 {
     export type InitializeUnsortedBuildingBlocks
         = Record<string, unknown>;

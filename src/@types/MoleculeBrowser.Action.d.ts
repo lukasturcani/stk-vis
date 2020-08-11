@@ -2,7 +2,7 @@ declare module 'MoleculeBrowser.Action'
 {
     import {
         UpdateMoleculePage
-    } from 'MoleculeBrowser.UpdateMoleculePage';
+    } from 'RequestManager.UpdateMoleculePage';
     import {
         SortType,
     } from 'RequestManager.SortType';
