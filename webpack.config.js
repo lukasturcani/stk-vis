@@ -188,26 +188,6 @@ module.exports = {
                     './output/RequestManager.PageKind',
                 ),
 
-            'RequestManager.InitializeSortedAll':
-                path.join(
-                    __dirname,
-                    './output/RequestManager.InitializeSortedAll',
-                ),
-
-            'RequestManager.InitializeSortedBuildingBlocks':
-                path.join(
-                    __dirname,
-                    './output/RequestManager.'
-                    + 'InitializeSortedBuildingBlocks',
-                ),
-
-            'RequestManager.InitializeSortedConstructedMolecules':
-                path.join(
-                    __dirname,
-                    './output/RequestManager.'
-                    + 'InitializeSortedConstructedMolecules',
-                ),
-
             'RequestManager.InitializeUnsortedAll':
                 path.join(
                     __dirname,
