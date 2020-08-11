@@ -17,7 +17,6 @@ import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal
 import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.Utils
     ( lastPage
     , nextPageIndex
-    , pageRefreshed
     ) as Utils
 
 import RequestManager.PageKind (fromRequest)
@@ -98,10 +97,9 @@ nextButtonProps
                 , valueCollections
                 }
 
-        _ <- pure
-            (Utils.pageRefreshed
-                (pageIndex == _pageIndex)
-                snackbars.success
-            )
+        _ <- pure (snackbars.success.setMessage "Refreshed!")
+        _ <- pure (snackbars.success.setOpen
+            (pageIndex == _pageIndex)
+        )
 
         pure (dispatch (createAction payload))
