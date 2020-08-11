@@ -12,12 +12,14 @@ import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal
     ( NextButtonProps (..)
     , DispatchAction
     , Snackbars
+    , Snackbar
     )
 
 import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.Utils
     ( lastPage
     , nextPageIndex
     , showRefreshedSnackbar
+    , errorSnackbar
     ) as Utils
 
 import RequestManager.PageKind (fromRequest)
@@ -30,7 +32,7 @@ import RequestManager.UpdateMoleculePage
 
 import Requests.SortedConstructedMolecules as Request
 import Data.Array as Array
-import Effect.Promise (class Deferred, Promise)
+import Effect.Promise (class Deferred, Promise, catch)
 import Effect.Unsafe (unsafePerformEffect)
 import Effect.Uncurried (runEffectFn1)
 
@@ -86,7 +88,17 @@ nextButtonProps
         -> Snackbars
         -> Promise Unit
 
-    onClick dispatch snackbars = do
+    onClick dispatch snackbars = catch
+        (_onClick dispatch snackbars.success)
+        (Utils.errorSnackbar snackbars.error)
+
+    _onClick
+        :: Deferred
+        => DispatchAction a
+        -> Snackbar
+        -> Promise Unit
+
+    _onClick dispatch snackbar = do
         result <- request
 
         let
@@ -107,7 +119,7 @@ nextButtonProps
         _ <- pure (unsafePerformEffect
             (Utils.showRefreshedSnackbar
                 (pageIndex == _pageIndex)
-                snackbars.success
+                snackbar
             )
         )
 
