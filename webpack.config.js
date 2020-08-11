@@ -76,11 +76,6 @@ module.exports = {
                 './src/molecule-browser/components',
             ),
 
-            'StkVis.UpdateFields.UpdateFields': path.join(
-                __dirname,
-                './output/StkVis.UpdateFields.UpdateFields',
-            ),
-
             'StkVis.StkVis': path.join(
                 __dirname,
                 './output/StkVis.StkVis',
@@ -127,11 +122,6 @@ module.exports = {
             'MongoConfigurator.Action': path.join(
                 __dirname,
                 './output/MongoConfigurator.Action',
-            ),
-
-            'MongoConfigurator.UpdateFields.UpdateFields': path.join(
-                __dirname,
-                './output/MongoConfigurator.UpdateFields.UpdateFields',
             ),
 
             'MoleculeBrowser.Action': path.join(

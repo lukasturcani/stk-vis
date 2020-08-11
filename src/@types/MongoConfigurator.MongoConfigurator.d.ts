@@ -5,13 +5,13 @@ declare module 'MongoConfigurator.MongoConfigurator'
     } from 'MongoConfigurator.Action';
     import {
         InitializeUnsortedAll
-    } from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll';
+    } from 'MoleculeBrowser.Initialize.UnsortedAll';
     import {
         InitializeUnsortedBuildingBlocks
-    } from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks';
+    } from 'MoleculeBrowser.Initialize.UnsortedBuildingBlocks';
     import {
         InitializeUnsortedConstructedMolecules
-    } from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules';
+    } from 'MoleculeBrowser.Initialize.UnsortedConstructedMolecules';
 
     export type MongoConfigurator = Record<string, unknown>;
 

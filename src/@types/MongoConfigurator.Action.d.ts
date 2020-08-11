@@ -4,17 +4,14 @@ declare module 'MongoConfigurator.Action'
         UpdateFields
     } from 'MongoConfigurator.UpdateFields.UpdateFields';
     import {
-        PageData
-    } from 'MoleculeBrowser.UpdateMoleculePage.PageData';
-    import {
         InitializeUnsortedAll,
-    } from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedAll'
+    } from 'MoleculeBrowser.Initialize.UnsortedAll'
     import {
         InitializeUnsortedBuildingBlocks,
-    } from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedBuildingBlocks'
+    } from 'MoleculeBrowser.Initialize.UnsortedBuildingBlocks'
     import {
         InitializeUnsortedConstructedMolecules,
-    } from 'MongoConfigurator.InitializeMoleculeBrowser.UnsortedConstructedMolecules'
+    } from 'MoleculeBrowser.Initialize.UnsortedConstructedMolecules'
 
     export interface Action
     {
