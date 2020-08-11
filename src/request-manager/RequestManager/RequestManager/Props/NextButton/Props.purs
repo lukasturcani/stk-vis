@@ -10,7 +10,7 @@ import Effect.Promise (class Deferred, Promise)
 import Effect (Effect)
 import Effect.Uncurried (EffectFn1)
 
-type DispatchAction a = a -> Effect Unit
+type DispatchAction a = EffectFn1 a Unit
 
 type Snackbar =
     { setOpen    :: EffectFn1 Boolean Unit
@@ -29,5 +29,5 @@ data NextButtonProps a = NextButtonProps
         :: Deferred
         => DispatchAction a
         -> Snackbars
-        -> Promise (Effect Unit)
+        -> Promise Unit
     }

@@ -82,7 +82,7 @@ nextButtonProps
         :: Deferred
         => DispatchAction a
         -> Snackbars
-        -> Promise (Effect Unit)
+        -> Promise Unit
 
     onClick dispatch snackbars = catch
         (_onClick dispatch snackbars.success)
@@ -92,7 +92,7 @@ nextButtonProps
         :: Deferred
         => DispatchAction a
         -> Snackbar
-        -> Promise (Effect Unit)
+        -> Promise Unit
 
     _onClick dispatch snackbar = do
         result <- request
