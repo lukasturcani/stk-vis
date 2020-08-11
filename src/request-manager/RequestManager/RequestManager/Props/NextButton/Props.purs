@@ -8,12 +8,13 @@ module RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal
 import Prelude
 import Effect.Promise (class Deferred, Promise)
 import Effect (Effect)
+import Effect.Uncurried (EffectFn1)
 
 type DispatchAction a = a -> Effect Unit
 
 type Snackbar =
-    { setOpen    :: Boolean -> Effect Unit
-    , setMessage :: String -> Effect Unit
+    { setOpen    :: EffectFn1 Boolean Unit
+    , setMessage :: EffectFn1 String Unit
     }
 
 type Snackbars =

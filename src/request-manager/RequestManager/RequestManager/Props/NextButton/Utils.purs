@@ -7,7 +7,7 @@ module RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal
 import Prelude
 import RequestManager.PageKind (PageKind (..))
 import Effect (Effect)
-import Effect.Class.Console (log)
+import Effect.Uncurried (runEffectFn1)
 
 import RequestManager.RequestManager.Internal.Props.Internal.NextButton.Internal.Props
     ( Snackbar
@@ -28,9 +28,8 @@ lastPage _              = false
 type SamePage = Boolean
 
 pageRefreshed :: SamePage-> Snackbar -> Effect Unit
-pageRefreshed true snackbar = snackbar.setOpen true
---    log "here"
---    snackbar.setOpen true
---    snackbar.setMessage "Refreshed!"
+pageRefreshed true snackbar = do
+    runEffectFn1 snackbar.setMessage "Refreshed!"
+    runEffectFn1 snackbar.setOpen true
 
-pageRefreshed _ _ = log "here"
+pageRefreshed _ _ = pure unit
