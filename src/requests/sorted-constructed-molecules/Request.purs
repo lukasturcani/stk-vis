@@ -101,15 +101,21 @@ request options = do
             options.moleculeKey
             (Array.slice 0 options.numEntriesPerPage sortedEntries)
 
+        moleculeKeys = SortedCollection.keys sortedCollection
+
         dataQuery = Utils.dataQuery
             options.moleculeKey
-            (SortedCollection.keys sortedCollection)
+            moleculeKeys
 
     rawMoleculeEntries <-
-        Mongo.toArray $ Mongo.find
+        Mongo.toArray $ Mongo.aggregate
             database
             options.moleculeCollection
-            dataQuery
+            (Utils.moleculeQuery
+                options.moleculeKey
+                options.constructedMoleculeCollection
+                moleculeKeys
+            )
 
     matrixEntries <-
         Mongo.toArray $ Mongo.find

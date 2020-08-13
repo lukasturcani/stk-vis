@@ -11,6 +11,7 @@ module Mongo
     , collections
     , find
     , find'
+    , findOne
     , skip
     , limit
     , toArray
@@ -35,6 +36,12 @@ foreign import find :: Database -> CollectionName -> Query -> Cursor
 foreign import skip :: Int -> Cursor -> Cursor
 foreign import limit :: Int -> Cursor -> Cursor
 foreign import toArray :: Cursor -> Promise (Array Entry)
+
+foreign import findOne
+    :: Database
+    -> CollectionName
+    -> Query
+    -> Promise (Array Entry)
 
 find' :: Database -> Query -> CollectionName -> Cursor
 find' db query collection = find db collection query

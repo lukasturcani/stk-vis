@@ -1,5 +1,7 @@
 module Requests.Utils
-    ( dataQuery
+    ( ConstructedMoleculeCollectionName
+    , dataQuery
+    , moleculeQuery
     , addPositionMatrices
     , addValues
     ) where
@@ -30,6 +32,14 @@ import Requests.Molecule
 
 foreign import dataQuery
     :: MoleculeKeyName -> Array MoleculeKeyValue -> Mongo.Query
+
+type ConstructedMoleculeCollectionName = String
+
+foreign import moleculeQuery
+    :: MoleculeKeyName
+    -> ConstructedMoleculeCollectionName
+    -> Array MoleculeKeyValue
+    -> Mongo.AggregationQuery
 
 
 addPositionMatrices

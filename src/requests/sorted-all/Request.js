@@ -11,12 +11,6 @@ exports.query = moleculeKey => collection => isAscending => [
             'v': (isAscending)? 1 : -1,
         }
     },
-    {
-        '$lookup': {
-            'from': collection,
-            'localField': moleculeKey,
-            'foreignField': moleculeKey,
-            'as': 'constructedMolecule',
-        },
-    }
 ];
+
+

@@ -18,6 +18,11 @@ exports.find = database => collection => query => database
     .collection(collection)
     .find(query)
 
+exports.findOne = database => collection => query => database
+    .collection(collection)
+    .findOne(query)
+    .then(result => result === undefined? [] : [result]);
+
 exports.skip = number => cursor => cursor.skip(number);
 
 exports.limit = number => cursor => cursor.limit(number);
