@@ -49,7 +49,12 @@ type RequestOptions =
     , ignoredCollections                    :: Array String
     }
 
-foreign import query :: MoleculeKeyName -> Mongo.Query
+type ConstructedMoleculeCollectionName = String
+
+foreign import query
+    :: MoleculeKeyName
+    -> ConstructedMoleculeCollectionName
+    -> Mongo.AggregationQuery
 
 request :: Deferred => RequestOptions -> Promise Result
 
@@ -76,10 +81,13 @@ request options = do
         Mongo.toArray $
         Mongo.limit (options.numEntriesPerPage+1) $
         Mongo.skip (options.pageIndex * options.numEntriesPerPage) $
-        Mongo.find
+        Mongo.aggregate
             database
             options.moleculeCollection
-            (query options.moleculeKey)
+            (query
+                options.moleculeKey
+                options.constructedMoleculeCollection
+            )
 
     let
         baseMolecules =
