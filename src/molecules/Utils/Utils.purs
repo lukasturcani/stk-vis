@@ -17,6 +17,7 @@ import ValidatedMolecule.ChemicalSymbol
 
 molecule :: Molecule.Molecule
 molecule = Molecule.molecule
+    false
     validated
     (fromFoldable
         [ Tuple "one"   "1"

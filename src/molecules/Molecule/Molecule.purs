@@ -15,26 +15,37 @@ import ValidatedMolecule.ChemicalSymbol as ChemicalSymbol
 import Requests.Molecule as Request
 
 data Molecule = Molecule
-    { _properties :: Map String String
-    , _molecule   :: Validated.Molecule
-    , _smiles     :: String
+    { _properties  :: Map String String
+    , _molecule    :: Validated.Molecule
+    , _smiles      :: String
+    , _constructed :: Boolean
     }
 
 properties :: Molecule -> Map String String
 properties (Molecule { _properties }) = _properties
 
-molecule :: Validated.Molecule -> Map String String -> Molecule
-molecule validated properties' = Molecule
+type IsConstructed = Boolean
+
+molecule
+    :: IsConstructed
+    -> Validated.Molecule
+    -> Map String String
+    -> Molecule
+
+molecule constructed' validated properties' = Molecule
     { _properties: properties'
     , _molecule: validated
     , _smiles: _smiles' validated
+    , _constructed: constructed'
     }
 
 type MoleculeKeyName = String
 
 molecule' :: MoleculeKeyName -> Request.Molecule -> Molecule
-molecule' moleculeKey requestMolecule = molecule validated properties'
+molecule' moleculeKey requestMolecule
+    = molecule constructed' validated properties'
   where
+    constructed' = Request.constructed requestMolecule
     validated = Request.toValidated requestMolecule
     properties' =
         insert

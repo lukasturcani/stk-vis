@@ -39,9 +39,10 @@ _toMolecule
     :: MoleculeKeyName -> Requests.Molecule -> Molecules.Molecule
 
 _toMolecule moleculeKey molecule =
-    Molecules.molecule validated properties
+    Molecules.molecule constructed validated properties
   where
-    validated =Requests.toValidated molecule
+    constructed = Requests.constructed molecule
+    validated = Requests.toValidated molecule
     properties =
         insert
             moleculeKey
