@@ -50,6 +50,7 @@ nextButtonProps
         , _database: database
         , _moleculeKey: moleculeKey
         , _moleculeCollection: moleculeCollection
+        , _constructedMoleculeCollection: constructedMoleculeCollection
         , _positionMatrixCollection: positionMatrixCollection
         , _buildingBlockPositionMatrixCollection:
             buildingBlockPositionMatrixCollection
@@ -74,6 +75,7 @@ nextButtonProps
         , database
         , moleculeKey
         , moleculeCollection
+        , constructedMoleculeCollection
         , positionMatrixCollection
         , buildingBlockPositionMatrixCollection
         , pageIndex

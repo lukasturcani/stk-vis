@@ -1,4 +1,4 @@
-exports.query = moleculeKey => isAscending => [
+exports.query = moleculeKey => collection => isAscending => [
     {
         '$match': {
             [moleculeKey]: {
@@ -10,5 +10,13 @@ exports.query = moleculeKey => isAscending => [
         '$sort': {
             'v': (isAscending)? 1 : -1,
         }
+    },
+    {
+        '$lookup': {
+            'from': collection,
+            'localField': moleculeKey,
+            'foreignField': moleculeKey,
+            'as': 'constructedMolecule',
+        },
     }
 ];

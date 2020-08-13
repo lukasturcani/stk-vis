@@ -79,6 +79,7 @@ sortButtonProps
             , database
             , moleculeKey
             , moleculeCollection
+            , constructedMoleculeCollection
             , positionMatrixCollection
             , buildingBlockPositionMatrixCollection
             , pageIndex

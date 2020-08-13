@@ -42,6 +42,7 @@ type RequestOptions =
     , database                              :: String
     , moleculeKey                           :: String
     , moleculeCollection                    :: String
+    , constructedMoleculeCollection         :: String
     , positionMatrixCollection              :: String
     , buildingBlockPositionMatrixCollection :: String
     , pageIndex                             :: Int
@@ -52,9 +53,13 @@ type RequestOptions =
     }
 
 type IsAscending = Boolean
+type CollectionName = String
 
 foreign import query
-    :: MoleculeKeyName -> IsAscending -> Mongo.AggregationQuery
+    :: MoleculeKeyName
+    -> CollectionName
+    -> IsAscending
+    -> Mongo.AggregationQuery
 
 request :: Deferred => RequestOptions -> Promise Result
 
@@ -85,7 +90,11 @@ request options = do
         Mongo.aggregate
             database
             options.sortedCollection
-            (query options.moleculeKey (isAscending options.sortType))
+            (query
+                options.moleculeKey
+                options.constructedMoleculeCollection
+                (isAscending options.sortType)
+            )
 
     let
         sortedCollection = SortedCollection.fromEntries
