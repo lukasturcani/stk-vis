@@ -11,6 +11,7 @@ data SortedAll = SortedAll
     , _database                              :: String
     , _moleculeKey                           :: String
     , _moleculeCollection                    :: String
+    , _constructedMoleculeCollection         :: String
     , _positionMatrixCollection              :: String
     , _buildingBlockPositionMatrixCollection :: String
     , _pageIndex                             :: Int

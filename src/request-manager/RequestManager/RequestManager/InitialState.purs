@@ -20,6 +20,7 @@ initialState = RequestManager.UnsortedAll unsortedAll
         , _database: "stkVis"
         , _moleculeKey: "InChIKey"
         , _moleculeCollection: "molecules"
+        , _constructedMoleculeCollection: "constructed_molecules"
         , _positionMatrixCollection: "position_matrices"
         , _buildingBlockPositionMatrixCollection:
             "building_block_position_matrices"

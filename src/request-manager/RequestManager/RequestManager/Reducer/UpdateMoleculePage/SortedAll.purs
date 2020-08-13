@@ -18,6 +18,7 @@ updateMoleculePage
         , _database
         , _moleculeKey
         , _moleculeCollection
+        , _constructedMoleculeCollection
         , _positionMatrixCollection
         , _buildingBlockPositionMatrixCollection
         , _numEntriesPerPage
@@ -32,6 +33,7 @@ updateMoleculePage
         , _database
         , _moleculeKey
         , _moleculeCollection
+        , _constructedMoleculeCollection
         , _positionMatrixCollection
         , _buildingBlockPositionMatrixCollection
         , _pageIndex: Payload.pageIndex payload

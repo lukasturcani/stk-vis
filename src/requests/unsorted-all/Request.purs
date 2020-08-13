@@ -41,6 +41,7 @@ type RequestOptions =
     , database                              :: String
     , moleculeKey                           :: String
     , moleculeCollection                    :: String
+    , constructedMoleculeCollection         :: String
     , positionMatrixCollection              :: String
     , buildingBlockPositionMatrixCollection :: String
     , pageIndex                             :: Int

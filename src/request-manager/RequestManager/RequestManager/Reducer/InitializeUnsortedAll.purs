@@ -25,6 +25,9 @@ initializeUnsortedAll _ payload
         , _moleculeKey: (Payload.moleculeKey payload)
         , _moleculeCollection: (Payload.moleculeCollection payload)
 
+        , _constructedMoleculeCollection:
+            Payload.constructedMoleculeCollection payload
+
         , _positionMatrixCollection:
             (Payload.positionMatrixCollection payload)
 

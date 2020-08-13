@@ -154,6 +154,7 @@ getMoleculesButtonProps
                 , database
                 , moleculeKey
                 , moleculeCollection
+                , constructedMoleculeCollection
                 , positionMatrixCollection
                 , buildingBlockPositionMatrixCollection
                 , pageIndex: 0
@@ -184,6 +185,7 @@ getMoleculesButtonProps
                         , database
                         , moleculeKey
                         , moleculeCollection
+                        , constructedMoleculeCollection
                         , positionMatrixCollection
                         , buildingBlockPositionMatrixCollection
                         , pageIndex: 0

@@ -38,6 +38,7 @@ sortButtonProps
         , _database: database
         , _moleculeKey: moleculeKey
         , _moleculeCollection: moleculeCollection
+        , _constructedMoleculeCollection: constructedMoleculeCollection
         , _positionMatrixCollection: positionMatrixCollection
         , _buildingBlockPositionMatrixCollection:
             buildingBlockPositionMatrixCollection
@@ -115,6 +116,7 @@ sortButtonProps
             , database
             , moleculeKey
             , moleculeCollection
+            , constructedMoleculeCollection
             , positionMatrixCollection
             , buildingBlockPositionMatrixCollection
             , pageIndex

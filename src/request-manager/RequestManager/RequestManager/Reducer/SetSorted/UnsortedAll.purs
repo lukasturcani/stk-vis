@@ -24,6 +24,7 @@ setSorted
         , _database
         , _moleculeKey
         , _moleculeCollection
+        , _constructedMoleculeCollection
         , _positionMatrixCollection
         , _buildingBlockPositionMatrixCollection
         , _pageIndex
@@ -40,6 +41,7 @@ setSorted
             , _database
             , _moleculeKey
             , _moleculeCollection
+            , _constructedMoleculeCollection
             , _positionMatrixCollection
             , _buildingBlockPositionMatrixCollection
             , _pageIndex

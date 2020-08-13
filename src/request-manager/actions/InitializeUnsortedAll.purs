@@ -6,6 +6,7 @@ module RequestManager.InitializeUnsortedAll
     , database
     , moleculeKey
     , moleculeCollection
+    , constructedMoleculeCollection
     , positionMatrixCollection
     , buildingBlockPositionMatrixCollection
     , pageIndex
@@ -22,6 +23,7 @@ type UnsortedAllData =
     , database                              :: String
     , moleculeKey                           :: String
     , moleculeCollection                    :: String
+    , constructedMoleculeCollection         :: String
     , positionMatrixCollection              :: String
     , buildingBlockPositionMatrixCollection :: String
     , pageIndex                             :: Int
@@ -36,6 +38,7 @@ data InitializeUnsortedAll = InitializeUnsortedAll
     , _database                              :: String
     , _moleculeKey                           :: String
     , _moleculeCollection                    :: String
+    , _constructedMoleculeCollection         :: String
     , _positionMatrixCollection              :: String
     , _buildingBlockPositionMatrixCollection :: String
     , _pageIndex                             :: Int
@@ -51,6 +54,7 @@ initializeUnsortedAll
     , database: database'
     , moleculeKey: moleculeKey'
     , moleculeCollection: moleculeCollection'
+    , constructedMoleculeCollection: constructedMoleculeCollection'
     , positionMatrixCollection: positionMatrixCollection'
 
     , buildingBlockPositionMatrixCollection:
@@ -67,6 +71,9 @@ initializeUnsortedAll
         , _database: database'
         , _moleculeKey: moleculeKey'
         , _moleculeCollection: moleculeCollection'
+
+        , _constructedMoleculeCollection:
+            constructedMoleculeCollection'
         , _positionMatrixCollection: positionMatrixCollection'
 
         , _buildingBlockPositionMatrixCollection:
@@ -91,6 +98,11 @@ moleculeKey (InitializeUnsortedAll { _moleculeKey }) = _moleculeKey
 moleculeCollection :: InitializeUnsortedAll -> String
 moleculeCollection (InitializeUnsortedAll { _moleculeCollection })
     = _moleculeCollection
+
+constructedMoleculeCollection :: InitializeUnsortedAll -> String
+constructedMoleculeCollection
+    (InitializeUnsortedAll { _constructedMoleculeCollection })
+    = _constructedMoleculeCollection
 
 positionMatrixCollection :: InitializeUnsortedAll -> String
 positionMatrixCollection
