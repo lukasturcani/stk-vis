@@ -42,7 +42,8 @@ fromEntry :: MoleculeKeyName -> Mongo.Entry -> Maybe Exports.Molecule
 fromEntry = FromEntry.fromEntry
 
 fromValidated
-    :: MoleculeKeyValue
+    :: Boolean
+    -> MoleculeKeyValue
     -> Exports.Properties
     -> Validated.Molecule
     -> Exports.Molecule
