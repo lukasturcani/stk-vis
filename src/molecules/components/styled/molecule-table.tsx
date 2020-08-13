@@ -60,5 +60,6 @@ const Table: React.FunctionComponent<TableProps>
             columns={props.columns}
             data={props.data}
             onRowClick={props.onRowClick}
+            actions={props.actions}
         />
     );

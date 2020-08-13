@@ -37,6 +37,14 @@ export interface TableProps
     data: RowData[];
     onRowClick: (event: any, selectedRow: any) => void;
     selectedRow: number;
+    actions: TableAction[];
+}
+
+export interface TableAction
+{
+    icon: string;
+    tooltip: string;
+    onClick: (event: any, selectRow: any) => void;
 }
 
 
@@ -49,6 +57,15 @@ export function MoleculeTable<a>(
     return (
         <props.container>
             <props.table
+                actions={[
+                    {
+                        icon: 'zoom_in',
+                        tooltip: 'Get building blocks.',
+                        onClick: (event, rowData) => {
+                            console.log(rowData);
+                        },
+                    },
+                ]}
                 columns={
                     columns.map(
                         name => ({title: name, field: name})
