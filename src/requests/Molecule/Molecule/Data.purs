@@ -4,7 +4,6 @@ module Requests.Molecule.Internal.Data
     , key
     , properties
     , toValidated
-    , constructed
     , fromValidated
     ) where
 
@@ -15,10 +14,9 @@ import Requests.MoleculeKey (MoleculeKeyValue)
 type Properties = Map String String
 
 data Molecule = Molecule
-    { _key         :: MoleculeKeyValue
-    , _properties  :: Properties
-    , _molecule    :: Validated.Molecule
-    , _constructed :: Boolean
+    { _key        :: MoleculeKeyValue
+    , _properties :: Properties
+    , _molecule   :: Validated.Molecule
     }
 
 key :: Molecule -> MoleculeKeyValue
@@ -30,19 +28,14 @@ properties (Molecule { _properties }) = _properties
 toValidated :: Molecule -> Validated.Molecule
 toValidated (Molecule { _molecule }) = _molecule
 
-constructed :: Molecule -> Boolean
-constructed (Molecule { _constructed }) = _constructed
-
 fromValidated
-    :: Boolean
-    -> MoleculeKeyValue
+    :: MoleculeKeyValue
     -> Properties
     -> Validated.Molecule
     -> Molecule
 
-fromValidated constructed' key' props mol = Molecule
+fromValidated key' props mol = Molecule
     { _key: key'
     , _properties: props
     , _molecule: mol
-    , _constructed: constructed'
     }
