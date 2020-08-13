@@ -23,5 +23,12 @@ exports.toUncheckedMoleculeEntry = helpers => moleculeKey => entry =>
     }
     result['key'] = key;
 
+    const constructed = entry['constructedMolecule'];
+    if (constructed === undefined)
+    {
+        return helpers.nothing;
+    }
+    result['constructed'] = constructed.length > 0;
+
     return helpers.just(result);
 }

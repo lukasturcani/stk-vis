@@ -62,5 +62,6 @@ toMoleculeEntry moleculeKey entry = do
         { key: unchecked.key
         , atoms: fromFoldable atomEntries
         , bonds: fromFoldable bondEntries
+        , constructed: unchecked.constructed
         }
     )

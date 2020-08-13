@@ -18,7 +18,8 @@ type BondEntry =
     }
 
 type MoleculeEntry a b =
-    { key   :: MoleculeKeyValue
-    , atoms :: Array a
-    , bonds :: Array b
+    { key         :: MoleculeKeyValue
+    , atoms       :: Array a
+    , bonds       :: Array b
+    , constructed :: Boolean
     }

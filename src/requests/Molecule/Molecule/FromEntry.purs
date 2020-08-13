@@ -43,6 +43,7 @@ fromEntry moleculeKey entry = do
         { _key: moleculeEntry.key
         , _properties: empty
         , _molecule: validated
+        , _constructed: moleculeEntry.constructed
         }
 
 atom :: AtomEntry -> Maybe Validated.Atom
