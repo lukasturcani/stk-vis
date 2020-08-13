@@ -23,6 +23,7 @@ import Requests.Molecule
     , toValidated
     , key
     , properties
+    , constructed
     , fromValidated
     )
 
@@ -45,6 +46,7 @@ addPositionMatrix :: Molecule -> PositionMatrix -> Maybe Molecule
 addPositionMatrix molecule positionMatrix = do
     newMolecule <- Validated.molecule atoms bonds
     pure $ fromValidated
+        (constructed molecule)
         (key molecule)
         (properties molecule)
         newMolecule
@@ -83,6 +85,7 @@ addValues molecules collections = do
   where
     addValues_ molecule collection =
         Molecule.fromValidated
+            (constructed molecule)
             (key molecule)
             (properties molecule collection)
             (toValidated molecule)

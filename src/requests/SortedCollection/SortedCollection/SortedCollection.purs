@@ -59,6 +59,7 @@ addMolecules
         value <- Maybe.toArray (Map.lookup key _values)
         molecule <- Maybe.toArray (Map.lookup key molecules)
         pure $ Molecule.fromValidated
+            (Molecule.constructed molecule)
             (Molecule.key molecule)
             (Map.insert _name value (Molecule.properties molecule))
             (Molecule.toValidated molecule)
