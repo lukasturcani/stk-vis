@@ -19,6 +19,8 @@ import MolDraw.DrawMol.Mesh (MeshOptions, Mesh)
 import Molecules.SelectMolecule (SelectMolecule, selectMolecule)
 import Effect.Uncurried (EffectFn1, runEffectFn1)
 import Effect.Unsafe (unsafePerformEffect)
+--import Effect.Promise (class Deferred, Promise, catch)
+--import Requests.BuildingBlocks as Request
 
 import SelectingCollection
     ( selected
@@ -32,6 +34,10 @@ data MoleculeTableProps a = MoleculeTableProps
     , selectedRow :: Int
     , rows :: Array (Map String String)
     , molecules :: Array Molecule.Molecule
+--    , buildingBlockRequests
+--        :: Deferred
+--        => Array (DispatchAction a -> Promise Unit)
+
     , selectMolecule
         :: DispatchAction a
         -> Int
@@ -57,9 +63,11 @@ moleculeTableProps
         , rows: map properties molecules
         , molecules: molecules
         , selectMolecule: selectMolecule'
+--        , buildingBlockRequests
         }
   where
     molecules = all _molecules
+
     selectMolecule' dispatch id molecule =
         unsafePerformEffect
             (runEffectFn1 dispatch
@@ -67,6 +75,45 @@ moleculeTableProps
                     (selectMolecule id molecule)
                 )
             )
+
+ --   buildingBlockRequests dispatch =
+ --       all (map (buildingBlockRequest dispatch) _molecules)
+
+ --   buildingBlockRequest
+ --       :: Deferred =>
+ --       -> DispatchAction a
+ --       -> Molecule.Molecule
+ --       -> Promise Unit
+
+ --   buildingBlockRequest dispatch molecule = do
+ --       result <- Request.request
+ --           { url
+ --           , database
+ --           , moleculeKey
+ --           , moleculeCollection
+ --           , constructedMoleculeCollection
+ --           , positionMatrixCollection
+ --           , buildingBlockPositionMatrixCollection
+ --           , valueCollections
+ --           , molecule
+ --           }
+
+ --       let
+ --           (Request.Result { molecules }) = result
+
+ --           payload = updateMoleculePage
+ --               { columns:
+ --                   Array.concat [[moleculeKey], valueCollections]
+ --               , moleculeKey
+ --               , molecules
+ --               , pageIndex
+ --               , pageKind: fromRequest pageKind'
+ --               , valueCollections
+ --               }
+
+ --       pure (unsafePerformEffect
+ --           (runEffectFn1 dispatch (createAction payload))
+ --       )
 
 data TwoDViewerProps = TwoDViewerProps
     { smiles :: String
