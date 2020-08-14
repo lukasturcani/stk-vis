@@ -11,21 +11,21 @@ module Molecules.Molecules.Internal.Props
 
 import Prelude
 import Data.Map (Map)
-import Effect (Effect)
 import Data.Tuple (fst, snd)
 import Molecules.Molecule as Molecule
 import Molecules.Molecules.Internal.Molecules (Molecules (..))
 import Molecules.Molecule (properties, smiles, meshes)
 import MolDraw.DrawMol.Mesh (MeshOptions, Mesh)
 import Molecules.SelectMolecule (SelectMolecule, selectMolecule)
+import Effect.Uncurried (EffectFn1, runEffectFn1)
+import Effect.Unsafe (unsafePerformEffect)
 
 import SelectingCollection
     ( selected
     , all
     )
 
-
-type DispatchAction a = a -> Effect Unit
+type DispatchAction a = EffectFn1 a Unit
 
 data MoleculeTableProps a = MoleculeTableProps
     { columns :: Array String
@@ -36,7 +36,7 @@ data MoleculeTableProps a = MoleculeTableProps
         :: DispatchAction a
         -> Int
         -> Molecule.Molecule
-        -> Effect Unit
+        -> Unit
     }
 
 type ActionCreators a r =
@@ -46,7 +46,7 @@ type ActionCreators a r =
 
 moleculeTableProps
     :: forall a r
-    . ActionCreators a r -> Molecules -> MoleculeTableProps a
+    .  ActionCreators a r -> Molecules -> MoleculeTableProps a
 
 moleculeTableProps
     actionCreators
@@ -61,9 +61,11 @@ moleculeTableProps
   where
     molecules = all _molecules
     selectMolecule' dispatch id molecule =
-        dispatch
-            (actionCreators.selectMolecule
-                (selectMolecule id molecule)
+        unsafePerformEffect
+            (runEffectFn1 dispatch
+                (actionCreators.selectMolecule
+                    (selectMolecule id molecule)
+                )
             )
 
 data TwoDViewerProps = TwoDViewerProps
