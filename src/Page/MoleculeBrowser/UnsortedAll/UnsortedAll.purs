@@ -83,7 +83,7 @@ type RequestConfig r =
 debugInit :: Model
 debugInit =
     { url: "mongodb://localhost:27017"
-    , database: "StkVis"
+    , database: "stkVis"
     , moleculeKey: "InChIKey"
     , moleculeCollection: "molecules"
     , constructedMoleculeCollection: "constructed_molecules"
