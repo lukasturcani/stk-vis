@@ -104,9 +104,9 @@ type SetSortedActionCreators a r =
     }
 
 setSorted
-    :: forall a r r2
+    :: forall a r1 r2
     .  Deferred
-    => SetSortedActionCreators a r
+    => SetSortedActionCreators a r1
     -> RequestConfig r2
     -> DispatchAction a
     -> CollectionName
@@ -171,9 +171,9 @@ type SetUnsortedActionCreators a r =
     }
 
 setUnsorted
-    :: forall a r r2
+    :: forall a r1 r2
     .  Deferred
-    => SetUnsortedActionCreators a r
+    => SetUnsortedActionCreators a r1
     -> RequestConfig r2
     -> DispatchAction a
     -> Promise Unit
