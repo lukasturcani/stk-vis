@@ -1,0 +1,38 @@
+import * as React from 'react';
+import {
+    Props as MoleculeBrowserProps,
+} from 'Page.MoleculeBrowser.Props'
+import {
+    CoreProps as SortButtonProps,
+} from '../../../SortButton/components/base/sort-button';
+
+
+type Empty = Record<string, unknown>;
+
+export interface DispatchProps<a>
+{
+    dispatch: (action: a) => void;
+}
+
+export type CoreProps<a> = DispatchProps<a> & MoleculeBrowserProps<a>;
+
+interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps<a>
+{
+    root: React.FunctionComponent<Record<string, unknown>>;
+    sortButton: React.FunctionComponent<SortButtonProps<a>>;
+}
+
+
+export function MoleculeBrowser<a>(
+    props: Props<a>,
+)
+{
+    return (
+        <props.root>
+            <props.sortButton
+                dispatch={props.dispatch}
+                {...props.sortButton}
+            />
+        </props.root>
+    );
+}

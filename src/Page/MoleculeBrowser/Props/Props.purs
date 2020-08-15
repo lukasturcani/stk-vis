@@ -1,4 +1,4 @@
-module Page.MoleculeBrowser.MoleculeBrowser
+module Page.MoleculeBrowser.Props
     ( Props
     ) where
 
