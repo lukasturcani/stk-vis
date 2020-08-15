@@ -6,7 +6,7 @@ import {
     Model,
     Action,
     props,
-    UpdateMoleculePage,
+    updateMoleculePage,
     doNothing,
 } from 'Page.MoleculeBrowser.UnsortedAll';
 import {
@@ -30,11 +30,7 @@ function mapModelToProps<a>(
     return {
         ...props
         ({
-            updateMoleculePage:
-                (payload: UpdateMoleculePage) => ({
-                    type: "UPDATE_MOLECULE_PAGE",
-                    payload
-                }),
+            updateMoleculePage,
 
             setSorted:
                 (collection: string) =>
