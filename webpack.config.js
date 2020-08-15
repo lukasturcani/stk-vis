@@ -71,6 +71,11 @@ module.exports = {
                 './src/mongo-configurator/components',
             ),
 
+            'SortType': path.join(
+                __dirname,
+                './output/SortType',
+            ),
+
             'molecule-browser': path.join(
                 __dirname,
                 './src/molecule-browser/components',
