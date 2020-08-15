@@ -14,6 +14,9 @@ import {
 import {
     Props as ThreeDViewerProps,
 } from 'Page.MoleculeBrowser.ThreeDViewer';
+import {
+    CoreProps as NextButtonProps,
+} from '../../NextButton/components/base'
 
 
 type Empty = Record<string, unknown>;
@@ -34,6 +37,8 @@ interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps<a>
     viewerContainer: React.FunctionComponent<Empty>;
     twoDViewerComponent: React.FunctionComponent<TwoDViewerProps>;
     threeDViewerComponent: React.FunctionComponent<ThreeDViewerProps>;
+    nextButtonComponent: React.FunctionComponent<NextButtonProps<a>>;
+    navigationButtonContainer: React.FunctionComponent<Empty>;
 
 }
 
@@ -56,6 +61,12 @@ export function MoleculeBrowser<a>(
                 <props.twoDViewerComponent {...props.twoDViewer}    />
                 <props.threeDViewerComponent {...props.threeDViewer} />
             </props.viewerContainer>
+            <props.navigationButtonContainer>
+                <props.nextButtonComponent
+                    dispatch={props.dispatch}
+                    {...props.nextButton}
+                />
+            </props.navigationButtonContainer>
         </props.root>
     );
 }

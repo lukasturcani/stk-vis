@@ -12,6 +12,9 @@ declare module 'Page.MoleculeBrowser.Props'
     import {
         Props as ThreeDViewerProps,
     } from 'Page.MoleculeBrowser.ThreeDViewer';
+    import {
+        Props as NextButtonProps,
+    } from 'Page.MoleculeBrowser.NextButton';
 
     export interface Props<a>
     {
@@ -19,5 +22,6 @@ declare module 'Page.MoleculeBrowser.Props'
         moleculeTable: MoleculeTableProps<a>;
         twoDViewer: TwoDViewerProps;
         threeDViewer: ThreeDViewerProps;
+        nextButton: NextButtonProps<a>;
     }
 }
