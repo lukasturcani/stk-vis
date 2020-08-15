@@ -17,7 +17,7 @@ export function MoleculeBrowser<a>(
 {
     return <MoleculeBrowserBase
         root={Root}
-        sortButton={SortButton}
+        sortButtonComponent={SortButton}
         {...props}
     />;
 }

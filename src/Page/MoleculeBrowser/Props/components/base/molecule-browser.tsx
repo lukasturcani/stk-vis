@@ -19,7 +19,7 @@ export type CoreProps<a> = DispatchProps<a> & MoleculeBrowserProps<a>;
 interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps<a>
 {
     root: React.FunctionComponent<Record<string, unknown>>;
-    sortButton: React.FunctionComponent<SortButtonProps<a>>;
+    sortButtonComponent: React.FunctionComponent<SortButtonProps<a>>;
 }
 
 
@@ -29,7 +29,7 @@ export function MoleculeBrowser<a>(
 {
     return (
         <props.root>
-            <props.sortButton
+            <props.sortButtonComponent
                 dispatch={props.dispatch}
                 {...props.sortButton}
             />
