@@ -9,6 +9,9 @@ import {
 import {
     SortButton,
 } from '../../../SortButton/components/styled/sort-button';
+import {
+    MoleculeTable,
+} from '../../../MoleculeTable/components/styled';
 
 
 export function MoleculeBrowser<a>(
@@ -18,6 +21,7 @@ export function MoleculeBrowser<a>(
     return <MoleculeBrowserBase
         root={Root}
         sortButtonComponent={SortButton}
+        moleculeTableComponent={MoleculeTable}
         {...props}
     />;
 }

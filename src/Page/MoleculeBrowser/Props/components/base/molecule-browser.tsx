@@ -5,6 +5,9 @@ import {
 import {
     CoreProps as SortButtonProps,
 } from '../../../SortButton/components/base/sort-button';
+import {
+    CoreProps as MoleculeTableProps,
+} from '../../../MoleculeTable/components/base';
 
 
 type Empty = Record<string, unknown>;
@@ -20,6 +23,8 @@ interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps<a>
 {
     root: React.FunctionComponent<Record<string, unknown>>;
     sortButtonComponent: React.FunctionComponent<SortButtonProps<a>>;
+    moleculeTableComponent:
+        React.FunctionComponent<MoleculeTableProps<a>>;
 }
 
 
@@ -32,6 +37,10 @@ export function MoleculeBrowser<a>(
             <props.sortButtonComponent
                 dispatch={props.dispatch}
                 {...props.sortButton}
+            />
+            <props.moleculeTableComponent
+                dispatch={props.dispatch}
+                {...props.moleculeTable}
             />
         </props.root>
     );

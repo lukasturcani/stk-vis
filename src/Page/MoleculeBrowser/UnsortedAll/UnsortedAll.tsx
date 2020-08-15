@@ -8,6 +8,7 @@ import {
     props,
     updateMoleculePage,
     doNothing,
+    selectMolecule,
 } from 'Page.MoleculeBrowser.UnsortedAll';
 import {
     SortType
@@ -38,6 +39,8 @@ function mapModelToProps<a>(
                 doNothing,
 
             setUnsorted: doNothing,
+
+            selectMolecule,
 
         })
         (model)

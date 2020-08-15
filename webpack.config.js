@@ -90,6 +90,11 @@ module.exports = {
                 './output/Page.MoleculeBrowser.UnsortedAll',
             ),
 
+            'Page.MoleculeBrowser.MoleculeTable': path.join(
+                __dirname,
+                './output/Page.MoleculeBrowser.MoleculeTable',
+            ),
+
             'molecule-browser': path.join(
                 __dirname,
                 './src/molecule-browser/components',
