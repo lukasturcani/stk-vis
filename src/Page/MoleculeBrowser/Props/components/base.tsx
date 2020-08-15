@@ -4,10 +4,10 @@ import {
 } from 'Page.MoleculeBrowser.Props'
 import {
     CoreProps as SortButtonProps,
-} from '../../../SortButton/components/base/sort-button';
+} from '../../SortButton/components/base/sort-button';
 import {
     CoreProps as MoleculeTableProps,
-} from '../../../MoleculeTable/components/base';
+} from '../../MoleculeTable/components/base';
 
 
 type Empty = Record<string, unknown>;

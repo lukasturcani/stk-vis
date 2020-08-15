@@ -16,10 +16,10 @@ import {
 import {
     DispatchProps,
     CoreProps,
-} from '../Props/components/base/molecule-browser';
+} from '../Props/components/base';
 import {
     MoleculeBrowser
-} from '../Props/components/styled/molecule-browser';
+} from '../Props/components/styled';
 
 
 function mapModelToProps<a>(

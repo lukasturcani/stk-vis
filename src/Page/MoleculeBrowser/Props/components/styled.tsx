@@ -4,14 +4,14 @@ import Grid from '@material-ui/core/Grid';
 import {
     MoleculeBrowser as MoleculeBrowserBase,
     CoreProps,
-} from '../base/molecule-browser';
+} from './base';
 
 import {
     SortButton,
-} from '../../../SortButton/components/styled/sort-button';
+} from '../../SortButton/components/styled/sort-button';
 import {
     MoleculeTable,
-} from '../../../MoleculeTable/components/styled';
+} from '../../MoleculeTable/components/styled';
 
 
 export function MoleculeBrowser<a>(
