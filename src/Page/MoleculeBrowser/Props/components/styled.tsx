@@ -12,6 +12,12 @@ import {
 import {
     MoleculeTable,
 } from '../../MoleculeTable/components/styled';
+import {
+    TwoDViewer,
+} from '../../TwoDViewer/components/styled';
+import {
+    ThreeDViewer,
+} from '../../ThreeDViewer/components/styled';
 
 
 export function MoleculeBrowser<a>(
@@ -22,6 +28,9 @@ export function MoleculeBrowser<a>(
         root={Root}
         sortButtonComponent={SortButton}
         moleculeTableComponent={MoleculeTable}
+        viewerContainer={ViewerContainer}
+        twoDViewerComponent={TwoDViewer}
+        threeDViewerComponent={ThreeDViewer}
         {...props}
     />;
 }

@@ -8,6 +8,12 @@ import {
 import {
     CoreProps as MoleculeTableProps,
 } from '../../MoleculeTable/components/base';
+import {
+    Props as TwoDViewerProps,
+} from 'Page.MoleculeBrowser.TwoDViewer';
+import {
+    Props as ThreeDViewerProps,
+} from 'Page.MoleculeBrowser.ThreeDViewer';
 
 
 type Empty = Record<string, unknown>;
@@ -25,6 +31,10 @@ interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps<a>
     sortButtonComponent: React.FunctionComponent<SortButtonProps<a>>;
     moleculeTableComponent:
         React.FunctionComponent<MoleculeTableProps<a>>;
+    viewerContainer: React.FunctionComponent<Empty>;
+    twoDViewerComponent: React.FunctionComponent<TwoDViewerProps>;
+    threeDViewerComponent: React.FunctionComponent<ThreeDViewerProps>;
+
 }
 
 
@@ -42,6 +52,10 @@ export function MoleculeBrowser<a>(
                 dispatch={props.dispatch}
                 {...props.moleculeTable}
             />
+            <props.viewerContainer>
+                <props.twoDViewerComponent {...props.twoDViewer}    />
+                <props.threeDViewerComponent {...props.threeDViewer} />
+            </props.viewerContainer>
         </props.root>
     );
 }
