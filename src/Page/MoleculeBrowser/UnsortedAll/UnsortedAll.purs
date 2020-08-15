@@ -1,5 +1,8 @@
 module Page.MoleculeBrowser.UnsortedAll
     ( Model
+    , Action
+    , Payload
+    , reducer
     ) where
 
 import Prelude

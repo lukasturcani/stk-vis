@@ -9,6 +9,9 @@ module.exports = {
         'mongo-configurator': './src/mongo-configurator/index.tsx',
         'molecules': './src/molecules/index.tsx',
         'request-manager': './src/request-manager/index.tsx',
+
+        'unsorted-all':
+            './src/Page/MoleculeBrowser/UnsortedAll/index.tsx',
     },
     target: 'electron-renderer',
     output: {
