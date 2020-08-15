@@ -4,29 +4,11 @@ import Grid from '@material-ui/core/Grid';
 import {
     MoleculeBrowser as MoleculeBrowserBase,
     CoreProps,
-} from 'molecule-browser/base/molecule-browser';
+} from '../base/molecule-browser';
 
 import {
     SortButton,
-} from 'request-manager/styled/sort-button';
-import {
-    MoleculeTable,
-} from 'molecules/styled/molecule-table';
-import {
-    TwoDViewer,
-} from 'molecules/styled/2d-viewer';
-import {
-    ThreeDViewer,
-} from 'molecules/styled/3d-viewer';
-import {
-    BackButton,
-} from 'request-manager/styled/back-button';
-import {
-    NextButton,
-} from 'request-manager/styled/next-button';
-import {
-    Breadcrumbs
-} from 'request-manager/styled/breadcrumbs';
+} from '../../../SortButton/components/styled/sort-button';
 
 
 export function MoleculeBrowser<a>(
@@ -35,15 +17,7 @@ export function MoleculeBrowser<a>(
 {
     return <MoleculeBrowserBase
         root={Root}
-        breadcrumbs={Breadcrumbs}
         sortButton={SortButton}
-        moleculeTable={MoleculeTable}
-        viewerContainer={ViewerContainer}
-        twoDViewer={TwoDViewer}
-        threeDViewer={ThreeDViewer}
-        navigationButtonContainer={NavigationButtonContainer}
-        backButton={BackButton}
-        nextButton={NextButton}
         {...props}
     />;
 }

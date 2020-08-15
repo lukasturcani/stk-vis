@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {
     UnsortedAll
-} from './components/connected/unsorted-all';
+} from './UnsortedAll';
 import {
     reducer,
     Action,

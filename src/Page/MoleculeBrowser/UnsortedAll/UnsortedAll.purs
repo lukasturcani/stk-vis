@@ -4,6 +4,9 @@ module Page.MoleculeBrowser.UnsortedAll
     , Payload
     , reducer
     , debugInit
+    , props
+    , updateMoleculePage
+    , doNothing
     ) where
 
 import Prelude
@@ -285,6 +288,7 @@ type Action =
 
 data Payload
     = UpdateMoleculePage UpdateMoleculePage
+    | Empty
 
 type UpdateMoleculePage =
     { columns          :: Array String
@@ -294,6 +298,17 @@ type UpdateMoleculePage =
     , valueCollections :: Array String
     }
 
+updateMoleculePage :: UpdateMoleculePage -> Action
+updateMoleculePage payload =
+    { type: "UPDATE_MOLECULE_PAGE"
+    , payload: UpdateMoleculePage payload
+    }
+
+doNothing :: Action
+doNothing =
+    { type: "EMPTY"
+    , payload: Empty
+    }
 
 ---
 
@@ -301,19 +316,20 @@ type UpdateMoleculePage =
 reducer :: Model -> Action -> Model
 reducer model action = case action of
     ({ payload: UpdateMoleculePage payload }) ->
-        updateMoleculePage model payload
+        _updateMoleculePage model payload
 
+    ({ payload: Empty }) -> model
 
 ---
 
 
-updateMoleculePage
+_updateMoleculePage
     :: forall r
     .  MoleculePage r
     -> UpdateMoleculePage
     -> MoleculePage r
 
-updateMoleculePage model payload
+_updateMoleculePage model payload
     = model
         { molecules = payload.molecules
         , columns = payload.columns
