@@ -3,6 +3,7 @@ module Page.MoleculeBrowser.UnsortedAll
     , Action
     , Payload
     , reducer
+    , debugInit
     ) where
 
 import Prelude
@@ -12,6 +13,7 @@ import PageKind as PageKind
 import SortType (SortType)
 import SortType as SortType
 import SelectingCollection (SelectingCollection)
+import SelectingCollection as SelectingCollection
 import Molecule (Molecule)
 import Molecule as Molecule
 import DispatchAction (DispatchAction)
@@ -21,6 +23,13 @@ import Requests.UnsortedAll as UnsortedRequest
 import Requests.SortedAll as SortedRequest
 import Effect.Unsafe (unsafePerformEffect)
 import Effect.Uncurried (runEffectFn1)
+import Partial.Unsafe (unsafePartial)
+import Data.Map as Map
+import Data.Tuple (Tuple (Tuple))
+import Data.Maybe as Maybe
+import ValidatedMolecule as Validated
+import ValidatedMolecule.Position as Position
+import ValidatedMolecule.ChemicalSymbol as ChemicalSymbol
 
 
 ---- MODEL ----
@@ -66,6 +75,50 @@ type RequestConfig r =
     , pageKind                              :: PageKind
     | r
     }
+
+debugInit :: Model
+debugInit =
+    { url: "mongodb://localhost:27017"
+    , database: "StkVis"
+    , moleculeKey: "InChIKey"
+    , moleculeCollection: "molecules"
+    , constructedMoleculeCollection: "constructed_molecules"
+    , positionMatrixCollection: "position_matrices"
+    , buildingBlockPositionMatrixCollection:
+        "building_block_position_matrices"
+    , pageIndex: 0
+    , numEntriesPerPage: 34
+    , ignoredCollections: []
+    , pageKind: PageKind.First
+    , valueCollections: ["numAtoms"]
+    , columns: ["InChIKey", "numAtoms"]
+    , molecules: SelectingCollection.selectingCollection [] molecule []
+    }
+  where
+    molecule = Molecule.molecule
+        false
+        validated
+        (Map.fromFoldable
+            [ Tuple "one"   "1"
+            , Tuple "two"   "2"
+            , Tuple "three" "3"
+            , Tuple "four"  "4"
+            ]
+        )
+      where
+        validated :: Validated.Molecule
+        validated = unsafePartial (Maybe.fromJust maybeMolecule)
+        maybeMolecule = Validated.molecule
+            [ Validated.atom
+                ChemicalSymbol.C (Position.position 0.0 0.0 0.0)
+            , Validated.atom
+                ChemicalSymbol.H (Position.position 1.0 0.0 0.0)
+            , Validated.atom
+                ChemicalSymbol.H (Position.position (-1.0) 0.0 0.0)
+            ]
+            [ Validated.bond 1 0 1
+            , Validated.bond 1 0 2
+            ]
 
 
 ---- VIEW ----

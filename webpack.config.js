@@ -79,6 +79,11 @@ module.exports = {
                 './output/SortType',
             ),
 
+            'Page.MoleculeBrowser.UnsortedAll': path.join(
+                __dirname,
+                './output/Page.MoleculeBrowser.UnsortedAll',
+            ),
+
             'molecule-browser': path.join(
                 __dirname,
                 './src/molecule-browser/components',

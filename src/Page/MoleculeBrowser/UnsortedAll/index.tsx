@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {
-    MoleculeBrowser,
-} from 'molecule-browser/connected/molecule-browser';
+    UnsortedAll
+} from './components/connected/unsorted-all';
 import {
     reducer,
-    initialState,
     Action,
     Model,
+    debugInit,
 } from 'Page.MoleculeBrowser.UnsortedAll';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -22,7 +22,7 @@ const store = createStore(
     (model: Model | undefined, action: Action) => {
         if (model === undefined)
         {
-            return initialState;
+            return debugInit;
         }
         return reducer(model)(action);
     },
@@ -41,7 +41,7 @@ ReactDOM.render(
                     width: '98vw',
                 }}
             >
-                <MoleculeBrowser />
+                <UnsortedAll />
             </div>
         </ThemeProvider>
     </Provider>,
