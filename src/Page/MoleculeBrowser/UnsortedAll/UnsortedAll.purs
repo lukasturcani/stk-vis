@@ -7,6 +7,7 @@ module Page.MoleculeBrowser.UnsortedAll
     , props
     , updateMoleculePage
     , doNothing
+    , selectMolecule
     ) where
 
 import Prelude
@@ -28,7 +29,7 @@ import Effect.Unsafe (unsafePerformEffect)
 import Effect.Uncurried (runEffectFn1)
 import Partial.Unsafe (unsafePartial)
 import Data.Map as Map
-import Data.Tuple (Tuple (Tuple))
+import Data.Tuple (Tuple (Tuple), fst)
 import Data.Maybe as Maybe
 import ValidatedMolecule as Validated
 import ValidatedMolecule.Position as Position
@@ -54,6 +55,11 @@ type Model =
     , valueCollections                  :: Array String
     , columns                           :: Array String
     , molecules                         :: SelectingCollection Molecule
+    }
+
+type Molecules r =
+    { molecules :: SelectingCollection Molecule
+    | r
     }
 
 type MoleculePage r =
@@ -132,6 +138,7 @@ type ActionCreators a r =
     { setSorted               :: CollectionName -> SortType -> a
     , setUnsorted             :: a
     , updateMoleculePage      :: UpdateMoleculePage -> a
+    , selectMolecule          :: RowIndex -> Molecule -> a
     | r
     }
 
@@ -141,7 +148,19 @@ props actionCreators model =
         model.valueCollections
         (setSorted actionCreators model)
         (setUnsorted actionCreators model)
+
+    , moleculeTable:
+        { columns: model.columns
+        , selectedRow:
+            fst (SelectingCollection.selected model.molecules)
+        , rows: map Molecule.properties molecules
+        , molecules
+        , selectMolecule: selectMoleculeProp actionCreators
+        }
+
     }
+  where
+    molecules = SelectingCollection.all model.molecules
 
 
 ---
@@ -278,6 +297,33 @@ setUnsorted actionCreators model dispatch = do
     )
 
 
+---
+
+
+type RowIndex = Int
+
+
+type SelectMoleculeActionCreators a r =
+    { selectMolecule :: RowIndex -> Molecule -> a
+    | r
+    }
+
+
+selectMoleculeProp
+    :: forall a r
+    .  SelectMoleculeActionCreators a r
+    -> DispatchAction a
+    -> RowIndex
+    -> Molecule
+    -> Unit
+
+selectMoleculeProp actionCreators dispatch rowIndex molecule =
+    unsafePerformEffect
+        (runEffectFn1 dispatch
+            (actionCreators.selectMolecule rowIndex molecule)
+        )
+
+
 ---- UPDATE ----
 
 
@@ -288,6 +334,7 @@ type Action =
 
 data Payload
     = UpdateMoleculePage UpdateMoleculePage
+    | SelectMolecule RowIndex Molecule
     | DoNothing
 
 type UpdateMoleculePage =
@@ -304,6 +351,12 @@ updateMoleculePage payload =
     , payload: UpdateMoleculePage payload
     }
 
+selectMolecule :: RowIndex -> Molecule -> Action
+selectMolecule rowIndex molecule =
+    { type: "SELECT_MOLECULE"
+    , payload: SelectMolecule rowIndex molecule
+    }
+
 doNothing :: Action
 doNothing =
     { type: "DO_NOTHING"
@@ -317,6 +370,9 @@ reducer :: Model -> Action -> Model
 reducer model action = case action of
     ({ payload: UpdateMoleculePage payload }) ->
         _updateMoleculePage model payload
+
+    ({ payload: SelectMolecule rowIndex molecule }) ->
+        _selectMolecule model rowIndex molecule
 
     ({ payload: DoNothing }) -> model
 
@@ -336,4 +392,22 @@ _updateMoleculePage model payload
         , pageIndex = payload.pageIndex
         , pageKind = payload.pageKind
         , valueCollections = payload.valueCollections
+        }
+
+
+---
+
+
+_selectMolecule
+    :: forall r
+    .  Molecules r
+    -> RowIndex
+    -> Molecule
+    -> Molecules r
+
+_selectMolecule model rowIndex molecule
+    = model
+        { molecules = SelectingCollection.select
+            model.molecules
+            (Tuple rowIndex molecule)
         }
