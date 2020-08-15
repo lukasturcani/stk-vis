@@ -29,7 +29,7 @@ import Effect.Unsafe (unsafePerformEffect)
 import Effect.Uncurried (runEffectFn1)
 import Partial.Unsafe (unsafePartial)
 import Data.Map as Map
-import Data.Tuple (Tuple (Tuple), fst)
+import Data.Tuple (Tuple (Tuple), fst, snd)
 import Data.Maybe as Maybe
 import ValidatedMolecule as Validated
 import ValidatedMolecule.Position as Position
@@ -151,15 +151,21 @@ props actionCreators model =
 
     , moleculeTable:
         { columns: model.columns
-        , selectedRow:
-            fst (SelectingCollection.selected model.molecules)
+        , selectedRow: fst selected
         , rows: map Molecule.properties molecules
         , molecules
         , selectMolecule: selectMoleculeProp actionCreators
         }
 
+    , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
+
+    , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
+
     }
+
   where
+    selected = SelectingCollection.selected model.molecules
+    selectedMolecule = snd selected
     molecules = SelectingCollection.all model.molecules
 
 
