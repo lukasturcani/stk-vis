@@ -22,7 +22,8 @@ import Molecule (Molecule)
 import Molecule as Molecule
 import DispatchAction (DispatchAction)
 import Page.MoleculeBrowser.SortButton as SortButton
-import Effect.Promise (class Deferred, Promise)
+import Page.MoleculeBrowser.NextButton as NextButton
+import Effect.Promise (class Deferred, Promise, catch)
 import Requests.UnsortedAll as UnsortedRequest
 import Requests.SortedAll as SortedRequest
 import Effect.Unsafe (unsafePerformEffect)
@@ -161,12 +162,22 @@ props actionCreators model =
 
     , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
 
+    , nextButton:
+        { lastPage: lastPage model.pageKind
+        , onClick: nextButtonClick actionCreators model
+        }
+
     }
 
   where
     selected = SelectingCollection.selected model.molecules
     selectedMolecule = snd selected
     molecules = SelectingCollection.all model.molecules
+    lastPage PageKind.LastComplete = true
+    lastPage PageKind.LastIncomplete = true
+    lastPage PageKind.OnlyComplete = true
+    lastPage PageKind.OnlyIncomplete = true
+    lastPage _ = false
 
 
 ---
@@ -328,6 +339,90 @@ selectMoleculeProp actionCreators dispatch rowIndex molecule =
         (runEffectFn1 dispatch
             (actionCreators.selectMolecule rowIndex molecule)
         )
+
+
+---
+
+
+type NextButtonActionCreators a r =
+    { updateMoleculePage :: UpdateMoleculePage -> a
+    | r
+    }
+
+
+nextButtonClick
+    :: forall a r1 r2
+    .  Deferred
+    => NextButtonActionCreators a r1
+    -> RequestConfig r2
+    -> DispatchAction a
+    -> NextButton.Snackbars
+    -> Promise Unit
+
+nextButtonClick actionCreators model dispatch snackbars = catch
+    (_nextButtonClick actionCreators model dispatch snackbars.success)
+    (NextButton.errorSnackbar snackbars model.pageKind)
+
+_nextButtonClick
+    :: forall a r1 r2
+    .  Deferred
+    => NextButtonActionCreators a r1
+    -> RequestConfig r2
+    -> DispatchAction a
+    -> NextButton.Snackbar
+    -> Promise Unit
+
+_nextButtonClick actionCreators model dispatch snackbar = do
+
+    let
+        nextPageIndex =
+            NextButton.nextPageIndex model.pageKind model.pageIndex
+
+    result <- UnsortedRequest.request
+        { url: model.url
+        , database: model.database
+        , moleculeKey: model.moleculeKey
+        , moleculeCollection: model.moleculeCollection
+        , constructedMoleculeCollection:
+            model.constructedMoleculeCollection
+        , positionMatrixCollection: model.positionMatrixCollection
+        , buildingBlockPositionMatrixCollection:
+            model.buildingBlockPositionMatrixCollection
+        , pageIndex: nextPageIndex
+        , numEntriesPerPage: model.numEntriesPerPage
+        , ignoredCollections: model.ignoredCollections
+        }
+
+    let
+        (UnsortedRequest.Result
+            { valueCollections, molecules, pageKind }
+        ) = result
+
+        payload =
+            { columns:
+                Array.concat [[model.moleculeKey], valueCollections]
+            , molecules:
+                map (Molecule.molecule' model.moleculeKey) molecules
+            , pageIndex: nextPageIndex
+            , pageKind: PageKind.fromRequest pageKind
+            , valueCollections
+            }
+
+    _ <- pure (unsafePerformEffect
+        (NextButton.showRefreshedSnackbar
+            (nextPageIndex == model.pageIndex)
+            snackbar
+        )
+    )
+
+    pure (unsafePerformEffect
+        (runEffectFn1
+            dispatch
+            (actionCreators.updateMoleculePage payload)
+        )
+    )
+
+
 
 
 ---- UPDATE ----
