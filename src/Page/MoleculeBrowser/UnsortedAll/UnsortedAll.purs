@@ -288,7 +288,7 @@ type Action =
 
 data Payload
     = UpdateMoleculePage UpdateMoleculePage
-    | Empty
+    | DoNothing
 
 type UpdateMoleculePage =
     { columns          :: Array String
@@ -306,8 +306,8 @@ updateMoleculePage payload =
 
 doNothing :: Action
 doNothing =
-    { type: "EMPTY"
-    , payload: Empty
+    { type: "DO_NOTHING"
+    , payload: DoNothing
     }
 
 ---
@@ -318,7 +318,7 @@ reducer model action = case action of
     ({ payload: UpdateMoleculePage payload }) ->
         _updateMoleculePage model payload
 
-    ({ payload: Empty }) -> model
+    ({ payload: DoNothing }) -> model
 
 ---
 

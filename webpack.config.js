@@ -49,6 +49,12 @@ module.exports = {
             chunks: ['molecules'],
             filename: 'molecules.html',
         }),
+        new HtmlWebpackPlugin({
+            title: 'UnsortedAll',
+            template: './src/template.html',
+            chunks: ['unsorted-all'],
+            filename: 'unsorted-all.html',
+        }),
     ],
     mode: 'development',
     resolve: {
