@@ -83,8 +83,8 @@ props :: forall a r. ActionCreators a r -> Model -> Props a
 props actionCreators model =
     { sortButton: SortButton.props
         model.valueCollections
-        --(setSorted actionCreators model)
-        --(setUnsorted actionCreators model)
+        (setSorted actionCreators model)
+        (setUnsorted actionCreators model)
     }
 
 
@@ -104,10 +104,10 @@ type SetSortedActionCreators a r =
     }
 
 setSorted
-    :: forall a r
+    :: forall a r r2
     .  Deferred
     => SetSortedActionCreators a r
-    -> RequestConfig r
+    -> RequestConfig r2
     -> DispatchAction a
     -> CollectionName
     -> SortType
@@ -171,10 +171,10 @@ type SetUnsortedActionCreators a r =
     }
 
 setUnsorted
-    :: forall a r
+    :: forall a r r2
     .  Deferred
     => SetUnsortedActionCreators a r
-    -> RequestConfig r
+    -> RequestConfig r2
     -> DispatchAction a
     -> Promise Unit
 

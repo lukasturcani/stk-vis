@@ -27,24 +27,19 @@ type SetUnsorted a
 
 type Props a =
     { collections :: Array String
+    , setSorted   :: SetSorted a
+    , setUnsorted :: SetUnsorted a
     }
-    --, setSorted   :: SetSorted a
-    --, setUnsorted :: SetUnsorted a
-    --}
 
 props
     :: forall a
     .  Array String
-    -- -> SetSorted a
-    -- -> SetUnsorted a
+    -> SetSorted a
+    -> SetUnsorted a
     -> Props a
 
-props collections =
+props collections setSorted setUnsorted =
     { collections
+    , setSorted
+    , setUnsorted
     }
-
---props collections setSorted setUnsorted =
-    --{ collections
-    --, setSorted
-    --, setUnsorted
-    --}
