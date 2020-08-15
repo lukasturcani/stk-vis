@@ -30,6 +30,7 @@ import Data.Maybe as Maybe
 import ValidatedMolecule as Validated
 import ValidatedMolecule.Position as Position
 import ValidatedMolecule.ChemicalSymbol as ChemicalSymbol
+import Page.MoleculeBrowser.MoleculeBrowser as MoleculeBrowser
 
 
 ---- MODEL ----
@@ -124,10 +125,6 @@ debugInit =
 ---- VIEW ----
 
 
-type Props a =
-    { sortButton    :: SortButton.Props a
-    }
-
 type ActionCreators a r =
     { setSorted               :: CollectionName -> SortType -> a
     , setUnsorted             :: a
@@ -135,7 +132,12 @@ type ActionCreators a r =
     | r
     }
 
-props :: forall a r. ActionCreators a r -> Model -> Props a
+props
+    :: forall a r
+    .  ActionCreators a r
+    -> Model
+    -> MoleculeBrowser.Props a
+
 props actionCreators model =
     { sortButton: SortButton.props
         model.valueCollections
