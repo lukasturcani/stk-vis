@@ -447,7 +447,7 @@ backButtonClick
     -> Promise Unit
 
 backButtonClick actionCreators model dispatch snackbars = catch
-    (backButtonClick actionCreators model dispatch snackbars)
+    (_backButtonClick actionCreators model dispatch snackbars)
     (BackButton.errorSnackbar snackbars model.pageKind)
 
 _backButtonClick
