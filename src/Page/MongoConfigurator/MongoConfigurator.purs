@@ -1,5 +1,7 @@
 module Page.MongoConfigurator
     ( Model
+    , SearchKind
+    , Payload
     , reducer
     , props
     , doNothing
@@ -66,7 +68,7 @@ type GetMoleculesButtonProps a =
         => DispatchAction a
         -> Snackbars
         -> MongoData
-        -> Unit
+        -> Promise Unit
     }
 
 type Snackbars =
