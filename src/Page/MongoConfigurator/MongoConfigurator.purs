@@ -2,6 +2,7 @@ module Page.MongoConfigurator
     ( Model
     , SearchKind
     , Payload
+    , init
     , reducer
     , props
     , doNothing
@@ -37,7 +38,6 @@ type Model =
     , constructedMoleculeCollection         :: String
     , positionMatrixCollection              :: String
     , buildingBlockPositionMatrixCollection :: String
-    , pageIndex                             :: Int
     , numEntriesPerPage                     :: Int
     , ignoredCollections                    :: Array String
     , searchKind                            :: SearchKind
@@ -47,9 +47,22 @@ data SearchKind
     = UnsortedAll
     | UnsortedBuildingBlocks
     | UnsortedConstructedMolecules
-    | SortedAll
-    | SortedConstructedMolecules
-    | SortedBuildingBlocks
+
+
+init :: Model
+init =
+    { url: "mongodb://localhost:27017"
+    , database: "stkVis"
+    , moleculeKey: "InChIKey"
+    , moleculeCollection: "molecules"
+    , constructedMoleculeCollection: "constructed_molecules"
+    , positionMatrixCollection: "position_matrices"
+    , buildingBlockPositionMatrixCollection:
+        "position_matrices"
+    , numEntriesPerPage: 34
+    , ignoredCollections: []
+    , searchKind: UnsortedAll
+    }
 
 
 ---- VIEW ----
@@ -91,8 +104,8 @@ type Snackbar =
 
 type MongoData =
     { url                                   :: String
-    , moleculeKey                           :: String
     , database                              :: String
+    , moleculeKey                           :: String
     , moleculeCollection                    :: String
     , constructedMoleculeCollection         :: String
     , positionMatrixCollection              :: String
@@ -107,11 +120,6 @@ type ActionCreators a r =
     , initUnsortedBuildingBlocks :: Config.UnsortedBuildingBlocks -> a
     , initUnsortedConstructedMolecules
         :: Config.UnsortedConstructedMolecules
-        -> a
-    , initSortedAll :: Config.SortedAll -> a
-    , initSortedBuildingBlocks :: Config.SortedBuildingBlocks -> a
-    , initSortedConstructedMolecules
-        :: Config.SortedConstructedMolecules
         -> a
     | r
     }
@@ -140,14 +148,10 @@ props actionCreators model =
   where
     selectBuildingBlocks UnsortedAll = true
     selectBuildingBlocks UnsortedBuildingBlocks = true
-    selectBuildingBlocks SortedAll = true
-    selectBuildingBlocks SortedBuildingBlocks = true
     selectBuildingBlocks _ = false
 
     selectConstructedMolecules UnsortedAll = true
     selectConstructedMolecules UnsortedConstructedMolecules = true
-    selectConstructedMolecules SortedAll = true
-    selectConstructedMolecules SortedConstructedMolecules = true
     selectConstructedMolecules _ = false
 
 

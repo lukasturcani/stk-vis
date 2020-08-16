@@ -6,9 +6,11 @@ module.exports = {
     entry: {
         'stk-vis': './src/stk-vis/index.tsx',
         'molecule-browser': './src/molecule-browser/index.tsx',
-        'mongo-configurator': './src/mongo-configurator/index.tsx',
+        //'mongo-configurator': './src/mongo-configurator/index.tsx',
         'molecules': './src/molecules/index.tsx',
         'request-manager': './src/request-manager/index.tsx',
+
+        'mongo-configurator': './src/Page/MongoConfigurator/index.tsx',
 
         'unsorted-all':
             './src/Page/MoleculeBrowser/UnsortedAll/index.tsx',
@@ -134,6 +136,12 @@ module.exports = {
                 __dirname,
                 './output/SortType',
             ),
+
+            'Page.MongoConfigurator': path.join(
+                __dirname,
+                './output/Page.MongoConfigurator',
+            ),
+
 
             'Page.MoleculeBrowser.UnsortedAll': path.join(
                 __dirname,
