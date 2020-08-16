@@ -6,6 +6,11 @@ module Page.MongoConfigurator
     ) where
 
 
+import Prelude
+import DispatchAction (DispatchAction)
+import Effect.Promise (class Deferred, Promise, catch)
+import Config as Config
+
 ---- MODEL ----
 
 
@@ -36,21 +41,64 @@ data SearchKind
 
 
 type Props a =
+    { url                                  :: String
+    , database                             :: String
+    , moleculeKey                          :: String
+    , moleculeCollection                   :: String
+    , constructedMoleculeCollection        :: String
+    , positionMatrixCollection             :: String
+    , buildingBlockPositionMatrixCollection :: String
+    , numEntriesPerPage                    :: Int
+    , ignoredCollections                   :: Array String
+    , selectBuildingBlocks                 :: Boolean
+    , selectConstructedMolecules           :: Boolean
+    , getMoleculesButton                   :: GetMoleculesButtonProps a
+    }
+
+type GetMoleculesButtonProps a =
+    { onClick
+        :: Deferred
+        => DispatchAction a
+        -> Snackbars
+        -> MongoData
+        -> Unit
+    }
+
+type Snackbars =
+    { success :: Snackbar
+    , error   :: Snackbar
+    }
+
+type Snackbar =
+    { setOpen    :: EffectFn1 Boolean Unit
+    , setMessage :: EffectFn1 String Unit
+    }
+
+type MongoData =
     { url                                   :: String
-    , database                              :: String
     , moleculeKey                           :: String
+    , database                              :: String
     , moleculeCollection                    :: String
     , constructedMoleculeCollection         :: String
     , positionMatrixCollection              :: String
     , buildingBlockPositionMatrixCollection :: String
     , numEntriesPerPage                     :: Int
-    , ignoredCollections                    :: Array String
     , selectBuildingBlocks                  :: Boolean
     , selectConstructedMolecules            :: Boolean
     }
 
 type ActionCreators a r =
-    {
+    { initUnsortedAll :: Config.UnsortedAll -> a
+    , initUnsortedBuildingBlocks :: Config.UnsortedBuildingBlocks -> a
+    , initUnsortedConstructedMolecules
+        :: Config.UnsortedConstructedMolecules
+        -> a
+    , initSortedAll :: Config.SortedAll -> a
+    , initSortedBuildingBlocks :: Config.SortedBuildingBlocks -> a
+    , initSortedConstructedMolecules
+        :: Config.SortedConstructedMolecules
+        -> a
+    | r
     }
 
 props :: forall a r. ActionCreators a r -> Model -> Props a
@@ -70,6 +118,9 @@ props actionCreators model =
         selectBuildingBlocks model.searchKind
     , selectConstructedMolecules:
         selectConstructedMolecules model.searchKind
+    , getMoleculesButton:
+        { onClick: onClick actionCreators model
+        }
     }
   where
     selectBuildingBlocks UnsortedAll = true
@@ -83,6 +134,51 @@ props actionCreators model =
     selectConstructedMolecules SortedAll = true
     selectConstructedMolecules SortedConstructedMolecules = true
     selectConstructedMolecules _ = false
+
+
+onClick
+    :: forall a r
+    .  Deferred
+    => ActionCreators a r
+    -> Model
+    -> DispatchAction a
+    -> Snackbars
+    -> MongoData
+    -> Promise Unit
+
+onClick actionCreators model dispatch snackbars mongoData
+    = catch
+        (_onClick actionCreators model dispatch snackbars mongoData)
+        (_errorSnackbar snackbars.error)
+
+_onClick
+    :: forall a r
+    .  Deferred
+    => ActionCreators a r
+    -> Model
+    -> DispatchAction a
+    -> Snackbars
+    -> MongoData
+    -> Promise Unit
+
+_onClick actionCreatos model dispatch snackbars mongoData = do
+
+
+_errorSnackbar
+    :: Deferred
+    => Snackbar
+    -> Error.Error
+    -> Promise Unit
+
+_errorSnackbar snackbar error = pure
+    (unsafePerformEffect
+        (_showErrorSnackbar snackbar error)
+    )
+
+_showErrorSnackbar :: Snackbar -> Error.Error -> Effect Unit
+_showErrorSnackbar snackbar error = do
+    runEffectFn1 snackbar.setMessage (Error.message error)
+    runEffectFn1 snackbar.setOpen true
 
 
 ---- UPDATE ----
