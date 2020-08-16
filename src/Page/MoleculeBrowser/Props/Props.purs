@@ -8,6 +8,7 @@ import Page.MoleculeBrowser.TwoDViewer as TwoDViewer
 import Page.MoleculeBrowser.ThreeDViewer as ThreeDViewer
 import Page.MoleculeBrowser.NextButton as NextButton
 import Page.MoleculeBrowser.BackButton as BackButton
+import Page.MoleculeBrowser.Breadcrumbs as Breadcrumbs
 
 type Props a =
     { sortButton    :: SortButton.Props a
@@ -16,4 +17,5 @@ type Props a =
     , threeDViewer  :: ThreeDViewer.Props
     , nextButton    :: NextButton.Props a
     , backButton    :: BackButton.Props a
+    , breadcrumbs   :: Breadcrumbs.Props a
     }

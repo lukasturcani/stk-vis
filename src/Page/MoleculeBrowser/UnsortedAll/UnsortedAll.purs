@@ -37,6 +37,7 @@ import ValidatedMolecule as Validated
 import ValidatedMolecule.Position as Position
 import ValidatedMolecule.ChemicalSymbol as ChemicalSymbol
 import Page.MoleculeBrowser.Props (Props)
+import Config as Config
 
 
 ---- MODEL ----
@@ -141,6 +142,7 @@ type ActionCreators a r =
     , setUnsorted             :: a
     , updateMoleculePage      :: UpdateMoleculePage -> a
     , selectMolecule          :: RowIndex -> Molecule -> a
+    , initMongoConfigurator   :: Config.MongoConfigurator -> a
     | r
     }
 
@@ -173,6 +175,9 @@ props actionCreators model =
         , onClick: backButtonClick actionCreators model
         }
 
+    , breadcrumbs:
+        { onClick: breadcrumbsClick actionCreators model
+        }
     }
 
   where
@@ -498,6 +503,42 @@ _backButtonClick actionCreators model dispatch snackbar = do
     )
   where
     pageIndex = BackButton.previousPageIndex model.pageIndex
+
+
+---
+
+type BreadcrumbsActionCreators a r =
+    { initMongoConfigurator :: Config.MongoConfigurator -> a
+    | r
+    }
+
+breadcrumbsClick
+    :: forall a r1 r2
+    .  BreadcrumbsActionCreators a r1
+    -> RequestConfig r2
+    -> DispatchAction a
+    -> Unit
+
+breadcrumbsClick actionCreators model dispatch =
+    unsafePerformEffect
+        (runEffectFn1
+            dispatch
+            (actionCreators.initMongoConfigurator
+                { url: model.url
+                , database: model.database
+                , moleculeKey: model.moleculeKey
+                , moleculeCollection: model.moleculeCollection
+                , constructedMoleculeCollection:
+                    model.constructedMoleculeCollection
+                , positionMatrixCollection:
+                    model.positionMatrixCollection
+                , buildingBlockPositionMatrixCollection:
+                    model.buildingBlockPositionMatrixCollection
+                , numEntriesPerPage: model.numEntriesPerPage
+                , ignoredCollections: model.ignoredCollections
+                }
+            )
+        )
 
 
 ---- UPDATE ----
