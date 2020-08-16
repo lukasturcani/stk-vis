@@ -17,6 +17,9 @@ import {
 import {
     CoreProps as NextButtonProps,
 } from '../../NextButton/components/base'
+import {
+    CoreProps as BackButtonProps,
+} from '../../BackButton/components/base'
 
 
 type Empty = Record<string, unknown>;
@@ -38,6 +41,7 @@ interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps<a>
     twoDViewerComponent: React.FunctionComponent<TwoDViewerProps>;
     threeDViewerComponent: React.FunctionComponent<ThreeDViewerProps>;
     nextButtonComponent: React.FunctionComponent<NextButtonProps<a>>;
+    backButtonComponent: React.FunctionComponent<BackButtonProps<a>>;
     navigationButtonContainer: React.FunctionComponent<Empty>;
 
 }
@@ -62,6 +66,10 @@ export function MoleculeBrowser<a>(
                 <props.threeDViewerComponent {...props.threeDViewer} />
             </props.viewerContainer>
             <props.navigationButtonContainer>
+                <props.backButtonComponent
+                    dispatch={props.dispatch}
+                    {...props.backButton}
+                />
                 <props.nextButtonComponent
                     dispatch={props.dispatch}
                     {...props.nextButton}

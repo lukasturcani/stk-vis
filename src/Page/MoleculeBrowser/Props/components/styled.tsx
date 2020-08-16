@@ -21,6 +21,9 @@ import {
 import {
     NextButton,
 } from '../../NextButton/components/styled';
+import {
+    BackButton,
+} from '../../BackButton/components/styled';
 
 
 export function MoleculeBrowser<a>(
@@ -36,6 +39,7 @@ export function MoleculeBrowser<a>(
         threeDViewerComponent={ThreeDViewer}
         navigationButtonContainer={NavigationButtonContainer}
         nextButtonComponent={NextButton}
+        backButtonComponent={BackButton}
         {...props}
     />;
 }
