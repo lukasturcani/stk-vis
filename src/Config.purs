@@ -3,9 +3,6 @@ module Config
     , UnsortedAll
     , UnsortedBuildingBlocks
     , UnsortedConstructedMolecules
-    , SortedAll
-    , SortedBuildingBlocks
-    , SortedConstructedMolecules
     ) where
 
 import SortType (SortType)
@@ -74,61 +71,4 @@ type UnsortedConstructedMolecules =
     , valueCollections                  :: Array String
     , columns                           :: Array String
     , molecules                         :: SelectingCollection Molecule
-    }
-
-type SortedAll =
-    { url                               :: String
-    , database                          :: String
-    , moleculeKey                       :: String
-    , moleculeCollection                :: String
-    , constructedMoleculeCollection     :: String
-    , positionMatrixCollection          :: String
-    , buildingBlockPositionMatrixCollection :: String
-    , pageIndex                         :: Int
-    , numEntriesPerPage                 :: Int
-    , ignoredCollections                :: Array String
-    , pageKind                          :: PageKind
-    , valueCollections                  :: Array String
-    , columns                           :: Array String
-    , molecules                         :: SelectingCollection Molecule
-    , sortedCollection                  :: String
-    , sortType                          :: SortType
-    }
-
-type SortedBuildingBlocks =
-    { url                               :: String
-    , database                          :: String
-    , moleculeKey                       :: String
-    , moleculeCollection                :: String
-    , constructedMoleculeCollection     :: String
-    , positionMatrixCollection          :: String
-    , buildingBlockPositionMatrixCollection :: String
-    , pageIndex                         :: Int
-    , numEntriesPerPage                 :: Int
-    , ignoredCollections                :: Array String
-    , pageKind                          :: PageKind
-    , valueCollections                  :: Array String
-    , columns                           :: Array String
-    , molecules                         :: SelectingCollection Molecule
-    , sortedCollection                  :: String
-    , sortType                          :: SortType
-    }
-
-type SortedConstructedMolecules =
-    { url                               :: String
-    , database                          :: String
-    , moleculeKey                       :: String
-    , moleculeCollection                :: String
-    , constructedMoleculeCollection     :: String
-    , positionMatrixCollection          :: String
-    , buildingBlockPositionMatrixCollection :: String
-    , pageIndex                         :: Int
-    , numEntriesPerPage                 :: Int
-    , ignoredCollections                :: Array String
-    , pageKind                          :: PageKind
-    , valueCollections                  :: Array String
-    , columns                           :: Array String
-    , molecules                         :: SelectingCollection Molecule
-    , sortedCollection                  :: String
-    , sortType                          :: SortType
     }
