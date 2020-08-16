@@ -8,6 +8,7 @@ module Page.MoleculeBrowser.SortedAll
     , updateMoleculePage
     , doNothing
     , selectMolecule
+    , setSorted
     ) where
 
 import Prelude
@@ -76,6 +77,12 @@ type MoleculePage r =
     | r
     }
 
+type SortConfig r =
+    { sortedCollection :: String
+    , sortType         :: SortType
+    | r
+    }
+
 type RequestConfig r =
     { url                                   :: String
     , database                              :: String
@@ -110,7 +117,7 @@ debugInit =
     , valueCollections: ["numAtoms"]
     , columns: ["InChIKey", "numAtoms"]
     , molecules: SelectingCollection.selectingCollection [] molecule []
-    , sortedCollection: "numAtom"
+    , sortedCollection: "numAtoms"
     , sortType: SortType.Ascending
     }
   where
@@ -156,8 +163,8 @@ props :: forall a r.  ActionCreators a r -> Model -> Props a
 props actionCreators model =
     { sortButton: SortButton.props
         model.valueCollections
-        (setSorted actionCreators model)
-        (setUnsorted actionCreators model)
+        (onSetSorted actionCreators model)
+        (onSetUnsorted actionCreators model)
 
     , moleculeTable:
         { columns: model.columns
@@ -212,7 +219,7 @@ type SetSortedActionCreators a r =
     | r
     }
 
-setSorted
+onSetSorted
     :: forall a r1 r2
     .  Deferred
     => SetSortedActionCreators a r1
@@ -222,7 +229,7 @@ setSorted
     -> SortType
     -> Promise Unit
 
-setSorted actionCreators model dispatch collection sortType = do
+onSetSorted actionCreators model dispatch collection sortType = do
 
     result <- SortedRequest.request
         { url: model.url
@@ -279,7 +286,7 @@ type SetUnsortedActionCreators a r =
     | r
     }
 
-setUnsorted
+onSetUnsorted
     :: forall a r1 r2
     .  Deferred
     => SetUnsortedActionCreators a r1
@@ -287,7 +294,7 @@ setUnsorted
     -> DispatchAction a
     -> Promise Unit
 
-setUnsorted actionCreators model dispatch = do
+onSetUnsorted actionCreators model dispatch = do
 
     result <- UnsortedRequest.request
         { url: model.url
@@ -395,7 +402,7 @@ _nextButtonClick actionCreators model dispatch snackbar = do
         nextPageIndex =
             NextButton.nextPageIndex model.pageKind model.pageIndex
 
-    result <- UnsortedRequest.request
+    result <- SortedRequest.request
         { url: model.url
         , database: model.database
         , moleculeKey: model.moleculeKey
@@ -408,10 +415,12 @@ _nextButtonClick actionCreators model dispatch snackbar = do
         , pageIndex: nextPageIndex
         , numEntriesPerPage: model.numEntriesPerPage
         , ignoredCollections: model.ignoredCollections
+        , sortedCollection: model.sortedCollection
+        , sortType: SortType.toRequest model.sortType
         }
 
     let
-        (UnsortedRequest.Result
+        (SortedRequest.Result
             { valueCollections, molecules, pageKind }
         ) = result
 
@@ -471,7 +480,7 @@ _backButtonClick
     -> Promise Unit
 
 _backButtonClick actionCreators model dispatch snackbar = do
-    result <- UnsortedRequest.request
+    result <- SortedRequest.request
         { url: model.url
         , database: model.database
         , moleculeKey: model.moleculeKey
@@ -484,10 +493,12 @@ _backButtonClick actionCreators model dispatch snackbar = do
         , pageIndex
         , numEntriesPerPage: model.numEntriesPerPage
         , ignoredCollections: model.ignoredCollections
+        , sortedCollection: model.sortedCollection
+        , sortType: SortType.toRequest model.sortType
         }
 
     let
-        (UnsortedRequest.Result
+        (SortedRequest.Result
             { valueCollections, molecules, pageKind }
         ) = result
 
@@ -558,6 +569,7 @@ type Action =
 data Payload
     = UpdateMoleculePage UpdateMoleculePage
     | SelectMolecule RowIndex Molecule
+    | SetSorted CollectionName SortType
     | DoNothing
 
 type UpdateMoleculePage =
@@ -580,6 +592,12 @@ selectMolecule rowIndex molecule =
     , payload: SelectMolecule rowIndex molecule
     }
 
+setSorted :: CollectionName -> SortType -> Action
+setSorted collection sortType =
+    { type: "SET_SORTED"
+    , payload: SetSorted collection sortType
+    }
+
 doNothing :: Action
 doNothing =
     { type: "DO_NOTHING"
@@ -596,6 +614,9 @@ reducer model action = case action of
 
     ({ payload: SelectMolecule rowIndex molecule }) ->
         _selectMolecule model rowIndex molecule
+
+    ({ payload: SetSorted collection sortType }) ->
+        _setSorted model collection sortType
 
     ({ payload: DoNothing }) -> model
 
@@ -634,3 +655,17 @@ _selectMolecule model rowIndex molecule
             model.molecules
             (Tuple rowIndex molecule)
         }
+
+
+---
+
+
+_setSorted
+    :: forall r
+    .  SortConfig r
+    -> CollectionName
+    -> SortType
+    -> SortConfig r
+
+_setSorted model collection sortType
+    = model { sortedCollection = collection, sortType = sortType }
