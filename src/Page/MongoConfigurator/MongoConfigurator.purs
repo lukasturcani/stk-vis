@@ -10,6 +10,11 @@ import Prelude
 import DispatchAction (DispatchAction)
 import Effect.Promise (class Deferred, Promise, catch)
 import Config as Config
+import Effect (Effect)
+import Effect.Uncurried (EffectFn1, runEffectFn1)
+import Effect.Unsafe (unsafePerformEffect)
+import Effect.Exception (Error, message) as Error
+import Effect.Class.Console (log)
 
 ---- MODEL ----
 
@@ -119,7 +124,7 @@ props actionCreators model =
     , selectConstructedMolecules:
         selectConstructedMolecules model.searchKind
     , getMoleculesButton:
-        { onClick: onClick actionCreators model
+        { onClick: onClick actionCreators
         }
     }
   where
@@ -140,29 +145,45 @@ onClick
     :: forall a r
     .  Deferred
     => ActionCreators a r
-    -> Model
     -> DispatchAction a
     -> Snackbars
     -> MongoData
     -> Promise Unit
 
-onClick actionCreators model dispatch snackbars mongoData
+onClick actionCreators dispatch snackbars mongoData
     = catch
-        (_onClick actionCreators model dispatch snackbars mongoData)
+        (_onClick actionCreators dispatch snackbars mongoData)
         (_errorSnackbar snackbars.error)
 
 _onClick
     :: forall a r
     .  Deferred
     => ActionCreators a r
-    -> Model
     -> DispatchAction a
     -> Snackbars
     -> MongoData
     -> Promise Unit
 
-_onClick actionCreatos model dispatch snackbars mongoData = do
+_onClick
+    actionCreators
+    dispatch
+    snackbars
+    mongoData@
+        { selectBuildingBlocks: false
+        , selectConstructedMolecules: false
+        }
+    = pure (unsafePerformEffect
+        (log "No valid request can be made.")
+    )
 
+_onClick
+    actionCreators
+    dispatch
+    snackbars
+    _
+    = pure (unsafePerformEffect
+        (log "No valid request can be made.")
+    )
 
 _errorSnackbar
     :: Deferred
@@ -183,13 +204,13 @@ _showErrorSnackbar snackbar error = do
 
 ---- UPDATE ----
 
-type Action
+type Action =
     { type    :: String
     , payload :: Payload
     }
 
 data Payload
-    | DoNothing
+    = DoNothing
 
 doNothing :: Action
 doNothing =
