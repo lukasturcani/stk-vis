@@ -17,6 +17,14 @@ import Effect.Uncurried (EffectFn1, runEffectFn1)
 import Effect.Unsafe (unsafePerformEffect)
 import Effect.Exception (Error, message) as Error
 import Effect.Class.Console (log)
+import Data.Array as Array
+import PageKind as PageKind
+import Molecule as Molecule
+
+import Requests.UnsortedAll as AllRequest
+import Requests.UnsortedBuildingBlocks as BuildingBlocksRequest
+import Requests.UnsortedConstructedMolecules
+    as ConstructedMoleculesRequest
 
 ---- MODEL ----
 
@@ -170,19 +178,189 @@ _onClick
     actionCreators
     dispatch
     snackbars
-    mongoData@
-        { selectBuildingBlocks: false
-        , selectConstructedMolecules: false
-        }
-    = pure (unsafePerformEffect
-        (log "No valid request can be made.")
-    )
+    { url
+    , moleculeKey
+    , database
+    , moleculeCollection
+    , constructedMoleculeCollection
+    , positionMatrixCollection
+    , buildingBlockPositionMatrixCollection
+    , numEntriesPerPage
+    , selectBuildingBlocks: true
+    , selectConstructedMolecules: true
+    }
+    = do
+        result <- AllRequest.request
+            { url
+            , database
+            , moleculeKey
+            , moleculeCollection
+            , constructedMoleculeCollection
+            , positionMatrixCollection
+            , buildingBlockPositionMatrixCollection
+            , pageIndex: 0
+            , numEntriesPerPage
+            , ignoredCollections: []
+            }
+
+        let
+            (AllRequest.Result
+                { valueCollections, molecules, pageKind }
+            ) = result
+
+            payload =
+                { url
+                , database
+                , moleculeKey
+                , moleculeCollection
+                , constructedMoleculeCollection
+                , positionMatrixCollection
+                , buildingBlockPositionMatrixCollection
+                , pageIndex: 0
+                , numEntriesPerPage
+                , ignoredCollections: []
+                , pageKind: PageKind.fromRequest pageKind
+                , valueCollections
+                , columns:
+                    Array.concat [[moleculeKey], valueCollections]
+                , molecules:
+                    map (Molecule.molecule' moleculeKey) molecules
+                }
+
+        pure (unsafePerformEffect
+            (runEffectFn1 dispatch
+                (actionCreators.initUnsortedAll payload)
+            )
+        )
 
 _onClick
     actionCreators
     dispatch
     snackbars
-    _
+    { url
+    , moleculeKey
+    , database
+    , moleculeCollection
+    , constructedMoleculeCollection
+    , positionMatrixCollection
+    , buildingBlockPositionMatrixCollection
+    , numEntriesPerPage
+    , selectBuildingBlocks: false
+    , selectConstructedMolecules: true
+    }
+    = do
+        result <- ConstructedMoleculesRequest.request
+            { url
+            , database
+            , moleculeKey
+            , moleculeCollection
+            , constructedMoleculeCollection
+            , positionMatrixCollection
+            , pageIndex: 0
+            , numEntriesPerPage
+            , ignoredCollections: []
+            }
+
+        let
+            (ConstructedMoleculesRequest.Result
+                { valueCollections, molecules, pageKind }
+            ) = result
+
+            payload =
+                { url
+                , database
+                , moleculeKey
+                , moleculeCollection
+                , constructedMoleculeCollection
+                , positionMatrixCollection
+                , buildingBlockPositionMatrixCollection
+                , pageIndex: 0
+                , numEntriesPerPage
+                , ignoredCollections: []
+                , pageKind: PageKind.fromRequest pageKind
+                , valueCollections
+                , columns:
+                    Array.concat [[moleculeKey], valueCollections]
+                , molecules:
+                    map (Molecule.molecule' moleculeKey) molecules
+                }
+
+        pure (unsafePerformEffect
+            (runEffectFn1 dispatch
+                (actionCreators.initUnsortedConstructedMolecules
+                    payload
+                )
+            )
+        )
+
+_onClick
+    actionCreators
+    dispatch
+    snackbars
+    { url
+    , moleculeKey
+    , database
+    , moleculeCollection
+    , constructedMoleculeCollection
+    , positionMatrixCollection
+    , buildingBlockPositionMatrixCollection
+    , numEntriesPerPage
+    , selectBuildingBlocks: true
+    , selectConstructedMolecules: false
+    }
+    = do
+        result <- BuildingBlocksRequest.request
+            { url
+            , database
+            , moleculeKey
+            , moleculeCollection
+            , constructedMoleculeCollection
+            , positionMatrixCollection
+            , pageIndex: 0
+            , numEntriesPerPage
+            , ignoredCollections: []
+            }
+
+        let
+            (BuildingBlocksRequest.Result
+                { valueCollections, molecules, pageKind }
+            ) = result
+
+            payload =
+                { url
+                , database
+                , moleculeKey
+                , moleculeCollection
+                , constructedMoleculeCollection
+                , positionMatrixCollection
+                , buildingBlockPositionMatrixCollection
+                , pageIndex: 0
+                , numEntriesPerPage
+                , ignoredCollections: []
+                , pageKind: PageKind.fromRequest pageKind
+                , valueCollections
+                , columns:
+                    Array.concat [[moleculeKey], valueCollections]
+                , molecules:
+                    map (Molecule.molecule' moleculeKey) molecules
+                }
+
+        pure (unsafePerformEffect
+            (runEffectFn1 dispatch
+                (actionCreators.initUnsortedBuildingBlocks
+                    payload
+                )
+            )
+        )
+
+_onClick
+    actionCreators
+    dispatch
+    snackbars
+    mongoData@
+        { selectBuildingBlocks: false
+        , selectConstructedMolecules: false
+        }
     = pure (unsafePerformEffect
         (log "No valid request can be made.")
     )
