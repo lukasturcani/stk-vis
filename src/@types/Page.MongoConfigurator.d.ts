@@ -14,16 +14,12 @@ declare module 'Page.MongoConfigurator'
     export interface ActionCreators<a>
     {
         initUnsortedAll: (payload: Config.UnsortedAll) => a;
+
         initUnsortedBuildingBlocks:
             (payload: Config.UnsortedBuildingBlocks) => a;
+
         initUnsortedConstructedMolecules:
             (payload: Config.UnsortedConstructedMolecules) => a;
-
-        initSortedAll: (payload: Config.SortedAll) => a;
-        initSortedBuildingBlocks:
-            (payload: Config.SortedBuildingBlocks) => a;
-        initSortedConstructedMolecules:
-            (payload: Config.SortedConstructedMolecules) => a;
     }
 
     export const props:

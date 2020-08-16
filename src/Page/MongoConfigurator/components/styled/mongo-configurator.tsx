@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/Button';
+import MuiContainer from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 import SearchIcon from '@material-ui/icons/Search';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar'
@@ -32,20 +34,24 @@ export function MongoConfigurator<a>(
 
 const Container: React.FunctionComponent<Record<string, unknown>>
     = (props) => (
-        <Grid container
-            alignItems={ 'center' }
-            alignContent={ 'center' }
-            justify={ 'center' }
-            spacing={ 3 }
-            style={{
-                height: '100%',
-                width: '99vw',
-                paddingTop: '1%',
-            }}
-            direction='column'
-        >
-            { props.children }
-        </Grid>
+        <MuiContainer>
+            <Paper
+                style={{
+                    marginTop: '40px',
+                    paddingTop: '20px',
+                }}
+            >
+                <Grid container
+                    alignItems={ 'center' }
+                    alignContent={ 'center' }
+                    justify={ 'center' }
+                    spacing={ 3 }
+                    direction='row'
+                >
+                    { props.children }
+                </Grid>
+            </Paper>
+        </MuiContainer>
     );
 
 const Button: React.FunctionComponent<ButtonProps>

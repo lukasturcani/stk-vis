@@ -3,7 +3,7 @@ import {
     Props,
     Action,
     props,
-    MongoConfigurator as State,
+    Model,
     doNothing,
 } from 'Page.MongoConfigurator';
 import * as Config from 'Config';
@@ -17,10 +17,10 @@ import {
 } from '../styled/mongo-configurator';
 
 
-function mapStateToProps(
-    state: State,
+function mapModelToProps(
+    model: Model,
 )
-    : Props<Action.Action>
+    : Props<Action>
 {
     return {
         ...props
@@ -35,15 +35,15 @@ function mapStateToProps(
                 (payload: Config.UnsortedConstructedMolecules) =>
                 doNothing,
         })
-        (state)
+        (model)
     };
 }
 
 
 function mapDispatchToProps(
-    dispatch: (action: Action.Action) => void,
+    dispatch: (action: Action) => void,
 )
-    : DispatchProps<Action.Action>
+    : DispatchProps<Action>
 {
     return { dispatch };
 }
@@ -51,8 +51,8 @@ function mapDispatchToProps(
 
 export const MongoConfigurator
     = connect
-    (mapStateToProps, mapDispatchToProps)
+    (mapModelToProps, mapDispatchToProps)
     (
         MongoConfiguratorBase as
-        React.FunctionComponent<CoreProps<Action.Action>>
+        React.FunctionComponent<CoreProps<Action>>
     );
