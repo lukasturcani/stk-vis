@@ -2,9 +2,6 @@ module Page.StkVis
     ( Model
     , Action
     , Payload
-    , reducer
-    , init
-    , props
     ) where
 
 
