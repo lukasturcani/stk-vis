@@ -25,8 +25,8 @@ import Page.MoleculeBrowser.SortButton as SortButton
 import Page.MoleculeBrowser.NextButton as NextButton
 import Page.MoleculeBrowser.BackButton as BackButton
 import Effect.Promise (class Deferred, Promise, catch)
-import Requests.UnsortedAll as UnsortedRequest
-import Requests.SortedAll as SortedRequest
+import Requests.UnsortedBuildingBlocks as UnsortedRequest
+import Requests.SortedBuildingBlocks as SortedRequest
 import Effect.Unsafe (unsafePerformEffect)
 import Effect.Uncurried (runEffectFn1)
 import Partial.Unsafe (unsafePartial)
@@ -225,8 +225,7 @@ setSorted actionCreators model dispatch collection sortType = do
         , moleculeCollection: model.moleculeCollection
         , constructedMoleculeCollection:
             model.constructedMoleculeCollection
-        , positionMatrixCollection: model.positionMatrixCollection
-        , buildingBlockPositionMatrixCollection:
+        , positionMatrixCollection:
             model.buildingBlockPositionMatrixCollection
         , pageIndex: 0
         , numEntriesPerPage: model.numEntriesPerPage
@@ -290,8 +289,7 @@ setUnsorted actionCreators model dispatch = do
         , moleculeCollection: model.moleculeCollection
         , constructedMoleculeCollection:
             model.constructedMoleculeCollection
-        , positionMatrixCollection: model.positionMatrixCollection
-        , buildingBlockPositionMatrixCollection:
+        , positionMatrixCollection:
             model.buildingBlockPositionMatrixCollection
         , pageIndex: 0
         , numEntriesPerPage: model.numEntriesPerPage
@@ -396,8 +394,7 @@ _nextButtonClick actionCreators model dispatch snackbar = do
         , moleculeCollection: model.moleculeCollection
         , constructedMoleculeCollection:
             model.constructedMoleculeCollection
-        , positionMatrixCollection: model.positionMatrixCollection
-        , buildingBlockPositionMatrixCollection:
+        , positionMatrixCollection:
             model.buildingBlockPositionMatrixCollection
         , pageIndex: nextPageIndex
         , numEntriesPerPage: model.numEntriesPerPage
@@ -472,8 +469,7 @@ _backButtonClick actionCreators model dispatch snackbar = do
         , moleculeCollection: model.moleculeCollection
         , constructedMoleculeCollection:
             model.constructedMoleculeCollection
-        , positionMatrixCollection: model.positionMatrixCollection
-        , buildingBlockPositionMatrixCollection:
+        , positionMatrixCollection:
             model.buildingBlockPositionMatrixCollection
         , pageIndex
         , numEntriesPerPage: model.numEntriesPerPage
