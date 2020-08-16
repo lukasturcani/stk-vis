@@ -3,7 +3,7 @@ const { mainReloader, rendererReloader } = require(
 );
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-const active = 'unsorted-constructed-molecules';
+const active = 'sorted-building-blocks';
 
 mainReloader(path.join(app.getAppPath(), 'main.js'));
 rendererReloader(path.join(app.getAppPath(), 'dist', `${active}.js`));

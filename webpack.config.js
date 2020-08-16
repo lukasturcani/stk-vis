@@ -23,6 +23,10 @@ module.exports = {
 
         'sorted-all':
             './src/Page/MoleculeBrowser/SortedAll/index.tsx',
+
+        'sorted-building-blocks':
+            './src/Page/MoleculeBrowser/'
+            +'SortedBuildingBlocks/index.tsx',
     },
     target: 'electron-renderer',
     output: {
@@ -84,6 +88,12 @@ module.exports = {
             chunks: ['sorted-all'],
             filename: 'sorted-all.html',
         }),
+        new HtmlWebpackPlugin({
+            title: 'SortedBuildingBlocks',
+            template: './src/template.html',
+            chunks: ['sorted-building-blocks'],
+            filename: 'sorted-building-blocks.html',
+        }),
     ],
     mode: 'development',
     resolve: {
@@ -134,6 +144,11 @@ module.exports = {
             'Page.MoleculeBrowser.SortedAll': path.join(
                 __dirname,
                 './output/Page.MoleculeBrowser.SortedAll',
+            ),
+
+            'Page.MoleculeBrowser.SortedBuildingBlocks': path.join(
+                __dirname,
+                './output/Page.MoleculeBrowser.SortedBuildingBlocks',
             ),
 
             'Page.MoleculeBrowser.MoleculeTable': path.join(
