@@ -4,6 +4,24 @@ module Page.StkVis
     , Payload
     ) where
 
+import Config as Config
+import Page.MongoConfigurator as MongoConfigurator
+import Page.MoleculeBrowser.UnsortedAll as UnsortedAll
+
+import Page.MoleculeBrowser.UnsortedBuildingBlocks
+    as UnsortedBuildingBlocks
+
+import Page.MoleculeBrowser.UnsortedConstructedMolecules
+    as UnsortedConstructedMolecules
+
+import Page.MoleculeBrowser.SortedAll as SortedAll
+
+import Page.MoleculeBrowser.SortedBuildingBlocks
+    as SortedBuildingBlocks
+
+import Page.MoleculeBrowser.SortedConstructedMolecules
+    as SortedConstructedMolecules
+
 
 ---- MODEL ----
 
@@ -30,12 +48,14 @@ type Action =
     }
 
 data Payload
-    = UnsortedAll UnsortedAll.Action
-    | UnsortedBuildingBlocks UnsortedBuildingBlocks.Action
-    | UnsortedConstructedMolecules UnsortedConstructedMolecules.Action
-    | SortedAll SortedAll.Action
-    | SortedBuildingBlocks SortedBuildingBlocks.Action
-    | SortedConstructedMolecules SortedConstructedMolecules.Action
+    = UnsortedAllAction UnsortedAll.Action
+    | UnsortedBuildingBlocksAction UnsortedBuildingBlocks.Action
+    | UnsortedConstructedMoleculesAction
+        UnsortedConstructedMolecules.Action
+    | SortedAllAction SortedAll.Action
+    | SortedBuildingBlocksAction SortedBuildingBlocks.Action
+    | SortedConstructedMoleculesAction
+        SortedConstructedMolecules.Action
     | InitMongoConfigurator Config.MongoConfigurator
     | InitUnsortedAll Config.UnsortedAll
     | InitUnsortedBuildingBlocks Config.UnsortedBuildingBlocks

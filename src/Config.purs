@@ -5,7 +5,6 @@ module Config
     , UnsortedConstructedMolecules
     ) where
 
-import SortType (SortType)
 import Molecule (Molecule)
 import PageKind (PageKind)
 import SelectingCollection (SelectingCollection)
