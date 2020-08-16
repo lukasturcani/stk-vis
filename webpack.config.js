@@ -12,6 +12,9 @@ module.exports = {
 
         'unsorted-all':
             './src/Page/MoleculeBrowser/UnsortedAll/index.tsx',
+
+        'sorted-all':
+            './src/Page/MoleculeBrowser/SortedAll/index.tsx',
     },
     target: 'electron-renderer',
     output: {
@@ -55,6 +58,12 @@ module.exports = {
             chunks: ['unsorted-all'],
             filename: 'unsorted-all.html',
         }),
+        new HtmlWebpackPlugin({
+            title: 'SortedAll',
+            template: './src/template.html',
+            chunks: ['sorted-all'],
+            filename: 'sorted-all.html',
+        }),
     ],
     mode: 'development',
     resolve: {
@@ -88,6 +97,11 @@ module.exports = {
             'Page.MoleculeBrowser.UnsortedAll': path.join(
                 __dirname,
                 './output/Page.MoleculeBrowser.UnsortedAll',
+            ),
+
+            'Page.MoleculeBrowser.SortedAll': path.join(
+                __dirname,
+                './output/Page.MoleculeBrowser.SortedAll',
             ),
 
             'Page.MoleculeBrowser.MoleculeTable': path.join(
