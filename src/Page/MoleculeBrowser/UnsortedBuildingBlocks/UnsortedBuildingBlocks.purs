@@ -98,7 +98,7 @@ debugInit =
     , constructedMoleculeCollection: "constructed_molecules"
     , positionMatrixCollection: "position_matrices"
     , buildingBlockPositionMatrixCollection:
-        "building_block_position_matrices"
+        "position_matrices"
     , pageIndex: 0
     , numEntriesPerPage: 34
     , ignoredCollections: []
