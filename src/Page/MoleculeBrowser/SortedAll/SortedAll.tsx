@@ -9,6 +9,7 @@ import {
     updateMoleculePage,
     doNothing,
     selectMolecule,
+    setSorted,
 } from 'Page.MoleculeBrowser.SortedAll';
 import {
     SortType
@@ -33,11 +34,7 @@ function mapModelToProps<a>(
         ...props
         ({
             updateMoleculePage,
-
-            setSorted:
-                (collection: string) =>
-                (sortType: SortType) =>
-                doNothing,
+            setSorted,
 
             setUnsorted: doNothing,
 

@@ -17,6 +17,8 @@ declare module 'Page.MoleculeBrowser.SortedAll'
         (payload: UpdateMoleculePage) => Action;
     export const selectMolecule:
         (rowIndex: number) => (molecule: Molecule) => Action;
+    export const setSorted:
+        (collection: string) => (sortType: SortType) => Action;
 
     export interface ActionCreators<a>
     {
