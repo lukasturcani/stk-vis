@@ -23,6 +23,7 @@ import Molecule as Molecule
 import DispatchAction (DispatchAction)
 import Page.MoleculeBrowser.SortButton as SortButton
 import Page.MoleculeBrowser.NextButton as NextButton
+import Page.MoleculeBrowser.BackButton as BackButton
 import Effect.Promise (class Deferred, Promise, catch)
 import Requests.UnsortedAll as UnsortedRequest
 import Requests.SortedAll as SortedRequest
@@ -165,6 +166,11 @@ props actionCreators model =
     , nextButton:
         { lastPage: lastPage model.pageKind
         , onClick: nextButtonClick actionCreators model
+        }
+
+    , backButton:
+        { disabled: BackButton.disabled model.pageKind
+        , onClick: backButtonClick actionCreators model
         }
 
     }
@@ -423,6 +429,75 @@ _nextButtonClick actionCreators model dispatch snackbar = do
     )
 
 
+---
+
+
+type BackButtonActionCreators a r =
+    { updateMoleculePage :: UpdateMoleculePage -> a
+    | r
+    }
+
+backButtonClick
+    :: forall a r1 r2
+    .  Deferred
+    => BackButtonActionCreators a r1
+    -> RequestConfig r2
+    -> DispatchAction a
+    -> BackButton.Snackbars
+    -> Promise Unit
+
+backButtonClick actionCreators model dispatch snackbars = catch
+    (backButtonClick actionCreators model dispatch snackbars)
+    (BackButton.errorSnackbar snackbars model.pageKind)
+
+_backButtonClick
+    :: forall a r1 r2
+    .  Deferred
+    => BackButtonActionCreators a r1
+    -> RequestConfig r2
+    -> DispatchAction a
+    -> BackButton.Snackbars
+    -> Promise Unit
+
+_backButtonClick actionCreators model dispatch snackbar = do
+    result <- UnsortedRequest.request
+        { url: model.url
+        , database: model.database
+        , moleculeKey: model.moleculeKey
+        , moleculeCollection: model.moleculeCollection
+        , constructedMoleculeCollection:
+            model.constructedMoleculeCollection
+        , positionMatrixCollection: model.positionMatrixCollection
+        , buildingBlockPositionMatrixCollection:
+            model.buildingBlockPositionMatrixCollection
+        , pageIndex
+        , numEntriesPerPage: model.numEntriesPerPage
+        , ignoredCollections: model.ignoredCollections
+        }
+
+    let
+        (UnsortedRequest.Result
+            { valueCollections, molecules, pageKind }
+        ) = result
+
+        payload =
+            { columns:
+                Array.concat [[model.moleculeKey], valueCollections]
+            , molecules:
+                map (Molecule.molecule' model.moleculeKey) molecules
+            , pageIndex
+            , pageKind: PageKind.fromRequest pageKind
+            , valueCollections
+            }
+
+    pure (unsafePerformEffect
+        (runEffectFn1
+            dispatch
+            (actionCreators.updateMoleculePage payload)
+        )
+    )
+  where
+    pageIndex = BackButton.previousPageIndex model.pageIndex
 
 
 ---- UPDATE ----
