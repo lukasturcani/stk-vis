@@ -24,6 +24,9 @@ import {
 import {
     BackButton,
 } from '../../BackButton/components/styled';
+import {
+    Breadcrumbs,
+} from '../../Breadcrumbs/components/styled';
 
 
 export function MoleculeBrowser<a>(
@@ -32,6 +35,7 @@ export function MoleculeBrowser<a>(
 {
     return <MoleculeBrowserBase
         root={Root}
+        breadcrumbsComponent={Breadcrumbs}
         sortButtonComponent={SortButton}
         moleculeTableComponent={MoleculeTable}
         viewerContainer={ViewerContainer}

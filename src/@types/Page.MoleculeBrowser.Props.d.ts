@@ -18,6 +18,9 @@ declare module 'Page.MoleculeBrowser.Props'
     import {
         Props as BackButtonProps,
     } from 'Page.MoleculeBrowser.BackButton';
+    import {
+        Props as BreadcrumbsProps,
+    } from 'Page.MoleculeBrowser.Breadcrumbs';
 
     export interface Props<a>
     {
@@ -27,5 +30,6 @@ declare module 'Page.MoleculeBrowser.Props'
         threeDViewer: ThreeDViewerProps;
         nextButton: NextButtonProps<a>;
         backButton: BackButtonProps<a>;
+        breadcrumbs: BreadcrumbsProps<a>;
     }
 }

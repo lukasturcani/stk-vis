@@ -20,6 +20,9 @@ import {
 import {
     CoreProps as BackButtonProps,
 } from '../../BackButton/components/base'
+import {
+    CoreProps as BreadcrumbsProps,
+} from '../../Breadcrumbs/components/base';
 
 
 type Empty = Record<string, unknown>;
@@ -34,6 +37,7 @@ export type CoreProps<a> = DispatchProps<a> & MoleculeBrowserProps<a>;
 interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps<a>
 {
     root: React.FunctionComponent<Record<string, unknown>>;
+    breadcrumbsComponent: React.FunctionComponent<BreadcrumbsProps<a>>;
     sortButtonComponent: React.FunctionComponent<SortButtonProps<a>>;
     moleculeTableComponent:
         React.FunctionComponent<MoleculeTableProps<a>>;
@@ -53,6 +57,10 @@ export function MoleculeBrowser<a>(
 {
     return (
         <props.root>
+            <props.breadcrumbsComponent
+                dispatch={props.dispatch}
+                {...props.breadcrumbs}
+            />
             <props.sortButtonComponent
                 dispatch={props.dispatch}
                 {...props.sortButton}

@@ -3,6 +3,7 @@ declare module 'Page.MoleculeBrowser.UnsortedAll'
     import { SortType } from 'SortType';
     import { Props } from 'Page.MoleculeBrowser.Props';
     import { Molecule } from 'Molecule';
+    import * as Config from 'Config';
 
     export type Model = Record<string, unknown>;
     export type Action = { type: string; };
@@ -22,10 +23,14 @@ declare module 'Page.MoleculeBrowser.UnsortedAll'
         setSorted: (collection: string) => (sortType: SortType) => a;
         setUnsorted: a;
         updateMoleculePage: (payload: UpdateMoleculePage) => a;
+
         selectMolecule:
             (rowIndex: number) =>
             (molecule: Molecule) =>
             a
+
+        initMongoConfigurator:
+            (payload: Config.MongoConfigurator) => a;
     }
 
     export const props:

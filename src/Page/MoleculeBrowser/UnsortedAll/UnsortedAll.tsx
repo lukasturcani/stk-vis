@@ -20,6 +20,7 @@ import {
 import {
     MoleculeBrowser
 } from '../Props/components/styled';
+import * as Config from 'Config';
 
 
 function mapModelToProps<a>(
@@ -41,6 +42,9 @@ function mapModelToProps<a>(
             setUnsorted: doNothing,
 
             selectMolecule,
+
+            initMongoConfigurator:
+                (payload: Config.MongoConfigurator) => doNothing,
 
         })
         (model)
