@@ -54,6 +54,8 @@ type Model =
     , pageIndex                         :: Int
     , numEntriesPerPage                 :: Int
     , ignoredCollections                :: Array String
+    , sortedCollection                  :: String
+    , sortType                          :: SortType
     , pageKind                          :: PageKind
     , valueCollections                  :: Array String
     , columns                           :: Array String
@@ -86,6 +88,8 @@ type RequestConfig r =
     , numEntriesPerPage                     :: Int
     , ignoredCollections                    :: Array String
     , pageKind                              :: PageKind
+    , sortedCollection                      :: String
+    , sortType                              :: SortType
     | r
     }
 
@@ -106,6 +110,8 @@ debugInit =
     , valueCollections: ["numAtoms"]
     , columns: ["InChIKey", "numAtoms"]
     , molecules: SelectingCollection.selectingCollection [] molecule []
+    , sortedCollection: "numAtom"
+    , sortType: SortType.Ascending
     }
   where
     molecule = Molecule.molecule
