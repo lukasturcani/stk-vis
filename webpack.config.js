@@ -17,6 +17,10 @@ module.exports = {
             './src/Page/MoleculeBrowser/'
             +'UnsortedBuildingBlocks/index.tsx',
 
+        'unsorted-constructed-molecules':
+            './src/Page/MoleculeBrowser/'
+            +'UnsortedConstructedMolecules/index.tsx',
+
         'sorted-all':
             './src/Page/MoleculeBrowser/SortedAll/index.tsx',
     },
@@ -69,6 +73,12 @@ module.exports = {
             filename: 'unsorted-building-blocks.html',
         }),
         new HtmlWebpackPlugin({
+            title: 'UnsortedConstructedMolecules',
+            template: './src/template.html',
+            chunks: ['unsorted-constructed-molecules'],
+            filename: 'unsorted-constructed-molecules.html',
+        }),
+        new HtmlWebpackPlugin({
             title: 'SortedAll',
             template: './src/template.html',
             chunks: ['sorted-all'],
@@ -113,6 +123,13 @@ module.exports = {
                 __dirname,
                 './output/Page.MoleculeBrowser.UnsortedBuildingBlocks',
             ),
+
+            'Page.MoleculeBrowser.UnsortedConstructedMolecules':
+                path.join(
+                    __dirname,
+                    './output/Page.MoleculeBrowser.'
+                    +'UnsortedConstructedMolecules',
+                ),
 
             'Page.MoleculeBrowser.SortedAll': path.join(
                 __dirname,
