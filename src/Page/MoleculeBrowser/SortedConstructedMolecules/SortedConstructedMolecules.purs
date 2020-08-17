@@ -9,7 +9,7 @@ module Page.MoleculeBrowser.SortedConstructedMolecules
     , updateMoleculePage
     , doNothing
     , selectMolecule
-    , setSorted
+    , changeSortedCollection
     ) where
 
 import Prelude
@@ -76,6 +76,17 @@ type MoleculePage r =
     , pageIndex        :: Int
     , pageKind         :: PageKind
     , valueCollections :: Array String
+    | r
+    }
+
+type SortedMoleculePage r =
+    { columns          :: Array String
+    , molecules        :: SelectingCollection Molecule
+    , pageIndex        :: Int
+    , pageKind         :: PageKind
+    , valueCollections :: Array String
+    , sortedCollection :: String
+    , sortType         :: SortType
     | r
     }
 
@@ -156,7 +167,7 @@ debugInit =
 
 
 type ActionCreators a r =
-    { setSorted               :: CollectionName -> SortType -> a
+    { changeSortedCollection  :: ChangeSortedCollection -> a
     , updateMoleculePage      :: UpdateMoleculePage -> a
     , selectMolecule          :: RowIndex -> Molecule -> a
     , initMongoConfigurator   :: Config.MongoConfigurator -> a
@@ -220,8 +231,7 @@ type CollectionName = String
 
 
 type SetSortedActionCreators a r =
-    { setSorted          :: CollectionName -> SortType -> a
-    , updateMoleculePage :: UpdateMoleculePage -> a
+    { changeSortedCollection :: ChangeSortedCollection -> a
     | r
     }
 
@@ -253,13 +263,6 @@ onSetSorted actionCreators model dispatch collection sortType = do
         , sortType: SortType.toRequest sortType
         }
 
-    _ <- pure (unsafePerformEffect
-        (runEffectFn1
-            dispatch
-            (actionCreators.setSorted collection sortType)
-        )
-    )
-
     let
         (SortedRequest.Result
             { valueCollections, molecules, pageKind }
@@ -273,11 +276,13 @@ onSetSorted actionCreators model dispatch collection sortType = do
             , pageIndex: 0
             , pageKind: PageKind.fromRequest pageKind
             , valueCollections
+            , sortedCollection: collection
+            , sortType
             }
 
     pure (unsafePerformEffect
         (runEffectFn1
-            dispatch (actionCreators.updateMoleculePage payload)
+            dispatch (actionCreators.changeSortedCollection payload)
         )
     )
 
@@ -579,7 +584,7 @@ type Action =
 data Payload
     = UpdateMoleculePage UpdateMoleculePage
     | SelectMolecule RowIndex Molecule
-    | SetSorted CollectionName SortType
+    | ChangeSortedCollection ChangeSortedCollection
     | DoNothing
 
 type UpdateMoleculePage =
@@ -588,6 +593,16 @@ type UpdateMoleculePage =
     , pageKind         :: PageKind
     , pageIndex        :: Int
     , valueCollections :: Array String
+    }
+
+type ChangeSortedCollection =
+    { columns          :: Array String
+    , molecules        :: SelectingCollection Molecule
+    , pageKind         :: PageKind
+    , pageIndex        :: Int
+    , valueCollections :: Array String
+    , sortedCollection :: String
+    , sortType         :: SortType
     }
 
 updateMoleculePage :: UpdateMoleculePage -> Action
@@ -602,10 +617,10 @@ selectMolecule rowIndex molecule =
     , payload: SelectMolecule rowIndex molecule
     }
 
-setSorted :: CollectionName -> SortType -> Action
-setSorted collection sortType =
-    { type: "SET_SORTED"
-    , payload: SetSorted collection sortType
+changeSortedCollection :: ChangeSortedCollection -> Action
+changeSortedCollection payload =
+    { type: "CHANGE_SORTED_COLLECTION"
+    , payload: ChangeSortedCollection payload
     }
 
 doNothing :: Action
@@ -625,8 +640,8 @@ reducer model action = case action of
     ({ payload: SelectMolecule rowIndex molecule }) ->
         _selectMolecule model rowIndex molecule
 
-    ({ payload: SetSorted collection sortType }) ->
-        _setSorted model collection sortType
+    ({ payload: ChangeSortedCollection payload }) ->
+        _changeSortedCollection model payload
 
     ({ payload: DoNothing }) -> model
 
@@ -670,12 +685,19 @@ _selectMolecule model rowIndex molecule
 ---
 
 
-_setSorted
+_changeSortedCollection
     :: forall r
-    .  SortConfig r
-    -> CollectionName
-    -> SortType
-    -> SortConfig r
+    .  SortedMoleculePage r
+    -> ChangeSortedCollection
+    -> SortedMoleculePage r
 
-_setSorted model collection sortType
-    = model { sortedCollection = collection, sortType = sortType }
+_changeSortedCollection model payload
+    = model
+        { molecules = payload.molecules
+        , columns = payload.columns
+        , pageIndex = payload.pageIndex
+        , pageKind = payload.pageKind
+        , valueCollections = payload.valueCollections
+        , sortedCollection = payload.sortedCollection
+        , sortType = payload.sortType
+        }
