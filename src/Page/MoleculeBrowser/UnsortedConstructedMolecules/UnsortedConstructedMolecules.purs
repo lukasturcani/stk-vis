@@ -3,6 +3,7 @@ module Page.MoleculeBrowser.UnsortedConstructedMolecules
     , Action
     , Payload
     , reducer
+    , init
     , debugInit
     , props
     , updateMoleculePage
@@ -38,6 +39,7 @@ import ValidatedMolecule.Position as Position
 import ValidatedMolecule.ChemicalSymbol as ChemicalSymbol
 import Page.MoleculeBrowser.Props (Props)
 import Config as Config
+import Page.MongoConfigurator.SearchKind as SearchKind
 
 
 ---- MODEL ----
@@ -88,6 +90,9 @@ type RequestConfig r =
     , pageKind                              :: PageKind
     | r
     }
+
+init :: Config.UnsortedConstructedMolecules -> Model
+init config = config
 
 debugInit :: Model
 debugInit =
@@ -528,6 +533,7 @@ breadcrumbsClick actionCreators model dispatch =
                     model.buildingBlockPositionMatrixCollection
                 , numEntriesPerPage: model.numEntriesPerPage
                 , ignoredCollections: model.ignoredCollections
+                , searchKind: SearchKind.UnsortedConstructedMolecules
                 }
             )
         )

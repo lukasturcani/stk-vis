@@ -38,6 +38,7 @@ import ValidatedMolecule as Validated
 import ValidatedMolecule.Position as Position
 import ValidatedMolecule.ChemicalSymbol as ChemicalSymbol
 import Page.MoleculeBrowser.Props (Props)
+import Page.MongoConfigurator.SearchKind as SearchKind
 import Config as Config
 
 
@@ -553,6 +554,7 @@ breadcrumbsClick actionCreators model dispatch =
                     model.buildingBlockPositionMatrixCollection
                 , numEntriesPerPage: model.numEntriesPerPage
                 , ignoredCollections: model.ignoredCollections
+                , searchKind: SearchKind.UnsortedAll
                 }
             )
         )

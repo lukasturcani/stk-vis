@@ -8,6 +8,7 @@ module Config
 import Molecule (Molecule)
 import PageKind (PageKind)
 import SelectingCollection (SelectingCollection)
+import Page.MongoConfigurator.SearchKind (SearchKind)
 
 type MongoConfigurator =
     { url                               :: String
@@ -19,6 +20,7 @@ type MongoConfigurator =
     , buildingBlockPositionMatrixCollection :: String
     , numEntriesPerPage                 :: Int
     , ignoredCollections                :: Array String
+    , searchKind                        :: SearchKind
     }
 
 type UnsortedAll =

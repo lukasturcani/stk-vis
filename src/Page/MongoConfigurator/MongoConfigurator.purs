@@ -1,8 +1,8 @@
 module Page.MongoConfigurator
     ( Model
-    , SearchKind
     , Payload
     , init
+    , initFromConfig
     , reducer
     , props
     , doNothing
@@ -21,11 +21,13 @@ import Effect.Class.Console (log)
 import Data.Array as Array
 import PageKind as PageKind
 import Molecule as Molecule
+import Page.MongoConfigurator.SearchKind (SearchKind (..))
 
 import Requests.UnsortedAll as AllRequest
 import Requests.UnsortedBuildingBlocks as BuildingBlocksRequest
 import Requests.UnsortedConstructedMolecules
     as ConstructedMoleculesRequest
+
 
 ---- MODEL ----
 
@@ -43,11 +45,6 @@ type Model =
     , searchKind                            :: SearchKind
     }
 
-data SearchKind
-    = UnsortedAll
-    | UnsortedBuildingBlocks
-    | UnsortedConstructedMolecules
-
 
 init :: Model
 init =
@@ -63,6 +60,9 @@ init =
     , ignoredCollections: []
     , searchKind: UnsortedAll
     }
+
+initFromConfig :: Config.MongoConfigurator -> Model
+initFromConfig config = config
 
 
 ---- VIEW ----

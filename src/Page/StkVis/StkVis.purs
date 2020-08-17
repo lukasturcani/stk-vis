@@ -95,7 +95,7 @@ reducer model action = case Tuple model (payload action) of
                 SortedCMs.reducer subModel subAction
 
     Tuple _ (InitMongoConfigurator config) ->
-        MongoConfigurator $ MongoConfigurator.init config
+        MongoConfigurator $ MongoConfigurator.initFromConfig config
 
     Tuple _ (InitUnsortedAll config) ->
         UnsortedAll $ UnsortedAll.init config
@@ -104,6 +104,6 @@ reducer model action = case Tuple model (payload action) of
         UnsortedBuildingBlocks $ UnsortedBBs.init config
 
     Tuple _ (InitUnsortedConstructedMolecules config) ->
-        UnsortedConstructedMolecules $ UnsortedCms.init config
+        UnsortedConstructedMolecules $ UnsortedCMs.init config
 
     Tuple _ _ -> model
