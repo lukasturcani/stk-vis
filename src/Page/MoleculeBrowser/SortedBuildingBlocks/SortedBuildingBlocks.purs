@@ -152,11 +152,11 @@ debugInit =
 
 
 type ActionCreators a r =
-    { setSorted               :: CollectionName -> SortType -> a
-    , setUnsorted             :: a
-    , updateMoleculePage      :: UpdateMoleculePage -> a
-    , selectMolecule          :: RowIndex -> Molecule -> a
-    , initMongoConfigurator   :: Config.MongoConfigurator -> a
+    { setSorted                  :: CollectionName -> SortType -> a
+    , updateMoleculePage         :: UpdateMoleculePage -> a
+    , selectMolecule             :: RowIndex -> Molecule -> a
+    , initMongoConfigurator      :: Config.MongoConfigurator -> a
+    , initUnsortedBuildingBlocks :: Config.UnsortedBuildingBlocks -> a
     | r
     }
 
@@ -281,8 +281,7 @@ onSetSorted actionCreators model dispatch collection sortType = do
 
 
 type SetUnsortedActionCreators a r =
-    { setUnsorted        :: a
-    , updateMoleculePage :: UpdateMoleculePage -> a
+    { initUnsortedBuildingBlocks :: Config.UnsortedBuildingBlocks -> a
     | r
     }
 
@@ -310,29 +309,36 @@ onSetUnsorted actionCreators model dispatch = do
         , ignoredCollections: model.ignoredCollections
         }
 
-    _ <- pure (unsafePerformEffect
-        (runEffectFn1 dispatch actionCreators.setUnsorted)
-    )
-
     let
         (UnsortedRequest.Result
             { valueCollections, molecules, pageKind }
         ) = result
 
         payload =
-            { columns:
+            { url: model.url
+            , database: model.database
+            , moleculeKey: model.moleculeKey
+            , moleculeCollection: model.moleculeCollection
+            , constructedMoleculeCollection:
+                model.constructedMoleculeCollection
+            , positionMatrixCollection: model.positionMatrixCollection
+            , buildingBlockPositionMatrixCollection:
+                model.buildingBlockPositionMatrixCollection
+            , pageIndex: 0
+            , numEntriesPerPage: model.numEntriesPerPage
+            , ignoredCollections: model.ignoredCollections
+            , pageKind: PageKind.fromRequest pageKind
+            , valueCollections
+            , columns:
                 Array.concat [[model.moleculeKey], valueCollections]
             , molecules:
                 map (Molecule.molecule' model.moleculeKey) molecules
-            , pageIndex: 0
-            , pageKind: PageKind.fromRequest pageKind
-            , valueCollections
             }
 
     pure (unsafePerformEffect
         (runEffectFn1
             dispatch
-            (actionCreators.updateMoleculePage payload)
+            (actionCreators.initUnsortedBuildingBlocks payload)
         )
     )
 

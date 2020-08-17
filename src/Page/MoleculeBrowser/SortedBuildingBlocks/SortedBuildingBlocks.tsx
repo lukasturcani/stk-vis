@@ -36,12 +36,13 @@ function mapModelToProps<a>(
             updateMoleculePage,
             setSorted,
 
-            setUnsorted: doNothing,
-
             selectMolecule,
 
             initMongoConfigurator:
                 (payload: Config.MongoConfigurator) => doNothing,
+
+            initUnsortedBuildingBlocks:
+                (payload: Config.UnsortedBuildingBlocks) => doNothing,
 
         })
         (model)
