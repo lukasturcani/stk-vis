@@ -56,6 +56,9 @@ data Payload
     | InitUnsortedBuildingBlocks Config.UnsortedBuildingBlocks
     | InitUnsortedConstructedMolecules
         Config.UnsortedConstructedMolecules
+    | InitSortedAll Config.SortedAll
+    | InitSortedBuildingBlocks Config.SortedBuildingBlocks
+    | InitSortedConstructedMolecules Config.SortedConstructedMolecules
 
 
 payload :: Action -> Payload
@@ -105,5 +108,14 @@ reducer model action = case Tuple model (payload action) of
 
     Tuple _ (InitUnsortedConstructedMolecules config) ->
         UnsortedConstructedMolecules $ UnsortedCMs.init config
+
+    Tuple _ (InitSortedAll config) ->
+        SortedAll $ SortedAll.init config
+
+    Tuple _ (InitSortedBuildingBlocks config) ->
+        SortedBuildingBlocks $ SortedBBs.init config
+
+    Tuple _ (InitSortedConstructedMolecules config) ->
+        SortedConstructedMolecules $ SortedCMs.init config
 
     Tuple _ _ -> model

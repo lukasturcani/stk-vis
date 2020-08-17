@@ -3,6 +3,7 @@ module Page.MoleculeBrowser.SortedBuildingBlocks
     , Action
     , Payload
     , reducer
+    , init
     , debugInit
     , props
     , updateMoleculePage
@@ -100,6 +101,9 @@ type RequestConfig r =
     , sortType                              :: SortType
     | r
     }
+
+init :: Config.SortedBuildingBlocks -> Model
+init config = config
 
 debugInit :: Model
 debugInit =

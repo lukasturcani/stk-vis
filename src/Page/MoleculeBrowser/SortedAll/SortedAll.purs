@@ -3,6 +3,7 @@ module Page.MoleculeBrowser.SortedAll
     , Action
     , Payload
     , reducer
+    , init
     , debugInit
     , props
     , updateMoleculePage
@@ -100,6 +101,9 @@ type RequestConfig r =
     , sortType                              :: SortType
     | r
     }
+
+init :: Config.SortedAll -> Model
+init config = config
 
 debugInit :: Model
 debugInit =
