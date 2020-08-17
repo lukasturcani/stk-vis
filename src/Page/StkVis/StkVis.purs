@@ -41,6 +41,18 @@ data Props
     | SortedBuildingBlocksProps (MoleculeBrowser.Props Action)
     | SortedConstructedMoleculesProps (MoleculeBrowser.Props Action)
 
+props :: Model -> Props
+props model = case model of
+    (MongoConfigurator subModel) ->
+        MongoConfiguratorProps $
+            MongoConfigurator.props actionCreators subModel
+
+  where
+    actionCreators =
+        { initUnsortedAll
+        , initUnsortedBuildingBlocks
+        , initUnsortedConstructedMolecules
+        }
 
 
 ---- UPDATE ----
@@ -73,6 +85,28 @@ data Payload
 
 payload :: Action -> Payload
 payload ({ payload: payload' }) = payload'
+
+
+initUnsortedAll :: Config.UnsortedAll -> Action
+initUnsortedAll payload' =
+    { type: "INIT_UNSORTED_ALL"
+    , payload: InitUnsortedAll payload'
+    }
+
+initUnsortedBuildingBlocks :: Config.UnsortedBuildingBlocks -> Action
+initUnsortedBuildingBlocks payload' =
+    { type: "INIT_UNSORTED_BUILDING_BLOCKS"
+    , payload: InitUnsortedBuildingBlocks payload'
+    }
+
+initUnsortedConstructedMolecules
+    :: Config.UnsortedConstructedMolecules
+    -> Action
+
+initUnsortedConstructedMolecules payload' =
+    { type: "INIT_UNSORTED_CONSTRUCTED_MOLECULES"
+    , payload: InitUnsortedConstructedMolecules payload'
+    }
 
 reducer :: Model -> Action -> Model
 reducer model action = case Tuple model (payload action) of
