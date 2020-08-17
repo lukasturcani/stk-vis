@@ -9,7 +9,7 @@ import {
     updateMoleculePage,
     doNothing,
     selectMolecule,
-    setSorted,
+    changeSortedCollection,
 } from 'Page.MoleculeBrowser.SortedBuildingBlocks';
 import {
     SortType
@@ -34,8 +34,7 @@ function mapModelToProps<a>(
         ...props
         ({
             updateMoleculePage,
-            setSorted,
-
+            changeSortedCollection,
             selectMolecule,
 
             initMongoConfigurator:
