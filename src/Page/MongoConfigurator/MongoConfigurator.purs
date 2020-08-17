@@ -1,6 +1,11 @@
 module Page.MongoConfigurator
     ( Model
     , Payload
+    , Props
+    , GetMoleculesButtonProps
+    , Snackbars
+    , Snackbar
+    , MongoData
     , init
     , initFromConfig
     , reducer

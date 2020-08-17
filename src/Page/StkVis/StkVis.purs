@@ -15,6 +15,7 @@ import Page.MoleculeBrowser.UnsortedConstructedMolecules as UnsortedCMs
 import Page.MoleculeBrowser.SortedAll as SortedAll
 import Page.MoleculeBrowser.SortedBuildingBlocks as SortedBBs
 import Page.MoleculeBrowser.SortedConstructedMolecules as SortedCMs
+import Page.MoleculeBrowser.Props as MoleculeBrowser
 
 
 ---- MODEL ----
@@ -31,6 +32,18 @@ data Model
 
 
 ---- VIEW ----
+
+data Props
+    = MongoConfiguratorProps (MongoConfigurator.Props Action)
+    | UnsortedAllProps (MoleculeBrowser.Props Action)
+    | UnsortedBuildingBlocksProps (MoleculeBrowser.Props Action)
+    | UnsortedConstructedMoleculesProps (MoleculeBrowser.Props Action)
+    | SortedAllProps (MoleculeBrowser.Props Action)
+    | SortedBuildingBlocksProps (MoleculeBrowser.Props Action)
+    | SortedConstructedMoleculesProps (MoleculeBrowser.Props Action)
+
+
+--props :: Model -> Props -> Model
 
 
 ---- UPDATE ----
