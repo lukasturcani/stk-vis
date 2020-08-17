@@ -144,7 +144,6 @@ debugInit =
 
 type ActionCreators a r =
     { setSorted               :: CollectionName -> SortType -> a
-    , setUnsorted             :: a
     , updateMoleculePage      :: UpdateMoleculePage -> a
     , selectMolecule          :: RowIndex -> Molecule -> a
     , initMongoConfigurator   :: Config.MongoConfigurator -> a
@@ -273,8 +272,7 @@ setSorted actionCreators model dispatch collection sortType = do
 
 
 type SetUnsortedActionCreators a r =
-    { setUnsorted        :: a
-    , updateMoleculePage :: UpdateMoleculePage -> a
+    { updateMoleculePage :: UpdateMoleculePage -> a
     | r
     }
 
@@ -302,10 +300,6 @@ setUnsorted actionCreators model dispatch = do
         , numEntriesPerPage: model.numEntriesPerPage
         , ignoredCollections: model.ignoredCollections
         }
-
-    _ <- pure (unsafePerformEffect
-        (runEffectFn1 dispatch actionCreators.setUnsorted)
-    )
 
     let
         (UnsortedRequest.Result

@@ -39,8 +39,6 @@ function mapModelToProps<a>(
                 (sortType: SortType) =>
                 doNothing,
 
-            setUnsorted: doNothing,
-
             selectMolecule,
 
             initMongoConfigurator:

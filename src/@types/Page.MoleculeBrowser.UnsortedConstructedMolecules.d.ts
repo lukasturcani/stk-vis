@@ -21,7 +21,6 @@ declare module 'Page.MoleculeBrowser.UnsortedConstructedMolecules'
     export interface ActionCreators<a>
     {
         setSorted: (collection: string) => (sortType: SortType) => a;
-        setUnsorted: a;
         updateMoleculePage: (payload: UpdateMoleculePage) => a;
 
         selectMolecule:
