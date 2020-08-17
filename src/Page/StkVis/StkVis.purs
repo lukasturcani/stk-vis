@@ -7,7 +7,6 @@ module Page.StkVis
 import Prelude
 import Data.Tuple (Tuple (Tuple))
 import Config as Config
-import SortType (SortType)
 import Page.MongoConfigurator as MongoConfigurator
 import Page.MoleculeBrowser.UnsortedAll as UnsortedAll
 import Page.MoleculeBrowser.UnsortedBuildingBlocks as UnsortedBBs
@@ -42,8 +41,6 @@ data Props
     | SortedBuildingBlocksProps (MoleculeBrowser.Props Action)
     | SortedConstructedMoleculesProps (MoleculeBrowser.Props Action)
 
-
---props :: Model -> Props -> Model
 
 
 ---- UPDATE ----
