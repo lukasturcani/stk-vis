@@ -20,7 +20,6 @@ declare module 'Page.MoleculeBrowser.UnsortedAll'
 
     export interface ActionCreators<a>
     {
-        setSorted: (collection: string) => (sortType: SortType) => a;
         updateMoleculePage: (payload: UpdateMoleculePage) => a;
 
         selectMolecule:
@@ -30,6 +29,9 @@ declare module 'Page.MoleculeBrowser.UnsortedAll'
 
         initMongoConfigurator:
             (payload: Config.MongoConfigurator) => a;
+
+        initSortedAll:
+            (payload: Config.SortedAll) => a;
     }
 
     export const props:

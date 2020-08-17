@@ -34,15 +34,13 @@ function mapModelToProps<a>(
         ({
             updateMoleculePage,
 
-            setSorted:
-                (collection: string) =>
-                (sortType: SortType) =>
-                doNothing,
-
             selectMolecule,
 
             initMongoConfigurator:
                 (payload: Config.MongoConfigurator) => doNothing,
+
+            initSortedBuildingBlocks:
+                (payload: Config.SortedBuildingBlocks) => doNothing,
 
         })
         (model)

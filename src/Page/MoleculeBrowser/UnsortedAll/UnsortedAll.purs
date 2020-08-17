@@ -143,10 +143,10 @@ debugInit =
 
 
 type ActionCreators a r =
-    { setSorted               :: CollectionName -> SortType -> a
-    , updateMoleculePage      :: UpdateMoleculePage -> a
+    { updateMoleculePage      :: UpdateMoleculePage -> a
     , selectMolecule          :: RowIndex -> Molecule -> a
     , initMongoConfigurator   :: Config.MongoConfigurator -> a
+    , initSortedAll           :: Config.SortedAll -> a
     | r
     }
 
@@ -205,8 +205,7 @@ type CollectionName = String
 
 
 type SetSortedActionCreators a r =
-    { setSorted          :: CollectionName -> SortType -> a
-    , updateMoleculePage :: UpdateMoleculePage -> a
+    { initSortedAll      :: Config.SortedAll -> a
     | r
     }
 
@@ -239,31 +238,37 @@ setSorted actionCreators model dispatch collection sortType = do
         , sortType: SortType.toRequest sortType
         }
 
-    _ <- pure (unsafePerformEffect
-        (runEffectFn1
-            dispatch
-            (actionCreators.setSorted collection sortType)
-        )
-    )
-
     let
         (SortedRequest.Result
             { valueCollections, molecules, pageKind }
         ) = result
 
         payload =
-            { columns:
+            { url: model.url
+            , database: model.database
+            , moleculeKey: model.moleculeKey
+            , moleculeCollection: model.moleculeCollection
+            , constructedMoleculeCollection:
+                model.constructedMoleculeCollection
+            , positionMatrixCollection: model.positionMatrixCollection
+            , buildingBlockPositionMatrixCollection:
+                model.buildingBlockPositionMatrixCollection
+            , pageIndex: 0
+            , numEntriesPerPage: model.numEntriesPerPage
+            , ignoredCollections: model.ignoredCollections
+            , pageKind: PageKind.fromRequest pageKind
+            , valueCollections
+            , columns:
                 Array.concat [[model.moleculeKey], valueCollections]
             , molecules:
                 map (Molecule.molecule' model.moleculeKey) molecules
-            , pageIndex: 0
-            , pageKind: PageKind.fromRequest pageKind
-            , valueCollections
+            , sortedCollection: collection
+            , sortType
             }
 
     pure (unsafePerformEffect
         (runEffectFn1
-            dispatch (actionCreators.updateMoleculePage payload)
+            dispatch (actionCreators.initSortedAll payload)
         )
     )
 
