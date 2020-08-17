@@ -11,19 +11,22 @@ declare module 'Page.MoleculeBrowser.SortedAll'
     export const debugInit: Model;
 
     type UpdateMoleculePage = Record<string, unknown>;
+    type ChangeSortedCollection = unknown;
 
     export const doNothing: Action;
     export const updateMoleculePage:
         (payload: UpdateMoleculePage) => Action;
     export const selectMolecule:
         (rowIndex: number) => (molecule: Molecule) => Action;
-    export const setSorted:
-        (collection: string) => (sortType: SortType) => Action;
+    export const changeSortedCollection:
+        (payload: ChangeSortedCollection) => Action;
 
     export interface ActionCreators<a>
     {
-        setSorted: (collection: string) => (sortType: SortType) => a;
         updateMoleculePage: (payload: UpdateMoleculePage) => a;
+
+        changeSortedCollection:
+            (payload: ChangeSortedCollection) => a;
 
         selectMolecule:
             (rowIndex: number) =>
