@@ -2,8 +2,10 @@ module Page.StkVis
     ( Model
     , Action
     , Payload
+    , Props
     , reducer
     , init
+    , props
     ) where
 
 import Prelude
