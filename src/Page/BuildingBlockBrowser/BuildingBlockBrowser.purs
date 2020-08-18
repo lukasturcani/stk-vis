@@ -1,14 +1,36 @@
 module Page.BuildingBlockBrowser
     ( Model
+    , Action
+    , Payload
+    , Props
+    , ActionCreators
+    , UpdateMoleculePage
+    , RowIndex
+    , NextBuildingBlocks
     , BrowserConfig
+    , props
+    , reducer
+    , nextBuildingBlocks
+    , updateMoleculePage
+    , selectBuildingBlock
     ) where
 
+import Prelude
 import Config as Config
 import Molecule (Molecule, MoleculeKeyValue)
+import Molecule as Molecule
 import SelectingCollection (SelectingCollection)
 import SelectingCollection as SelectingCollection
 import Data.Array as Array
-import Data.Tuple (Tuple (Tuple))
+import Data.Tuple (Tuple (Tuple), fst, snd)
+import DispatchAction (DispatchAction)
+import Page.MoleculeBrowser.MoleculeTable as MoleculeTable
+import Page.MoleculeBrowser.TwoDViewer as TwoDViewer
+import Page.MoleculeBrowser.ThreeDViewer as ThreeDViewer
+import Effect.Unsafe (unsafePerformEffect)
+import Effect.Uncurried (runEffectFn1)
+import Effect.Promise (class Deferred, Promise)
+import Requests.BuildingBlocks as BBRequest
 
 
 ---- MODEL ----
@@ -57,24 +79,121 @@ data BrowserConfig
 
 
 type Props a =
-    {
+    { moleculeTable :: MoleculeTable.Props a
+    , twoDViewer    :: TwoDViewer.Props
+    , threeDViewer  :: ThreeDViewer.Props
+    , type          :: String
     }
 
 type ActionCreators a r =
-    {
+    { updateMoleculePage  :: UpdateMoleculePage -> a
+    , selectBuildingBlock :: RowIndex -> Molecule -> a
+    , nextBuildingBlocks  :: NextBuildingBlocks -> a
     | r
     }
 
 props :: forall a r. ActionCreators a r -> Model -> Props a
-props actionCreators model = {}
+props actionCreators model =
+    { moleculeTable:
+        { columns: model.columns
+        , selectedRow: fst selected
+        , rows: map Molecule.properties molecules
+        , molecules
+        , selectMolecule: selectMoleculeProp actionCreators
+        , buildingBlockRequests:
+            map (buildingBlockRequest actionCreators model) molecules
+        }
+
+    , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
+    , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
+    , type: "Building Block Browser"
+    }
+
+  where
+
+    selected = SelectingCollection.selected model.buildingBlocks
+    selectedMolecule = snd selected
+    molecules = SelectingCollection.all model.buildingBlocks
 
 
-
----- UPDATE ----
+---
 
 
 type RowIndex = Int
-type Distance = Int
+
+
+type SelectMoleculeActionCreators a r =
+    { selectBuildingBlock :: RowIndex -> Molecule -> a
+    | r
+    }
+
+
+selectMoleculeProp
+    :: forall a r
+    .  SelectMoleculeActionCreators a r
+    -> DispatchAction a
+    -> RowIndex
+    -> Molecule
+    -> Unit
+
+selectMoleculeProp actionCreators dispatch rowIndex molecule =
+    unsafePerformEffect
+        (runEffectFn1 dispatch
+            (actionCreators.selectBuildingBlock rowIndex molecule)
+        )
+
+
+---
+
+
+type BuildingBlockRequestActionCreators a r =
+    { nextBuildingBlocks :: NextBuildingBlocks -> a
+    |r
+    }
+
+buildingBlockRequest
+    :: forall a r
+    .  Deferred
+    => BuildingBlockRequestActionCreators a r
+    -> Model
+    -> Molecule
+    -> DispatchAction a
+    -> Promise Unit
+
+buildingBlockRequest actionCreators model molecule dispatch = do
+    result <- BBRequest.request
+        { url: model.url
+        , database: model.database
+        , moleculeKey: model.moleculeKey
+        , moleculeCollection: model.moleculeCollection
+        , constructedMoleculeCollection:
+            model.constructedMoleculeCollection
+        , positionMatrixCollection:
+            model.positionMatrixCollection
+        , buildingBlockPositionMatrixCollection:
+            model.buildingBlockPositionMatrixCollection
+        , valueCollections: model.valueCollections
+        , molecule: Molecule.key molecule
+        }
+
+    let
+        (BBRequest.Result { molecules }) = result
+
+        payload =
+            { buildingBlocks:
+                map (Molecule.molecule' model.moleculeKey) molecules
+            , molecule: Molecule.key molecule
+            }
+
+    pure (unsafePerformEffect
+        (runEffectFn1
+            dispatch
+            (actionCreators.nextBuildingBlocks payload)
+        )
+    )
+
+
+---- UPDATE ----
 
 
 type Action =

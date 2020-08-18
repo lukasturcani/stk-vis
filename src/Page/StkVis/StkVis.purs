@@ -19,6 +19,7 @@ import Page.MoleculeBrowser.SortedAll as SortedAll
 import Page.MoleculeBrowser.SortedBuildingBlocks as SortedBBs
 import Page.MoleculeBrowser.SortedConstructedMolecules as SortedCMs
 import Page.MoleculeBrowser.Props as MoleculeBrowser
+import Page.BuildingBlockBrowser as BuildingBlockBrowser
 
 
 ---- MODEL ----
@@ -32,6 +33,7 @@ data Model
     | SortedAll SortedAll.Model
     | SortedBuildingBlocks SortedBBs.Model
     | SortedConstructedMolecules SortedCMs.Model
+    | BuildingBlockBrowser BuildingBlockBrowser.Model
 
 
 init :: Model
@@ -42,6 +44,7 @@ init = MongoConfigurator MongoConfigurator.init
 data Props
     = MongoConfiguratorProps (MongoConfigurator.Props Action)
     | MoleculeBrowserProps (MoleculeBrowser.Props Action)
+    | BuildingBlockBrowserProps (BuildingBlockBrowser.Props Action)
 
 props :: Model -> Props
 props model = case model of
@@ -166,6 +169,25 @@ props model = case model of
                 }
                 subModel
 
+    BuildingBlockBrowser subModel ->
+        BuildingBlockBrowserProps $
+            BuildingBlockBrowser.props
+                { updateMoleculePage:
+                    buildingBlockBrowserAction <<<
+                        BuildingBlockBrowser.updateMoleculePage
+                , selectBuildingBlock:
+                    \rowIndex buildingBlock ->
+                        buildingBlockBrowserAction $
+                            BuildingBlockBrowser.selectBuildingBlock
+                                rowIndex
+                                buildingBlock
+
+                , nextBuildingBlocks:
+                    buildingBlockBrowserAction <<<
+                        BuildingBlockBrowser.nextBuildingBlocks
+                }
+                subModel
+
 ---- UPDATE ----
 
 
@@ -184,6 +206,7 @@ data Payload
     | SortedAllAction SortedAll.Action
     | SortedBuildingBlocksAction SortedBBs.Action
     | SortedConstructedMoleculesAction SortedCMs.Action
+    | BuildingBlockBrowserAction BuildingBlockBrowser.Action
     | InitMongoConfigurator Config.MongoConfigurator
     | InitUnsortedAll Config.UnsortedAll
     | InitUnsortedBuildingBlocks Config.UnsortedBuildingBlocks
@@ -282,6 +305,11 @@ sortedConstructedMoleculesAction action =
     , payload: SortedConstructedMoleculesAction action
     }
 
+buildingBlockBrowserAction :: BuildingBlockBrowser.Action -> Action
+buildingBlockBrowserAction action =
+    { type: "BUILDING_BLOCK_BROWSER_ACTION"
+    , payload: BuildingBlockBrowserAction action
+    }
 
 
 reducer :: Model -> Action -> Model
@@ -316,6 +344,12 @@ reducer model action = case Tuple model (payload action) of
         (SortedConstructedMoleculesAction subAction) ->
             SortedConstructedMolecules $
                 SortedCMs.reducer subModel subAction
+
+    Tuple
+        (BuildingBlockBrowser subModel)
+        (BuildingBlockBrowserAction subAction) ->
+            BuildingBlockBrowser $
+                BuildingBlockBrowser.reducer subModel subAction
 
     Tuple _ (InitMongoConfigurator config) ->
         MongoConfigurator $ MongoConfigurator.initFromConfig config
