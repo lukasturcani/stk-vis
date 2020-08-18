@@ -10,6 +10,7 @@ import Data.Map as Map
 import Data.Maybe (Maybe (Just, Nothing))
 import Molecule (Molecule)
 import DispatchAction (DispatchAction)
+import Effect.Promise (class Deferred, Promise)
 
 type RowIndex = Int
 
@@ -24,6 +25,10 @@ type Props a =
         -> RowIndex
         -> Molecule
         -> Unit
+
+    , buildingBlockRequests
+        :: Deferred
+        => Array (DispatchAction a -> Promise Unit)
     }
 
 get :: Map String String -> String -> String

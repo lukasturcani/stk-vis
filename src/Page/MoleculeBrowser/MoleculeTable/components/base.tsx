@@ -63,6 +63,13 @@ export function MoleculeTable<a>(
                         tooltip: 'Get building blocks.',
                         onClick: (event, rowData) => {
                             console.log(rowData);
+
+                            const row: number
+                                = rowData.tableDat.id;
+
+                            props.buildingBlockRequests[row](
+                                props.dispatch
+                            );
                         },
                     },
                 ]}

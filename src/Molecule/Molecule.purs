@@ -1,10 +1,12 @@
 module Molecule
     ( Molecule
+    , MoleculeKeyValue
     , properties
     , molecule
     , molecule'
     , smiles
     , meshes
+    , key
     ) where
 
 import Data.Map (Map, insert)
@@ -21,27 +23,33 @@ data Molecule = Molecule
     , _molecule    :: Validated.Molecule
     , _smiles      :: String
     , _constructed :: Boolean
+    , _key         :: MoleculeKeyValue
     }
 
 properties :: Molecule -> Map String String
 properties (Molecule { _properties }) = _properties
 
+key :: Molecule -> MoleculeKeyValue
+key (Molecule { _key }) = _key
 
 -------------------
 
 type IsConstructed = Boolean
+type MoleculeKeyValue = String
 
 molecule
     :: IsConstructed
+    -> MoleculeKeyValue
     -> Validated.Molecule
     -> Map String String
     -> Molecule
 
-molecule constructed' validated properties' = Molecule
+molecule constructed' key' validated properties' = Molecule
     { _properties: properties'
     , _molecule: validated
     , _smiles: _smiles' validated
     , _constructed: constructed'
+    , _key: key'
     }
 
 --------------------
@@ -50,14 +58,15 @@ type MoleculeKeyName = String
 
 molecule' :: MoleculeKeyName -> Request.Molecule -> Molecule
 molecule' moleculeKey requestMolecule
-    = molecule constructed' validated properties'
+    = molecule constructed' key' validated properties'
   where
     constructed' = Request.constructed requestMolecule
     validated = Request.toValidated requestMolecule
+    key' = Request.key requestMolecule
     properties' =
         insert
             moleculeKey
-            (Request.key requestMolecule)
+            key'
             (Request.properties requestMolecule)
 
 --------------------
