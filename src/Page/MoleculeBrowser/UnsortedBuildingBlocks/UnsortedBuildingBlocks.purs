@@ -149,6 +149,7 @@ type ActionCreators a r =
     , selectMolecule           :: RowIndex -> Molecule -> a
     , initMongoConfigurator    :: Config.MongoConfigurator -> a
     , initSortedBuildingBlocks :: Config.SortedBuildingBlocks -> a
+    , initBuildingBlockBrowser :: Config.BuildingBlockBrowser -> a
     | r
     }
 
@@ -336,7 +337,7 @@ setUnsorted actionCreators model dispatch = do
 
 
 type BuildingBlockRequestActionCreators a r =
-    { updateMoleculePage :: UpdateMoleculePage -> a
+    { initBuildingBlockBrowser :: Config.BuildingBlockBrowser -> a
     |r
     }
 
@@ -369,20 +370,29 @@ buildingBlockRequest actionCreators model molecule dispatch = do
         (BBRequest.Result { molecules }) = result
 
         payload =
-            { columns:
-                Array.concat
-                    [[model.moleculeKey], model.valueCollections]
-            , molecules:
-                map (Molecule.molecule' model.moleculeKey) molecules
-            , pageIndex: 0
-            , pageKind: PageKind.OnlyIncomplete
+            { url: model.url
+            , database: model.database
+            , moleculeKey: model.moleculeKey
+            , moleculeCollection: model.moleculeCollection
+            , constructedMoleculeCollection:
+                model.constructedMoleculeCollection
+            , positionMatrixCollection: model.positionMatrixCollection
+            , buildingBlockPositionMatrixCollection:
+                model.buildingBlockPositionMatrixCollection
+            , ignoredCollections: model.ignoredCollections
             , valueCollections: model.valueCollections
+            , columns: model.columns
+            , buildingBlocks:
+                map (Molecule.molecule' model.moleculeKey) molecules
+            , history: []
+            , molecule: Molecule.key molecule
+            , moleculeBrowser: Config.UnsortedBuildingBlocks model
             }
 
     pure (unsafePerformEffect
         (runEffectFn1
             dispatch
-            (actionCreators.updateMoleculePage payload)
+            (actionCreators.initBuildingBlockBrowser payload)
         )
     )
 
