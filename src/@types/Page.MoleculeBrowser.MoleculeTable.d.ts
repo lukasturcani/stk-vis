@@ -15,6 +15,9 @@ declare module 'Page.MoleculeBrowser.MoleculeTable'
             (rowIndex: number) =>
             (molecule: Molecule) =>
             void;
+        buildingBlockRequests:
+            () =>
+            Array<(dispatch: (action: a) => void) => Promise<void>>;
     }
 
     export const get: (map: Map) => (key: string) => string;

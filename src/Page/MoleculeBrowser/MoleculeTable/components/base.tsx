@@ -62,12 +62,11 @@ export function MoleculeTable<a>(
                         icon: 'zoom_in',
                         tooltip: 'Get building blocks.',
                         onClick: (event, rowData) => {
-                            console.log(rowData);
 
                             const row: number
-                                = rowData.tableDat.id;
+                                = rowData.tableData.id;
 
-                            props.buildingBlockRequests[row](
+                            props.buildingBlockRequests()[row](
                                 props.dispatch
                             );
                         },

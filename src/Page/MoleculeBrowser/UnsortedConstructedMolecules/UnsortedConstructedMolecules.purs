@@ -28,6 +28,7 @@ import Page.MoleculeBrowser.BackButton as BackButton
 import Effect.Promise (class Deferred, Promise, catch)
 import Requests.UnsortedConstructedMolecules as UnsortedRequest
 import Requests.SortedConstructedMolecules as SortedRequest
+import Requests.BuildingBlocks as BBRequest
 import Effect.Unsafe (unsafePerformEffect)
 import Effect.Uncurried (runEffectFn1)
 import Partial.Unsafe (unsafePartial)
@@ -115,6 +116,7 @@ debugInit =
   where
     molecule = Molecule.molecule
         false
+        "CH4"
         validated
         (Map.fromFoldable
             [ Tuple "one"   "1"
@@ -165,6 +167,8 @@ props actionCreators model =
         , rows: map Molecule.properties molecules
         , molecules
         , selectMolecule: selectMoleculeProp actionCreators
+        , buildingBlockRequests:
+            map (buildingBlockRequest actionCreators model) molecules
         }
 
     , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
@@ -355,6 +359,61 @@ selectMoleculeProp actionCreators dispatch rowIndex molecule =
         (runEffectFn1 dispatch
             (actionCreators.selectMolecule rowIndex molecule)
         )
+
+
+---
+
+
+type BuildingBlockRequestActionCreators a r =
+    { updateMoleculePage :: UpdateMoleculePage -> a
+    |r
+    }
+
+buildingBlockRequest
+    :: forall a r
+    .  Deferred
+    => BuildingBlockRequestActionCreators a r
+    -> Model
+    -> Molecule
+    -> DispatchAction a
+    -> Promise Unit
+
+buildingBlockRequest actionCreators model molecule dispatch = do
+    result <- BBRequest.request
+        { url: model.url
+        , database: model.database
+        , moleculeKey: model.moleculeKey
+        , moleculeCollection: model.moleculeCollection
+        , constructedMoleculeCollection:
+            model.constructedMoleculeCollection
+        , positionMatrixCollection:
+            model.positionMatrixCollection
+        , buildingBlockPositionMatrixCollection:
+            model.buildingBlockPositionMatrixCollection
+        , valueCollections: model.valueCollections
+        , molecule: Molecule.key molecule
+        }
+
+    let
+        (BBRequest.Result { molecules }) = result
+
+        payload =
+            { columns:
+                Array.concat
+                    [[model.moleculeKey], model.valueCollections]
+            , molecules:
+                map (Molecule.molecule' model.moleculeKey) molecules
+            , pageIndex: 0
+            , pageKind: PageKind.OnlyIncomplete
+            , valueCollections: model.valueCollections
+            }
+
+    pure (unsafePerformEffect
+        (runEffectFn1
+            dispatch
+            (actionCreators.updateMoleculePage payload)
+        )
+    )
 
 
 ---
