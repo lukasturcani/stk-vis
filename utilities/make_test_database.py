@@ -193,6 +193,8 @@ def add_mixed_entries(
             num_repeating_units=1,
         ),
     )
+    constructed_molecule_db.put(polymer)
+    constructed_molecule_db.put(macrocycle)
     constructed_molecule_db.put(rotaxane)
     num_bonds_db.put(rotaxane, rotaxane.get_num_bonds())
 
