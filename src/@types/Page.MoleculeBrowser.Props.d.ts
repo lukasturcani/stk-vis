@@ -31,5 +31,6 @@ declare module 'Page.MoleculeBrowser.Props'
         nextButton: NextButtonProps<a>;
         backButton: BackButtonProps<a>;
         breadcrumbs: BreadcrumbsProps<a>;
+        type: "Molecule Browser";
     }
 }

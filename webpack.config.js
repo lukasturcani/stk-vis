@@ -4,12 +4,13 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        'stk-vis': './src/stk-vis/index.tsx',
+        // 'stk-vis': './src/stk-vis/index.tsx',
         'molecule-browser': './src/molecule-browser/index.tsx',
         //'mongo-configurator': './src/mongo-configurator/index.tsx',
         'molecules': './src/molecules/index.tsx',
         'request-manager': './src/request-manager/index.tsx',
 
+        'stk-vis': './src/Page/StkVis/index.tsx',
         'mongo-configurator': './src/Page/MongoConfigurator/index.tsx',
 
         'unsorted-all':
@@ -136,6 +137,12 @@ module.exports = {
                 __dirname,
                 './output/SortType',
             ),
+
+            'Page.StkVis': path.join(
+                __dirname,
+                './output/Page.StkVis',
+            ),
+
 
             'Page.MongoConfigurator': path.join(
                 __dirname,

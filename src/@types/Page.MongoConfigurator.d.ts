@@ -41,6 +41,7 @@ declare module 'Page.MongoConfigurator'
         selectBuildingBlocks: boolean;
         selectConstructedMolecules: boolean;
         getMoleculesButton: GetMoleculesButtonProps<a>;
+        type: "Mongo Configurator";
     }
 
     export interface GetMoleculesButtonProps<a>
