@@ -43,17 +43,126 @@ data Props
 
 props :: Model -> Props
 props model = case model of
-    (MongoConfigurator subModel) ->
+    MongoConfigurator subModel ->
         MongoConfiguratorProps $
-            MongoConfigurator.props actionCreators subModel
+            MongoConfigurator.props
+                { initUnsortedAll
+                , initUnsortedBuildingBlocks
+                , initUnsortedConstructedMolecules
+                }
+                subModel
 
-  where
-    actionCreators =
-        { initUnsortedAll
-        , initUnsortedBuildingBlocks
-        , initUnsortedConstructedMolecules
-        }
+    UnsortedAll subModel ->
+        UnsortedAllProps $
+            UnsortedAll.props
+                { updateMoleculePage:
+                    unsortedAllAction <<<
+                        UnsortedAll.updateMoleculePage
+                , selectMolecule:
+                    \rowIndex molecule ->
+                        unsortedAllAction $
+                            UnsortedAll.selectMolecule
+                                rowIndex
+                                molecule
+                , initMongoConfigurator
+                , initSortedAll
 
+                }
+                subModel
+
+    UnsortedBuildingBlocks subModel ->
+        UnsortedBuildingBlocksProps $
+            UnsortedBBs.props
+                { updateMoleculePage:
+                    unsortedBuildingBlocksAction <<<
+                        UnsortedBBs.updateMoleculePage
+                , selectMolecule:
+                    \rowIndex molecule ->
+                        unsortedBuildingBlocksAction $
+                            UnsortedBBs.selectMolecule
+                                rowIndex
+                                molecule
+                , initMongoConfigurator
+                , initSortedBuildingBlocks
+                }
+                subModel
+
+    UnsortedConstructedMolecules subModel ->
+        UnsortedConstructedMoleculesProps $
+            UnsortedCMs.props
+                { updateMoleculePage:
+                    unsortedConstructedMoleculesAction <<<
+                        UnsortedCMs.updateMoleculePage
+                , selectMolecule:
+                    \rowIndex molecule ->
+                        unsortedConstructedMoleculesAction $
+                            UnsortedCMs.selectMolecule
+                                rowIndex
+                                molecule
+                , initMongoConfigurator
+                , initSortedConstructedMolecules
+                }
+                subModel
+
+    SortedAll subModel ->
+        SortedAllProps $
+            SortedAll.props
+                { changeSortedCollection:
+                    sortedAllAction <<<
+                        SortedAll.changeSortedCollection
+                , updateMoleculePage:
+                    sortedAllAction <<<
+                        SortedAll.updateMoleculePage
+                , selectMolecule:
+                    \rowIndex molecule ->
+                        sortedAllAction $
+                            SortedAll.selectMolecule
+                                rowIndex
+                                molecule
+                , initMongoConfigurator
+                , initUnsortedAll
+                }
+                subModel
+
+    SortedBuildingBlocks subModel ->
+        SortedBuildingBlocksProps $
+            SortedBBs.props
+                { changeSortedCollection:
+                    sortedBuildingBlocksAction <<<
+                        SortedBBs.changeSortedCollection
+                , updateMoleculePage:
+                    sortedBuildingBlocksAction <<<
+                        SortedBBs.updateMoleculePage
+                , selectMolecule:
+                    \rowIndex molecule ->
+                        sortedBuildingBlocksAction $
+                            SortedBBs.selectMolecule
+                                rowIndex
+                                molecule
+                , initMongoConfigurator
+                , initUnsortedBuildingBlocks
+                }
+                subModel
+
+    SortedConstructedMolecules subModel ->
+        SortedConstructedMoleculesProps $
+            SortedCMs.props
+                { changeSortedCollection:
+                    sortedConstructedMoleculesAction <<<
+                        SortedCMs.changeSortedCollection
+                , updateMoleculePage:
+                    sortedConstructedMoleculesAction <<<
+                        SortedCMs.updateMoleculePage
+                , selectMolecule:
+                    \rowIndex molecule ->
+                        sortedConstructedMoleculesAction $
+                            SortedCMs.selectMolecule
+                                rowIndex
+                                molecule
+                , initMongoConfigurator
+                , initUnsortedConstructedMolecules
+                }
+                subModel
 
 ---- UPDATE ----
 
@@ -107,6 +216,71 @@ initUnsortedConstructedMolecules payload' =
     { type: "INIT_UNSORTED_CONSTRUCTED_MOLECULES"
     , payload: InitUnsortedConstructedMolecules payload'
     }
+
+initSortedAll :: Config.SortedAll -> Action
+initSortedAll payload' =
+    { type: "INIT_SORTED_ALL"
+    , payload: InitSortedAll payload'
+    }
+
+initSortedBuildingBlocks :: Config.SortedBuildingBlocks -> Action
+initSortedBuildingBlocks payload' =
+    { type: "INIT_SORTED_BUILDING_BLOCKS"
+    , payload: InitSortedBuildingBlocks payload'
+    }
+
+initSortedConstructedMolecules
+    :: Config.SortedConstructedMolecules
+    -> Action
+
+initSortedConstructedMolecules payload' =
+    { type: "INIT_SORTED_CONSTRUCTED_MOLECULES"
+    , payload: InitSortedConstructedMolecules payload'
+    }
+
+initMongoConfigurator :: Config.MongoConfigurator -> Action
+initMongoConfigurator payload' =
+    { type: "INIT_MONGO_CONFIGURATOR"
+    , payload: InitMongoConfigurator payload'
+    }
+
+unsortedAllAction :: UnsortedAll.Action -> Action
+unsortedAllAction action =
+    { type: "UNSORTED_ALL_ACTION"
+    , payload: UnsortedAllAction action
+    }
+
+unsortedBuildingBlocksAction :: UnsortedBBs.Action -> Action
+unsortedBuildingBlocksAction action =
+    { type: "UNSORTED_BUILDING_BLOCKS_ACTION"
+    , payload: UnsortedBuildingBlocksAction action
+    }
+
+unsortedConstructedMoleculesAction :: UnsortedCMs.Action -> Action
+unsortedConstructedMoleculesAction action =
+    { type: "UNSORTED_CONSTRUCTED_MOLECULES_ACTION"
+    , payload: UnsortedConstructedMoleculesAction action
+    }
+
+sortedAllAction :: SortedAll.Action -> Action
+sortedAllAction action =
+    { type: "SORTED_ALL_ACTION"
+    , payload: SortedAllAction action
+    }
+
+sortedBuildingBlocksAction :: SortedBBs.Action -> Action
+sortedBuildingBlocksAction action =
+    { type: "SORTED_BUILDING_BLOCKS_ACTION"
+    , payload: SortedBuildingBlocksAction action
+    }
+
+sortedConstructedMoleculesAction :: SortedCMs.Action -> Action
+sortedConstructedMoleculesAction action =
+    { type: "SORTED_CONSTRUCTED_MOLECULES_ACTION"
+    , payload: SortedConstructedMoleculesAction action
+    }
+
+
 
 reducer :: Model -> Action -> Model
 reducer model action = case Tuple model (payload action) of
