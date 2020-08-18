@@ -9,6 +9,9 @@ import {
 import {
     MoleculeBrowser,
 } from '../../MoleculeBrowser/Props/components/styled';
+import {
+    BuildingBlockBrowser
+} from '../../BuildingBlockBrowser/components/styled';
 
 
 export function StkVis(
@@ -18,6 +21,7 @@ export function StkVis(
     return <StkVisBase
         mongoConfigurator={MongoConfigurator}
         moleculeBrowser={MoleculeBrowser}
+        buildingBlockBrowser={BuildingBlockBrowser}
         {...props}
     />;
 }

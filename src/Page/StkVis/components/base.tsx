@@ -3,8 +3,11 @@ import {
     CoreProps as ConfiguratorProps
 } from '../../MongoConfigurator/components/base/mongo-configurator';
 import {
-    CoreProps as BrowserProps
+    CoreProps as MoleculeBrowserProps
 } from '../../MoleculeBrowser/Props/components/base';
+import {
+    CoreProps as BuildingBlockBrowserProps
+} from '../../BuildingBlockBrowser/components/base';
 import {
     Props as BaseProps,
     Action,
@@ -25,7 +28,10 @@ interface Props extends BaseProps, DispatchProps
         React.FunctionComponent<ConfiguratorProps<Action>>;
 
     moleculeBrowser:
-        React.FunctionComponent<BrowserProps<Action>>;
+        React.FunctionComponent<MoleculeBrowserProps<Action>>;
+
+    buildingBlockBrowser:
+        React.FunctionComponent<BuildingBlockBrowserProps<Action>>;
 
 }
 
@@ -43,6 +49,13 @@ export function StkVis<a>(
     if (props.value0.type === "Molecule Browser")
     {
         return <props.moleculeBrowser
+            dispatch={props.dispatch}
+            {...props.value0}
+        />;
+    }
+    if (props.value0.type === "Building Block Browser")
+    {
+        return <props.buildingBlockBrowser
             dispatch={props.dispatch}
             {...props.value0}
         />;

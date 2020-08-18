@@ -4,8 +4,11 @@ declare module 'Page.StkVis'
         Props as ConfiguratorProps,
     } from 'Page.MongoConfigurator';
     import {
-        Props as BrowserProps,
+        Props as MoleculeBrowserProps,
     } from 'Page.MoleculeBrowser.Props';
+    import {
+        Props as BuildingBlockBrowserProps,
+    } from 'Page.BuildingBlockBrowser';
 
 
     export type Action = { type: string };
@@ -13,7 +16,10 @@ declare module 'Page.StkVis'
 
     export interface Props
     {
-        value0: ConfiguratorProps<Action> | BrowserProps<Action>;
+        value0:
+            ConfiguratorProps<Action>
+            | MoleculeBrowserProps<Action>
+            | BuildingBlockBrowserProps<Action>;
     }
 
     export const props: (model: Model) => Props;
