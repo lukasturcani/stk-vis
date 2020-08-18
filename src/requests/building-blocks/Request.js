@@ -7,7 +7,7 @@ exports._buildingBlockQuery
     = moleculeKey => collection => buildingBlockKeys =>
 [
     {
-        'match': {
+        '$match': {
             [moleculeKey]: {
                 $in: buildingBlockKeys,
             },

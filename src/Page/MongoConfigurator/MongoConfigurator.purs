@@ -60,7 +60,7 @@ init =
     , constructedMoleculeCollection: "constructed_molecules"
     , positionMatrixCollection: "position_matrices"
     , buildingBlockPositionMatrixCollection:
-        "position_matrices"
+        "building_block_position_matrices"
     , numEntriesPerPage: 34
     , ignoredCollections: []
     , searchKind: UnsortedAll

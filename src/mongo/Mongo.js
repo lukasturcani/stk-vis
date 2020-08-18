@@ -21,7 +21,7 @@ exports.find = database => collection => query => database
 exports.findOne = database => collection => query => database
     .collection(collection)
     .findOne(query)
-    .then(result => result === undefined? [] : [result]);
+    .then(result => result === null? [] : [result]);
 
 exports.skip = number => cursor => cursor.skip(number);
 
