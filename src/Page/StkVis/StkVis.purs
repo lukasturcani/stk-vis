@@ -71,7 +71,7 @@ props model = case model of
                                 molecule
                 , initMongoConfigurator
                 , initSortedAll
-
+                , initBuildingBlockBrowser
                 }
                 subModel
 
@@ -89,6 +89,7 @@ props model = case model of
                                 molecule
                 , initMongoConfigurator
                 , initSortedBuildingBlocks
+                , initBuildingBlockBrowser
                 }
                 subModel
 
@@ -106,6 +107,7 @@ props model = case model of
                                 molecule
                 , initMongoConfigurator
                 , initSortedConstructedMolecules
+                , initBuildingBlockBrowser
                 }
                 subModel
 
@@ -126,6 +128,7 @@ props model = case model of
                                 molecule
                 , initMongoConfigurator
                 , initUnsortedAll
+                , initBuildingBlockBrowser
                 }
                 subModel
 
@@ -146,6 +149,7 @@ props model = case model of
                                 molecule
                 , initMongoConfigurator
                 , initUnsortedBuildingBlocks
+                , initBuildingBlockBrowser
                 }
                 subModel
 
@@ -166,6 +170,7 @@ props model = case model of
                                 molecule
                 , initMongoConfigurator
                 , initUnsortedConstructedMolecules
+                , initBuildingBlockBrowser
                 }
                 subModel
 
