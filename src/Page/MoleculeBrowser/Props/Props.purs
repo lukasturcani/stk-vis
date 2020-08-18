@@ -18,4 +18,5 @@ type Props a =
     , nextButton    :: NextButton.Props a
     , backButton    :: BackButton.Props a
     , breadcrumbs   :: Breadcrumbs.Props a
+    , type          :: String
     }

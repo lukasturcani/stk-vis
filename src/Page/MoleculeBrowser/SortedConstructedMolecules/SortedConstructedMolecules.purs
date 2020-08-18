@@ -208,6 +208,7 @@ props actionCreators model =
     , breadcrumbs:
         { onClick: breadcrumbsClick actionCreators model
         }
+    , type: "Molecule Browser"
     }
 
   where

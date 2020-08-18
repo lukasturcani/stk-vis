@@ -86,6 +86,7 @@ type Props a =
     , selectBuildingBlocks                 :: Boolean
     , selectConstructedMolecules           :: Boolean
     , getMoleculesButton                   :: GetMoleculesButtonProps a
+    , type                                 :: String
     }
 
 type GetMoleculesButtonProps a =
@@ -149,6 +150,7 @@ props actionCreators model =
     , getMoleculesButton:
         { onClick: onClick actionCreators
         }
+    , type: "Mongo Configurator"
     }
   where
     selectBuildingBlocks UnsortedAll = true

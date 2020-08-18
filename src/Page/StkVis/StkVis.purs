@@ -2,6 +2,8 @@ module Page.StkVis
     ( Model
     , Action
     , Payload
+    , reducer
+    , init
     ) where
 
 import Prelude
@@ -30,16 +32,14 @@ data Model
     | SortedConstructedMolecules SortedCMs.Model
 
 
+init :: Model
+init = MongoConfigurator MongoConfigurator.init
+
 ---- VIEW ----
 
 data Props
     = MongoConfiguratorProps (MongoConfigurator.Props Action)
-    | UnsortedAllProps (MoleculeBrowser.Props Action)
-    | UnsortedBuildingBlocksProps (MoleculeBrowser.Props Action)
-    | UnsortedConstructedMoleculesProps (MoleculeBrowser.Props Action)
-    | SortedAllProps (MoleculeBrowser.Props Action)
-    | SortedBuildingBlocksProps (MoleculeBrowser.Props Action)
-    | SortedConstructedMoleculesProps (MoleculeBrowser.Props Action)
+    | MoleculeBrowserProps (MoleculeBrowser.Props Action)
 
 props :: Model -> Props
 props model = case model of
@@ -53,7 +53,7 @@ props model = case model of
                 subModel
 
     UnsortedAll subModel ->
-        UnsortedAllProps $
+        MoleculeBrowserProps $
             UnsortedAll.props
                 { updateMoleculePage:
                     unsortedAllAction <<<
@@ -71,7 +71,7 @@ props model = case model of
                 subModel
 
     UnsortedBuildingBlocks subModel ->
-        UnsortedBuildingBlocksProps $
+        MoleculeBrowserProps $
             UnsortedBBs.props
                 { updateMoleculePage:
                     unsortedBuildingBlocksAction <<<
@@ -88,7 +88,7 @@ props model = case model of
                 subModel
 
     UnsortedConstructedMolecules subModel ->
-        UnsortedConstructedMoleculesProps $
+        MoleculeBrowserProps $
             UnsortedCMs.props
                 { updateMoleculePage:
                     unsortedConstructedMoleculesAction <<<
@@ -105,7 +105,7 @@ props model = case model of
                 subModel
 
     SortedAll subModel ->
-        SortedAllProps $
+        MoleculeBrowserProps $
             SortedAll.props
                 { changeSortedCollection:
                     sortedAllAction <<<
@@ -125,7 +125,7 @@ props model = case model of
                 subModel
 
     SortedBuildingBlocks subModel ->
-        SortedBuildingBlocksProps $
+        MoleculeBrowserProps $
             SortedBBs.props
                 { changeSortedCollection:
                     sortedBuildingBlocksAction <<<
@@ -145,7 +145,7 @@ props model = case model of
                 subModel
 
     SortedConstructedMolecules subModel ->
-        SortedConstructedMoleculesProps $
+        MoleculeBrowserProps $
             SortedCMs.props
                 { changeSortedCollection:
                     sortedConstructedMoleculesAction <<<
