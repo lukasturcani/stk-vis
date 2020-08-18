@@ -215,6 +215,7 @@ data Payload
     | InitSortedAll Config.SortedAll
     | InitSortedBuildingBlocks Config.SortedBuildingBlocks
     | InitSortedConstructedMolecules Config.SortedConstructedMolecules
+    | InitBuildingBlockBrowser Config.BuildingBlockBrowser
 
 
 payload :: Action -> Payload
@@ -267,6 +268,12 @@ initMongoConfigurator :: Config.MongoConfigurator -> Action
 initMongoConfigurator payload' =
     { type: "INIT_MONGO_CONFIGURATOR"
     , payload: InitMongoConfigurator payload'
+    }
+
+initBuildingBlockBrowser :: Config.BuildingBlockBrowser -> Action
+initBuildingBlockBrowser payload' =
+    { type: "INIT_BUILDING_BLOCK_BROWSER"
+    , payload: InitBuildingBlockBrowser payload'
     }
 
 unsortedAllAction :: UnsortedAll.Action -> Action
@@ -371,5 +378,8 @@ reducer model action = case Tuple model (payload action) of
 
     Tuple _ (InitSortedConstructedMolecules config) ->
         SortedConstructedMolecules $ SortedCMs.init config
+
+    Tuple _ (InitBuildingBlockBrowser config) ->
+        BuildingBlockBrowser $ BuildingBlockBrowser.init config
 
     Tuple _ _ -> model

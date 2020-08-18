@@ -7,7 +7,7 @@ module Page.BuildingBlockBrowser
     , UpdateMoleculePage
     , RowIndex
     , NextBuildingBlocks
-    , BrowserConfig
+    , init
     , props
     , reducer
     , nextBuildingBlocks
@@ -50,7 +50,7 @@ type Model =
     , buildingBlocks                    :: SelectingCollection Molecule
     , history                           :: Array MoleculeKeyValue
     , molecule                          :: MoleculeKeyValue
-    , moleculeBrowser                   :: BrowserConfig
+    , moleculeBrowser                   :: Config.MoleculeBrowser
     }
 
 type BuildingBlocks r =
@@ -66,14 +66,10 @@ type MoleculePage r =
     }
 
 
-data BrowserConfig
-    = UnsortedAll Config.UnsortedAll
-    | UnsortedBuildingBlocks Config.UnsortedBuildingBlocks
-    | UnsortedConstructedMolecules Config.UnsortedConstructedMolecules
-    | SortedAll Config.SortedAll
-    | SortedBuildingBlocks Config.SortedBuildingBlocks
-    | SortedConstructedMolecules Config.SortedConstructedMolecules
 
+
+init :: Config.BuildingBlockBrowser -> Model
+init config = config
 
 ---- VIEW ----
 

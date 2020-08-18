@@ -6,9 +6,11 @@ module Config
     , SortedAll
     , SortedBuildingBlocks
     , SortedConstructedMolecules
+    , MoleculeBrowser (..)
+    , BuildingBlockBrowser
     ) where
 
-import Molecule (Molecule)
+import Molecule (Molecule, MoleculeKeyValue)
 import PageKind (PageKind)
 import SelectingCollection (SelectingCollection)
 import Page.MongoConfigurator.SearchKind (SearchKind)
@@ -133,4 +135,29 @@ type SortedConstructedMolecules =
     , molecules                         :: SelectingCollection Molecule
     , sortedCollection                  :: String
     , sortType                          :: SortType
+    }
+
+data MoleculeBrowser
+    = UnsortedAll UnsortedAll
+    | UnsortedBuildingBlocks UnsortedBuildingBlocks
+    | UnsortedConstructedMolecules UnsortedConstructedMolecules
+    | SortedAll SortedAll
+    | SortedBuildingBlocks SortedBuildingBlocks
+    | SortedConstructedMolecules SortedConstructedMolecules
+
+type BuildingBlockBrowser =
+    { url                               :: String
+    , database                          :: String
+    , moleculeKey                       :: String
+    , moleculeCollection                :: String
+    , constructedMoleculeCollection     :: String
+    , positionMatrixCollection          :: String
+    , buildingBlockPositionMatrixCollection :: String
+    , ignoredCollections                :: Array String
+    , valueCollections                  :: Array String
+    , columns                           :: Array String
+    , buildingBlocks                    :: SelectingCollection Molecule
+    , history                           :: Array MoleculeKeyValue
+    , molecule                          :: MoleculeKeyValue
+    , moleculeBrowser                   :: MoleculeBrowser
     }
