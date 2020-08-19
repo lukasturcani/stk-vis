@@ -11,13 +11,13 @@ import {
 } from '../../SortButton/components/styled/sort-button';
 import {
     MoleculeTable,
-} from '../../MoleculeTable/components/styled';
+} from '../../../Assets/MoleculeTable/components/styled';
 import {
     TwoDViewer,
-} from '../../TwoDViewer/components/styled';
+} from '../../../Assets/TwoDViewer/components/styled';
 import {
     ThreeDViewer,
-} from '../../ThreeDViewer/components/styled';
+} from '../../../Assets/ThreeDViewer/components/styled';
 import {
     NextButton,
 } from '../../NextButton/components/styled';

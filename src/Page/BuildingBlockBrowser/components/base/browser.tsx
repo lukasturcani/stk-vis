@@ -4,7 +4,7 @@ import {
 } from 'Page.BuildingBlockBrowser'
 import {
     CoreProps as MoleculeTableProps,
-} from '../../../MoleculeBrowser/MoleculeTable/components/base';
+} from '../../../Assets/MoleculeTable/components/base';
 import {
     Props as TwoDViewerProps,
 } from 'Page.MoleculeBrowser.TwoDViewer';

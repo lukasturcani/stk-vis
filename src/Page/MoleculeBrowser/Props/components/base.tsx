@@ -7,7 +7,7 @@ import {
 } from '../../SortButton/components/base/sort-button';
 import {
     CoreProps as MoleculeTableProps,
-} from '../../MoleculeTable/components/base';
+} from '../../../Assets/MoleculeTable/components/base';
 import {
     Props as TwoDViewerProps,
 } from 'Page.MoleculeBrowser.TwoDViewer';
