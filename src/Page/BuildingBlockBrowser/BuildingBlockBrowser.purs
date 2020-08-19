@@ -91,7 +91,7 @@ type BreadcrumbsProps a =
     , resultsClick :: DispatchAction a -> Unit
     , historyClick
         :: Deferred
-        => Array (DispatchAction a -> Promise Unit)
+        => Array (DispatchAction a -> Snackbar -> Promise Unit)
     }
 
 type ActionCreators a r =
@@ -353,9 +353,28 @@ historyClick
     -> HistoryIndex
     -> MoleculeKeyValue
     -> DispatchAction a
+    -> Snackbar
     -> Promise Unit
 
-historyClick actionCreators model historyIndex molecule dispatch = do
+historyClick
+    actionCreators model historyIndex molecule dispatch snackbar
+        = catch
+            (_historyClick
+                actionCreators model historyIndex molecule dispatch
+            )
+            (Snackbar.errorSnackbar snackbar)
+
+_historyClick
+    :: forall a r
+    .  Deferred
+    => HistoryClickActionCreators a r
+    -> Model
+    -> HistoryIndex
+    -> MoleculeKeyValue
+    -> DispatchAction a
+    -> Promise Unit
+
+_historyClick actionCreators model historyIndex molecule dispatch = do
     result <- BBRequest.request
         { url: model.url
         , database: model.database
