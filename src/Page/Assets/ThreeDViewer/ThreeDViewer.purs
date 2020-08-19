@@ -1,4 +1,4 @@
-module Page.MoleculeBrowser.ThreeDViewer
+module Page.ThreeDViewer
     ( Props
     ) where
 

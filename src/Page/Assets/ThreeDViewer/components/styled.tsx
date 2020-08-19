@@ -8,7 +8,7 @@ import {
 } from './base';
 import {
     Props as ThreeDViewerProps,
-} from 'Page.MoleculeBrowser.ThreeDViewer'
+} from 'Page.ThreeDViewer'
 
 
 export const ThreeDViewer: React.FunctionComponent<ThreeDViewerProps>

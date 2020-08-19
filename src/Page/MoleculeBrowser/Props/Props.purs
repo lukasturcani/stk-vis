@@ -4,8 +4,8 @@ module Page.MoleculeBrowser.Props
 
 import Page.MoleculeBrowser.SortButton as SortButton
 import Page.MoleculeTable as MoleculeTable
-import Page.MoleculeBrowser.TwoDViewer as TwoDViewer
-import Page.MoleculeBrowser.ThreeDViewer as ThreeDViewer
+import Page.TwoDViewer as TwoDViewer
+import Page.ThreeDViewer as ThreeDViewer
 import Page.MoleculeBrowser.NextButton as NextButton
 import Page.MoleculeBrowser.BackButton as BackButton
 import Page.MoleculeBrowser.Breadcrumbs as Breadcrumbs

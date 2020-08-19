@@ -1,4 +1,4 @@
-declare module 'Page.MoleculeBrowser.ThreeDViewer'
+declare module 'Page.ThreeDViewer'
 {
     type Mesh = unknown;
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
     Props as ThreeDViewerProps,
-} from 'Page.MoleculeBrowser.ThreeDViewer';
+} from 'Page.ThreeDViewer';
 import * as md from 'mol-draw';
 import { useTheme } from '@material-ui/core/styles';
 

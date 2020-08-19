@@ -8,7 +8,7 @@ import {
 } from './base';
 import {
     Props as TwoDViewerProps,
-} from 'Page.MoleculeBrowser.TwoDViewer'
+} from 'Page.TwoDViewer'
 
 
 export const TwoDViewer: React.FunctionComponent<TwoDViewerProps>

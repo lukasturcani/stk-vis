@@ -3,7 +3,7 @@ import * as smilesDrawer from 'smiles-drawer';
 import { elementColors } from './element-colors';
 import {
     Props as TwoDViewerProps
-} from 'Page.MoleculeBrowser.TwoDViewer';
+} from 'Page.TwoDViewer';
 
 interface Props extends TwoDViewerProps
 {

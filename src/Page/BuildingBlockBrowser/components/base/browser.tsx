@@ -7,10 +7,10 @@ import {
 } from '../../../Assets/MoleculeTable/components/base';
 import {
     Props as TwoDViewerProps,
-} from 'Page.MoleculeBrowser.TwoDViewer';
+} from 'Page.TwoDViewer';
 import {
     Props as ThreeDViewerProps,
-} from 'Page.MoleculeBrowser.ThreeDViewer';
+} from 'Page.ThreeDViewer';
 import {
     CoreProps as BreadcrumbsProps,
 } from './breadcrumbs';

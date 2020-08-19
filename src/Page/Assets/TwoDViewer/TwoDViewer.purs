@@ -1,4 +1,4 @@
-module Page.MoleculeBrowser.TwoDViewer
+module Page.TwoDViewer
     ( Props
     ) where
 

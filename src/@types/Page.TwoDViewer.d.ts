@@ -1,4 +1,4 @@
-declare module 'Page.MoleculeBrowser.TwoDViewer'
+declare module 'Page.TwoDViewer'
 {
     export interface Props
     {
