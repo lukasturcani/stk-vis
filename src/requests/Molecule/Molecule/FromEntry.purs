@@ -57,6 +57,8 @@ atom ({ atomicNumber }) = do
 bond :: BondEntry -> Validated.Bond
 bond ({ order, atom1Id, atom2Id })
     = Validated.bond
+        -- Assume bond order 9 is dative bonds, therefore force them
+        -- to render as single bonds.
         (if order == 9 then 1 else order)
         atom1Id
         atom2Id
