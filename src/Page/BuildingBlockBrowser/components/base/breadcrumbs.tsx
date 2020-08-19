@@ -16,12 +16,12 @@ interface Props<a> extends CoreProps<a>
 {
     container: React.FunctionComponent<Empty>;
     breadcrumbsComponent: React.FunctionComponent<Empty>;
-    configuratorLink: React.FunctionComponent<ConfiguratorLinkProps>;
-    browserLink: React.FunctionComponent<Empty>;
+    configuratorLink: React.FunctionComponent<LinkProps>;
+    resultsLink: React.FunctionComponent<LinkProps>;
 }
 
 
-export interface ConfiguratorLinkProps
+export interface LinkProps
 {
     onClick: () => void;
 }
@@ -39,7 +39,11 @@ export function Breadcrumbs<a>(
                         () => props.mongoDbClick(props.dispatch)
                     }
                 />
-                <props.browserLink />
+                <props.resultsLink
+                    onClick={
+                        () => props.resultsClick(props.dispatch)
+                    }
+                />
             </props.breadcrumbsComponent>
         </props.container>
     );

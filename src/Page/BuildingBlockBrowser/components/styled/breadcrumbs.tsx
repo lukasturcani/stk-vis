@@ -7,7 +7,7 @@ import Link from '@material-ui/core/Link';
 import TableChartIcon from '@material-ui/icons/TableChart';
 import {
     Breadcrumbs as BreadcrumbsBase,
-    ConfiguratorLinkProps,
+    LinkProps,
     CoreProps,
 } from '../base/breadcrumbs';
 import { theme } from '../../../../theme';
@@ -21,7 +21,7 @@ export function Breadcrumbs<a>(
             container={Container}
             breadcrumbsComponent={StyledBreadcrumbs}
             configuratorLink={ConfiguratorLink}
-            browserLink={BrowserLink}
+            resultsLink={ResultsLink}
             {...props}
         />
     );
@@ -55,7 +55,7 @@ const StyledBreadcrumbs: React.FunctionComponent<Empty>
         </MaterialBreadcrumbs>
     );
 
-const ConfiguratorLink: React.FunctionComponent<ConfiguratorLinkProps>
+const ConfiguratorLink: React.FunctionComponent<LinkProps>
     = props => (
         <Link
             color='inherit'
@@ -74,7 +74,7 @@ const ConfiguratorLink: React.FunctionComponent<ConfiguratorLinkProps>
         </Link>
     );
 
-const BrowserLink: React.FunctionComponent<Empty>
+const ResultsLink: React.FunctionComponent<LinkProps>
     = props => (
         <Link
             color='inherit'
