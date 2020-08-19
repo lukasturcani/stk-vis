@@ -18,6 +18,7 @@ interface Props<a> extends CoreProps<a>
     breadcrumbsComponent: React.FunctionComponent<Empty>;
     configuratorLink: React.FunctionComponent<LinkProps>;
     resultsLink: React.FunctionComponent<LinkProps>;
+    currentLink: React.FunctionComponent<Empty>
 }
 
 
@@ -44,6 +45,7 @@ export function Breadcrumbs<a>(
                         () => props.resultsClick(props.dispatch)
                     }
                 />
+                <props.currentLink />
             </props.breadcrumbsComponent>
         </props.container>
     );

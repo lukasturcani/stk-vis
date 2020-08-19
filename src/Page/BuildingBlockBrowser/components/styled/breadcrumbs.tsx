@@ -5,6 +5,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Link from '@material-ui/core/Link';
 import TableChartIcon from '@material-ui/icons/TableChart';
+import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import {
     Breadcrumbs as BreadcrumbsBase,
     LinkProps,
@@ -22,6 +23,7 @@ export function Breadcrumbs<a>(
             breadcrumbsComponent={StyledBreadcrumbs}
             configuratorLink={ConfiguratorLink}
             resultsLink={ResultsLink}
+            currentLink={CurrentLink}
             {...props}
         />
     );
@@ -90,5 +92,23 @@ const ResultsLink: React.FunctionComponent<LinkProps>
                 }}
             />
             Results
+        </Link>
+    );
+
+const CurrentLink: React.FunctionComponent<Empty>
+    = props => (
+        <Link
+            color='inherit'
+            component='button'
+            variant='h5'
+            {...props}
+        >
+            <ZoomInIcon
+                style={{
+                    marginRight: theme.spacing(0.5),
+                    width: 30,
+                    height: 30,
+                }}
+            />
         </Link>
     );
