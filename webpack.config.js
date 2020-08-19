@@ -141,9 +141,9 @@ module.exports = {
                     +'SortedConstructedMolecules',
                 ),
 
-            'Page.MoleculeBrowser.MoleculeTable': path.join(
+            'Page.MoleculeTable': path.join(
                 __dirname,
-                './output/Page.MoleculeBrowser.MoleculeTable',
+                './output/Page.MoleculeTable',
             ),
 
         },

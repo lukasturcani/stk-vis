@@ -25,7 +25,7 @@ import Data.Array as Array
 import Data.Array ((..), length)
 import Data.Tuple (Tuple (Tuple), fst, snd)
 import DispatchAction (DispatchAction)
-import Page.MoleculeBrowser.MoleculeTable as MoleculeTable
+import Page.MoleculeTable as MoleculeTable
 import Page.MoleculeBrowser.TwoDViewer as TwoDViewer
 import Page.MoleculeBrowser.ThreeDViewer as ThreeDViewer
 import Effect.Unsafe (unsafePerformEffect)

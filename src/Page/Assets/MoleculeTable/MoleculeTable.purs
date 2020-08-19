@@ -1,4 +1,4 @@
-module Page.MoleculeBrowser.MoleculeTable
+module Page.MoleculeTable
     ( Props
     , RowIndex
     , get

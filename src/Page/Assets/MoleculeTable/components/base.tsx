@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
     Props as MoleculeTableProps,
     get,
-} from 'Page.MoleculeBrowser.MoleculeTable'
+} from 'Page.MoleculeTable'
 
 type Empty = Record<string, unknown>;
 

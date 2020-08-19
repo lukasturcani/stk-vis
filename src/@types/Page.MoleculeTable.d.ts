@@ -1,4 +1,4 @@
-declare module 'Page.MoleculeBrowser.MoleculeTable'
+declare module 'Page.MoleculeTable'
 {
     import { Snackbar } from 'Snackbar';
     import { Molecule } from 'Molecule';
