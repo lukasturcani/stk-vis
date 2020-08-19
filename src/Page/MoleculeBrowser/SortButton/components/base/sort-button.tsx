@@ -21,6 +21,24 @@ interface Props<a> extends SortButtonProps<a>, DispatchProps<a>
     container: React.FunctionComponent<Empty>;
     button: React.FunctionComponent<ButtonProps>;
     sortSettings: React.FunctionComponent<SortSettingsProps<a>>;
+    snackbar: React.FunctionComponent<SnackbarProps>;
+}
+
+export interface SnackbarProps
+{
+    open: boolean;
+    onClose: (event?: React.SyntheticEvent, reason?: string) => void;
+    message: string;
+}
+
+
+interface SnackbarData
+{
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    message: string;
+    setMessage: (message: string) => void;
+    onClose: (event?: React.SyntheticEvent, reason?: string) => void;
 }
 
 
@@ -35,6 +53,10 @@ export function SortButton<a>(
 )
 {
     const [open, setOpen] =  React.useState(false);
+
+    const snackbar: SnackbarData
+        = getSnackbarData();
+
     return (
         <props.container>
             <props.button
@@ -47,7 +69,36 @@ export function SortButton<a>(
                 open={open}
                 setOpen={setOpen}
                 collections={props.collections}
+                snackbar={snackbar}
+            />
+            <props.snackbar
+                open={snackbar.open}
+                onClose={snackbar.onClose}
+                message={snackbar.message}
             />
         </props.container>
     );
+}
+
+function getSnackbarData(): SnackbarData
+{
+    const [open, setOpen] = React.useState(false);
+    const [message, setMessage] = React.useState('');
+
+    const onClose = (event?: React.SyntheticEvent, reason?: string) =>
+    {
+        if (reason === 'clickaway')
+        {
+            return;
+        }
+        setOpen(false);
+    };
+
+    return {
+        open,
+        setOpen,
+        message,
+        setMessage,
+        onClose,
+    };
 }

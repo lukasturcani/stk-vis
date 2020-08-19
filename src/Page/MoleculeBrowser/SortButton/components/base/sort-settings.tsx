@@ -18,6 +18,7 @@ export interface DispatchProps<a>
 
 export interface BaseProps<a>
 {
+    snackbar: Snackbar;
     open: boolean;
     setOpen: (open: boolean) => void;
     collections: string[];
@@ -79,6 +80,7 @@ export function SortSettings<a>(
                     collections={props.collections}
                 />
                 <props.submitButton
+                    snackbar={props.snackbar}
                     dispatch={props.dispatch}
                     setSorted={props.setSorted}
                     setUnsorted={props.setUnsorted}
