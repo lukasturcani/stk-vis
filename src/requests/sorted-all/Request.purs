@@ -69,6 +69,7 @@ request options = do
         nonValueCollections =
             insert options.sortedCollection $
             insert options.moleculeCollection $
+            insert options.constructedMoleculeCollection $
             insert options.positionMatrixCollection $
             insert options.buildingBlockPositionMatrixCollection $
             fromFoldable options.ignoredCollections

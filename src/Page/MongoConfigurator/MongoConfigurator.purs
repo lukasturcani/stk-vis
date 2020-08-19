@@ -269,7 +269,8 @@ _onClick
             , positionMatrixCollection
             , pageIndex: 0
             , numEntriesPerPage
-            , ignoredCollections: []
+            , ignoredCollections:
+                [buildingBlockPositionMatrixCollection]
             }
 
         let
@@ -326,10 +327,12 @@ _onClick
             , moleculeKey
             , moleculeCollection
             , constructedMoleculeCollection
-            , positionMatrixCollection
+            , positionMatrixCollection:
+                buildingBlockPositionMatrixCollection
             , pageIndex: 0
             , numEntriesPerPage
-            , ignoredCollections: []
+            , ignoredCollections:
+                [positionMatrixCollection]
             }
 
         let
