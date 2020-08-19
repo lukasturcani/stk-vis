@@ -7,11 +7,9 @@ module Page.BuildingBlockBrowser
     , ActionCreators
     , UpdateMoleculePage
     , RowIndex
-    , NextBuildingBlocks
     , init
     , props
     , reducer
-    , nextBuildingBlocks
     , updateMoleculePage
     , selectBuildingBlock
     ) where
@@ -97,7 +95,6 @@ type BreadcrumbsProps a =
 type ActionCreators a r =
     { updateMoleculePage         :: UpdateMoleculePage -> a
     , selectBuildingBlock        :: RowIndex -> Molecule -> a
-    , nextBuildingBlocks         :: NextBuildingBlocks -> a
     , initMongoConfigurator      :: Config.MongoConfigurator -> a
     , initSortedAll              :: Config.SortedAll -> a
     , initSortedBuildingBlocks   :: Config.SortedBuildingBlocks -> a
@@ -174,7 +171,7 @@ selectMoleculeProp actionCreators dispatch rowIndex molecule =
 
 
 type BuildingBlockRequestActionCreators a r =
-    { nextBuildingBlocks :: NextBuildingBlocks -> a
+    { updateMoleculePage :: UpdateMoleculePage -> a
     |r
     }
 
@@ -210,12 +207,13 @@ buildingBlockRequest actionCreators model molecule dispatch = do
             { buildingBlocks:
                 map (Molecule.molecule' model.moleculeKey) molecules
             , molecule: Molecule.key molecule
+            , history: Array.concat [model.history, [model.molecule]]
             }
 
     pure (unsafePerformEffect
         (runEffectFn1
             dispatch
-            (actionCreators.nextBuildingBlocks payload)
+            (actionCreators.updateMoleculePage payload)
         )
     )
 
@@ -384,26 +382,14 @@ type Action =
     }
 
 data Payload
-    = NextBuildingBlocks NextBuildingBlocks
-    | UpdateMoleculePage UpdateMoleculePage
+    = UpdateMoleculePage UpdateMoleculePage
     | SelectBuildingBlock RowIndex Molecule
     | DoNothing
-
-type NextBuildingBlocks =
-    { buildingBlocks :: SelectingCollection Molecule
-    , molecule       :: MoleculeKeyValue
-    }
 
 type UpdateMoleculePage =
     { buildingBlocks :: SelectingCollection Molecule
     , molecule       :: MoleculeKeyValue
     , history        :: Array MoleculeKeyValue
-    }
-
-nextBuildingBlocks :: NextBuildingBlocks -> Action
-nextBuildingBlocks payload =
-    { type: "NEXT_BUILDING_BLOCKS"
-    , payload: NextBuildingBlocks payload
     }
 
 updateMoleculePage :: UpdateMoleculePage -> Action
@@ -430,9 +416,6 @@ doNothing =
 
 reducer :: Model -> Action -> Model
 reducer model action = case action of
-    ({ payload: NextBuildingBlocks payload }) ->
-        _nextBuildingBlocks model payload
-
     ({ payload: UpdateMoleculePage payload }) ->
         _updateMoleculePage model payload
 
@@ -440,25 +423,6 @@ reducer model action = case action of
         _selectBuildingBlock model rowIndex molecule
 
     ({ payload: DoNothing }) -> model
-
----
-
-
-_nextBuildingBlocks
-    :: forall r
-    .  MoleculePage r
-    -> NextBuildingBlocks
-    -> MoleculePage r
-
-_nextBuildingBlocks model payload
-    = model
-        { buildingBlocks = payload.buildingBlocks
-        , molecule = payload.molecule
-        , history =
-            Array.concat
-                [model.history, [payload.molecule]]
-        }
-
 
 ---
 

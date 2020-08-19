@@ -24,6 +24,7 @@ export function Breadcrumbs<a>(
             configuratorLink={ConfiguratorLink}
             resultsLink={ResultsLink}
             currentLink={CurrentLink}
+            historyLink={HistoryLink}
             {...props}
         />
     );
@@ -92,6 +93,24 @@ const ResultsLink: React.FunctionComponent<LinkProps>
                 }}
             />
             Results
+        </Link>
+    );
+
+const HistoryLink: React.FunctionComponent<LinkProps>
+    = props => (
+        <Link
+            color='inherit'
+            component='button'
+            variant='h5'
+            {...props}
+        >
+            <ZoomInIcon
+                style={{
+                    marginRight: theme.spacing(0.5),
+                    width: 30,
+                    height: 30,
+                }}
+            />
         </Link>
     );
 

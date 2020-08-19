@@ -187,9 +187,6 @@ props model = case model of
                                 rowIndex
                                 buildingBlock
 
-                , nextBuildingBlocks:
-                    buildingBlockBrowserAction <<<
-                        BuildingBlockBrowser.nextBuildingBlocks
                 , initMongoConfigurator
                 , initSortedAll
                 , initSortedBuildingBlocks
