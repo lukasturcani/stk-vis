@@ -31,11 +31,9 @@ import Page.MoleculeBrowser.ThreeDViewer as ThreeDViewer
 import Effect.Unsafe (unsafePerformEffect)
 import Effect.Uncurried (runEffectFn1)
 import Effect.Promise (class Deferred, Promise, catch)
-import Effect (Effect)
-import Effect.Exception as Error
-import Effect.Exception (Error)
 import Requests.BuildingBlocks as BBRequest
 import Snackbar (Snackbar)
+import Snackbar as Snackbar
 
 
 ---- MODEL ----
@@ -192,18 +190,7 @@ buildingBlockRequest
 buildingBlockRequest actionCreators model molecule dispatch snackbar
     = catch
         (_buildingBlockRequest actionCreators model molecule dispatch)
-        (_runSnackbar snackbar)
-
-_runSnackbar :: Deferred => Snackbar -> Error -> Promise Unit
-_runSnackbar snackbar error = pure
-    (unsafePerformEffect
-        (_showSnackbar snackbar error)
-    )
-
-_showSnackbar :: Snackbar -> Error -> Effect Unit
-_showSnackbar snackbar error = do
-    runEffectFn1 snackbar.setMessage (Error.message error)
-    runEffectFn1 snackbar.setOpen true
+        (Snackbar.errorSnackbar snackbar)
 
 _buildingBlockRequest
     :: forall a r
