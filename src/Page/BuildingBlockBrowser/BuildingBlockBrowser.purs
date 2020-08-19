@@ -30,8 +30,12 @@ import Page.MoleculeBrowser.TwoDViewer as TwoDViewer
 import Page.MoleculeBrowser.ThreeDViewer as ThreeDViewer
 import Effect.Unsafe (unsafePerformEffect)
 import Effect.Uncurried (runEffectFn1)
-import Effect.Promise (class Deferred, Promise)
+import Effect.Promise (class Deferred, Promise, catch)
+import Effect (Effect)
+import Effect.Exception as Error
+import Effect.Exception (Error)
 import Requests.BuildingBlocks as BBRequest
+import Snackbar (Snackbar)
 
 
 ---- MODEL ----
@@ -182,9 +186,35 @@ buildingBlockRequest
     -> Model
     -> Molecule
     -> DispatchAction a
+    -> Snackbar
     -> Promise Unit
 
-buildingBlockRequest actionCreators model molecule dispatch = do
+buildingBlockRequest actionCreators model molecule dispatch snackbar
+    = catch
+        (_buildingBlockRequest actionCreators model molecule dispatch)
+        (_runSnackbar snackbar)
+
+_runSnackbar :: Deferred => Snackbar -> Error -> Promise Unit
+_runSnackbar snackbar error = pure
+    (unsafePerformEffect
+        (_showSnackbar snackbar error)
+    )
+
+_showSnackbar :: Snackbar -> Error -> Effect Unit
+_showSnackbar snackbar error = do
+    runEffectFn1 snackbar.setMessage (Error.message error)
+    runEffectFn1 snackbar.setOpen true
+
+_buildingBlockRequest
+    :: forall a r
+    .  Deferred
+    => BuildingBlockRequestActionCreators a r
+    -> Model
+    -> Molecule
+    -> DispatchAction a
+    -> Promise Unit
+
+_buildingBlockRequest actionCreators model molecule dispatch = do
     result <- BBRequest.request
         { url: model.url
         , database: model.database
