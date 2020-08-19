@@ -42,6 +42,8 @@ import ValidatedMolecule.ChemicalSymbol as ChemicalSymbol
 import Page.MoleculeBrowser.Props (Props)
 import Config as Config
 import Page.MongoConfigurator.SearchKind as SearchKind
+import Snackbar (Snackbar)
+import Snackbar as Snackbar
 
 
 ---- MODEL ----
@@ -400,9 +402,24 @@ buildingBlockRequest
     -> Model
     -> Molecule
     -> DispatchAction a
+    -> Snackbar
     -> Promise Unit
 
-buildingBlockRequest actionCreators model molecule dispatch = do
+buildingBlockRequest actionCreators model molecule dispatch snackbar
+    = catch
+        (_buildingBlockRequest actionCreators model molecule dispatch)
+        (Snackbar.errorSnackbar snackbar)
+
+_buildingBlockRequest
+    :: forall a r
+    .  Deferred
+    => BuildingBlockRequestActionCreators a r
+    -> Model
+    -> Molecule
+    -> DispatchAction a
+    -> Promise Unit
+
+_buildingBlockRequest actionCreators model molecule dispatch = do
     result <- BBRequest.request
         { url: model.url
         , database: model.database
