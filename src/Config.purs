@@ -8,12 +8,15 @@ module Config
     , SortedConstructedMolecules
     , MoleculeBrowser (..)
     , BuildingBlockBrowser
+    , numEntriesPerPage
+    , searchKind
     ) where
 
 import Molecule (Molecule, MoleculeKeyValue)
 import PageKind (PageKind)
 import SelectingCollection (SelectingCollection)
 import Page.MongoConfigurator.SearchKind (SearchKind)
+import Page.MongoConfigurator.SearchKind as SearchKind
 import SortType (SortType)
 
 type MongoConfigurator =
@@ -161,3 +164,25 @@ type BuildingBlockBrowser =
     , molecule                          :: MoleculeKeyValue
     , moleculeBrowser                   :: MoleculeBrowser
     }
+
+numEntriesPerPage :: MoleculeBrowser -> Int
+numEntriesPerPage browser = case browser of
+    UnsortedAll config -> config.numEntriesPerPage
+    UnsortedBuildingBlocks config -> config.numEntriesPerPage
+    UnsortedConstructedMolecules config -> config.numEntriesPerPage
+    SortedAll config -> config.numEntriesPerPage
+    SortedBuildingBlocks config -> config.numEntriesPerPage
+    SortedConstructedMolecules config -> config.numEntriesPerPage
+
+
+searchKind :: MoleculeBrowser -> SearchKind
+searchKind browser = case browser of
+    UnsortedAll _ -> SearchKind.UnsortedAll
+    UnsortedBuildingBlocks _ -> SearchKind.UnsortedBuildingBlocks
+    UnsortedConstructedMolecules _ ->
+        SearchKind.UnsortedConstructedMolecules
+    SortedAll _ -> SearchKind.UnsortedAll
+    SortedBuildingBlocks _ -> SearchKind.UnsortedBuildingBlocks
+    SortedConstructedMolecules _ ->
+        SearchKind.UnsortedConstructedMolecules
+

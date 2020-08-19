@@ -3,6 +3,7 @@ module Page.BuildingBlockBrowser
     , Action
     , Payload
     , Props
+    , BreadcrumbsProps
     , ActionCreators
     , UpdateMoleculePage
     , RowIndex
@@ -17,11 +18,13 @@ module Page.BuildingBlockBrowser
 
 import Prelude
 import Config as Config
+import Config (MoleculeBrowser (..))
 import Molecule (Molecule, MoleculeKeyValue)
 import Molecule as Molecule
 import SelectingCollection (SelectingCollection)
 import SelectingCollection as SelectingCollection
 import Data.Array as Array
+import Data.Array ((..), length)
 import Data.Tuple (Tuple (Tuple), fst, snd)
 import DispatchAction (DispatchAction)
 import Page.MoleculeBrowser.MoleculeTable as MoleculeTable
@@ -71,6 +74,7 @@ type MoleculePage r =
 init :: Config.BuildingBlockBrowser -> Model
 init config = config
 
+
 ---- VIEW ----
 
 
@@ -78,13 +82,31 @@ type Props a =
     { moleculeTable :: MoleculeTable.Props a
     , twoDViewer    :: TwoDViewer.Props
     , threeDViewer  :: ThreeDViewer.Props
+    , breadcrumbs   :: BreadcrumbsProps a
     , type          :: String
     }
 
+type BreadcrumbsProps a =
+    { mongoDbClick :: DispatchAction a -> Unit
+    , resultsClick :: DispatchAction a -> Unit
+    , historyClick
+        :: Deferred
+        => Array (DispatchAction a -> Promise Unit)
+    }
+
 type ActionCreators a r =
-    { updateMoleculePage  :: UpdateMoleculePage -> a
-    , selectBuildingBlock :: RowIndex -> Molecule -> a
-    , nextBuildingBlocks  :: NextBuildingBlocks -> a
+    { updateMoleculePage         :: UpdateMoleculePage -> a
+    , selectBuildingBlock        :: RowIndex -> Molecule -> a
+    , nextBuildingBlocks         :: NextBuildingBlocks -> a
+    , initMongoConfigurator      :: Config.MongoConfigurator -> a
+    , initSortedAll              :: Config.SortedAll -> a
+    , initSortedBuildingBlocks   :: Config.SortedBuildingBlocks -> a
+    , initSortedConstructedMolecules
+        :: Config.SortedConstructedMolecules -> a
+    , initUnsortedAll            :: Config.UnsortedAll -> a
+    , initUnsortedBuildingBlocks :: Config.UnsortedBuildingBlocks -> a
+    , initUnsortedConstructedMolecules
+        :: Config.UnsortedConstructedMolecules -> a
     | r
     }
 
@@ -102,6 +124,15 @@ props actionCreators model =
 
     , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
     , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
+    , breadcrumbs:
+        { mongoDbClick: mongoDbClick actionCreators model
+        , resultsClick: resultsClick actionCreators model
+        , historyClick:
+            Array.zipWith
+                (historyClick actionCreators model)
+                (0 .. (length model.history-1))
+                model.history
+        }
     , type: "Building Block Browser"
     }
 
@@ -185,6 +216,161 @@ buildingBlockRequest actionCreators model molecule dispatch = do
         (runEffectFn1
             dispatch
             (actionCreators.nextBuildingBlocks payload)
+        )
+    )
+
+
+---
+
+type MongoClickActionCreators a r =
+    { initMongoConfigurator :: Config.MongoConfigurator -> a
+    | r
+    }
+
+mongoDbClick
+    :: forall a r
+    .  MongoClickActionCreators a r
+    -> Model
+    -> DispatchAction a
+    -> Unit
+
+mongoDbClick actionCreators model dispatch
+    = unsafePerformEffect
+        (runEffectFn1
+            dispatch
+            (actionCreators.initMongoConfigurator
+                { url: model.url
+                , database: model.database
+                , moleculeKey: model.moleculeKey
+                , moleculeCollection: model.moleculeCollection
+                , constructedMoleculeCollection:
+                    model.constructedMoleculeCollection
+                , positionMatrixCollection:
+                    model.positionMatrixCollection
+                , buildingBlockPositionMatrixCollection:
+                    model.buildingBlockPositionMatrixCollection
+                , numEntriesPerPage:
+                    Config.numEntriesPerPage model.moleculeBrowser
+                , ignoredCollections: model.ignoredCollections
+                , searchKind:
+                    Config.searchKind model.moleculeBrowser
+                }
+            )
+        )
+
+
+---
+
+type ResultsClickActionCreators a r =
+    { initUnsortedAll            :: Config.UnsortedAll -> a
+    , initUnsortedBuildingBlocks :: Config.UnsortedBuildingBlocks -> a
+
+    , initUnsortedConstructedMolecules
+        :: Config.UnsortedConstructedMolecules -> a
+
+    , initSortedAll              :: Config.SortedAll -> a
+    , initSortedBuildingBlocks   :: Config.SortedBuildingBlocks -> a
+
+    , initSortedConstructedMolecules
+        :: Config.SortedConstructedMolecules -> a
+
+    | r
+    }
+
+resultsClick
+    :: forall a r
+    .  ResultsClickActionCreators a r
+    -> Model
+    -> DispatchAction a
+    -> Unit
+
+resultsClick actionCreators model dispatch
+    = case model.moleculeBrowser of
+        UnsortedAll config -> unsafePerformEffect
+            (runEffectFn1
+                dispatch
+                (actionCreators.initUnsortedAll config)
+            )
+        UnsortedBuildingBlocks config -> unsafePerformEffect
+            (runEffectFn1
+                dispatch
+                (actionCreators.initUnsortedBuildingBlocks config)
+            )
+        UnsortedConstructedMolecules config -> unsafePerformEffect
+            (runEffectFn1
+                dispatch
+                (actionCreators.initUnsortedConstructedMolecules
+                    config
+                )
+            )
+        SortedAll config -> unsafePerformEffect
+            (runEffectFn1
+                dispatch
+                (actionCreators.initSortedAll config)
+            )
+        SortedBuildingBlocks config -> unsafePerformEffect
+            (runEffectFn1
+                dispatch
+                (actionCreators.initSortedBuildingBlocks config)
+            )
+        SortedConstructedMolecules config -> unsafePerformEffect
+            (runEffectFn1
+                dispatch
+                (actionCreators.initSortedConstructedMolecules config)
+            )
+
+
+---
+
+
+type HistoryIndex = Int
+
+type HistoryClickActionCreators a r =
+    { updateMoleculePage :: UpdateMoleculePage -> a
+    | r
+    }
+
+historyClick
+    :: forall a r
+    .  Deferred
+    => HistoryClickActionCreators a r
+    -> Model
+    -> HistoryIndex
+    -> MoleculeKeyValue
+    -> DispatchAction a
+    -> Promise Unit
+
+historyClick actionCreators model historyIndex molecule dispatch = do
+    result <- BBRequest.request
+        { url: model.url
+        , database: model.database
+        , moleculeKey: model.moleculeKey
+        , moleculeCollection: model.moleculeCollection
+        , constructedMoleculeCollection:
+            model.constructedMoleculeCollection
+        , positionMatrixCollection:
+            model.positionMatrixCollection
+        , buildingBlockPositionMatrixCollection:
+            model.buildingBlockPositionMatrixCollection
+        , valueCollections: model.valueCollections
+        , molecule
+        }
+
+    let
+        (BBRequest.Result { molecules }) = result
+
+    pure (unsafePerformEffect
+        (runEffectFn1
+            dispatch
+            (actionCreators.updateMoleculePage
+                { buildingBlocks:
+                    map
+                        (Molecule.molecule' model.moleculeKey)
+                        molecules
+                , molecule
+                , history: Array.slice 0 historyIndex model.history
+                }
+            )
         )
     )
 
