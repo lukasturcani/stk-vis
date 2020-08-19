@@ -3,7 +3,6 @@ import {
     Props as MoleculeTableProps,
     get,
 } from 'Page.MoleculeBrowser.MoleculeTable'
-import { Molecule } from 'Molecule';
 
 type Empty = Record<string, unknown>;
 
@@ -16,6 +15,23 @@ interface Props<a> extends MoleculeTableProps<a>, DispatchProps<a>
 {
     container: React.FunctionComponent<Empty>;
     table: React.FunctionComponent<TableProps>
+    snackbar: React.FunctionComponent<SnackbarProps>;
+}
+
+export interface SnackbarProps
+{
+    open: boolean;
+    onClose: (event?: React.SyntheticEvent, reason?: string) => void;
+    message: string;
+}
+
+interface Snackbar
+{
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    message: string;
+    setMessage: (message: string) => void;
+    onClose: (event?: React.SyntheticEvent, reason?: string) => void;
 }
 
 export type CoreProps<a> = DispatchProps<a> & MoleculeTableProps<a>;
@@ -54,6 +70,9 @@ export function MoleculeTable<a>(
 {
     const columns = props.columns;
 
+    const snackbar: Snackbar
+        = getSnackbar();
+
     return (
         <props.container>
             <props.table
@@ -68,7 +87,11 @@ export function MoleculeTable<a>(
 
                             props.buildingBlockRequests()[row](
                                 props.dispatch
-                            );
+                            )
+                            ({
+                                setOpen: snackbar.setOpen,
+                                setMessage: snackbar.setMessage,
+                            });
                         },
                     },
                 ]}
@@ -112,6 +135,35 @@ export function MoleculeTable<a>(
                     }
                 }
             />
+            <props.snackbar
+                open={snackbar.open}
+                onClose={snackbar.onClose}
+                message={snackbar.message}
+            />
         </props.container>
     );
+}
+
+
+function getSnackbar(): Snackbar
+{
+    const [open, setOpen] = React.useState(false);
+    const [message, setMessage] = React.useState('');
+
+    const onClose = (event?: React.SyntheticEvent, reason?: string) =>
+    {
+        if (reason === 'clickaway')
+        {
+            return;
+        }
+        setOpen(false);
+    };
+
+    return {
+        open,
+        setOpen,
+        message,
+        setMessage,
+        onClose,
+    };
 }

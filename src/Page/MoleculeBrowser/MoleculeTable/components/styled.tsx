@@ -2,10 +2,13 @@ import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import MaterialTable from 'material-table';
 import Paper from '@material-ui/core/Paper';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import SnackbarBase from '@material-ui/core/Snackbar'
 import {
     TableProps,
     MoleculeTable as MoleculeTableBase,
     CoreProps,
+    SnackbarProps,
 } from './base';
 
 
@@ -16,6 +19,7 @@ export function MoleculeTable<a>(
     return <MoleculeTableBase
         container={Container}
         table={Table}
+        snackbar={Snackbar}
         {...props}
     />;
 }
@@ -63,3 +67,24 @@ const Table: React.FunctionComponent<TableProps>
             actions={props.actions}
         />
     );
+
+const Snackbar: React.FunctionComponent<SnackbarProps>
+    = props => (
+        <SnackbarBase
+            open={props.open}
+            onClose={props.onClose}
+            autoHideDuration={6000}
+        >
+            <Alert
+                severity='error'
+                onClose={props.onClose}
+            >
+                {props.message}
+            </Alert>
+        </SnackbarBase>
+    );
+
+
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
