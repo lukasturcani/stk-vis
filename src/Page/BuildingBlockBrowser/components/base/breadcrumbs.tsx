@@ -74,7 +74,10 @@ export function Breadcrumbs<a>(
                             <props.historyLink
                                 key={key}
                                 onClick={
-                                    () => onClick(props.dispatch)
+                                    () =>
+                                        onClick
+                                            (props.dispatch)
+                                            (snackbar)
                                 }
                             />
                     )
