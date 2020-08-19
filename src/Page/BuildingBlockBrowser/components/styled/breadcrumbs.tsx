@@ -6,10 +6,13 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import Link from '@material-ui/core/Link';
 import TableChartIcon from '@material-ui/icons/TableChart';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import BaseSnackbar from '@material-ui/core/Snackbar'
 import {
     Breadcrumbs as BreadcrumbsBase,
     LinkProps,
     CoreProps,
+    SnackbarProps,
 } from '../base/breadcrumbs';
 import { theme } from '../../../../theme';
 
@@ -25,6 +28,7 @@ export function Breadcrumbs<a>(
             resultsLink={ResultsLink}
             currentLink={CurrentLink}
             historyLink={HistoryLink}
+            snackbar={Snackbar}
             {...props}
         />
     );
@@ -131,3 +135,24 @@ const CurrentLink: React.FunctionComponent<Empty>
             />
         </Link>
     );
+
+const Snackbar: React.FunctionComponent<SnackbarProps>
+    = props => (
+        <BaseSnackbar
+            open={props.open}
+            onClose={props.onClose}
+            autoHideDuration={6000}
+        >
+            <Alert
+                severity='error'
+                onClose={props.onClose}
+            >
+                {props.message}
+            </Alert>
+        </BaseSnackbar>
+    );
+
+
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}

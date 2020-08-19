@@ -20,6 +20,7 @@ interface Props<a> extends CoreProps<a>
     resultsLink: React.FunctionComponent<LinkProps>;
     historyLink: React.FunctionComponent<LinkProps>;
     currentLink: React.FunctionComponent<Empty>
+    snackbar: React.FunctionComponent<SnackbarProps>;
 }
 
 
@@ -29,10 +30,31 @@ export interface LinkProps
 }
 
 
+export interface SnackbarProps
+{
+    open: boolean;
+    onClose: (event?: React.SyntheticEvent, reason?: string) => void;
+    message: string;
+}
+
+
+interface Snackbar
+{
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    message: string;
+    setMessage: (message: string) => void;
+    onClose: (event?: React.SyntheticEvent, reason?: string) => void;
+}
+
 export function Breadcrumbs<a>(
     props: Props<a>,
 )
 {
+
+    const snackbar: Snackbar
+        = getSnackbar();
+
     return (
         <props.container>
             <props.breadcrumbsComponent>
@@ -59,8 +81,35 @@ export function Breadcrumbs<a>(
                 }
                 <props.currentLink />
             </props.breadcrumbsComponent>
+            <props.snackbar
+                open={snackbar.open}
+                onClose={snackbar.onClose}
+                message={snackbar.message}
+            />
         </props.container>
     );
 }
 
 
+function getSnackbar(): Snackbar
+{
+    const [open, setOpen] = React.useState(false);
+    const [message, setMessage] = React.useState('');
+
+    const onClose = (event?: React.SyntheticEvent, reason?: string) =>
+    {
+        if (reason === 'clickaway')
+        {
+            return;
+        }
+        setOpen(false);
+    };
+
+    return {
+        open,
+        setOpen,
+        message,
+        setMessage,
+        onClose,
+    };
+}

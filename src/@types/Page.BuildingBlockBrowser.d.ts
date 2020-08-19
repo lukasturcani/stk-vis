@@ -1,5 +1,6 @@
 declare module 'Page.BuildingBlockBrowser'
 {
+    import { Snackbar } from 'Snackbar';
     import {
         Props as MoleculeTableProps,
     } from 'Page.MoleculeBrowser.MoleculeTable';
@@ -28,6 +29,10 @@ declare module 'Page.BuildingBlockBrowser'
         resultsClick: (dispatch: (action: a) => void) => void;
         historyClick:
             () =>
-            Array<(dispatch: (action: a) => void) => Promise<void>>
+            Array<
+                (dispatch: (action: a) => void) =>
+                (snackbar: Snackbar) =>
+                Promise<void>
+            >
     }
 }
