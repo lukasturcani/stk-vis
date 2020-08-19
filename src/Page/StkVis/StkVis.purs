@@ -190,6 +190,13 @@ props model = case model of
                 , nextBuildingBlocks:
                     buildingBlockBrowserAction <<<
                         BuildingBlockBrowser.nextBuildingBlocks
+                , initMongoConfigurator
+                , initSortedAll
+                , initSortedBuildingBlocks
+                , initSortedConstructedMolecules
+                , initUnsortedAll
+                , initUnsortedBuildingBlocks
+                , initUnsortedConstructedMolecules
                 }
                 subModel
 
