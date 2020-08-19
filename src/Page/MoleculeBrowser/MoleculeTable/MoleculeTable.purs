@@ -11,6 +11,7 @@ import Data.Maybe (Maybe (Just, Nothing))
 import Molecule (Molecule)
 import DispatchAction (DispatchAction)
 import Effect.Promise (class Deferred, Promise)
+import Snackbar (Snackbar)
 
 type RowIndex = Int
 
@@ -28,7 +29,7 @@ type Props a =
 
     , buildingBlockRequests
         :: Deferred
-        => Array (DispatchAction a -> Promise Unit)
+        => Array (DispatchAction a -> Snackbar -> Promise Unit)
     }
 
 get :: Map String String -> String -> String
