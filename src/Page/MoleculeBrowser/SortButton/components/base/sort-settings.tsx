@@ -8,6 +8,7 @@ import {
 import {
     SortType
 } from 'SortType';
+import { Snackbar } from 'Snackbar';
 
 
 export interface DispatchProps<a>
@@ -24,6 +25,7 @@ export interface BaseProps<a>
     setSorted:
         () =>
         (dispatch: (action: a) => void) =>
+        (snackbar: Snackbar) =>
         (collection: string) =>
         (sortType: SortType) =>
         Promise<void>;
@@ -31,6 +33,7 @@ export interface BaseProps<a>
     setUnsorted:
         () =>
         (dispatch: (action: a) => void) =>
+        (snackbar: Snackbar) =>
         Promise<void>;
 
 }

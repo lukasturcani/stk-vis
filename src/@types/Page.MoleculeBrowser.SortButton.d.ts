@@ -1,6 +1,7 @@
 declare module 'Page.MoleculeBrowser.SortButton'
 {
     import { SortType } from 'SortType';
+    import { Snackbar } from 'Snackbar';
 
     export interface Props<a>
     {
@@ -9,6 +10,7 @@ declare module 'Page.MoleculeBrowser.SortButton'
         setSorted:
             () =>
             (dispatch: (action: a) => void) =>
+            (snackbar: Snackbar) =>
             (collection: string) =>
             (sortType: SortType) =>
             Promise<void>;
@@ -16,6 +18,7 @@ declare module 'Page.MoleculeBrowser.SortButton'
         setUnsorted:
             () =>
             (dispatch: (action: a) => void) =>
+            (snackbar: Snackbar) =>
             Promise<void>;
     }
 }

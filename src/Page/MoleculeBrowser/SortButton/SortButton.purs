@@ -10,12 +10,14 @@ import Prelude
 import DispatchAction (DispatchAction)
 import SortType (SortType)
 import Effect.Promise (class Deferred, Promise)
+import Snackbar (Snackbar)
 
 type CollectionName = String
 
 type SetSorted a
     =  Deferred
     => DispatchAction a
+    -> Snackbar
     -> CollectionName
     -> SortType
     -> Promise Unit
@@ -23,6 +25,7 @@ type SetSorted a
 type SetUnsorted a
     =  Deferred
     => DispatchAction a
+    -> Snackbar
     -> Promise Unit
 
 type Props a =

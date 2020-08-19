@@ -248,11 +248,29 @@ onSetSorted
     => SetSortedActionCreators a r1
     -> RequestConfig r2
     -> DispatchAction a
+    -> Snackbar
     -> CollectionName
     -> SortType
     -> Promise Unit
 
-onSetSorted actionCreators model dispatch collection sortType = do
+onSetSorted actionCreators model dispatch snackbar collection sortType
+    = catch
+        (_onSetSorted
+            actionCreators model dispatch collection sortType
+        )
+        (Snackbar.errorSnackbar snackbar)
+
+_onSetSorted
+    :: forall a r1 r2
+    .  Deferred
+    => SetSortedActionCreators a r1
+    -> RequestConfig r2
+    -> DispatchAction a
+    -> CollectionName
+    -> SortType
+    -> Promise Unit
+
+_onSetSorted actionCreators model dispatch collection sortType = do
 
     result <- SortedRequest.request
         { url: model.url
@@ -308,9 +326,23 @@ onSetUnsorted
     => SetUnsortedActionCreators a r1
     -> RequestConfig r2
     -> DispatchAction a
+    -> Snackbar
     -> Promise Unit
 
-onSetUnsorted actionCreators model dispatch = do
+onSetUnsorted actionCreators model dispatch snackbar
+    = catch
+        (_onSetUnsorted actionCreators model dispatch)
+        (Snackbar.errorSnackbar snackbar)
+
+_onSetUnsorted
+    :: forall a r1 r2
+    .  Deferred
+    => SetUnsortedActionCreators a r1
+    -> RequestConfig r2
+    -> DispatchAction a
+    -> Promise Unit
+
+_onSetUnsorted actionCreators model dispatch = do
 
     result <- UnsortedRequest.request
         { url: model.url
