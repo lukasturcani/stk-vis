@@ -63,6 +63,7 @@ request options = do
     let
         nonValueCollections =
             insert options.moleculeCollection $
+            insert options.constructedMoleculeCollection $
             insert options.positionMatrixCollection $
             insert options.buildingBlockPositionMatrixCollection $
             fromFoldable options.ignoredCollections
