@@ -288,7 +288,8 @@ _onClick
                 , buildingBlockPositionMatrixCollection
                 , pageIndex: 0
                 , numEntriesPerPage
-                , ignoredCollections: []
+                , ignoredCollections:
+                    [buildingBlockPositionMatrixCollection]
                 , pageKind: PageKind.fromRequest pageKind
                 , valueCollections
                 , columns:
@@ -350,7 +351,8 @@ _onClick
                 , buildingBlockPositionMatrixCollection
                 , pageIndex: 0
                 , numEntriesPerPage
-                , ignoredCollections: []
+                , ignoredCollections:
+                    [positionMatrixCollection]
                 , pageKind: PageKind.fromRequest pageKind
                 , valueCollections
                 , columns:
