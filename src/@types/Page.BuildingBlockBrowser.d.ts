@@ -18,6 +18,16 @@ declare module 'Page.BuildingBlockBrowser'
         moleculeTable: MoleculeTableProps<a>;
         twoDViewer: TwoDViewerProps;
         threeDViewer: ThreeDViewerProps;
+        breadcrumbs: BreadcrumbsProps<a>;
         type: "Building Block Browser";
+    }
+
+    export interface BreadcrumbsProps<a>
+    {
+        mongoDbClick: (dispatch: (action: a) => void) => void;
+        resultsClick: (dispatch: (action: a) => void) => void;
+        historyClick:
+            () =>
+            Array<(dispatch: (action: a) => void) => Promise<void>>
     }
 }

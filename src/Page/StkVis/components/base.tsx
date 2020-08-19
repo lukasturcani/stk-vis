@@ -7,7 +7,7 @@ import {
 } from '../../MoleculeBrowser/Props/components/base';
 import {
     CoreProps as BuildingBlockBrowserProps
-} from '../../BuildingBlockBrowser/components/base';
+} from '../../BuildingBlockBrowser/components/base/browser';
 import {
     Props as BaseProps,
     Action,

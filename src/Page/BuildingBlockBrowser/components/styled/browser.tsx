@@ -4,17 +4,20 @@ import Grid from '@material-ui/core/Grid';
 import {
     MoleculeBrowser as MoleculeBrowserBase,
     CoreProps,
-} from './base';
+} from '../base/browser';
+import {
+    Breadcrumbs
+} from './breadcrumbs';
 
 import {
     MoleculeTable,
-} from '../../MoleculeBrowser/MoleculeTable/components/styled';
+} from '../../../MoleculeBrowser/MoleculeTable/components/styled';
 import {
     TwoDViewer,
-} from '../../MoleculeBrowser/TwoDViewer/components/styled';
+} from '../../../MoleculeBrowser/TwoDViewer/components/styled';
 import {
     ThreeDViewer,
-} from '../../MoleculeBrowser/ThreeDViewer/components/styled';
+} from '../../../MoleculeBrowser/ThreeDViewer/components/styled';
 
 
 export function BuildingBlockBrowser<a>(
@@ -23,6 +26,7 @@ export function BuildingBlockBrowser<a>(
 {
     return <MoleculeBrowserBase
         root={Root}
+        breadcrumbsComponent={Breadcrumbs}
         moleculeTableComponent={MoleculeTable}
         viewerContainer={ViewerContainer}
         twoDViewerComponent={TwoDViewer}

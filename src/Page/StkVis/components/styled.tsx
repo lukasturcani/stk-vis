@@ -11,7 +11,7 @@ import {
 } from '../../MoleculeBrowser/Props/components/styled';
 import {
     BuildingBlockBrowser
-} from '../../BuildingBlockBrowser/components/styled';
+} from '../../BuildingBlockBrowser/components/styled/browser';
 
 
 export function StkVis(

@@ -4,13 +4,16 @@ import {
 } from 'Page.BuildingBlockBrowser'
 import {
     CoreProps as MoleculeTableProps,
-} from '../../MoleculeBrowser/MoleculeTable/components/base';
+} from '../../../MoleculeBrowser/MoleculeTable/components/base';
 import {
     Props as TwoDViewerProps,
 } from 'Page.MoleculeBrowser.TwoDViewer';
 import {
     Props as ThreeDViewerProps,
 } from 'Page.MoleculeBrowser.ThreeDViewer';
+import {
+    CoreProps as BreadcrumbsProps,
+} from './breadcrumbs';
 
 
 type Empty = Record<string, unknown>;
@@ -25,6 +28,7 @@ export type CoreProps<a> = DispatchProps<a> & BrowserProps<a>;
 interface Props<a> extends BrowserProps<a>, DispatchProps<a>
 {
     root: React.FunctionComponent<Record<string, unknown>>;
+    breadcrumbsComponent: React.FunctionComponent<BreadcrumbsProps<a>>;
     moleculeTableComponent:
         React.FunctionComponent<MoleculeTableProps<a>>;
     viewerContainer: React.FunctionComponent<Empty>;
@@ -39,6 +43,10 @@ export function MoleculeBrowser<a>(
 {
     return (
         <props.root>
+            <props.breadcrumbsComponent
+                dispatch={props.dispatch}
+                {...props.breadcrumbs}
+            />
             <props.moleculeTableComponent
                 dispatch={props.dispatch}
                 {...props.moleculeTable}
