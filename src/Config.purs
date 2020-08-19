@@ -30,6 +30,8 @@ type MongoConfigurator =
     , numEntriesPerPage                 :: Int
     , ignoredCollections                :: Array String
     , searchKind                        :: SearchKind
+    , twoDViewer                        :: Boolean
+    , threeDViewer                      :: Boolean
     }
 
 type UnsortedAll =

@@ -48,6 +48,8 @@ type Model =
     , numEntriesPerPage                     :: Int
     , ignoredCollections                    :: Array String
     , searchKind                            :: SearchKind
+    , twoDViewer                            :: Boolean
+    , threeDViewer                          :: Boolean
     }
 
 
@@ -64,6 +66,8 @@ init =
     , numEntriesPerPage: 34
     , ignoredCollections: []
     , searchKind: UnsortedAll
+    , twoDViewer: true
+    , threeDViewer: true
     }
 
 initFromConfig :: Config.MongoConfigurator -> Model
