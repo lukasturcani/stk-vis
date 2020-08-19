@@ -138,32 +138,26 @@ export function InputFields(
                     }
                 />
             </Grid>
-            {
-                props.selectBuildingBlocks
-                &&
-                props.selectConstructedMolecules
-                &&
-                <Grid item>
-                    <TextField
-                        id={
-                            'mongo-building-block-'
-                            +'position-matrix-collection'
-                        }
-                        label={
-                            'Building Block '
-                            +'Position Matrix Collection Name'
-                        }
-                        defaultValue={
-                            props.buildingBlockPositionMatrixCollection
-                        }
-                        onChange={
-                            (e) => setBBPosMatCollection(
-                                e.target.value
-                            )
-                        }
-                    />
-                </Grid>
-            }
+            <Grid item>
+                <TextField
+                    id={
+                        'mongo-building-block-'
+                        +'position-matrix-collection'
+                    }
+                    label={
+                        'Building Block '
+                        +'Position Matrix Collection Name'
+                    }
+                    defaultValue={
+                        props.buildingBlockPositionMatrixCollection
+                    }
+                    onChange={
+                        (e) => setBBPosMatCollection(
+                            e.target.value
+                        )
+                    }
+                />
+            </Grid>
             <Grid item>
                 <TextField
                     id='num-entries-per-age'
