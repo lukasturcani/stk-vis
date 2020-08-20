@@ -36,6 +36,7 @@ export function MoleculeBrowser<a>(
     return <MoleculeBrowserBase
         root={Root}
         breadcrumbsComponent={Breadcrumbs}
+        configContainer={ConfigContainer}
         sortButtonComponent={SortButton}
         moleculeTableComponent={MoleculeTable}
         viewerContainer={ViewerContainer}
@@ -91,6 +92,7 @@ const ViewerContainer: React.FunctionComponent<Record<string, unknown>>
 
 
 type Empty = Record<string, unknown>;
+
 const NavigationButtonContainer: React.FunctionComponent<Empty>
     = (props) => (
         <Grid item
@@ -99,6 +101,20 @@ const NavigationButtonContainer: React.FunctionComponent<Empty>
             <Grid container
                 spacing={3}
                 justify={ 'center' }
+            >
+                {props.children}
+            </Grid>
+        </Grid>
+    );
+
+const ConfigContainer: React.FunctionComponent<Empty>
+    = (props) => (
+        <Grid item
+            xs={12}
+        >
+            <Grid container
+                spacing={3}
+                justify={ 'flex-start' }
             >
                 {props.children}
             </Grid>

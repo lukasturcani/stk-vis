@@ -38,6 +38,7 @@ interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps<a>
 {
     root: React.FunctionComponent<Record<string, unknown>>;
     breadcrumbsComponent: React.FunctionComponent<BreadcrumbsProps<a>>;
+    configContainer: React.FunctionComponent<Empty>;
     sortButtonComponent: React.FunctionComponent<SortButtonProps<a>>;
     moleculeTableComponent:
         React.FunctionComponent<MoleculeTableProps<a>>;
@@ -61,10 +62,12 @@ export function MoleculeBrowser<a>(
                 dispatch={props.dispatch}
                 {...props.breadcrumbs}
             />
-            <props.sortButtonComponent
-                dispatch={props.dispatch}
-                {...props.sortButton}
-            />
+            <props.configContainer>
+                <props.sortButtonComponent
+                    dispatch={props.dispatch}
+                    {...props.sortButton}
+                />
+            </props.configContainer>
             <props.moleculeTableComponent
                 dispatch={props.dispatch}
                 {...props.moleculeTable}

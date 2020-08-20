@@ -34,9 +34,7 @@ type Empty = Record<string, unknown>;
 
 const Container: React.FunctionComponent<Empty>
     = (props) => (
-        <Grid item
-            xs={12}
-        >
+        <Grid item>
             {props.children}
         </Grid>
     );
