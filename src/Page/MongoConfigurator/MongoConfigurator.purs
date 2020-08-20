@@ -90,6 +90,8 @@ type Props a =
     , selectBuildingBlocks                 :: Boolean
     , selectConstructedMolecules           :: Boolean
     , getMoleculesButton                   :: GetMoleculesButtonProps a
+    , twoDViewer                           :: Boolean
+    , threeDViewer                         :: Boolean
     , type                                 :: String
     }
 
@@ -156,6 +158,8 @@ props actionCreators model =
     , getMoleculesButton:
         { onClick: onClick actionCreators
         }
+    , twoDViewer: model.twoDViewer
+    , threeDViewer: model.threeDViewer
     , type: "Mongo Configurator"
     }
   where

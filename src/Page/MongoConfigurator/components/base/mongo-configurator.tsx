@@ -93,6 +93,12 @@ export function MongoConfigurator<a>(
     const [selectConstructedMolecules, setSelectConstructedMolecules]
         = React.useState(props.selectConstructedMolecules);
 
+    const [showTwoD, setShowTwoD]
+        = React.useState(props.twoDViewer);
+
+    const [showThreeD, setShowThreeD]
+        = React.useState(props.threeDViewer);
+
     return (
         <props.component>
             <props.inputFields
@@ -139,6 +145,12 @@ export function MongoConfigurator<a>(
                 setSelectConstructedMolecules={
                     setSelectConstructedMolecules
                 }
+
+                showTwoD={showTwoD}
+                setShowTwoD={setShowTwoD}
+
+                showThreeD={showThreeD}
+                setShowThreeD={setShowThreeD}
             />
             <Grid item>
                 <props.button
@@ -166,6 +178,8 @@ export function MongoConfigurator<a>(
                                 numEntriesPerPage,
                                 selectBuildingBlocks,
                                 selectConstructedMolecules,
+                                twoDViewer: showTwoD,
+                                threeDViewer: showThreeD,
                             })
                     }}
                 />

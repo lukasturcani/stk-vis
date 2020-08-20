@@ -2,6 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import {
     BaseProps as SearchKindSelectorProps,
 } from './search-kind-selector';
@@ -39,6 +42,12 @@ export interface BaseProps
 
     selectConstructedMolecules: boolean;
     setSelectConstructedMolecules: (select: boolean) => void;
+
+    showTwoD: boolean;
+    setShowTwoD: (show: boolean) => void;
+
+    showThreeD: boolean;
+    setShowThreeD: (show: boolean) => void;
 }
 
 
@@ -169,6 +178,40 @@ export function InputFields(
                         )
                     }
                 />
+            </Grid>
+            <Grid item>
+                <FormGroup row>
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={props.showTwoD}
+                                onChange={
+                                    (event: any) =>
+                                        props.setShowTwoD(
+                                            event.target.checked
+                                        )
+                                }
+                                name='showTwoD'
+                            />
+                        }
+                        label='2D Viewer'
+                    />
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={props.showThreeD}
+                                onChange={
+                                    (event: any) =>
+                                        props.setShowThreeD(
+                                            event.target.checked
+                                        )
+                                }
+                                name='showThreeD'
+                            />
+                        }
+                        label='3D Viewer'
+                    />
+                </FormGroup>
             </Grid>
         </props.component>
     );

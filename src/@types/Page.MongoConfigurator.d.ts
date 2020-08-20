@@ -41,6 +41,8 @@ declare module 'Page.MongoConfigurator'
         selectBuildingBlocks: boolean;
         selectConstructedMolecules: boolean;
         getMoleculesButton: GetMoleculesButtonProps<a>;
+        twoDViewer: boolean;
+        threeDViewer: boolean;
         type: "Mongo Configurator";
     }
 
@@ -78,6 +80,8 @@ declare module 'Page.MongoConfigurator'
         numEntriesPerPage: number;
         selectBuildingBlocks: boolean;
         selectConstructedMolecules: boolean;
+        twoDViewer: boolean;
+        threeDViewer: boolean;
     }
 
 }
