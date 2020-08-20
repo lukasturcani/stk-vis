@@ -14,14 +14,31 @@ declare module 'Page.BuildingBlockBrowser'
     export type Model = unknown;
     export type Action = { type: string };
 
-    export interface Props<a>
+    export interface AllViewers<a>
     {
-        moleculeTable: MoleculeTableProps<a>;
-        twoDViewer: TwoDViewerProps;
-        threeDViewer: ThreeDViewerProps;
-        breadcrumbs: BreadcrumbsProps<a>;
-        type: "Building Block Browser";
+        value0: {
+            moleculeTable: MoleculeTableProps<a>;
+            twoDViewer: TwoDViewerProps;
+            threeDViewer: ThreeDViewerProps;
+            breadcrumbs: BreadcrumbsProps<a>;
+            type: "Building Block Browser All Viewers";
+        };
+        type: undefined;
     }
+
+    export interface TwoDViewer<a>
+    {
+        value0: {
+            moleculeTable: MoleculeTableProps<a>;
+            twoDViewer: TwoDViewerProps;
+            threeDViewer: undefined;
+            breadcrumbs: BreadcrumbsProps<a>;
+            type: "Building Block Browser 2D Viewer";
+        };
+        type: undefined;
+    }
+
+    export type Props<a> = AllViewers<a> | TwoDViewer<a>;
 
     export interface BreadcrumbsProps<a>
     {

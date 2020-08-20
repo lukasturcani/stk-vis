@@ -53,7 +53,7 @@ export function StkVis<a>(
             {...props.value0}
         />;
     }
-    if (props.value0.type === "Building Block Browser")
+    if (props.value0.value0.type === "Building Block Browser")
     {
         return <props.buildingBlockBrowser
             dispatch={props.dispatch}

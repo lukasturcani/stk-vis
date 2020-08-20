@@ -71,8 +71,6 @@ type MoleculePage r =
     }
 
 
-
-
 init :: Config.BuildingBlockBrowser -> Model
 init config = config
 

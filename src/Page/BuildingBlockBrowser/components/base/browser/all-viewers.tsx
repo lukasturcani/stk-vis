@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {
-    Props as BrowserProps,
+    AllViewers as BrowserProps,
 } from 'Page.BuildingBlockBrowser'
 import {
     CoreProps as MoleculeTableProps,
-} from '../../../Assets/MoleculeTable/components/base';
+} from '../../../../Assets/MoleculeTable/components/base';
 import {
     Props as TwoDViewerProps,
 } from 'Page.TwoDViewer';
@@ -13,7 +13,7 @@ import {
 } from 'Page.ThreeDViewer';
 import {
     CoreProps as BreadcrumbsProps,
-} from './breadcrumbs';
+} from '../breadcrumbs';
 
 
 type Empty = Record<string, unknown>;

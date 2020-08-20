@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {
-    Props as BrowserProps,
+    TwoDViewer as BrowserProps,
 } from 'Page.BuildingBlockBrowser'
 import {
     CoreProps as MoleculeTableProps,
-} from '../../../Assets/MoleculeTable/components/base';
+} from '../../../../Assets/MoleculeTable/components/base';
 import {
     Props as TwoDViewerProps,
 } from 'Page.TwoDViewer';
@@ -13,7 +13,7 @@ import {
 } from 'Page.ThreeDViewer';
 import {
     CoreProps as BreadcrumbsProps,
-} from './breadcrumbs';
+} from '../breadcrumbs';
 
 
 type Empty = Record<string, unknown>;
@@ -34,7 +34,6 @@ interface Props<a> extends BrowserProps<a>, DispatchProps<a>
         React.FunctionComponent<MoleculeTableProps<a>>;
     viewerContainer: React.FunctionComponent<Empty>;
     twoDViewerComponent: React.FunctionComponent<TwoDViewerProps>;
-    threeDViewerComponent: React.FunctionComponent<ThreeDViewerProps>;
 }
 
 
@@ -57,9 +56,6 @@ export function MoleculeBrowser<a>(
             <props.viewerContainer>
                 <props.twoDViewerComponent
                     {...props.value0.twoDViewer}
-                />
-                <props.threeDViewerComponent
-                    {...props.value0.threeDViewer}
                 />
             </props.viewerContainer>
         </props.root>
