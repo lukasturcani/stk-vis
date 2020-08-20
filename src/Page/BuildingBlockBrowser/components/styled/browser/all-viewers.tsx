@@ -18,6 +18,9 @@ import {
 import {
     ThreeDViewer,
 } from '../../../../Assets/ThreeDViewer/components/styled/half';
+import {
+    ViewerSwitch,
+} from '../../../../Assets/ViewerSwitch/components/styled';
 
 
 export function BuildingBlockBrowser<a>(
@@ -28,6 +31,7 @@ export function BuildingBlockBrowser<a>(
         root={Root}
         breadcrumbsComponent={Breadcrumbs}
         configContainer={ConfigContainer}
+        twoDSwitchComponent={ViewerSwitch}
         moleculeTableComponent={MoleculeTable}
         viewerContainer={ViewerContainer}
         twoDViewerComponent={TwoDViewer}

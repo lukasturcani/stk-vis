@@ -9,7 +9,7 @@ import {
 
 
 
-export function ViewSwitcher<a>(
+export function ViewerSwitch<a>(
     props: CoreProps<a>,
 )
 {

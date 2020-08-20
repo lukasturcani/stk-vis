@@ -6,6 +6,9 @@ import {
     CoreProps as MoleculeTableProps,
 } from '../../../../Assets/MoleculeTable/components/base';
 import {
+    CoreProps as ViewerSwitchProps,
+} from '../../../../Assets/ViewerSwitch/components/base';
+import {
     Props as TwoDViewerProps,
 } from 'Page.TwoDViewer';
 import {
@@ -35,6 +38,8 @@ interface Props<a> extends BrowserProps<a>, DispatchProps<a>
     viewerContainer: React.FunctionComponent<Empty>;
     twoDViewerComponent: React.FunctionComponent<TwoDViewerProps>;
     threeDViewerComponent: React.FunctionComponent<ThreeDViewerProps>;
+    twoDSwitchComponent:
+        React.FunctionComponent<ViewerSwitchProps<a>>;
 }
 
 
@@ -49,6 +54,10 @@ export function MoleculeBrowser<a>(
                 {...props.value0.breadcrumbs}
             />
             <props.configContainer>
+                <props.twoDSwitchComponent
+                    dispatch={props.dispatch}
+                    {...props.value0.twoDViewerSwitch}
+                />
             </props.configContainer>
             <props.moleculeTableComponent
                 dispatch={props.dispatch}

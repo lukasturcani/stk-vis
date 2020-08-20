@@ -146,6 +146,11 @@ module.exports = {
                 './output/Page.MoleculeTable',
             ),
 
+            'Page.ViewerSwitch': path.join(
+                __dirname,
+                './output/Page.ViewerSwitch',
+            ),
+
         },
     },
     module: {
