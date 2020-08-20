@@ -10,8 +10,11 @@ import {
     MoleculeBrowser,
 } from '../../MoleculeBrowser/Props/components/styled';
 import {
-    BuildingBlockBrowser
-} from '../../BuildingBlockBrowser/components/styled/browser';
+    BuildingBlockBrowser as BBAllViewers
+} from '../../BuildingBlockBrowser/components/styled/browser/all-viewers';
+import {
+    BuildingBlockBrowser as BBTwoDViewer
+} from '../../BuildingBlockBrowser/components/styled/browser/2d-viewer';
 
 
 export function StkVis(
@@ -21,7 +24,8 @@ export function StkVis(
     return <StkVisBase
         mongoConfigurator={MongoConfigurator}
         moleculeBrowser={MoleculeBrowser}
-        buildingBlockBrowser={BuildingBlockBrowser}
+        bbAllViewers={BBAllViewers}
+        bbTwoDViewer={BBTwoDViewer}
         {...props}
     />;
 }

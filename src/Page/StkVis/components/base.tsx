@@ -6,8 +6,15 @@ import {
     CoreProps as MoleculeBrowserProps
 } from '../../MoleculeBrowser/Props/components/base';
 import {
-    CoreProps as BuildingBlockBrowserProps
-} from '../../BuildingBlockBrowser/components/base/browser';
+    CoreProps as BBAllViewersCoreProps,
+} from '../../BuildingBlockBrowser/components/base/browser/all-viewers';
+import {
+    CoreProps as BBTwoDViewerCoreProps,
+} from '../../BuildingBlockBrowser/components/base/browser/2d-viewer';
+import {
+    AllViewers as BBAllViewersProps,
+    TwoDViewer as BBTwoDViewerProps,
+} from 'Page.BuildingBlockBrowser';
 import {
     Props as BaseProps,
     Action,
@@ -30,8 +37,12 @@ interface Props extends BaseProps, DispatchProps
     moleculeBrowser:
         React.FunctionComponent<MoleculeBrowserProps<Action>>;
 
-    buildingBlockBrowser:
-        React.FunctionComponent<BuildingBlockBrowserProps<Action>>;
+    bbAllViewers:
+        React.FunctionComponent<BBAllViewersCoreProps<Action>>;
+
+    bbTwoDViewer:
+        React.FunctionComponent<BBTwoDViewerCoreProps<Action>>;
+
 
 }
 
@@ -53,11 +64,22 @@ export function StkVis<a>(
             {...props.value0}
         />;
     }
-    if (props.value0.value0.type === "Building Block Browser")
-    {
-        return <props.buildingBlockBrowser
+    if (
+        props.value0.value0.type
+        === "Building Block Browser All Viewers"
+    ) {
+        return <props.bbAllViewers
             dispatch={props.dispatch}
-            {...props.value0}
+            {...props.value0 as BBAllViewersProps<Action>}
+        />;
+    }
+    if (
+        props.value0.value0.type
+        === "Building Block Browser 2D Viewer"
+    ) {
+        return <props.bbTwoDViewer
+            dispatch={props.dispatch}
+            {...props.value0 as BBTwoDViewerProps<Action>}
         />;
     }
     return <div>YOU SHOULD NEVER SEE THIS!!</div>;
