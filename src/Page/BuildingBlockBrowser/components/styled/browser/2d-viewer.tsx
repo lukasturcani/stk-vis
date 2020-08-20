@@ -14,7 +14,7 @@ import {
 } from '../../../../Assets/MoleculeTable/components/styled';
 import {
     TwoDViewer,
-} from '../../../../Assets/TwoDViewer/components/styled';
+} from '../../../../Assets/TwoDViewer/components/styled/full';
 
 
 export function BuildingBlockBrowser<a>(
