@@ -11,13 +11,13 @@ import {
 
 import {
     MoleculeTable,
-} from '../../../../Assets/MoleculeTable/components/styled';
+} from '../../../../Assets/MoleculeTable/components/styled/half';
 import {
     TwoDViewer,
-} from '../../../../Assets/TwoDViewer/components/styled';
+} from '../../../../Assets/TwoDViewer/components/styled/half';
 import {
     ThreeDViewer,
-} from '../../../../Assets/ThreeDViewer/components/styled';
+} from '../../../../Assets/ThreeDViewer/components/styled/half';
 
 
 export function BuildingBlockBrowser<a>(

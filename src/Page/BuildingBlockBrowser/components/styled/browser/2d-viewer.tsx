@@ -11,7 +11,7 @@ import {
 
 import {
     MoleculeTable,
-} from '../../../../Assets/MoleculeTable/components/styled';
+} from '../../../../Assets/MoleculeTable/components/styled/half';
 import {
     TwoDViewer,
 } from '../../../../Assets/TwoDViewer/components/styled/full';
