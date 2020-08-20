@@ -27,6 +27,7 @@ export function BuildingBlockBrowser<a>(
     return <MoleculeBrowserBase
         root={Root}
         breadcrumbsComponent={Breadcrumbs}
+        configContainer={ConfigContainer}
         moleculeTableComponent={MoleculeTable}
         viewerContainer={ViewerContainer}
         twoDViewerComponent={TwoDViewer}
@@ -70,6 +71,22 @@ const ViewerContainer: React.FunctionComponent<Record<string, unknown>>
                 alignItems='center'
                 justify='center'
                 direction='row'
+            >
+                {props.children}
+            </Grid>
+        </Grid>
+    );
+
+type Empty = Record<string, unknown>;
+
+const ConfigContainer: React.FunctionComponent<Empty>
+    = (props) => (
+        <Grid item
+            xs={12}
+        >
+            <Grid container
+                spacing={3}
+                justify={ 'flex-start' }
             >
                 {props.children}
             </Grid>
