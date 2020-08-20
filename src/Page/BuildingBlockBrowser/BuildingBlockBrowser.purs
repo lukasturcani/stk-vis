@@ -487,34 +487,62 @@ resultsClick actionCreators model dispatch
         UnsortedAll config -> unsafePerformEffect
             (runEffectFn1
                 dispatch
-                (actionCreators.initUnsortedAll config)
+                (actionCreators.initUnsortedAll
+                    config
+                        { twoDViewer = model.twoDViewer
+                        , threeDViewer = model.threeDViewer
+                        }
+                )
             )
         UnsortedBuildingBlocks config -> unsafePerformEffect
             (runEffectFn1
                 dispatch
-                (actionCreators.initUnsortedBuildingBlocks config)
+                (actionCreators.initUnsortedBuildingBlocks
+                    config
+                        { twoDViewer = model.twoDViewer
+                        , threeDViewer = model.threeDViewer
+                        }
+                )
             )
         UnsortedConstructedMolecules config -> unsafePerformEffect
             (runEffectFn1
                 dispatch
                 (actionCreators.initUnsortedConstructedMolecules
                     config
+                        { twoDViewer = model.twoDViewer
+                        , threeDViewer = model.threeDViewer
+                        }
                 )
             )
         SortedAll config -> unsafePerformEffect
             (runEffectFn1
                 dispatch
-                (actionCreators.initSortedAll config)
+                (actionCreators.initSortedAll
+                    config
+                        { twoDViewer = model.twoDViewer
+                        , threeDViewer = model.threeDViewer
+                        }
+                )
             )
         SortedBuildingBlocks config -> unsafePerformEffect
             (runEffectFn1
                 dispatch
-                (actionCreators.initSortedBuildingBlocks config)
+                (actionCreators.initSortedBuildingBlocks
+                    config
+                        { twoDViewer = model.twoDViewer
+                        , threeDViewer = model.threeDViewer
+                        }
+                )
             )
         SortedConstructedMolecules config -> unsafePerformEffect
             (runEffectFn1
                 dispatch
-                (actionCreators.initSortedConstructedMolecules config)
+                (actionCreators.initSortedConstructedMolecules
+                    config
+                        { twoDViewer = model.twoDViewer
+                        , threeDViewer = model.threeDViewer
+                        }
+                )
             )
 
 

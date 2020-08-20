@@ -12,6 +12,9 @@ import {
 import {
     MoleculeTable,
 } from '../../../../Assets/MoleculeTable/components/styled/full';
+import {
+    ViewerSwitch,
+} from '../../../../Assets/ViewerSwitch/components/styled';
 
 
 export function BuildingBlockBrowser<a>(
@@ -23,6 +26,7 @@ export function BuildingBlockBrowser<a>(
         breadcrumbsComponent={Breadcrumbs}
         configContainer={ConfigContainer}
         moleculeTableComponent={MoleculeTable}
+        viewerSwitchComponent={ViewerSwitch}
         {...props}
     />;
 }

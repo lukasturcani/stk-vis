@@ -8,6 +8,9 @@ import {
 import {
     CoreProps as BreadcrumbsProps,
 } from '../breadcrumbs';
+import {
+    CoreProps as ViewerSwitchProps,
+} from '../../../../Assets/ViewerSwitch/components/base';
 
 
 type Empty = Record<string, unknown>;
@@ -26,6 +29,8 @@ interface Props<a> extends BrowserProps<a>, DispatchProps<a>
     configContainer: React.FunctionComponent<Empty>;
     moleculeTableComponent:
         React.FunctionComponent<MoleculeTableProps<a>>;
+    viewerSwitchComponent:
+        React.FunctionComponent<ViewerSwitchProps<a>>;
 }
 
 
@@ -40,6 +45,14 @@ export function MoleculeBrowser<a>(
                 {...props.value0.breadcrumbs}
             />
             <props.configContainer>
+                <props.viewerSwitchComponent
+                    dispatch={props.dispatch}
+                    {...props.value0.twoDViewerSwitch}
+                />
+                <props.viewerSwitchComponent
+                    dispatch={props.dispatch}
+                    {...props.value0.threeDViewerSwitch}
+                />
             </props.configContainer>
             <props.moleculeTableComponent
                 dispatch={props.dispatch}

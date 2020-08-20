@@ -9,6 +9,9 @@ import {
     Props as ThreeDViewerProps,
 } from 'Page.ThreeDViewer';
 import {
+    CoreProps as ViewerSwitchProps,
+} from '../../../../Assets/ViewerSwitch/components/base';
+import {
     CoreProps as BreadcrumbsProps,
 } from '../breadcrumbs';
 
@@ -31,6 +34,8 @@ interface Props<a> extends BrowserProps<a>, DispatchProps<a>
         React.FunctionComponent<MoleculeTableProps<a>>;
     viewerContainer: React.FunctionComponent<Empty>;
     threeDViewerComponent: React.FunctionComponent<ThreeDViewerProps>;
+    viewerSwitchComponent:
+        React.FunctionComponent<ViewerSwitchProps<a>>;
 }
 
 
@@ -45,6 +50,14 @@ export function MoleculeBrowser<a>(
                 {...props.value0.breadcrumbs}
             />
             <props.configContainer>
+                <props.viewerSwitchComponent
+                    dispatch={props.dispatch}
+                    {...props.value0.twoDViewerSwitch}
+                />
+                <props.viewerSwitchComponent
+                    dispatch={props.dispatch}
+                    {...props.value0.threeDViewerSwitch}
+                />
             </props.configContainer>
             <props.moleculeTableComponent
                 dispatch={props.dispatch}

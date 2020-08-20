@@ -38,7 +38,7 @@ interface Props<a> extends BrowserProps<a>, DispatchProps<a>
     viewerContainer: React.FunctionComponent<Empty>;
     twoDViewerComponent: React.FunctionComponent<TwoDViewerProps>;
     threeDViewerComponent: React.FunctionComponent<ThreeDViewerProps>;
-    twoDSwitchComponent:
+    viewerSwitchComponent:
         React.FunctionComponent<ViewerSwitchProps<a>>;
 }
 
@@ -54,9 +54,13 @@ export function MoleculeBrowser<a>(
                 {...props.value0.breadcrumbs}
             />
             <props.configContainer>
-                <props.twoDSwitchComponent
+                <props.viewerSwitchComponent
                     dispatch={props.dispatch}
                     {...props.value0.twoDViewerSwitch}
+                />
+                <props.viewerSwitchComponent
+                    dispatch={props.dispatch}
+                    {...props.value0.threeDViewerSwitch}
                 />
             </props.configContainer>
             <props.moleculeTableComponent

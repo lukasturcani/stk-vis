@@ -15,6 +15,9 @@ import {
 import {
     TwoDViewer,
 } from '../../../../Assets/TwoDViewer/components/styled/full';
+import {
+    ViewerSwitch,
+} from '../../../../Assets/ViewerSwitch/components/styled';
 
 
 export function BuildingBlockBrowser<a>(
@@ -25,6 +28,7 @@ export function BuildingBlockBrowser<a>(
         root={Root}
         breadcrumbsComponent={Breadcrumbs}
         configContainer={ConfigContainer}
+        viewerSwitchComponent={ViewerSwitch}
         moleculeTableComponent={MoleculeTable}
         viewerContainer={ViewerContainer}
         twoDViewerComponent={TwoDViewer}

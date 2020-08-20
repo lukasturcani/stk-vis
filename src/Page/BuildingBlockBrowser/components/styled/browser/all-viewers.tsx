@@ -31,7 +31,7 @@ export function BuildingBlockBrowser<a>(
         root={Root}
         breadcrumbsComponent={Breadcrumbs}
         configContainer={ConfigContainer}
-        twoDSwitchComponent={ViewerSwitch}
+        viewerSwitchComponent={ViewerSwitch}
         moleculeTableComponent={MoleculeTable}
         viewerContainer={ViewerContainer}
         twoDViewerComponent={TwoDViewer}
