@@ -80,13 +80,40 @@ init config = config
 ---- VIEW ----
 
 
-type Props a =
+data Props a
+    = NoViewers (NoViewers a)
+    | TwoDViewer (TwoDViewer a)
+    | ThreeDViewer (ThreeDViewer a)
+    | AllViewers (AllViewers a)
+
+type NoViewers a =
+    { moleculeTable :: MoleculeTable.Props a
+    , breadcrumbs   :: BreadcrumbsProps a
+    , type          :: String
+    }
+
+type TwoDViewer a =
+    { moleculeTable :: MoleculeTable.Props a
+    , twoDViewer    :: TwoDViewer.Props
+    , breadcrumbs   :: BreadcrumbsProps a
+    , type          :: String
+    }
+
+type ThreeDViewer a =
+    { moleculeTable :: MoleculeTable.Props a
+    , threeDViewer  :: ThreeDViewer.Props
+    , breadcrumbs   :: BreadcrumbsProps a
+    , type          :: String
+    }
+
+type AllViewers a =
     { moleculeTable :: MoleculeTable.Props a
     , twoDViewer    :: TwoDViewer.Props
     , threeDViewer  :: ThreeDViewer.Props
     , breadcrumbs   :: BreadcrumbsProps a
     , type          :: String
     }
+
 
 type BreadcrumbsProps a =
     { mongoDbClick :: DispatchAction a -> Unit
@@ -112,8 +139,9 @@ type ActionCreators a r =
     }
 
 props :: forall a r. ActionCreators a r -> Model -> Props a
-props actionCreators model =
-    { moleculeTable:
+
+props actionCreators model@{ twoDViewer: true, threeDViewer: true }  =
+    AllViewers $ { moleculeTable:
         { columns: model.columns
         , selectedRow: fst selected
         , rows: map Molecule.properties molecules
@@ -134,7 +162,7 @@ props actionCreators model =
                 (0 .. (length model.history-1))
                 model.history
         }
-    , type: "Building Block Browser"
+    , type: "Building Block Browser All Viewers"
     }
 
   where
@@ -143,6 +171,94 @@ props actionCreators model =
     selectedMolecule = snd selected
     molecules = SelectingCollection.all model.buildingBlocks
 
+props actionCreators model@{ twoDViewer: false, threeDViewer: true }  =
+    ThreeDViewer $ { moleculeTable:
+        { columns: model.columns
+        , selectedRow: fst selected
+        , rows: map Molecule.properties molecules
+        , molecules
+        , selectMolecule: selectMoleculeProp actionCreators
+        , buildingBlockRequests:
+            map (buildingBlockRequest actionCreators model) molecules
+        }
+
+    , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
+    , breadcrumbs:
+        { mongoDbClick: mongoDbClick actionCreators model
+        , resultsClick: resultsClick actionCreators model
+        , historyClick:
+            Array.zipWith
+                (historyClick actionCreators model)
+                (0 .. (length model.history-1))
+                model.history
+        }
+    , type: "Building Block Browser 3D Viewer"
+    }
+
+  where
+
+    selected = SelectingCollection.selected model.buildingBlocks
+    selectedMolecule = snd selected
+    molecules = SelectingCollection.all model.buildingBlocks
+
+props actionCreators model@{ twoDViewer: true, threeDViewer: false }  =
+    TwoDViewer $ { moleculeTable:
+        { columns: model.columns
+        , selectedRow: fst selected
+        , rows: map Molecule.properties molecules
+        , molecules
+        , selectMolecule: selectMoleculeProp actionCreators
+        , buildingBlockRequests:
+            map (buildingBlockRequest actionCreators model) molecules
+        }
+
+    , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
+    , breadcrumbs:
+        { mongoDbClick: mongoDbClick actionCreators model
+        , resultsClick: resultsClick actionCreators model
+        , historyClick:
+            Array.zipWith
+                (historyClick actionCreators model)
+                (0 .. (length model.history-1))
+                model.history
+        }
+    , type: "Building Block Browser 2D Viewer"
+    }
+
+  where
+
+    selected = SelectingCollection.selected model.buildingBlocks
+    selectedMolecule = snd selected
+    molecules = SelectingCollection.all model.buildingBlocks
+
+props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
+    NoViewers $ { moleculeTable:
+        { columns: model.columns
+        , selectedRow: fst selected
+        , rows: map Molecule.properties molecules
+        , molecules
+        , selectMolecule: selectMoleculeProp actionCreators
+        , buildingBlockRequests:
+            map (buildingBlockRequest actionCreators model) molecules
+        }
+
+    , breadcrumbs:
+        { mongoDbClick: mongoDbClick actionCreators model
+        , resultsClick: resultsClick actionCreators model
+        , historyClick:
+            Array.zipWith
+                (historyClick actionCreators model)
+                (0 .. (length model.history-1))
+                model.history
+        }
+    , type: "Building Block Browser No Viewers"
+    }
+
+  where
+
+    selected = SelectingCollection.selected model.buildingBlocks
+    selectedMolecule = snd selected
+    molecules = SelectingCollection.all model.buildingBlocks
 
 ---
 
