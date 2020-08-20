@@ -66,6 +66,8 @@ type Model =
     , valueCollections                  :: Array String
     , columns                           :: Array String
     , molecules                         :: SelectingCollection Molecule
+    , twoDViewer                        :: Boolean
+    , threeDViewer                      :: Boolean
     }
 
 type Molecules r =
@@ -138,6 +140,8 @@ debugInit =
     , molecules: SelectingCollection.selectingCollection [] molecule []
     , sortedCollection: "numAtoms"
     , sortType: SortType.Ascending
+    , twoDViewer: true
+    , threeDViewer: true
     }
   where
     molecule = Molecule.molecule
@@ -322,10 +326,10 @@ type SetUnsortedActionCreators a r =
     }
 
 onSetUnsorted
-    :: forall a r1 r2
+    :: forall a r
     .  Deferred
-    => SetUnsortedActionCreators a r1
-    -> RequestConfig r2
+    => SetUnsortedActionCreators a r
+    -> Model
     -> DispatchAction a
     -> Snackbar
     -> Promise Unit
@@ -336,10 +340,10 @@ onSetUnsorted actionCreators model dispatch snackbar
         (Snackbar.errorSnackbar snackbar)
 
 _onSetUnsorted
-    :: forall a r1 r2
+    :: forall a r
     .  Deferred
-    => SetUnsortedActionCreators a r1
-    -> RequestConfig r2
+    => SetUnsortedActionCreators a r
+    -> Model
     -> DispatchAction a
     -> Promise Unit
 
@@ -384,6 +388,8 @@ _onSetUnsorted actionCreators model dispatch = do
                 Array.concat [[model.moleculeKey], valueCollections]
             , molecules:
                 map (Molecule.molecule' model.moleculeKey) molecules
+            , twoDViewer: model.twoDViewer
+            , threeDViewer: model.threeDViewer
             }
 
     pure (unsafePerformEffect
@@ -491,6 +497,8 @@ _buildingBlockRequest actionCreators model molecule dispatch = do
             , history: []
             , molecule: Molecule.key molecule
             , moleculeBrowser: Config.SortedAll model
+            , twoDViewer: model.twoDViewer
+            , threeDViewer: model.threeDViewer
             }
 
     pure (unsafePerformEffect
@@ -666,9 +674,9 @@ type BreadcrumbsActionCreators a r =
     }
 
 breadcrumbsClick
-    :: forall a r1 r2
-    .  BreadcrumbsActionCreators a r1
-    -> RequestConfig r2
+    :: forall a r
+    .  BreadcrumbsActionCreators a r
+    -> Model
     -> DispatchAction a
     -> Unit
 
@@ -690,6 +698,8 @@ breadcrumbsClick actionCreators model dispatch =
                 , numEntriesPerPage: model.numEntriesPerPage
                 , ignoredCollections: model.ignoredCollections
                 , searchKind: SearchKind.UnsortedAll
+                , twoDViewer: model.twoDViewer
+                , threeDViewer: model.threeDViewer
                 }
             )
         )

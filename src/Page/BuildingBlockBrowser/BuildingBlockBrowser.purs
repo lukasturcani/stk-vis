@@ -54,6 +54,8 @@ type Model =
     , history                           :: Array MoleculeKeyValue
     , molecule                          :: MoleculeKeyValue
     , moleculeBrowser                   :: Config.MoleculeBrowser
+    , twoDViewer                        :: Boolean
+    , threeDViewer                      :: Boolean
     }
 
 type BuildingBlocks r =
@@ -269,6 +271,8 @@ mongoDbClick actionCreators model dispatch
                 , ignoredCollections: model.ignoredCollections
                 , searchKind:
                     Config.searchKind model.moleculeBrowser
+                , twoDViewer: model.twoDViewer
+                , threeDViewer: model.threeDViewer
                 }
             )
         )

@@ -49,6 +49,8 @@ type UnsortedAll =
     , valueCollections                  :: Array String
     , columns                           :: Array String
     , molecules                         :: SelectingCollection Molecule
+    , twoDViewer                        :: Boolean
+    , threeDViewer                      :: Boolean
     }
 
 type UnsortedBuildingBlocks =
@@ -66,6 +68,8 @@ type UnsortedBuildingBlocks =
     , valueCollections                  :: Array String
     , columns                           :: Array String
     , molecules                         :: SelectingCollection Molecule
+    , twoDViewer                        :: Boolean
+    , threeDViewer                      :: Boolean
     }
 
 type UnsortedConstructedMolecules =
@@ -83,6 +87,8 @@ type UnsortedConstructedMolecules =
     , valueCollections                  :: Array String
     , columns                           :: Array String
     , molecules                         :: SelectingCollection Molecule
+    , twoDViewer                        :: Boolean
+    , threeDViewer                      :: Boolean
     }
 
 type SortedAll =
@@ -102,6 +108,8 @@ type SortedAll =
     , molecules                         :: SelectingCollection Molecule
     , sortedCollection                  :: String
     , sortType                          :: SortType
+    , twoDViewer                        :: Boolean
+    , threeDViewer                      :: Boolean
     }
 
 type SortedBuildingBlocks =
@@ -121,6 +129,8 @@ type SortedBuildingBlocks =
     , molecules                         :: SelectingCollection Molecule
     , sortedCollection                  :: String
     , sortType                          :: SortType
+    , twoDViewer                        :: Boolean
+    , threeDViewer                      :: Boolean
     }
 
 type SortedConstructedMolecules =
@@ -140,6 +150,8 @@ type SortedConstructedMolecules =
     , molecules                         :: SelectingCollection Molecule
     , sortedCollection                  :: String
     , sortType                          :: SortType
+    , twoDViewer                        :: Boolean
+    , threeDViewer                      :: Boolean
     }
 
 data MoleculeBrowser
@@ -165,6 +177,8 @@ type BuildingBlockBrowser =
     , history                           :: Array MoleculeKeyValue
     , molecule                          :: MoleculeKeyValue
     , moleculeBrowser                   :: MoleculeBrowser
+    , twoDViewer                        :: Boolean
+    , threeDViewer                      :: Boolean
     }
 
 numEntriesPerPage :: MoleculeBrowser -> Int

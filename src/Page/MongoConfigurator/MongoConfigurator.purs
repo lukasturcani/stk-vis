@@ -123,6 +123,8 @@ type MongoData =
     , numEntriesPerPage                     :: Int
     , selectBuildingBlocks                  :: Boolean
     , selectConstructedMolecules            :: Boolean
+    , twoDViewer                            :: Boolean
+    , threeDViewer                          :: Boolean
     }
 
 type ActionCreators a r =
@@ -203,6 +205,8 @@ _onClick
     , numEntriesPerPage
     , selectBuildingBlocks: true
     , selectConstructedMolecules: true
+    , twoDViewer
+    , threeDViewer
     }
     = do
         result <- AllRequest.request
@@ -240,6 +244,8 @@ _onClick
                     Array.concat [[moleculeKey], valueCollections]
                 , molecules:
                     map (Molecule.molecule' moleculeKey) molecules
+                , twoDViewer
+                , threeDViewer
                 }
 
         pure (unsafePerformEffect
@@ -262,6 +268,8 @@ _onClick
     , numEntriesPerPage
     , selectBuildingBlocks: false
     , selectConstructedMolecules: true
+    , twoDViewer
+    , threeDViewer
     }
     = do
         result <- ConstructedMoleculesRequest.request
@@ -300,6 +308,8 @@ _onClick
                     Array.concat [[moleculeKey], valueCollections]
                 , molecules:
                     map (Molecule.molecule' moleculeKey) molecules
+                , twoDViewer
+                , threeDViewer
                 }
 
         pure (unsafePerformEffect
@@ -324,6 +334,8 @@ _onClick
     , numEntriesPerPage
     , selectBuildingBlocks: true
     , selectConstructedMolecules: false
+    , twoDViewer
+    , threeDViewer
     }
     = do
         result <- BuildingBlocksRequest.request
@@ -363,6 +375,8 @@ _onClick
                     Array.concat [[moleculeKey], valueCollections]
                 , molecules:
                     map (Molecule.molecule' moleculeKey) molecules
+                , twoDViewer
+                , threeDViewer
                 }
 
         pure (unsafePerformEffect
