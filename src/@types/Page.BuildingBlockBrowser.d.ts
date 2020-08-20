@@ -38,7 +38,35 @@ declare module 'Page.BuildingBlockBrowser'
         type: undefined;
     }
 
-    export type Props<a> = AllViewers<a> | TwoDViewer<a>;
+    export interface ThreeDViewer<a>
+    {
+        value0: {
+            moleculeTable: MoleculeTableProps<a>;
+            twoDViewer: undefined;
+            threeDViewer: ThreeDViewerProps;
+            breadcrumbs: BreadcrumbsProps<a>;
+            type: "Building Block Browser 3D Viewer";
+        };
+        type: undefined;
+    }
+
+    export interface NoViewers<a>
+    {
+        value0: {
+            moleculeTable: MoleculeTableProps<a>;
+            breadcrumbs: BreadcrumbsProps<a>;
+            twoDViewer: undefined;
+            threeDViewer: undefined;
+            type: "Building Block Browser No Viewers";
+        };
+        type: undefined;
+    }
+
+    export type Props<a>
+        = AllViewers<a>
+        | TwoDViewer<a>
+        | ThreeDViewer<a>
+        | NoViewers<a>;
 
     export interface BreadcrumbsProps<a>
     {

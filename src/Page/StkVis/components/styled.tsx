@@ -15,6 +15,12 @@ import {
 import {
     BuildingBlockBrowser as BBTwoDViewer
 } from '../../BuildingBlockBrowser/components/styled/browser/2d-viewer';
+import {
+    BuildingBlockBrowser as BBThreeDViewer
+} from '../../BuildingBlockBrowser/components/styled/browser/3d-viewer';
+import {
+    BuildingBlockBrowser as BBNoViewers
+} from '../../BuildingBlockBrowser/components/styled/browser/no-viewers';
 
 
 export function StkVis(
@@ -26,6 +32,8 @@ export function StkVis(
         moleculeBrowser={MoleculeBrowser}
         bbAllViewers={BBAllViewers}
         bbTwoDViewer={BBTwoDViewer}
+        bbThreeDViewer={BBThreeDViewer}
+        bbNoViewers={BBNoViewers}
         {...props}
     />;
 }
