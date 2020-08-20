@@ -21,6 +21,17 @@ declare module 'Page.BuildingBlockBrowser'
             twoDViewer: TwoDViewerProps;
             threeDViewer: ThreeDViewerProps;
             breadcrumbs: BreadcrumbsProps<a>;
+
+            twoDViewerSwitch:
+                (dispatch: (action: a) => void) =>
+                (state: boolean) =>
+                void;
+
+            threeDViewerSwitch:
+                (dispatch: (action: a) => void) =>
+                (state: boolean) =>
+                void;
+
             type: "Building Block Browser All Viewers";
         };
         type: undefined;
@@ -33,6 +44,16 @@ declare module 'Page.BuildingBlockBrowser'
             twoDViewer: TwoDViewerProps;
             threeDViewer: undefined;
             breadcrumbs: BreadcrumbsProps<a>;
+
+            twoDViewerSwitch:
+                (dispatch: (action: a) => void) =>
+                (state: boolean) =>
+                void;
+
+            threeDViewerSwitch:
+                (dispatch: (action: a) => void) =>
+                (state: boolean) =>
+                void;
             type: "Building Block Browser 2D Viewer";
         };
         type: undefined;
@@ -45,6 +66,17 @@ declare module 'Page.BuildingBlockBrowser'
             twoDViewer: undefined;
             threeDViewer: ThreeDViewerProps;
             breadcrumbs: BreadcrumbsProps<a>;
+
+            twoDViewerSwitch:
+                (dispatch: (action: a) => void) =>
+                (state: boolean) =>
+                void;
+
+            threeDViewerSwitch:
+                (dispatch: (action: a) => void) =>
+                (state: boolean) =>
+                void;
+
             type: "Building Block Browser 3D Viewer";
         };
         type: undefined;
@@ -57,6 +89,17 @@ declare module 'Page.BuildingBlockBrowser'
             breadcrumbs: BreadcrumbsProps<a>;
             twoDViewer: undefined;
             threeDViewer: undefined;
+
+            twoDViewerSwitch:
+                (dispatch: (action: a) => void) =>
+                (state: boolean) =>
+                void;
+
+            threeDViewerSwitch:
+                (dispatch: (action: a) => void) =>
+                (state: boolean) =>
+                void;
+
             type: "Building Block Browser No Viewers";
         };
         type: undefined;

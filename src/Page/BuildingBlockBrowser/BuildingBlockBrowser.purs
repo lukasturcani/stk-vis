@@ -12,6 +12,8 @@ module Page.BuildingBlockBrowser
     , reducer
     , updateMoleculePage
     , selectBuildingBlock
+    , setTwoDViewer
+    , setThreeDViewer
     ) where
 
 import Prelude
@@ -85,31 +87,39 @@ data Props a
     | AllViewers (AllViewers a)
 
 type NoViewers a =
-    { moleculeTable :: MoleculeTable.Props a
-    , breadcrumbs   :: BreadcrumbsProps a
-    , type          :: String
+    { moleculeTable      :: MoleculeTable.Props a
+    , breadcrumbs        :: BreadcrumbsProps a
+    , twoDViewerSwitch   :: DispatchAction a -> Boolean -> Unit
+    , threeDViewerSwitch :: DispatchAction a -> Boolean -> Unit
+    , type               :: String
     }
 
 type TwoDViewer a =
-    { moleculeTable :: MoleculeTable.Props a
-    , twoDViewer    :: TwoDViewer.Props
-    , breadcrumbs   :: BreadcrumbsProps a
-    , type          :: String
+    { moleculeTable      :: MoleculeTable.Props a
+    , twoDViewer         :: TwoDViewer.Props
+    , breadcrumbs        :: BreadcrumbsProps a
+    , twoDViewerSwitch   :: DispatchAction a -> Boolean -> Unit
+    , threeDViewerSwitch :: DispatchAction a -> Boolean -> Unit
+    , type               :: String
     }
 
 type ThreeDViewer a =
-    { moleculeTable :: MoleculeTable.Props a
-    , threeDViewer  :: ThreeDViewer.Props
-    , breadcrumbs   :: BreadcrumbsProps a
-    , type          :: String
+    { moleculeTable      :: MoleculeTable.Props a
+    , threeDViewer       :: ThreeDViewer.Props
+    , breadcrumbs        :: BreadcrumbsProps a
+    , twoDViewerSwitch   :: DispatchAction a -> Boolean -> Unit
+    , threeDViewerSwitch :: DispatchAction a -> Boolean -> Unit
+    , type               :: String
     }
 
 type AllViewers a =
-    { moleculeTable :: MoleculeTable.Props a
-    , twoDViewer    :: TwoDViewer.Props
-    , threeDViewer  :: ThreeDViewer.Props
-    , breadcrumbs   :: BreadcrumbsProps a
-    , type          :: String
+    { moleculeTable      :: MoleculeTable.Props a
+    , twoDViewer         :: TwoDViewer.Props
+    , threeDViewer       :: ThreeDViewer.Props
+    , breadcrumbs        :: BreadcrumbsProps a
+    , twoDViewerSwitch   :: DispatchAction a -> Boolean -> Unit
+    , threeDViewerSwitch :: DispatchAction a -> Boolean -> Unit
+    , type               :: String
     }
 
 
@@ -133,35 +143,40 @@ type ActionCreators a r =
     , initUnsortedBuildingBlocks :: Config.UnsortedBuildingBlocks -> a
     , initUnsortedConstructedMolecules
         :: Config.UnsortedConstructedMolecules -> a
+    , setTwoDViewer              :: Boolean -> a
+    , setThreeDViewer            :: Boolean -> a
     | r
     }
 
 props :: forall a r. ActionCreators a r -> Model -> Props a
 
 props actionCreators model@{ twoDViewer: true, threeDViewer: true }  =
-    AllViewers $ { moleculeTable:
-        { columns: model.columns
-        , selectedRow: fst selected
-        , rows: map Molecule.properties molecules
-        , molecules
-        , selectMolecule: selectMoleculeProp actionCreators
-        , buildingBlockRequests:
-            map (buildingBlockRequest actionCreators model) molecules
-        }
+    AllViewers $
+        { moleculeTable:
+            { columns: model.columns
+            , selectedRow: fst selected
+            , rows: map Molecule.properties molecules
+            , molecules
+            , selectMolecule: selectMoleculeProp actionCreators
+            , buildingBlockRequests:
+                map (buildingBlockRequest actionCreators model) molecules
+            }
 
-    , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
-    , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
-    , breadcrumbs:
-        { mongoDbClick: mongoDbClick actionCreators model
-        , resultsClick: resultsClick actionCreators model
-        , historyClick:
-            Array.zipWith
-                (historyClick actionCreators model)
-                (0 .. (length model.history-1))
-                model.history
+        , twoDViewerSwitch: twoDViewerSwitch actionCreators
+        , threeDViewerSwitch: threeDViewerSwitch actionCreators
+        , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
+        , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
+        , breadcrumbs:
+            { mongoDbClick: mongoDbClick actionCreators model
+            , resultsClick: resultsClick actionCreators model
+            , historyClick:
+                Array.zipWith
+                    (historyClick actionCreators model)
+                    (0 .. (length model.history-1))
+                    model.history
+            }
+        , type: "Building Block Browser All Viewers"
         }
-    , type: "Building Block Browser All Viewers"
-    }
 
   where
 
@@ -170,28 +185,31 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true }  =
     molecules = SelectingCollection.all model.buildingBlocks
 
 props actionCreators model@{ twoDViewer: false, threeDViewer: true }  =
-    ThreeDViewer $ { moleculeTable:
-        { columns: model.columns
-        , selectedRow: fst selected
-        , rows: map Molecule.properties molecules
-        , molecules
-        , selectMolecule: selectMoleculeProp actionCreators
-        , buildingBlockRequests:
-            map (buildingBlockRequest actionCreators model) molecules
-        }
+    ThreeDViewer $
+        { moleculeTable:
+            { columns: model.columns
+            , selectedRow: fst selected
+            , rows: map Molecule.properties molecules
+            , molecules
+            , selectMolecule: selectMoleculeProp actionCreators
+            , buildingBlockRequests:
+                map (buildingBlockRequest actionCreators model) molecules
+            }
 
-    , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
-    , breadcrumbs:
-        { mongoDbClick: mongoDbClick actionCreators model
-        , resultsClick: resultsClick actionCreators model
-        , historyClick:
-            Array.zipWith
-                (historyClick actionCreators model)
-                (0 .. (length model.history-1))
-                model.history
+        , twoDViewerSwitch: twoDViewerSwitch actionCreators
+        , threeDViewerSwitch: threeDViewerSwitch actionCreators
+        , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
+        , breadcrumbs:
+            { mongoDbClick: mongoDbClick actionCreators model
+            , resultsClick: resultsClick actionCreators model
+            , historyClick:
+                Array.zipWith
+                    (historyClick actionCreators model)
+                    (0 .. (length model.history-1))
+                    model.history
+            }
+        , type: "Building Block Browser 3D Viewer"
         }
-    , type: "Building Block Browser 3D Viewer"
-    }
 
   where
 
@@ -200,28 +218,31 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: true }  =
     molecules = SelectingCollection.all model.buildingBlocks
 
 props actionCreators model@{ twoDViewer: true, threeDViewer: false }  =
-    TwoDViewer $ { moleculeTable:
-        { columns: model.columns
-        , selectedRow: fst selected
-        , rows: map Molecule.properties molecules
-        , molecules
-        , selectMolecule: selectMoleculeProp actionCreators
-        , buildingBlockRequests:
-            map (buildingBlockRequest actionCreators model) molecules
-        }
+    TwoDViewer $
+        { moleculeTable:
+            { columns: model.columns
+            , selectedRow: fst selected
+            , rows: map Molecule.properties molecules
+            , molecules
+            , selectMolecule: selectMoleculeProp actionCreators
+            , buildingBlockRequests:
+                map (buildingBlockRequest actionCreators model) molecules
+            }
 
-    , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
-    , breadcrumbs:
-        { mongoDbClick: mongoDbClick actionCreators model
-        , resultsClick: resultsClick actionCreators model
-        , historyClick:
-            Array.zipWith
-                (historyClick actionCreators model)
-                (0 .. (length model.history-1))
-                model.history
+        , twoDViewerSwitch: twoDViewerSwitch actionCreators
+        , threeDViewerSwitch: threeDViewerSwitch actionCreators
+        , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
+        , breadcrumbs:
+            { mongoDbClick: mongoDbClick actionCreators model
+            , resultsClick: resultsClick actionCreators model
+            , historyClick:
+                Array.zipWith
+                    (historyClick actionCreators model)
+                    (0 .. (length model.history-1))
+                    model.history
+            }
+        , type: "Building Block Browser 2D Viewer"
         }
-    , type: "Building Block Browser 2D Viewer"
-    }
 
   where
 
@@ -230,27 +251,30 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false }  =
     molecules = SelectingCollection.all model.buildingBlocks
 
 props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
-    NoViewers $ { moleculeTable:
-        { columns: model.columns
-        , selectedRow: fst selected
-        , rows: map Molecule.properties molecules
-        , molecules
-        , selectMolecule: selectMoleculeProp actionCreators
-        , buildingBlockRequests:
-            map (buildingBlockRequest actionCreators model) molecules
-        }
+    NoViewers $
+        { moleculeTable:
+            { columns: model.columns
+            , selectedRow: fst selected
+            , rows: map Molecule.properties molecules
+            , molecules
+            , selectMolecule: selectMoleculeProp actionCreators
+            , buildingBlockRequests:
+                map (buildingBlockRequest actionCreators model) molecules
+            }
 
-    , breadcrumbs:
-        { mongoDbClick: mongoDbClick actionCreators model
-        , resultsClick: resultsClick actionCreators model
-        , historyClick:
-            Array.zipWith
-                (historyClick actionCreators model)
-                (0 .. (length model.history-1))
-                model.history
+        , twoDViewerSwitch: twoDViewerSwitch actionCreators
+        , threeDViewerSwitch: threeDViewerSwitch actionCreators
+        , breadcrumbs:
+            { mongoDbClick: mongoDbClick actionCreators model
+            , resultsClick: resultsClick actionCreators model
+            , historyClick:
+                Array.zipWith
+                    (historyClick actionCreators model)
+                    (0 .. (length model.history-1))
+                    model.history
+            }
+        , type: "Building Block Browser No Viewers"
         }
-    , type: "Building Block Browser No Viewers"
-    }
 
   where
 
@@ -527,6 +551,51 @@ _historyClick actionCreators model historyIndex molecule dispatch = do
     )
 
 
+---
+
+
+type TwoDViewerSwitchActionCreators a r =
+    { setTwoDViewer :: Boolean -> a
+    | r
+    }
+
+twoDViewerSwitch
+    :: forall a r
+    .  TwoDViewerSwitchActionCreators a r
+    -> DispatchAction a
+    -> Boolean
+    -> Unit
+
+twoDViewerSwitch actionCreators dispatch state =
+    unsafePerformEffect
+        (runEffectFn1
+            dispatch
+            (actionCreators.setTwoDViewer state)
+        )
+
+
+---
+
+type ThreeDViewerSwitchActionCreators a r =
+    { setThreeDViewer :: Boolean -> a
+    | r
+    }
+
+threeDViewerSwitch
+    :: forall a r
+    .  ThreeDViewerSwitchActionCreators a r
+    -> DispatchAction a
+    -> Boolean
+    -> Unit
+
+threeDViewerSwitch actionCreators dispatch state =
+    unsafePerformEffect
+        (runEffectFn1
+            dispatch
+            (actionCreators.setThreeDViewer state)
+        )
+
+
 ---- UPDATE ----
 
 
@@ -538,6 +607,8 @@ type Action =
 data Payload
     = UpdateMoleculePage UpdateMoleculePage
     | SelectBuildingBlock RowIndex Molecule
+    | SetTwoDViewer Boolean
+    | SetThreeDViewer Boolean
     | DoNothing
 
 type UpdateMoleculePage =
@@ -558,6 +629,18 @@ selectBuildingBlock rowIndex molecule =
     , payload: SelectBuildingBlock rowIndex molecule
     }
 
+setTwoDViewer :: Boolean -> Action
+setTwoDViewer state =
+    { type: "SET_2D_VIEWER"
+    , payload: SetTwoDViewer state
+    }
+
+setThreeDViewer :: Boolean -> Action
+setThreeDViewer state =
+    { type: "SET_3D_VIEWER"
+    , payload: SetThreeDViewer state
+    }
+
 doNothing :: Action
 doNothing =
     { type: "DO_NOTHING"
@@ -575,6 +658,12 @@ reducer model action = case action of
 
     ({ payload: SelectBuildingBlock rowIndex molecule }) ->
         _selectBuildingBlock model rowIndex molecule
+
+    ({ payload: SetTwoDViewer state }) ->
+        model { twoDViewer = state }
+
+    ({ payload: SetThreeDViewer state }) ->
+        model { threeDViewer = state }
 
     ({ payload: DoNothing }) -> model
 

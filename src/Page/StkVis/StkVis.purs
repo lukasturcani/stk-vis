@@ -194,6 +194,12 @@ props model = case model of
                 , initUnsortedAll
                 , initUnsortedBuildingBlocks
                 , initUnsortedConstructedMolecules
+                , setTwoDViewer:
+                    buildingBlockBrowserAction <<<
+                        BuildingBlockBrowser.setTwoDViewer
+                , setThreeDViewer:
+                    buildingBlockBrowserAction <<<
+                        BuildingBlockBrowser.setThreeDViewer
                 }
                 subModel
 
