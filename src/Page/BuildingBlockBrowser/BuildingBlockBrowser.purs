@@ -30,6 +30,7 @@ import DispatchAction (DispatchAction)
 import Page.MoleculeTable as MoleculeTable
 import Page.TwoDViewer as TwoDViewer
 import Page.ThreeDViewer as ThreeDViewer
+import Page.ViewerSwitch as ViewerSwitch
 import Effect.Unsafe (unsafePerformEffect)
 import Effect.Uncurried (runEffectFn1)
 import Effect.Promise (class Deferred, Promise, catch)
@@ -89,8 +90,8 @@ data Props a
 type NoViewers a =
     { moleculeTable      :: MoleculeTable.Props a
     , breadcrumbs        :: BreadcrumbsProps a
-    , twoDViewerSwitch   :: DispatchAction a -> Boolean -> Unit
-    , threeDViewerSwitch :: DispatchAction a -> Boolean -> Unit
+    , twoDViewerSwitch   :: ViewerSwitch.Props a
+    , threeDViewerSwitch :: ViewerSwitch.Props a
     , type               :: String
     }
 
@@ -98,8 +99,8 @@ type TwoDViewer a =
     { moleculeTable      :: MoleculeTable.Props a
     , twoDViewer         :: TwoDViewer.Props
     , breadcrumbs        :: BreadcrumbsProps a
-    , twoDViewerSwitch   :: DispatchAction a -> Boolean -> Unit
-    , threeDViewerSwitch :: DispatchAction a -> Boolean -> Unit
+    , twoDViewerSwitch   :: ViewerSwitch.Props a
+    , threeDViewerSwitch :: ViewerSwitch.Props a
     , type               :: String
     }
 
@@ -107,8 +108,8 @@ type ThreeDViewer a =
     { moleculeTable      :: MoleculeTable.Props a
     , threeDViewer       :: ThreeDViewer.Props
     , breadcrumbs        :: BreadcrumbsProps a
-    , twoDViewerSwitch   :: DispatchAction a -> Boolean -> Unit
-    , threeDViewerSwitch :: DispatchAction a -> Boolean -> Unit
+    , twoDViewerSwitch   :: ViewerSwitch.Props a
+    , threeDViewerSwitch :: ViewerSwitch.Props a
     , type               :: String
     }
 
@@ -117,8 +118,8 @@ type AllViewers a =
     , twoDViewer         :: TwoDViewer.Props
     , threeDViewer       :: ThreeDViewer.Props
     , breadcrumbs        :: BreadcrumbsProps a
-    , twoDViewerSwitch   :: DispatchAction a -> Boolean -> Unit
-    , threeDViewerSwitch :: DispatchAction a -> Boolean -> Unit
+    , twoDViewerSwitch   :: ViewerSwitch.Props a
+    , threeDViewerSwitch :: ViewerSwitch.Props a
     , type               :: String
     }
 
@@ -162,8 +163,16 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true }  =
                 map (buildingBlockRequest actionCreators model) molecules
             }
 
-        , twoDViewerSwitch: twoDViewerSwitch actionCreators
-        , threeDViewerSwitch: threeDViewerSwitch actionCreators
+        , twoDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setTwoDViewer }
+                model.twoDViewer
+
+        , threeDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setThreeDViewer }
+                model.threeDViewer
+
         , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
         , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
         , breadcrumbs:
@@ -196,8 +205,16 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: true }  =
                 map (buildingBlockRequest actionCreators model) molecules
             }
 
-        , twoDViewerSwitch: twoDViewerSwitch actionCreators
-        , threeDViewerSwitch: threeDViewerSwitch actionCreators
+        , twoDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setTwoDViewer }
+                model.twoDViewer
+
+        , threeDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setThreeDViewer }
+                model.threeDViewer
+
         , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
         , breadcrumbs:
             { mongoDbClick: mongoDbClick actionCreators model
@@ -229,8 +246,16 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false }  =
                 map (buildingBlockRequest actionCreators model) molecules
             }
 
-        , twoDViewerSwitch: twoDViewerSwitch actionCreators
-        , threeDViewerSwitch: threeDViewerSwitch actionCreators
+        , twoDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setTwoDViewer }
+                model.twoDViewer
+
+        , threeDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setThreeDViewer }
+                model.threeDViewer
+
         , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
         , breadcrumbs:
             { mongoDbClick: mongoDbClick actionCreators model
@@ -262,8 +287,16 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
                 map (buildingBlockRequest actionCreators model) molecules
             }
 
-        , twoDViewerSwitch: twoDViewerSwitch actionCreators
-        , threeDViewerSwitch: threeDViewerSwitch actionCreators
+        , twoDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setTwoDViewer }
+                model.twoDViewer
+
+        , threeDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setThreeDViewer }
+                model.threeDViewer
+
         , breadcrumbs:
             { mongoDbClick: mongoDbClick actionCreators model
             , resultsClick: resultsClick actionCreators model
@@ -549,51 +582,6 @@ _historyClick actionCreators model historyIndex molecule dispatch = do
             )
         )
     )
-
-
----
-
-
-type TwoDViewerSwitchActionCreators a r =
-    { setTwoDViewer :: Boolean -> a
-    | r
-    }
-
-twoDViewerSwitch
-    :: forall a r
-    .  TwoDViewerSwitchActionCreators a r
-    -> DispatchAction a
-    -> Boolean
-    -> Unit
-
-twoDViewerSwitch actionCreators dispatch state =
-    unsafePerformEffect
-        (runEffectFn1
-            dispatch
-            (actionCreators.setTwoDViewer state)
-        )
-
-
----
-
-type ThreeDViewerSwitchActionCreators a r =
-    { setThreeDViewer :: Boolean -> a
-    | r
-    }
-
-threeDViewerSwitch
-    :: forall a r
-    .  ThreeDViewerSwitchActionCreators a r
-    -> DispatchAction a
-    -> Boolean
-    -> Unit
-
-threeDViewerSwitch actionCreators dispatch state =
-    unsafePerformEffect
-        (runEffectFn1
-            dispatch
-            (actionCreators.setThreeDViewer state)
-        )
 
 
 ---- UPDATE ----
