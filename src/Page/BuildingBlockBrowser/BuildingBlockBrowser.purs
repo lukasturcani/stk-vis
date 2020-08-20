@@ -166,11 +166,13 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true }  =
         , twoDViewerSwitch:
             ViewerSwitch.props
                 { setState: actionCreators.setTwoDViewer }
+                "2D Viewer"
                 model.twoDViewer
 
         , threeDViewerSwitch:
             ViewerSwitch.props
                 { setState: actionCreators.setThreeDViewer }
+                "3D Viewer"
                 model.threeDViewer
 
         , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
@@ -208,11 +210,13 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: true }  =
         , twoDViewerSwitch:
             ViewerSwitch.props
                 { setState: actionCreators.setTwoDViewer }
+                "2D Viewer"
                 model.twoDViewer
 
         , threeDViewerSwitch:
             ViewerSwitch.props
                 { setState: actionCreators.setThreeDViewer }
+                "3D Viewer"
                 model.threeDViewer
 
         , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
@@ -249,11 +253,13 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false }  =
         , twoDViewerSwitch:
             ViewerSwitch.props
                 { setState: actionCreators.setTwoDViewer }
+                "2D Viewer"
                 model.twoDViewer
 
         , threeDViewerSwitch:
             ViewerSwitch.props
                 { setState: actionCreators.setThreeDViewer }
+                "3D Viewer"
                 model.threeDViewer
 
         , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
@@ -290,11 +296,13 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
         , twoDViewerSwitch:
             ViewerSwitch.props
                 { setState: actionCreators.setTwoDViewer }
+                "2D Viewer"
                 model.twoDViewer
 
         , threeDViewerSwitch:
             ViewerSwitch.props
                 { setState: actionCreators.setThreeDViewer }
+                "3D Viewer"
                 model.threeDViewer
 
         , breadcrumbs:

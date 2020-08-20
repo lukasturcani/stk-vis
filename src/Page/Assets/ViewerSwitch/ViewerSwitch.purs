@@ -10,6 +10,7 @@ import Effect.Uncurried (runEffectFn1)
 
 type Props a =
     { state    :: Boolean
+    , label     :: String
     , setState :: DispatchAction a -> Boolean -> Unit
     }
 
@@ -18,9 +19,10 @@ type ActionCreators a r =
     | r
     }
 
-props :: forall a r. ActionCreators a r -> Boolean -> Props a
-props actionCreators state =
+props :: forall a r. ActionCreators a r -> String -> Boolean -> Props a
+props actionCreators label state =
     { state
+    , label
     , setState: setState actionCreators
     }
 
