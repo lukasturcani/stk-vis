@@ -3,13 +3,16 @@ declare module 'Page.BuildingBlockBrowser'
     import { Snackbar } from 'Snackbar';
     import {
         Props as MoleculeTableProps,
-    } from 'Page.MoleculeBrowser.MoleculeTable';
+    } from 'Page.MoleculeTable';
     import {
         Props as TwoDViewerProps,
-    } from 'Page.MoleculeBrowser.TwoDViewer';
+    } from 'Page.TwoDViewer';
     import {
         Props as ThreeDViewerProps,
-    } from 'Page.MoleculeBrowser.ThreeDViewer';
+    } from 'Page.ThreeDViewer';
+    import {
+        Props as ViewerSwitchProps,
+    } from 'Page.ViewerSwitch'
 
     export type Model = unknown;
     export type Action = { type: string };
@@ -21,17 +24,8 @@ declare module 'Page.BuildingBlockBrowser'
             twoDViewer: TwoDViewerProps;
             threeDViewer: ThreeDViewerProps;
             breadcrumbs: BreadcrumbsProps<a>;
-
-            twoDViewerSwitch:
-                (dispatch: (action: a) => void) =>
-                (state: boolean) =>
-                void;
-
-            threeDViewerSwitch:
-                (dispatch: (action: a) => void) =>
-                (state: boolean) =>
-                void;
-
+            twoDViewerSwitch: ViewerSwitchProps<a>;
+            threeDViewerSwitch: ViewerSwitchProps<a>;
             type: "Building Block Browser All Viewers";
         };
         type: undefined;
@@ -44,16 +38,8 @@ declare module 'Page.BuildingBlockBrowser'
             twoDViewer: TwoDViewerProps;
             threeDViewer: undefined;
             breadcrumbs: BreadcrumbsProps<a>;
-
-            twoDViewerSwitch:
-                (dispatch: (action: a) => void) =>
-                (state: boolean) =>
-                void;
-
-            threeDViewerSwitch:
-                (dispatch: (action: a) => void) =>
-                (state: boolean) =>
-                void;
+            twoDViewerSwitch: ViewerSwitchProps<a>;
+            threeDViewerSwitch: ViewerSwitchProps<a>;
             type: "Building Block Browser 2D Viewer";
         };
         type: undefined;
@@ -66,17 +52,8 @@ declare module 'Page.BuildingBlockBrowser'
             twoDViewer: undefined;
             threeDViewer: ThreeDViewerProps;
             breadcrumbs: BreadcrumbsProps<a>;
-
-            twoDViewerSwitch:
-                (dispatch: (action: a) => void) =>
-                (state: boolean) =>
-                void;
-
-            threeDViewerSwitch:
-                (dispatch: (action: a) => void) =>
-                (state: boolean) =>
-                void;
-
+            twoDViewerSwitch: ViewerSwitchProps<a>;
+            threeDViewerSwitch: ViewerSwitchProps<a>;
             type: "Building Block Browser 3D Viewer";
         };
         type: undefined;
@@ -89,17 +66,8 @@ declare module 'Page.BuildingBlockBrowser'
             breadcrumbs: BreadcrumbsProps<a>;
             twoDViewer: undefined;
             threeDViewer: undefined;
-
-            twoDViewerSwitch:
-                (dispatch: (action: a) => void) =>
-                (state: boolean) =>
-                void;
-
-            threeDViewerSwitch:
-                (dispatch: (action: a) => void) =>
-                (state: boolean) =>
-                void;
-
+            twoDViewerSwitch: ViewerSwitchProps<a>;
+            threeDViewerSwitch: ViewerSwitchProps<a>;
             type: "Building Block Browser No Viewers";
         };
         type: undefined;
