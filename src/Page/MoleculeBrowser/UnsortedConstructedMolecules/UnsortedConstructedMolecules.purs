@@ -292,7 +292,7 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false } =
             { onClick: breadcrumbsClick actionCreators model
             }
 
-        , type: "Molecule Browser All Viewers"
+        , type: "Molecule Browser 2D Viewer"
         }
 
   where
@@ -336,7 +336,7 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
             { onClick: breadcrumbsClick actionCreators model
             }
 
-        , type: "Molecule Browser All Viewers"
+        , type: "Molecule Browser No Viewers"
         }
 
   where

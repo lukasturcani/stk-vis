@@ -196,7 +196,7 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true } =
         , breadcrumbs:
             { onClick: breadcrumbsClick actionCreators model
             }
-        , type: "Molecule Browser"
+        , type: "Molecule Browser All Viewers"
         }
 
   where
@@ -242,7 +242,7 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: true } =
         , breadcrumbs:
             { onClick: breadcrumbsClick actionCreators model
             }
-        , type: "Molecule Browser"
+        , type: "Molecule Browser 3D Viewer"
         }
 
   where
@@ -287,7 +287,7 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false } =
         , breadcrumbs:
             { onClick: breadcrumbsClick actionCreators model
             }
-        , type: "Molecule Browser"
+        , type: "Molecule Browser 2D Viewer"
         }
 
   where
@@ -330,7 +330,7 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
         , breadcrumbs:
             { onClick: breadcrumbsClick actionCreators model
             }
-        , type: "Molecule Browser"
+        , type: "Molecule Browser No Viewers"
         }
 
   where
