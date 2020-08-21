@@ -18,11 +18,29 @@ import {
     CoreProps as BBNoViewersCoreProps,
 } from '../../BuildingBlockBrowser/components/base/browser/no-viewers';
 import {
+    CoreProps as MolAllViewersCoreProps,
+} from '../../MoleculeBrowser/components/base/browser/all-viewers';
+import {
+    CoreProps as MolTwoDViewerCoreProps,
+} from '../../MoleculeBrowser/components/base/browser/2d-viewer';
+import {
+    CoreProps as MolThreeDViewerCoreProps,
+} from '../../MoleculeBrowser/components/base/browser/3d-viewer';
+import {
+    CoreProps as MolNoViewersCoreProps,
+} from '../../MoleculeBrowser/components/base/browser/no-viewers';
+import {
     AllViewers as BBAllViewersProps,
     TwoDViewer as BBTwoDViewerProps,
     ThreeDViewer as BBThreeDViewerProps,
     NoViewers as BBNoViewersProps,
 } from 'Page.BuildingBlockBrowser';
+import {
+    AllViewers as MolAllViewersProps,
+    TwoDViewer as MolTwoDViewerProps,
+    ThreeDViewer as MolThreeDViewerProps,
+    NoViewers as MolNoViewersProps,
+} from 'Page.MoleculeBrowser.Props';
 import {
     Props as BaseProps,
     Action,
@@ -42,8 +60,17 @@ interface Props extends BaseProps, DispatchProps
     mongoConfigurator:
         React.FunctionComponent<ConfiguratorProps<Action>>;
 
-    moleculeBrowser:
-        React.FunctionComponent<MoleculeBrowserProps<Action>>;
+    molAllViewers:
+        React.FunctionComponent<MolAllViewersCoreProps<Action>>;
+
+    molTwoDViewer:
+        React.FunctionComponent<MolTwoDViewerCoreProps<Action>>;
+
+    molThreeDViewer:
+        React.FunctionComponent<MolThreeDViewerCoreProps<Action>>;
+
+    molNoViewers:
+        React.FunctionComponent<MolNoViewersCoreProps<Action>>;
 
     bbAllViewers:
         React.FunctionComponent<BBAllViewersCoreProps<Action>>;
@@ -71,11 +98,36 @@ export function StkVis<a>(
             {...props.value0}
         />;
     }
-    if (props.value0.type === "Molecule Browser")
-    {
-        return <props.moleculeBrowser
+    if (
+        props.value0.type === "Molecule Browser All Viewers"
+    ) {
+        return <props.molAllViewers
             dispatch={props.dispatch}
-            {...props.value0}
+            {...props.value0 as MolAllViewersProps<Action>}
+        />;
+    }
+    if (
+        props.value0.type === "Molecule Browser 3D Viewer"
+    ) {
+        return <props.molThreeDViewer
+            dispatch={props.dispatch}
+            {...props.value0 as MolThreeDViewerProps<Action>}
+        />;
+    }
+    if (
+        props.value0.type === "Molecule Browser 2D Viewer"
+    ) {
+        return <props.molTwoDViewer
+            dispatch={props.dispatch}
+            {...props.value0 as MolTwoDViewerProps<Action>}
+        />;
+    }
+    if (
+        props.value0.type === "Molecule Browser No Viewers"
+    ) {
+        return <props.molNoViewers
+            dispatch={props.dispatch}
+            {...props.value0 as MolNoViewersProps<Action>}
         />;
     }
     if (
