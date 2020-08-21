@@ -1,12 +1,21 @@
-const { mainReloader, rendererReloader } = require(
-    'electron-hot-reload'
-);
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const active = 'stk-vis';
 
-mainReloader(path.join(app.getAppPath(), 'main.js'));
-rendererReloader(path.join(app.getAppPath(), 'dist', `${active}.js`));
+
+const isDev
+    = process.env.APP_DEV ?
+        (process.env.APP_DEV.trim() == "true") : false;
+
+if (isDev) {
+    const { mainReloader, rendererReloader }
+        = require('electron-hot-reload');
+    mainReloader(path.join(app.getAppPath(), 'main.js'));
+
+    rendererReloader(
+        path.join(app.getAppPath(), 'dist', `${active}.js`)
+    );
+}
 
 
 function createWindow () {
