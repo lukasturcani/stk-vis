@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        'stk-vis': './src/Page/StkVis/index.tsx',
+        'stk-vis': './src/Page/StkVis/index-prod.tsx',
     },
     target: 'electron-renderer',
     output: {
