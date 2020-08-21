@@ -1,0 +1,9 @@
+{
+  "name": "stkVis",
+  "version": "1.0.0",
+  "description": "A visualizer for the stk library.",
+  "main": "main.js",
+  "repository": "https://github.com/lukasturcani/stkVis",
+  "author": "Lukas Turcani",
+  "license": "MIT"
+}
