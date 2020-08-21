@@ -7,8 +7,17 @@ import {
     MongoConfigurator,
 } from '../../MongoConfigurator/components/styled/mongo-configurator';
 import {
-    MoleculeBrowser,
-} from '../../MoleculeBrowser/Props/components/styled';
+    MoleculeBrowser as MolAllViewers
+} from '../../MoleculeBrowser/Props/components/styled/all-viewers';
+import {
+    MoleculeBrowser as MolThreeDViewer
+} from '../../MoleculeBrowser/Props/components/styled/3d-viewer';
+import {
+    MoleculeBrowser as MolTwoDViewer
+} from '../../MoleculeBrowser/Props/components/styled/2d-viewer';
+import {
+    MoleculeBrowser as MolNoViewers
+} from '../../MoleculeBrowser/Props/components/styled/no-viewers';
 import {
     BuildingBlockBrowser as BBAllViewers
 } from '../../BuildingBlockBrowser/components/styled/browser/all-viewers';
@@ -29,7 +38,10 @@ export function StkVis(
 {
     return <StkVisBase
         mongoConfigurator={MongoConfigurator}
-        moleculeBrowser={MoleculeBrowser}
+        molAllViewers={MolAllViewers}
+        molTwoDViewer={MolTwoDViewer}
+        molThreeDViewer={MolThreeDViewer}
+        molNoViewers={MolNoViewers}
         bbAllViewers={BBAllViewers}
         bbTwoDViewer={BBTwoDViewer}
         bbThreeDViewer={BBThreeDViewer}

@@ -24,43 +24,57 @@ declare module 'Page.MoleculeBrowser.Props'
 
     export interface AllViewers<a>
     {
-        sortButton: SortButtonProps<a>;
-        moleculeTable: MoleculeTableProps<a>;
-        twoDViewer: TwoDViewerProps;
-        threeDViewer: ThreeDViewerProps;
-        nextButton: NextButtonProps<a>;
-        backButton: BackButtonProps<a>;
-        breadcrumbs: BreadcrumbsProps<a>;
-        type: "Molecule Browser All Viewers";
+        value0: {
+            sortButton: SortButtonProps<a>;
+            moleculeTable: MoleculeTableProps<a>;
+            twoDViewer: TwoDViewerProps;
+            threeDViewer: ThreeDViewerProps;
+            nextButton: NextButtonProps<a>;
+            backButton: BackButtonProps<a>;
+            breadcrumbs: BreadcrumbsProps<a>;
+            type: "Molecule Browser All Viewers";
+        };
+        type: undefined;
     }
     export interface TwoDViewer<a>
     {
-        sortButton: SortButtonProps<a>;
-        moleculeTable: MoleculeTableProps<a>;
-        twoDViewer: TwoDViewerProps;
-        nextButton: NextButtonProps<a>;
-        backButton: BackButtonProps<a>;
-        breadcrumbs: BreadcrumbsProps<a>;
-        type: "Molecule Browser 2D Viewer";
+        value0: {
+            sortButton: SortButtonProps<a>;
+            moleculeTable: MoleculeTableProps<a>;
+            threeDViewer: undefined;
+            twoDViewer: TwoDViewerProps;
+            nextButton: NextButtonProps<a>;
+            backButton: BackButtonProps<a>;
+            breadcrumbs: BreadcrumbsProps<a>;
+            type: "Molecule Browser 2D Viewer";
+        };
+        type: undefined;
     }
     export interface ThreeDViewer<a>
     {
-        sortButton: SortButtonProps<a>;
-        moleculeTable: MoleculeTableProps<a>;
-        threeDViewer: ThreeDViewerProps;
-        nextButton: NextButtonProps<a>;
-        backButton: BackButtonProps<a>;
-        breadcrumbs: BreadcrumbsProps<a>;
-        type: "Molecule Browser 3D Viewer";
+        value0: {
+            sortButton: SortButtonProps<a>;
+            moleculeTable: MoleculeTableProps<a>;
+            twoDViewer: undefined;
+            threeDViewer: ThreeDViewerProps;
+            nextButton: NextButtonProps<a>;
+            backButton: BackButtonProps<a>;
+            breadcrumbs: BreadcrumbsProps<a>;
+            type: "Molecule Browser 3D Viewer";
+        }
+        type: undefined;
     }
     export interface NoViewers<a>
     {
-        sortButton: SortButtonProps<a>;
-        moleculeTable: MoleculeTableProps<a>;
-        nextButton: NextButtonProps<a>;
-        backButton: BackButtonProps<a>;
-        breadcrumbs: BreadcrumbsProps<a>;
-        type: "Molecule Browser No Viewers";
+        value0: {
+            sortButton: SortButtonProps<a>;
+            moleculeTable: MoleculeTableProps<a>;
+            nextButton: NextButtonProps<a>;
+            backButton: BackButtonProps<a>;
+            breadcrumbs: BreadcrumbsProps<a>;
+            type: "Molecule Browser No Viewers";
+        };
+        type: undefined;
     }
 
     export type Props<a>

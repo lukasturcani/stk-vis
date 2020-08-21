@@ -99,7 +99,7 @@ export function StkVis<a>(
         />;
     }
     if (
-        props.value0.type === "Molecule Browser All Viewers"
+        props.value0.value0.type === "Molecule Browser All Viewers"
     ) {
         return <props.molAllViewers
             dispatch={props.dispatch}
@@ -107,7 +107,7 @@ export function StkVis<a>(
         />;
     }
     if (
-        props.value0.type === "Molecule Browser 3D Viewer"
+        props.value0.value0.type === "Molecule Browser 3D Viewer"
     ) {
         return <props.molThreeDViewer
             dispatch={props.dispatch}
@@ -115,7 +115,7 @@ export function StkVis<a>(
         />;
     }
     if (
-        props.value0.type === "Molecule Browser 2D Viewer"
+        props.value0.value0.type === "Molecule Browser 2D Viewer"
     ) {
         return <props.molTwoDViewer
             dispatch={props.dispatch}
@@ -123,7 +123,7 @@ export function StkVis<a>(
         />;
     }
     if (
-        props.value0.type === "Molecule Browser No Viewers"
+        props.value0.value0.type === "Molecule Browser No Viewers"
     ) {
         return <props.molNoViewers
             dispatch={props.dispatch}
