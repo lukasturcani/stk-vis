@@ -19,16 +19,16 @@ import {
 } from '../../BuildingBlockBrowser/components/base/browser/no-viewers';
 import {
     CoreProps as MolAllViewersCoreProps,
-} from '../../MoleculeBrowser/components/base/browser/all-viewers';
+} from '../../MoleculeBrowser/Props/components/base/all-viewers';
 import {
     CoreProps as MolTwoDViewerCoreProps,
-} from '../../MoleculeBrowser/components/base/browser/2d-viewer';
+} from '../../MoleculeBrowser/Props/components/base/2d-viewer';
 import {
     CoreProps as MolThreeDViewerCoreProps,
-} from '../../MoleculeBrowser/components/base/browser/3d-viewer';
+} from '../../MoleculeBrowser/Props/components/base/3d-viewer';
 import {
     CoreProps as MolNoViewersCoreProps,
-} from '../../MoleculeBrowser/components/base/browser/no-viewers';
+} from '../../MoleculeBrowser/Props/components/base/no-viewers';
 import {
     AllViewers as BBAllViewersProps,
     TwoDViewer as BBTwoDViewerProps,
