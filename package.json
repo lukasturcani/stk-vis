@@ -7,6 +7,8 @@
   "author": "Lukas Turcani",
   "license": "MIT",
   "dependencies": {
+  },
+  "devDependencies": {
     "@material-ui/core": "^4.10.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.54",
@@ -20,9 +22,7 @@
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "redux-thunk": "^2.3.0",
-    "smiles-drawer": "^1.2.0"
-  },
-  "devDependencies": {
+    "smiles-drawer": "^1.2.0",
     "@types/mongodb": "^3.5.18",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
@@ -33,6 +33,7 @@
     "cross-env": "^7.0.2",
     "electron": "^8.2.5",
     "electron-hot-reload": "^0.1.4",
+    "electron-packager": "^15.0.0",
     "eslint": "^7.1.0",
     "html-webpack-plugin": "^4.3.0",
     "redux-logger": "^3.0.6",
