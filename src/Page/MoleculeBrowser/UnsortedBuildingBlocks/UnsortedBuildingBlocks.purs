@@ -39,6 +39,7 @@ import ValidatedMolecule as Validated
 import ValidatedMolecule.Position as Position
 import ValidatedMolecule.ChemicalSymbol as ChemicalSymbol
 import Page.MoleculeBrowser.Props (Props)
+import Page.MoleculeBrowser.Props as Props
 import Config as Config
 import Page.MongoConfigurator.SearchKind as SearchKind
 import Snackbar (Snackbar)
@@ -160,41 +161,43 @@ type ActionCreators a r =
     }
 
 props :: forall a r.  ActionCreators a r -> Model -> Props a
-props actionCreators model =
-    { sortButton: SortButton.props
-        model.valueCollections
-        (setSorted actionCreators model)
-        (setUnsorted actionCreators model)
 
-    , moleculeTable:
-        { columns: model.columns
-        , selectedRow: fst selected
-        , rows: map Molecule.properties molecules
-        , molecules
-        , selectMolecule: selectMoleculeProp actionCreators
-        , buildingBlockRequests:
-            map (buildingBlockRequest actionCreators model) molecules
+props actionCreators model@{ twoDViewer: true, threeDViewer: true} =
+    Props.AllViewers $
+        { sortButton: SortButton.props
+            model.valueCollections
+            (setSorted actionCreators model)
+            (setUnsorted actionCreators model)
+
+        , moleculeTable:
+            { columns: model.columns
+            , selectedRow: fst selected
+            , rows: map Molecule.properties molecules
+            , molecules
+            , selectMolecule: selectMoleculeProp actionCreators
+            , buildingBlockRequests:
+                map (buildingBlockRequest actionCreators model) molecules
+            }
+
+        , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
+
+        , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
+
+        , nextButton:
+            { lastPage: lastPage model.pageKind
+            , onClick: nextButtonClick actionCreators model
+            }
+
+        , backButton:
+            { disabled: BackButton.disabled model.pageKind
+            , onClick: backButtonClick actionCreators model
+            }
+
+        , breadcrumbs:
+            { onClick: breadcrumbsClick actionCreators model
+            }
+        , type: "Molecule Browser"
         }
-
-    , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
-
-    , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
-
-    , nextButton:
-        { lastPage: lastPage model.pageKind
-        , onClick: nextButtonClick actionCreators model
-        }
-
-    , backButton:
-        { disabled: BackButton.disabled model.pageKind
-        , onClick: backButtonClick actionCreators model
-        }
-
-    , breadcrumbs:
-        { onClick: breadcrumbsClick actionCreators model
-        }
-    , type: "Molecule Browser"
-    }
 
   where
     selected = SelectingCollection.selected model.molecules
@@ -206,6 +209,138 @@ props actionCreators model =
     lastPage PageKind.OnlyIncomplete = true
     lastPage _ = false
 
+props actionCreators model@{ twoDViewer: false, threeDViewer: true} =
+    Props.ThreeDViewer $
+        { sortButton: SortButton.props
+            model.valueCollections
+            (setSorted actionCreators model)
+            (setUnsorted actionCreators model)
+
+        , moleculeTable:
+            { columns: model.columns
+            , selectedRow: fst selected
+            , rows: map Molecule.properties molecules
+            , molecules
+            , selectMolecule: selectMoleculeProp actionCreators
+            , buildingBlockRequests:
+                map (buildingBlockRequest actionCreators model) molecules
+            }
+
+        , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
+
+        , nextButton:
+            { lastPage: lastPage model.pageKind
+            , onClick: nextButtonClick actionCreators model
+            }
+
+        , backButton:
+            { disabled: BackButton.disabled model.pageKind
+            , onClick: backButtonClick actionCreators model
+            }
+
+        , breadcrumbs:
+            { onClick: breadcrumbsClick actionCreators model
+            }
+        , type: "Molecule Browser"
+        }
+
+  where
+    selected = SelectingCollection.selected model.molecules
+    selectedMolecule = snd selected
+    molecules = SelectingCollection.all model.molecules
+    lastPage PageKind.LastComplete = true
+    lastPage PageKind.LastIncomplete = true
+    lastPage PageKind.OnlyComplete = true
+    lastPage PageKind.OnlyIncomplete = true
+    lastPage _ = false
+
+props actionCreators model@{ twoDViewer: true, threeDViewer: false} =
+    Props.TwoDViewer $
+        { sortButton: SortButton.props
+            model.valueCollections
+            (setSorted actionCreators model)
+            (setUnsorted actionCreators model)
+
+        , moleculeTable:
+            { columns: model.columns
+            , selectedRow: fst selected
+            , rows: map Molecule.properties molecules
+            , molecules
+            , selectMolecule: selectMoleculeProp actionCreators
+            , buildingBlockRequests:
+                map (buildingBlockRequest actionCreators model) molecules
+            }
+
+        , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
+
+        , nextButton:
+            { lastPage: lastPage model.pageKind
+            , onClick: nextButtonClick actionCreators model
+            }
+
+        , backButton:
+            { disabled: BackButton.disabled model.pageKind
+            , onClick: backButtonClick actionCreators model
+            }
+
+        , breadcrumbs:
+            { onClick: breadcrumbsClick actionCreators model
+            }
+        , type: "Molecule Browser"
+        }
+
+  where
+    selected = SelectingCollection.selected model.molecules
+    selectedMolecule = snd selected
+    molecules = SelectingCollection.all model.molecules
+    lastPage PageKind.LastComplete = true
+    lastPage PageKind.LastIncomplete = true
+    lastPage PageKind.OnlyComplete = true
+    lastPage PageKind.OnlyIncomplete = true
+    lastPage _ = false
+
+props actionCreators model@{ twoDViewer: false, threeDViewer: false} =
+    Props.NoViewers $
+        { sortButton: SortButton.props
+            model.valueCollections
+            (setSorted actionCreators model)
+            (setUnsorted actionCreators model)
+
+        , moleculeTable:
+            { columns: model.columns
+            , selectedRow: fst selected
+            , rows: map Molecule.properties molecules
+            , molecules
+            , selectMolecule: selectMoleculeProp actionCreators
+            , buildingBlockRequests:
+                map (buildingBlockRequest actionCreators model) molecules
+            }
+
+        , nextButton:
+            { lastPage: lastPage model.pageKind
+            , onClick: nextButtonClick actionCreators model
+            }
+
+        , backButton:
+            { disabled: BackButton.disabled model.pageKind
+            , onClick: backButtonClick actionCreators model
+            }
+
+        , breadcrumbs:
+            { onClick: breadcrumbsClick actionCreators model
+            }
+        , type: "Molecule Browser"
+        }
+
+  where
+    selected = SelectingCollection.selected model.molecules
+    selectedMolecule = snd selected
+    molecules = SelectingCollection.all model.molecules
+    lastPage PageKind.LastComplete = true
+    lastPage PageKind.LastIncomplete = true
+    lastPage PageKind.OnlyComplete = true
+    lastPage PageKind.OnlyIncomplete = true
+    lastPage _ = false
 
 ---
 
