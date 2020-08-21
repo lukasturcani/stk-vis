@@ -16,6 +16,9 @@ import {
     TwoDViewer,
 } from '../../../../Assets/TwoDViewer/components/styled/full';
 import {
+    ViewerSwitch,
+} from '../../../../Assets/ViewerSwitch/components/styled';
+import {
     NextButton,
 } from '../../../NextButton/components/styled';
 import {
@@ -34,6 +37,7 @@ export function MoleculeBrowser<a>(
         root={Root}
         breadcrumbsComponent={Breadcrumbs}
         configContainer={ConfigContainer}
+        viewerSwitchComponent={ViewerSwitch}
         sortButtonComponent={SortButton}
         moleculeTableComponent={MoleculeTable}
         viewerContainer={ViewerContainer}

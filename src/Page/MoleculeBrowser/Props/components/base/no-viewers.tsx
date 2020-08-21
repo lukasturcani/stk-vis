@@ -9,6 +9,9 @@ import {
     CoreProps as MoleculeTableProps,
 } from '../../../../Assets/MoleculeTable/components/base';
 import {
+    CoreProps as ViewerSwitchProps,
+} from '../../../../Assets/ViewerSwitch/components/base';
+import {
     CoreProps as NextButtonProps,
 } from '../../../NextButton/components/base'
 import {
@@ -39,6 +42,8 @@ interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps<a>
     nextButtonComponent: React.FunctionComponent<NextButtonProps<a>>;
     backButtonComponent: React.FunctionComponent<BackButtonProps<a>>;
     navigationButtonContainer: React.FunctionComponent<Empty>;
+    viewerSwitchComponent:
+        React.FunctionComponent<ViewerSwitchProps<a>>;
 
 }
 
@@ -57,6 +62,14 @@ export function MoleculeBrowser<a>(
                 <props.sortButtonComponent
                     dispatch={props.dispatch}
                     {...props.value0.sortButton}
+                />
+                <props.viewerSwitchComponent
+                    dispatch={props.dispatch}
+                    {...props.value0.twoDViewerSwitch}
+                />
+                <props.viewerSwitchComponent
+                    dispatch={props.dispatch}
+                    {...props.value0.threeDViewerSwitch}
                 />
             </props.configContainer>
             <props.moleculeTableComponent
