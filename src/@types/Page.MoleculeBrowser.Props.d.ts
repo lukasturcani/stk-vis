@@ -21,6 +21,9 @@ declare module 'Page.MoleculeBrowser.Props'
     import {
         Props as BreadcrumbsProps,
     } from 'Page.MoleculeBrowser.Breadcrumbs';
+    import {
+        Props as ViewerSwitchProps,
+    } from 'Page.ViewerSwitch'
 
     export interface AllViewers<a>
     {
@@ -32,6 +35,8 @@ declare module 'Page.MoleculeBrowser.Props'
             nextButton: NextButtonProps<a>;
             backButton: BackButtonProps<a>;
             breadcrumbs: BreadcrumbsProps<a>;
+            twoDViewerSwitch: ViewerSwitchProps<a>;
+            threeDViewerSwitch: ViewerSwitchProps<a>;
             type: "Molecule Browser All Viewers";
         };
         type: undefined;
@@ -46,6 +51,8 @@ declare module 'Page.MoleculeBrowser.Props'
             nextButton: NextButtonProps<a>;
             backButton: BackButtonProps<a>;
             breadcrumbs: BreadcrumbsProps<a>;
+            twoDViewerSwitch: ViewerSwitchProps<a>;
+            threeDViewerSwitch: ViewerSwitchProps<a>;
             type: "Molecule Browser 2D Viewer";
         };
         type: undefined;
@@ -60,6 +67,8 @@ declare module 'Page.MoleculeBrowser.Props'
             nextButton: NextButtonProps<a>;
             backButton: BackButtonProps<a>;
             breadcrumbs: BreadcrumbsProps<a>;
+            twoDViewerSwitch: ViewerSwitchProps<a>;
+            threeDViewerSwitch: ViewerSwitchProps<a>;
             type: "Molecule Browser 3D Viewer";
         }
         type: undefined;
@@ -72,6 +81,8 @@ declare module 'Page.MoleculeBrowser.Props'
             nextButton: NextButtonProps<a>;
             backButton: BackButtonProps<a>;
             breadcrumbs: BreadcrumbsProps<a>;
+            twoDViewerSwitch: ViewerSwitchProps<a>;
+            threeDViewerSwitch: ViewerSwitchProps<a>;
             type: "Molecule Browser No Viewers";
         };
         type: undefined;
