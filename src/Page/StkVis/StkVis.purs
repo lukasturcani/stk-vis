@@ -72,6 +72,12 @@ props model = case model of
                 , initMongoConfigurator
                 , initSortedAll
                 , initBuildingBlockBrowser
+                , setTwoDViewer:
+                    unsortedAllAction <<<
+                        UnsortedAll.setTwoDViewer
+                , setThreeDViewer:
+                    unsortedAllAction <<<
+                        UnsortedAll.setThreeDViewer
                 }
                 subModel
 
@@ -90,6 +96,12 @@ props model = case model of
                 , initMongoConfigurator
                 , initSortedBuildingBlocks
                 , initBuildingBlockBrowser
+                , setTwoDViewer:
+                    unsortedBuildingBlocksAction <<<
+                        UnsortedBBs.setTwoDViewer
+                , setThreeDViewer:
+                    unsortedBuildingBlocksAction <<<
+                        UnsortedBBs.setThreeDViewer
                 }
                 subModel
 
@@ -108,6 +120,12 @@ props model = case model of
                 , initMongoConfigurator
                 , initSortedConstructedMolecules
                 , initBuildingBlockBrowser
+                , setTwoDViewer:
+                    unsortedConstructedMoleculesAction <<<
+                        UnsortedCMs.setTwoDViewer
+                , setThreeDViewer:
+                    unsortedConstructedMoleculesAction <<<
+                        UnsortedCMs.setThreeDViewer
                 }
                 subModel
 
@@ -129,6 +147,12 @@ props model = case model of
                 , initMongoConfigurator
                 , initUnsortedAll
                 , initBuildingBlockBrowser
+                , setTwoDViewer:
+                    sortedAllAction <<<
+                        SortedAll.setTwoDViewer
+                , setThreeDViewer:
+                    sortedAllAction <<<
+                        SortedAll.setThreeDViewer
                 }
                 subModel
 
@@ -150,6 +174,12 @@ props model = case model of
                 , initMongoConfigurator
                 , initUnsortedBuildingBlocks
                 , initBuildingBlockBrowser
+                , setTwoDViewer:
+                    sortedBuildingBlocksAction <<<
+                        SortedBBs.setTwoDViewer
+                , setThreeDViewer:
+                    sortedBuildingBlocksAction <<<
+                        SortedBBs.setThreeDViewer
                 }
                 subModel
 
@@ -171,6 +201,12 @@ props model = case model of
                 , initMongoConfigurator
                 , initUnsortedConstructedMolecules
                 , initBuildingBlockBrowser
+                , setTwoDViewer:
+                    sortedConstructedMoleculesAction <<<
+                        SortedCMs.setTwoDViewer
+                , setThreeDViewer:
+                    sortedConstructedMoleculesAction <<<
+                        SortedCMs.setThreeDViewer
                 }
                 subModel
 

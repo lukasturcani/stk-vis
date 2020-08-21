@@ -9,6 +9,8 @@ module Page.MoleculeBrowser.UnsortedConstructedMolecules
     , updateMoleculePage
     , doNothing
     , selectMolecule
+    , setTwoDViewer
+    , setThreeDViewer
     ) where
 
 import Prelude
@@ -25,6 +27,7 @@ import DispatchAction (DispatchAction)
 import Page.MoleculeBrowser.SortButton as SortButton
 import Page.MoleculeBrowser.NextButton as NextButton
 import Page.MoleculeBrowser.BackButton as BackButton
+import Page.ViewerSwitch as ViewerSwitch
 import Effect.Promise (class Deferred, Promise, catch)
 import Requests.UnsortedConstructedMolecules as UnsortedRequest
 import Requests.SortedConstructedMolecules as SortedRequest
@@ -160,6 +163,8 @@ type ActionCreators a r =
         :: Config.SortedConstructedMolecules -> a
 
     , initBuildingBlockBrowser :: Config.BuildingBlockBrowser -> a
+    , setTwoDViewer            :: Boolean -> a
+    , setThreeDViewer          :: Boolean -> a
     | r
     }
 
@@ -181,6 +186,18 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true } =
             , buildingBlockRequests:
                 map (buildingBlockRequest actionCreators model) molecules
             }
+
+        , twoDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setTwoDViewer }
+                "2D Viewer"
+                model.twoDViewer
+
+        , threeDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setThreeDViewer }
+                "3D Viewer"
+                model.threeDViewer
 
         , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
 
@@ -230,6 +247,18 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: true } =
                 map (buildingBlockRequest actionCreators model) molecules
             }
 
+        , twoDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setTwoDViewer }
+                "2D Viewer"
+                model.twoDViewer
+
+        , threeDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setThreeDViewer }
+                "3D Viewer"
+                model.threeDViewer
+
         , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
 
         , nextButton:
@@ -276,6 +305,18 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false } =
                 map (buildingBlockRequest actionCreators model) molecules
             }
 
+        , twoDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setTwoDViewer }
+                "2D Viewer"
+                model.twoDViewer
+
+        , threeDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setThreeDViewer }
+                "3D Viewer"
+                model.threeDViewer
+
         , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
 
         , nextButton:
@@ -321,6 +362,18 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
             , buildingBlockRequests:
                 map (buildingBlockRequest actionCreators model) molecules
             }
+
+        , twoDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setTwoDViewer }
+                "2D Viewer"
+                model.twoDViewer
+
+        , threeDViewerSwitch:
+            ViewerSwitch.props
+                { setState: actionCreators.setThreeDViewer }
+                "3D Viewer"
+                model.threeDViewer
 
         , nextButton:
             { lastPage: lastPage model.pageKind
@@ -824,6 +877,8 @@ type Action =
 data Payload
     = UpdateMoleculePage UpdateMoleculePage
     | SelectMolecule RowIndex Molecule
+    | SetTwoDViewer Boolean
+    | SetThreeDViewer Boolean
     | DoNothing
 
 type UpdateMoleculePage =
@@ -846,6 +901,18 @@ selectMolecule rowIndex molecule =
     , payload: SelectMolecule rowIndex molecule
     }
 
+setTwoDViewer :: Boolean -> Action
+setTwoDViewer state =
+    { type: "SET_2D_VIEWER"
+    , payload: SetTwoDViewer state
+    }
+
+setThreeDViewer :: Boolean -> Action
+setThreeDViewer state =
+    { type: "SET_3D_VIEWER"
+    , payload: SetThreeDViewer state
+    }
+
 doNothing :: Action
 doNothing =
     { type: "DO_NOTHING"
@@ -862,6 +929,12 @@ reducer model action = case action of
 
     ({ payload: SelectMolecule rowIndex molecule }) ->
         _selectMolecule model rowIndex molecule
+
+    ({ payload: SetTwoDViewer state }) ->
+        model { twoDViewer = state }
+
+    ({ payload: SetThreeDViewer state }) ->
+        model { threeDViewer = state }
 
     ({ payload: DoNothing }) -> model
 
