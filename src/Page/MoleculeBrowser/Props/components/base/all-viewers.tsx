@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-    Props as MoleculeBrowserProps,
+    AllViewers as MoleculeBrowserProps,
 } from 'Page.MoleculeBrowser.Props'
 import {
     CoreProps as SortButtonProps,
@@ -60,30 +60,34 @@ export function MoleculeBrowser<a>(
         <props.root>
             <props.breadcrumbsComponent
                 dispatch={props.dispatch}
-                {...props.breadcrumbs}
+                {...props.value0.breadcrumbs}
             />
             <props.configContainer>
                 <props.sortButtonComponent
                     dispatch={props.dispatch}
-                    {...props.sortButton}
+                    {...props.value0.sortButton}
                 />
             </props.configContainer>
             <props.moleculeTableComponent
                 dispatch={props.dispatch}
-                {...props.moleculeTable}
+                {...props.value0.moleculeTable}
             />
             <props.viewerContainer>
-                <props.twoDViewerComponent {...props.twoDViewer}    />
-                <props.threeDViewerComponent {...props.threeDViewer} />
+                <props.twoDViewerComponent
+                    {...props.value0.twoDViewer}
+                />
+                <props.threeDViewerComponent
+                    {...props.value0.threeDViewer}
+                />
             </props.viewerContainer>
             <props.navigationButtonContainer>
                 <props.backButtonComponent
                     dispatch={props.dispatch}
-                    {...props.backButton}
+                    {...props.value0.backButton}
                 />
                 <props.nextButtonComponent
                     dispatch={props.dispatch}
-                    {...props.nextButton}
+                    {...props.value0.nextButton}
                 />
             </props.navigationButtonContainer>
         </props.root>

@@ -3,9 +3,6 @@ import {
     CoreProps as ConfiguratorProps
 } from '../../MongoConfigurator/components/base/mongo-configurator';
 import {
-    CoreProps as MoleculeBrowserProps
-} from '../../MoleculeBrowser/Props/components/base';
-import {
     CoreProps as BBAllViewersCoreProps,
 } from '../../BuildingBlockBrowser/components/base/browser/all-viewers';
 import {
