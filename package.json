@@ -42,7 +42,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "scripts": {
-    "start": "nodemon --watch ./src/{*,**/*} --exec 'yarn webpack; yarn electron .'",
+    "watch": "yarn webpack --watch --config webpack.config.js",
     "prod": "yarn webpack --config webpack.prod.js"
   }
 }
