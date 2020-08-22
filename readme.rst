@@ -35,8 +35,10 @@ downloading the latest release of
 This should connect you to a public database I made.
 (The connection might be a bit slow because I'm using a free server
 hosted in Europe, but if you use your own it should be much faster.)
+You can also make your databases private and only allows access to
+specific users.
 
-_ here: https://github.com/lukasturcani/stk-vis
+.. _here: https://github.com/lukasturcani/stk-vis
 
 
 One example use case is that you can have a group of computational
