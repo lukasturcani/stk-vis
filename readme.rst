@@ -258,14 +258,14 @@ will also need to run::
     $ pip install 'pymongo[srv]'
 
 Finally, you need to decide how to host your databases. You can
-install MongoDB locally on your computer, or you can use `Mongo Atlas`_
-to put your database in the cloud. This is
-the hard part, but if you manage to setup MongoDB, either locally
-on your computer, or via Mongo Atlas,
-depositing molecules and molecular properties into them will be super
-easy with ``stk``, and you and your collaborator can then examine them
-with ``stk-vis``!
+`install MongoDB locally on your computer`_, or you can use
+`Mongo Atlas`_ to put your database in the cloud. This part might be a
+pain, but it shouldn't be too difficult either. Once this is
+done depositing molecules and molecular properties into the database
+will be  super easy with ``stk``, and then you and your collaborators
+can then examine them with ``stk-vis``!
 
+.. _`install MongoDB locally on your computer`: https://docs.mongodb.com/manual/installation/
 .. _`Mongo Atlas`: https://www.mongodb.com/cloud/atlas
 
 
