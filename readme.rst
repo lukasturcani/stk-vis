@@ -46,7 +46,7 @@ To give an example use case, you can have a group of computational
 scientists depositing molecules and their properties into the database,
 and their  synthetic collaborators can immediately see which molecules
 have been added and what their properties are, in order to see if they
-would like to try making anything. The synthetic group does not need
+would like to make anything. The synthetic group does not need
 to worry about databases at all, they just need to download ``stk-vis``
 and connect the the URL the computational team provides them with.
 
