@@ -261,7 +261,7 @@ Finally, you need to decide how to host your databases. You can
 `install MongoDB locally on your computer`_, or you can use
 `Mongo Atlas`_ to put your database in the cloud. This part might be a
 pain, but it shouldn't be too difficult either. Once this is
-done depositing molecules and molecular properties into the database
+done, depositing molecules and molecular properties into the database
 will be  super easy with ``stk``, and then you and your collaborators
 can then examine them with ``stk-vis``!
 
