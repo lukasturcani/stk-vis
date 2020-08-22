@@ -181,7 +181,7 @@ database so that they are available in ``stk-vis``
     def uff_energy(molecule):
         rdkit_molecule = molecule.to_rdkit_mol()
         rdkit.SanitizeMol(rdkit_molecule)
-        rdkit.UFFGetMoleculeForceField(rdkit_molecule)
+        ff = rdkit.UFFGetMoleculeForceField(rdkit_molecule)
         return ff.CalcEnergy()
 
 
