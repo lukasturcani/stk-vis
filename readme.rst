@@ -28,10 +28,12 @@ databases, and I will show you to build one!
 
 Assuming that you have your database, or someone has provided one
 for you, you can connect to it from anywhere. For example, try
-downloading the latest release of
-``stk-vis`` for your platform here_ and using the following URL::
+downloading the `latest release`_ of
+``stk-vis`` for your platform here and using the following URL::
 
     mongodb+srv://stk-vis:example@stk-vis-example.x4bkl.mongodb.net
+
+.. _`latest release`: https://github.com/lukasturcani/stk-vis/releases
 
 Here is a picture of your connection settings:
 
@@ -44,9 +46,6 @@ hosted in Europe, but if you use your own it should be much faster.)
 You can also make your databases private and only allow access to
 specific users.
 
-.. _here: https://github.com/lukasturcani/stk-vis/releases
-
-
 To give an example use case, you can have a group of computational
 scientists depositing molecules and their properties into the database,
 and their  synthetic collaborators can immediately see which molecules
@@ -54,7 +53,6 @@ have been added and what their properties are, in order to see if they
 would like to make anything. The synthetic group does not need
 to worry about databases at all, they just need to download ``stk-vis``
 and connect the the URL the computational team provides them with.
-
 
 However, any time you are dealing with lots of molecules, and lots
 of molecular files, its probably a good idea to switch to using a
@@ -129,7 +127,7 @@ building molecular databases  is easy
     client = pymongo.MongoClient()
     db = stk.MoleculeMongoDb(
         client,
-        # All of these parameters are optional!
+        # All of the parameters below are optional!
         database='stk',
         molecule_collection='molecules',
         position_matrix_collection='building_block_position_matrices',
@@ -146,16 +144,21 @@ building molecular databases  is easy
     # Make an stk molecule from an rdkit molecule and deposit it into
     # the database. Note that the rdkit molecule must have a
     # position matrix.
+
+    def get_rdkit_molecule(smiles):
+        molecule = rdkit.MolFromSmiles(smiles)
+        rdkit.EmbedMolecule(molecule, rdkit.ETKDGv2())
+        return molecule
+
     molecule2 = stk.BuildingBlock.init_from_rdkit_mol(
-        molecule=rdkit.MolFromMolFile(...),
+        molecule=get_rdkit_molecule('CNCNN'),
     )
     db.put(molecule2)
 
 
-You can find the detailed documentation of ``stk.MoleculeMongoDb``
-here_.
+``stk`` provieds detailed documentation for `stk.MoleculeMongoDb`_.
 
-.. _here: https://stk.readthedocs.io/en/latest/stk.databases.mongo_db.molecule.html
+.. _`stk.MoleculeMongoDb`: https://stk.readthedocs.io/en/latest/stk.databases.mongo_db.molecule.html
 
 Let's say you also want to deposit molecular properties into the
 database so that they are available in ``stk-vis``
@@ -163,6 +166,7 @@ database so that they are available in ``stk-vis``
 .. code-block:: python
 
     num_atoms_db = stk.ValueMongoDb(client, 'Num Atoms')
+
     # Place a value associated with the molecule into the database,
     # this will make it immediately viewable in stk-vis.
     num_atoms_db.put(molecule1, molecule1.get_num_atoms())
@@ -183,11 +187,12 @@ database so that they are available in ``stk-vis``
     energy_db.put(molecule2, uff_energy(molecule2))
 
 
-In general, you can deposit any number or string, or tuple of them
-into a ``stk.ValueMongoDb``. You can read the detailed documentation
-of ``stk.MoleculeMongoDb`` here_.
+In general, you can deposit any ``number`` or ``string``, or
+``tuple`` of them
+into a ``stk.ValueMongoDb``. ``stk`` also has detailed documentation
+for `stk.ValueMongoDb`_
 
-.. _here: https://stk.readthedocs.io/en/latest/stk.databases.mongo_db.value.html
+.. _`stk.ValueMongoDb`: https://stk.readthedocs.io/en/latest/stk.databases.mongo_db.value.html
 
 
 To get ``stk`` you need to run::
