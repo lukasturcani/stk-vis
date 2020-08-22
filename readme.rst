@@ -198,6 +198,54 @@ for `stk.ValueMongoDb`_
 
 .. _`stk.ValueMongoDb`: https://stk.readthedocs.io/en/latest/stk.databases.mongo_db.value.html
 
+Finally, let's take a look at depositing constructed molecules.
+These are molecules ``stk`` can construct from ``BuildingBlock``
+molecules. There are many different kinds of these molecules, so
+check out the documentation of ``stk`` to get a full picture.
+However, when it comes to depositing them into a MongoDB, the process
+is always the same.
+
+.. code-block:: python
+
+    # Create a database for depositing constructed molecules.
+    constructed_db = stk.ConstructedMoleculeMongoDb(
+        client,
+        # All of the parameters below are optional!
+        database='stk',
+        molecule_collection='molecules',
+        constructed_molecule_collection='constructed_molecules',
+        position_matrix_collection='position_matrices',
+        building_block_position_matrix_collection=(
+            'building_block_position_matrices'
+        ),
+    )
+
+    # Create a constructed molecule, in this case a polymer.
+    polymer = stk.ConstructedMolecule(
+        topology_graph=stk.polymer.Linear(
+            building_blocks=(
+                stk.BuildingBlock('BrC=CBr', [stk.BromoFactory()]),
+                stk.BuildingBlock('BrCNCBr', [stk.BromoFactory()]),
+            ),
+            repeating_unit='AB',
+            num_repeating_units=2,
+        ),
+    )
+
+    # Deposit into the database.
+    constructed_db.put(polymer)
+
+    # You can deposit values same as before.
+    num_atoms_db.put(polymer, polymer.get_num_atoms())
+    energy_db.put(polymer, uff_energy(polymer))
+
+The reason ``stk.ConstructedMoleculeMongoDb`` is used here, is that
+it will automatically deposit the building blocks into the database
+as well. This means that in ``stk-vis``, we can explictly lookup the
+building blocks of ``polymer``. As before, ``stk`` has detailed
+documentation for `stk.ConstructedMoleculeMongoDb`_.
+
+.. _`stk.ConstructedMoleculeMongoDb`: https://stk.readthedocs.io/en/latest/stk.databases.mongo_db.constructed_molecule.html
 
 To get ``stk`` you need to run::
 
