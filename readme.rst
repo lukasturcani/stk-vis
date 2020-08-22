@@ -32,6 +32,10 @@ downloading the latest release of
 
     mongodb+srv://stk-vis:example@stk-vis-example.x4bkl.mongodb.net
 
+Here is a picture of your connection settings:
+
+.. figure:: example-coonection
+
 This should connect you to a public database I made. Note that you
 don't have to change any of the other default values.
 (The connection might be a bit slow because I'm using a free server
@@ -69,7 +73,10 @@ Features
   blocks.
 * Sort molecules according to property values to quickly find ones
   with the best or worst properties.
-
+* Sometimes 2D projections are expensive to calculate. As a result,
+  you can toggle the 2D viewer on or off. You can also toggle the 3D
+  viewer, but I suggest you first check if the 2D viewer is the
+  cause of performance problems.
 
 Latest Release
 ==============
@@ -82,4 +89,6 @@ If you would like to get updates when a new version of ``stk-vis``
 simply click on the ``watch`` button in the top right corner of the
 GitHub page, and if you only care about new releases, select
 ``Releases only`` from the dropdown menu.
+
+
 
