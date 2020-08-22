@@ -11,6 +11,7 @@ Welcome to ``stk-vis``!
 
 Before you get started, you might like to watch the demo video
 
+    https://youtu.be/MiMfLaP6kx0
 
 ``stk-vis`` is a cross-platform viewer for molecules and molecular
 properties, specifically targeting cases where you want to browse
@@ -43,7 +44,7 @@ hosted in Europe, but if you use your own it should be much faster.)
 You can also make your databases private and only allow access to
 specific users.
 
-.. _here: https://github.com/lukasturcani/stk-vis
+.. _here: https://github.com/lukasturcani/stk-vis/releases
 
 
 To give an example use case, you can have a group of computational
