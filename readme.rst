@@ -85,11 +85,132 @@ Latest Release
 You can see the latest release for your platform by clicking on the
 following link:
 
+    https://github.com/lukasturcani/stk-vis/releases
 
 If you would like to get updates when a new version of ``stk-vis``
 simply click on the ``watch`` button in the top right corner of the
 GitHub page, and if you only care about new releases, select
 ``Releases only`` from the dropdown menu.
 
+Setting Up Molecular Databases
+==============================
+
+So how do you actually get a molecular database? Well, there's a
+Python library called ``stk``, which lets you do just that. But not
+only that, as ``stk`` lets you easily construct molecules such as
+polymers, organic & metal-organic frameworks, organic and
+metal-organic cages, metal complexes, rotaxanes and more!
+
+The GitHub for ``stk`` is here
+
+    https://github.com/lukasturcani/stk
+
+and the documentation can be found here
+
+    https://stk.readthedocs.io
+
+``stk`` lets you deposit regular or constructed molecules
+into MongoDD molecular databases. ``stk`` molecules can also be
+converted to and from ``rdkit`` molecules, if that's
+convenient for your use-case. ``stk`` also  provides evolutionary
+algorithms (EAs) for molecular design. This means you can run the EA
+and it will deposit the molecules it discovers into the database
+for you, and you can use ``stk-vis`` to easily browse the results!
+
+Assuming you have ``stk`` installed and MongoDB running locally,
+building molecular databases  is easy
+
+.. code-block:: python
+
+    import stk
+    import pymongo
+    import rdkit.Chem.AllChem as rdkit
+
+    client = pymongo.MongoClient()
+    db = stk.MoleculeMongoDb(
+        client,
+        # All of these parameters are optional!
+        database='stk',
+        molecule_collection='molecules',
+        position_matrix_collection='building_block_position_matrices',
+    )
+
+    # Create some molecule. "BuildingBlock" is just stk's word for a
+    # plain molecule.
+    molecule1 = stk.BuildingBlock('CCCBr')
+
+    # Place it into the database, this will make the molecule
+    # immediately viewable in stk-vis.
+    db.put(molecule1)
+
+    # Make an stk molecule from an rdkit molecule and deposit it into
+    # the database. Note that the rdkit molecule must have a
+    # position matrix.
+    molecule2 = stk.BuildingBlock.init_from_rdkit_mol(
+        molecule=rdkit.MolFromMolFile(...),
+    )
+    db.put(molecule2)
+
+
+You can find the detailed documentation of ``stk.MoleculeMongoDb``
+here_.
+
+.. _here: https://stk.readthedocs.io/en/latest/stk.databases.mongo_db.molecule.html
+
+Let's say you also want to deposit molecular properties into the
+database so that they are available in ``stk-vis``
+
+.. code-block:: python
+
+    num_atoms_db = stk.ValueMongoDb(client, 'Num Atoms')
+    # Place a value associated with the molecule into the database,
+    # this will make it immediately viewable in stk-vis.
+    num_atoms_db.put(molecule1, molecule1.get_num_atoms())
+
+    # Lets also calculate and store the energy of a molecule with
+    # UFF.
+
+
+    def uff_energy(molecule):
+        rdkit_molecule = molecule.to_rdkit_mol()
+        rdkit.SanitizeMol(rdkit_molecule)
+        rdkit.UFFGetMoleculeForceField(rdkit_molecule)
+        return ff.CalcEnergy()
+
+
+    energy_db = stk.ValueMongoDb(client, 'UFF Energy')
+    energy_db.put(molecule1, uff_energy(molecule1))
+    energy_db.put(molecule2, uff_energy(molecule2))
+
+
+In general, you can deposit any number or string, or tuple of them
+into a ``stk.ValueMongoDb``. You can read the detailed documentation
+of ``stk.MoleculeMongoDb`` here_.
+
+.. _here: https://stk.readthedocs.io/en/latest/stk.databases.mongo_db.value.html
+
+
+To get ``stk`` you need to run::
+
+    $ pip install stk
+    $ conda install -c rdkit rdkit
+
+If you're going to be using MongoDB molecular databases and do not
+have a version of ``stk`` released after 22nd of August 2020, you
+will also need to run::
+
+    $ pip install pymongo
+    $ pip install 'pymongo[srv]'
+
+Finally, you need to decide how to host your databases. You can
+install MongoDB locally on your computer, or you can use `Mongo Atlas`_
+to put your database in the cloud. This is
+the hard part, but if you manage to setup MongoDB, either locally
+on your computer, or via Mongo Atlas,
+depositing molecules and molecular properties into them will be super
+easy with ``stk``, and you and your collaborator can then examine them
+with ``stk-vis``!
+
+.. _`Mongo Atlas`: https://www.mongodb.com/cloud/atlas
 
 
