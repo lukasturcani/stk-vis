@@ -129,7 +129,7 @@ building molecular databases  is easy
 
     client = pymongo.MongoClient()
     db = stk.MoleculeMongoDb(
-        client,
+        mongo_client=client,
         # All of the parameters below are optional!
         database='stk',
         molecule_collection='molecules',
@@ -209,15 +209,13 @@ is always the same.
 
     # Create a database for depositing constructed molecules.
     constructed_db = stk.ConstructedMoleculeMongoDb(
-        client,
+        mongo_client=client,
         # All of the parameters below are optional!
         database='stk',
         molecule_collection='molecules',
         constructed_molecule_collection='constructed_molecules',
         position_matrix_collection='position_matrices',
-        building_block_position_matrix_collection=(
-            'building_block_position_matrices'
-        ),
+        building_block_position_matrix_collection='building_block_position_matrices',
     )
 
     # Create a constructed molecule, in this case a polymer.
