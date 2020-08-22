@@ -26,7 +26,7 @@ it is actually trivial, that you don't need to know anything about
 databases, and I will show you to build one!
 
 Assuming that you have your database, or someone has provided one
-for you, you can connect to it from anywhere, for example, try
+for you, you can connect to it from anywhere. For example, try
 downloading the latest release of
 ``stk-vis`` for your platform here_ and using the following URL::
 
