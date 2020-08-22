@@ -156,7 +156,7 @@ building molecular databases  is easy
     db.put(molecule2)
 
 
-``stk`` provieds detailed documentation for `stk.MoleculeMongoDb`_.
+``stk`` provides detailed documentation for `stk.MoleculeMongoDb`_.
 
 .. _`stk.MoleculeMongoDb`: https://stk.readthedocs.io/en/latest/stk.databases.mongo_db.molecule.html
 
