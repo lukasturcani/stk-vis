@@ -32,7 +32,8 @@ downloading the latest release of
 
     mongodb+srv://stk-vis:example@stk-vis-example.x4bkl.mongodb.net
 
-This should connect you to a public database I made.
+This should connect you to a public database I made. Note that you
+don't have to change any of the other default values.
 (The connection might be a bit slow because I'm using a free server
 hosted in Europe, but if you use your own it should be much faster.)
 You can also make your databases private and only allows access to
@@ -58,8 +59,8 @@ Features
 * If you have molecules that were constructed from building block
   molecules, you can see which building blocks were used to make that
   molecule, and then you can see if those building blocks had building
-  blocks too! You can keep doing this until you have found the base
-  ones.
+  blocks too! You can keep doing this until you run out of building
+  blocks.
 * Sort molecules according to property values to quickly find ones
   with the best or worst properties.
 
