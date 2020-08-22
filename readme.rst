@@ -52,7 +52,7 @@ and their  synthetic collaborators can immediately see which molecules
 have been added and what their properties are, in order to see if they
 would like to make anything. The synthetic group does not need
 to worry about databases at all, they just need to download ``stk-vis``
-and connect the the URL the computational team provides them with.
+and connect to the URL the computational team provides them with.
 Similarly, the computational team does not have worry too much about
 databases either, as they can deposit molecules and their properties
 into them with one very simple Python function.
