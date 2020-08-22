@@ -56,7 +56,7 @@ type Model =
 init :: Model
 init =
     { url: "mongodb://localhost:27017"
-    , database: "stkVis"
+    , database: "stk"
     , moleculeKey: "InChIKey"
     , moleculeCollection: "molecules"
     , constructedMoleculeCollection: "constructed_molecules"
