@@ -34,7 +34,7 @@ downloading the latest release of
 
 Here is a picture of your connection settings:
 
-.. figure:: example-coonection
+.. figure:: example-connection.png
 
 This should connect you to a public database I made. Note that you
 don't have to change any of the other default values.
