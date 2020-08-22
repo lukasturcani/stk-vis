@@ -173,6 +173,7 @@ database so that they are available in ``stk-vis``
     # Place a value associated with the molecule into the database,
     # this will make it immediately viewable in stk-vis.
     num_atoms_db.put(molecule1, molecule1.get_num_atoms())
+    num_atoms_db.put(molecule2, molecule2.get_num_atoms())
 
     # Lets also calculate and store the energy of a molecule with
     # UFF.
