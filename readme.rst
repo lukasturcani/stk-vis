@@ -149,7 +149,7 @@ building molecular databases  is easy
     # position matrix.
 
     def get_rdkit_molecule(smiles):
-        molecule = rdkt.AddHs(rdkit.MolFromSmiles(smiles))
+        molecule = rdkit.AddHs(rdkit.MolFromSmiles(smiles))
         rdkit.EmbedMolecule(molecule, rdkit.ETKDGv2())
         return molecule
 
