@@ -238,10 +238,10 @@ is always the same.
     energy_db.put(polymer, uff_energy(polymer))
 
 The reason ``stk.ConstructedMoleculeMongoDb`` is used here, is that
-it will automatically deposit the building blocks into the database
-as well. This means that in ``stk-vis``, we can explictly lookup the
-building blocks of ``polymer``. As before, ``stk`` has detailed
-documentation for `stk.ConstructedMoleculeMongoDb`_.
+it will automatically deposit the building blocks of ``polymer`` into
+the database as well. This means that in ``stk-vis``, we can explicitly
+search for the building blocks of ``polymer``. As before, ``stk`` has
+detailed documentation for `stk.ConstructedMoleculeMongoDb`_.
 
 .. _`stk.ConstructedMoleculeMongoDb`: https://stk.readthedocs.io/en/latest/stk.databases.mongo_db.constructed_molecule.html
 
