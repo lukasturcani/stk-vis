@@ -42,7 +42,7 @@ specific users.
 .. _here: https://github.com/lukasturcani/stk-vis
 
 
-One example use case is that you can have a group of computational
+To give an example use case, you can have a group of computational
 scientists depositing molecules and their properties into the database,
 and their  synthetic collaborators can immediately see which molecules
 have been added and what their properties are, in order to see if they
