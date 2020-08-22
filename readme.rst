@@ -55,7 +55,7 @@ to worry about databases at all, they just need to download ``stk-vis``
 and connect the the URL the computational team provides them with.
 Similarly, the computational team does not have worry too much about
 databases either, as they can deposit molecules and their properties
-into them with a very simple Python function.
+into them with one very simple Python function.
 
 However, any time you are dealing with lots of molecules, and lots
 of molecular files, its probably a good idea to switch to using a
