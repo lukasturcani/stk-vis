@@ -57,7 +57,7 @@ Similarly, the computational team does not have worry too much about
 databases either, as they can deposit molecules and their properties
 into them with one very simple Python function.
 
-In fact, any time you are dealing with lots of molecules, and lots
+In fact, any time you are dealing with lots of molecules, or lots
 of molecular files, it is probably a good idea to switch to using a
 database, whether you are working as an individual or not. This keeps
 all your data easy to access and organized.
