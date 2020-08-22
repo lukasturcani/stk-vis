@@ -24,7 +24,7 @@ or remote MongoDB molecular databases, which hold the molecules you
 would like to view, as well as their properties. If you think
 using a MongoDB database is a bit of a chore, I promise you that
 it is actually trivial, that you don't need to know anything about
-databases, and I will show you to build one!
+databases, and I will show you how to build one!
 
 Assuming that you have your database, or someone has provided one
 for you, you can connect to it from anywhere. For example, try
