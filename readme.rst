@@ -22,7 +22,7 @@ research groups, but it is also a useful tool for individual users.
 So how does ``stk-vis`` do this? ``stk-vis`` connects to local
 or remote MongoDB molecular databases, which hold the molecules you
 would like to view, as well as their properties. If you think
-setting up a MongoDB database is a bit of a chore, I promise you that
+using a MongoDB database is a bit of a chore, I promise you that
 it is actually trivial, that you don't need to know anything about
 databases, and I will show you to build one!
 
