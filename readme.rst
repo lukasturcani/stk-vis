@@ -29,7 +29,7 @@ databases, and I will show you to build one!
 Assuming that you have your database, or someone has provided one
 for you, you can connect to it from anywhere. For example, try
 downloading the `latest release`_ of
-``stk-vis`` for your platform here and using the following URL::
+``stk-vis`` for your platform and using the following URL::
 
     mongodb+srv://stk-vis:example@stk-vis-example.x4bkl.mongodb.net
 
@@ -42,9 +42,9 @@ Here is a picture of your connection settings:
 This should connect you to a public database I made. Note that you
 don't have to change any of the other default values.
 (The connection might be a bit slow because I'm using a free server
-hosted in Europe, but if you use your own it should be much faster.)
-You can also make your databases private and only allow access to
-specific users.
+hosted in Europe, but when you use your own database it should be much
+faster.) You can also make your databases private and only allow access
+to specific users.
 
 To give an example use case, you can have a group of computational
 scientists depositing molecules and their properties into the database,
@@ -86,9 +86,9 @@ following link:
     https://github.com/lukasturcani/stk-vis/releases
 
 If you would like to get updates when a new version of ``stk-vis``
-simply click on the ``watch`` button in the top right corner of the
-GitHub page, and if you only care about new releases, select
-``Releases only`` from the dropdown menu.
+is released, simply click on the ``watch`` button in the top right
+corner of the GitHub page, and if you only care about new releases,
+select ``Releases only`` from the dropdown menu.
 
 Setting Up Molecular Databases
 ==============================
