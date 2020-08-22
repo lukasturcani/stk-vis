@@ -46,6 +46,7 @@
   "scripts": {
     "watch": "webpack --watch --config webpack.config.js",
     "prod": "rm -r dist/* && webpack --config webpack.prod.js && cp prod.package.json ./dist/package.json && cp prod.main.js ./dist/main.js",
-    "electron": "cross-env APP_DEV=true electron ."
+    "electron": "cross-env APP_DEV=true electron .",
+    "package": "electron-packager dist stk-vis --all --out pack"
   }
 }
