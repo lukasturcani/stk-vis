@@ -13,7 +13,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.54",
     "@types/lodash": "^4.14.152",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "material-table": "1.63.1",
     "mol-draw": "^1.0.6",
     "mongodb": "^3.5.7",
