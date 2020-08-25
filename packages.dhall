@@ -119,39 +119,10 @@ let additions =
 
 
 let upstream =
-      https://github.com/purescript/package-sets/releases/download/psc-0.13.8-20200708/packages.dhall sha256:df5b0f1ae92d4401404344f4fb2a7a3089612c9f30066dcddf9eaea4fe780e29
+      https://github.com/purescript/package-sets/releases/download/psc-0.13.8-20200822/packages.dhall sha256:b4f151f1af4c5cb6bf5437489f4231fbdd92792deaf32971e6bcb0047b3dd1f8
 
 let overrides = {=}
 
-let additions =
-    { molDraw =
-        { dependencies =
-            [ "arrays"
-            , "console"
-            , "effect"
-            , "either"
-            , "integers"
-            , "math"
-            , "numbers"
-            , "ordered-collections"
-            , "strings"
-            , "stringutils"
-            ]
-        , repo =
-            "https://github.com/lukasturcani/molDraw"
-        , version =
-            "v1.0.15"
-        }
-    , validated-molecule =
-        { dependencies =
-            [ "arrays"
-            , "lists"
-            ]
-        , repo =
-            "https://github.com/lukasturcani/validated-molecule"
-        , version =
-            "v1.0.5"
-        }
-    }
+let additions = {=}
 
 in  upstream // overrides // additions

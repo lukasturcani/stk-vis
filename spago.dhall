@@ -6,7 +6,7 @@ You can edit this file as you like.
 , dependencies =
   [ "console"
   , "effect"
-  , "molDraw"
+  , "mol-draw"
   , "ordered-collections"
   , "promises"
   , "psci-support"
