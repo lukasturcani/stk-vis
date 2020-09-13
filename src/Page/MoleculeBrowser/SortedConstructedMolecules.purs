@@ -29,6 +29,7 @@ import Page.MoleculeBrowser.SortButton as SortButton
 import Page.MoleculeBrowser.NextButton as NextButton
 import Page.MoleculeBrowser.BackButton as BackButton
 import Page.ViewerSwitch as ViewerSwitch
+import Page.SaveButton as SaveButton
 import Effect.Promise (class Deferred, Promise, catch)
 import Requests.UnsortedConstructedMolecules as UnsortedRequest
 import Requests.SortedConstructedMolecules as SortedRequest
@@ -239,6 +240,11 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true } =
         , breadcrumbs:
             { onClick: breadcrumbsClick actionCreators model
             }
+
+        , saveButton: {
+            writers: SaveButton.writers selectedMolecule
+        }
+
         , type: "Molecule Browser All Viewers"
         }
 
@@ -296,6 +302,11 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: true } =
         , breadcrumbs:
             { onClick: breadcrumbsClick actionCreators model
             }
+
+        , saveButton: {
+            writers: SaveButton.writers selectedMolecule
+        }
+
         , type: "Molecule Browser 3D Viewer"
         }
 
@@ -353,6 +364,11 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false } =
         , breadcrumbs:
             { onClick: breadcrumbsClick actionCreators model
             }
+
+        , saveButton: {
+            writers: SaveButton.writers selectedMolecule
+        }
+
         , type: "Molecule Browser 2D Viewer"
         }
 
@@ -409,6 +425,11 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
         , breadcrumbs:
             { onClick: breadcrumbsClick actionCreators model
             }
+
+        , saveButton: {
+            writers: SaveButton.writers selectedMolecule
+        }
+
         , type: "Molecule Browser No Viewers"
         }
 

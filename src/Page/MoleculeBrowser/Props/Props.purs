@@ -14,6 +14,7 @@ import Page.MoleculeBrowser.NextButton as NextButton
 import Page.MoleculeBrowser.BackButton as BackButton
 import Page.MoleculeBrowser.Breadcrumbs as Breadcrumbs
 import Page.ViewerSwitch as ViewerSwitch
+import Page.SaveButton as SaveButton
 
 
 data Props a
@@ -31,6 +32,7 @@ type NoViewers a =
     , breadcrumbs        :: Breadcrumbs.Props a
     , twoDViewerSwitch   :: ViewerSwitch.Props a
     , threeDViewerSwitch :: ViewerSwitch.Props a
+    , saveButton         :: SaveButton.Props
     , type               :: String
     }
 
@@ -43,6 +45,7 @@ type TwoDViewer a =
     , breadcrumbs        :: Breadcrumbs.Props a
     , twoDViewerSwitch   :: ViewerSwitch.Props a
     , threeDViewerSwitch :: ViewerSwitch.Props a
+    , saveButton         :: SaveButton.Props
     , type               :: String
     }
 
@@ -55,6 +58,7 @@ type ThreeDViewer a =
     , breadcrumbs        :: Breadcrumbs.Props a
     , twoDViewerSwitch   :: ViewerSwitch.Props a
     , threeDViewerSwitch :: ViewerSwitch.Props a
+    , saveButton         :: SaveButton.Props
     , type               :: String
     }
 
@@ -68,5 +72,6 @@ type AllViewers a =
     , breadcrumbs        :: Breadcrumbs.Props a
     , twoDViewerSwitch   :: ViewerSwitch.Props a
     , threeDViewerSwitch :: ViewerSwitch.Props a
+    , saveButton         :: SaveButton.Props
     , type               :: String
     }
