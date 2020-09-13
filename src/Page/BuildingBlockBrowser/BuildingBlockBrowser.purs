@@ -31,6 +31,7 @@ import Page.MoleculeTable as MoleculeTable
 import Page.TwoDViewer as TwoDViewer
 import Page.ThreeDViewer as ThreeDViewer
 import Page.ViewerSwitch as ViewerSwitch
+import Page.SaveButton as SaveButton
 import Effect.Unsafe (unsafePerformEffect)
 import Effect.Uncurried (runEffectFn1)
 import Effect.Promise (class Deferred, Promise, catch)
@@ -92,6 +93,7 @@ type NoViewers a =
     , breadcrumbs        :: BreadcrumbsProps a
     , twoDViewerSwitch   :: ViewerSwitch.Props a
     , threeDViewerSwitch :: ViewerSwitch.Props a
+    , saveButton         :: SaveButton.Props
     , type               :: String
     }
 
@@ -101,6 +103,7 @@ type TwoDViewer a =
     , breadcrumbs        :: BreadcrumbsProps a
     , twoDViewerSwitch   :: ViewerSwitch.Props a
     , threeDViewerSwitch :: ViewerSwitch.Props a
+    , saveButton         :: SaveButton.Props
     , type               :: String
     }
 
@@ -110,6 +113,7 @@ type ThreeDViewer a =
     , breadcrumbs        :: BreadcrumbsProps a
     , twoDViewerSwitch   :: ViewerSwitch.Props a
     , threeDViewerSwitch :: ViewerSwitch.Props a
+    , saveButton         :: SaveButton.Props
     , type               :: String
     }
 
@@ -120,6 +124,7 @@ type AllViewers a =
     , breadcrumbs        :: BreadcrumbsProps a
     , twoDViewerSwitch   :: ViewerSwitch.Props a
     , threeDViewerSwitch :: ViewerSwitch.Props a
+    , saveButton         :: SaveButton.Props
     , type               :: String
     }
 
@@ -177,6 +182,12 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true }  =
 
         , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
         , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
+
+        , saveButton:
+            { writers: SaveButton.writers selectedMolecule
+            , defaultFilename: Molecule.key selectedMolecule
+            }
+
         , breadcrumbs:
             { mongoDbClick: mongoDbClick actionCreators model
             , resultsClick: resultsClick actionCreators model
@@ -220,6 +231,10 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: true }  =
                 model.threeDViewer
 
         , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
+        , saveButton:
+            { writers: SaveButton.writers selectedMolecule
+            , defaultFilename: Molecule.key selectedMolecule
+            }
         , breadcrumbs:
             { mongoDbClick: mongoDbClick actionCreators model
             , resultsClick: resultsClick actionCreators model
@@ -263,6 +278,10 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false }  =
                 model.threeDViewer
 
         , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
+        , saveButton:
+            { writers: SaveButton.writers selectedMolecule
+            , defaultFilename: Molecule.key selectedMolecule
+            }
         , breadcrumbs:
             { mongoDbClick: mongoDbClick actionCreators model
             , resultsClick: resultsClick actionCreators model
@@ -304,6 +323,11 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
                 { setState: actionCreators.setThreeDViewer }
                 "3D Viewer"
                 model.threeDViewer
+
+        , saveButton:
+            { writers: SaveButton.writers selectedMolecule
+            , defaultFilename: Molecule.key selectedMolecule
+            }
 
         , breadcrumbs:
             { mongoDbClick: mongoDbClick actionCreators model
