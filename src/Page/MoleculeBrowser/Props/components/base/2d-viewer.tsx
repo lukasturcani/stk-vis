@@ -23,6 +23,9 @@ import {
 import {
     CoreProps as BreadcrumbsProps,
 } from '../../../Breadcrumbs/components/base';
+import {
+    Props as SaveButtonProps,
+} from 'Page.SaveButton';
 
 
 type Empty = Record<string, unknown>;
@@ -49,6 +52,7 @@ interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps<a>
     navigationButtonContainer: React.FunctionComponent<Empty>;
     viewerSwitchComponent:
         React.FunctionComponent<ViewerSwitchProps<a>>;
+    saveButtonComponent: React.FunctionComponent<SaveButtonProps>;
 
 }
 
@@ -75,6 +79,9 @@ export function MoleculeBrowser<a>(
                 <props.viewerSwitchComponent
                     dispatch={props.dispatch}
                     {...props.value0.threeDViewerSwitch}
+                />
+                <props.saveButtonComponent
+                    {...props.value0.saveButton}
                 />
             </props.configContainer>
             <props.moleculeTableComponent

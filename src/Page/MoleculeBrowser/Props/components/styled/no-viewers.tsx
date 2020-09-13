@@ -24,6 +24,9 @@ import {
 import {
     Breadcrumbs,
 } from '../../../Breadcrumbs/components/styled';
+import {
+    SaveButton,
+} from '../../../../Assets/SaveButton/components/styled/save-button';
 
 
 export function MoleculeBrowser<a>(
@@ -35,6 +38,7 @@ export function MoleculeBrowser<a>(
         breadcrumbsComponent={Breadcrumbs}
         configContainer={ConfigContainer}
         viewerSwitchComponent={ViewerSwitch}
+        saveButtonComponent={SaveButton}
         sortButtonComponent={SortButton}
         moleculeTableComponent={MoleculeTable}
         navigationButtonContainer={NavigationButtonContainer}
