@@ -13,27 +13,18 @@ interface Props extends CoreProps
 {
     container: React.FunctionComponent<Empty>;
     buttonGroup: React.FunctionComponent<ButtonGroupProps>;
-    button: React.FunctionComponent<ButtonProps>;
-    dropDownButton: React.FunctionComponent<DropDownButtonProps>;
     popper: React.FunctionComponent<PopperProps>;
 }
 
 export interface ButtonGroupProps
 {
     anchorRef: React.RefObject<HTMLDivElement>;
+    saveClick: () => void;
+    saveLabel: string;
+    handleToggle: () => void;
+    menuOpen: boolean;
 }
 
-export interface ButtonProps
-{
-    onClick: () => void;
-    label: string;
-}
-
-export interface DropDownButtonProps
-{
-    onClick: () => void;
-    open: boolean;
-}
 
 export interface PopperProps
 {
@@ -96,16 +87,11 @@ export function SaveButton(
         <props.container>
             <props.buttonGroup
                 anchorRef={anchorRef}
-            >
-                <props.button
-                    onClick={handleClick}
-                    label={props.writers[selectedIndex].name}
-                />
-                <props.dropDownButton
-                    onClick={handleToggle}
-                    open={open}
-                />
-            </props.buttonGroup>
+                saveClick={handleClick}
+                saveLabel={props.writers[selectedIndex].name}
+                handleToggle={handleToggle}
+                menuOpen={open}
+            />
             <props.popper
                 open={open}
                 anchorEl={anchorRef.current}

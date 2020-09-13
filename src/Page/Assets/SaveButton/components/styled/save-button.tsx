@@ -14,8 +14,6 @@ import {
     SaveButton as SaveButtonBase,
     CoreProps,
     PopperProps,
-    ButtonProps,
-    DropDownButtonProps,
     ButtonGroupProps,
 } from '../base/save-button';
 
@@ -26,8 +24,6 @@ export function SaveButton(
     return <SaveButtonBase
         container={Container}
         buttonGroup={ButtonGroup}
-        button={Button}
-        dropDownButton={DropDownButton}
         popper={Popper}
         {...props}
     />;
@@ -45,44 +41,33 @@ const ButtonGroup: React.FunctionComponent<ButtonGroupProps>
         <ButtonGroupBase
             variant="contained"
             color="secondary"
-            aria-label="split button"
             ref={props.anchorRef}
+            aria-label="split button"
         >
+            <ButtonBase
+                onClick={props.saveClick}
+            >
+                <SaveIcon
+                    style={{
+                        marginRight: '1em',
+                    }}
+                />
+                {props.saveLabel}
+            </ButtonBase>
+            <ButtonBase
+                size="small"
+                aria-controls={
+                    props.menuOpen ? 'split-button-menu' : undefined
+                }
+                aria-expanded={props.menuOpen ? 'true' : undefined}
+                aria-label="select merge strategy"
+                aria-haspopup="menu"
+                onClick={props.handleToggle}
+            >
+                <ArrowDropDownIcon />
+            </ButtonBase>
             {props.children}
         </ButtonGroupBase>
-    );
-
-
-const Button: React.FunctionComponent<ButtonProps>
-    = props => (
-        <ButtonBase
-            onClick={props.onClick}
-        >
-            <SaveIcon
-                style={{
-                    marginRight: '1em',
-                }}
-            />
-            {props.label}
-        </ButtonBase>
-    );
-
-
-const DropDownButton: React.FunctionComponent<DropDownButtonProps>
-    = props => (
-        <ButtonBase
-            color="secondary"
-            size="small"
-            aria-controls={
-                props.open ? 'split-button-menu' : undefined
-            }
-            aria-expanded={props.open ? 'true' : undefined}
-            aria-label="select merge strategy"
-            aria-haspopup="menu"
-            onClick={props.onClick}
-        >
-            <ArrowDropDownIcon />
-        </ButtonBase>
     );
 
 
