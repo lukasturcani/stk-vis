@@ -20,7 +20,7 @@ interface Props extends CoreProps
 
 export interface ButtonGroupProps
 {
-    ref: React.RefObject<HTMLDivElement>;
+    anchorRef: React.RefObject<HTMLDivElement>;
 }
 
 export interface ButtonProps
@@ -95,7 +95,7 @@ export function SaveButton(
     return (
         <props.container>
             <props.buttonGroup
-                ref={anchorRef}
+                anchorRef={anchorRef}
             >
                 <props.button
                     onClick={handleClick}

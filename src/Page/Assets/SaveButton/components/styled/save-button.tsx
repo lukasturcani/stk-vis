@@ -46,7 +46,7 @@ const ButtonGroup: React.FunctionComponent<ButtonGroupProps>
             variant="contained"
             color="secondary"
             aria-label="split button"
-            {...props}
+            ref={props.anchorRef}
         >
             {props.children}
         </ButtonGroupBase>
