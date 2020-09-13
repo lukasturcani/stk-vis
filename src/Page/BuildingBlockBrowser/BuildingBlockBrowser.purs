@@ -31,6 +31,7 @@ import Page.MoleculeTable as MoleculeTable
 import Page.TwoDViewer as TwoDViewer
 import Page.ThreeDViewer as ThreeDViewer
 import Page.ViewerSwitch as ViewerSwitch
+import Page.SaveButton as SaveButton
 import Effect.Unsafe (unsafePerformEffect)
 import Effect.Uncurried (runEffectFn1)
 import Effect.Promise (class Deferred, Promise, catch)
@@ -120,6 +121,7 @@ type AllViewers a =
     , breadcrumbs        :: BreadcrumbsProps a
     , twoDViewerSwitch   :: ViewerSwitch.Props a
     , threeDViewerSwitch :: ViewerSwitch.Props a
+    , saveButton         :: SaveButton.Props
     , type               :: String
     }
 
@@ -177,6 +179,9 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true }  =
 
         , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
         , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
+        , saveButton: {
+            writers: SaveButton.writers selectedMolecule
+        }
         , breadcrumbs:
             { mongoDbClick: mongoDbClick actionCreators model
             , resultsClick: resultsClick actionCreators model
