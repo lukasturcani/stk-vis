@@ -52,13 +52,8 @@ const ButtonGroup: React.FunctionComponent<ButtonGroupProps>
                     // change due to a change in word length.
                     width: 100,
                 }}
+                startIcon={<SaveIcon />}
             >
-                <SaveIcon
-                    style={{
-                        marginRight: '0.2em',
-                        verticalAlign: 'middle',
-                    }}
-                />
                 <span
                     style={{ verticalAlign: 'middle' }}
                 >
