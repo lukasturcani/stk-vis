@@ -13,6 +13,9 @@ declare module 'Page.BuildingBlockBrowser'
     import {
         Props as ViewerSwitchProps,
     } from 'Page.ViewerSwitch'
+    import {
+        Props as SaveButtonProps,
+    } from 'Page.SaveButton';
 
     export type Model = unknown;
     export type Action = { type: string };
@@ -26,6 +29,7 @@ declare module 'Page.BuildingBlockBrowser'
             breadcrumbs: BreadcrumbsProps<a>;
             twoDViewerSwitch: ViewerSwitchProps<a>;
             threeDViewerSwitch: ViewerSwitchProps<a>;
+            saveButton: SaveButtonProps;
             type: "Building Block Browser All Viewers";
         };
         type: undefined;

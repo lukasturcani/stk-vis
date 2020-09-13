@@ -23,7 +23,7 @@ import {
 } from '../../../../Assets/ViewerSwitch/components/styled';
 import {
     SaveButton,
-} from '../../../../Assets/SaveButton/components/base/save-button';
+} from '../../../../Assets/SaveButton/components/styled/save-button';
 
 
 export function BuildingBlockBrowser<a>(
