@@ -239,9 +239,12 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true } =
         , breadcrumbs:
             { onClick: breadcrumbsClick actionCreators model
             }
-        , saveButton: {
-            writers: SaveButton.writers selectedMolecule
-        }
+
+        , saveButton:
+            { writers: SaveButton.writers selectedMolecule
+            , defaultFilename: Molecule.key selectedMolecule
+            }
+
         , type: "Molecule Browser All Viewers"
         }
 
@@ -300,9 +303,10 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: true } =
             { onClick: breadcrumbsClick actionCreators model
             }
 
-        , saveButton: {
-            writers: SaveButton.writers selectedMolecule
-        }
+        , saveButton:
+            { writers: SaveButton.writers selectedMolecule
+            , defaultFilename: Molecule.key selectedMolecule
+            }
 
         , type: "Molecule Browser 3D Viewer"
         }
@@ -362,9 +366,10 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false } =
             { onClick: breadcrumbsClick actionCreators model
             }
 
-        , saveButton: {
-            writers: SaveButton.writers selectedMolecule
-        }
+        , saveButton:
+            { writers: SaveButton.writers selectedMolecule
+            , defaultFilename: Molecule.key selectedMolecule
+            }
 
         , type: "Molecule Browser 2D Viewer"
         }
@@ -422,9 +427,10 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
             { onClick: breadcrumbsClick actionCreators model
             }
 
-        , saveButton: {
-            writers: SaveButton.writers selectedMolecule
-        }
+        , saveButton:
+            { writers: SaveButton.writers selectedMolecule
+            , defaultFilename: Molecule.key selectedMolecule
+            }
 
         , type: "Molecule Browser No Viewers"
         }

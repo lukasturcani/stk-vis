@@ -10,11 +10,12 @@ import Data.Function.Uncurried (Fn0, mkFn0)
 
 type Props =
     { writers :: Array Writer
+    , defaultFilename :: String
     }
 
 type Writer =
-    { name  :: String
-    , write :: Fn0 String
+    { name        :: String
+    , write       :: Fn0 String
     }
 
 

@@ -59,8 +59,16 @@ export function SaveButton(
 
     const handleClick = () => {
         const content: string = props.writers[selectedIndex].write();
+        const extension: string
+            = props.writers[selectedIndex].name.toLowerCase();
         const filename: string | undefined
-            = dialog.showSaveDialogSync();
+            = dialog.showSaveDialogSync(
+                undefined,
+                {
+                    defaultPath:
+                        `${props.defaultFilename}.${extension}`
+                },
+            );
         if (typeof filename === "string")
         {
             fs.writeFileSync(filename, content, 'utf-8');

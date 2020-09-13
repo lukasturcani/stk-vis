@@ -9,5 +9,6 @@ declare module 'Page.SaveButton'
     export interface Props
     {
         writers: Writer[];
+        defaultFilename: string;
     }
 }

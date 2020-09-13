@@ -182,9 +182,12 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true }  =
 
         , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
         , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
-        , saveButton: {
-            writers: SaveButton.writers selectedMolecule
-        }
+
+        , saveButton:
+            { writers: SaveButton.writers selectedMolecule
+            , defaultFilename: Molecule.key selectedMolecule
+            }
+
         , breadcrumbs:
             { mongoDbClick: mongoDbClick actionCreators model
             , resultsClick: resultsClick actionCreators model
@@ -228,9 +231,10 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: true }  =
                 model.threeDViewer
 
         , threeDViewer: { meshes: Molecule.meshes selectedMolecule }
-        , saveButton: {
-            writers: SaveButton.writers selectedMolecule
-        }
+        , saveButton:
+            { writers: SaveButton.writers selectedMolecule
+            , defaultFilename: Molecule.key selectedMolecule
+            }
         , breadcrumbs:
             { mongoDbClick: mongoDbClick actionCreators model
             , resultsClick: resultsClick actionCreators model
@@ -274,9 +278,10 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false }  =
                 model.threeDViewer
 
         , twoDViewer: { smiles: Molecule.smiles selectedMolecule }
-        , saveButton: {
-            writers: SaveButton.writers selectedMolecule
-        }
+        , saveButton:
+            { writers: SaveButton.writers selectedMolecule
+            , defaultFilename: Molecule.key selectedMolecule
+            }
         , breadcrumbs:
             { mongoDbClick: mongoDbClick actionCreators model
             , resultsClick: resultsClick actionCreators model
@@ -319,9 +324,10 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
                 "3D Viewer"
                 model.threeDViewer
 
-        , saveButton: {
-            writers: SaveButton.writers selectedMolecule
-        }
+        , saveButton:
+            { writers: SaveButton.writers selectedMolecule
+            , defaultFilename: Molecule.key selectedMolecule
+            }
 
         , breadcrumbs:
             { mongoDbClick: mongoDbClick actionCreators model
