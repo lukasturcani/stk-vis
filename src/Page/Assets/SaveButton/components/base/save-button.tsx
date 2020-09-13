@@ -62,8 +62,9 @@ export function SaveButton(
     const [selectedIndex, setSelectedIndex] = React.useState(0);
 
     const handleClick = () => {
-        console.info(`You clicked ${props.writers[selectedIndex]}`);
-    };
+        const content: string = props.writers[selectedIndex].write();
+        console.log(content);
+    }
 
     const handleMenuItemClick = (
         event: React.MouseEvent<HTMLLIElement, MouseEvent>,
