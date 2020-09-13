@@ -3,6 +3,11 @@ import {
     Props as SaveButtonProps,
 } from 'Page.SaveButton';
 
+const fs = require('fs');
+
+const { remote } = require('electron');
+const { dialog } = remote;
+
 
 type Empty = Record<string, unknown>;
 
@@ -54,7 +59,9 @@ export function SaveButton(
 
     const handleClick = () => {
         const content: string = props.writers[selectedIndex].write();
-        console.log(content);
+        const filename: string | undefined
+            = dialog.showSaveDialogSync();
+        fs.writeFileSync(filename, content, 'utf-8');
     }
 
     const handleMenuItemClick = (
