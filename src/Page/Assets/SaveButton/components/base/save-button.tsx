@@ -61,7 +61,10 @@ export function SaveButton(
         const content: string = props.writers[selectedIndex].write();
         const filename: string | undefined
             = dialog.showSaveDialogSync();
-        fs.writeFileSync(filename, content, 'utf-8');
+        if (typeof filename === "string")
+        {
+            fs.writeFileSync(filename, content, 'utf-8');
+        }
     }
 
     const handleMenuItemClick = (

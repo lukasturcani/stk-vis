@@ -44,6 +44,7 @@ declare module 'Page.BuildingBlockBrowser'
             breadcrumbs: BreadcrumbsProps<a>;
             twoDViewerSwitch: ViewerSwitchProps<a>;
             threeDViewerSwitch: ViewerSwitchProps<a>;
+            saveButton: SaveButtonProps;
             type: "Building Block Browser 2D Viewer";
         };
         type: undefined;
@@ -58,6 +59,7 @@ declare module 'Page.BuildingBlockBrowser'
             breadcrumbs: BreadcrumbsProps<a>;
             twoDViewerSwitch: ViewerSwitchProps<a>;
             threeDViewerSwitch: ViewerSwitchProps<a>;
+            saveButton: SaveButtonProps;
             type: "Building Block Browser 3D Viewer";
         };
         type: undefined;
@@ -72,6 +74,7 @@ declare module 'Page.BuildingBlockBrowser'
             threeDViewer: undefined;
             twoDViewerSwitch: ViewerSwitchProps<a>;
             threeDViewerSwitch: ViewerSwitchProps<a>;
+            saveButton: SaveButtonProps;
             type: "Building Block Browser No Viewers";
         };
         type: undefined;

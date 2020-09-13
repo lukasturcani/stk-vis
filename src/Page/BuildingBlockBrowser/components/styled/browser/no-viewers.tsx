@@ -15,6 +15,9 @@ import {
 import {
     ViewerSwitch,
 } from '../../../../Assets/ViewerSwitch/components/styled';
+import {
+    SaveButton,
+} from '../../../../Assets/SaveButton/components/styled/save-button';
 
 
 export function BuildingBlockBrowser<a>(
@@ -27,6 +30,7 @@ export function BuildingBlockBrowser<a>(
         configContainer={ConfigContainer}
         moleculeTableComponent={MoleculeTable}
         viewerSwitchComponent={ViewerSwitch}
+        saveButtonComponent={SaveButton}
         {...props}
     />;
 }

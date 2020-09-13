@@ -12,6 +12,9 @@ import {
     CoreProps as ViewerSwitchProps,
 } from '../../../../Assets/ViewerSwitch/components/base';
 import {
+    Props as SaveButtonProps,
+} from 'Page.SaveButton';
+import {
     CoreProps as BreadcrumbsProps,
 } from '../breadcrumbs';
 
@@ -36,6 +39,7 @@ interface Props<a> extends BrowserProps<a>, DispatchProps<a>
     threeDViewerComponent: React.FunctionComponent<ThreeDViewerProps>;
     viewerSwitchComponent:
         React.FunctionComponent<ViewerSwitchProps<a>>;
+    saveButtonComponent: React.FunctionComponent<SaveButtonProps>;
 }
 
 
@@ -57,6 +61,9 @@ export function MoleculeBrowser<a>(
                 <props.viewerSwitchComponent
                     dispatch={props.dispatch}
                     {...props.value0.threeDViewerSwitch}
+                />
+                <props.saveButtonComponent
+                    {...props.value0.saveButton}
                 />
             </props.configContainer>
             <props.moleculeTableComponent
