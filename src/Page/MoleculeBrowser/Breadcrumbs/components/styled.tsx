@@ -10,7 +10,7 @@ import {
     ConfiguratorLinkProps,
     CoreProps,
 } from './base';
-import { theme } from '../../../../theme';
+
 
 export function Breadcrumbs<a>(
     props: CoreProps<a>,
@@ -44,9 +44,9 @@ const StyledBreadcrumbs: React.FunctionComponent<Empty>
             separator={
                 <NavigateNextIcon
                     style={{
-                        marginRight: theme.spacing(0.5),
                         width: 30,
                         height: 30,
+                        verticalAlign: 'middle',
                     }}
                 />
             }
@@ -65,12 +65,13 @@ const ConfiguratorLink: React.FunctionComponent<ConfiguratorLinkProps>
         >
             <SettingsIcon
                 style={{
-                    marginRight: theme.spacing(0.5),
                     width: 30,
                     height: 30,
+                    verticalAlign: 'middle',
+                    marginRight: '0.2em',
                 }}
             />
-            MongoDB
+            <span style={{ verticalAlign: 'middle'}} >MongoDB</span>
         </Link>
     );
 
@@ -84,11 +85,12 @@ const BrowserLink: React.FunctionComponent<Empty>
         >
             <TableChartIcon
                 style={{
-                    marginRight: theme.spacing(0.5),
                     width: 30,
                     height: 30,
+                    verticalAlign: 'middle',
+                    marginRight: '0.3em',
                 }}
             />
-            Results
+            <span style={{ verticalAlign: 'middle' }} >Results</span>
         </Link>
     );

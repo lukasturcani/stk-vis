@@ -46,13 +46,24 @@ const ButtonGroup: React.FunctionComponent<ButtonGroupProps>
         >
             <ButtonBase
                 onClick={props.saveClick}
+                style={{
+                    // Keep a fixed width so that when extension
+                    // is changed, the width of the button does not
+                    // change due to a change in word length.
+                    width: 100,
+                }}
             >
                 <SaveIcon
                     style={{
-                        marginRight: '1em',
+                        marginRight: '0.2em',
+                        verticalAlign: 'middle',
                     }}
                 />
-                {props.saveLabel}
+                <span
+                    style={{ verticalAlign: 'middle' }}
+                >
+                    {props.saveLabel}
+                </span>
             </ButtonBase>
             <ButtonBase
                 size="small"

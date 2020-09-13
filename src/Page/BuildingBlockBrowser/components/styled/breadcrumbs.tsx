@@ -14,7 +14,7 @@ import {
     CoreProps,
     SnackbarProps,
 } from '../base/breadcrumbs';
-import { theme } from '../../../../theme';
+
 
 export function Breadcrumbs<a>(
     props: CoreProps<a>,
@@ -51,7 +51,7 @@ const StyledBreadcrumbs: React.FunctionComponent<Empty>
             separator={
                 <NavigateNextIcon
                     style={{
-                        marginRight: theme.spacing(0.5),
+                        verticalAlign: 'middle',
                         width: 30,
                         height: 30,
                     }}
@@ -72,12 +72,13 @@ const ConfiguratorLink: React.FunctionComponent<LinkProps>
         >
             <SettingsIcon
                 style={{
-                    marginRight: theme.spacing(0.5),
+                    marginRight: '0.2em',
+                    verticalAlign: 'middle',
                     width: 30,
                     height: 30,
                 }}
             />
-            MongoDB
+            <span style={{ verticalAlign: 'middle'}} >MongoDB</span>
         </Link>
     );
 
@@ -91,12 +92,13 @@ const ResultsLink: React.FunctionComponent<LinkProps>
         >
             <TableChartIcon
                 style={{
-                    marginRight: theme.spacing(0.5),
+                    marginRight: '0.2em',
+                    verticalAlign: 'middle',
                     width: 30,
                     height: 30,
                 }}
             />
-            Results
+            <span style={{ verticalAlign: 'middle' }} >Results</span>
         </Link>
     );
 
@@ -110,7 +112,7 @@ const HistoryLink: React.FunctionComponent<LinkProps>
         >
             <ZoomInIcon
                 style={{
-                    marginRight: theme.spacing(0.5),
+                    verticalAlign: 'middle',
                     width: 30,
                     height: 30,
                 }}
@@ -128,7 +130,7 @@ const CurrentLink: React.FunctionComponent<Empty>
         >
             <ZoomInIcon
                 style={{
-                    marginRight: theme.spacing(0.5),
+                    verticalAlign: 'middle',
                     width: 30,
                     height: 30,
                 }}
