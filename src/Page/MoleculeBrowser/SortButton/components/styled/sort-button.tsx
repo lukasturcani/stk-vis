@@ -45,9 +45,14 @@ const StyledButton: React.FunctionComponent<ButtonProps>
         <Button
             variant={ 'contained' }
             color={ 'secondary' }
+            startIcon={<SortIcon />}
             {...props}
         >
-            <SortIcon />
+            <span
+                style={{ verticalAlign: 'middle' }}
+            >
+                Sort
+            </span>
         </Button>
     );
 
