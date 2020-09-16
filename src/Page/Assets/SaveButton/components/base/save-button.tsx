@@ -4,7 +4,6 @@ import {
 } from 'Page.SaveButton';
 
 const fs = require('fs');
-
 const { remote } = require('electron');
 const { dialog } = remote;
 
