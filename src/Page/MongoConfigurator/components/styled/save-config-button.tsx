@@ -27,7 +27,7 @@ const StyledButton: React.FunctionComponent<ButtonProps>
                 startIcon={<SaveIcon />}
                 {...props}
             >
-                Save Config
+                Export Config
             </ButtonBase>
         </Grid>
     );
