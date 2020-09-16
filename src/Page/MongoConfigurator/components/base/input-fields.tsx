@@ -85,7 +85,7 @@ export function InputFields(
                 <TextField
                     id='mongo-url'
                     label='MongoDB URL'
-                    defaultValue={ props.url }
+                    value={ props.url }
                     onChange={ (e) => props.setUrl(e.target.value) }
                 />
             </Grid>
@@ -93,7 +93,7 @@ export function InputFields(
                 <TextField
                     id='mongo-molecule-key'
                     label='Molecule Key Name'
-                    defaultValue={ props.moleculeKey }
+                    value={ props.moleculeKey }
                     onChange={
                         (e) => props.setMoleculeKey(e.target.value)
                     }
@@ -103,7 +103,7 @@ export function InputFields(
                 <TextField
                     id='mongo-database'
                     label='Database Name'
-                    defaultValue={ props.database }
+                    value={ props.database }
                     onChange={
                         (e) => props.setDatabase(e.target.value)
                     }
@@ -113,7 +113,7 @@ export function InputFields(
                 <TextField
                     id='mongo-molecule-collection'
                     label='Molecule Collection Name'
-                    defaultValue={ props.moleculeCollection }
+                    value={ props.moleculeCollection }
                     onChange={
                         (e) => props.setMoleculeCollection(
                             e.target.value
@@ -125,7 +125,7 @@ export function InputFields(
                 <TextField
                     id='mongo-constructed-molecule-collection'
                     label='Constructed Molecule Collection Name'
-                    defaultValue={
+                    value={
                         props.constructedMoleculeCollection
                     }
                     onChange={
@@ -139,7 +139,7 @@ export function InputFields(
                 <TextField
                     id='mongo-position-matrix-collection'
                     label='Position Matrix Collection Name'
-                    defaultValue={ props.positionMatrixCollection }
+                    value={ props.positionMatrixCollection }
                     onChange={
                         (e) => props.setPositionMatrixCollection(
                             e.target.value
@@ -157,7 +157,7 @@ export function InputFields(
                         'Building Block '
                         +'Position Matrix Collection Name'
                     }
-                    defaultValue={
+                    value={
                         props.buildingBlockPositionMatrixCollection
                     }
                     onChange={
@@ -171,7 +171,7 @@ export function InputFields(
                 <TextField
                     id='num-entries-per-age'
                     label='Entries Per Page'
-                    defaultValue={ props.numEntriesPerPage }
+                    value={ props.numEntriesPerPage }
                     onChange={
                         (e) => props.setNumEntriesPerPage(
                             parseInt(e.target.value)

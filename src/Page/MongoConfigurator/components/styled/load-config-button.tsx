@@ -5,14 +5,18 @@ import ButtonBase from '@material-ui/core/Button';
 import {
     LoadConfigButton as LoadConfigButtonBase,
     ButtonProps,
+    BaseProps,
 } from '../base/load-config-button';
 
 
 
-export function LoadConfigButton()
+export function LoadConfigButton(
+    props: BaseProps,
+)
 {
     return <LoadConfigButtonBase
         button={StyledButton}
+        {...props}
     />;
 }
 
