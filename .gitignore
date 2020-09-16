@@ -4,3 +4,4 @@ output
 .spago
 .purs-repl
 pack
+mongo-config.json

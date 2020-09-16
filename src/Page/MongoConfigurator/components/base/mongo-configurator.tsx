@@ -4,7 +4,11 @@ import Grid from '@material-ui/core/Grid';
 import {
     Props as BaseProps,
 } from 'Page.MongoConfigurator';
+const path = require('path');
 
+const fs = require('fs');
+const { app } = require('electron').remote;
+const configPath = path.join(app.getAppPath(), 'mongo-config.json');
 
 export interface DispatchProps<a>
 {
@@ -45,10 +49,135 @@ interface Snackbar
 }
 
 
+interface ConfigDefaults
+{
+    url: string;
+    moleculeKey: string;
+    database: string;
+    moleculeCollection: string;
+    constructedMoleculeCollection: string;
+    positionMatrixCollection: string;
+    buildingBlockPositionMatrixCollection: string;
+    numEntriesPerPage: number;
+    selectBuildingBlocks: boolean;
+    selectConstructedMolecules: boolean;
+    twoDViewer: boolean;
+    threeDViewer: boolean;
+}
+
+
+function getDefaults(
+    props: ConfigDefaults,
+)
+    : ConfigDefaults
+{
+    if (fs.existsSync(configPath))
+    {
+        const config = JSON.parse(fs.readFileSync(configPath));
+        let url: string = props.url;
+        let moleculeKey: string = props.moleculeKey;
+        let database: string = props.database;
+        let moleculeCollection: string = props.moleculeCollection;
+
+        let constructedMoleculeCollection: string
+            = props.constructedMoleculeCollection;
+
+        let positionMatrixCollection: string
+            = props.positionMatrixCollection;
+
+        let buildingBlockPositionMatrixCollection: string
+            = props.buildingBlockPositionMatrixCollection;
+
+        let numEntriesPerPage: number = props.numEntriesPerPage;
+        let selectBuildingBlocks: boolean = props.selectBuildingBlocks;
+
+        let selectConstructedMolecules: boolean
+            = props.selectConstructedMolecules;
+
+        let twoDViewer: boolean = props.twoDViewer;
+        let threeDViewer: boolean = props.threeDViewer;
+
+        if (typeof config.url === 'string')
+        {
+            url = config.url;
+        }
+        if (typeof config.moleculeKey === 'string')
+        {
+            moleculeKey = config.moleculeKey;
+        }
+        if (typeof config.database === 'string')
+        {
+            database = config.database;
+        }
+        if (typeof config.moleculeCollection === 'string')
+        {
+            moleculeCollection = config.moleculeCollection;
+        }
+        if (typeof config.constructedMoleculeCollection === 'string')
+        {
+            constructedMoleculeCollection
+                = config.constructedMoleculeCollection;
+        }
+        if (typeof config.positionMatrixCollection === 'string')
+        {
+            positionMatrixCollection = config.positionMatrixCollection;
+        }
+        if (
+            typeof config.buildingBlockPositionMatrixCollection
+            ===
+            'string'
+        )
+        {
+            buildingBlockPositionMatrixCollection
+                = config.buildingBlockPositionMatrixCollection;
+        }
+        if (typeof config.numEntriesPerPage === 'number')
+        {
+            numEntriesPerPage = config.numEntriesPerPage;
+        }
+        if (typeof config.selectBuildingBlocks === 'boolean')
+        {
+            selectBuildingBlocks = config.selectBuildingBlocks;
+        }
+        if (typeof config.selectConstructedMolecules === 'boolean')
+        {
+            selectConstructedMolecules
+                = config.selectConstructedMolecules;
+        }
+        if (typeof config.twoDViewer === 'boolean')
+        {
+            twoDViewer = config.twoDViewer;
+        }
+        if (typeof config.threeDViewer === 'boolean')
+        {
+            threeDViewer = config.threeDViewer;
+        }
+
+        return {
+            url,
+            moleculeKey,
+            database,
+            moleculeCollection,
+            constructedMoleculeCollection,
+            positionMatrixCollection,
+            buildingBlockPositionMatrixCollection,
+            numEntriesPerPage,
+            selectBuildingBlocks,
+            selectConstructedMolecules,
+            twoDViewer,
+            threeDViewer,
+        }
+    }
+    return props;
+}
+
+
 export function MongoConfigurator<a>(
     props: Props<a>,
 )
 {
+    const defaults = getDefaults(props);
+
     const successSnackbar: Snackbar
         = getSnackbar();
 
@@ -56,48 +185,48 @@ export function MongoConfigurator<a>(
         = getSnackbar();
 
     const [url, setUrl]
-        = React.useState(props.url);
+        = React.useState(defaults.url);
 
     const [moleculeKey, setMoleculeKey]
-        = React.useState(props.moleculeKey);
+        = React.useState(defaults.moleculeKey);
 
     const [database, setDatabase]
-        = React.useState(props.database);
+        = React.useState(defaults.database);
 
     const [moleculeCollection, setMoleculeCollection]
-        = React.useState(props.moleculeCollection);
+        = React.useState(defaults.moleculeCollection);
 
     const [
         constructedMoleculeCollection,
         setConstructedMoleculeCollection,
     ]
-        = React.useState(props.constructedMoleculeCollection);
+        = React.useState(defaults.constructedMoleculeCollection);
 
     const [positionMatrixCollection, setPositionMatrixCollection]
-        = React.useState(props.positionMatrixCollection);
+        = React.useState(defaults.positionMatrixCollection);
 
     const [
         buildingBlockPositionMatrixCollection,
         setBuildingBlockPositionMatrixCollection,
     ]
         = React.useState(
-            props.buildingBlockPositionMatrixCollection
+            defaults.buildingBlockPositionMatrixCollection
         );
 
     const [numEntriesPerPage, setNumEntriesPerPage]
-        = React.useState(props.numEntriesPerPage);
+        = React.useState(defaults.numEntriesPerPage);
 
     const [selectBuildingBlocks, setSelectBuildingBlocks]
-        = React.useState(props.selectBuildingBlocks);
+        = React.useState(defaults.selectBuildingBlocks);
 
     const [selectConstructedMolecules, setSelectConstructedMolecules]
-        = React.useState(props.selectConstructedMolecules);
+        = React.useState(defaults.selectConstructedMolecules);
 
     const [showTwoD, setShowTwoD]
-        = React.useState(props.twoDViewer);
+        = React.useState(defaults.twoDViewer);
 
     const [showThreeD, setShowThreeD]
-        = React.useState(props.threeDViewer);
+        = React.useState(defaults.threeDViewer);
 
     return (
         <props.component>
@@ -160,14 +289,8 @@ export function MongoConfigurator<a>(
                         !selectBuildingBlocks
                     }
                     onClick={() => {
-                        props.getMoleculesButton.onClick
-                            ()
-                            (props.dispatch)
-                            ({
-                                success: successSnackbar,
-                                error: errorSnackbar,
-                            })
-                            ({
+                        const config: ConfigDefaults
+                            = {
                                 url,
                                 moleculeKey,
                                 database,
@@ -180,7 +303,21 @@ export function MongoConfigurator<a>(
                                 selectConstructedMolecules,
                                 twoDViewer: showTwoD,
                                 threeDViewer: showThreeD,
+                            };
+
+                        fs.writeFileSync(
+                            configPath,
+                            JSON.stringify(config),
+                            'utf-8',
+                        );
+                        props.getMoleculesButton.onClick
+                            ()
+                            (props.dispatch)
+                            ({
+                                success: successSnackbar,
+                                error: errorSnackbar,
                             })
+                            (config);
                     }}
                 />
                 <props.successSnackbar
