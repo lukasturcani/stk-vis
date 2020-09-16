@@ -37,8 +37,8 @@ ReactDOM.render(
             <CssBaseline />
             <div
                 style={{
-                    height: '98vh',
-                    width: '98vw',
+                    height: '100vh',
+                    width: '100vw',
                 }}
             >
                 <StkVis />

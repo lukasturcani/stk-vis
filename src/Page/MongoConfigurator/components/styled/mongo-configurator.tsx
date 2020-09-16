@@ -45,11 +45,14 @@ type Empty = Record<string, unknown>;
 
 const Container: React.FunctionComponent<Record<string, unknown>>
     = (props) => (
-        <MuiContainer>
+        <MuiContainer
+            style={{
+                padding: '40px',
+            }}
+        >
             <Paper
                 style={{
-                    marginTop: '40px',
-                    paddingTop: '20px',
+                    padding: '40px',
                 }}
             >
                 <Grid container
