@@ -10,6 +10,8 @@ const fs = require('fs');
 const { app } = require('electron').remote;
 const configPath = path.join(app.getAppPath(), 'mongo-config.json');
 
+type Empty = Record<string, unknown>;
+
 export interface DispatchProps<a>
 {
     dispatch: (action: a) => void
@@ -24,6 +26,9 @@ interface Props<a> extends BaseProps<a>, DispatchProps<a>
     button: React.FunctionComponent<ButtonProps>;
     successSnackbar: React.FunctionComponent<SnackbarProps>;
     errorSnackbar: React.FunctionComponent<SnackbarProps>;
+    loadConfigButton: React.FunctionComponent<Empty>;
+    saveConfigButton: React.FunctionComponent<Empty>;
+    configButtonContainer: React.FunctionComponent<Empty>;
 }
 
 export interface ButtonProps
@@ -230,6 +235,10 @@ export function MongoConfigurator<a>(
 
     return (
         <props.component>
+            <props.configButtonContainer>
+                    <props.saveConfigButton />
+                    <props.loadConfigButton />
+            </props.configButtonContainer>
             <props.inputFields
                 url={ url }
                 setUrl={ setUrl }

@@ -15,6 +15,12 @@ import {
 import {
     InputFields
 } from './input-fields';
+import {
+    LoadConfigButton,
+} from './load-config-button';
+import {
+    SaveConfigButton,
+} from './save-config-button';
 
 
 export function MongoConfigurator<a>(
@@ -23,14 +29,19 @@ export function MongoConfigurator<a>(
 {
     return <MongoConfiguratorBase
         component={ Container }
+        configButtonContainer={ ConfigButtonContainer }
         inputFields={ InputFields }
         button={ Button }
         successSnackbar={SuccessSnackbar}
         errorSnackbar={ErrorSnackbar}
+        loadConfigButton={LoadConfigButton}
+        saveConfigButton={SaveConfigButton}
         { ...props }
     />
 }
 
+
+type Empty = Record<string, unknown>;
 
 const Container: React.FunctionComponent<Record<string, unknown>>
     = (props) => (
@@ -52,6 +63,19 @@ const Container: React.FunctionComponent<Record<string, unknown>>
                 </Grid>
             </Paper>
         </MuiContainer>
+    );
+
+const ConfigButtonContainer: React.FunctionComponent<Empty>
+    = (props) => (
+        <Grid container
+            alignItems='center'
+            alignContent='center'
+            justify='center'
+            spacing={3}
+            direction='row'
+        >
+            {props.children}
+        </Grid>
     );
 
 const Button: React.FunctionComponent<ButtonProps>
