@@ -1,5 +1,5 @@
 import * as React from 'react';
-import SaveIcon from '@material-ui/icons/Save';
+import PublishIcon from '@material-ui/icons/Publish';
 import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/Button';
 import {
@@ -24,7 +24,7 @@ const StyledButton: React.FunctionComponent<ButtonProps>
             <ButtonBase
                 variant='contained'
                 color='secondary'
-                startIcon={<SaveIcon />}
+                startIcon={<PublishIcon />}
                 {...props}
             >
                 Export Config
