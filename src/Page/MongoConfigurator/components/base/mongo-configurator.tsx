@@ -3,6 +3,7 @@ import { BaseProps as InputFieldsProps  } from './input-fields';
 import Grid from '@material-ui/core/Grid';
 import {
     Props as BaseProps,
+    MongoData,
 } from 'Page.MongoConfigurator';
 const path = require('path');
 
@@ -27,7 +28,7 @@ interface Props<a> extends BaseProps<a>, DispatchProps<a>
     successSnackbar: React.FunctionComponent<SnackbarProps>;
     errorSnackbar: React.FunctionComponent<SnackbarProps>;
     loadConfigButton: React.FunctionComponent<Empty>;
-    saveConfigButton: React.FunctionComponent<Empty>;
+    saveConfigButton: React.FunctionComponent<MongoData>;
     configButtonContainer: React.FunctionComponent<Empty>;
 }
 
@@ -54,27 +55,10 @@ interface Snackbar
 }
 
 
-interface ConfigDefaults
-{
-    url: string;
-    moleculeKey: string;
-    database: string;
-    moleculeCollection: string;
-    constructedMoleculeCollection: string;
-    positionMatrixCollection: string;
-    buildingBlockPositionMatrixCollection: string;
-    numEntriesPerPage: number;
-    selectBuildingBlocks: boolean;
-    selectConstructedMolecules: boolean;
-    twoDViewer: boolean;
-    threeDViewer: boolean;
-}
-
-
 function getDefaults(
-    props: ConfigDefaults,
+    props: MongoData,
 )
-    : ConfigDefaults
+    : MongoData
 {
     if (fs.existsSync(configPath))
     {
@@ -236,8 +220,30 @@ export function MongoConfigurator<a>(
     return (
         <props.component>
             <props.configButtonContainer>
-                    <props.saveConfigButton />
-                    <props.loadConfigButton />
+                    <props.saveConfigButton
+                        url={url}
+                        moleculeKey={moleculeKey}
+                        database={database}
+                        moleculeCollection={moleculeCollection}
+                        constructedMoleculeCollection={
+                            constructedMoleculeCollection
+                        }
+                        positionMatrixCollection={
+                            positionMatrixCollection
+                        }
+                        buildingBlockPositionMatrixCollection={
+                            buildingBlockPositionMatrixCollection
+                        }
+                        numEntriesPerPage={numEntriesPerPage}
+                        selectBuildingBlocks={selectBuildingBlocks}
+                        selectConstructedMolecules={
+                            selectConstructedMolecules
+                        }
+                        twoDViewer={showTwoD}
+                        threeDViewer={showThreeD}
+                    />
+                    <props.loadConfigButton
+                    />
             </props.configButtonContainer>
             <props.inputFields
                 url={ url }
@@ -298,7 +304,7 @@ export function MongoConfigurator<a>(
                         !selectBuildingBlocks
                     }
                     onClick={() => {
-                        const config: ConfigDefaults
+                        const config: MongoData
                             = {
                                 url,
                                 moleculeKey,

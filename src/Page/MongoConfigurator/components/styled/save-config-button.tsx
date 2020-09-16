@@ -3,16 +3,20 @@ import PublishIcon from '@material-ui/icons/Publish';
 import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/Button';
 import {
+    MongoData,
+} from 'Page.MongoConfigurator';
+import {
     SaveConfigButton as SaveConfigButtonBase,
     ButtonProps,
 } from '../base/save-config-button';
 
 
 
-export function SaveConfigButton()
+export function SaveConfigButton(props: MongoData)
 {
     return <SaveConfigButtonBase
         button={StyledButton}
+        {...props}
     />;
 }
 

@@ -1,4 +1,7 @@
 import * as React from 'react';
+import {
+    MongoData,
+} from 'Page.MongoConfigurator';
 
 
 type Empty = Record<string, unknown>;
@@ -8,7 +11,7 @@ export interface ButtonProps
     onClick: () => void;
 }
 
-interface Props
+interface Props extends MongoData
 {
     button: React.FunctionComponent<ButtonProps>;
 }
