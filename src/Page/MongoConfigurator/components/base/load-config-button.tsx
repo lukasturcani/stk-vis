@@ -53,7 +53,7 @@ export function LoadConfigButton(props: Props)
 {
     return <props.button
         onClick={ () => {
-            const filename: string | undefined
+            const filename: string[] | undefined
                 = dialog.showOpenDialogSync(
                     undefined,
                     {
