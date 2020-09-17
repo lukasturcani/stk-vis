@@ -3,6 +3,8 @@ import {
     Props as SaveButtonProps,
 } from 'Page.SaveButton';
 
+const path = require('path');
+const os = require('os');
 const fs = require('fs');
 const { remote } = require('electron');
 const { dialog } = remote;
@@ -64,8 +66,10 @@ export function SaveButton(
             = dialog.showSaveDialogSync(
                 undefined,
                 {
-                    defaultPath:
+                    defaultPath: path.join(
+                        os.homedir(),
                         `${props.defaultFilename}.${extension}`
+                    ),
                 },
             );
         if (typeof filename === "string")
