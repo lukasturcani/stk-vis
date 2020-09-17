@@ -173,9 +173,23 @@ export function InputFields(
                     label='Entries Per Page'
                     value={ props.numEntriesPerPage }
                     onChange={
-                        (e) => props.setNumEntriesPerPage(
-                            parseInt(e.target.value)
-                        )
+                        (e) => {
+                            const value: string = e.target.value;
+
+                            if (!value)
+                            {
+                                props.setNumEntriesPerPage(0)
+                                return;
+                            }
+
+                            const parsed: number = Number(value);
+
+                            if (!isNaN(parsed))
+                            {
+                                props.setNumEntriesPerPage(parsed)
+                                return;
+                            }
+                        }
                     }
                 />
             </Grid>
