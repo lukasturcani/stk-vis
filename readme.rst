@@ -75,6 +75,7 @@ Features
   blocks.
 * Sort molecules according to property values to quickly find ones
   with the best or worst properties.
+* Saving molecular structure files.
 * Sometimes 2D projections are expensive to calculate. As a result,
   you can toggle the 2D viewer on or off. You can also toggle the 3D
   viewer, but I suggest you first check if the 2D viewer is the
