@@ -11,7 +11,7 @@ Welcome to ``stk-vis``!
 
 Before you get started, you might like to watch the demo video
 
-    https://youtu.be/MiMfLaP6kx0
+    https://youtu.be/fECJHqy_ESg
 
 ``stk-vis`` is a cross-platform viewer for molecules and molecular
 properties, specifically targeting cases where you want to browse
