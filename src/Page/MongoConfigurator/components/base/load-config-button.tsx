@@ -59,12 +59,12 @@ export function LoadConfigButton(props: Props)
                     {
                         defaultPath: os.homedir(),
                     },
-                )[0];
+                );
 
-            if (typeof filename === "string")
+            if (typeof filename !== "undefined")
             {
                 const config: MongoData
-                    = readConfig(filename, props);
+                    = readConfig(filename[0], props);
                 props.setUrl(config.url);
                 props.setDatabase(config.database);
                 props.setMoleculeKey(config.moleculeKey);
