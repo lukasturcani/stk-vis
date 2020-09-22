@@ -112,7 +112,7 @@ and the documentation can be found here
     https://stk.readthedocs.io
 
 ``stk`` lets you deposit regular or constructed molecules
-into MongoDD molecular databases. ``stk`` molecules can also be
+into MongoDB molecular databases. ``stk`` molecules can also be
 converted to and from ``rdkit`` molecules, if that's
 convenient for your use-case. ``stk`` also  provides evolutionary
 algorithms (EAs) for molecular design. This means you can run the EA
@@ -249,7 +249,7 @@ detailed documentation for `stk.ConstructedMoleculeMongoDb`_.
 To get ``stk`` you need to run::
 
     $ pip install stk
-    $ conda install -c rdkit rdkit
+    $ conda install -c rdkit rdkit=2020
 
 If you're going to be using MongoDB molecular databases and do not
 have a version of ``stk`` released after 22nd of August 2020, you
