@@ -13,7 +13,10 @@ import { readConfig } from './read-config';
 const path = require('path');
 const fs = require('fs');
 const { app } = require('electron').remote;
-const configPath = path.join(app.getAppPath(), 'mongo-config.json');
+const configPath = path.join(
+    app.getPath('home'),
+    '.stk-vis-mongo-config.json'
+);
 
 type Empty = Record<string, unknown>;
 
