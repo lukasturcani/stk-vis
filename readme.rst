@@ -249,14 +249,7 @@ detailed documentation for `stk.ConstructedMoleculeMongoDb`_.
 To get ``stk`` you need to run::
 
     $ pip install stk
-    $ conda install -c rdkit rdkit=2020
-
-If you're going to be using MongoDB molecular databases and do not
-have a version of ``stk`` released after 22nd of August 2020, you
-will also need to run::
-
-    $ pip install pymongo
-    $ pip install 'pymongo[srv]'
+    $ conda install -c conda-forge rdkit
 
 Finally, you need to decide how to host your databases. You can
 `install MongoDB locally on your computer`_, or you can use
@@ -268,5 +261,3 @@ can then examine them with ``stk-vis``!
 
 .. _`install MongoDB locally on your computer`: https://docs.mongodb.com/manual/installation/
 .. _`Mongo Atlas`: https://www.mongodb.com/cloud/atlas
-
-
