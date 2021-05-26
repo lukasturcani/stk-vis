@@ -88,6 +88,8 @@ request options = do
             (query
                 options.moleculeKey
                 options.constructedMoleculeCollection
+                options.positionMatrixCollection
+                options.buildingBlockPositionMatrixCollection
             )
 
     let
