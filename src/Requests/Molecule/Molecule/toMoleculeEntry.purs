@@ -4,12 +4,14 @@ module Requests.Molecule.Internal.ToMoleculeEntry
 
 import Prelude
 import Data.List (List (Nil))
+import Data.Tuple (Tuple (Tuple))
 import Data.Maybe (Maybe (Nothing, Just))
 import Data.Maybe.Utils (addWith)
-import Data.Array (fromFoldable, (!!))
+import Data.Array (fromFoldable, (!!), zip)
 import Data.Foldable (foldM)
 import Mongo as Mongo
-import Requests.MoleculeKey (MoleculeKeyName)
+import Requests.MoleculeKey (MoleculeKeyName, MoleculeKeyValue)
+import ValidatedMolecule.Position as Position
 
 import Requests.Molecule.Internal.MoleculeEntry
     ( MoleculeEntry
@@ -17,14 +19,36 @@ import Requests.Molecule.Internal.MoleculeEntry
     , BondEntry
     )
 
+type DatabaseAtom = Array Int
+type DatabaseBond = Array Int
+type DatabasePosition= Array Number
 
-toAtomEntry :: Array Int -> Maybe AtomEntry
+type DatabaseMolecule=
+    { key            :: MoleculeKeyValue
+    , atoms          :: Array DatabaseAtom
+    , bonds          :: Array DatabaseBond
+    , positionMatrix :: Array DatabasePosition
+    , constructed    :: Boolean
+    }
+
+toAtomEntry
+    :: Tuple DatabaseAtom DatabasePosition
+    -> Maybe AtomEntry
+
 toAtomEntry entry = do
-    atomicNumber <- entry !! 0
-    charge <- entry !! 1
-    pure { atomicNumber, charge }
+    let (Tuple atom position) = entry
+    atomicNumber <- atom !! 0
+    charge <- atom !! 1
+    x <- position !! 0
+    y <- position !! 1
+    z <- position !! 2
+    pure
+        { atomicNumber
+        , charge
+        , position: Position.position x y z
+        }
 
-toBondEntry :: Array Int -> Maybe BondEntry
+toBondEntry :: DatabaseBond -> Maybe BondEntry
 toBondEntry entry = do
     atom1Id <- entry !! 0
     atom2Id <- entry !! 1
@@ -32,7 +56,7 @@ toBondEntry entry = do
     pure { atom1Id, atom2Id, order }
 
 type Helpers =
-    { nothing :: Maybe (MoleculeEntry Unit Unit)
+    { nothing :: Maybe Unit
     , just    :: Unit -> Maybe Unit
     }
 
@@ -40,12 +64,12 @@ foreign import toUncheckedMoleculeEntry
     :: Helpers
     -> MoleculeKeyName
     -> Mongo.Entry
-    -> Maybe (MoleculeEntry (Array Int) (Array Int))
+    -> Maybe DatabaseMolecule
 
 toMoleculeEntry
     :: MoleculeKeyName
     -> Mongo.Entry
-    -> Maybe (MoleculeEntry AtomEntry BondEntry)
+    -> Maybe MoleculeEntry
 
 toMoleculeEntry moleculeKey entry = do
 
@@ -56,7 +80,13 @@ toMoleculeEntry moleculeKey entry = do
             }
 
     unchecked <- toUncheckedMoleculeEntry helpers moleculeKey entry
-    atomEntries <- foldM (addWith toAtomEntry) Nil unchecked.atoms
+
+    atomEntries
+        <- foldM
+            (addWith toAtomEntry)
+            Nil
+            (zip unchecked.atoms unchecked.positionMatrix)
+
     bondEntries <- foldM (addWith toBondEntry) Nil unchecked.bonds
     pure (
         { key: unchecked.key

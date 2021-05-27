@@ -5,10 +5,12 @@ module Requests.Molecule.Internal.MoleculeEntry
     ) where
 
 import Requests.MoleculeKey (MoleculeKeyValue)
+import ValidatedMolecule.Position (Position)
 
 type AtomEntry =
     { atomicNumber :: Int
     , charge       :: Int
+    , position     :: Position
     }
 
 type BondEntry =
@@ -17,9 +19,9 @@ type BondEntry =
     , atom2Id :: Int
     }
 
-type MoleculeEntry a b =
+type MoleculeEntry =
     { key         :: MoleculeKeyValue
-    , atoms       :: Array a
-    , bonds       :: Array b
+    , atoms       :: Array AtomEntry
+    , bonds       :: Array BondEntry
     , constructed :: Boolean
     }

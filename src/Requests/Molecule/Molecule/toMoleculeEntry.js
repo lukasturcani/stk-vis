@@ -30,5 +30,15 @@ exports.toUncheckedMoleculeEntry = helpers => moleculeKey => entry =>
     }
     result['constructed'] = constructed.length > 0;
 
+    if (
+        entry['positionMatrix'] === undefined
+        || entry['positionMatrix'][0] === undefined
+        || entry['positionMatrix'][0]['m'] === undefined
+    ) {
+        return helpers.nothing;
+    }
+    const positionMatrix = entry['positionMatrix'][0]['m'];
+    result['positionMatrix'] = positionMatrix
+
     return helpers.just(result);
 }
