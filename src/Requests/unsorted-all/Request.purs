@@ -10,7 +10,7 @@ import Requests.UnsortedAll.Internal.Result (Result (..))
 import Effect.Exception (error)
 import Effect.Promise (class Deferred, Promise, all, reject)
 import Data.Set (fromFoldable, insert, member)
-import Data.Map (keys, values)
+import Data.Map as Map
 import Data.Maybe (Maybe (Nothing, Just))
 import Data.Maybe.Utils as Maybe
 import SelectingCollection (SelectingCollection, selectingCollection)
@@ -100,9 +100,9 @@ request options = do
 
         dataQuery =
             Utils.dataQuery options.moleculeKey
-            (Array.fromFoldable <<< keys $ baseMolecules)
+            (Array.fromFoldable <<< Map.keys $ baseMolecules)
 
-    collectionValues <-
+    values <-
         all $ map
             (Mongo.toArray <<< Mongo.find' database dataQuery)
             valueCollections
@@ -112,11 +112,11 @@ request options = do
             Array.zipWith
                 (Collection.fromEntries options.moleculeKey)
                 valueCollections
-                collectionValues
+                values
 
         molecules =
             Utils.addValues
-                ((Array.fromFoldable <<< values) baseMolecules)
+                ((Array.fromFoldable <<< Map.values) baseMolecules)
                 collections
 
     collection <- collectionPromise molecules
