@@ -29,10 +29,20 @@ exports.query =
         {
             '$match': {
                 '$expr': {
-                    '$eq': [
-                        {'$size': '$constructedMolecule'},
-                        0,
-                    ],
+                    '$and': [
+                        {
+                            '$eq': [
+                                {'$size': '$constructedMolecule'},
+                                0,
+                            ],
+                        },
+                        {
+                            '$gt': [
+                                {'$size': '$positionMatrix'},
+                                0
+                            ],
+                        }
+                    ]
                 },
             },
         }

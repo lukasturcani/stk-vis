@@ -28,7 +28,6 @@ import Requests.Molecule.Utils
     ( toMap
     ) as Molecule
 
-
 type RequestOptions =
     { url                                   :: String
     , database                              :: String
