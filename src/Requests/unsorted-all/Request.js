@@ -1,9 +1,9 @@
-exports.query
-    = moleculeKey
-    => queryCollection
-    => positionMatrixCollection
-    => buildingBlockPositionMatrixCollection
-    => [
+exports.query =
+    moleculeKey =>
+    queryCollection =>
+    positionMatrixCollection =>
+    buildingBlockPositionMatrixCollection =>
+    [
         {
             '$match': {
                 [moleculeKey]: {
@@ -39,7 +39,7 @@ exports.query
             '$match': {
                 '$expr': {
                     '$gt': [
-                        {'$size': '$positionMatrix'}
+                        {'$size': '$positionMatrix'},
                         0
                     ],
                 },

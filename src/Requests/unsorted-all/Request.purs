@@ -50,10 +50,14 @@ type RequestOptions =
     }
 
 type ConstructedMoleculeCollectionName = String
+type PositionMatrixCollectionName = String
+type BuildingBlockPositionMatrixCollectionName = String
 
 foreign import query
     :: MoleculeKeyName
     -> ConstructedMoleculeCollectionName
+    -> PositionMatrixCollectionName
+    -> BuildingBlockPositionMatrixCollectionName
     -> Mongo.AggregationQuery
 
 request :: Deferred => RequestOptions -> Promise Result
