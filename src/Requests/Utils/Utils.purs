@@ -93,11 +93,11 @@ addValues molecules collections = do
     molecule <- molecules
     pure (addValues_ molecule collections)
   where
-    addValues_ molecule collection =
+    addValues_ molecule collections' =
         Molecule.fromValidated
             (constructed molecule)
             (key molecule)
-            (properties molecule collection)
+            (properties molecule collections')
             (toValidated molecule)
 
     properties molecule collections' =

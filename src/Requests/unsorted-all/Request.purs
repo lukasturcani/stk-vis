@@ -10,7 +10,7 @@ import Requests.UnsortedAll.Internal.Result (Result (..))
 import Effect.Exception (error)
 import Effect.Promise (class Deferred, Promise, all, reject)
 import Data.Set (fromFoldable, insert, member)
-import Data.Map (keys)
+import Data.Map (keys, values)
 import Data.Maybe (Maybe (Nothing, Just))
 import Data.Maybe.Utils as Maybe
 import SelectingCollection (SelectingCollection, selectingCollection)
@@ -28,13 +28,6 @@ import Requests.Molecule.Utils
     ( toMap
     ) as Molecule
 
-import Requests.PositionMatrix
-    ( fromEntry
-    ) as Matrix
-
-import Requests.PositionMatrix.Utils
-    ( toMap
-    ) as Matrix
 
 type RequestOptions =
     { url                                   :: String
@@ -98,7 +91,7 @@ request options = do
 
     let
         baseMolecules =
-            Molecule.toMap <<< Array.concat <<<
+            Molecule.toMap <<< Array.concat $
             map (
                 Maybe.toArray <<<
                     Molecule.fromEntry options.moleculeKey
@@ -109,29 +102,7 @@ request options = do
             Utils.dataQuery options.moleculeKey
             (Array.fromFoldable <<< keys $ baseMolecules)
 
-    matrixEntries1 <-
-        Mongo.toArray $ Mongo.find
-            database
-            options.positionMatrixCollection
-            dataQuery
-
-    matrixEntries2 <-
-        Mongo.toArray $ Mongo.find
-            database
-            options.buildingBlockPositionMatrixCollection
-            dataQuery
-
-    let
-        matrices =
-            Matrix.toMap <<< Array.concat <<<
-            map (
-                Maybe.toArray <<< Matrix.fromEntry options.moleculeKey
-            ) $
-            (Array.concat [matrixEntries1, matrixEntries2])
-
-        positioned = Utils.addPositionMatrices baseMolecules matrices
-
-    values <-
+    collectionValues <-
         all $ map
             (Mongo.toArray <<< Mongo.find' database dataQuery)
             valueCollections
@@ -141,9 +112,12 @@ request options = do
             Array.zipWith
                 (Collection.fromEntries options.moleculeKey)
                 valueCollections
-                values
+                collectionValues
 
-        molecules = Utils.addValues positioned collections
+        molecules =
+            Utils.addValues
+                ((Array.fromFoldable <<< values) baseMolecules)
+                collections
 
     collection <- collectionPromise molecules
 
