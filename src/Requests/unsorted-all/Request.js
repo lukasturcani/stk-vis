@@ -24,7 +24,7 @@ exports.query =
                 'from': positionMatrixCollection,
                 'localField': moleculeKey,
                 'foreignField': moleculeKey,
-                'as': 'positionMatrix',
+                'as': 'positionMatrix1',
             },
         },
         {
@@ -32,15 +32,25 @@ exports.query =
                 'from': buildingBlockPositionMatrixCollection,
                 'localField': moleculeKey,
                 'foreignField': moleculeKey,
-                'as': 'positionMatrix',
+                'as': 'positionMatrix2',
             },
         },
         {
             '$match': {
                 '$expr': {
-                    '$gt': [
-                        {'$size': '$positionMatrix'},
-                        0
+                    '$or': [
+                        {
+                            '$gt': [
+                                {'$size': '$positionMatrix1'},
+                                0
+                            ],
+                        },
+                        {
+                            '$gt': [
+                                {'$size': '$positionMatrix2'},
+                                0
+                            ],
+                        }
                     ],
                 },
             },

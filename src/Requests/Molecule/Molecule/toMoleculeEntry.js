@@ -31,14 +31,32 @@ exports.toUncheckedMoleculeEntry = helpers => moleculeKey => entry =>
     result['constructed'] = constructed.length > 0;
 
     if (
-        entry['positionMatrix'] === undefined
-        || entry['positionMatrix'][0] === undefined
-        || entry['positionMatrix'][0]['m'] === undefined
+        entry['positionMatrix'] !== undefined
+        && entry['positionMatrix'][0] !== undefined
+        && entry['positionMatrix'][0]['m'] !== undefined
     ) {
-        return helpers.nothing;
+        const positionMatrix = entry['positionMatrix'][0]['m'];
+        result['positionMatrix'] = positionMatrix
+        return helpers.just(result);
     }
-    const positionMatrix = entry['positionMatrix'][0]['m'];
-    result['positionMatrix'] = positionMatrix
+    if (
+        entry['positionMatrix1'] !== undefined
+        && entry['positionMatrix1'][0] !== undefined
+        && entry['positionMatrix1'][0]['m'] !== undefined
+    ) {
+        const positionMatrix = entry['positionMatrix1'][0]['m'];
+        result['positionMatrix'] = positionMatrix
+        return helpers.just(result);
+    }
+    if (
+        entry['positionMatrix2'] !== undefined
+        && entry['positionMatrix2'][0] !== undefined
+        && entry['positionMatrix2'][0]['m'] !== undefined
+    ) {
+        const positionMatrix = entry['positionMatrix2'][0]['m'];
+        result['positionMatrix'] = positionMatrix
+        return helpers.just(result);
+    }
 
-    return helpers.just(result);
+    return helpers.nothing;
 }
