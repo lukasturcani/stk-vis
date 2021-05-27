@@ -11,7 +11,6 @@ import Data.List (List (Nil))
 import Data.Map (empty)
 import Data.Array (fromFoldable)
 import ValidatedMolecule.ChemicalSymbol (chemicalSymbol) as Validated
-import ValidatedMolecule.Position (position) as Validated
 import Requests.Molecule.Internal.Data (Molecule (Molecule))
 import Requests.Molecule.Internal.ToMoleculeEntry (toMoleculeEntry)
 
@@ -47,12 +46,9 @@ fromEntry moleculeKey entry = do
         }
 
 atom :: AtomEntry -> Maybe Validated.Atom
-atom ({ atomicNumber }) = do
+atom ({ atomicNumber, position }) = do
     chemicalSymbol <- Validated.chemicalSymbol atomicNumber
-    pure
-        $ Validated.atom
-            chemicalSymbol
-            (Validated.position 0.0 0.0 0.0)
+    pure $ Validated.atom chemicalSymbol position
 
 bond :: BondEntry -> Validated.Bond
 bond ({ order, atom1Id, atom2Id })
