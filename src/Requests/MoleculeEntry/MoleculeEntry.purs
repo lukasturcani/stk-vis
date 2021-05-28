@@ -3,15 +3,23 @@ module Requests.MoleculeEntry
     , AtomEntry
     , BondEntry
     , PositionEntry
-    , molecule
+    , toMolecule
+    , fromEntry
     ) where
 
+import Prelude
 import ValidatedMolecule.Position as Position
 import ValidatedMolecule as Validated
+import ValidatedMolecule.ChemicalSymbol as ChemicalSymbol
 import Data.Array as Array
+import Data.Array ((!!))
 import Data.List as List
+import Data.Tuple (Tuple (..))
+import Data.Maybe (Maybe (..))
 import Data.Maybe.Utils as Maybe
+import Data.Foldable (foldM)
 import Mongo as Mongo
+import Requests.MoleculeKey (MoleculeKeyName, MoleculeKeyValue)
 
 newtype AtomEntry     = AtomEntry (Array Int)
 newtype BondEntry     = BondEntry (Array Int)
@@ -27,14 +35,14 @@ type MoleculeEntry r =
     }
 
 
-molecule :: MoleculeEntry -> Maybe Validated.Molecule
-molecule entry = do
+toMolecule :: forall r. MoleculeEntry r -> Maybe Validated.Molecule
+toMolecule entry = do
 
     atoms <-
         foldM
             (Maybe.addWith atom)
             List.Nil
-            (zip entry.atoms entry.positionMatrix)
+            (Array.zip entry.atoms entry.positionMatrix)
 
     bonds <-
         foldM
@@ -52,17 +60,25 @@ type Helpers =
     }
 
 foreign import _fromEntry
-    :: Helpers
+    :: forall r
+    .  Helpers
+    -> MoleculeKeyName
     -> Mongo.Entry
-    -> Maybe MoleculeEntry
+    -> Maybe (MoleculeEntry r)
 
 
-fromEntry :: Mongo.Entry -> Maybe.MoleculeEntry
-fromEntry = _fromEntry { nothing: Nothing, just: Just }
+fromEntry
+    :: forall r
+    .  MoleculeKeyName
+    -> Mongo.Entry
+    -> Maybe (MoleculeEntry r)
+
+fromEntry key entry =
+    _fromEntry { nothing: Nothing, just: Just } key entry
 
 
 position :: PositionEntry -> Maybe Position.Position
-position (AtomEntry coordinates) = do
+position (PositionEntry coordinates) = do
     x <- coordinates !! 0
     y <- coordinates !! 1
     z <- coordinates !! 2
@@ -70,18 +86,15 @@ position (AtomEntry coordinates) = do
 
 
 atom :: Tuple AtomEntry PositionEntry -> Maybe Validated.Atom
-atom (Tuple entry position) = do
-    atomicNumber <- entry !! 0
-    chemicalSymbol <- Validated.chemicalSymbol atomicNumber
-    pure
-        (Validated.atom
-            chemicalSymbol
-            (Position.position position)
-        )
+atom (Tuple (AtomEntry atomEntry) positionEntry) = do
+    atomicNumber <- atomEntry !! 0
+    chemicalSymbol <- ChemicalSymbol.chemicalSymbol atomicNumber
+    position' <- position positionEntry
+    pure $ Validated.atom chemicalSymbol position'
 
 
 bond :: BondEntry -> Maybe Validated.Bond
-bond entry = do
+bond (BondEntry entry) = do
     atom1Id <- entry !! 0
     atom2Id <- entry !! 1
     order   <- entry !! 2

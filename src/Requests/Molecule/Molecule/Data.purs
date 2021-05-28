@@ -9,9 +9,14 @@ module Requests.Molecule.Internal.Data
     , fromEntry
     ) where
 
+import Prelude
 import Data.Map (Map)
+import Data.Map as Map
+import Data.Maybe (Maybe)
 import ValidatedMolecule as Validated
 import Requests.MoleculeKey (MoleculeKeyValue)
+import Requests.MoleculeEntry (MoleculeEntry)
+import Requests.MoleculeEntry as MoleculeEntry
 
 type Properties = Map String String
 
@@ -49,9 +54,9 @@ fromValidated constructed' key' props mol = Molecule
     }
 
 
-fromEntry :: MoleculeEntry -> Maybe Molecule
+fromEntry :: forall r. MoleculeEntry r -> Maybe Molecule
 fromEntry moleculeEntry = do
-    _molecule <- molecule moleculeEntry
+    _molecule <- MoleculeEntry.toMolecule moleculeEntry
     pure
         (Molecule
             { _key: moleculeEntry.key
