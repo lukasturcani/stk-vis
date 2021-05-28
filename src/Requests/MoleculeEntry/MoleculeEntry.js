@@ -1,4 +1,4 @@
-exports.toUncheckedMoleculeEntry = helpers => moleculeKey => entry =>
+exports.fromEntry = helpers => moleculeKey => entry =>
 {
     const result = {};
 

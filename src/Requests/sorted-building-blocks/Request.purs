@@ -91,7 +91,9 @@ request options = do
             options.sortedCollection
             (query
                 options.moleculeKey
+                options.moleculeCollection
                 options.constructedMoleculeCollection
+                options.positionMatrixCollection
                 (isAscending options.sortType)
             )
 

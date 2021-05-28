@@ -6,6 +6,7 @@ module Requests.Molecule.Internal.Data
     , constructed
     , toValidated
     , fromValidated
+    , fromEntry
     ) where
 
 import Data.Map (Map)
@@ -46,3 +47,16 @@ fromValidated constructed' key' props mol = Molecule
     , _molecule: mol
     , _constructed: constructed'
     }
+
+
+fromEntry :: MoleculeEntry -> Maybe Molecule
+fromEntry moleculeEntry = do
+    _molecule <- molecule moleculeEntry
+    pure
+        (Molecule
+            { _key: moleculeEntry.key
+            , _properties: Map.empty
+            , _molecule
+            , _constructed: moleculeEntry.constructed
+            }
+        )

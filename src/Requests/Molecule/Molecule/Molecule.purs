@@ -27,10 +27,6 @@ import Requests.Molecule.Internal.Data
     , constructed
     ) as Data
 
-import Requests.Molecule.Internal.FromEntry
-    ( fromEntry
-    ) as  FromEntry
-
 key :: Exports.Molecule -> MoleculeKeyValue
 key = Data.key
 
