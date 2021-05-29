@@ -5,6 +5,7 @@ module Mongo
     , CollectionName
     , Query
     , AggregationQuery
+    , Entry
     , client
     , database
     , collections
@@ -23,38 +24,30 @@ type CollectionName = String
 
 foreign import data Client           :: Type
 foreign import data Database         :: Type
-foreign import data Cursor           :: Type -> Type
-foreign import data Query            :: Type -> Type
-foreign import data AggregationQuery :: Type -> Type
+foreign import data Cursor           :: Type
+foreign import data Query            :: Type
+foreign import data AggregationQuery :: Type
+foreign import data Entry            :: Type
 
 foreign import client :: String -> Promise Client
 foreign import database :: Client -> String -> Database
 foreign import collections :: Database -> Promise (Array String)
-
-foreign import find
-    :: forall a
-    .  Database
-    -> CollectionName
-    -> Query a
-    -> Cursor a
-
-foreign import skip :: forall a. Int -> Cursor a -> Cursor a
-foreign import limit :: forall a. Int -> Cursor a -> Cursor a
-foreign import toArray :: forall a. Cursor a -> Promise (Array a)
+foreign import find :: Database -> CollectionName -> Query -> Cursor
+foreign import skip :: Int -> Cursor -> Cursor
+foreign import limit :: Int -> Cursor -> Cursor
+foreign import toArray :: Cursor -> Promise (Array Entry)
 
 foreign import findOne
-    :: forall a
-    .  Database
+    :: Database
     -> CollectionName
-    -> Query a
-    -> Promise (Array a)
+    -> Query
+    -> Promise (Array Entry)
 
-find' :: forall a. Database -> Query a -> CollectionName -> Cursor a
+find' :: Database -> Query -> CollectionName -> Cursor
 find' db query collection = find db collection query
 
 foreign import aggregate
-    :: forall a
-    .  Database
+    :: Database
     -> CollectionName
-    -> AggregationQuery a
-    -> Cursor a
+    -> AggregationQuery
+    -> Cursor
