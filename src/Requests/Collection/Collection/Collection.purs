@@ -5,9 +5,9 @@ module Requests.Collection
     , fromEntries
     ) where
 
-import Mongo as Mongo
 import Data.Maybe (Maybe)
 import Requests.MoleculeKey (MoleculeKeyName, MoleculeKeyValue)
+import Foreign (Foreign)
 
 import Requests.Collection.Internal.Data
     ( Collection
@@ -34,6 +34,6 @@ get = Data.get
 fromEntries
     :: MoleculeKeyName
     -> Exports.CollectionName
-    -> Array Mongo.Entry
+    -> Array Foreign
     -> Exports.Collection
 fromEntries = Data.fromEntries

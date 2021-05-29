@@ -8,11 +8,11 @@ module Requests.Collection.Internal.Data
     ) where
 
 import Prelude
-import Mongo as Mongo
 import Data.Array (concat)
 import Data.Map (Map, fromFoldable, lookup)
 import Data.Maybe (Maybe)
 import Data.Tuple (Tuple (Tuple))
+import Foreign (Foreign)
 import Requests.MoleculeKey (MoleculeKeyValue, MoleculeKeyName)
 
 
@@ -34,10 +34,10 @@ type Helpers =
     { tuple :: Unit -> Unit -> Tuple Unit Unit
     }
 
-foreign import toEntry
+foreign import _toEntry
     :: Helpers
     -> MoleculeKeyName
-    -> Mongo.Entry
+    -> Foreign
     -- Returns an empty array if conversion fails and an array of
     -- one tuple if it is successful.
     -> Array (Tuple MoleculeKeyValue CollectionValue)
@@ -45,7 +45,7 @@ foreign import toEntry
 fromEntries
     :: MoleculeKeyName
     -> CollectionName
-    -> Array Mongo.Entry
+    -> Array Foreign
     -> Collection
 
 fromEntries key name' entries = Collection
@@ -54,4 +54,4 @@ fromEntries key name' entries = Collection
     }
   where
     helpers = { tuple: Tuple }
-    valueEntries = concat $ map (toEntry helpers key) entries
+    valueEntries = concat $ map (_toEntry helpers key) entries
