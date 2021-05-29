@@ -7,6 +7,7 @@ module Requests.Molecule.Internal.Data
     , toValidated
     , fromValidated
     , fromEntry
+    , fromMoleculeEntry
     ) where
 
 import Prelude
@@ -14,7 +15,8 @@ import Data.Map (Map)
 import Data.Map as Map
 import Data.Maybe (Maybe)
 import ValidatedMolecule as Validated
-import Requests.MoleculeKey (MoleculeKeyValue)
+import Mongo as Mongo
+import Requests.MoleculeKey (MoleculeKeyValue, MoleculeKeyName)
 import Requests.MoleculeEntry (MoleculeEntry)
 import Requests.MoleculeEntry as MoleculeEntry
 
@@ -54,8 +56,8 @@ fromValidated constructed' key' props mol = Molecule
     }
 
 
-fromEntry :: forall r. MoleculeEntry r -> Maybe Molecule
-fromEntry moleculeEntry = do
+fromMoleculeEntry :: forall r. MoleculeEntry r -> Maybe Molecule
+fromMoleculeEntry moleculeEntry = do
     _molecule <- MoleculeEntry.toMolecule moleculeEntry
     pure
         (Molecule
@@ -65,3 +67,9 @@ fromEntry moleculeEntry = do
             , _constructed: moleculeEntry.constructed
             }
         )
+
+
+fromEntry :: MoleculeKeyName -> Mongo.Entry -> Maybe Molecule
+fromEntry moleculeKey entry = do
+    moleculeEntry <- MoleculeEntry.fromEntry moleculeKey entry
+    fromMoleculeEntry moleculeEntry

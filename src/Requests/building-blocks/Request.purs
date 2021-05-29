@@ -23,7 +23,7 @@ import Requests.Molecule
 
 import Requests.Molecule.Utils
     ( toMap
-    ) as Molecule
+    )as Molecule
 
 import Requests.BuildingBlocks.Internal.Result
     ( Result (Result)
@@ -67,6 +67,8 @@ foreign import _buildingBlockKeys
     -> Mongo.Entry
     -> Array String
 
+
+
 request :: Deferred => RequestOptions -> Promise Result
 request options = do
     client <-  Mongo.client options.url
@@ -91,12 +93,14 @@ request options = do
                 )
             )
     let
+        maybeMolecule :: Mongo.Entry -> Maybe Molecule.Molecule
+        maybeMolecule = Molecule.fromEntry options.moleculeKey
+
         baseMolecules =
-            Molecule.toMap <<< Array.concat <<<
+            Molecule.toMap $
+            Array.concat   $
             map
-                (Maybe.toArray <<<
-                    Molecule.fromEntry options.moleculeKey
-                ) $
+                (Maybe.toArray <<< maybeMolecule)
                 rawMoleculeEntries
 
         dataQuery =

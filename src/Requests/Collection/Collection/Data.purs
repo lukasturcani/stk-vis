@@ -14,15 +14,14 @@ import Data.Map (Map, fromFoldable, lookup)
 import Data.Maybe (Maybe)
 import Data.Tuple (Tuple (Tuple))
 import Requests.MoleculeKey (MoleculeKeyValue, MoleculeKeyName)
-import Requests.Molecule (Molecule)
 
-type CollectionMolecule = DatabaseMolecule (value :: CollectionValue)
 
+type CollectionValue = String
 type CollectionName = String
 
 data Collection = Collection
     { _name      :: String
-    , _molecules :: Map MoleculeKeyValue CollectionMolecule
+    , _values    :: Map MoleculeKeyValue CollectionValue
     }
 
 name :: Collection -> CollectionName
@@ -41,7 +40,7 @@ foreign import toEntry
     -> Mongo.Entry
     -- Returns an empty array if conversion fails and an array of
     -- one tuple if it is successful.
-    -> Array CollectionMolecule
+    -> Array (Tuple MoleculeKeyValue CollectionValue)
 
 fromEntries
     :: MoleculeKeyName
