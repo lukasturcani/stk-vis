@@ -52,11 +52,15 @@ type RequestOptions =
     }
 
 type IsAscending = Boolean
-type CollectionName = String
+type MoleculeCollectionName = String
+type ConstructedMoleculeCollectionName = String
+type PositionMatrixCollectionName = String
 
 foreign import query
     :: MoleculeKeyName
-    -> CollectionName
+    -> MoleculeCollectionName
+    -> ConstructedMoleculeCollectionName
+    -> PositionMatrixCollectionName
     -> IsAscending
     -> Mongo.AggregationQuery
 
