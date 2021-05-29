@@ -7,7 +7,6 @@ You can edit this file as you like.
   [ "console"
   , "debug"
   , "effect"
-  , "foreign"
   , "mol-draw"
   , "ordered-collections"
   , "promises"
