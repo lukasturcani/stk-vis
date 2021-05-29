@@ -15,7 +15,7 @@ import Data.Map (Map)
 import Data.Map as Map
 import Data.Maybe (Maybe)
 import ValidatedMolecule as Validated
-import Mongo as Mongo
+import Foreign (Foreign)
 import Requests.MoleculeKey (MoleculeKeyValue, MoleculeKeyName)
 import Requests.MoleculeEntry (MoleculeEntry)
 import Requests.MoleculeEntry as MoleculeEntry
@@ -69,7 +69,7 @@ fromMoleculeEntry moleculeEntry = do
         )
 
 
-fromEntry :: MoleculeKeyName -> Mongo.Entry -> Maybe Molecule
+fromEntry :: MoleculeKeyName -> Foreign -> Maybe Molecule
 fromEntry moleculeKey entry = do
     moleculeEntry <- MoleculeEntry.fromEntry moleculeKey entry
     fromMoleculeEntry moleculeEntry

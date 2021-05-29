@@ -10,7 +10,7 @@ module Requests.Molecule
 
 import Data.Maybe (Maybe)
 import ValidatedMolecule as Validated
-import Mongo as Mongo
+import Foreign (Foreign)
 
 import Requests.Molecule.Internal.Data
     ( Molecule
@@ -42,7 +42,7 @@ constructed = Data.constructed
 toValidated :: Exports.Molecule -> Validated.Molecule
 toValidated = Data.toValidated
 
-fromEntry :: MoleculeKeyName -> Mongo.Entry -> Maybe Exports.Molecule
+fromEntry :: MoleculeKeyName -> Foreign -> Maybe Exports.Molecule
 fromEntry = Data.fromEntry
 
 fromMoleculeEntry
