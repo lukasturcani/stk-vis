@@ -6,6 +6,7 @@ module Requests.BuildingBlocks.Internal.Request
 import Prelude
 import Effect.Promise (class Deferred, Promise, all, reject)
 import Data.Array as Array
+import Mongo as Mongo
 import Data.Maybe (Maybe (Nothing, Just))
 import Data.Maybe.Utils as Maybe
 import SelectingCollection (SelectingCollection, selectingCollection)
@@ -13,8 +14,6 @@ import Requests.MoleculeKey (MoleculeKeyName, MoleculeKeyValue)
 import Requests.Collection as Collection
 import Requests.Utils as Utils
 import Data.Map (keys)
-import Mongo as Mongo
-import Foreign (Foreign)
 import Effect.Exception (error)
 
 import Requests.Molecule
@@ -65,7 +64,7 @@ foreign import _buildingBlockQuery
 
 foreign import _buildingBlockKeys
     :: MoleculeKeyName
-    -> Foreign
+    -> Mongo.Entry
     -> Array String
 
 
@@ -94,7 +93,7 @@ request options = do
                 )
             )
     let
-        maybeMolecule :: Foreign -> Maybe Molecule.Molecule
+        maybeMolecule :: Mongo.Entry -> Maybe Molecule.Molecule
         maybeMolecule = Molecule.fromEntry options.moleculeKey
 
         baseMolecules =

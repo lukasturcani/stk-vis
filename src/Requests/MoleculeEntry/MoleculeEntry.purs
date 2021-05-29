@@ -18,7 +18,7 @@ import Data.Tuple (Tuple (..))
 import Data.Maybe (Maybe (..))
 import Data.Maybe.Utils as Maybe
 import Data.Foldable (foldM)
-import Foreign (Foreign)
+import Mongo as Mongo
 import Requests.MoleculeKey (MoleculeKeyName, MoleculeKeyValue)
 
 newtype AtomEntry     = AtomEntry (Array Int)
@@ -63,14 +63,14 @@ foreign import _fromEntry
     :: forall r
     .  Helpers
     -> MoleculeKeyName
-    -> Foreign
+    -> Mongo.Entry
     -> Maybe (MoleculeEntry r)
 
 
 fromEntry
     :: forall r
     .  MoleculeKeyName
-    -> Foreign
+    -> Mongo.Entry
     -> Maybe (MoleculeEntry r)
 
 fromEntry key entry =
