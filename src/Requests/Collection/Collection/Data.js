@@ -1,4 +1,4 @@
-exports._toEntry
+exports.toEntry
     = helpers => moleculeKey => entry =>
 {
     const key = entry[moleculeKey];

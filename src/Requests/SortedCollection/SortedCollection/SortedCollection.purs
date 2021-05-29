@@ -6,14 +6,14 @@ module Requests.SortedCollection
     , keys
     ) where
 
-import Prelude (bind, map, pure, ($))
+import Prelude
 import Data.Tuple (Tuple (Tuple))
 import Data.Array as Array
 import Data.Maybe.Utils as Maybe
 import Data.Map as Map
 import Requests.MoleculeKey (MoleculeKeyValue, MoleculeKeyName)
 import Requests.Molecule as Molecule
-import Foreign (Foreign)
+import Mongo as Mongo
 
 type CollectionName = String
 
@@ -29,7 +29,7 @@ keys (SortedCollection { _order }) = _order
 fromEntries
     :: CollectionName
     -> MoleculeKeyName
-    -> Array Foreign
+    -> Array Mongo.Entry
     -> SortedCollection
 
 fromEntries name key entries = SortedCollection
@@ -43,7 +43,7 @@ fromEntries name key entries = SortedCollection
 foreign import _toTuple
     :: (String -> String -> Tuple String String)
     -> MoleculeKeyName
-    -> Foreign
+    -> Mongo.Entry
     -> Array (Tuple String String)
 
 addMolecules
@@ -63,3 +63,4 @@ addMolecules
             (Molecule.key molecule)
             (Map.insert _name value (Molecule.properties molecule))
             (Molecule.toValidated molecule)
+

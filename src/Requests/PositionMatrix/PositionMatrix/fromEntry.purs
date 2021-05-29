@@ -5,14 +5,14 @@ module Requests.PositionMatrix.Internal.FromEntry
 import Prelude
 import Requests.MoleculeKey (MoleculeKeyName)
 import Data.Maybe (Maybe)
-import Foreign (Foreign)
 import Requests.PositionMatrix.Internal.Data (PositionMatrix (..))
+import Mongo as Mongo
 
 import Requests.PositionMatrix.Internal.ToPositionMatrixEntry
     ( toPositionMatrixEntry
     )
 
-fromEntry :: MoleculeKeyName -> Foreign -> Maybe PositionMatrix
+fromEntry :: MoleculeKeyName -> Mongo.Entry -> Maybe PositionMatrix
 fromEntry moleculeKey entry = do
     matrixEntry <- toPositionMatrixEntry moleculeKey entry
     pure $ PositionMatrix
