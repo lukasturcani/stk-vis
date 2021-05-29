@@ -51,7 +51,7 @@ toMolecule entry = do
             entry.bonds
 
     Validated.molecule
-        (Array.fromFoldable atoms)
+        (Array.reverse $ Array.fromFoldable atoms)
         (Array.fromFoldable bonds)
 
 type Helpers =
