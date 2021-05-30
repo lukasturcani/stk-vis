@@ -5,8 +5,8 @@ module Requests.PositionMatrix
     , matrix
     ) where
 
+import Prelude
 import Data.Maybe (Maybe)
-import Mongo as Mongo
 import Requests.PositionMatrix.Internal.Data as Data
 import Requests.PositionMatrix.Internal.FromEntry as FromEntry
 import Requests.MoleculeKey (MoleculeKeyName, MoleculeKeyValue)
@@ -24,7 +24,7 @@ matrix = Data.matrix
 
 fromEntry
     :: MoleculeKeyName
-    -> Mongo.Entry
+    -> Unit
     -> Maybe Exports.PositionMatrix
 
 fromEntry = FromEntry.fromEntry

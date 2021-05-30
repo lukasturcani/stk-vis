@@ -24,8 +24,8 @@ type CollectionName = String
 foreign import data Client           :: Type
 foreign import data Database         :: Type
 foreign import data Cursor           :: Type -> Type
-foreign import data Query            :: Type -> Type
-foreign import data AggregationQuery :: Type -> Type
+foreign import data Query            :: Type
+foreign import data AggregationQuery :: Type
 
 foreign import client :: String -> Promise Client
 foreign import database :: Client -> String -> Database
@@ -38,22 +38,22 @@ foreign import find
     :: forall a
     .  Database
     -> CollectionName
-    -> Query a
+    -> Query
     -> Cursor a
 
 foreign import findOne
     :: forall a
     .  Database
     -> CollectionName
-    -> Query a
+    -> Query
     -> Promise (Array a)
 
-find' :: forall a. Database -> Query a -> CollectionName -> Cursor a
+find' :: forall a. Database -> Query -> CollectionName -> Cursor a
 find' db query collection = find db collection query
 
 foreign import aggregate
     :: forall a
     .  Database
     -> CollectionName
-    -> AggregationQuery a
+    -> AggregationQuery
     -> Cursor a

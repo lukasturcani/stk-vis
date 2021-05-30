@@ -3,7 +3,6 @@ module Requests.PositionMatrix.Internal.ToPositionMatrixEntry
     ) where
 
 import Prelude
-import Mongo as Mongo
 import Data.Maybe (Maybe (Nothing, Just))
 import Requests.MoleculeKey (MoleculeKeyName)
 import ValidatedMolecule.Position (Position, position)
@@ -21,11 +20,13 @@ type Helpers =
 foreign import toPositionMatrixEntryImpl
     :: Helpers
     -> MoleculeKeyName
-    -> Mongo.Entry
+    -> Unit
     -> Maybe PositionMatrixEntry
 
 toPositionMatrixEntry
-    :: MoleculeKeyName -> Mongo.Entry -> Maybe PositionMatrixEntry
+    :: MoleculeKeyName
+    -> Unit
+    -> Maybe PositionMatrixEntry
 
 toPositionMatrixEntry = toPositionMatrixEntryImpl
     { nothing: Nothing

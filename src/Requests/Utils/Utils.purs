@@ -29,9 +29,11 @@ import Requests.Molecule
     , fromValidated
     )
 
-
 foreign import dataQuery
-    :: MoleculeKeyName -> Array MoleculeKeyValue -> Mongo.Query
+    :: forall a
+    .  MoleculeKeyName
+    -> Array MoleculeKeyValue
+    -> Mongo.Query
 
 type ConstructedMoleculeCollectionName = String
 

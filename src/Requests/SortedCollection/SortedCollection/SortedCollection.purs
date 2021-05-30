@@ -13,13 +13,14 @@ import Data.Maybe.Utils as Maybe
 import Data.Map as Map
 import Requests.MoleculeKey (MoleculeKeyValue, MoleculeKeyName)
 import Requests.Molecule as Molecule
-import Mongo as Mongo
+import Requests.UnvalidatedValueQueryEntry (UnvalidatedValueQueryEntry)
 
 type CollectionName = String
+type CollectionValue = String
 
 data SortedCollection = SortedCollection
     { _name   :: CollectionName
-    , _values :: Map.Map MoleculeKeyValue String
+    , _values :: Map.Map MoleculeKeyValue CollectionValue
     , _order  :: Array MoleculeKeyValue
     }
 
@@ -29,7 +30,7 @@ keys (SortedCollection { _order }) = _order
 fromEntries
     :: CollectionName
     -> MoleculeKeyName
-    -> Array Mongo.Entry
+    -> Array UnvalidatedValueQueryEntry
     -> SortedCollection
 
 fromEntries name key entries = SortedCollection
@@ -40,11 +41,16 @@ fromEntries name key entries = SortedCollection
   where
     entries' = Array.concatMap (_toTuple Tuple key) entries
 
+type TupleConstructor
+    =  MoleculeKeyValue
+    -> CollectionValue
+    -> Tuple MoleculeKeyValue CollectionValue
+
 foreign import _toTuple
-    :: (String -> String -> Tuple String String)
+    :: TupleConstructor
     -> MoleculeKeyName
-    -> Mongo.Entry
-    -> Array (Tuple String String)
+    -> UnvalidatedValueQueryEntry
+    -> Array (Tuple MoleculeKeyValue CollectionValue)
 
 addMolecules
     :: SortedCollection
@@ -63,4 +69,3 @@ addMolecules
             (Molecule.key molecule)
             (Map.insert _name value (Molecule.properties molecule))
             (Molecule.toValidated molecule)
-

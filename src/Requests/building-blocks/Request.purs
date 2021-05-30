@@ -37,6 +37,10 @@ import Requests.PositionMatrix.Utils
     ( toMap
     ) as Matrix
 
+import Requests.UnvalidatedMoleculeQueryEntry
+    ( UnvalidatedMoleculeQueryEntry
+    )
+
 type RequestOptions =
     { url                                   :: String
     , database                              :: String
@@ -51,6 +55,8 @@ type RequestOptions =
 
 type ConstructedMoleculeCollectionName = String
 
+data UnvalidatedConstructedMoleculeQueryEntry
+
 foreign import _moleculeQuery
     :: MoleculeKeyName
     -> MoleculeKeyValue
@@ -59,13 +65,13 @@ foreign import _moleculeQuery
 foreign import _buildingBlockQuery
     :: MoleculeKeyName
     -> ConstructedMoleculeCollectionName
-    -> Array String
+    -> Array MoleculeKeyValue
     -> Mongo.AggregationQuery
 
 foreign import _buildingBlockKeys
     :: MoleculeKeyName
-    -> Mongo.Entry
-    -> Array String
+    -> UnvalidatedConstructedMoleculeQueryEntry
+    -> Array MoleculeKeyValue
 
 
 
@@ -93,7 +99,11 @@ request options = do
                 )
             )
     let
-        maybeMolecule :: Mongo.Entry -> Maybe Molecule.Molecule
+
+        maybeMolecule
+            :: UnvalidatedMoleculeQueryEntry
+            -> Maybe Molecule.Molecule
+
         maybeMolecule = Molecule.fromEntry options.moleculeKey
 
         baseMolecules =
