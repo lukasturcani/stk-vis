@@ -10,7 +10,6 @@ import Requests.UnsortedBuildingBlocks.Internal.Result (Result (..))
 import Effect.Exception (error)
 import Effect.Promise (class Deferred, Promise, all, reject)
 import Data.Set (fromFoldable, insert, member)
-import Data.Map as Map
 import Data.Maybe (Maybe (Nothing, Just))
 import Data.Maybe.Utils as Maybe
 import SelectingCollection (SelectingCollection, selectingCollection)
@@ -19,15 +18,7 @@ import Requests.PageKind (pageKind)
 import Requests.Collection as Collection
 import Requests.MoleculeKey (MoleculeKeyName)
 import Requests.MoleculeEntry as MoleculeEntry
-
-import Requests.Molecule
-    ( Molecule
-    , fromMoleculeEntry
-    ) as Molecule
-
-import Requests.Molecule.Utils
-    ( toMap
-    ) as Molecule
+import Requests.Molecule as Molecule
 
 import Requests.UnvalidatedMoleculeQueryEntry
     ( UnvalidatedMoleculeQueryEntry
@@ -93,13 +84,13 @@ request options = do
             Maybe.toArray <<< _maybeGetMolecule options.moleculeKey
 
         baseMolecules =
-            Molecule.toMap <<< Array.concat $
-            map maybeGetMolecule $
+            Array.concatMap maybeGetMolecule $
             Array.slice 0 options.numEntriesPerPage rawMoleculeEntries
 
+        baseMoleculeKeys = map Molecule.key baseMolecules
+
         dataQuery =
-            Utils.dataQuery options.moleculeKey
-            (Array.fromFoldable <<< Map.keys $ baseMolecules)
+            Utils.dataQuery options.moleculeKey baseMoleculeKeys
 
     values <-
         all $ map
@@ -113,10 +104,7 @@ request options = do
                 valueCollections
                 values
 
-        molecules =
-            Utils.addValues
-                ((Array.fromFoldable <<< Map.values) baseMolecules)
-                collections
+        molecules = Utils.addValues baseMolecules collections
 
     collection <- _collectionPromise molecules
 
