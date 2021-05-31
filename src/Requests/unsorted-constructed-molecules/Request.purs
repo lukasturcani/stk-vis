@@ -104,12 +104,6 @@ request options = do
             Utils.dataQuery options.moleculeKey
             (Array.fromFoldable <<< Map.keys $ baseMolecules)
 
-    matrixEntries <-
-        Mongo.toArray $ Mongo.find
-            database
-            options.positionMatrixCollection
-            dataQuery
-
     values <-
         all $ map
             (Mongo.toArray <<< Mongo.find' database dataQuery)
