@@ -11,7 +11,7 @@ class ConstructedMoleculeCreator:
     def get_molecules(self) -> Iterable[stk.ConstructedMolecule]:
 
         while True:
-            self._num_molecules + 1
+            self._num_molecules += 1
             bb1 = stk.BuildingBlock(
                 smiles=f'Br{"C"*self._num_molecules}Br',
                 functional_groups=[stk.BromoFactory()],
