@@ -80,11 +80,13 @@ exports._fromValueQueryEntry =
     }
     result['properties'][collectionName] = value.toString();
 
-    const molecule = entry['molecule'];
-    if (molecule === undefined)
-    {
+    if (
+        entry['molecule'] === undefined
+        || entry['molecule'][0] === undefined
+    ) {
         return helpers.nothing;
     }
+    const molecule = entry['molecule'][0];
 
     const atoms = molecule['a'];
     if (!Array.isArray(atoms))
