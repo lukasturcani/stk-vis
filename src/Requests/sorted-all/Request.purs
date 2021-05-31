@@ -42,12 +42,14 @@ type RequestOptions =
 
 type CollectionName = String
 type IsAscending = Boolean
+type MoleculeCollectionName = String
 type ConstructedMoleculeCollectionName = String
 type PositionMatrixCollectionName = String
 type BuildingBlockPositionMatrixCollectionName = String
 
 foreign import query
     :: MoleculeKeyName
+    -> MoleculeCollectionName
     -> ConstructedMoleculeCollectionName
     -> PositionMatrixCollectionName
     -> BuildingBlockPositionMatrixCollectionName
@@ -86,6 +88,7 @@ request options = do
             options.sortedCollection
             (query
                 options.moleculeKey
+                options.moleculeCollection
                 options.constructedMoleculeCollection
                 options.positionMatrixCollection
                 options.buildingBlockPositionMatrixCollection

@@ -29,6 +29,11 @@ exports.limit = number => cursor => cursor.limit(number);
 
 exports.toArray = cursor => cursor.toArray();
 
-exports.aggregate = database => collection => query => database
-    .collection(collection)
-    .aggregate(query);
+exports.aggregate = database => collection => query =>
+{
+    console.log(collection);
+    console.log(query);
+    const db = database.collection(collection).aggregate(query);
+    console.log(db);
+    return db;
+}
