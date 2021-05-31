@@ -31,9 +31,5 @@ exports.toArray = cursor => cursor.toArray();
 
 exports.aggregate = database => collection => query =>
 {
-    console.log(collection);
-    console.log(query);
-    const db = database.collection(collection).aggregate(query);
-    console.log(db);
-    return db;
+    return database.collection(collection).aggregate(query);
 }
