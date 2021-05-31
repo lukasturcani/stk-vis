@@ -1,7 +1,6 @@
 module Requests.Utils
     ( ConstructedMoleculeCollectionName
     , dataQuery
-    , moleculeQuery
     , addValues
     ) where
 
@@ -24,12 +23,6 @@ foreign import dataQuery
     -> Mongo.Query
 
 type ConstructedMoleculeCollectionName = String
-
-foreign import moleculeQuery
-    :: MoleculeKeyName
-    -> ConstructedMoleculeCollectionName
-    -> Array MoleculeKeyValue
-    -> Mongo.AggregationQuery
 
 addValues
     :: Array Molecule

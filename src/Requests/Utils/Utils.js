@@ -3,21 +3,3 @@ exports.dataQuery = keyName => keys => ({
         $in: keys
     }
 });
-
-exports.moleculeQuery = keyName => collection => keys => [
-    {
-        $match: {
-            [keyName]: {
-                $in: keys
-            },
-        },
-    },
-    {
-        '$lookup': {
-            'from': collection,
-            'localField': keyName,
-            'foreignField': keyName,
-            'as': 'constructedMolecule',
-        },
-    },
-];
