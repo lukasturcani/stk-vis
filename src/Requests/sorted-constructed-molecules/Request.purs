@@ -18,24 +18,12 @@ import Requests.PageKind (pageKind)
 import Requests.Collection as Collection
 import Requests.MoleculeKey (MoleculeKeyName)
 import Requests.SortType (SortType, isAscending)
-import Requests.SortedCollection as SortedCollection
+import Requests.MoleculeEntry as MoleculeEntry
+import Requests.Molecule as Molecule
 
-import Requests.Molecule
-    ( Molecule
-    , fromEntry
-    ) as Molecule
-
-import Requests.Molecule.Utils
-    ( toMap
-    ) as Molecule
-
-import Requests.PositionMatrix
-    ( fromEntry
-    ) as Matrix
-
-import Requests.PositionMatrix.Utils
-    ( toMap
-    ) as Matrix
+import Requests.UnvalidatedValueQueryEntry
+    ( UnvalidatedValueQueryEntry
+    )
 
 type RequestOptions =
     { url                                   :: String
@@ -52,11 +40,16 @@ type RequestOptions =
     }
 
 type IsAscending = Boolean
+type MoleculeCollectionName = String
+type ConstructedMoleculeCollectionName = String
+type PositionMatrixCollectionName = String
 type CollectionName = String
 
 foreign import query
     :: MoleculeKeyName
-    -> CollectionName
+    -> MoleculeCollectionName
+    -> ConstructedMoleculeCollectionName
+    -> PositionMatrixCollectionName
     -> IsAscending
     -> Mongo.AggregationQuery
 
@@ -91,55 +84,27 @@ request options = do
             options.sortedCollection
             (query
                 options.moleculeKey
+                options.moleculeCollection
                 options.constructedMoleculeCollection
+                options.positionMatrixCollection
                 (isAscending options.sortType)
             )
 
     let
-        sortedCollection = SortedCollection.fromEntries
-            options.sortedCollection
-            options.moleculeKey
-            (Array.slice 0 options.numEntriesPerPage sortedEntries)
-
-        moleculeKeys = SortedCollection.keys sortedCollection
-
-        dataQuery = Utils.dataQuery
-            options.moleculeKey
-            moleculeKeys
-
-    rawMoleculeEntries <-
-        Mongo.toArray $ Mongo.aggregate
-            database
-            options.moleculeCollection
-            (Utils.moleculeQuery
+        maybeGetMolecule =
+            Maybe.toArray <<<
+            _maybeGetMolecule
+                options.sortedCollection
                 options.moleculeKey
-                options.constructedMoleculeCollection
-                moleculeKeys
-            )
 
-    matrixEntries <-
-        Mongo.toArray $ Mongo.find
-            database
-            options.positionMatrixCollection
-            dataQuery
+        sortedBaseMolecules =
+            Array.concatMap maybeGetMolecule $
+            Array.slice 0 options.numEntriesPerPage sortedEntries
 
-    let
-        baseMolecules =
-            Molecule.toMap <<< Array.concat <<<
-            map (
-                Maybe.toArray <<<
-                    Molecule.fromEntry options.moleculeKey
-            ) $
-            rawMoleculeEntries
+        sortedMoleculeKeys = map Molecule.key sortedBaseMolecules
 
-        matrices =
-            Matrix.toMap <<< Array.concat <<<
-            map (
-                Maybe.toArray <<< Matrix.fromEntry options.moleculeKey
-            ) $
-            matrixEntries
-
-        positioned = Utils.addPositionMatrices baseMolecules matrices
+        dataQuery =
+            Utils.dataQuery options.moleculeKey sortedMoleculeKeys
 
     values <-
         all $ map
@@ -153,14 +118,9 @@ request options = do
                 valueCollections
                 values
 
-        molecules =
-            Molecule.toMap
-                (Utils.addValues positioned collections)
+        molecules = Utils.addValues sortedBaseMolecules collections
 
-        sortedMolecules =
-            sortedCollection `SortedCollection.addMolecules` molecules
-
-    collection <- collectionPromise sortedMolecules
+    collection <- _collectionPromise sortedBaseMolecules
 
     pure
         (Result
@@ -174,11 +134,21 @@ request options = do
             }
         )
 
-collectionPromise
+_collectionPromise
     :: Deferred
     => Array Molecule.Molecule
     -> Promise (SelectingCollection Molecule.Molecule)
 
-collectionPromise molecules = case Array.uncons molecules of
+_collectionPromise molecules = case Array.uncons molecules of
     Just { head: x, tail: xs } -> pure $ selectingCollection [] x xs
     Nothing -> reject $ error "No valid molecules were found."
+
+_maybeGetMolecule
+    :: CollectionName
+    -> MoleculeKeyName
+    -> UnvalidatedValueQueryEntry
+    -> Maybe Molecule.Molecule
+
+_maybeGetMolecule collection moleculeKey entry =
+    MoleculeEntry.fromValueQueryEntry collection moleculeKey entry >>=
+    Molecule.fromMoleculeEntry

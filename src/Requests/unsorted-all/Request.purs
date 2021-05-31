@@ -103,8 +103,9 @@ request options = do
             Array.slice 0 options.numEntriesPerPage rawMoleculeEntries
 
         dataQuery =
-            Utils.dataQuery options.moleculeKey
-            (Array.fromFoldable <<< Map.keys $ baseMolecules)
+            Utils.dataQuery
+                options.moleculeKey
+                (Array.fromFoldable <<< Map.keys $ baseMolecules)
 
     values <-
         all $ map

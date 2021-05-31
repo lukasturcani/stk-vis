@@ -10,6 +10,8 @@ module Requests.Molecule.Internal.Data
     ) where
 
 import Prelude
+import Data.Tuple (Tuple)
+import Data.List (List)
 import Data.Map (Map)
 import Data.Map as Map
 import Data.Maybe (Maybe)
@@ -17,6 +19,7 @@ import ValidatedMolecule as Validated
 import Requests.MoleculeKey (MoleculeKeyValue)
 import Requests.MoleculeEntry (MoleculeEntry)
 import Requests.MoleculeEntry as MoleculeEntry
+import Foreign.Object as Object
 
 type Properties = Map String String
 
@@ -54,14 +57,19 @@ fromValidated constructed' key' props mol = Molecule
     }
 
 
-fromMoleculeEntry :: forall r. MoleculeEntry r -> Maybe Molecule
+fromMoleculeEntry :: MoleculeEntry -> Maybe Molecule
 fromMoleculeEntry moleculeEntry = do
     _molecule <- MoleculeEntry.toMolecule moleculeEntry
     pure
         (Molecule
             { _key: moleculeEntry.key
-            , _properties: Map.empty
+            , _properties: Map.fromFoldable items
             , _molecule
             , _constructed: moleculeEntry.constructed
             }
         )
+
+  where
+
+    items :: List (Tuple String String)
+    items = Object.toUnfoldable moleculeEntry.properties

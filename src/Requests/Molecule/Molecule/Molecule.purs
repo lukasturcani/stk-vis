@@ -41,8 +41,7 @@ toValidated :: Exports.Molecule -> Validated.Molecule
 toValidated = Data.toValidated
 
 fromMoleculeEntry
-    :: forall r
-    .  MoleculeEntry r
+    :: MoleculeEntry
     -> Maybe Exports.Molecule
 
 fromMoleculeEntry = Data.fromMoleculeEntry

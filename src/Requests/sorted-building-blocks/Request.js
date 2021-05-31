@@ -13,6 +13,11 @@ exports.query =
             }
         },
         {
+            '$sort': {
+                'v': (isAscending)? 1 : -1,
+            }
+        },
+        {
             '$lookup': {
                 'from': moleculeCollection,
                 'localField': moleculeKey,
@@ -61,10 +66,5 @@ exports.query =
                     ]
                 },
             },
-        },
-        {
-            '$sort': {
-                'v': (isAscending)? 1 : -1,
-            }
         }
     ];

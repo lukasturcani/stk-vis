@@ -5,6 +5,7 @@ module Requests.MoleculeEntry
     , PositionEntry
     , toMolecule
     , fromMoleculeQueryEntry
+    , fromValueQueryEntry
     ) where
 
 import Prelude
@@ -19,26 +20,32 @@ import Data.Maybe (Maybe (..))
 import Data.Maybe.Utils as Maybe
 import Data.Foldable (foldM)
 import Requests.MoleculeKey (MoleculeKeyName, MoleculeKeyValue)
+import Foreign.Object (Object)
 
 import Requests.UnvalidatedMoleculeQueryEntry
     ( UnvalidatedMoleculeQueryEntry
     )
 
-newtype AtomEntry     = AtomEntry (Array Int)
-newtype BondEntry     = BondEntry (Array Int)
-newtype PositionEntry = PositionEntry (Array Number)
+import Requests.UnvalidatedValueQueryEntry
+    ( UnvalidatedValueQueryEntry
+    )
 
-type MoleculeEntry r =
+type CollectionName = String
+
+newtype AtomEntry       = AtomEntry (Array Int)
+newtype BondEntry       = BondEntry (Array Int)
+newtype PositionEntry   = PositionEntry (Array Number)
+
+type MoleculeEntry =
     { key            :: MoleculeKeyValue
     , atoms          :: Array AtomEntry
     , bonds          :: Array BondEntry
     , positionMatrix :: Array PositionEntry
     , constructed    :: Boolean
-    | r
+    , properties     :: Object String
     }
 
-
-toMolecule :: forall r. MoleculeEntry r -> Maybe Validated.Molecule
+toMolecule :: MoleculeEntry -> Maybe Validated.Molecule
 toMolecule entry = do
 
     atoms <-
@@ -63,22 +70,38 @@ type Helpers =
     }
 
 foreign import _fromMoleculeQueryEntry
-    :: forall r
-    .  Helpers
+    :: Helpers
     -> MoleculeKeyName
     -> UnvalidatedMoleculeQueryEntry
-    -> Maybe (MoleculeEntry r)
-
+    -> Maybe MoleculeEntry
 
 fromMoleculeQueryEntry
-    :: forall r
-    .  MoleculeKeyName
+    :: MoleculeKeyName
     -> UnvalidatedMoleculeQueryEntry
-    -> Maybe (MoleculeEntry r)
+    -> Maybe MoleculeEntry
 
 fromMoleculeQueryEntry key entry =
     _fromMoleculeQueryEntry { nothing: Nothing, just: Just } key entry
 
+foreign import _fromValueQueryEntry
+    :: Helpers
+    -> CollectionName
+    -> MoleculeKeyName
+    -> UnvalidatedValueQueryEntry
+    -> Maybe MoleculeEntry
+
+fromValueQueryEntry
+    :: CollectionName
+    -> MoleculeKeyName
+    -> UnvalidatedValueQueryEntry
+    -> Maybe MoleculeEntry
+
+fromValueQueryEntry collection key entry =
+    _fromValueQueryEntry
+        { nothing: Nothing, just: Just }
+        collection
+        key
+        entry
 
 position :: PositionEntry -> Maybe Position.Position
 position (PositionEntry coordinates) = do
@@ -87,14 +110,12 @@ position (PositionEntry coordinates) = do
     z <- coordinates !! 2
     pure (Position.position x y z)
 
-
 atom :: Tuple AtomEntry PositionEntry -> Maybe Validated.Atom
 atom (Tuple (AtomEntry atomEntry) positionEntry) = do
     atomicNumber <- atomEntry !! 0
     chemicalSymbol <- ChemicalSymbol.chemicalSymbol atomicNumber
     position' <- position positionEntry
     pure $ Validated.atom chemicalSymbol position'
-
 
 bond :: BondEntry -> Maybe Validated.Bond
 bond (BondEntry entry) = do
