@@ -9,6 +9,7 @@ module Requests.Utils
 import Prelude
 import Data.Array (zipWith, concatMap)
 import Data.Map (Map, toUnfoldable, lookup, fromFoldable)
+import Data.Map as Map
 import Data.Tuple (Tuple (Tuple))
 import Data.Maybe (Maybe (Just, Nothing))
 import Data.Maybe.Utils as Maybe
@@ -92,16 +93,31 @@ addValues
 
 addValues molecules collections = do
     molecule <- molecules
-    pure (addValues_ molecule collections)
-  where
-    addValues_ molecule collections' =
+
+    let
+        collectionProperties =
+            getCollectionProperties molecule collections
+
+        properties =
+            Map.union
+                (Molecule.properties molecule)
+                collectionProperties
+
+    pure $
         Molecule.fromValidated
             (constructed molecule)
             (key molecule)
-            (properties molecule collections')
+            properties
             (toValidated molecule)
 
-    properties molecule collections' =
+  where
+
+    getCollectionProperties
+        :: Molecule.Molecule
+        -> Array Collection.Collection
+        -> Map String String
+
+    getCollectionProperties molecule collections' =
         fromFoldable $ concatMap (value (key molecule)) collections'
 
     value key collection = case Collection.get collection key of
