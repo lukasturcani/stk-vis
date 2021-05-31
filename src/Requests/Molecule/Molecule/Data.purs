@@ -20,7 +20,6 @@ import Requests.MoleculeKey (MoleculeKeyValue)
 import Requests.MoleculeEntry (MoleculeEntry)
 import Requests.MoleculeEntry as MoleculeEntry
 import Foreign.Object as Object
-import Debug.Trace (traceM)
 
 type Properties = Map String String
 
@@ -60,7 +59,6 @@ fromValidated constructed' key' props mol = Molecule
 
 fromMoleculeEntry :: MoleculeEntry -> Maybe Molecule
 fromMoleculeEntry moleculeEntry = do
-    _ <- traceM moleculeEntry
     _molecule <- MoleculeEntry.toMolecule moleculeEntry
     pure
         (Molecule
