@@ -104,7 +104,7 @@ request options = do
             Molecule.toMap $
             Array.concat   $
             map
-                (Maybe.toArray <<< maybeMolecule options.moleculeKey)
+                (Maybe.toArray <<< _maybeMolecule options.moleculeKey)
                 rawMoleculeEntries
 
         dataQuery =
@@ -160,11 +160,11 @@ _collectionPromise molecules = case Array.uncons molecules of
     Just { head: x, tail: xs } -> pure $ selectingCollection [] x xs
     Nothing -> reject $ error "No valid molecules were found."
 
-maybeMolecule
+_maybeMolecule
     :: MoleculeKeyName
     -> UnvalidatedMoleculeQueryEntry
     -> Maybe Molecule.Molecule
 
-maybeMolecule moleculeKey entry =
+_maybeMolecule moleculeKey entry =
     MoleculeEntry.fromMoleculeQueryEntry moleculeKey entry >>=
     Molecule.fromMoleculeEntry

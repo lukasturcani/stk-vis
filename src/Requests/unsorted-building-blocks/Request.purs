@@ -18,15 +18,20 @@ import Requests.Utils as Utils
 import Requests.PageKind (pageKind)
 import Requests.Collection as Collection
 import Requests.MoleculeKey (MoleculeKeyName)
+import Requests.MoleculeEntry as MoleculeEntry
 
 import Requests.Molecule
     ( Molecule
-    , fromEntry
+    , fromMoleculeEntry
     ) as Molecule
 
 import Requests.Molecule.Utils
     ( toMap
     ) as Molecule
+
+import Requests.UnvalidatedMoleculeQueryEntry
+    ( UnvalidatedMoleculeQueryEntry
+    )
 
 type RequestOptions =
     { url                                   :: String
@@ -84,12 +89,12 @@ request options = do
             )
 
     let
+        maybeGetMolecule =
+            Maybe.toArray <<< _maybeGetMolecule options.moleculeKey
+
         baseMolecules =
             Molecule.toMap <<< Array.concat $
-            map (
-                Maybe.toArray <<<
-                    Molecule.fromEntry options.moleculeKey
-            ) $
+            map maybeGetMolecule $
             Array.slice 0 options.numEntriesPerPage rawMoleculeEntries
 
         dataQuery =
@@ -113,7 +118,7 @@ request options = do
                 ((Array.fromFoldable <<< Map.values) baseMolecules)
                 collections
 
-    collection <- collectionPromise molecules
+    collection <- _collectionPromise molecules
 
     pure
         (Result
@@ -126,11 +131,20 @@ request options = do
             }
         )
 
-collectionPromise
+_collectionPromise
     :: Deferred
     => Array Molecule.Molecule
     -> Promise (SelectingCollection Molecule.Molecule)
 
-collectionPromise molecules = case Array.uncons molecules of
+_collectionPromise molecules = case Array.uncons molecules of
     Just { head: x, tail: xs } -> pure $ selectingCollection [] x xs
     Nothing -> reject $ error "No valid molecules were found."
+
+_maybeGetMolecule
+    :: MoleculeKeyName
+    -> UnvalidatedMoleculeQueryEntry
+    -> Maybe Molecule.Molecule
+
+_maybeGetMolecule moleculeKey entry =
+    MoleculeEntry.fromMoleculeQueryEntry moleculeKey entry >>=
+    Molecule.fromMoleculeEntry
