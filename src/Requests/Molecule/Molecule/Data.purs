@@ -6,7 +6,6 @@ module Requests.Molecule.Internal.Data
     , constructed
     , toValidated
     , fromValidated
-    , fromEntry
     , fromMoleculeEntry
     ) where
 
@@ -15,13 +14,9 @@ import Data.Map (Map)
 import Data.Map as Map
 import Data.Maybe (Maybe)
 import ValidatedMolecule as Validated
-import Requests.MoleculeKey (MoleculeKeyValue, MoleculeKeyName)
+import Requests.MoleculeKey (MoleculeKeyValue)
 import Requests.MoleculeEntry (MoleculeEntry)
 import Requests.MoleculeEntry as MoleculeEntry
-
-import Requests.UnvalidatedMoleculeQueryEntry
-    ( UnvalidatedMoleculeQueryEntry
-    )
 
 type Properties = Map String String
 
@@ -70,13 +65,3 @@ fromMoleculeEntry moleculeEntry = do
             , _constructed: moleculeEntry.constructed
             }
         )
-
-
-fromEntry
-    :: MoleculeKeyName
-    -> UnvalidatedMoleculeQueryEntry
-    -> Maybe Molecule
-
-fromEntry moleculeKey entry = do
-    moleculeEntry <- MoleculeEntry.fromEntry moleculeKey entry
-    fromMoleculeEntry moleculeEntry

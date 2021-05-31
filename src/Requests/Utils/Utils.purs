@@ -30,8 +30,7 @@ import Requests.Molecule
     )
 
 foreign import dataQuery
-    :: forall a
-    .  MoleculeKeyName
+    :: MoleculeKeyName
     -> Array MoleculeKeyValue
     -> Mongo.Query
 

@@ -4,7 +4,7 @@ module Requests.MoleculeEntry
     , BondEntry
     , PositionEntry
     , toMolecule
-    , fromEntry
+    , fromMoleculeQueryEntry
     ) where
 
 import Prelude
@@ -62,7 +62,7 @@ type Helpers =
     , just    :: Unit -> Maybe Unit
     }
 
-foreign import _fromEntry
+foreign import _fromMoleculeQueryEntry
     :: forall r
     .  Helpers
     -> MoleculeKeyName
@@ -70,14 +70,14 @@ foreign import _fromEntry
     -> Maybe (MoleculeEntry r)
 
 
-fromEntry
+fromMoleculeQueryEntry
     :: forall r
     .  MoleculeKeyName
     -> UnvalidatedMoleculeQueryEntry
     -> Maybe (MoleculeEntry r)
 
-fromEntry key entry =
-    _fromEntry { nothing: Nothing, just: Just } key entry
+fromMoleculeQueryEntry key entry =
+    _fromMoleculeQueryEntry { nothing: Nothing, just: Just } key entry
 
 
 position :: PositionEntry -> Maybe Position.Position

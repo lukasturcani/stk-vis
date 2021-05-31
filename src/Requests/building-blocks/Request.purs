@@ -18,8 +18,10 @@ import Effect.Exception (error)
 
 import Requests.Molecule
     ( Molecule
-    , fromEntry
+    , fromMoleculeEntry
     ) as Molecule
+
+import Requests.MoleculeEntry as MoleculeEntry
 
 import Requests.Molecule.Utils
     ( toMap
@@ -73,8 +75,6 @@ foreign import _buildingBlockKeys
     -> UnvalidatedConstructedMoleculeQueryEntry
     -> Array MoleculeKeyValue
 
-
-
 request :: Deferred => RequestOptions -> Promise Result
 request options = do
     client <-  Mongo.client options.url
@@ -100,17 +100,11 @@ request options = do
             )
     let
 
-        maybeMolecule
-            :: UnvalidatedMoleculeQueryEntry
-            -> Maybe Molecule.Molecule
-
-        maybeMolecule = Molecule.fromEntry options.moleculeKey
-
         baseMolecules =
             Molecule.toMap $
             Array.concat   $
             map
-                (Maybe.toArray <<< maybeMolecule)
+                (Maybe.toArray <<< maybeMolecule options.moleculeKey)
                 rawMoleculeEntries
 
         dataQuery =
@@ -153,15 +147,24 @@ request options = do
 
         molecules = Utils.addValues positioned collections
 
-    collection <- collectionPromise molecules
+    collection <- _collectionPromise molecules
 
     pure (Result { molecules: collection })
 
-collectionPromise
+_collectionPromise
     :: Deferred
     => Array Molecule.Molecule
     -> Promise (SelectingCollection Molecule.Molecule)
 
-collectionPromise molecules = case Array.uncons molecules of
+_collectionPromise molecules = case Array.uncons molecules of
     Just { head: x, tail: xs } -> pure $ selectingCollection [] x xs
     Nothing -> reject $ error "No valid molecules were found."
+
+maybeMolecule
+    :: MoleculeKeyName
+    -> UnvalidatedMoleculeQueryEntry
+    -> Maybe Molecule.Molecule
+
+maybeMolecule moleculeKey entry =
+    MoleculeEntry.fromMoleculeQueryEntry moleculeKey entry >>=
+    Molecule.fromMoleculeEntry
