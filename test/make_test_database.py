@@ -70,7 +70,7 @@ def build_database_2():
 
     constructed_molecule_db_2 = stk.ConstructedMoleculeMongoDb(
         mongo_client=pymongo.MongoClient(),
-        database='stk-vis-test-database-3',
+        database='stk-vis-test-database-2',
         molecule_collection='molecules',
         constructed_molecule_collection='constructed_molecules',
         position_matrix_collection='position_matrices_2',
