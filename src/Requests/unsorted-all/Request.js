@@ -1,6 +1,6 @@
 exports.query =
     moleculeKey =>
-    queryCollection =>
+    constructedMoleculeCollection =>
     positionMatrixCollection =>
     buildingBlockPositionMatrixCollection =>
     [
@@ -13,7 +13,7 @@ exports.query =
         },
         {
             '$lookup': {
-                'from': queryCollection,
+                'from': constructedMoleculeCollection,
                 'localField': moleculeKey,
                 'foreignField': moleculeKey,
                 'as': 'constructedMolecule',

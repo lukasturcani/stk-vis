@@ -1,16 +1,33 @@
-exports.query = moleculeKey => collection => isAscending => [
-    {
-        '$match': {
-            [moleculeKey]: {
-                '$exists': true,
+exports.query =
+    moleculeKey =>
+    queryCollection =>
+    isAscending => [
+        {
+            '$match': {
+                [moleculeKey]: {
+                    '$exists': true,
+                }
             }
-        }
-    },
-    {
-        '$sort': {
-            'v': (isAscending)? 1 : -1,
-        }
-    },
-];
-
-
+        },
+        {
+            '$lookup': {
+                'from': queryCollection,
+                'localField': moleculeKey,
+                'foreignField': moleculeKey,
+                'as': 'constructedMolecule',
+            },
+        },
+        {
+            '$lookup': {
+                'from': positionMatrixCollection,
+                'localField': moleculeKey,
+                'foreignField': moleculeKey,
+                'as': 'positionMatrix1',
+            },
+        },
+        {
+            '$sort': {
+                'v': (isAscending)? 1 : -1,
+            }
+        },
+    ];
