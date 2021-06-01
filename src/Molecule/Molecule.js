@@ -48,11 +48,15 @@ exports._molImpl = helpers => molecule =>
 
     for (const atom of atoms)
     {
+        const atomIndex = moleculeAtoms.length;
         moleculeAtoms.push(
          chemlibMolecule.addAtom(
                 helpers.atomicNumber(helpers.chemicalSymbol(atom))
             )
         );
+        chemlibMolecule.setAtomX(atomIndex, helpers.positionX(atom));
+        chemlibMolecule.setAtomY(atomIndex, helpers.positionY(atom));
+        chemlibMolecule.setAtomZ(atomIndex, helpers.positionZ(atom));
     }
 
     for (const bond of bonds)

@@ -84,10 +84,14 @@ type Helpers =
     , bonds :: Validated.Molecule -> Array Validated.MoleculeBond
 
     , chemicalSymbol
-        :: Validated.MoleculeAtom -> ChemicalSymbol.ChemicalSymbol
+        :: Validated.MoleculeAtom
+        -> ChemicalSymbol.ChemicalSymbol
 
     , atomicNumber :: ChemicalSymbol.ChemicalSymbol -> Int
-    , id :: Validated.MoleculeAtom -> Int
+    , id           :: Validated.MoleculeAtom -> Int
+    , positionX    :: Validated.MoleculeAtom -> Number
+    , positionY    :: Validated.MoleculeAtom -> Number
+    , positionZ    :: Validated.MoleculeAtom -> Number
     , atom1 :: Validated.MoleculeBond -> Validated.MoleculeAtom
     , atom2 :: Validated.MoleculeBond -> Validated.MoleculeAtom
     , order :: Validated.MoleculeBond -> Int
@@ -103,6 +107,9 @@ _smiles' = _smilesImpl
     , chemicalSymbol: Validated.chemicalSymbol
     , atomicNumber: ChemicalSymbol.atomicNumber
     , id: Validated.id
+    , positionX: Position.x <<< Validated.position
+    , positionY: Position.y <<< Validated.position
+    , positionZ: Position.z <<< Validated.position
     , atom1: Validated.atom1
     , atom2: Validated.atom2
     , order: Validated.order
@@ -129,6 +136,9 @@ molString (Molecule { _molecule }) = _molImpl
     , chemicalSymbol: Validated.chemicalSymbol
     , atomicNumber: ChemicalSymbol.atomicNumber
     , id: Validated.id
+    , positionX: Position.x <<< Validated.position
+    , positionY: Position.y <<< Validated.position
+    , positionZ: Position.z <<< Validated.position
     , atom1: Validated.atom1
     , atom2: Validated.atom2
     , order: Validated.order
