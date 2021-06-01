@@ -10,7 +10,6 @@ import Requests.UnsortedAll.Internal.Result (Result (..))
 import Effect.Exception (error)
 import Effect.Promise (class Deferred, Promise, all, reject)
 import Data.Set (fromFoldable, insert, member)
-import Data.Map (keys)
 import Data.Maybe (Maybe (Nothing, Just))
 import Data.Maybe.Utils as Maybe
 import SelectingCollection (SelectingCollection, selectingCollection)
@@ -18,23 +17,12 @@ import Requests.Utils as Utils
 import Requests.PageKind (pageKind)
 import Requests.Collection as Collection
 import Requests.MoleculeKey (MoleculeKeyName)
+import Requests.MoleculeEntry as MoleculeEntry
+import Requests.Molecule as Molecule
 
-import Requests.Molecule
-    ( Molecule
-    , fromEntry
-    ) as Molecule
-
-import Requests.Molecule.Utils
-    ( toMap
-    ) as Molecule
-
-import Requests.PositionMatrix
-    ( fromEntry
-    ) as Matrix
-
-import Requests.PositionMatrix.Utils
-    ( toMap
-    ) as Matrix
+import Requests.UnvalidatedMoleculeQueryEntry
+    ( UnvalidatedMoleculeQueryEntry
+    )
 
 type RequestOptions =
     { url                                   :: String
@@ -50,10 +38,14 @@ type RequestOptions =
     }
 
 type ConstructedMoleculeCollectionName = String
+type PositionMatrixCollectionName = String
+type BuildingBlockPositionMatrixCollectionName = String
 
 foreign import query
     :: MoleculeKeyName
     -> ConstructedMoleculeCollectionName
+    -> PositionMatrixCollectionName
+    -> BuildingBlockPositionMatrixCollectionName
     -> Mongo.AggregationQuery
 
 request :: Deferred => RequestOptions -> Promise Result
@@ -88,42 +80,22 @@ request options = do
             (query
                 options.moleculeKey
                 options.constructedMoleculeCollection
+                options.positionMatrixCollection
+                options.buildingBlockPositionMatrixCollection
             )
 
     let
+        maybeGetMolecule =
+            Maybe.toArray <<< _maybeGetMolecule options.moleculeKey
+
         baseMolecules =
-            Molecule.toMap <<< Array.concat <<<
-            map (
-                Maybe.toArray <<<
-                    Molecule.fromEntry options.moleculeKey
-            ) $
+            Array.concatMap maybeGetMolecule $
             Array.slice 0 options.numEntriesPerPage rawMoleculeEntries
 
+        baseMoleculeKeys = map Molecule.key baseMolecules
+
         dataQuery =
-            Utils.dataQuery options.moleculeKey
-            (Array.fromFoldable <<< keys $ baseMolecules)
-
-    matrixEntries1 <-
-        Mongo.toArray $ Mongo.find
-            database
-            options.positionMatrixCollection
-            dataQuery
-
-    matrixEntries2 <-
-        Mongo.toArray $ Mongo.find
-            database
-            options.buildingBlockPositionMatrixCollection
-            dataQuery
-
-    let
-        matrices =
-            Matrix.toMap <<< Array.concat <<<
-            map (
-                Maybe.toArray <<< Matrix.fromEntry options.moleculeKey
-            ) $
-            (Array.concat [matrixEntries1, matrixEntries2])
-
-        positioned = Utils.addPositionMatrices baseMolecules matrices
+            Utils.dataQuery options.moleculeKey baseMoleculeKeys
 
     values <-
         all $ map
@@ -137,7 +109,7 @@ request options = do
                 valueCollections
                 values
 
-        molecules = Utils.addValues positioned collections
+        molecules = Utils.addValues baseMolecules collections
 
     collection <- collectionPromise molecules
 
@@ -160,3 +132,12 @@ collectionPromise
 collectionPromise molecules = case Array.uncons molecules of
     Just { head: x, tail: xs } -> pure $ selectingCollection [] x xs
     Nothing -> reject $ error "No valid molecules were found."
+
+_maybeGetMolecule
+    :: MoleculeKeyName
+    -> UnvalidatedMoleculeQueryEntry
+    -> Maybe Molecule.Molecule
+
+_maybeGetMolecule moleculeKey entry =
+    MoleculeEntry.fromMoleculeQueryEntry moleculeKey entry >>=
+    Molecule.fromMoleculeEntry

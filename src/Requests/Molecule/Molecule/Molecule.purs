@@ -4,11 +4,10 @@ module Requests.Molecule
     , properties
     , constructed
     , toValidated
-    , fromEntry
     , fromValidated
+    , fromMoleculeEntry
     ) where
 
-import Mongo as Mongo
 import Data.Maybe (Maybe)
 import ValidatedMolecule as Validated
 
@@ -17,19 +16,17 @@ import Requests.Molecule.Internal.Data
     , Properties
     ) as Exports
 
-import Requests.MoleculeKey (MoleculeKeyName, MoleculeKeyValue)
+import Requests.MoleculeKey (MoleculeKeyValue)
+import Requests.MoleculeEntry (MoleculeEntry)
 
 import Requests.Molecule.Internal.Data
     ( key
     , properties
     , toValidated
     , fromValidated
+    , fromMoleculeEntry
     , constructed
     ) as Data
-
-import Requests.Molecule.Internal.FromEntry
-    ( fromEntry
-    ) as  FromEntry
 
 key :: Exports.Molecule -> MoleculeKeyValue
 key = Data.key
@@ -43,8 +40,11 @@ constructed = Data.constructed
 toValidated :: Exports.Molecule -> Validated.Molecule
 toValidated = Data.toValidated
 
-fromEntry :: MoleculeKeyName -> Mongo.Entry -> Maybe Exports.Molecule
-fromEntry = FromEntry.fromEntry
+fromMoleculeEntry
+    :: MoleculeEntry
+    -> Maybe Exports.Molecule
+
+fromMoleculeEntry = Data.fromMoleculeEntry
 
 fromValidated
     :: Boolean

@@ -29,6 +29,7 @@ exports.limit = number => cursor => cursor.limit(number);
 
 exports.toArray = cursor => cursor.toArray();
 
-exports.aggregate = database => collection => query => database
-    .collection(collection)
-    .aggregate(query);
+exports.aggregate = database => collection => query =>
+{
+    return database.collection(collection).aggregate(query);
+}

@@ -8,19 +8,19 @@ module Requests.Collection.Internal.Data
     ) where
 
 import Prelude
-import Mongo as Mongo
 import Data.Array (concat)
 import Data.Map (Map, fromFoldable, lookup)
 import Data.Maybe (Maybe)
 import Data.Tuple (Tuple (Tuple))
 import Requests.MoleculeKey (MoleculeKeyValue, MoleculeKeyName)
+import Requests.UnvalidatedValueQueryEntry (UnvalidatedValueQueryEntry)
 
 type CollectionValue = String
 type CollectionName = String
 
 data Collection = Collection
-    { _name   :: String
-    , _values :: Map MoleculeKeyValue String
+    { _name      :: String
+    , _values    :: Map MoleculeKeyValue CollectionValue
     }
 
 name :: Collection -> CollectionName
@@ -36,7 +36,7 @@ type Helpers =
 foreign import toEntry
     :: Helpers
     -> MoleculeKeyName
-    -> Mongo.Entry
+    -> UnvalidatedValueQueryEntry
     -- Returns an empty array if conversion fails and an array of
     -- one tuple if it is successful.
     -> Array (Tuple MoleculeKeyValue CollectionValue)
@@ -44,7 +44,7 @@ foreign import toEntry
 fromEntries
     :: MoleculeKeyName
     -> CollectionName
-    -> Array Mongo.Entry
+    -> Array UnvalidatedValueQueryEntry
     -> Collection
 
 fromEntries key name' entries = Collection

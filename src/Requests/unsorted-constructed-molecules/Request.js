@@ -1,27 +1,49 @@
-exports.query = moleculeKey => collection => [
-    {
-        '$match': {
-            [moleculeKey]: {
-                '$exists': true,
+exports.query =
+    moleculeKey =>
+    constructedMoleculeCollection =>
+    positionMatrixCollection =>
+    [
+        {
+            '$match': {
+                [moleculeKey]: {
+                    '$exists': true,
+                },
             },
         },
-    },
-    {
-        '$lookup': {
-            'from': collection,
-            'localField': moleculeKey,
-            'foreignField': moleculeKey,
-            'as': 'constructedMolecule',
-        },
-    },
-    {
-        '$match': {
-            '$expr': {
-                '$gt': [
-                    {'$size': '$constructedMolecule'},
-                    0,
-                ],
+        {
+            '$lookup': {
+                'from': constructedMoleculeCollection,
+                'localField': moleculeKey,
+                'foreignField': moleculeKey,
+                'as': 'constructedMolecule',
             },
         },
-    }
-];
+        {
+            '$lookup': {
+                'from': positionMatrixCollection,
+                'localField': moleculeKey,
+                'foreignField': moleculeKey,
+                'as': 'positionMatrix',
+            },
+        },
+        {
+            '$match': {
+                '$expr': {
+                    '$and': [
+                        {
+                            '$gt': [
+                                {'$size': '$constructedMolecule'},
+                                0,
+                            ],
+                        },
+                        {
+                            '$gt': [
+                                {'$size': '$positionMatrix'},
+                                0
+                            ],
+                        }
+                    ],
+                },
+            },
+        }
+    ];
