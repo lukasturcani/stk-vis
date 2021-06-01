@@ -15,6 +15,7 @@ module Page.MoleculeBrowser.UnsortedConstructedMolecules
 
 import Prelude
 import Data.Array as Array
+import Data.String as String
 import PageKind (PageKind)
 import PageKind as PageKind
 import SortType (SortType)
@@ -174,7 +175,7 @@ props :: forall a r.  ActionCreators a r -> Model -> Props a
 props actionCreators model@{ twoDViewer: true, threeDViewer: true } =
     Props.AllViewers $
         { sortButton: SortButton.props
-            model.valueCollections
+            (Array.sortWith String.toLower model.valueCollections)
             (setSorted actionCreators model)
             (setUnsorted actionCreators model)
 
@@ -239,7 +240,7 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true } =
 props actionCreators model@{ twoDViewer: false, threeDViewer: true } =
     Props.ThreeDViewer $
         { sortButton: SortButton.props
-            model.valueCollections
+            (Array.sortWith String.toLower model.valueCollections)
             (setSorted actionCreators model)
             (setUnsorted actionCreators model)
 
@@ -302,7 +303,7 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: true } =
 props actionCreators model@{ twoDViewer: true, threeDViewer: false } =
     Props.TwoDViewer $
         { sortButton: SortButton.props
-            model.valueCollections
+            (Array.sortWith String.toLower model.valueCollections)
             (setSorted actionCreators model)
             (setUnsorted actionCreators model)
 
@@ -365,7 +366,7 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false } =
 props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
     Props.NoViewers $
         { sortButton: SortButton.props
-            model.valueCollections
+            (Array.sortWith String.toLower model.valueCollections)
             (setSorted actionCreators model)
             (setUnsorted actionCreators model)
 
