@@ -6,7 +6,7 @@ import itertools
 
 class ConstructedMoleculeCreator:
     def __init__(self):
-        self._num_molecules = 0
+        self._num_molecules = 1
 
     def get_molecules(self) -> Iterable[stk.ConstructedMolecule]:
 
@@ -30,15 +30,35 @@ class ConstructedMoleculeCreator:
 
 
 def build_database_1():
+    """
+    Build a basic database.
+
+    This is a well formatted database that should just work.
+
+    """
+
+    database = 'stk-vis-test-database-1'
+    pymongo.MongoClient().drop_database(database)
+
     constructed_molecule_db = stk.ConstructedMoleculeMongoDb(
         mongo_client=pymongo.MongoClient(),
-        database='stk-vis-test-database-1',
+        database=database,
         molecule_collection='molecules',
         constructed_molecule_collection='constructed_molecules',
         position_matrix_collection='position_matrices',
         building_block_position_matrix_collection=(
             'building_block_position_matrices'
         ),
+    )
+    num_atoms_db = stk.ValueMongoDb(
+        mongo_client=pymongo.MongoClient(),
+        collection='Num Atoms',
+        database=database,
+    )
+    num_bonds_db = stk.ValueMongoDb(
+        mongo_client=pymongo.MongoClient(),
+        collection='Num Bonds',
+        database=database,
     )
 
     molecule_creator = ConstructedMoleculeCreator()
@@ -47,18 +67,42 @@ def build_database_1():
         40,
     ):
         constructed_molecule_db.put(molecule)
+        num_atoms_db.put(molecule, molecule.get_num_atoms())
+        num_bonds_db.put(molecule, molecule.get_num_bonds())
 
 
 def build_database_2():
+    """
+    Build a somewhat messy database.
+
+    This database should be a little bit messy in that there should
+    be molecules in the *molecules* collection which are not present
+    in the *position matrix* collection.
+
+    """
+
+    database = 'stk-vis-test-database-2'
+    pymongo.MongoClient().drop_database(database)
+
     constructed_molecule_db_1 = stk.ConstructedMoleculeMongoDb(
         mongo_client=pymongo.MongoClient(),
-        database='stk-vis-test-database-2',
+        database=database,
         molecule_collection='molecules',
         constructed_molecule_collection='constructed_molecules',
         position_matrix_collection='position_matrices',
         building_block_position_matrix_collection=(
             'building_block_position_matrices'
         ),
+    )
+    num_atoms_db = stk.ValueMongoDb(
+        mongo_client=pymongo.MongoClient(),
+        collection='Num Atoms',
+        database=database,
+    )
+    num_bonds_db = stk.ValueMongoDb(
+        mongo_client=pymongo.MongoClient(),
+        collection='Num Bonds',
+        database=database,
     )
 
     molecule_creator = ConstructedMoleculeCreator()
@@ -67,10 +111,12 @@ def build_database_2():
         20,
     ):
         constructed_molecule_db_1.put(molecule)
+        num_atoms_db.put(molecule, molecule.get_num_atoms())
+        num_bonds_db.put(molecule, molecule.get_num_bonds())
 
     constructed_molecule_db_2 = stk.ConstructedMoleculeMongoDb(
         mongo_client=pymongo.MongoClient(),
-        database='stk-vis-test-database-2',
+        database=database,
         molecule_collection='molecules',
         constructed_molecule_collection='constructed_molecules',
         position_matrix_collection='position_matrices_2',
@@ -84,6 +130,8 @@ def build_database_2():
         20,
     ):
         constructed_molecule_db_2.put(molecule)
+        num_atoms_db.put(molecule, molecule.get_num_atoms())
+        num_bonds_db.put(molecule, molecule.get_num_bonds())
 
 
 def main() -> None:
