@@ -96,12 +96,12 @@ const Radio: React.FunctionComponent<RadioProps>
                 <FormControlLabel
                     value={'ascending'}
                     control={<RadioBase />}
-                    label={'Ascending'}
+                    label={'Smallest First'}
                 />
                 <FormControlLabel
                     value={'descending'}
                     control={<RadioBase />}
-                    label={'Descending'}
+                    label={'Largest First'}
                 />
             </RadioGroup>
         </Grid>
