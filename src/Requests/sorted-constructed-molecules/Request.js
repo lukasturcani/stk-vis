@@ -52,7 +52,7 @@ exports.query =
                             ],
                         },
                         {
-                            '$eq': [
+                            '$gt': [
                                 {'$size': '$constructedMolecule'},
                                 0,
                             ],

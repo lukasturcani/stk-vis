@@ -70,6 +70,12 @@ def build_database_1():
         num_atoms_db.put(molecule, molecule.get_num_atoms())
         num_bonds_db.put(molecule, molecule.get_num_bonds())
 
+        for building_block in molecule.get_building_blocks():
+            num_atoms_db.put(
+                molecule=building_block,
+                value=building_block.get_num_atoms(),
+            )
+
 
 def build_database_2():
     """

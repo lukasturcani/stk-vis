@@ -120,7 +120,7 @@ request options = do
 
         molecules = Utils.addValues sortedBaseMolecules collections
 
-    collection <- _collectionPromise sortedBaseMolecules
+    collection <- _collectionPromise molecules
 
     pure
         (Result
