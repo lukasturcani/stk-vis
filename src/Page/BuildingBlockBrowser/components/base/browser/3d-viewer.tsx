@@ -17,6 +17,9 @@ import {
 import {
     CoreProps as BreadcrumbsProps,
 } from '../breadcrumbs';
+import {
+    CoreProps as ColumnButtonProps,
+} from '../../../../Assets/ColumnButton/components/base/column-button';
 
 
 type Empty = Record<string, unknown>;
@@ -40,6 +43,8 @@ interface Props<a> extends BrowserProps<a>, DispatchProps<a>
     viewerSwitchComponent:
         React.FunctionComponent<ViewerSwitchProps<a>>;
     saveButtonComponent: React.FunctionComponent<SaveButtonProps>;
+    columnButtonComponent:
+        React.FunctionComponent<ColumnButtonProps<a>>;
 }
 
 
@@ -54,6 +59,10 @@ export function MoleculeBrowser<a>(
                 {...props.value0.breadcrumbs}
             />
             <props.configContainer>
+                <props.columnButtonComponent
+                    dispatch={props.dispatch}
+                    {...props.value0.columnButton}
+                />
                 <props.viewerSwitchComponent
                     dispatch={props.dispatch}
                     {...props.value0.twoDViewerSwitch}

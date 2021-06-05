@@ -12,6 +12,7 @@ module Config
     , searchKind
     ) where
 
+import Data.HashSet (HashSet)
 import Molecule (Molecule, MoleculeKeyValue)
 import PageKind (PageKind)
 import SelectingCollection (SelectingCollection)
@@ -28,7 +29,7 @@ type MongoConfigurator =
     , positionMatrixCollection          :: String
     , buildingBlockPositionMatrixCollection :: String
     , numEntriesPerPage                 :: Int
-    , ignoredCollections                :: Array String
+    , ignoredCollections                :: HashSet String
     , searchKind                        :: SearchKind
     , twoDViewer                        :: Boolean
     , threeDViewer                      :: Boolean
@@ -44,10 +45,9 @@ type UnsortedAll =
     , buildingBlockPositionMatrixCollection :: String
     , pageIndex                         :: Int
     , numEntriesPerPage                 :: Int
-    , ignoredCollections                :: Array String
+    , ignoredCollections                :: HashSet String
     , pageKind                          :: PageKind
-    , valueCollections                  :: Array String
-    , columns                           :: Array String
+    , valueCollections                  :: HashSet String
     , molecules                         :: SelectingCollection Molecule
     , twoDViewer                        :: Boolean
     , threeDViewer                      :: Boolean
@@ -63,10 +63,9 @@ type UnsortedBuildingBlocks =
     , buildingBlockPositionMatrixCollection :: String
     , pageIndex                         :: Int
     , numEntriesPerPage                 :: Int
-    , ignoredCollections                :: Array String
+    , ignoredCollections                :: HashSet String
     , pageKind                          :: PageKind
-    , valueCollections                  :: Array String
-    , columns                           :: Array String
+    , valueCollections                  :: HashSet String
     , molecules                         :: SelectingCollection Molecule
     , twoDViewer                        :: Boolean
     , threeDViewer                      :: Boolean
@@ -82,10 +81,9 @@ type UnsortedConstructedMolecules =
     , buildingBlockPositionMatrixCollection :: String
     , pageIndex                         :: Int
     , numEntriesPerPage                 :: Int
-    , ignoredCollections                :: Array String
+    , ignoredCollections                :: HashSet String
     , pageKind                          :: PageKind
-    , valueCollections                  :: Array String
-    , columns                           :: Array String
+    , valueCollections                  :: HashSet String
     , molecules                         :: SelectingCollection Molecule
     , twoDViewer                        :: Boolean
     , threeDViewer                      :: Boolean
@@ -101,10 +99,9 @@ type SortedAll =
     , buildingBlockPositionMatrixCollection :: String
     , pageIndex                         :: Int
     , numEntriesPerPage                 :: Int
-    , ignoredCollections                :: Array String
+    , ignoredCollections                :: HashSet String
     , pageKind                          :: PageKind
-    , valueCollections                  :: Array String
-    , columns                           :: Array String
+    , valueCollections                  :: HashSet String
     , molecules                         :: SelectingCollection Molecule
     , sortedCollection                  :: String
     , sortType                          :: SortType
@@ -122,10 +119,9 @@ type SortedBuildingBlocks =
     , buildingBlockPositionMatrixCollection :: String
     , pageIndex                         :: Int
     , numEntriesPerPage                 :: Int
-    , ignoredCollections                :: Array String
+    , ignoredCollections                :: HashSet String
     , pageKind                          :: PageKind
-    , valueCollections                  :: Array String
-    , columns                           :: Array String
+    , valueCollections                  :: HashSet String
     , molecules                         :: SelectingCollection Molecule
     , sortedCollection                  :: String
     , sortType                          :: SortType
@@ -143,10 +139,9 @@ type SortedConstructedMolecules =
     , buildingBlockPositionMatrixCollection :: String
     , pageIndex                         :: Int
     , numEntriesPerPage                 :: Int
-    , ignoredCollections                :: Array String
+    , ignoredCollections                :: HashSet String
     , pageKind                          :: PageKind
-    , valueCollections                  :: Array String
-    , columns                           :: Array String
+    , valueCollections                  :: HashSet String
     , molecules                         :: SelectingCollection Molecule
     , sortedCollection                  :: String
     , sortType                          :: SortType
@@ -170,9 +165,8 @@ type BuildingBlockBrowser =
     , constructedMoleculeCollection     :: String
     , positionMatrixCollection          :: String
     , buildingBlockPositionMatrixCollection :: String
-    , ignoredCollections                :: Array String
-    , valueCollections                  :: Array String
-    , columns                           :: Array String
+    , ignoredCollections                :: HashSet String
+    , valueCollections                  :: HashSet String
     , buildingBlocks                    :: SelectingCollection Molecule
     , history                           :: Array MoleculeKeyValue
     , molecule                          :: MoleculeKeyValue
@@ -201,4 +195,3 @@ searchKind browser = case browser of
     SortedBuildingBlocks _ -> SearchKind.UnsortedBuildingBlocks
     SortedConstructedMolecules _ ->
         SearchKind.UnsortedConstructedMolecules
-

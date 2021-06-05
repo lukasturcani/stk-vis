@@ -5,9 +5,10 @@ module Requests.SortedAll.Internal.Result
 import Requests.PageKind (PageKind)
 import Requests.Molecule (Molecule)
 import SelectingCollection (SelectingCollection)
+import Data.HashSet (HashSet)
 
 data Result = Result
-    { valueCollections :: Array String
+    { valueCollections :: HashSet String
     , molecules        :: SelectingCollection Molecule
     , pageKind         :: PageKind
     }

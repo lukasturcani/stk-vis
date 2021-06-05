@@ -10,6 +10,9 @@ import {
     SortButton,
 } from '../../../SortButton/components/styled/sort-button';
 import {
+    ColumnButton,
+} from '../../../../Assets/ColumnButton/components/styled';
+import {
     MoleculeTable,
 } from '../../../../Assets/MoleculeTable/components/styled';
 import {
@@ -43,6 +46,7 @@ export function MoleculeBrowser<a>(
         viewerSwitchComponent={ViewerSwitch}
         saveButtonComponent={SaveButton}
         sortButtonComponent={SortButton}
+        columnButtonComponent={ColumnButton}
         moleculeTableComponent={MoleculeTable}
         viewerContainer={ViewerContainer}
         threeDViewerComponent={ThreeDViewer}

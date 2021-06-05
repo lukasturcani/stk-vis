@@ -6,6 +6,7 @@ module Requests.BuildingBlocks.Internal.Request
 import Prelude
 import Effect.Promise (class Deferred, Promise, all, reject)
 import Data.Array as Array
+import Data.HashSet (HashSet)
 import Mongo as Mongo
 import Data.Maybe (Maybe (Nothing, Just))
 import Data.Maybe.Utils as Maybe
@@ -34,7 +35,7 @@ type RequestOptions =
     , constructedMoleculeCollection         :: String
     , positionMatrixCollection              :: String
     , buildingBlockPositionMatrixCollection :: String
-    , valueCollections                      :: Array String
+    , valueCollections                      :: HashSet String
     , molecule                              :: String
     }
 
@@ -89,6 +90,8 @@ request options = do
             )
     let
 
+        valueCollections = Array.fromFoldable options.valueCollections
+
         maybeGetMolecule =
             Maybe.toArray <<< _maybeGetMolecule options.moleculeKey
 
@@ -103,13 +106,13 @@ request options = do
     values <-
         all $ map
             (Mongo.toArray <<< Mongo.find' database dataQuery)
-            options.valueCollections
+            valueCollections
 
     let
         collections =
             Array.zipWith
                 (Collection.fromEntries options.moleculeKey)
-                options.valueCollections
+                valueCollections
                 values
 
         molecules = Utils.addValues baseMolecules collections

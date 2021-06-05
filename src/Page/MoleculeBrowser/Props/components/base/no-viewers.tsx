@@ -23,6 +23,9 @@ import {
 import {
     Props as SaveButtonProps,
 } from 'Page.SaveButton';
+import {
+    CoreProps as ColumnButtonProps,
+} from '../../../../Assets/ColumnButton/components/base/column-button';
 
 
 type Empty = Record<string, unknown>;
@@ -40,6 +43,8 @@ interface Props<a> extends MoleculeBrowserProps<a>, DispatchProps<a>
     breadcrumbsComponent: React.FunctionComponent<BreadcrumbsProps<a>>;
     configContainer: React.FunctionComponent<Empty>;
     saveButtonComponent: React.FunctionComponent<SaveButtonProps>;
+    columnButtonComponent:
+        React.FunctionComponent<ColumnButtonProps<a>>;
     sortButtonComponent: React.FunctionComponent<SortButtonProps<a>>;
     moleculeTableComponent:
         React.FunctionComponent<MoleculeTableProps<a>>;
@@ -63,6 +68,10 @@ export function MoleculeBrowser<a>(
                 {...props.value0.breadcrumbs}
             />
             <props.configContainer>
+                <props.columnButtonComponent
+                    dispatch={props.dispatch}
+                    {...props.value0.columnButton}
+                />
                 <props.sortButtonComponent
                     dispatch={props.dispatch}
                     {...props.value0.sortButton}

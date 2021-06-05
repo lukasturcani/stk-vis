@@ -15,6 +15,8 @@ module Page.MongoConfigurator
 
 
 import Prelude
+import Data.HashSet (HashSet)
+import Data.HashSet as HashSet
 import DispatchAction (DispatchAction)
 import Effect.Promise (class Deferred, Promise, catch)
 import Config as Config
@@ -23,7 +25,6 @@ import Effect.Uncurried (EffectFn1, runEffectFn1)
 import Effect.Unsafe (unsafePerformEffect)
 import Effect.Exception (Error, message) as Error
 import Effect.Class.Console (log)
-import Data.Array as Array
 import PageKind as PageKind
 import Molecule as Molecule
 import Page.MongoConfigurator.SearchKind (SearchKind (..))
@@ -46,7 +47,7 @@ type Model =
     , positionMatrixCollection              :: String
     , buildingBlockPositionMatrixCollection :: String
     , numEntriesPerPage                     :: Int
-    , ignoredCollections                    :: Array String
+    , ignoredCollections                    :: HashSet String
     , searchKind                            :: SearchKind
     , twoDViewer                            :: Boolean
     , threeDViewer                          :: Boolean
@@ -64,7 +65,7 @@ init =
     , buildingBlockPositionMatrixCollection:
         "building_block_position_matrices"
     , numEntriesPerPage: 34
-    , ignoredCollections: []
+    , ignoredCollections: HashSet.empty
     , searchKind: UnsortedAll
     , twoDViewer: true
     , threeDViewer: true
@@ -86,7 +87,7 @@ type Props a =
     , positionMatrixCollection             :: String
     , buildingBlockPositionMatrixCollection :: String
     , numEntriesPerPage                    :: Int
-    , ignoredCollections                   :: Array String
+    , ignoredCollections                   :: HashSet String
     , selectBuildingBlocks                 :: Boolean
     , selectConstructedMolecules           :: Boolean
     , getMoleculesButton                   :: GetMoleculesButtonProps a
@@ -156,7 +157,7 @@ props actionCreators model =
     , selectConstructedMolecules:
         selectConstructedMolecules model.searchKind
     , getMoleculesButton:
-        { onClick: onClick actionCreators
+        { onClick: onClick actionCreators model
         }
     , twoDViewer: model.twoDViewer
     , threeDViewer: model.threeDViewer
@@ -176,20 +177,22 @@ onClick
     :: forall a r
     .  Deferred
     => ActionCreators a r
+    -> Model
     -> DispatchAction a
     -> Snackbars
     -> MongoData
     -> Promise Unit
 
-onClick actionCreators dispatch snackbars mongoData
+onClick actionCreators model dispatch snackbars mongoData
     = catch
-        (_onClick actionCreators dispatch snackbars mongoData)
+        (_onClick actionCreators model dispatch snackbars mongoData)
         (_errorSnackbar snackbars.error)
 
 _onClick
     :: forall a r
     .  Deferred
     => ActionCreators a r
+    -> Model
     -> DispatchAction a
     -> Snackbars
     -> MongoData
@@ -197,6 +200,7 @@ _onClick
 
 _onClick
     actionCreators
+    model
     dispatch
     snackbars
     { url
@@ -223,7 +227,7 @@ _onClick
             , buildingBlockPositionMatrixCollection
             , pageIndex: 0
             , numEntriesPerPage
-            , ignoredCollections: []
+            , ignoredCollections: HashSet.empty
             }
 
         let
@@ -241,11 +245,9 @@ _onClick
                 , buildingBlockPositionMatrixCollection
                 , pageIndex: 0
                 , numEntriesPerPage
-                , ignoredCollections: []
+                , ignoredCollections: model.ignoredCollections
                 , pageKind: PageKind.fromRequest pageKind
                 , valueCollections
-                , columns:
-                    Array.concat [[moleculeKey], valueCollections]
                 , molecules:
                     map (Molecule.molecule' moleculeKey) molecules
                 , twoDViewer
@@ -260,6 +262,7 @@ _onClick
 
 _onClick
     actionCreators
+    model
     dispatch
     snackbars
     { url
@@ -285,8 +288,7 @@ _onClick
             , positionMatrixCollection
             , pageIndex: 0
             , numEntriesPerPage
-            , ignoredCollections:
-                [buildingBlockPositionMatrixCollection]
+            , ignoredCollections: HashSet.empty
             }
 
         let
@@ -304,12 +306,9 @@ _onClick
                 , buildingBlockPositionMatrixCollection
                 , pageIndex: 0
                 , numEntriesPerPage
-                , ignoredCollections:
-                    [buildingBlockPositionMatrixCollection]
+                , ignoredCollections: model.ignoredCollections
                 , pageKind: PageKind.fromRequest pageKind
                 , valueCollections
-                , columns:
-                    Array.concat [[moleculeKey], valueCollections]
                 , molecules:
                     map (Molecule.molecule' moleculeKey) molecules
                 , twoDViewer
@@ -326,6 +325,7 @@ _onClick
 
 _onClick
     actionCreators
+    model
     dispatch
     snackbars
     { url
@@ -352,8 +352,7 @@ _onClick
                 buildingBlockPositionMatrixCollection
             , pageIndex: 0
             , numEntriesPerPage
-            , ignoredCollections:
-                [positionMatrixCollection]
+            , ignoredCollections: HashSet.empty
             }
 
         let
@@ -371,12 +370,9 @@ _onClick
                 , buildingBlockPositionMatrixCollection
                 , pageIndex: 0
                 , numEntriesPerPage
-                , ignoredCollections:
-                    [positionMatrixCollection]
+                , ignoredCollections: model.ignoredCollections
                 , pageKind: PageKind.fromRequest pageKind
                 , valueCollections
-                , columns:
-                    Array.concat [[moleculeKey], valueCollections]
                 , molecules:
                     map (Molecule.molecule' moleculeKey) molecules
                 , twoDViewer
@@ -393,6 +389,7 @@ _onClick
 
 _onClick
     actionCreators
+    model
     dispatch
     snackbars
     mongoData@

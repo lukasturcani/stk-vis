@@ -11,10 +11,14 @@ module Page.MoleculeBrowser.UnsortedConstructedMolecules
     , selectMolecule
     , setTwoDViewer
     , setThreeDViewer
+    , hideCollection
+    , showCollection
     ) where
 
 import Prelude
 import Data.Array as Array
+import Data.HashSet as HashSet
+import Data.HashSet (HashSet)
 import Data.String as String
 import PageKind (PageKind)
 import PageKind as PageKind
@@ -28,6 +32,7 @@ import DispatchAction (DispatchAction)
 import Page.MoleculeBrowser.SortButton as SortButton
 import Page.MoleculeBrowser.NextButton as NextButton
 import Page.MoleculeBrowser.BackButton as BackButton
+import Page.ColumnButton as ColumnButton
 import Page.ViewerSwitch as ViewerSwitch
 import Page.SaveButton as SaveButton
 import Effect.Promise (class Deferred, Promise, catch)
@@ -64,10 +69,9 @@ type Model =
     , buildingBlockPositionMatrixCollection :: String
     , pageIndex                         :: Int
     , numEntriesPerPage                 :: Int
-    , ignoredCollections                :: Array String
+    , ignoredCollections                :: HashSet String
     , pageKind                          :: PageKind
-    , valueCollections                  :: Array String
-    , columns                           :: Array String
+    , valueCollections                  :: HashSet String
     , molecules                         :: SelectingCollection Molecule
     , twoDViewer                        :: Boolean
     , threeDViewer                      :: Boolean
@@ -79,11 +83,10 @@ type Molecules r =
     }
 
 type MoleculePage r =
-    { columns          :: Array String
-    , molecules        :: SelectingCollection Molecule
+    { molecules        :: SelectingCollection Molecule
     , pageIndex        :: Int
     , pageKind         :: PageKind
-    , valueCollections :: Array String
+    , valueCollections :: HashSet String
     | r
     }
 
@@ -97,7 +100,7 @@ type RequestConfig r =
     , buildingBlockPositionMatrixCollection :: String
     , pageIndex                             :: Int
     , numEntriesPerPage                     :: Int
-    , ignoredCollections                    :: Array String
+    , ignoredCollections                    :: HashSet String
     , pageKind                              :: PageKind
     | r
     }
@@ -117,10 +120,9 @@ debugInit =
         "building_block_position_matrices"
     , pageIndex: 0
     , numEntriesPerPage: 34
-    , ignoredCollections: []
+    , ignoredCollections: HashSet.empty
     , pageKind: PageKind.First
-    , valueCollections: ["numAtoms"]
-    , columns: ["InChIKey", "numAtoms"]
+    , valueCollections: HashSet.fromArray ["numAtoms"]
     , molecules: SelectingCollection.selectingCollection [] molecule []
     , twoDViewer: true
     , threeDViewer: true
@@ -167,6 +169,8 @@ type ActionCreators a r =
     , initBuildingBlockBrowser :: Config.BuildingBlockBrowser -> a
     , setTwoDViewer            :: Boolean -> a
     , setThreeDViewer          :: Boolean -> a
+    , hideCollection           :: String -> a
+    , showCollection           :: String -> a
     | r
     }
 
@@ -174,13 +178,14 @@ props :: forall a r.  ActionCreators a r -> Model -> Props a
 
 props actionCreators model@{ twoDViewer: true, threeDViewer: true } =
     Props.AllViewers $
-        { sortButton: SortButton.props
-            (Array.sortWith String.toLower model.valueCollections)
-            (setSorted actionCreators model)
-            (setUnsorted actionCreators model)
+        { sortButton:
+            SortButton.props
+                visibleValueCollections
+                (setSorted actionCreators model)
+                (setUnsorted actionCreators model)
 
         , moleculeTable:
-            { columns: model.columns
+            { columns
             , selectedRow: fst selected
             , rows: map Molecule.properties molecules
             , molecules
@@ -223,6 +228,12 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true } =
             { writers: SaveButton.writers selectedMolecule
             , defaultFilename: Molecule.key selectedMolecule
             }
+
+        , columnButton:
+            ColumnButton.props
+                actionCreators
+                model.ignoredCollections
+                model.valueCollections
 
         , type: "Molecule Browser All Viewers"
         }
@@ -237,15 +248,26 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true } =
     lastPage PageKind.OnlyIncomplete = true
     lastPage _ = false
 
+    visibleValueCollections =
+        Array.sortWith String.toLower $
+        Array.fromFoldable
+            (HashSet.difference
+                model.valueCollections
+                model.ignoredCollections
+            )
+
+    columns = Array.cons model.moleculeKey visibleValueCollections
+
 props actionCreators model@{ twoDViewer: false, threeDViewer: true } =
     Props.ThreeDViewer $
-        { sortButton: SortButton.props
-            (Array.sortWith String.toLower model.valueCollections)
-            (setSorted actionCreators model)
-            (setUnsorted actionCreators model)
+        { sortButton:
+            SortButton.props
+                visibleValueCollections
+                (setSorted actionCreators model)
+                (setUnsorted actionCreators model)
 
         , moleculeTable:
-            { columns: model.columns
+            { columns
             , selectedRow: fst selected
             , rows: map Molecule.properties molecules
             , molecules
@@ -287,6 +309,12 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: true } =
             , defaultFilename: Molecule.key selectedMolecule
             }
 
+        , columnButton:
+            ColumnButton.props
+                actionCreators
+                model.ignoredCollections
+                model.valueCollections
+
         , type: "Molecule Browser 3D Viewer"
         }
 
@@ -300,15 +328,26 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: true } =
     lastPage PageKind.OnlyIncomplete = true
     lastPage _ = false
 
+    visibleValueCollections =
+        Array.sortWith String.toLower $
+        Array.fromFoldable
+            (HashSet.difference
+                model.valueCollections
+                model.ignoredCollections
+            )
+
+    columns = Array.cons model.moleculeKey visibleValueCollections
+
 props actionCreators model@{ twoDViewer: true, threeDViewer: false } =
     Props.TwoDViewer $
-        { sortButton: SortButton.props
-            (Array.sortWith String.toLower model.valueCollections)
-            (setSorted actionCreators model)
-            (setUnsorted actionCreators model)
+        { sortButton:
+            SortButton.props
+                visibleValueCollections
+                (setSorted actionCreators model)
+                (setUnsorted actionCreators model)
 
         , moleculeTable:
-            { columns: model.columns
+            { columns
             , selectedRow: fst selected
             , rows: map Molecule.properties molecules
             , molecules
@@ -350,6 +389,12 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false } =
             , defaultFilename: Molecule.key selectedMolecule
             }
 
+        , columnButton:
+            ColumnButton.props
+                actionCreators
+                model.ignoredCollections
+                model.valueCollections
+
         , type: "Molecule Browser 2D Viewer"
         }
 
@@ -363,15 +408,26 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false } =
     lastPage PageKind.OnlyIncomplete = true
     lastPage _ = false
 
+    visibleValueCollections =
+        Array.sortWith String.toLower $
+        Array.fromFoldable
+            (HashSet.difference
+                model.valueCollections
+                model.ignoredCollections
+            )
+
+    columns = Array.cons model.moleculeKey visibleValueCollections
+
 props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
     Props.NoViewers $
-        { sortButton: SortButton.props
-            (Array.sortWith String.toLower model.valueCollections)
-            (setSorted actionCreators model)
-            (setUnsorted actionCreators model)
+        { sortButton:
+            SortButton.props
+                visibleValueCollections
+                (setSorted actionCreators model)
+                (setUnsorted actionCreators model)
 
         , moleculeTable:
-            { columns: model.columns
+            { columns
             , selectedRow: fst selected
             , rows: map Molecule.properties molecules
             , molecules
@@ -411,6 +467,12 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
             , defaultFilename: Molecule.key selectedMolecule
             }
 
+        , columnButton:
+            ColumnButton.props
+                actionCreators
+                model.ignoredCollections
+                model.valueCollections
+
         , type: "Molecule Browser No Viewers"
         }
 
@@ -423,6 +485,16 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
     lastPage PageKind.OnlyComplete = true
     lastPage PageKind.OnlyIncomplete = true
     lastPage _ = false
+
+    visibleValueCollections =
+        Array.sortWith String.toLower $
+        Array.fromFoldable
+            (HashSet.difference
+                model.valueCollections
+                model.ignoredCollections
+            )
+
+    columns = Array.cons model.moleculeKey visibleValueCollections
 
 
 ---
@@ -480,7 +552,7 @@ _setSorted actionCreators model dispatch collection sortType = do
         , positionMatrixCollection: model.positionMatrixCollection
         , pageIndex: 0
         , numEntriesPerPage: model.numEntriesPerPage
-        , ignoredCollections: model.ignoredCollections
+        , ignoredCollections: HashSet.empty
         , sortedCollection: collection
         , sortType: SortType.toRequest sortType
         }
@@ -505,8 +577,6 @@ _setSorted actionCreators model dispatch collection sortType = do
             , ignoredCollections: model.ignoredCollections
             , pageKind: PageKind.fromRequest pageKind
             , valueCollections
-            , columns:
-                Array.concat [[model.moleculeKey], valueCollections]
             , molecules:
                 map (Molecule.molecule' model.moleculeKey) molecules
             , sortedCollection: collection
@@ -565,7 +635,7 @@ _setUnsorted actionCreators model dispatch = do
         , positionMatrixCollection: model.positionMatrixCollection
         , pageIndex: 0
         , numEntriesPerPage: model.numEntriesPerPage
-        , ignoredCollections: model.ignoredCollections
+        , ignoredCollections: HashSet.empty
         }
 
     let
@@ -574,9 +644,7 @@ _setUnsorted actionCreators model dispatch = do
         ) = result
 
         payload =
-            { columns:
-                Array.concat [[model.moleculeKey], valueCollections]
-            , molecules:
+            { molecules:
                 map (Molecule.molecule' model.moleculeKey) molecules
             , pageIndex: 0
             , pageKind: PageKind.fromRequest pageKind
@@ -681,7 +749,6 @@ _buildingBlockRequest actionCreators model molecule dispatch = do
                 model.buildingBlockPositionMatrixCollection
             , ignoredCollections: model.ignoredCollections
             , valueCollections: model.valueCollections
-            , columns: model.columns
             , buildingBlocks:
                 map (Molecule.molecule' model.moleculeKey) molecules
             , history: []
@@ -747,7 +814,7 @@ _nextButtonClick actionCreators model dispatch snackbar = do
         , positionMatrixCollection: model.positionMatrixCollection
         , pageIndex: nextPageIndex
         , numEntriesPerPage: model.numEntriesPerPage
-        , ignoredCollections: model.ignoredCollections
+        , ignoredCollections: HashSet.empty
         }
 
     let
@@ -756,9 +823,7 @@ _nextButtonClick actionCreators model dispatch snackbar = do
         ) = result
 
         payload =
-            { columns:
-                Array.concat [[model.moleculeKey], valueCollections]
-            , molecules:
+            { molecules:
                 map (Molecule.molecule' model.moleculeKey) molecules
             , pageIndex: nextPageIndex
             , pageKind: PageKind.fromRequest pageKind
@@ -821,7 +886,7 @@ _backButtonClick actionCreators model dispatch snackbar = do
         , positionMatrixCollection: model.positionMatrixCollection
         , pageIndex
         , numEntriesPerPage: model.numEntriesPerPage
-        , ignoredCollections: model.ignoredCollections
+        , ignoredCollections: HashSet.empty
         }
 
     let
@@ -830,9 +895,7 @@ _backButtonClick actionCreators model dispatch snackbar = do
         ) = result
 
         payload =
-            { columns:
-                Array.concat [[model.moleculeKey], valueCollections]
-            , molecules:
+            { molecules:
                 map (Molecule.molecule' model.moleculeKey) molecules
             , pageIndex
             , pageKind: PageKind.fromRequest pageKind
@@ -901,14 +964,15 @@ data Payload
     | SelectMolecule RowIndex Molecule
     | SetTwoDViewer Boolean
     | SetThreeDViewer Boolean
+    | HideCollection String
+    | ShowCollection String
     | DoNothing
 
 type UpdateMoleculePage =
-    { columns          :: Array String
-    , molecules        :: SelectingCollection Molecule
+    { molecules        :: SelectingCollection Molecule
     , pageKind         :: PageKind
     , pageIndex        :: Int
-    , valueCollections :: Array String
+    , valueCollections :: HashSet String
     }
 
 updateMoleculePage :: UpdateMoleculePage -> Action
@@ -935,6 +999,18 @@ setThreeDViewer state =
     , payload: SetThreeDViewer state
     }
 
+hideCollection :: String -> Action
+hideCollection collection =
+    { type: "HIDE_COLLECTION"
+    , payload: HideCollection collection
+    }
+
+showCollection :: String -> Action
+showCollection collection =
+    { type: "SHOW_COLLECTION"
+    , payload: ShowCollection collection
+    }
+
 doNothing :: Action
 doNothing =
     { type: "DO_NOTHING"
@@ -958,7 +1034,48 @@ reducer model action = case action of
     ({ payload: SetThreeDViewer state }) ->
         model { threeDViewer = state }
 
+    ({ payload: HideCollection collection }) ->
+        _hideCollection model collection
+
+    ({ payload: ShowCollection collection }) ->
+        _showCollection model collection
+
     ({ payload: DoNothing }) -> model
+
+
+---
+
+
+type IgnoredCollectionsPage r =
+    { ignoredCollections :: HashSet String
+    | r
+    }
+
+
+_hideCollection
+    :: forall r
+    .  IgnoredCollectionsPage r
+    -> String
+    -> IgnoredCollectionsPage r
+
+_hideCollection model@{ ignoredCollections } collection =
+    model
+        { ignoredCollections =
+            HashSet.insert collection ignoredCollections
+        }
+
+_showCollection
+    :: forall r
+    .  IgnoredCollectionsPage r
+    -> String
+    -> IgnoredCollectionsPage r
+
+_showCollection model@{ ignoredCollections } collection =
+    model
+        { ignoredCollections =
+            HashSet.delete collection ignoredCollections
+        }
+
 
 ---
 
@@ -972,7 +1089,6 @@ _updateMoleculePage
 _updateMoleculePage model payload
     = model
         { molecules = payload.molecules
-        , columns = payload.columns
         , pageIndex = payload.pageIndex
         , pageKind = payload.pageKind
         , valueCollections = payload.valueCollections

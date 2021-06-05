@@ -27,6 +27,9 @@ declare module 'Page.MoleculeBrowser.Props'
     import {
         Props as SaveButtonProps,
     } from 'Page.SaveButton';
+    import {
+        Props as ColumnButtonProps,
+    } from 'Page.ColumnButton';
 
     export interface AllViewers<a>
     {
@@ -41,6 +44,7 @@ declare module 'Page.MoleculeBrowser.Props'
             twoDViewerSwitch: ViewerSwitchProps<a>;
             threeDViewerSwitch: ViewerSwitchProps<a>;
             saveButton: SaveButtonProps;
+            columnButton: ColumnButtonProps<a>;
             type: "Molecule Browser All Viewers";
         };
         type: undefined;
@@ -58,6 +62,7 @@ declare module 'Page.MoleculeBrowser.Props'
             twoDViewerSwitch: ViewerSwitchProps<a>;
             threeDViewerSwitch: ViewerSwitchProps<a>;
             saveButton: SaveButtonProps;
+            columnButton: ColumnButtonProps<a>;
             type: "Molecule Browser 2D Viewer";
         };
         type: undefined;
@@ -75,6 +80,7 @@ declare module 'Page.MoleculeBrowser.Props'
             twoDViewerSwitch: ViewerSwitchProps<a>;
             threeDViewerSwitch: ViewerSwitchProps<a>;
             saveButton: SaveButtonProps;
+            columnButton: ColumnButtonProps<a>;
             type: "Molecule Browser 3D Viewer";
         }
         type: undefined;
@@ -90,6 +96,7 @@ declare module 'Page.MoleculeBrowser.Props'
             twoDViewerSwitch: ViewerSwitchProps<a>;
             threeDViewerSwitch: ViewerSwitchProps<a>;
             saveButton: SaveButtonProps;
+            columnButton: ColumnButtonProps<a>;
             type: "Molecule Browser No Viewers";
         };
         type: undefined;

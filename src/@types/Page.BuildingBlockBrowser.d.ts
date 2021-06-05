@@ -16,6 +16,9 @@ declare module 'Page.BuildingBlockBrowser'
     import {
         Props as SaveButtonProps,
     } from 'Page.SaveButton';
+    import {
+        Props as ColumnButtonProps,
+    } from 'Page.ColumnButton';
 
     export type Model = unknown;
     export type Action = { type: string };
@@ -30,6 +33,7 @@ declare module 'Page.BuildingBlockBrowser'
             twoDViewerSwitch: ViewerSwitchProps<a>;
             threeDViewerSwitch: ViewerSwitchProps<a>;
             saveButton: SaveButtonProps;
+            columnButton: ColumnButtonProps<a>;
             type: "Building Block Browser All Viewers";
         };
         type: undefined;
@@ -45,6 +49,7 @@ declare module 'Page.BuildingBlockBrowser'
             twoDViewerSwitch: ViewerSwitchProps<a>;
             threeDViewerSwitch: ViewerSwitchProps<a>;
             saveButton: SaveButtonProps;
+            columnButton: ColumnButtonProps<a>;
             type: "Building Block Browser 2D Viewer";
         };
         type: undefined;
@@ -60,6 +65,7 @@ declare module 'Page.BuildingBlockBrowser'
             twoDViewerSwitch: ViewerSwitchProps<a>;
             threeDViewerSwitch: ViewerSwitchProps<a>;
             saveButton: SaveButtonProps;
+            columnButton: ColumnButtonProps<a>;
             type: "Building Block Browser 3D Viewer";
         };
         type: undefined;
@@ -75,6 +81,7 @@ declare module 'Page.BuildingBlockBrowser'
             twoDViewerSwitch: ViewerSwitchProps<a>;
             threeDViewerSwitch: ViewerSwitchProps<a>;
             saveButton: SaveButtonProps;
+            columnButton: ColumnButtonProps<a>;
             type: "Building Block Browser No Viewers";
         };
         type: undefined;

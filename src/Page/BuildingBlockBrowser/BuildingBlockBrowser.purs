@@ -14,6 +14,8 @@ module Page.BuildingBlockBrowser
     , selectBuildingBlock
     , setTwoDViewer
     , setThreeDViewer
+    , hideCollection
+    , showCollection
     ) where
 
 import Prelude
@@ -23,6 +25,9 @@ import Molecule (Molecule, MoleculeKeyValue)
 import Molecule as Molecule
 import SelectingCollection (SelectingCollection)
 import SelectingCollection as SelectingCollection
+import Data.HashSet as HashSet
+import Data.HashSet (HashSet)
+import Data.String as String
 import Data.Array as Array
 import Data.Array ((..), length)
 import Data.Tuple (Tuple (Tuple), fst, snd)
@@ -32,6 +37,7 @@ import Page.TwoDViewer as TwoDViewer
 import Page.ThreeDViewer as ThreeDViewer
 import Page.ViewerSwitch as ViewerSwitch
 import Page.SaveButton as SaveButton
+import Page.ColumnButton as ColumnButton
 import Effect.Unsafe (unsafePerformEffect)
 import Effect.Uncurried (runEffectFn1)
 import Effect.Promise (class Deferred, Promise, catch)
@@ -51,9 +57,8 @@ type Model =
     , constructedMoleculeCollection     :: String
     , positionMatrixCollection          :: String
     , buildingBlockPositionMatrixCollection :: String
-    , ignoredCollections                :: Array String
-    , valueCollections                  :: Array String
-    , columns                           :: Array String
+    , ignoredCollections                :: HashSet String
+    , valueCollections                  :: HashSet String
     , buildingBlocks                    :: SelectingCollection Molecule
     , history                           :: Array MoleculeKeyValue
     , molecule                          :: MoleculeKeyValue
@@ -94,6 +99,7 @@ type NoViewers a =
     , twoDViewerSwitch   :: ViewerSwitch.Props a
     , threeDViewerSwitch :: ViewerSwitch.Props a
     , saveButton         :: SaveButton.Props
+    , columnButton       :: ColumnButton.Props a
     , type               :: String
     }
 
@@ -104,6 +110,7 @@ type TwoDViewer a =
     , twoDViewerSwitch   :: ViewerSwitch.Props a
     , threeDViewerSwitch :: ViewerSwitch.Props a
     , saveButton         :: SaveButton.Props
+    , columnButton       :: ColumnButton.Props a
     , type               :: String
     }
 
@@ -114,6 +121,7 @@ type ThreeDViewer a =
     , twoDViewerSwitch   :: ViewerSwitch.Props a
     , threeDViewerSwitch :: ViewerSwitch.Props a
     , saveButton         :: SaveButton.Props
+    , columnButton       :: ColumnButton.Props a
     , type               :: String
     }
 
@@ -125,6 +133,7 @@ type AllViewers a =
     , twoDViewerSwitch   :: ViewerSwitch.Props a
     , threeDViewerSwitch :: ViewerSwitch.Props a
     , saveButton         :: SaveButton.Props
+    , columnButton       :: ColumnButton.Props a
     , type               :: String
     }
 
@@ -151,6 +160,8 @@ type ActionCreators a r =
         :: Config.UnsortedConstructedMolecules -> a
     , setTwoDViewer              :: Boolean -> a
     , setThreeDViewer            :: Boolean -> a
+    , hideCollection             :: String -> a
+    , showCollection             :: String -> a
     | r
     }
 
@@ -159,7 +170,7 @@ props :: forall a r. ActionCreators a r -> Model -> Props a
 props actionCreators model@{ twoDViewer: true, threeDViewer: true }  =
     AllViewers $
         { moleculeTable:
-            { columns: model.columns
+            { columns
             , selectedRow: fst selected
             , rows: map Molecule.properties molecules
             , molecules
@@ -197,6 +208,13 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true }  =
                     (0 .. (length model.history-1))
                     model.history
             }
+
+        , columnButton:
+            ColumnButton.props
+                actionCreators
+                model.ignoredCollections
+                model.valueCollections
+
         , type: "Building Block Browser All Viewers"
         }
 
@@ -206,10 +224,20 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: true }  =
     selectedMolecule = snd selected
     molecules = SelectingCollection.all model.buildingBlocks
 
+    visibleValueCollections =
+        Array.sortWith String.toLower $
+        Array.fromFoldable
+            (HashSet.difference
+                model.valueCollections
+                model.ignoredCollections
+            )
+
+    columns = Array.cons model.moleculeKey visibleValueCollections
+
 props actionCreators model@{ twoDViewer: false, threeDViewer: true }  =
     ThreeDViewer $
         { moleculeTable:
-            { columns: model.columns
+            { columns
             , selectedRow: fst selected
             , rows: map Molecule.properties molecules
             , molecules
@@ -244,6 +272,13 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: true }  =
                     (0 .. (length model.history-1))
                     model.history
             }
+
+        , columnButton:
+            ColumnButton.props
+                actionCreators
+                model.ignoredCollections
+                model.valueCollections
+
         , type: "Building Block Browser 3D Viewer"
         }
 
@@ -253,10 +288,20 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: true }  =
     selectedMolecule = snd selected
     molecules = SelectingCollection.all model.buildingBlocks
 
+    visibleValueCollections =
+        Array.sortWith String.toLower $
+        Array.fromFoldable
+            (HashSet.difference
+                model.valueCollections
+                model.ignoredCollections
+            )
+
+    columns = Array.cons model.moleculeKey visibleValueCollections
+
 props actionCreators model@{ twoDViewer: true, threeDViewer: false }  =
     TwoDViewer $
         { moleculeTable:
-            { columns: model.columns
+            { columns
             , selectedRow: fst selected
             , rows: map Molecule.properties molecules
             , molecules
@@ -291,6 +336,13 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false }  =
                     (0 .. (length model.history-1))
                     model.history
             }
+
+        , columnButton:
+            ColumnButton.props
+                actionCreators
+                model.ignoredCollections
+                model.valueCollections
+
         , type: "Building Block Browser 2D Viewer"
         }
 
@@ -300,10 +352,20 @@ props actionCreators model@{ twoDViewer: true, threeDViewer: false }  =
     selectedMolecule = snd selected
     molecules = SelectingCollection.all model.buildingBlocks
 
+    visibleValueCollections =
+        Array.sortWith String.toLower $
+        Array.fromFoldable
+            (HashSet.difference
+                model.valueCollections
+                model.ignoredCollections
+            )
+
+    columns = Array.cons model.moleculeKey visibleValueCollections
+
 props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
     NoViewers $
         { moleculeTable:
-            { columns: model.columns
+            { columns
             , selectedRow: fst selected
             , rows: map Molecule.properties molecules
             , molecules
@@ -338,6 +400,13 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
                     (0 .. (length model.history-1))
                     model.history
             }
+
+        , columnButton:
+            ColumnButton.props
+                actionCreators
+                model.ignoredCollections
+                model.valueCollections
+
         , type: "Building Block Browser No Viewers"
         }
 
@@ -346,6 +415,16 @@ props actionCreators model@{ twoDViewer: false, threeDViewer: false } =
     selected = SelectingCollection.selected model.buildingBlocks
     selectedMolecule = snd selected
     molecules = SelectingCollection.all model.buildingBlocks
+
+    visibleValueCollections =
+        Array.sortWith String.toLower $
+        Array.fromFoldable
+            (HashSet.difference
+                model.valueCollections
+                model.ignoredCollections
+            )
+
+    columns = Array.cons model.moleculeKey visibleValueCollections
 
 ---
 
@@ -657,6 +736,8 @@ data Payload
     | SelectBuildingBlock RowIndex Molecule
     | SetTwoDViewer Boolean
     | SetThreeDViewer Boolean
+    | HideCollection String
+    | ShowCollection String
     | DoNothing
 
 type UpdateMoleculePage =
@@ -689,6 +770,18 @@ setThreeDViewer state =
     , payload: SetThreeDViewer state
     }
 
+hideCollection :: String -> Action
+hideCollection collection =
+    { type: "HIDE_COLLECTION"
+    , payload: HideCollection collection
+    }
+
+showCollection :: String -> Action
+showCollection collection =
+    { type: "SHOW_COLLECTION"
+    , payload: ShowCollection collection
+    }
+
 doNothing :: Action
 doNothing =
     { type: "DO_NOTHING"
@@ -713,7 +806,48 @@ reducer model action = case action of
     ({ payload: SetThreeDViewer state }) ->
         model { threeDViewer = state }
 
+    ({ payload: HideCollection collection }) ->
+        _hideCollection model collection
+
+    ({ payload: ShowCollection collection }) ->
+        _showCollection model collection
+
     ({ payload: DoNothing }) -> model
+
+
+---
+
+
+type IgnoredCollectionsPage r =
+    { ignoredCollections :: HashSet String
+    | r
+    }
+
+
+_hideCollection
+    :: forall r
+    .  IgnoredCollectionsPage r
+    -> String
+    -> IgnoredCollectionsPage r
+
+_hideCollection model@{ ignoredCollections } collection =
+    model
+        { ignoredCollections =
+            HashSet.insert collection ignoredCollections
+        }
+
+_showCollection
+    :: forall r
+    .  IgnoredCollectionsPage r
+    -> String
+    -> IgnoredCollectionsPage r
+
+_showCollection model@{ ignoredCollections } collection =
+    model
+        { ignoredCollections =
+            HashSet.delete collection ignoredCollections
+        }
+
 
 ---
 

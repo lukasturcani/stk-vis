@@ -18,6 +18,9 @@ import {
 import {
     SaveButton,
 } from '../../../../Assets/SaveButton/components/styled/save-button';
+import {
+    ColumnButton,
+} from '../../../../Assets/ColumnButton/components/styled';
 
 
 export function BuildingBlockBrowser<a>(
@@ -31,6 +34,7 @@ export function BuildingBlockBrowser<a>(
         moleculeTableComponent={MoleculeTable}
         viewerSwitchComponent={ViewerSwitch}
         saveButtonComponent={SaveButton}
+        columnButtonComponent={ColumnButton}
         {...props}
     />;
 }

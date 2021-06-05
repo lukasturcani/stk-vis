@@ -9,7 +9,8 @@ import Data.Array as Array
 import Requests.UnsortedAll.Internal.Result (Result (..))
 import Effect.Exception (error)
 import Effect.Promise (class Deferred, Promise, all, reject)
-import Data.Set (fromFoldable, insert, member)
+import Data.HashSet (HashSet)
+import Data.HashSet as HashSet
 import Data.Maybe (Maybe (Nothing, Just))
 import Data.Maybe.Utils as Maybe
 import SelectingCollection (SelectingCollection, selectingCollection)
@@ -34,7 +35,7 @@ type RequestOptions =
     , buildingBlockPositionMatrixCollection :: String
     , pageIndex                             :: Int
     , numEntriesPerPage                     :: Int
-    , ignoredCollections                    :: Array String
+    , ignoredCollections                    :: HashSet String
     }
 
 type ConstructedMoleculeCollectionName = String
@@ -54,11 +55,12 @@ request options = do
 
     let
         nonValueCollections =
-            insert options.moleculeCollection $
-            insert options.constructedMoleculeCollection $
-            insert options.positionMatrixCollection $
-            insert options.buildingBlockPositionMatrixCollection $
-            fromFoldable options.ignoredCollections
+            HashSet.insert options.moleculeCollection $
+            HashSet.insert options.constructedMoleculeCollection $
+            HashSet.insert options.positionMatrixCollection $
+            HashSet.insert
+                options.buildingBlockPositionMatrixCollection $
+            options.ignoredCollections
 
     client <- Mongo.client options.url
     let database = Mongo.database client options.database
@@ -67,7 +69,7 @@ request options = do
     let
         valueCollections =
             Array.filter
-            (not <<< flip member nonValueCollections)
+            (not <<< flip HashSet.member nonValueCollections)
             collectionNames
 
     rawMoleculeEntries <-
@@ -119,7 +121,7 @@ request options = do
                 (Array.length rawMoleculeEntries)
                 options.pageIndex
                 options.numEntriesPerPage
-            , valueCollections
+            , valueCollections: HashSet.fromArray valueCollections
             , molecules: collection
             }
         )

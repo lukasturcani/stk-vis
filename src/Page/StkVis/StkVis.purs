@@ -78,6 +78,12 @@ props model = case model of
                 , setThreeDViewer:
                     unsortedAllAction <<<
                         UnsortedAll.setThreeDViewer
+                , hideCollection:
+                    unsortedAllAction <<<
+                        UnsortedAll.hideCollection
+                , showCollection:
+                    unsortedAllAction <<<
+                        UnsortedAll.showCollection
                 }
                 subModel
 
@@ -102,6 +108,12 @@ props model = case model of
                 , setThreeDViewer:
                     unsortedBuildingBlocksAction <<<
                         UnsortedBBs.setThreeDViewer
+                , hideCollection:
+                    unsortedBuildingBlocksAction <<<
+                        UnsortedBBs.hideCollection
+                , showCollection:
+                    unsortedBuildingBlocksAction <<<
+                        UnsortedBBs.showCollection
                 }
                 subModel
 
@@ -126,6 +138,12 @@ props model = case model of
                 , setThreeDViewer:
                     unsortedConstructedMoleculesAction <<<
                         UnsortedCMs.setThreeDViewer
+                , hideCollection:
+                    unsortedConstructedMoleculesAction <<<
+                        UnsortedCMs.hideCollection
+                , showCollection:
+                    unsortedConstructedMoleculesAction <<<
+                        UnsortedCMs.showCollection
                 }
                 subModel
 
@@ -153,6 +171,12 @@ props model = case model of
                 , setThreeDViewer:
                     sortedAllAction <<<
                         SortedAll.setThreeDViewer
+                , hideCollection:
+                    sortedAllAction <<<
+                        SortedAll.hideCollection
+                , showCollection:
+                    sortedAllAction <<<
+                        SortedAll.showCollection
                 }
                 subModel
 
@@ -180,6 +204,12 @@ props model = case model of
                 , setThreeDViewer:
                     sortedBuildingBlocksAction <<<
                         SortedBBs.setThreeDViewer
+                , hideCollection:
+                    sortedBuildingBlocksAction <<<
+                        SortedBBs.hideCollection
+                , showCollection:
+                    sortedBuildingBlocksAction <<<
+                        SortedBBs.showCollection
                 }
                 subModel
 
@@ -207,6 +237,12 @@ props model = case model of
                 , setThreeDViewer:
                     sortedConstructedMoleculesAction <<<
                         SortedCMs.setThreeDViewer
+                , hideCollection:
+                    sortedConstructedMoleculesAction <<<
+                        SortedCMs.hideCollection
+                , showCollection:
+                    sortedConstructedMoleculesAction <<<
+                        SortedCMs.showCollection
                 }
                 subModel
 
@@ -236,6 +272,12 @@ props model = case model of
                 , setThreeDViewer:
                     buildingBlockBrowserAction <<<
                         BuildingBlockBrowser.setThreeDViewer
+                , hideCollection:
+                    buildingBlockBrowserAction <<<
+                        BuildingBlockBrowser.hideCollection
+                , showCollection:
+                    buildingBlockBrowserAction <<<
+                        BuildingBlockBrowser.showCollection
                 }
                 subModel
 

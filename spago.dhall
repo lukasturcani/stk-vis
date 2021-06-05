@@ -13,6 +13,7 @@ You can edit this file as you like.
   , "promises"
   , "psci-support"
   , "tuples"
+  , "unordered-collections"
   , "validated-molecule"
   ]
 , packages = ./packages.dhall
