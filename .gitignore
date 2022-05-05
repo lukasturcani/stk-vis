@@ -1,7 +1,8 @@
-dist
-node_modules
-output
-.spago
-.purs-repl
-pack
-mongo-config.json
+old/dist
+old/node_modules
+old/output
+old/.spago
+old/.purs-repl
+old/pack
+old/mongo-config.json
+elm/node_modules

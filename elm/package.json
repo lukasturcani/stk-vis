@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "elm": "^0.19.1-5",
+    "elm-live": "^4.0.0-rc.1"
+  }
+}
