@@ -17,15 +17,82 @@ import Html
 
 
 type alias Model =
-    { value : Int
+    { molecules : Picker Molecule
     }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( { value = 12 }
+    ( { molecules =
+            picker
+                []
+                (molecule
+                    (atom H (position 0 0 0), [])
+                    []
+                )
+                []
+      }
     , Cmd.none
     )
+
+
+type Picker a
+    = Picker (List a) a (List a)
+
+
+picker : List a -> a -> List a -> Picker a
+picker =
+    Picker
+
+
+type Molecule
+    = Molecule
+        { atoms : NonEmptyList Atom
+        , bonds : List Bond
+        }
+
+
+molecule : NonEmptyList Atom -> List Bond -> Molecule
+molecule atoms bonds =
+    Molecule { atoms = atoms, bonds = bonds }
+
+
+type alias NonEmptyList a =
+    ( a, List a )
+
+
+type Atom
+    = Atom AtomicElement Position
+
+
+atom : AtomicElement -> Position -> Atom
+atom =
+    Atom
+
+
+type AtomicElement
+    = H
+
+
+type Position
+    = Position Float Float Float
+
+
+position : Float -> Float -> Float -> Position
+position =
+    Position
+
+
+type Bond
+    = Bond BondType AtomId AtomId
+
+
+type BondType
+    = BondTypeInteger Int
+
+
+type AtomId
+    = AtomId Int
 
 
 
