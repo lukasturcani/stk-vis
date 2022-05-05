@@ -6,3 +6,5 @@ old/.purs-repl
 old/pack
 old/mongo-config.json
 elm/node_modules
+elm/elm-stuff
+elm/index.html
