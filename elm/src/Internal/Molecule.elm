@@ -41,7 +41,7 @@ toJson (Molecule { atoms, bonds }) =
 atomToJson : Atom -> E.Value
 atomToJson (Atom element (Position x y z)) =
     E.object
-        [ ( "element", E.int (Elements.atomicNumber element) )
+        [ ( "atomicNumber", E.int (Elements.atomicNumber element) )
         , ( "position", E.list E.float [ x, y, z ] )
         ]
 

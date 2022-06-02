@@ -5,6 +5,12 @@
   <script src="output/main.js"></script>
 </head>
 <body>
-  <script>var app = Elm.Main.init();</script>
+  <script>
+        var app = Elm.Main.init();
+        app.ports.sendSelectedMolecule.subscribe(function(message) {
+            console.log(message);
+        });
+
+  </script>
 </body>
 </html>

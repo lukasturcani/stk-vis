@@ -5,6 +5,6 @@
     "elm-live": "^4.0.0-rc.1"
   },
   "scripts": {
-    "elm-live": "npx elm-live src/Main.elm -o -e node_modules/.bin/elm"
+    "elm-live": "npx elm-live src/Main.elm -o -e node_modules/.bin/elm -s index.html -- --output=output/main.js"
   }
 }
