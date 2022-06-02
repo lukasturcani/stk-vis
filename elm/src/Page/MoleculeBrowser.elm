@@ -1,4 +1,4 @@
-module Page.MoleculeBrowser exposing
+port module Page.MoleculeBrowser exposing
     ( Model
     , Msg
     , init
@@ -10,6 +10,12 @@ module Page.MoleculeBrowser exposing
 import Browser
 import Element
 import Html
+import Json.Encode as E
+import Internal.Molecule as Molecule
+import Internal.Elements as Elements
+import Internal.Picker as Picker
+import Internal.NonEmptyList as NonEmptyList
+import Internal.MoleculeTable as MoleculeTable
 
 
 
@@ -17,92 +23,58 @@ import Html
 
 
 type alias Model =
-    { molecules : Picker Molecule
+    { molecules : Picker.Picker Molecule.Molecule
     }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( { molecules =
-            picker
-                []
-                (molecule
-                    (atom H (position 0 0 0), [])
-                    []
+    let molecule =
+                (Molecule.fromAtom
+                    (Molecule.atom
+                        Elements.H
+                        (Molecule.position 0 0 0)
+                    )
                 )
-                []
+    in
+    ( { molecules =
+            Picker.singleton molecule
       }
-    , Cmd.none
+    , molecule
+        |> Molecule.toJson
+        |> sendSelectedMolecule
     )
 
-
-type Picker a
-    = Picker (List a) a (List a)
+-- PORTS
 
 
-picker : List a -> a -> List a -> Picker a
-picker =
-    Picker
-
-
-type Molecule
-    = Molecule
-        { atoms : NonEmptyList Atom
-        , bonds : List Bond
-        }
-
-
-molecule : NonEmptyList Atom -> List Bond -> Molecule
-molecule atoms bonds =
-    Molecule { atoms = atoms, bonds = bonds }
-
-
-type alias NonEmptyList a =
-    ( a, List a )
-
-
-type Atom
-    = Atom AtomicElement Position
-
-
-atom : AtomicElement -> Position -> Atom
-atom =
-    Atom
-
-
-type AtomicElement
-    = H
-
-
-type Position
-    = Position Float Float Float
-
-
-position : Float -> Float -> Float -> Position
-position =
-    Position
-
-
-type Bond
-    = Bond BondType AtomId AtomId
-
-
-type BondType
-    = BondTypeInteger Int
-
-
-type AtomId
-    = AtomId Int
-
+port sendSelectedMolecule : E.Value -> Cmd msg
 
 
 -- VIEW
 
 
+style =
+    { moleculeTable =
+        {}
+    }
+
+
 view : Model -> Browser.Document Msg
 view model =
     { title = "StkVis"
-    , body = [ Element.layout [] (Element.text "MoleculeBrowser") ]
+    , body =
+        [ Element.layout
+            []
+            (Element.column
+                []
+                [ Element.text "MoleculeBrowser"
+                , MoleculeTable.view
+                    style.moleculeTable
+                    model.molecules
+                ]
+            )
+        ]
     }
 
 

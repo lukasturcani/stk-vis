@@ -1,9 +1,10 @@
 {
   "devDependencies": {
     "elm": "^0.19.1-5",
+    "elm-doc-preview": "^5.0.5",
     "elm-live": "^4.0.0-rc.1"
   },
   "scripts": {
-      "elm-live": "npx elm-live src/Main.elm -o -e node_modules/.bin/elm"
+    "elm-live": "npx elm-live src/Main.elm -o -e node_modules/.bin/elm"
   }
 }
