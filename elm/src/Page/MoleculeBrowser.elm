@@ -38,7 +38,10 @@ init _ =
                 )
     in
     ( { molecules =
-            Picker.singleton molecule
+            Picker.picker
+                (List.repeat 3 molecule)
+                molecule
+                (List.repeat 4 molecule)
       }
     , molecule
         |> Molecule.toJson
