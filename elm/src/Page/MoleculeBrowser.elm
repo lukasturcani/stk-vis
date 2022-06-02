@@ -36,14 +36,17 @@ init _ =
                     Elements.H
                     (Molecule.position 0 0 0)
                 )
-    in
-    ( { molecules =
+
+        molecules =
             Picker.picker
                 (List.repeat 3 molecule)
                 molecule
                 (List.repeat 4 molecule)
+    in
+    ( { molecules =
+            molecules
       }
-    , molecule
+    , Picker.selected molecules
         |> Molecule.toJson
         |> sendSelectedMolecule
     )
