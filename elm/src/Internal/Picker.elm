@@ -1,7 +1,7 @@
 module Internal.Picker exposing
     ( Picker
+    , picked
     , picker
-    , selected
     , singleton
     )
 
@@ -20,6 +20,6 @@ singleton value =
     Picker [] value []
 
 
-selected : Picker a -> a
-selected (Picker _ x _) =
+picked : Picker a -> a
+picked (Picker _ x _) =
     x

@@ -46,7 +46,7 @@ init _ =
     ( { molecules =
             molecules
       }
-    , Picker.selected molecules
+    , Picker.picked molecules
         |> Molecule.toJson
         |> sendSelectedMolecule
     )
