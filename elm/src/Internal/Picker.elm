@@ -13,5 +13,7 @@ picker : List a -> a -> List a -> Picker a
 picker =
     Picker
 
+
 singleton : a -> Picker a
-singleton value = Picker [] value []
+singleton value =
+    Picker [] value []

@@ -10,12 +10,12 @@ port module Page.MoleculeBrowser exposing
 import Browser
 import Element
 import Html
-import Json.Encode as E
-import Internal.Molecule as Molecule
 import Internal.Elements as Elements
-import Internal.Picker as Picker
-import Internal.NonEmptyList as NonEmptyList
+import Internal.Molecule as Molecule
 import Internal.MoleculeTable as MoleculeTable
+import Internal.NonEmptyList as NonEmptyList
+import Internal.Picker as Picker
+import Json.Encode as E
 
 
 
@@ -29,12 +29,12 @@ type alias Model =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    let molecule =
-                (Molecule.fromAtom
-                    (Molecule.atom
-                        Elements.H
-                        (Molecule.position 0 0 0)
-                    )
+    let
+        molecule =
+            Molecule.fromAtom
+                (Molecule.atom
+                    Elements.H
+                    (Molecule.position 0 0 0)
                 )
     in
     ( { molecules =
@@ -45,10 +45,13 @@ init _ =
         |> sendSelectedMolecule
     )
 
+
+
 -- PORTS
 
 
 port sendSelectedMolecule : E.Value -> Cmd msg
+
 
 
 -- VIEW

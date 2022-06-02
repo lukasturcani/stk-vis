@@ -1,5 +1,5 @@
 module Internal.Elements exposing
-    ( Element (..)
+    ( Element(..)
     , atomicNumber
     )
 
@@ -11,4 +11,5 @@ type Element
 atomicNumber : Element -> Int
 atomicNumber element =
     case element of
-        H -> 1
+        H ->
+            1

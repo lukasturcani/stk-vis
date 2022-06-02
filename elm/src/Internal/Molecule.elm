@@ -1,16 +1,16 @@
 module Internal.Molecule exposing
     ( Molecule
-    , molecule
-    , fromAtom
-    , toJson
     , atom
+    , fromAtom
+    , molecule
     , position
+    , toJson
     )
 
-import List
 import Internal.Elements as Elements
 import Internal.NonEmptyList as NonEmptyList
 import Json.Encode as E
+import List
 
 
 type Molecule
@@ -21,7 +21,7 @@ type Molecule
 
 
 toJson : Molecule -> E.Value
-toJson (Molecule {atoms, bonds}) =
+toJson (Molecule { atoms, bonds }) =
     let
         jsonAtoms =
             atoms
@@ -31,24 +31,24 @@ toJson (Molecule {atoms, bonds}) =
         jsonBonds =
             bonds
                 |> E.list bondToJson
-
     in
-        E.object
-            [ ("atoms", jsonAtoms)
-            , ("bonds", jsonBonds)
-            ]
+    E.object
+        [ ( "atoms", jsonAtoms )
+        , ( "bonds", jsonBonds )
+        ]
+
 
 atomToJson : Atom -> E.Value
 atomToJson (Atom element (Position x y z)) =
     E.object
-        [ ("element", E.int (Elements.atomicNumber element))
-        , ("position", E.list E.float [x, y, z])
+        [ ( "element", E.int (Elements.atomicNumber element) )
+        , ( "position", E.list E.float [ x, y, z ] )
         ]
 
 
 bondToJson : Bond -> E.Value
 bondToJson (Bond (BondTypeInteger order) (AtomId id1) (AtomId id2)) =
-    E.list E.int [order, id1, id2]
+    E.list E.int [ order, id1, id2 ]
 
 
 hasValidAtomIds : Int -> Bond -> Bool
@@ -63,16 +63,18 @@ fromAtom atom_ =
         , bonds = []
         }
 
+
 molecule :
-   NonEmptyList.NonEmptyList Atom
-   -> List Bond
-   -> Maybe Molecule
+    NonEmptyList.NonEmptyList Atom
+    -> List Bond
+    -> Maybe Molecule
 molecule atoms bonds =
-    if List.all (hasValidAtomIds (NonEmptyList.length atoms)) bonds
-    then
+    if List.all (hasValidAtomIds (NonEmptyList.length atoms)) bonds then
         Just (Molecule { atoms = atoms, bonds = bonds })
+
     else
         Nothing
+
 
 type Atom
     = Atom Elements.Element Position
@@ -90,6 +92,7 @@ type Position
 position : Float -> Float -> Float -> Position
 position =
     Position
+
 
 type Bond
     = Bond BondType AtomId AtomId
