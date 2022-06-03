@@ -16,6 +16,7 @@ import Internal.MoleculeTable as MoleculeTable
 import Internal.NonEmptyList as NonEmptyList
 import Internal.Picker as Picker
 import Json.Encode as E
+import Widget.Material as Material
 
 
 
@@ -65,7 +66,8 @@ port sendSelectedMolecule : E.Value -> Cmd msg
 
 style =
     { moleculeTable =
-        {}
+        { row = Material.row
+        }
     }
 
 
