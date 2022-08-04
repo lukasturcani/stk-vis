@@ -1,16 +1,21 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <script src="output/main.js"></script>
 </head>
+
 <body>
   <script>
-        var app = Elm.Main.init();
-        app.ports.sendSelectedMolecule.subscribe(function(message) {
-            console.log(message);
-        });
-
+    var app = Elm.Main.init();
+    app.ports.sendSelectedMolecule.subscribe(function (message) {
+      console.log(message);
+    });
+    app.ports.sendDatabaseRequest.subscribe(function (message) {
+      console.log(message);
+    });
   </script>
 </body>
+
 </html>

@@ -66,7 +66,15 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case ( msg, model ) of
+        ( MsgMoleculeBrowser subMsg, MoleculeBrowser moleculeBrowser ) ->
+            MoleculeBrowser.update subMsg moleculeBrowser
+                |> updateWith MoleculeBrowser MsgMoleculeBrowser
+
+
+updateWith : (subModel -> Model) -> (subMsg -> Msg) -> ( subModel, Cmd subMsg ) -> ( Model, Cmd Msg )
+updateWith toModel toMsg ( subModel, subCmd ) =
+    ( toModel subModel, Cmd.map toMsg subCmd )
 
 
 
