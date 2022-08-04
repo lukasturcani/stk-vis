@@ -33,6 +33,7 @@ type alias Model =
     , positionMatrixCollection : String
     , buildingBlockPositionMatrixCollection : String
     , visibleColumns : List String
+    , hiddenColumns : List String
     }
 
 
@@ -62,6 +63,9 @@ init _ =
       , visibleColumns =
             [ "NumAtoms"
             , "NumBonds"
+            ]
+      , hiddenColumns =
+            [ "Energy"
             ]
       }
     , Picker.picked molecules
