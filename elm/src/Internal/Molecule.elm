@@ -7,6 +7,7 @@ module Internal.Molecule exposing
     , toJson
     )
 
+import Dict
 import Internal.Elements as Elements
 import Internal.NonEmptyList as NonEmptyList
 import Json.Encode as E
@@ -17,6 +18,7 @@ type Molecule
     = Molecule
         { atoms : NonEmptyList.NonEmptyList Atom
         , bonds : List Bond
+        , properties : Dict.Dict String E.Value
         }
 
 
@@ -61,16 +63,18 @@ fromAtom atom_ =
     Molecule
         { atoms = NonEmptyList.singleton atom_
         , bonds = []
+        , properties = Dict.empty
         }
 
 
 molecule :
-    NonEmptyList.NonEmptyList Atom
+    Dict.Dict String E.Value
+    -> NonEmptyList.NonEmptyList Atom
     -> List Bond
     -> Maybe Molecule
-molecule atoms bonds =
+molecule properties atoms bonds =
     if List.all (hasValidAtomIds (NonEmptyList.length atoms)) bonds then
-        Just (Molecule { atoms = atoms, bonds = bonds })
+        Just (Molecule { atoms = atoms, bonds = bonds, properties = properties })
 
     else
         Nothing

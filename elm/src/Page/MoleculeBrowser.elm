@@ -32,6 +32,7 @@ type alias Model =
     , constructedMoleculeCollection : String
     , positionMatrixCollection : String
     , buildingBlockPositionMatrixCollection : String
+    , visibleColumns : List String
     }
 
 
@@ -58,6 +59,10 @@ init _ =
       , constructedMoleculeCollection = "constructedMolecules"
       , positionMatrixCollection = "positionMatrices"
       , buildingBlockPositionMatrixCollection = "buildingBlockPositionMatrices"
+      , visibleColumns =
+            [ "NumAtoms"
+            , "NumBonds"
+            ]
       }
     , Picker.picked molecules
         |> Molecule.toJson
