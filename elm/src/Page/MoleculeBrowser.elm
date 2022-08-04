@@ -57,9 +57,12 @@ init _ =
             molecules
       , moleculeKey =
             MoleculeKey.fromString "SMILES"
-      , constructedMoleculeCollection = "constructedMolecules"
-      , positionMatrixCollection = "positionMatrices"
-      , buildingBlockPositionMatrixCollection = "buildingBlockPositionMatrices"
+      , constructedMoleculeCollection =
+            "constructedMolecules"
+      , positionMatrixCollection =
+            "positionMatrices"
+      , buildingBlockPositionMatrixCollection =
+            "buildingBlockPositionMatrices"
       , visibleColumns =
             [ "NumAtoms"
             , "NumBonds"
