@@ -8,3 +8,4 @@ old/mongo-config.json
 elm/node_modules
 elm/elm-stuff
 elm/output
+backend/target
