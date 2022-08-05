@@ -1,12 +1,25 @@
-module Internal.Queries exposing (unsortedAll)
+module Internal.Queries exposing
+    ( property
+    , unsortedAll
+    )
 
-import Internal.MoleculeKey as MoleculeKey
+import Internal.MoleculeKeyName as MoleculeKeyName
+import Internal.MoleculeKeyValue as MoleculeKeyValue
 import Json.Encode as E
+
+
+property : MoleculeKeyName.MoleculeKeyName -> List MoleculeKeyValue.MoleculeKeyValue -> E.Value
+property keyName keys =
+    E.object
+        [ ( MoleculeKeyName.toString keyName
+          , in_ (List.map (MoleculeKeyValue.toString >> E.string) keys)
+          )
+        ]
 
 
 type alias UnsortedAllParams r =
     { r
-        | moleculeKey : MoleculeKey.MoleculeKey
+        | moleculeKey : MoleculeKeyName.MoleculeKeyName
         , constructedMoleculeCollection : String
         , buildingBlockPositionMatrixCollection : String
         , positionMatrixCollection : String
@@ -33,30 +46,30 @@ unsortedAll params =
         ]
 
 
-hasMoleculeKey : MoleculeKey.MoleculeKey -> E.Value
+hasMoleculeKey : MoleculeKeyName.MoleculeKeyName -> E.Value
 hasMoleculeKey moleculeKey =
     E.object
         [ ( "$match"
-          , E.object [ ( MoleculeKey.toString moleculeKey, exists True ) ]
+          , E.object [ ( MoleculeKeyName.toString moleculeKey, exists True ) ]
           )
         ]
 
 
-getConstructedMolecule : String -> MoleculeKey.MoleculeKey -> E.Value
+getConstructedMolecule : String -> MoleculeKeyName.MoleculeKeyName -> E.Value
 getConstructedMolecule collection moleculeKey =
     lookup
         collection
-        (MoleculeKey.toString moleculeKey)
-        (MoleculeKey.toString moleculeKey)
+        (MoleculeKeyName.toString moleculeKey)
+        (MoleculeKeyName.toString moleculeKey)
         "constructedMolecule"
 
 
-getPositionMatrix : String -> MoleculeKey.MoleculeKey -> String -> E.Value
+getPositionMatrix : String -> MoleculeKeyName.MoleculeKeyName -> String -> E.Value
 getPositionMatrix collection moleculeKey destination =
     lookup
         collection
-        (MoleculeKey.toString moleculeKey)
-        (MoleculeKey.toString moleculeKey)
+        (MoleculeKeyName.toString moleculeKey)
+        (MoleculeKeyName.toString moleculeKey)
         destination
 
 
@@ -114,3 +127,10 @@ gt first second =
 size : E.Value -> E.Value
 size s =
     E.object [ ( "$size", s ) ]
+
+
+in_ : List E.Value -> E.Value
+in_ values =
+    E.object
+        [ ( "$in", E.list identity values )
+        ]

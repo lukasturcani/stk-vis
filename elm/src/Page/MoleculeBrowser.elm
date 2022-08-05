@@ -13,11 +13,12 @@ import Element.Input as Input
 import Html
 import Internal.Elements as Elements
 import Internal.Molecule as Molecule
-import Internal.MoleculeKey as MoleculeKey
+import Internal.MoleculeKeyName as MoleculeKeyName
 import Internal.MoleculeTable as MoleculeTable
 import Internal.NonEmptyList as NonEmptyList
 import Internal.Picker as Picker
 import Internal.Queries as Queries
+import Json.Decode as D
 import Json.Encode as E
 import Widget.Material as Material
 
@@ -28,7 +29,7 @@ import Widget.Material as Material
 
 type alias Model =
     { molecules : Picker.Picker Molecule.Molecule
-    , moleculeKey : MoleculeKey.MoleculeKey
+    , moleculeKey : MoleculeKeyName.MoleculeKeyName
     , constructedMoleculeCollection : String
     , positionMatrixCollection : String
     , buildingBlockPositionMatrixCollection : String
@@ -56,7 +57,7 @@ init _ =
     ( { molecules =
             molecules
       , moleculeKey =
-            MoleculeKey.fromString "SMILES"
+            MoleculeKeyName.fromString "SMILES"
       , constructedMoleculeCollection =
             "constructedMolecules"
       , positionMatrixCollection =
@@ -84,7 +85,16 @@ init _ =
 port sendSelectedMolecule : E.Value -> Cmd msg
 
 
-port sendDatabaseRequest : E.Value -> Cmd msg
+port sendMoleculeQuery : E.Value -> Cmd msg
+
+
+port moleculeQueryResponse : (D.Value -> msg) -> Sub msg
+
+
+port sendPropertyQuery : E.Value -> Cmd msg
+
+
+port propertyQueryResponse : (D.Value -> msg) -> Sub msg
 
 
 
@@ -142,7 +152,7 @@ update msg model =
             ( model
             , model
                 |> Queries.unsortedAll
-                |> sendDatabaseRequest
+                |> sendMoleculeQuery
             )
 
 

@@ -1,6 +1,7 @@
 module Internal.Elements exposing
     ( Element(..)
     , atomicNumber
+    , fromAtomicNumber
     )
 
 
@@ -13,3 +14,13 @@ atomicNumber element =
     case element of
         H ->
             1
+
+
+fromAtomicNumber : Int -> Maybe Element
+fromAtomicNumber n =
+    case n of
+        1 ->
+            Just H
+
+        _ ->
+            Nothing

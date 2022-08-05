@@ -10,6 +10,7 @@ module Internal.Molecule exposing
 import Dict
 import Internal.Elements as Elements
 import Internal.NonEmptyList as NonEmptyList
+import Json.Decode as D
 import Json.Encode as E
 import List
 
@@ -108,3 +109,51 @@ type BondType
 
 type AtomId
     = AtomId Int
+
+
+
+-- decoder =
+--   D.map3 molecule
+--     (D.success Dict.empty)
+--     (D.field "a" (D.list elementDecoder))
+--     (D.field "b" (D.list bondDecoder))
+
+
+elementDecoder : D.Decoder Elements.Element
+elementDecoder =
+    D.index 0 D.int
+        |> D.andThen toElement
+
+
+toElement : Int -> D.Decoder Elements.Element
+toElement atomicNumber =
+    case Elements.fromAtomicNumber atomicNumber of
+        Just element ->
+            D.succeed element
+
+        Nothing ->
+            String.concat
+                [ String.fromInt atomicNumber
+                , " is not a valid atomic number."
+                ]
+                |> D.fail
+
+
+bondDecoder : D.Decoder Bond
+bondDecoder =
+    D.map3 Bond
+        (D.index 0 bondTypeDecoder)
+        (D.index 1 atomIdDecoder)
+        (D.index 2 atomIdDecoder)
+
+
+bondTypeDecoder : D.Decoder BondType
+bondTypeDecoder =
+    D.index 0 D.int
+        |> D.map BondTypeInteger
+
+
+atomIdDecoder : D.Decoder AtomId
+atomIdDecoder =
+    D.int
+        |> D.map AtomId
