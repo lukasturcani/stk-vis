@@ -9,3 +9,4 @@ elm/node_modules
 elm/elm-stuff
 elm/output
 backend/target
+electron/node_modules

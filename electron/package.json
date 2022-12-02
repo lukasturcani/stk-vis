@@ -1,0 +1,23 @@
+{
+  "name": "stk-vis",
+  "version": "1.0.0",
+  "description": "A molecular database visualizer.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukasturcani/stk-vis.git"
+  },
+  "author": "Lukas Turcani",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lukasturcani/stk-vis/issues"
+  },
+  "homepage": "https://github.com/lukasturcani/stk-vis#readme",
+  "devDependencies": {
+    "electron": "^22.0.0"
+  }
+}
