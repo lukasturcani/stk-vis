@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/lukasturcani/stk-vis#readme",
   "devDependencies": {
-    "electron": "^22.0.0"
+    "electron": "^22.0.0",
+    "electron-reloader": "^1.2.3"
   }
 }
