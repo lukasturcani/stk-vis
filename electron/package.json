@@ -20,5 +20,8 @@
   "devDependencies": {
     "electron": "^22.0.0",
     "electron-reloader": "^1.2.3"
+  },
+  "dependencies": {
+    "mongodb": "^4.12.1"
   }
 }

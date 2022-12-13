@@ -11,3 +11,5 @@ elm/output
 backend/target
 electron/node_modules
 electron/output
+__pycache__
+*.egg-info

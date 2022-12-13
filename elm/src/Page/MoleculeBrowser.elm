@@ -20,62 +20,37 @@ import Internal.Picker as Picker
 import Internal.Queries as Queries
 import Json.Decode as D
 import Json.Encode as E
-import Widget.Material as Material
 
 
 
+{-
+
+   The idea is that you provide a query -- which
+   gets run -- and returns molecules in the form of
+
+   {
+     "atoms": [{"atomicNumber": 1, "position": [1,2,3]}]
+     "bonds": [{"from": 1, "to": 2, "order": 2}
+     "columns": {
+       "a": 1
+       "b": 2,
+     }
+   }
+
+-}
 -- MODEL
 
 
 type alias Model =
-    { molecules : Picker.Picker Molecule.Molecule
-    , moleculeKey : MoleculeKeyName.MoleculeKeyName
-    , constructedMoleculeCollection : String
-    , positionMatrixCollection : String
-    , buildingBlockPositionMatrixCollection : String
-    , visibleColumns : List String
-    , hiddenColumns : List String
-    }
+    Maybe
+        { molecules : Picker.Picker Molecule.Molecule
+        , columns : List String
+        }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    let
-        molecule =
-            Molecule.fromAtom
-                (Molecule.atom
-                    Elements.H
-                    (Molecule.position 0 0 0)
-                )
-
-        molecules =
-            Picker.picker
-                (List.repeat 3 molecule)
-                molecule
-                (List.repeat 4 molecule)
-    in
-    ( { molecules =
-            molecules
-      , moleculeKey =
-            MoleculeKeyName.fromString "SMILES"
-      , constructedMoleculeCollection =
-            "constructedMolecules"
-      , positionMatrixCollection =
-            "positionMatrices"
-      , buildingBlockPositionMatrixCollection =
-            "buildingBlockPositionMatrices"
-      , visibleColumns =
-            [ "NumAtoms"
-            , "NumBonds"
-            ]
-      , hiddenColumns =
-            [ "Energy"
-            ]
-      }
-    , Picker.picked molecules
-        |> Molecule.toJson
-        |> sendSelectedMolecule
-    )
+    ( Nothing, Cmd.none )
 
 
 
@@ -83,58 +58,52 @@ init _ =
 
 
 port sendSelectedMolecule : E.Value -> Cmd msg
-
-
-port sendMoleculeQuery : E.Value -> Cmd msg
-
-
-port moleculeQueryResponse : (D.Value -> msg) -> Sub msg
-
-
-port sendPropertyQuery : E.Value -> Cmd msg
-
-
-port propertyQueryResponse : (D.Value -> msg) -> Sub msg
+port receiveMolecules : (E.Value -> msg) -> Sub msg
 
 
 
 -- VIEW
 
 
-style =
-    { moleculeTable =
-        { elementTable =
-            Material.sortTable Material.darkPalette
-                |> .elementTable
-        }
-    }
-
-
 view : Model -> Browser.Document Msg
 view model =
-    { title = "StkVis"
-    , body =
-        [ Element.layout
-            [ Element.width Element.fill
-            , Element.height Element.fill
-            ]
-            (Element.column
-                [ Element.width Element.fill
-                , Element.height Element.fill
+    case model of
+        Nothing ->
+            { title = "StkVis"
+            , body =
+                [ Element.layout
+                    [ Element.width Element.fill
+                    , Element.height Element.fill
+                    ]
+                    (Element.column
+                        [ Element.width Element.fill
+                        , Element.height Element.fill
+                        ]
+                        [ Element.text "NOTHING"
+                        ]
+                    )
                 ]
-                [ Element.text "MoleculeBrowser"
-                , MoleculeTable.view
-                    { elementTable = [] }
-                    model.molecules
-                , Input.button
-                    []
-                    { onPress = Just SendUnsortedAllRequest
-                    , label = Element.text "Send Unsorted All Request"
-                    }
+            }
+
+        Just innerModel ->
+            { title = "StkVis"
+            , body =
+                [ Element.layout
+                    [ Element.width Element.fill
+                    , Element.height Element.fill
+                    ]
+                    (Element.column
+                        [ Element.width Element.fill
+                        , Element.height Element.fill
+                        ]
+                        [ Element.text "MoleculeBrowser"
+                        , MoleculeTable.view
+                            { elementTable = [] }
+                            innerModel.molecules
+                        ]
+                    )
                 ]
-            )
-        ]
-    }
+            }
 
 
 
@@ -142,17 +111,21 @@ view model =
 
 
 type Msg
-    = SendUnsortedAllRequest
+    = Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
-        SendUnsortedAllRequest ->
+    case model of
+        Nothing ->
+            ( model, Cmd.none )
+
+        Just innerModel ->
             ( model
-            , model
-                |> Queries.unsortedAll
-                |> sendMoleculeQuery
+            , innerModel.molecules
+                |> Picker.picked
+                |> Molecule.toJson
+                |> sendSelectedMolecule
             )
 
 
@@ -162,4 +135,6 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Sub.batch
+      [ receiveMolecules (D.list Molecule.decoder)
+      ]

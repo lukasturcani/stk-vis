@@ -112,21 +112,31 @@ type AtomId
 
 
 
--- decoder =
---   D.map3 molecule
---     (D.success Dict.empty)
---     (D.field "a" (D.list elementDecoder))
---     (D.field "b" (D.list bondDecoder))
+decoder =
+  D.map3 molecule
+    (D.field "atoms" (D.list atomDecoder))
+    (D.field "bonds" (D.list bondDecoder))
+    (D.field "columns" (D.dict D.string))
 
 
-elementDecoder : D.Decoder Elements.Element
-elementDecoder =
-    D.index 0 D.int
-        |> D.andThen toElement
+atomDecoder : D.Decoder Atom
+atomDecoder =
+  D.map2 atom
+    (D.field "atomicNumber" D.int)
+    (D.field "position" positionDecoder)
 
 
-toElement : Int -> D.Decoder Elements.Element
-toElement atomicNumber =
+positionDecoder : D.Decoder Position
+positionDecoder =
+  D.map3 position
+    (D.index 0 D.float)
+    (D.index 1 D.float)
+    (D.index 2 D.float)
+
+
+
+elementDecoder : Int -> D.Decoder Elements.Element
+elementDecoder atomicNumber =
     case Elements.fromAtomicNumber atomicNumber of
         Just element ->
             D.succeed element

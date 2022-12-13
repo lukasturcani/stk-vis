@@ -1,0 +1,42 @@
+[project]
+name = "make_test_database"
+version = "0.0.1"
+dependencies = [
+  "stk",
+]
+requires-python = ">=3.10"
+
+[project.scripts]
+make_test_database = "make_test_database.script:main"
+
+[project.optional-dependencies]
+dev = [
+  "black",
+  "flake8",
+  "mypy",
+  "isort",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-data]
+make_test_database = ["py.typed"]
+
+[tool.black]
+line-length = 79
+
+[tool.isort]
+line_length = 79
+profile = "black"
+
+[tool.mypy]
+no_implicit_optional = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = []
+ignore_missing_imports = true
