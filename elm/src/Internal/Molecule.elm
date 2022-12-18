@@ -1,10 +1,6 @@
 module Internal.Molecule exposing
     ( Molecule
-    , atom
     , decoder
-    , fromAtom
-    , new
-    , position
     , toJson
     )
 
@@ -13,24 +9,29 @@ import Internal.Element as Element exposing (Element)
 import Internal.NonEmptyList as NonEmptyList exposing (NonEmptyList)
 import Json.Decode as D exposing (Decoder, Value)
 import Json.Encode as E
-import List
 
 
 type Molecule
     = Molecule
         { atoms : NonEmptyList Atom
+        , positions : NonEmptyList Position
         , bonds : List Bond
         , properties : Dict String String
         }
 
 
 toJson : Molecule -> Value
-toJson (Molecule { atoms, bonds }) =
+toJson (Molecule { atoms, positions, bonds }) =
     let
         jsonAtoms =
             atoms
                 |> NonEmptyList.toList
                 |> E.list atomToJson
+
+        jsonPositions =
+            positions
+                |> NonEmptyList.toList
+                |> E.list positionToJson
 
         jsonBonds =
             bonds
@@ -38,16 +39,21 @@ toJson (Molecule { atoms, bonds }) =
     in
     E.object
         [ ( "atoms", jsonAtoms )
+        , ( "positions", jsonPositions )
         , ( "bonds", jsonBonds )
         ]
 
 
 atomToJson : Atom -> Value
-atomToJson (Atom element (Position x y z)) =
+atomToJson (Atom element) =
     E.object
         [ ( "atomicNumber", E.int (Element.atomicNumber element) )
-        , ( "position", E.list E.float [ x, y, z ] )
         ]
+
+
+positionToJson : Position -> Value
+positionToJson (Position x y z) =
+    E.list E.float [ x, y, z ]
 
 
 bondToJson : Bond -> Value
@@ -55,49 +61,12 @@ bondToJson (Bond (BondTypeInteger order) (AtomId id1) (AtomId id2)) =
     E.list E.int [ order, id1, id2 ]
 
 
-hasValidAtomIds : Int -> Bond -> Bool
-hasValidAtomIds numAtoms (Bond _ (AtomId id1) (AtomId id2)) =
-    id1 < numAtoms && id2 < numAtoms
-
-
-fromAtom : Atom -> Molecule
-fromAtom atom_ =
-    Molecule
-        { atoms = NonEmptyList.singleton atom_
-        , bonds = []
-        , properties = Dict.empty
-        }
-
-
-new :
-    Dict String String
-    -> NonEmptyList Atom
-    -> List Bond
-    -> Maybe Molecule
-new properties atoms bonds =
-    if List.all (hasValidAtomIds (NonEmptyList.length atoms)) bonds then
-        Just (Molecule { atoms = atoms, bonds = bonds, properties = properties })
-
-    else
-        Nothing
-
-
 type Atom
-    = Atom Element Position
-
-
-atom : Element -> Position -> Atom
-atom =
-    Atom
+    = Atom Element
 
 
 type Position
     = Position Float Float Float
-
-
-position : Float -> Float -> Float -> Position
-position =
-    Position
 
 
 type Bond
@@ -114,33 +83,25 @@ type AtomId
 
 decoder : Decoder Molecule
 decoder =
-    D.map3 new
-        (D.field "columns" (D.dict D.string))
+    D.map4
+        (\atoms positions bonds properties ->
+            Molecule
+                { atoms = atoms, positions = positions, bonds = bonds, properties = properties }
+        )
         (D.field "atoms" (D.oneOrMore NonEmptyList.new atomDecoder))
+        (D.field "positions" (D.oneOrMore NonEmptyList.new positionDecoder))
         (D.field "bonds" (D.list bondDecoder))
-        |> D.andThen decoderHelp
-
-
-decoderHelp : Maybe Molecule -> Decoder Molecule
-decoderHelp molecule =
-    case molecule of
-        Nothing ->
-            D.fail "Not a valid molecule."
-
-        Just m ->
-            D.succeed m
+        (D.field "columns" (D.dict D.string))
 
 
 atomDecoder : Decoder Atom
 atomDecoder =
-    D.map2 atom
-        (D.field "atomicNumber" elementDecoder)
-        (D.field "position" positionDecoder)
+    D.map Atom (D.field "atomicNumber" elementDecoder)
 
 
 positionDecoder : Decoder Position
 positionDecoder =
-    D.map3 position
+    D.map3 Position
         (D.index 0 D.float)
         (D.index 1 D.float)
         (D.index 2 D.float)

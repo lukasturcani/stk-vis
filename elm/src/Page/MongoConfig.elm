@@ -10,6 +10,7 @@ port module Page.MongoConfig exposing
 import Browser exposing (Document)
 import Element exposing (Element)
 import Element.Input as Input
+import Internal.Queries as Queries
 import Internal.QueryType as QueryType exposing (QueryType)
 import Json.Encode as E exposing (Value)
 
@@ -24,6 +25,7 @@ type alias Model =
     , collection : String
     , query : String
     , queryType : QueryType
+    , postprocess : String
     }
 
 
@@ -32,8 +34,24 @@ init =
     { uri = "mongodb://localhost:27017"
     , database = "stkVis"
     , collection = "molecules"
-    , query = "[]"
+    , query =
+        Queries.normalized
+            { moleculeKey = "InChIKey"
+            , positionMatrixCollection = "position_matrices"
+            , valueCollections = [ "numAtoms", "numBonds" ]
+            }
+            |> E.encode 4
     , queryType = QueryType.Aggregate
+    , postprocess =
+        """return {
+  atoms: entry.a.map(([atomicNumber]) => { return {atomicNumber}; }),
+  positions: entry.positions[0].m,
+  bonds: entry.b.map(([atom1, atom2, order]) => [order, atom1, atom2]),
+  columns: {
+    "Num Bonds": entry.numBonds[0]?.v?.toString(),
+    "Num Atoms": entry.numAtoms[0]?.v?.toString(),
+  },
+};"""
     }
 
 
@@ -72,6 +90,14 @@ view model =
                     , text = model.query
                     , placeholder = Nothing
                     , label = Input.labelLeft [] (Element.text "query")
+                    , spellcheck = False
+                    }
+                , Input.multiline
+                    []
+                    { onChange = GotPostprocess
+                    , text = model.postprocess
+                    , placeholder = Nothing
+                    , label = Input.labelLeft [] (Element.text "def postprocess(entry)")
                     , spellcheck = False
                     }
                 , Input.radioRow
@@ -122,6 +148,7 @@ type Msg
     | GotCollection String
     | GotQuery String
     | GotQueryType QueryType
+    | GotPostprocess String
     | ClickedFind
     | ClickedAggregate
 
@@ -144,6 +171,9 @@ update msg model =
         GotQueryType queryType ->
             ( { model | queryType = queryType }, Cmd.none )
 
+        GotPostprocess postprocess ->
+            ( { model | postprocess = postprocess }, Cmd.none )
+
         ClickedFind ->
             ( model
             , mongoFind
@@ -152,6 +182,7 @@ update msg model =
                     , ( "database", E.string model.database )
                     , ( "collection", E.string model.collection )
                     , ( "query", E.string model.query )
+                    , ( "postprocess", E.string model.postprocess )
                     ]
                 )
             )
@@ -164,6 +195,7 @@ update msg model =
                     , ( "database", E.string model.database )
                     , ( "collection", E.string model.collection )
                     , ( "query", E.string model.query )
+                    , ( "postprocess", E.string model.postprocess )
                     ]
                 )
             )

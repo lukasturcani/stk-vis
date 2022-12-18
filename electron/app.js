@@ -29,6 +29,7 @@ app.ports.mongoAggregate.subscribe(async (message) => {
     const results = await collection
       .aggregate(JSON.parse(message.query))
       .limit(30)
+      .map(Function("entry", message.postprocess))
       .toArray();
     app.ports.receiveMolecules.send(results);
     console.log(results);

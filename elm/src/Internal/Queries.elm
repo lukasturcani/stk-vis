@@ -1,6 +1,6 @@
 module Internal.Queries exposing
-    ( property
-    , unsortedAll
+    ( normalized
+    , property
     )
 
 import Internal.MoleculeKeyName as MoleculeKeyName exposing (MoleculeKeyName)
@@ -17,40 +17,35 @@ property keyName keys =
         ]
 
 
-type alias UnsortedAllParams r =
+type alias NormalizedParams r =
     { r
-        | moleculeKey : MoleculeKeyName
-        , constructedMoleculeCollection : String
-        , buildingBlockPositionMatrixCollection : String
+        | moleculeKey : String
         , positionMatrixCollection : String
+        , valueCollections : List String
     }
 
 
-unsortedAll : UnsortedAllParams r -> Value
-unsortedAll params =
+normalized : NormalizedParams r -> Value
+normalized params =
     E.list
         identity
-        [ hasMoleculeKey params.moleculeKey
-        , getConstructedMolecule
-            params.constructedMoleculeCollection
-            params.moleculeKey
-        , getPositionMatrix
-            params.positionMatrixCollection
-            params.moleculeKey
-            "positionMatrix1"
-        , getPositionMatrix
-            params.buildingBlockPositionMatrixCollection
-            params.moleculeKey
-            "positionMatrix2"
-        , hasPositionMatrix
-        ]
+        (List.concat
+            [ [ hasMoleculeKey params.moleculeKey
+              , getPositionMatrix
+                    params.moleculeKey
+                    "positions"
+                    params.positionMatrixCollection
+              ]
+            , List.map (getValue params.moleculeKey) params.valueCollections
+            ]
+        )
 
 
-hasMoleculeKey : MoleculeKeyName -> Value
+hasMoleculeKey : String -> Value
 hasMoleculeKey moleculeKey =
     E.object
         [ ( "$match"
-          , E.object [ ( MoleculeKeyName.toString moleculeKey, exists True ) ]
+          , E.object [ ( moleculeKey, exists True ) ]
           )
         ]
 
@@ -64,13 +59,22 @@ getConstructedMolecule collection moleculeKey =
         "constructedMolecule"
 
 
-getPositionMatrix : String -> MoleculeKeyName -> String -> Value
-getPositionMatrix collection moleculeKey destination =
+getPositionMatrix : String -> String -> String -> Value
+getPositionMatrix moleculeKey destination collection =
     lookup
         collection
-        (MoleculeKeyName.toString moleculeKey)
-        (MoleculeKeyName.toString moleculeKey)
+        moleculeKey
+        moleculeKey
         destination
+
+
+getValue : String -> String -> Value
+getValue moleculeKey collection =
+    lookup
+        collection
+        moleculeKey
+        moleculeKey
+        collection
 
 
 hasPositionMatrix : Value
