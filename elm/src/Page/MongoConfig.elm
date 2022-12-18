@@ -55,7 +55,14 @@ view model =
                 [ text GotUri "uri" model.uri
                 , text GotDatabase "database" model.database
                 , text GotCollection "collection" model.collection
-                , text GotQuery "query" model.query
+                , Input.multiline
+                    []
+                    { onChange = GotQuery
+                    , text = model.query
+                    , placeholder = Nothing
+                    , label = Input.labelLeft [] (Element.text "query")
+                    , spellcheck = False
+                    }
                 , Input.radioRow
                     []
                     { onChange = GotQueryType
@@ -68,7 +75,13 @@ view model =
                     }
                 , Input.button
                     []
-                    { onPress = Just ClickedSearch
+                    { onPress =
+                        case model.queryType of
+                            QueryType.Find ->
+                                Just ClickedFind
+
+                            QueryType.Aggregate ->
+                                Just ClickedAggregate
                     , label = Element.text "search"
                     }
                 ]
@@ -98,7 +111,7 @@ type Msg
     | GotCollection String
     | GotQuery String
     | GotQueryType QueryType
-    | ClickedSearch
+    | ClickedFind
     | ClickedAggregate
 
 
@@ -120,7 +133,7 @@ update msg model =
         GotQueryType queryType ->
             ( { model | queryType = queryType }, Cmd.none )
 
-        ClickedSearch ->
+        ClickedFind ->
             ( model
             , mongoFind
                 (E.object

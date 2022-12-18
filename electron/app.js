@@ -20,3 +20,19 @@ app.ports.mongoFind.subscribe(async (message) => {
     await client.close();
   }
 });
+
+app.ports.mongoAggregate.subscribe(async (message) => {
+  const client = new MongoClient(message.uri);
+  try {
+    const database = client.db(message.database);
+    const collection = database.collection(message.collection);
+    const results = await collection
+      .aggregate(JSON.parse(message.query))
+      .limit(30)
+      .toArray();
+    app.ports.receiveMolecules.send(results);
+    console.log(results);
+  } finally {
+    await client.close();
+  }
+});
