@@ -7,65 +7,79 @@ port module Page.MoleculeBrowser exposing
     , view
     )
 
-import Browser
+import Browser exposing (Document)
 import Element
-import Element.Input as Input
-import Html
-import Internal.Elements as Elements
-import Internal.Molecule as Molecule
-import Internal.MoleculeKeyName as MoleculeKeyName
+import Internal.Molecule as Molecule exposing (Molecule)
 import Internal.MoleculeTable as MoleculeTable
-import Internal.NonEmptyList as NonEmptyList
-import Internal.Picker as Picker
-import Internal.Queries as Queries
+import Internal.Picker as Picker exposing (Picker)
 import Json.Decode as D
-import Json.Encode as E
+import Json.Encode as E exposing (Value)
 
 
 
-{-
-
-   The idea is that you provide a query -- which
-   gets run -- and returns molecules in the form of
-
-   {
-     "atoms": [{"atomicNumber": 1, "position": [1,2,3]}]
-     "bonds": [{"from": 1, "to": 2, "order": 2}
-     "columns": {
-       "a": 1
-       "b": 2,
-     }
-   }
-
--}
 -- MODEL
 
 
 type alias Model =
     Maybe
-        { molecules : Picker.Picker Molecule.Molecule
+        { molecules : Picker Molecule
         , columns : List String
+        , mongoDatabase : String
+        , mongoCollection : String
         }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Nothing, Cmd.none )
+    ( Nothing
+    , E.string "mongodb://localhost:27017"
+        |> createMongoClient
+    )
 
 
 
 -- PORTS
 
 
-port sendSelectedMolecule : E.Value -> Cmd msg
-port receiveMolecules : (E.Value -> msg) -> Sub msg
+port sendSelectedMolecule : Value -> Cmd msg
+
+
+port receiveMolecules : (Value -> msg) -> Sub msg
+
+
+decodeMolecules : Value -> Msg
+decodeMolecules value =
+    case D.decodeValue (D.list D.value) value of
+        Err error ->
+            GotMolecules [] [ D.errorToString error ]
+
+        Ok molecules ->
+            molecules
+                |> List.map (D.decodeValue Molecule.decoder)
+                |> List.foldr
+                    (\molecule ( oks, errs ) ->
+                        case molecule of
+                            Ok m ->
+                                ( m :: oks, errs )
+
+                            Err e ->
+                                ( oks, D.errorToString e :: errs )
+                    )
+                    ( [], [] )
+                |> (\( mols, errs ) -> GotMolecules mols errs)
+
+
+port createMongoClient : Value -> Cmd msg
+
+
+port mongoFind : Value -> Cmd msg
 
 
 
 -- VIEW
 
 
-view : Model -> Browser.Document Msg
+view : Model -> Document Msg
 view model =
     case model of
         Nothing ->
@@ -111,11 +125,11 @@ view model =
 
 
 type Msg
-    = Msg
+    = GotMolecules (List Molecule) (List String)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+update _ model =
     case model of
         Nothing ->
             ( model, Cmd.none )
@@ -134,7 +148,7 @@ update msg model =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model =
+subscriptions _ =
     Sub.batch
-      [ receiveMolecules (D.list Molecule.decoder)
-      ]
+        [ receiveMolecules decodeMolecules
+        ]

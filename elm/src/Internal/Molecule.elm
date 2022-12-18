@@ -1,29 +1,30 @@
 module Internal.Molecule exposing
     ( Molecule
     , atom
+    , decoder
     , fromAtom
-    , molecule
+    , new
     , position
     , toJson
     )
 
-import Dict
-import Internal.Elements as Elements
-import Internal.NonEmptyList as NonEmptyList
-import Json.Decode as D
+import Dict exposing (Dict)
+import Internal.Element as Element exposing (Element)
+import Internal.NonEmptyList as NonEmptyList exposing (NonEmptyList)
+import Json.Decode as D exposing (Decoder, Value)
 import Json.Encode as E
 import List
 
 
 type Molecule
     = Molecule
-        { atoms : NonEmptyList.NonEmptyList Atom
+        { atoms : NonEmptyList Atom
         , bonds : List Bond
-        , properties : Dict.Dict String E.Value
+        , properties : Dict String String
         }
 
 
-toJson : Molecule -> E.Value
+toJson : Molecule -> Value
 toJson (Molecule { atoms, bonds }) =
     let
         jsonAtoms =
@@ -41,15 +42,15 @@ toJson (Molecule { atoms, bonds }) =
         ]
 
 
-atomToJson : Atom -> E.Value
+atomToJson : Atom -> Value
 atomToJson (Atom element (Position x y z)) =
     E.object
-        [ ( "atomicNumber", E.int (Elements.atomicNumber element) )
+        [ ( "atomicNumber", E.int (Element.atomicNumber element) )
         , ( "position", E.list E.float [ x, y, z ] )
         ]
 
 
-bondToJson : Bond -> E.Value
+bondToJson : Bond -> Value
 bondToJson (Bond (BondTypeInteger order) (AtomId id1) (AtomId id2)) =
     E.list E.int [ order, id1, id2 ]
 
@@ -68,12 +69,12 @@ fromAtom atom_ =
         }
 
 
-molecule :
-    Dict.Dict String E.Value
-    -> NonEmptyList.NonEmptyList Atom
+new :
+    Dict String String
+    -> NonEmptyList Atom
     -> List Bond
     -> Maybe Molecule
-molecule properties atoms bonds =
+new properties atoms bonds =
     if List.all (hasValidAtomIds (NonEmptyList.length atoms)) bonds then
         Just (Molecule { atoms = atoms, bonds = bonds, properties = properties })
 
@@ -82,10 +83,10 @@ molecule properties atoms bonds =
 
 
 type Atom
-    = Atom Elements.Element Position
+    = Atom Element Position
 
 
-atom : Elements.Element -> Position -> Atom
+atom : Element -> Position -> Atom
 atom =
     Atom
 
@@ -111,33 +112,49 @@ type AtomId
     = AtomId Int
 
 
-
+decoder : Decoder Molecule
 decoder =
-  D.map3 molecule
-    (D.field "atoms" (D.list atomDecoder))
-    (D.field "bonds" (D.list bondDecoder))
-    (D.field "columns" (D.dict D.string))
+    D.map3 new
+        (D.field "columns" (D.dict D.string))
+        (D.field "atoms" (D.oneOrMore NonEmptyList.new atomDecoder))
+        (D.field "bonds" (D.list bondDecoder))
+        |> D.andThen decoderHelp
 
 
-atomDecoder : D.Decoder Atom
+decoderHelp : Maybe Molecule -> Decoder Molecule
+decoderHelp molecule =
+    case molecule of
+        Nothing ->
+            D.fail "Not a valid molecule."
+
+        Just m ->
+            D.succeed m
+
+
+atomDecoder : Decoder Atom
 atomDecoder =
-  D.map2 atom
-    (D.field "atomicNumber" D.int)
-    (D.field "position" positionDecoder)
+    D.map2 atom
+        (D.field "atomicNumber" elementDecoder)
+        (D.field "position" positionDecoder)
 
 
-positionDecoder : D.Decoder Position
+positionDecoder : Decoder Position
 positionDecoder =
-  D.map3 position
-    (D.index 0 D.float)
-    (D.index 1 D.float)
-    (D.index 2 D.float)
+    D.map3 position
+        (D.index 0 D.float)
+        (D.index 1 D.float)
+        (D.index 2 D.float)
 
 
+elementDecoder : Decoder Element
+elementDecoder =
+    D.int
+        |> D.andThen elementDecoderHelp
 
-elementDecoder : Int -> D.Decoder Elements.Element
-elementDecoder atomicNumber =
-    case Elements.fromAtomicNumber atomicNumber of
+
+elementDecoderHelp : Int -> Decoder Element
+elementDecoderHelp atomicNumber =
+    case Element.fromAtomicNumber atomicNumber of
         Just element ->
             D.succeed element
 
@@ -149,7 +166,7 @@ elementDecoder atomicNumber =
                 |> D.fail
 
 
-bondDecoder : D.Decoder Bond
+bondDecoder : Decoder Bond
 bondDecoder =
     D.map3 Bond
         (D.index 0 bondTypeDecoder)
@@ -157,13 +174,13 @@ bondDecoder =
         (D.index 2 atomIdDecoder)
 
 
-bondTypeDecoder : D.Decoder BondType
+bondTypeDecoder : Decoder BondType
 bondTypeDecoder =
     D.index 0 D.int
         |> D.map BondTypeInteger
 
 
-atomIdDecoder : D.Decoder AtomId
+atomIdDecoder : Decoder AtomId
 atomIdDecoder =
     D.int
         |> D.map AtomId

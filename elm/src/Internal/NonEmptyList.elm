@@ -2,6 +2,7 @@ module Internal.NonEmptyList exposing
     ( NonEmptyList
     , length
     , map
+    , new
     , singleton
     , toList
     )
@@ -11,6 +12,11 @@ import List
 
 type NonEmptyList a
     = NonEmptyList a (List a)
+
+
+new : a -> List a -> NonEmptyList a
+new =
+    NonEmptyList
 
 
 length : NonEmptyList a -> Int

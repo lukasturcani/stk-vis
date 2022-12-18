@@ -1,9 +1,10 @@
 module Main exposing (main)
 
-import Browser
+import Browser exposing (Document)
 import Element
 import Html
 import Page.MoleculeBrowser as MoleculeBrowser
+import Page.MongoConfig as MongoConfig
 
 
 
@@ -25,17 +26,22 @@ main =
 
 
 type Model
-    = MoleculeBrowser MoleculeBrowser.Model
+    = MongoConfig MongoConfig.Model
+    | MoleculeBrowser MoleculeBrowser.Model
 
 
 init : () -> ( Model, Cmd Msg )
 init flags =
     let
-        ( moleculeBrowser, cmds ) =
-            MoleculeBrowser.init flags
+        config =
+            { uri = "mongodb://localhost:27017"
+            , database = "stk-vis-test-databse-1"
+            , collection = "molecules"
+            , query = "{}"
+            }
     in
-    ( MoleculeBrowser moleculeBrowser
-    , Cmd.map MsgMoleculeBrowser cmds
+    ( MongoConfig config
+    , Cmd.none
     )
 
 
@@ -43,9 +49,18 @@ init flags =
 -- VIEW
 
 
-view : Model -> Browser.Document Msg
+view : Model -> Document Msg
 view model =
     case model of
+        MongoConfig mongoConfig ->
+            let
+                { title, body } =
+                    MongoConfig.view mongoConfig
+            in
+            { title = title
+            , body = List.map (Html.map MsgMongoConfig) body
+            }
+
         MoleculeBrowser moleculeBrowser ->
             let
                 { title, body } =
@@ -62,6 +77,7 @@ view model =
 
 type Msg
     = MsgMoleculeBrowser MoleculeBrowser.Msg
+    | MsgMongoConfig MongoConfig.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -70,6 +86,13 @@ update msg model =
         ( MsgMoleculeBrowser subMsg, MoleculeBrowser moleculeBrowser ) ->
             MoleculeBrowser.update subMsg moleculeBrowser
                 |> updateWith MoleculeBrowser MsgMoleculeBrowser
+
+        ( MsgMongoConfig subMsg, MongoConfig mongoConfig ) ->
+            MongoConfig.update subMsg mongoConfig
+                |> updateWith MongoConfig MsgMongoConfig
+
+        ( _, _ ) ->
+            ( model, Cmd.none )
 
 
 updateWith : (subModel -> Model) -> (subMsg -> Msg) -> ( subModel, Cmd subMsg ) -> ( Model, Cmd Msg )

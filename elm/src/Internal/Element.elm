@@ -1,4 +1,4 @@
-module Internal.Elements exposing
+module Internal.Element exposing
     ( Element(..)
     , atomicNumber
     , fromAtomicNumber
