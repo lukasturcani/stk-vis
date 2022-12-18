@@ -1,6 +1,7 @@
 port module Page.MongoConfig exposing
     ( Model
     , Msg
+    , init
     , subscriptions
     , update
     , view
@@ -23,6 +24,16 @@ type alias Model =
     , collection : String
     , query : String
     , queryType : QueryType
+    }
+
+
+init : Model
+init =
+    { uri = "mongodb://localhost:27017"
+    , database = "stkVis"
+    , collection = "molecules"
+    , query = "[]"
+    , queryType = QueryType.Aggregate
     }
 
 

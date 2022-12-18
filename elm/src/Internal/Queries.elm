@@ -3,12 +3,12 @@ module Internal.Queries exposing
     , unsortedAll
     )
 
-import Internal.MoleculeKeyName as MoleculeKeyName
-import Internal.MoleculeKeyValue as MoleculeKeyValue
-import Json.Encode as E
+import Internal.MoleculeKeyName as MoleculeKeyName exposing (MoleculeKeyName)
+import Internal.MoleculeKeyValue as MoleculeKeyValue exposing (MoleculeKeyValue)
+import Json.Encode as E exposing (Value)
 
 
-property : MoleculeKeyName.MoleculeKeyName -> List MoleculeKeyValue.MoleculeKeyValue -> E.Value
+property : MoleculeKeyName -> List MoleculeKeyValue -> Value
 property keyName keys =
     E.object
         [ ( MoleculeKeyName.toString keyName
@@ -19,14 +19,14 @@ property keyName keys =
 
 type alias UnsortedAllParams r =
     { r
-        | moleculeKey : MoleculeKeyName.MoleculeKeyName
+        | moleculeKey : MoleculeKeyName
         , constructedMoleculeCollection : String
         , buildingBlockPositionMatrixCollection : String
         , positionMatrixCollection : String
     }
 
 
-unsortedAll : UnsortedAllParams r -> E.Value
+unsortedAll : UnsortedAllParams r -> Value
 unsortedAll params =
     E.list
         identity
@@ -46,7 +46,7 @@ unsortedAll params =
         ]
 
 
-hasMoleculeKey : MoleculeKeyName.MoleculeKeyName -> E.Value
+hasMoleculeKey : MoleculeKeyName -> Value
 hasMoleculeKey moleculeKey =
     E.object
         [ ( "$match"
@@ -55,7 +55,7 @@ hasMoleculeKey moleculeKey =
         ]
 
 
-getConstructedMolecule : String -> MoleculeKeyName.MoleculeKeyName -> E.Value
+getConstructedMolecule : String -> MoleculeKeyName -> Value
 getConstructedMolecule collection moleculeKey =
     lookup
         collection
@@ -64,7 +64,7 @@ getConstructedMolecule collection moleculeKey =
         "constructedMolecule"
 
 
-getPositionMatrix : String -> MoleculeKeyName.MoleculeKeyName -> String -> E.Value
+getPositionMatrix : String -> MoleculeKeyName -> String -> Value
 getPositionMatrix collection moleculeKey destination =
     lookup
         collection
@@ -73,7 +73,7 @@ getPositionMatrix collection moleculeKey destination =
         destination
 
 
-hasPositionMatrix : E.Value
+hasPositionMatrix : Value
 hasPositionMatrix =
     match
         (expr
@@ -85,12 +85,12 @@ hasPositionMatrix =
         )
 
 
-exists : Bool -> E.Value
+exists : Bool -> Value
 exists e =
     E.object [ ( "$exists", E.bool e ) ]
 
 
-lookup : String -> String -> String -> String -> E.Value
+lookup : String -> String -> String -> String -> Value
 lookup from localField foreignField as_ =
     E.object
         [ ( "$lookup"
@@ -104,32 +104,32 @@ lookup from localField foreignField as_ =
         ]
 
 
-match : E.Value -> E.Value
+match : Value -> Value
 match m =
     E.object [ ( "$match", m ) ]
 
 
-expr : E.Value -> E.Value
+expr : Value -> Value
 expr e =
     E.object [ ( "$expr", e ) ]
 
 
-or : List E.Value -> E.Value
+or : List Value -> Value
 or o =
     E.object [ ( "$or", E.list identity o ) ]
 
 
-gt : E.Value -> E.Value -> E.Value
+gt : Value -> Value -> Value
 gt first second =
     E.object [ ( "$gt", E.list identity [ first, second ] ) ]
 
 
-size : E.Value -> E.Value
+size : Value -> Value
 size s =
     E.object [ ( "$size", s ) ]
 
 
-in_ : List E.Value -> E.Value
+in_ : List Value -> Value
 in_ values =
     E.object
         [ ( "$in", E.list identity values )

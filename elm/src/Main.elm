@@ -2,7 +2,6 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Html
-import Internal.QueryType as QueryType exposing (QueryType)
 import Page.MoleculeBrowser as MoleculeBrowser
 import Page.MongoConfig as MongoConfig
 
@@ -32,16 +31,7 @@ type Model
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    let
-        config =
-            { uri = "mongodb://localhost:27017"
-            , database = "stkVis"
-            , collection = "molecules"
-            , query = "[]"
-            , queryType = QueryType.Aggregate
-            }
-    in
-    ( MongoConfig config
+    ( MongoConfig MongoConfig.init
     , Cmd.none
     )
 
