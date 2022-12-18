@@ -9,6 +9,7 @@ port module Page.MongoConfig exposing
 import Browser exposing (Document)
 import Element exposing (Element)
 import Element.Input as Input
+import Internal.QueryType as QueryType exposing (QueryType)
 import Json.Encode as E exposing (Value)
 
 
@@ -21,6 +22,7 @@ type alias Model =
     , database : String
     , collection : String
     , query : String
+    , queryType : QueryType
     }
 
 
@@ -29,6 +31,9 @@ type alias Model =
 
 
 port mongoFind : Value -> Cmd msg
+
+
+port mongoAggregate : Value -> Cmd msg
 
 
 
@@ -51,10 +56,20 @@ view model =
                 , text GotDatabase "database" model.database
                 , text GotCollection "collection" model.collection
                 , text GotQuery "query" model.query
+                , Input.radioRow
+                    []
+                    { onChange = GotQueryType
+                    , options =
+                        [ Input.option QueryType.Find (Element.text "find")
+                        , Input.option QueryType.Aggregate (Element.text "aggregate")
+                        ]
+                    , selected = Just model.queryType
+                    , label = Input.labelLeft [] (Element.text "query type")
+                    }
                 , Input.button
                     []
-                    { onPress = Just ClickedFind
-                    , label = Element.text "find"
+                    { onPress = Just ClickedSearch
+                    , label = Element.text "search"
                     }
                 ]
             )
@@ -82,7 +97,9 @@ type Msg
     | GotDatabase String
     | GotCollection String
     | GotQuery String
-    | ClickedFind
+    | GotQueryType QueryType
+    | ClickedSearch
+    | ClickedAggregate
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -100,9 +117,24 @@ update msg model =
         GotQuery query ->
             ( { model | query = query }, Cmd.none )
 
-        ClickedFind ->
+        GotQueryType queryType ->
+            ( { model | queryType = queryType }, Cmd.none )
+
+        ClickedSearch ->
             ( model
             , mongoFind
+                (E.object
+                    [ ( "uri", E.string model.uri )
+                    , ( "database", E.string model.database )
+                    , ( "collection", E.string model.collection )
+                    , ( "query", E.string model.query )
+                    ]
+                )
+            )
+
+        ClickedAggregate ->
+            ( model
+            , mongoAggregate
                 (E.object
                     [ ( "uri", E.string model.uri )
                     , ( "database", E.string model.database )

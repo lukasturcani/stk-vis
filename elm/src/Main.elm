@@ -2,6 +2,7 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Html
+import Internal.QueryType as QueryType exposing (QueryType)
 import Page.MoleculeBrowser as MoleculeBrowser
 import Page.MongoConfig as MongoConfig
 
@@ -37,6 +38,7 @@ init _ =
             , database = "stkVis"
             , collection = "molecules"
             , query = "{}"
+            , queryType = QueryType.Aggregate
             }
     in
     ( MongoConfig config
