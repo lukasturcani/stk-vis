@@ -1,22 +1,22 @@
 const { MongoClient } = require("mongodb");
 
 const app = Elm.Main.init();
-let client = undefined;
 
 app.ports.sendSelectedMolecule.subscribe(async (message) => {
   console.log(message);
 });
 
-app.ports.createMongoClient.subscribe(async (message) => {
-  if (client !== undefined) {
+app.ports.mongoFind.subscribe(async (message) => {
+  const client = new MongoClient(message.uri);
+  try {
+    const database = client.db(message.database);
+    const collection = database.collection(message.collection);
+    const results = await collection
+      .find(JSON.parse(message.query))
+      .limit(30)
+      .toArray();
+    app.ports.receiveMolecules.send(results);
+  } finally {
     await client.close();
   }
-  client = new MongoClient(message);
-});
-
-app.ports.mongoFind.subscribe(async (message) => {
-  const database = client.db(message.database);
-  const collection = database.collection(message.collection);
-  const results = await collection.find(message.query);
-  app.ports.receiveMolecules.send(results);
 });

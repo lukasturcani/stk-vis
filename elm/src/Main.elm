@@ -1,7 +1,6 @@
 module Main exposing (main)
 
 import Browser exposing (Document)
-import Element
 import Html
 import Page.MoleculeBrowser as MoleculeBrowser
 import Page.MongoConfig as MongoConfig
@@ -31,11 +30,11 @@ type Model
 
 
 init : () -> ( Model, Cmd Msg )
-init flags =
+init _ =
     let
         config =
             { uri = "mongodb://localhost:27017"
-            , database = "stk-vis-test-databse-1"
+            , database = "stkVis"
             , collection = "molecules"
             , query = "{}"
             }
@@ -106,4 +105,9 @@ updateWith toModel toMsg ( subModel, subCmd ) =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    case model of
+        MoleculeBrowser subModel ->
+            Sub.map MsgMoleculeBrowser (MoleculeBrowser.subscriptions subModel)
+
+        MongoConfig subModel ->
+            Sub.map MsgMongoConfig (MongoConfig.subscriptions subModel)
