@@ -37,7 +37,7 @@ init _ =
             { uri = "mongodb://localhost:27017"
             , database = "stkVis"
             , collection = "molecules"
-            , query = "{}"
+            , query = "[]"
             , queryType = QueryType.Aggregate
             }
     in
