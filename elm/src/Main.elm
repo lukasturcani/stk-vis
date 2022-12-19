@@ -1,9 +1,11 @@
 module Main exposing (main)
 
-import Browser exposing (Document)
+import Browser exposing (Document, UrlRequest)
+import Browser.Navigation as Nav
 import Html
 import Page.MoleculeBrowser as MoleculeBrowser
 import Page.MongoConfig as MongoConfig
+import Url exposing (Url)
 
 
 
@@ -12,11 +14,13 @@ import Page.MongoConfig as MongoConfig
 
 main : Program () Model Msg
 main =
-    Browser.document
+    Browser.application
         { init = init
         , view = view
         , update = update
         , subscriptions = subscriptions
+        , onUrlChange = UrlChanged
+        , onUrlRequest = LinkClicked
         }
 
 
@@ -29,9 +33,9 @@ type Model
     | MoleculeBrowser MoleculeBrowser.Model
 
 
-init : () -> ( Model, Cmd Msg )
-init _ =
-    ( MongoConfig MongoConfig.init
+init : () -> Url -> Nav.Key -> ( Model, Cmd Msg )
+init _ url key =
+    ( MongoConfig (MongoConfig.init key)
     , Cmd.none
     )
 
@@ -69,6 +73,8 @@ view model =
 type Msg
     = MsgMoleculeBrowser MoleculeBrowser.Msg
     | MsgMongoConfig MongoConfig.Msg
+    | UrlChanged Url
+    | LinkClicked UrlRequest
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

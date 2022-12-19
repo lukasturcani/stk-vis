@@ -1,7 +1,6 @@
 port module Page.MoleculeBrowser exposing
     ( Model
     , Msg
-    , init
     , subscriptions
     , update
     , view
@@ -27,14 +26,6 @@ type alias Model =
         , mongoDatabase : String
         , mongoCollection : String
         }
-
-
-init : () -> ( Model, Cmd Msg )
-init _ =
-    ( Nothing
-    , E.string "mongodb://localhost:27017"
-        |> createMongoClient
-    )
 
 
 
@@ -67,12 +58,6 @@ decodeMolecules value =
                     )
                     ( [], [] )
                 |> (\( mols, errs ) -> GotMolecules mols errs)
-
-
-port createMongoClient : Value -> Cmd msg
-
-
-port mongoFind : Value -> Cmd msg
 
 
 
