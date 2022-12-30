@@ -5,7 +5,6 @@ module Internal.Molecule exposing
     )
 
 import Dict exposing (Dict)
-import Internal.Element as Element exposing (Element)
 import Internal.NonEmptyList as NonEmptyList exposing (NonEmptyList)
 import Json.Decode as D exposing (Decoder, Value)
 import Json.Encode as E
@@ -45,9 +44,9 @@ toJson (Molecule { atoms, positions, bonds }) =
 
 
 atomToJson : Atom -> Value
-atomToJson (Atom element) =
+atomToJson (Atom atomicNumber) =
     E.object
-        [ ( "atomicNumber", E.int (Element.atomicNumber element) )
+        [ ( "atomicNumber", E.int atomicNumber )
         ]
 
 
@@ -61,8 +60,12 @@ bondToJson (Bond (BondTypeInteger order) (AtomId id1) (AtomId id2)) =
     E.list E.int [ order, id1, id2 ]
 
 
+type alias AtomicNumber =
+    Int
+
+
 type Atom
-    = Atom Element
+    = Atom AtomicNumber
 
 
 type Position
@@ -96,7 +99,7 @@ decoder =
 
 atomDecoder : Decoder Atom
 atomDecoder =
-    D.map Atom (D.field "atomicNumber" elementDecoder)
+    D.map Atom (D.field "atomicNumber" D.int)
 
 
 positionDecoder : Decoder Position
@@ -107,38 +110,17 @@ positionDecoder =
         (D.index 2 D.float)
 
 
-elementDecoder : Decoder Element
-elementDecoder =
-    D.int
-        |> D.andThen elementDecoderHelp
-
-
-elementDecoderHelp : Int -> Decoder Element
-elementDecoderHelp atomicNumber =
-    case Element.fromAtomicNumber atomicNumber of
-        Just element ->
-            D.succeed element
-
-        Nothing ->
-            String.concat
-                [ String.fromInt atomicNumber
-                , " is not a valid atomic number."
-                ]
-                |> D.fail
-
-
 bondDecoder : Decoder Bond
 bondDecoder =
     D.map3 Bond
-        (D.index 0 bondTypeDecoder)
-        (D.index 1 atomIdDecoder)
-        (D.index 2 atomIdDecoder)
+        (D.field "order" bondTypeDecoder)
+        (D.field "atom1" atomIdDecoder)
+        (D.field "atom2" atomIdDecoder)
 
 
 bondTypeDecoder : Decoder BondType
 bondTypeDecoder =
-    D.index 0 D.int
-        |> D.map BondTypeInteger
+    D.map BondTypeInteger D.int
 
 
 atomIdDecoder : Decoder AtomId

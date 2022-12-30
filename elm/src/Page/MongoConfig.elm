@@ -48,7 +48,7 @@ init =
         """return {
   atoms: entry.a.map(([atomicNumber]) => { return {atomicNumber}; }),
   positions: entry.positions[0].m,
-  bonds: entry.b.map(([atom1, atom2, order]) => [order, atom1, atom2]),
+  bonds: entry.b.map(([atom1, atom2, order]) => { return {order, atom1, atom2}; }),
   columns: {
     "Num Bonds": entry.numBonds[0]?.v?.toString(),
     "Num Atoms": entry.numAtoms[0]?.v?.toString(),
