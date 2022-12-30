@@ -1,8 +1,8 @@
 module Internal.Picker exposing
     ( Picker
+    , new
     , pick
     , picked
-    , picker
     , singleton
     )
 
@@ -13,8 +13,8 @@ type Picker a
     = Picker a (Array.Array a)
 
 
-picker : List a -> a -> List a -> Picker a
-picker first x rest =
+new : List a -> a -> List a -> Picker a
+new first x rest =
     List.concat [ first, [ x ], rest ]
         |> Array.fromList
         |> Picker x

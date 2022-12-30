@@ -22,8 +22,6 @@ type alias Model =
     Maybe
         { molecules : Picker Molecule
         , columns : List String
-        , mongoDatabase : String
-        , mongoCollection : String
         }
 
 
@@ -113,12 +111,22 @@ type Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update _ model =
-    case model of
-        Nothing ->
+update msg model =
+    case ( msg, model ) of
+        ( GotMolecules (first :: rest) errors, _ ) ->
+            ( Just
+                { molecules = Picker.new [] first rest
+                , columns = []
+                }
+            , first
+                |> Molecule.toJson
+                |> sendSelectedMolecule
+            )
+
+        ( _, Nothing ) ->
             ( model, Cmd.none )
 
-        Just innerModel ->
+        ( _, Just innerModel ) ->
             ( model
             , innerModel.molecules
                 |> Picker.picked

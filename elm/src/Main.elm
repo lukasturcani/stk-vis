@@ -1,6 +1,7 @@
 module Main exposing (main)
 
 import Browser exposing (Document)
+import Debug
 import Html
 import Json.Encode as E
 import Page.MoleculeBrowser as MoleculeBrowser
@@ -74,7 +75,7 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case ( msg, model ) of
+    case ( Debug.log "message" msg, Debug.log "model" model ) of
         ( MsgMongoConfig MongoConfig.ClickedFind, MongoConfig mongoConfig ) ->
             ( MoleculeBrowser Nothing
             , MongoConfig.mongoFind
