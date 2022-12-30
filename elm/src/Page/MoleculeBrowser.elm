@@ -21,6 +21,7 @@ import Json.Decode as D exposing (Value)
 type alias Model =
     Maybe
         { molecules : Picker Molecule
+        , decodingErrors : List String
         , columns : List String
         }
 
@@ -92,11 +93,13 @@ view model =
                         [ Element.width Element.fill
                         , Element.height Element.fill
                         ]
-                        [ Element.text "MoleculeBrowser"
-                        , MoleculeTable.view
+                        ([ Element.text "MoleculeBrowser"
+                         , MoleculeTable.view
                             { elementTable = [] }
                             innerModel.molecules
-                        ]
+                         ]
+                            ++ List.map Element.text innerModel.decodingErrors
+                        )
                     )
                 ]
             }
@@ -117,6 +120,7 @@ update msg model =
             ( Just
                 { molecules = Picker.new [] first rest
                 , columns = []
+                , decodingErrors = errors
                 }
             , first
                 |> Molecule.toJson
