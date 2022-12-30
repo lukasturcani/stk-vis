@@ -11,8 +11,7 @@ import Element
 import Internal.Molecule as Molecule exposing (Molecule)
 import Internal.MoleculeTable as MoleculeTable
 import Internal.Picker as Picker exposing (Picker)
-import Json.Decode as D
-import Json.Encode as E exposing (Value)
+import Json.Decode as D exposing (Value)
 
 
 

@@ -1,11 +1,10 @@
 module Main exposing (main)
 
-import Browser exposing (Document, UrlRequest)
-import Browser.Navigation as Nav
+import Browser exposing (Document)
 import Html
+import Json.Encode as E
 import Page.MoleculeBrowser as MoleculeBrowser
 import Page.MongoConfig as MongoConfig
-import Url exposing (Url)
 
 
 
@@ -14,13 +13,11 @@ import Url exposing (Url)
 
 main : Program () Model Msg
 main =
-    Browser.application
+    Browser.document
         { init = init
         , view = view
         , update = update
         , subscriptions = subscriptions
-        , onUrlChange = UrlChanged
-        , onUrlRequest = LinkClicked
         }
 
 
@@ -33,9 +30,9 @@ type Model
     | MoleculeBrowser MoleculeBrowser.Model
 
 
-init : () -> Url -> Nav.Key -> ( Model, Cmd Msg )
-init _ url key =
-    ( MongoConfig (MongoConfig.init key)
+init : () -> ( Model, Cmd Msg )
+init _ =
+    ( MongoConfig MongoConfig.init
     , Cmd.none
     )
 
@@ -73,13 +70,39 @@ view model =
 type Msg
     = MsgMoleculeBrowser MoleculeBrowser.Msg
     | MsgMongoConfig MongoConfig.Msg
-    | UrlChanged Url
-    | LinkClicked UrlRequest
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case ( msg, model ) of
+        ( MsgMongoConfig MongoConfig.ClickedFind, MongoConfig mongoConfig ) ->
+            ( MoleculeBrowser Nothing
+            , MongoConfig.mongoFind
+                (E.object
+                    [ ( "uri", E.string mongoConfig.uri )
+                    , ( "database", E.string mongoConfig.database )
+                    , ( "collection", E.string mongoConfig.collection )
+                    , ( "query", E.string mongoConfig.query )
+                    , ( "postprocess", E.string mongoConfig.postprocess )
+                    ]
+                )
+                |> Cmd.map MsgMongoConfig
+            )
+
+        ( MsgMongoConfig MongoConfig.ClickedAggregate, MongoConfig mongoConfig ) ->
+            ( MoleculeBrowser Nothing
+            , MongoConfig.mongoAggregate
+                (E.object
+                    [ ( "uri", E.string mongoConfig.uri )
+                    , ( "database", E.string mongoConfig.database )
+                    , ( "collection", E.string mongoConfig.collection )
+                    , ( "query", E.string mongoConfig.query )
+                    , ( "postprocess", E.string mongoConfig.postprocess )
+                    ]
+                )
+                |> Cmd.map MsgMongoConfig
+            )
+
         ( MsgMoleculeBrowser subMsg, MoleculeBrowser moleculeBrowser ) ->
             MoleculeBrowser.update subMsg moleculeBrowser
                 |> updateWith MoleculeBrowser MsgMoleculeBrowser

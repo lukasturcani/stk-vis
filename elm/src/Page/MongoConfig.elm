@@ -1,14 +1,15 @@
 port module Page.MongoConfig exposing
     ( Model
-    , Msg
+    , Msg(..)
     , init
+    , mongoAggregate
+    , mongoFind
     , subscriptions
     , update
     , view
     )
 
 import Browser exposing (Document)
-import Browser.Navigation as Nav
 import Element exposing (Element)
 import Element.Input as Input
 import Internal.Queries as Queries
@@ -27,12 +28,11 @@ type alias Model =
     , query : String
     , queryType : QueryType
     , postprocess : String
-    , key : Nav.Key
     }
 
 
-init : Nav.Key -> Model
-init key =
+init : Model
+init =
     { uri = "mongodb://localhost:27017"
     , database = "stkVis"
     , collection = "molecules"
@@ -54,7 +54,6 @@ init key =
     "Num Atoms": entry.numAtoms[0]?.v?.toString(),
   },
 };"""
-    , key = key
     }
 
 
@@ -179,32 +178,28 @@ update msg model =
 
         ClickedFind ->
             ( model
-            , Cmd.batch
-                [ mongoFind
-                    (E.object
-                        [ ( "uri", E.string model.uri )
-                        , ( "database", E.string model.database )
-                        , ( "collection", E.string model.collection )
-                        , ( "query", E.string model.query )
-                        , ( "postprocess", E.string model.postprocess )
-                        ]
-                    )
-                ]
+            , mongoFind
+                (E.object
+                    [ ( "uri", E.string model.uri )
+                    , ( "database", E.string model.database )
+                    , ( "collection", E.string model.collection )
+                    , ( "query", E.string model.query )
+                    , ( "postprocess", E.string model.postprocess )
+                    ]
+                )
             )
 
         ClickedAggregate ->
             ( model
-            , Cmd.batch
-                [ mongoAggregate
-                    (E.object
-                        [ ( "uri", E.string model.uri )
-                        , ( "database", E.string model.database )
-                        , ( "collection", E.string model.collection )
-                        , ( "query", E.string model.query )
-                        , ( "postprocess", E.string model.postprocess )
-                        ]
-                    )
-                ]
+            , mongoAggregate
+                (E.object
+                    [ ( "uri", E.string model.uri )
+                    , ( "database", E.string model.database )
+                    , ( "collection", E.string model.collection )
+                    , ( "query", E.string model.query )
+                    , ( "postprocess", E.string model.postprocess )
+                    ]
+                )
             )
 
 
