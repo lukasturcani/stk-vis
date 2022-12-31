@@ -1,5 +1,5 @@
 port module Page.MoleculeBrowser exposing
-    ( Model
+    ( Model(..)
     , Msg
     , subscriptions
     , update
@@ -18,12 +18,32 @@ import Json.Decode as D exposing (Value)
 -- MODEL
 
 
-type alias Model =
-    Maybe
+type Model
+    = ModelData
         { molecules : Picker Molecule
         , decodingErrors : List String
         , columns : List String
         }
+    | ModelWaiting
+        { columns : List String
+        }
+    | ModelOnlyErrors
+        { decodingErrors : List String
+        , columns : List String
+        }
+
+
+columns : Model -> List String
+columns model =
+    case model of
+        ModelData inner ->
+            inner.columns
+
+        ModelWaiting inner ->
+            inner.columns
+
+        ModelOnlyErrors inner ->
+            inner.columns
 
 
 
@@ -65,7 +85,7 @@ decodeMolecules value =
 view : Model -> Document Msg
 view model =
     case model of
-        Nothing ->
+        ModelWaiting _ ->
             { title = "StkVis"
             , body =
                 [ Element.layout
@@ -82,7 +102,7 @@ view model =
                 ]
             }
 
-        Just innerModel ->
+        ModelData innerModel ->
             { title = "StkVis"
             , body =
                 [ Element.layout
@@ -95,11 +115,27 @@ view model =
                         ]
                         ([ Element.text "MoleculeBrowser"
                          , MoleculeTable.view
-                            { elementTable = [] }
+                            innerModel.columns
                             innerModel.molecules
                          ]
                             ++ List.map Element.text innerModel.decodingErrors
                         )
+                    )
+                ]
+            }
+
+        ModelOnlyErrors innerModel ->
+            { title = "StkVis"
+            , body =
+                [ Element.layout
+                    [ Element.width Element.fill
+                    , Element.height Element.fill
+                    ]
+                    (Element.column
+                        [ Element.width Element.fill
+                        , Element.height Element.fill
+                        ]
+                        (List.map Element.text innerModel.decodingErrors)
                     )
                 ]
             }
@@ -116,10 +152,10 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case ( msg, model ) of
-        ( GotMolecules (first :: rest) errors, _ ) ->
-            ( Just
+        ( GotMolecules (first :: rest) errors, ModelData innerModel ) ->
+            ( ModelData
                 { molecules = Picker.new [] first rest
-                , columns = []
+                , columns = innerModel.columns
                 , decodingErrors = errors
                 }
             , first
@@ -127,15 +163,34 @@ update msg model =
                 |> sendSelectedMolecule
             )
 
-        ( _, Nothing ) ->
-            ( model, Cmd.none )
-
-        ( _, Just innerModel ) ->
-            ( model
-            , innerModel.molecules
-                |> Picker.picked
+        ( GotMolecules (first :: rest) errors, ModelWaiting innerModel ) ->
+            ( ModelData
+                { molecules = Picker.new [] first rest
+                , columns = innerModel.columns
+                , decodingErrors = errors
+                }
+            , first
                 |> Molecule.toJson
                 |> sendSelectedMolecule
+            )
+
+        ( GotMolecules (first :: rest) errors, ModelOnlyErrors innerModel ) ->
+            ( ModelData
+                { molecules = Picker.new [] first rest
+                , columns = innerModel.columns
+                , decodingErrors = errors
+                }
+            , first
+                |> Molecule.toJson
+                |> sendSelectedMolecule
+            )
+
+        ( GotMolecules [] errors, _ ) ->
+            ( ModelOnlyErrors
+                { columns = columns model
+                , decodingErrors = errors
+                }
+            , Cmd.none
             )
 
 

@@ -1,14 +1,12 @@
 module Internal.MoleculeTable exposing
     ( Style
     , view
-    , view2
     )
 
-import Element
-import Internal.Molecule as Molecule
-import Internal.Picker as Picker
-import Widget
-import Widget.Material as Material
+import Dict exposing (Dict)
+import Element exposing (Attribute, Element)
+import Internal.Molecule as Molecule exposing (Molecule)
+import Internal.Picker as Picker exposing (Picker)
 
 
 type alias Style msg =
@@ -16,66 +14,43 @@ type alias Style msg =
     }
 
 
-view :
-    Style msg
-    -> Picker.Picker Molecule.Molecule
-    -> Element.Element msg
-view style _ =
+view : List String -> Picker Molecule -> Element msg
+view columnNames molecules =
     let
         data =
-            [ { item1 = "a", item2 = "b" }
-            , { item1 = "c", item2 = "d" }
-            ]
+            molecules
+                |> Picker.toList
+                |> List.map Molecule.properties
 
         columns =
-            [ { header = Element.text "one"
-              , width = Element.fill
-              , view = .item1 >> Element.text
-              }
-            , { header = Element.text "two"
-              , width = Element.fill
-              , view = .item2 >> Element.text
-              }
-            ]
+            columnNames
+                |> List.map
+                    (\name ->
+                        { header = Element.text name
+                        , width = Element.fill
+                        , view = getWithDefault "" name >> Element.text
+                        }
+                    )
     in
     Element.table
-        style.elementTable
+        elementTableStyle
         { data = data
         , columns = columns
         }
 
 
-view2 :
-    (String -> msg)
-    -> Picker.Picker Molecule.Molecule
-    -> Element.Element msg
-view2 onChange _ =
-    let
-        data =
-            [ { item1 = "a", item2 = "b" }
-            , { item1 = "c", item2 = "d" }
-            ]
+getWithDefault : String -> String -> Dict String String -> String
+getWithDefault default key dict =
+    case Dict.get key dict of
+        Just value ->
+            value
 
-        columns =
-            [ Widget.stringColumn
-                { title = "one"
-                , value = .item1
-                , toString = identity
-                , width = Element.fill
-                }
-            , Widget.stringColumn
-                { title = "two"
-                , value = .item2
-                , toString = identity
-                , width = Element.fill
-                }
-            ]
-    in
-    Widget.sortTable
-        (Material.sortTable Material.darkPalette)
-        { content = data
-        , columns = columns
-        , sortBy = "a"
-        , asc = True
-        , onChange = onChange
-        }
+        Nothing ->
+            default
+
+
+elementTableStyle : List (Attribute msg)
+elementTableStyle =
+    [ Element.width Element.fill
+    , Element.height Element.fill
+    ]

@@ -77,7 +77,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case ( Debug.log "message" msg, Debug.log "model" model ) of
         ( MsgMongoConfig MongoConfig.ClickedFind, MongoConfig mongoConfig ) ->
-            ( MoleculeBrowser Nothing
+            ( MoleculeBrowser (MoleculeBrowser.ModelWaiting { columns = mongoConfig.columns })
             , MongoConfig.mongoFind
                 (E.object
                     [ ( "uri", E.string mongoConfig.uri )
@@ -91,7 +91,7 @@ update msg model =
             )
 
         ( MsgMongoConfig MongoConfig.ClickedAggregate, MongoConfig mongoConfig ) ->
-            ( MoleculeBrowser Nothing
+            ( MoleculeBrowser (MoleculeBrowser.ModelWaiting { columns = mongoConfig.columns })
             , MongoConfig.mongoAggregate
                 (E.object
                     [ ( "uri", E.string mongoConfig.uri )

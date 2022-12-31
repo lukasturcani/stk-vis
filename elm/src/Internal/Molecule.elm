@@ -1,6 +1,7 @@
 module Internal.Molecule exposing
     ( Molecule
     , decoder
+    , properties
     , toJson
     )
 
@@ -17,6 +18,11 @@ type Molecule
         , bonds : List Bond
         , properties : Dict String String
         }
+
+
+properties : Molecule -> Dict String String
+properties (Molecule r) =
+    r.properties
 
 
 toJson : Molecule -> Value
@@ -87,9 +93,9 @@ type AtomId
 decoder : Decoder Molecule
 decoder =
     D.map4
-        (\atoms positions bonds properties ->
+        (\atoms positions bonds props ->
             Molecule
-                { atoms = atoms, positions = positions, bonds = bonds, properties = properties }
+                { atoms = atoms, positions = positions, bonds = bonds, properties = props }
         )
         (D.field "atoms" (D.oneOrMore NonEmptyList.new atomDecoder))
         (D.field "positions" (D.oneOrMore NonEmptyList.new positionDecoder))

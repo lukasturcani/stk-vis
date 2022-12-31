@@ -28,6 +28,7 @@ type alias Model =
     , query : String
     , queryType : QueryType
     , postprocess : String
+    , columns : List String
     }
 
 
@@ -60,6 +61,7 @@ init =
   bonds: entry.b.map(([atom1, atom2, order]) => { return {order, atom1, atom2}; }),
   columns,
 };"""
+    , columns = [ "Num Atoms", "Num Bonds" ]
     }
 
 

@@ -4,6 +4,7 @@ module Internal.Picker exposing
     , pick
     , picked
     , singleton
+    , toList
     )
 
 import Array
@@ -32,9 +33,10 @@ picked (Picker x _) =
 
 pick : Int -> Picker a -> Maybe (Picker a)
 pick idx (Picker _ xs) =
-    case Array.get idx xs of
-        Just item ->
-            Just (Picker item xs)
+    Array.get idx xs
+        |> Maybe.map (\item -> Picker item xs)
 
-        Nothing ->
-            Nothing
+
+toList : Picker a -> List a
+toList (Picker _ xs) =
+    Array.toList xs
