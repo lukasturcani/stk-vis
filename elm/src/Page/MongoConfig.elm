@@ -45,14 +45,20 @@ init =
             |> E.encode 4
     , queryType = QueryType.Aggregate
     , postprocess =
-        """return {
+        """let columns = {};
+  let numAtoms = entry.numAtoms[0]?.v?.toString();
+  if (numAtoms !== undefined) {
+    columns["Num Atoms"] = numAtoms;
+  }
+  let numBonds = entry.numBonds[0]?.v?.toString();
+  if (numBonds !== undefined) {
+    columns["Num Bonds"] = numBonds;
+  }
+  return {
   atoms: entry.a.map(([atomicNumber]) => { return {atomicNumber}; }),
   positions: entry.positions[0].m,
   bonds: entry.b.map(([atom1, atom2, order]) => { return {order, atom1, atom2}; }),
-  columns: {
-    "Num Bonds": entry.numBonds[0]?.v?.toString(),
-    "Num Atoms": entry.numAtoms[0]?.v?.toString(),
-  },
+  columns,
 };"""
     }
 
