@@ -115,6 +115,7 @@ view model =
                         ]
                         ([ Element.text "MoleculeBrowser"
                          , MoleculeTable.view
+                            { clickedRow = ClickedRow }
                             innerModel.columns
                             innerModel.molecules
                          ]
@@ -147,6 +148,7 @@ view model =
 
 type Msg
     = GotMolecules (List Molecule) (List String)
+    | ClickedRow Int
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -192,6 +194,9 @@ update msg model =
                 }
             , Cmd.none
             )
+
+        ( ClickedRow index, _ ) ->
+            ( model, Cmd.none )
 
 
 
