@@ -11,7 +11,6 @@ type alias ToMsg msg =
     { clickedRow : Int -> msg
     }
 
-
 view : ToMsg msg -> List String -> Picker Molecule -> Element msg
 view toMsg columnNames molecules =
     let
