@@ -2,7 +2,7 @@ module Internal.MoleculeTable exposing (view)
 
 import Dict exposing (Dict)
 import Element exposing (Attribute, Element)
-import Element.Border as Border
+import Element.Background as Background
 import Element.Events as Events
 import Internal.Molecule as Molecule exposing (Molecule)
 import Internal.Picker as Picker exposing (Picker)
@@ -41,7 +41,7 @@ view toMsg columnNames molecules =
 viewRow : (Int -> msg) -> Int -> String -> Int -> Dict String String -> Element msg
 viewRow toMsg selectedRowIndex column index data =
     data
-        |> getWithDefault "" column
+        |> getWithDefault " " column
         |> Element.text
         |> Element.el (rowStyle (toMsg index) selectedRowIndex index)
 
@@ -67,8 +67,7 @@ rowStyle : msg -> Int -> Int -> List (Attribute msg)
 rowStyle clickedRow selectedRowIndex index =
     if selectedRowIndex == index then
         [ Events.onClick clickedRow
-        , Border.color (Element.rgb255 106 13 173)
-        , Border.width 5
+        , Background.color (Element.rgb255 106 13 173)
         ]
 
     else
