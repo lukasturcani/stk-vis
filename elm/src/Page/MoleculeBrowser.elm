@@ -195,7 +195,21 @@ update msg model =
             , Cmd.none
             )
 
-        ( ClickedRow index, _ ) ->
+        ( ClickedRow index, ModelData innerModel ) ->
+            case Picker.pick index innerModel.molecules of
+                Just newMolecules ->
+                    ( ModelData
+                        { innerModel | molecules = newMolecules }
+                    , Cmd.none
+                    )
+
+                Nothing ->
+                    ( model, Cmd.none )
+
+        ( ClickedRow _, ModelOnlyErrors _ ) ->
+            ( model, Cmd.none )
+
+        ( ClickedRow _, ModelWaiting _ ) ->
             ( model, Cmd.none )
 
 
