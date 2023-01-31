@@ -10,5 +10,8 @@
   "license": "MIT",
   "devDependencies": {
     "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "smiles-drawer": "^2.1.7"
   }
 }
