@@ -1,82 +1,45 @@
-port module Page.MoleculeBrowser exposing
-    ( Model(..)
+module Page.MoleculeBrowser exposing
+    ( Model
     , Msg
-    , subscriptions
+    , gotMolecules
+    , init
     , update
     , view
     )
 
 import Browser exposing (Document)
+import Dict exposing (Dict)
 import Element
-import Internal.Molecule as Molecule exposing (Molecule)
 import Internal.MoleculeTable as MoleculeTable
-import Internal.Picker as Picker exposing (Picker)
 import Internal.TwoDMoleculeViewer as TwoDMoleculeViewer
-import Json.Decode as D exposing (Value)
+import Json.Decode as D exposing (Error, Value)
 
 
 
 -- MODEL
 
 
-type Model
-    = ModelData
-        { molecules : Picker Molecule
-        , decodingErrors : List String
-        , columns : List String
-        }
-    | ModelWaiting
-        { columns : List String
-        }
-    | ModelOnlyErrors
-        { decodingErrors : List String
-        , columns : List String
-        }
+type alias Model =
+    { molecules : List Value
+    , moleculeColumns : List (Result Error (Dict String String))
+    , selectedRowIndex : Int
+    , selectedMolecule : Value
+    , columns : List String
+    }
 
 
-columns : Model -> List String
-columns model =
-    case model of
-        ModelData inner ->
-            inner.columns
-
-        ModelWaiting inner ->
-            inner.columns
-
-        ModelOnlyErrors inner ->
-            inner.columns
-
-
-
--- PORTS
-
-
-port sendSelectedMolecule : Value -> Cmd msg
-
-
-port receiveMolecules : (Value -> msg) -> Sub msg
-
-
-decodeMolecules : Value -> Msg
-decodeMolecules value =
-    case D.decodeValue (D.list D.value) value of
-        Err error ->
-            GotMolecules [] [ D.errorToString error ]
-
-        Ok molecules ->
-            molecules
-                |> List.map (D.decodeValue Molecule.decoder)
-                |> List.foldr
-                    (\molecule ( oks, errs ) ->
-                        case molecule of
-                            Ok m ->
-                                ( m :: oks, errs )
-
-                            Err e ->
-                                ( oks, D.errorToString e :: errs )
-                    )
-                    ( [], [] )
-                |> (\( mols, errs ) -> GotMolecules mols errs)
+init : List String -> Value -> List Value -> Model
+init columns firstMolecule otherMolecules =
+    let
+        molecules =
+            firstMolecule :: otherMolecules
+    in
+    { molecules = molecules
+    , moleculeColumns = List.map (D.decodeValue columnsDecoder) molecules
+    , selectedRowIndex = 0
+    , selectedMolecule = firstMolecule
+    , columns = columns
+    }
 
 
 
@@ -85,63 +48,28 @@ decodeMolecules value =
 
 view : Model -> Document Msg
 view model =
-    case model of
-        ModelWaiting _ ->
-            { title = "StkVis"
-            , body =
-                [ Element.layout
-                    [ Element.width Element.fill
-                    , Element.height Element.fill
-                    ]
-                    (Element.column
-                        [ Element.width Element.fill
-                        , Element.height Element.fill
-                        ]
-                        [ Element.text "NOTHING"
-                        ]
-                    )
+    { title = "StkVis"
+    , body =
+        [ Element.layout
+            [ Element.width Element.fill
+            , Element.height Element.fill
+            ]
+            (Element.column
+                [ Element.width Element.fill
+                , Element.height Element.fill
                 ]
-            }
-
-        ModelData innerModel ->
-            { title = "StkVis"
-            , body =
-                [ Element.layout
-                    [ Element.width Element.fill
-                    , Element.height Element.fill
-                    ]
-                    (Element.column
-                        [ Element.width Element.fill
-                        , Element.height Element.fill
-                        ]
-                        ([ Element.text "MoleculeBrowser"
-                         , MoleculeTable.view
-                            { clickedRow = ClickedRow }
-                            innerModel.columns
-                            innerModel.molecules
-                         , TwoDMoleculeViewer.view (Picker.picked innerModel.molecules |> Tuple.second)
-                         ]
-                            ++ List.map Element.text innerModel.decodingErrors
-                        )
-                    )
+                [ Element.text "MoleculeBrowser"
+                , MoleculeTable.view
+                    { toMsg = { clickedRow = ClickedRow }
+                    , columnNames = model.columns
+                    , rows = List.map2 Tuple.pair model.molecules model.moleculeColumns
+                    , selectedRowIndex = model.selectedRowIndex
+                    }
+                , TwoDMoleculeViewer.view model.selectedMolecule
                 ]
-            }
-
-        ModelOnlyErrors innerModel ->
-            { title = "StkVis"
-            , body =
-                [ Element.layout
-                    [ Element.width Element.fill
-                    , Element.height Element.fill
-                    ]
-                    (Element.column
-                        [ Element.width Element.fill
-                        , Element.height Element.fill
-                        ]
-                        (List.map Element.text innerModel.decodingErrors)
-                    )
-                ]
-            }
+            )
+        ]
+    }
 
 
 
@@ -149,78 +77,46 @@ view model =
 
 
 type Msg
-    = GotMolecules (List Molecule) (List String)
-    | ClickedRow Int
+    = GotMolecules Value (List Value)
+    | ClickedRow Int Value
+    | ReceivedMoleculesNotAList
+    | GotZeroReceivedMolecules
+
+
+gotMolecules : Value -> List Value -> Msg
+gotMolecules =
+    GotMolecules
+
+
+columnsDecoder : D.Decoder (Dict String String)
+columnsDecoder =
+    D.field "columns" (D.dict D.string)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case ( msg, model ) of
-        ( GotMolecules (first :: rest) errors, ModelData innerModel ) ->
-            ( ModelData
-                { molecules = Picker.new [] first rest
-                , columns = innerModel.columns
-                , decodingErrors = errors
-                }
-            , first
-                |> Molecule.toJson
-                |> sendSelectedMolecule
-            )
-
-        ( GotMolecules (first :: rest) errors, ModelWaiting innerModel ) ->
-            ( ModelData
-                { molecules = Picker.new [] first rest
-                , columns = innerModel.columns
-                , decodingErrors = errors
-                }
-            , first
-                |> Molecule.toJson
-                |> sendSelectedMolecule
-            )
-
-        ( GotMolecules (first :: rest) errors, ModelOnlyErrors innerModel ) ->
-            ( ModelData
-                { molecules = Picker.new [] first rest
-                , columns = innerModel.columns
-                , decodingErrors = errors
-                }
-            , first
-                |> Molecule.toJson
-                |> sendSelectedMolecule
-            )
-
-        ( GotMolecules [] errors, _ ) ->
-            ( ModelOnlyErrors
-                { columns = columns model
-                , decodingErrors = errors
-                }
+    case msg of
+        GotMolecules firstMolecule otherMolecules ->
+            let
+                molecules =
+                    firstMolecule :: otherMolecules
+            in
+            ( { model
+                | molecules = molecules
+                , selectedRowIndex = 0
+                , selectedMolecule = firstMolecule
+                , moleculeColumns = List.map (D.decodeValue columnsDecoder) molecules
+              }
             , Cmd.none
             )
 
-        ( ClickedRow index, ModelData innerModel ) ->
-            case Picker.pick index innerModel.molecules of
-                Just newMolecules ->
-                    ( ModelData
-                        { innerModel | molecules = newMolecules }
-                    , Cmd.none
-                    )
+        ClickedRow index molecule ->
+            ( { model | selectedRowIndex = index, selectedMolecule = molecule }
+            , Cmd.none
+            )
 
-                Nothing ->
-                    ( model, Cmd.none )
-
-        ( ClickedRow _, ModelOnlyErrors _ ) ->
+        ReceivedMoleculesNotAList ->
             ( model, Cmd.none )
 
-        ( ClickedRow _, ModelWaiting _ ) ->
+        GotZeroReceivedMolecules ->
             ( model, Cmd.none )
-
-
-
--- SUBSCRIPTIONS
-
-
-subscriptions : Model -> Sub Msg
-subscriptions _ =
-    Sub.batch
-        [ receiveMolecules decodeMolecules
-        ]

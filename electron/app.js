@@ -4,10 +4,6 @@ customElements.define("two-d-viewer", TwoDMoleculeViewer);
 
 const app = Elm.Main.init();
 
-app.ports.sendSelectedMolecule.subscribe(async (message) => {
-  console.log(message);
-});
-
 app.ports.mongoFind.subscribe(async (message) => {
   const client = new MongoClient(message.uri);
   try {

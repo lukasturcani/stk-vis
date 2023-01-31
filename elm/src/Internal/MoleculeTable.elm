@@ -4,46 +4,69 @@ import Dict exposing (Dict)
 import Element exposing (Attribute, Element)
 import Element.Background as Background
 import Element.Events as Events
-import Internal.Molecule as Molecule exposing (Molecule)
-import Internal.Picker as Picker exposing (Picker)
+import Json.Decode exposing (Error, Value)
 
 
 type alias ToMsg msg =
-    { clickedRow : Int -> msg
+    { clickedRow : Int -> Value -> msg
     }
 
 
-view : ToMsg msg -> List String -> Picker Molecule -> Element msg
-view toMsg columnNames molecules =
-    let
-        data =
-            molecules
-                |> Picker.toList
-                |> List.map Molecule.properties
+type alias RowData =
+    ( Value, Result Error (Dict String String) )
 
-        columns =
+
+type alias ViewArgs msg =
+    { toMsg : ToMsg msg
+    , columnNames : List String
+    , rows : List RowData
+    , selectedRowIndex : Int
+    }
+
+
+view : ViewArgs msg -> Element msg
+view { toMsg, columnNames, rows, selectedRowIndex } =
+    let
+        tableColumns =
             columnNames
                 |> List.map
                     (\name ->
                         { header = Element.text name
                         , width = Element.fill
-                        , view = viewRow toMsg.clickedRow (Picker.picked molecules |> Tuple.first) name
+                        , view =
+                            viewRow
+                                { toMsg = toMsg.clickedRow
+                                , selectedRowIndex = selectedRowIndex
+                                , column = name
+                                }
                         }
                     )
     in
     Element.indexedTable
         tableStyle
-        { data = data
-        , columns = columns
+        { data = rows
+        , columns = tableColumns
         }
 
 
-viewRow : (Int -> msg) -> Int -> String -> Int -> Dict String String -> Element msg
-viewRow toMsg selectedRowIndex column index data =
-    data
-        |> getWithDefault " " column
-        |> Element.text
-        |> Element.el (rowStyle (toMsg index) selectedRowIndex index)
+type alias ViewRowArgs msg =
+    { toMsg : Int -> Value -> msg
+    , selectedRowIndex : Int
+    , column : String
+    }
+
+
+viewRow : ViewRowArgs msg -> Int -> RowData -> Element msg
+viewRow { toMsg, selectedRowIndex, column } index ( molecule, data ) =
+    case data of
+        Ok dict ->
+            dict
+                |> getWithDefault " " column
+                |> Element.text
+                |> Element.el (rowStyle (toMsg index molecule) selectedRowIndex index)
+
+        Err _ ->
+            Element.text "broken"
 
 
 getWithDefault : String -> String -> Dict String String -> String

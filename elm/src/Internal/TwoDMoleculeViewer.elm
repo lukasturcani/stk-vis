@@ -3,12 +3,12 @@ module Internal.TwoDMoleculeViewer exposing (view)
 import Element exposing (Element)
 import Html
 import Html.Attributes as Attributes
-import Internal.Molecule as Molecule exposing (Molecule)
+import Json.Encode exposing (Value)
 
 
-view : Molecule -> Element msg
+view : Value -> Element msg
 view molecule =
     Html.node "two-d-viewer"
-        [ Attributes.property "molecule" (Molecule.toJson molecule) ]
+        [ Attributes.property "molecule" molecule ]
         []
         |> Element.html
