@@ -11,6 +11,7 @@ import Element
 import Internal.Molecule as Molecule exposing (Molecule)
 import Internal.MoleculeTable as MoleculeTable
 import Internal.Picker as Picker exposing (Picker)
+import Internal.TwoDMoleculeViewer as TwoDMoleculeViewer
 import Json.Decode as D exposing (Value)
 
 
@@ -118,6 +119,7 @@ view model =
                             { clickedRow = ClickedRow }
                             innerModel.columns
                             innerModel.molecules
+                         , TwoDMoleculeViewer.view (Picker.picked innerModel.molecules |> Tuple.second)
                          ]
                             ++ List.map Element.text innerModel.decodingErrors
                         )

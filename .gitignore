@@ -1,15 +1,13 @@
 old/dist
-old/node_modules
 old/output
 old/.spago
 old/.purs-repl
 old/pack
 old/mongo-config.json
-elm/node_modules
 elm/elm-stuff
 elm/output
 backend/target
-electron/node_modules
 electron/output
+node_modules
 __pycache__
 *.egg-info
