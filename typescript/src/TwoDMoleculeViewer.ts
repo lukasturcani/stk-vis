@@ -3,6 +3,11 @@ class TwoDMoleculeViewer extends HTMLElement {
   constructor() {
     super();
   }
+
+  get molecule(): {
+
+  }
+
   connectedCallback() {
   }
 }
