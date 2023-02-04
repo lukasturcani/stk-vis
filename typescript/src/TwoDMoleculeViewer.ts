@@ -15,7 +15,7 @@ interface Molecule {
   bonds: Bond[];
 }
 
-export class TwoDMoleculeViewer extends HTMLElement {
+class TwoDMoleculeViewer extends HTMLElement {
   _smiles?: string;
 
   constructor() {
