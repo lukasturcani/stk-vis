@@ -15,12 +15,13 @@ interface Molecule {
   bonds: Bond[];
 }
 
-class TwoDMoleculeViewer extends HTMLElement {
+export class TwoDMoleculeViewer extends HTMLElement {
   _smiles?: string;
+  _smilesDrawer?: SmilesDrawer.Drawer
 
   constructor() {
     super();
-
+    this._smilesDrawer = new SmilesDrawer.Drawer({});
   }
 
   set molecule(item: Molecule) {

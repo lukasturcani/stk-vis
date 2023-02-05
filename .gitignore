@@ -8,6 +8,8 @@ elm/elm-stuff
 elm/output
 backend/target
 electron/output
+typescript/output
 node_modules
 __pycache__
 *.egg-info
+.parcel-cache

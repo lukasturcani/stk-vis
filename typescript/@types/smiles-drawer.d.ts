@@ -1,1 +1,7 @@
-declare module 'smiles-drawer';
+declare module 'smiles-drawer' {
+
+  class Drawer {
+    constructor(options: any);
+  };
+
+}
