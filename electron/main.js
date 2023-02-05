@@ -3,7 +3,9 @@ const { app, BrowserWindow } = require("electron");
 const path = require("path");
 try {
   require("electron-reloader")(module);
-} catch (_) {}
+} catch (_) {
+  console.log("not using electron-reloader");
+}
 
 const createWindow = () => {
   // Create the browser window.

@@ -25,7 +25,6 @@ export class TwoDMoleculeViewer extends HTMLElement {
   }
 
   set molecule(item: Molecule) {
-
   }
 
   connectedCallback() {
