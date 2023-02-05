@@ -1,4 +1,4 @@
-// import * as SmilesDrawer from 'smiles-drawer';
+import * as SmilesDrawer from 'smiles-drawer';
 
 interface Atom {
   atomicNumber: number;
